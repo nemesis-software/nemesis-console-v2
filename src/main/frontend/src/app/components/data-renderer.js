@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { componentRequire } from '../utils/require-util'
-require('../styles/test.less');
 
 var ItemRenderer = componentRequire('app/components/item-renderer', 'item-renderer1');
 
@@ -18,7 +16,7 @@ export default class DataRenderer extends Component {
 
   getData() {
     return [
-      {name: 'aaa'},
+      {name: 'hoho'},
       {name: 'bbb'}
     ]
   }

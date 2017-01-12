@@ -6,7 +6,3 @@ export function componentRequire(path, fileName) {
     return require('source/' + path).default;
   }
 }
-
-export function logicFileRequire(path, fileName) {
-
-}
