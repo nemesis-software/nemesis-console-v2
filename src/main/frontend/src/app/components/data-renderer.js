@@ -16,7 +16,7 @@ export default class DataRenderer extends Component {
 
   getData() {
     return [
-      {name: 'hoho'},
+      {name: '111'},
       {name: 'bbb'}
     ]
   }
