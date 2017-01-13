@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { componentRequire } from '../utils/require-util'
 
-var TestItem = componentRequire('app/components/data-renderer', 'data-renderer');
+var NavigationTree = componentRequire('app/components/navigation-tree', 'navigation-tree');
 
 export default class App extends Component {
   render() {
     return (
-      <div className="parent">
-        <TestItem />
+      <div>
+        Hello from new console!!!
+        <NavigationTree />
       </div>
     );
   }

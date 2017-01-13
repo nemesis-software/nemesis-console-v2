@@ -1,0 +1,139 @@
+= Welcome
+Petar Tahchiev <https://github.com/ptahchiev[@ptahchiev]>;
+:experimental:
+:resources-code: $project.getBasedir()/src/main/resources
+:icons: font
+
+== Introduction
+Nemesis Backend Console is an link:ExtJS[https://www.sencha.com/products/extjs/] application that connects with the Nemesis Platform over REST, and can be used to perform CRUD operations on the database entities. It communicates with the Spring Data REST part of the 
+nemesis platform, and some helper controllers that we have created.
+
+To start the console, first you need to know the address of the nemesis platform instance that you want to administer. Usually it's `localhost`, but it could be also installed on some other server. Once you know the address,
+you can go on and change the properies in the `appplication.properties` file to point to address where the nemesis platform instance is installed:
+
+[source, properties]
+.application.properties
+----
+include::{resources-code}/application.properties[]
+----
+
+After that you are ready to start the server.
+
+[source, bash]
+----
+mvn spring-boot:run
+----
+
+It doesn't take that long and the server will be started. The server is started once you see the following line in the command prompt:
+
+[source, bash]
+----
+INFO : Started BackendConsoleApplication in 4.007 seconds (JVM running for 21.906)
+----
+
+== Login
+Once the server is started you can navigate you browser to `http://localhost:8080/backend` and the login screen will be presented to you.
+
+[.center.text-center]
+.Nemesis Backend Console Login Screen
+image::login.png[Nemesis Backend Console Login Screen]
+
+The username/password are configured in the Nemesis Platform Instance towards which you are connected, with the default being `admin/nimda`.
+
+== Overall look
+Once you are logged in you will be presented with the main screen of the console.
+
+[.center.text-center]
+.Nemesis Backend Console Main Screen
+image::main.png[Nemesis Backend Console Main Screen]
+
+It consists of a **Module Tree** on the left <1> and a **Desktop Area** on the right <2>. The tree presents a list of folders, with each folder being a module that the Nemesis Platform has installed as a maven dependency in the classpath. 
+If you open any of these folders you will discover the JPA entities that the respective module brings to the platform.
+
+[.center.text-center]
+.Nemesis Backend Console Module Entities
+image::module-entities.png[Nemesis Backend Console Module Entities]
+
+== Search for existing entities
+If you select a given entity, you will be presented with a **Search Form** <1> and **Search Result Table** <2>. The **Search Form** is for you to narrow down your criteria and to search for the entities you want. You can search on different
+fields with different operators in the select boxes.
+
+[.center.text-center]
+.Nemesis Backend Console Search Form
+image::search-form.png[Nemesis Backend Console Search Form]
+
+A simple kbd:[Enter] is enough to trigger the search, or alternatively you can click on the `Search` button. Once that is done the **Search Result Table** will repopulate the results from your search:
+
+[.center.text-center]
+.Nemesis Backend Console Search Result Table
+image::search-result-table.png[Nemesis Backend Console Search Result Table]
+
+The **Search Result Table** allows you to sort <1> and page through the results <2>. There's also a few other features which you can access if you right-click on any of the results:
+
+[.center.text-center]
+.Nemesis Backend Console Search Result Actions
+image::search-result-actions.png[Nemesis Backend Console Search Result Actions]
+
+The **Search Result Context Menu** <1> that appears will let you link:[edit], remove an entity, export to Excel or export to PDF the results of your search.
+
+NOTE: These operations can be performed on multiple entities too. Just hold down the kbd:[Shift] key and click between any two search result items to select a range.
+
+== Edit an entity
+If you right-click on any **Search Result Item** and select `Edit` from the context menu you will get a popup window that allows you to edit the entity. The same can be achieved if you double click on a given **Search Result Item**:
+
+[.center.text-center]
+.Nemesis Backend Console Entity Popup
+image::entity-popup.png[Nemesis Backend Console Entity Popup]
+
+This **Entity Popup** consists of a **Entity Popup Toolbar** <1>, a **Entity Popup Link** which tells you the rest resource that was used to fetch the data of the entity <2> and a **Tabbed View** to display all the properties of the entity <3>. The **Tabbed View** displays all
+the attributes of the JPA entity in tab sections.
+
+NOTE: It's important to remember that if a JPA attribute has no `@EntityProperty` annotation, it will end up in the `System` tab section.
+
+=== Entity Popup Toolbar
+The **Entity Popup Toolbar** allows you to `Save` <1>, `Save and close` <2>, `Delete` <3> or `Refresh` <4> the given entity. If you happened to open a catalogable entity you will also see an extra `Synchronize` <5> button which is used to 
+synchronize Staged version of the entity.
+
+[.center.text-center]
+.Nemesis Backend Console Entity Popup Toolbar
+image::entity-popup-toolbar.png[Nemesis Backend Console Entity Popup Toolbar]
+
+=== Entity Popup Fields
+Depending on the type of the attribute on the JPA entity, the field in the backend console will be different. The fields also perform validation as seen in the following image:
+
+[.center.text-center]
+.Nemesis Backend Console Entity Popup Field Validation
+image::entity-popup-field-validation.png[Nemesis Backend Console Entity Popup Field Validation]
+
+Moreover once you start changing the value of a given field, it's state becomes dirty and the overall look of the field changes. This helps you easily find out which fields have been changed since the last time you saved the entity.
+
+[.center.text-center]
+.Nemesis Backend Console Entity Popup Field Dirty
+image::entity-popup-field-dirty.png[Nemesis Backend Console Entity Popup Field Dirty]
+
+==== Entity Popup Entity Field
+
+==== Entity Popup Collection Field
+
+== Remove an entity
+If you want to remove a single entity you can do this from the **Entity Popup Toolbar** of the **Entity popup** window, or if you right-click in the **Search Result Table**. If you want to delete *multiple* entities then your only choice is to select the first
+entity from the **Search Result Table**, hold down the kbd:[Shift] key and select the last entity to perform a range select. Then you can right-click on the range and select `Delete`. In either case you will see a warning dialog:
+
+[.center.text-center]
+.Nemesis Backend Console Remove Entity Warning Dialog
+image::remove-entity-warning-dialog.png[Nemesis Backend Console Remove Entity Warning Dialog]
+
+== Create a new entity
+Creating a new entity is performed from the **Module Tree** on the left. Right-click the entity you want to create and you will get a context menu like this:
+
+[.center.text-center]
+.Nemesis Backend Console Create Entity Menu
+image::create-entity-menu.png[Nemesis Backend Console Create Entity Menu]
+
+If the entity happens to have sub-entities, you will get a menu like the following:
+
+[.center.text-center]
+.Nemesis Backend Console Create Subentity Menu
+image::create-sub-entity-menu.png[Nemesis Backend Console Create Subentity Menu]
+
+If you select the to create a new entity, then a black **Entity Popup Window** will be opened.
