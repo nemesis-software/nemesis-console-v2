@@ -5,7 +5,10 @@ import CONFIG from '../../CONFIG'
 export default class NavigationTree extends Component {
   componentWillMount() {
     var url = CONFIG.baseUrl + 'backend/navigation';
-    axios.get(url).then(result => {
+    var nemesisToken = document.getElementById('token').getAttribute('value');
+    axios.get(url, {
+      headers: {'X-Nemesis-Token': nemesisToken}
+    }).then(result => {
       console.log(result.data);
     })
   }

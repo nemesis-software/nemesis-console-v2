@@ -20218,7 +20218,10 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      var url = _CONFIG2.default.baseUrl + 'backend/navigation';
-	      _axios2.default.get(url).then(function (result) {
+	      var nemesisToken = document.getElementById('token').getAttribute('value');
+	      _axios2.default.get(url, {
+	        headers: { 'X-Nemesis-Token': nemesisToken }
+	      }).then(function (result) {
 	        console.log(result.data);
 	      });
 	    }
