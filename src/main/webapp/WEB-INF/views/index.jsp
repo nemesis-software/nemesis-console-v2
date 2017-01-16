@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Backend Console | Nemesis</title>
+    <link rel="stylesheet" href="resources/styles.css" type="text/css">
 </head>
 <body>
     <div class="container"></div>
