@@ -21753,7 +21753,7 @@
 
 	_counterpart2.default.setLocale(translationLanguages.defaultLanguage.value);
 
-	var NavigationTree = (0, _requireUtil.componentRequire)('app/components/nemesis-navigation-tree/nemesis-navigation-tree', 'navigation-tree');
+	var NavigationTree = (0, _requireUtil.componentRequire)('app/components/navigation-tree/navigation-tree', 'navigation-tree');
 	var LanguageChanger = (0, _requireUtil.componentRequire)('app/components/language-changer', 'language-changer');
 
 	var App = function (_Component) {
@@ -22112,10 +22112,12 @@
 		"./app/components/item-renderer.js": 189,
 		"./app/components/language-changer": 192,
 		"./app/components/language-changer.js": 192,
-		"./app/components/nemesis-navigation-tree/nemesis-navigation-tree": 423,
-		"./app/components/nemesis-navigation-tree/nemesis-navigation-tree-item": 424,
-		"./app/components/nemesis-navigation-tree/nemesis-navigation-tree-item.js": 424,
-		"./app/components/nemesis-navigation-tree/nemesis-navigation-tree.js": 423,
+		"./app/components/navigation-tree/navigation-filter": 492,
+		"./app/components/navigation-tree/navigation-filter.js": 492,
+		"./app/components/navigation-tree/navigation-tree": 382,
+		"./app/components/navigation-tree/navigation-tree-item": 493,
+		"./app/components/navigation-tree/navigation-tree-item.js": 493,
+		"./app/components/navigation-tree/navigation-tree.js": 382,
 		"./app/utils/require-util": 184,
 		"./app/utils/require-util.js": 184,
 		"./custom_files/data-renderer": 186,
@@ -35088,7 +35090,96 @@
 
 
 /***/ },
-/* 382 */,
+/* 382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _requireUtil = __webpack_require__(184);
+
+	var _CONFIG = __webpack_require__(191);
+
+	var _CONFIG2 = _interopRequireDefault(_CONFIG);
+
+	var _axios = __webpack_require__(383);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TreeItem = (0, _requireUtil.componentRequire)('app/components/navigation-tree/navigation-tree-item', 'navigation-tree');
+	var NavigationFilter = (0, _requireUtil.componentRequire)('app/components/navigation-tree/navigation-filter', 'navigation-filter');
+
+	var NavigationTree = function (_Component) {
+	  _inherits(NavigationTree, _Component);
+
+	  function NavigationTree(props) {
+	    _classCallCheck(this, NavigationTree);
+
+	    var _this = _possibleConstructorReturn(this, (NavigationTree.__proto__ || Object.getPrototypeOf(NavigationTree)).call(this, props));
+
+	    _this.state = { treeData: [], filteredData: [] };
+	    return _this;
+	  }
+
+	  _createClass(NavigationTree, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+
+	      var url = _CONFIG2.default.baseUrl + 'backend/navigation';
+	      var nemesisToken = document.getElementById('token').getAttribute('value');
+	      _axios2.default.get(url, {
+	        headers: { 'X-Nemesis-Token': nemesisToken }
+	      }).then(function (result) {
+	        _this2.setState({ treeData: result.data, filteredData: result.data });
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(NavigationFilter, { onFilterChange: this.onFilterChange.bind(this), data: this.state.treeData }),
+	        this.state.filteredData.map(function (item, index) {
+	          return _react2.default.createElement(TreeItem, { initiallyOpen: _this3.state.filteredData.length !== _this3.state.treeData.length, key: index, item: item, nestingLevel: 0, children: item.children || [] });
+	        })
+	      );
+	    }
+	  }, {
+	    key: 'onFilterChange',
+	    value: function onFilterChange(filteredTreeItems) {
+	      this.setState(_extends({}, this.state, { filteredData: filteredTreeItems }));
+	    }
+	  }]);
+
+	  return NavigationTree;
+	}(_react.Component);
+
+	exports.default = NavigationTree;
+
+/***/ },
 /* 383 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -55212,247 +55303,8 @@
 /***/ },
 /* 421 */,
 /* 422 */,
-/* 423 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _CONFIG = __webpack_require__(191);
-
-	var _CONFIG2 = _interopRequireDefault(_CONFIG);
-
-	var _axios = __webpack_require__(383);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _nemesisNavigationTreeItem = __webpack_require__(424);
-
-	var _nemesisNavigationTreeItem2 = _interopRequireDefault(_nemesisNavigationTreeItem);
-
-	var _lodash = __webpack_require__(419);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	var _TextField = __webpack_require__(410);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
-	var _reactTranslateComponent = __webpack_require__(416);
-
-	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
-
-	var _counterpart = __webpack_require__(368);
-
-	var _counterpart2 = _interopRequireDefault(_counterpart);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var NavigationTree = function (_Component) {
-	  _inherits(NavigationTree, _Component);
-
-	  function NavigationTree(props) {
-	    _classCallCheck(this, NavigationTree);
-
-	    var _this = _possibleConstructorReturn(this, (NavigationTree.__proto__ || Object.getPrototypeOf(NavigationTree)).call(this, props));
-
-	    _this.state = { treeData: [], filteredData: [] };
-	    return _this;
-	  }
-
-	  _createClass(NavigationTree, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var _this2 = this;
-
-	      var url = _CONFIG2.default.baseUrl + 'backend/navigation';
-	      var nemesisToken = document.getElementById('token').getAttribute('value');
-	      _axios2.default.get(url, {
-	        headers: { 'X-Nemesis-Token': nemesisToken }
-	      }).then(function (result) {
-	        _this2.setState({ treeData: result.data, filteredData: result.data });
-	        console.log(_this2.state);
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this3 = this;
-
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_TextField2.default, {
-	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.filter...', fallback: 'Filter...' }),
-	          onChange: _lodash2.default.debounce(this.filterNavigationContent.bind(this), 250) }),
-	        this.state.filteredData.map(function (item, index) {
-	          return _react2.default.createElement(_nemesisNavigationTreeItem2.default, { initiallyOpen: _this3.state.filteredData.length !== _this3.state.treeData.length, key: index, item: item, nestingLevel: 0, children: item.children || [] });
-	        })
-	      );
-	    }
-	  }, {
-	    key: 'filterNavigationContent',
-	    value: function filterNavigationContent(event, value) {
-	      var filteredTreeItems = this.filterChildren(this.state.treeData, value);
-	      this.setState(_extends({}, this.state, { filteredData: filteredTreeItems }));
-	    }
-	  }, {
-	    key: 'filterChildren',
-	    value: function filterChildren(arr, text) {
-	      var _this4 = this;
-
-	      var result = [];
-	      var regex = new RegExp(text, 'i');
-	      arr.forEach(function (item) {
-
-	        if (item.children && item.children.length > 0) {
-	          var filteredChildren = _this4.filterChildren(item.children, text);
-	          if (filteredChildren.length > 0) {
-	            result.push(_extends({}, item, { children: filteredChildren }));
-	          }
-	        }
-	        if (item.leaf && regex.test(_counterpart2.default.translate('main.' + item.text))) {
-	          result.push(item);
-	        }
-	      });
-
-	      return result;
-	    }
-	  }]);
-
-	  return NavigationTree;
-	}(_react.Component);
-
-	exports.default = NavigationTree;
-
-/***/ },
-/* 424 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _FlatButton = __webpack_require__(425);
-
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-
-	var _reactTranslateComponent = __webpack_require__(416);
-
-	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var alignStyle = {
-	  verticalAlign: 'middle'
-	};
-
-	var TreeItem = function (_Component) {
-	  _inherits(TreeItem, _Component);
-
-	  function TreeItem(props) {
-	    _classCallCheck(this, TreeItem);
-
-	    var _this = _possibleConstructorReturn(this, (TreeItem.__proto__ || Object.getPrototypeOf(TreeItem)).call(this, props));
-
-	    _this.state = { isChildrenVisible: !!_this.props.initiallyOpen };
-	    return _this;
-	  }
-
-	  _createClass(TreeItem, [{
-	    key: 'getStyles',
-	    value: function getStyles(nestingLevel) {
-	      var additionPadding = this.props.children && this.props.children.length > 0 ? 0 : 24;
-	      var paddingLeft = nestingLevel * 20 + additionPadding;
-	      return {
-	        textAlign: 'left',
-	        width: '100%',
-	        paddingLeft: paddingLeft + 'px'
-	      };
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.setState({ isChildrenVisible: nextProps.initiallyOpen });
-	    }
-	  }, {
-	    key: 'getContainerStyles',
-	    value: function getContainerStyles(nestingLevel) {
-	      var styles = {};
-
-	      if (nestingLevel > 0 && !this.props.isVisible) {
-	        styles.display = 'none';
-	      }
-
-	      return styles;
-	    }
-	  }, {
-	    key: 'handleItemClick',
-	    value: function handleItemClick() {
-	      this.setState({ isChildrenVisible: !this.state.isChildrenVisible });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      return _react2.default.createElement(
-	        'div',
-	        { style: this.getContainerStyles(this.props.nestingLevel) },
-	        _react2.default.createElement(_FlatButton2.default, { onClick: this.handleItemClick.bind(this), style: this.getStyles(this.props.nestingLevel), children: _react2.default.createElement(
-	            'div',
-	            null,
-	            this.props.children && this.props.children.length > 0 ? _react2.default.createElement(
-	              'i',
-	              { className: 'material-icons', style: alignStyle },
-	              this.state.isChildrenVisible ? 'expand_more' : 'chevron_right'
-	            ) : false,
-	            _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span', style: alignStyle, content: 'main.' + this.props.item.text, fallback: this.props.item.text })
-	          ) }),
-	        this.props.children.map(function (nestedItem, index) {
-	          return _react2.default.createElement(TreeItem, { initiallyOpen: _this2.props.initiallyOpen, isVisible: _this2.state.isChildrenVisible, key: index, item: nestedItem, nestingLevel: _this2.props.nestingLevel + 1, children: nestedItem.children || [] });
-	        })
-	      );
-	    }
-	  }]);
-
-	  return TreeItem;
-	}(_react.Component);
-
-	exports.default = TreeItem;
-
-/***/ },
+/* 423 */,
+/* 424 */,
 /* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -62603,6 +62455,222 @@
 	module.exports = webpackContext;
 	webpackContext.id = 490;
 
+
+/***/ },
+/* 491 */,
+/* 492 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lodash = __webpack_require__(419);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _TextField = __webpack_require__(410);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _reactTranslateComponent = __webpack_require__(416);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _counterpart = __webpack_require__(368);
+
+	var _counterpart2 = _interopRequireDefault(_counterpart);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NavigationFilter = function (_Component) {
+	  _inherits(NavigationFilter, _Component);
+
+	  function NavigationFilter(props) {
+	    _classCallCheck(this, NavigationFilter);
+
+	    return _possibleConstructorReturn(this, (NavigationFilter.__proto__ || Object.getPrototypeOf(NavigationFilter)).call(this, props));
+	  }
+
+	  _createClass(NavigationFilter, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_TextField2.default, {
+	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.filter...', fallback: 'Filter...' }),
+	        onChange: _lodash2.default.debounce(this.filterNavigationContent.bind(this), 250) });
+	    }
+	  }, {
+	    key: 'filterNavigationContent',
+	    value: function filterNavigationContent(event, value) {
+	      var filteredTreeItems = this.filterChildren(this.props.data, value);
+	      this.props.onFilterChange(filteredTreeItems);
+	    }
+	  }, {
+	    key: 'filterChildren',
+	    value: function filterChildren(arr, text) {
+	      var _this2 = this;
+
+	      if (!arr || arr.length === 0) {
+	        return [];
+	      }
+
+	      var result = [];
+	      var regex = new RegExp(text, 'i');
+	      arr.forEach(function (item) {
+	        var filteredChildren = _this2.filterChildren(item.children, text);
+	        if (filteredChildren.length > 0) {
+	          result.push(_extends({}, item, { children: filteredChildren }));
+	        }
+
+	        if (item.leaf && regex.test(_counterpart2.default.translate('main.' + item.text))) {
+	          result.push(item);
+	        }
+	      });
+
+	      return result;
+	    }
+	  }]);
+
+	  return NavigationFilter;
+	}(_react.Component);
+
+	exports.default = NavigationFilter;
+
+/***/ },
+/* 493 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _FlatButton = __webpack_require__(425);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _reactTranslateComponent = __webpack_require__(416);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var alignStyle = {
+	  verticalAlign: 'middle'
+	};
+
+	var TreeItem = function (_Component) {
+	  _inherits(TreeItem, _Component);
+
+	  function TreeItem(props) {
+	    _classCallCheck(this, TreeItem);
+
+	    var _this = _possibleConstructorReturn(this, (TreeItem.__proto__ || Object.getPrototypeOf(TreeItem)).call(this, props));
+
+	    _this.state = { isChildrenVisible: !!_this.props.initiallyOpen };
+	    return _this;
+	  }
+
+	  _createClass(TreeItem, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState({ isChildrenVisible: nextProps.initiallyOpen });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { style: this.getContainerStyles(this.props.nestingLevel) },
+	        _react2.default.createElement(_FlatButton2.default, { onClick: this.handleItemClick.bind(this),
+	          style: this.getItemStyles(this.props.nestingLevel),
+	          children: _react2.default.createElement(
+	            'div',
+	            null,
+	            this.props.children && this.props.children.length > 0 ? _react2.default.createElement(
+	              'i',
+	              { className: 'material-icons', style: alignStyle },
+	              this.state.isChildrenVisible ? 'expand_more' : 'chevron_right'
+	            ) : false,
+	            _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span',
+	              style: alignStyle,
+	              content: 'main.' + this.props.item.text,
+	              fallback: this.props.item.text })
+	          ) }),
+	        this.props.children.map(function (nestedItem, index) {
+	          return _react2.default.createElement(TreeItem, { initiallyOpen: _this2.props.initiallyOpen,
+	            isVisible: _this2.state.isChildrenVisible,
+	            key: index, item: nestedItem,
+	            nestingLevel: _this2.props.nestingLevel + 1,
+	            children: nestedItem.children || [] });
+	        })
+	      );
+	    }
+	  }, {
+	    key: 'getContainerStyles',
+	    value: function getContainerStyles(nestingLevel) {
+	      var styles = {};
+
+	      if (nestingLevel > 0 && !this.props.isVisible) {
+	        styles.display = 'none';
+	      }
+
+	      return styles;
+	    }
+	  }, {
+	    key: 'handleItemClick',
+	    value: function handleItemClick() {
+	      this.setState({ isChildrenVisible: !this.state.isChildrenVisible });
+	    }
+	  }, {
+	    key: 'getItemStyles',
+	    value: function getItemStyles(nestingLevel) {
+	      var additionPadding = this.props.children && this.props.children.length > 0 ? 0 : 24;
+	      var paddingLeft = nestingLevel * 20 + additionPadding;
+
+	      return {
+	        textAlign: 'left',
+	        width: '100%',
+	        paddingLeft: paddingLeft + 'px'
+	      };
+	    }
+	  }]);
+
+	  return TreeItem;
+	}(_react.Component);
+
+	exports.default = TreeItem;
 
 /***/ }
 /******/ ]);

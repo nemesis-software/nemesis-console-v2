@@ -22,7 +22,7 @@ translationLanguages.languages.forEach(language => {
 
 counterpart.setLocale(translationLanguages.defaultLanguage.value);
 
-let NavigationTree = componentRequire('app/components/nemesis-navigation-tree/nemesis-navigation-tree', 'navigation-tree');
+let NavigationTree = componentRequire('app/components/navigation-tree/navigation-tree', 'navigation-tree');
 let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
 
 export default class App extends Component {
