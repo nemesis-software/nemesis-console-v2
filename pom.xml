@@ -232,7 +232,6 @@
                         -Xss512K -Xmx1g -Xms1g
                         -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m
                         -XX:CompressedClassSpaceSize=128m -XX:ReservedCodeCacheSize=256m
-                        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5000
                     </jvmArguments>
                 </configuration>
             </plugin>

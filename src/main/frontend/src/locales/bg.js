@@ -1,5 +1,6 @@
 module.exports = {
   main: {
+    'Filter...': 'Филтър...',
     navigation: 'Навигация',
     core: 'Основни',
     catalogfolder: 'Каталог',

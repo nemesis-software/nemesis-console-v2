@@ -3,26 +3,43 @@ import { componentRequire } from '../utils/require-util'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import counterpart from 'counterpart';
+import AppBar from 'material-ui/AppBar';
+
 injectTapEventPlugin();
 
-counterpart.registerTranslations('en', require('../../locales/en'));
-counterpart.registerTranslations('bg', require('../../locales/bg'));
+const translationLanguages = {
+ languages: [
+   {value: 'en', labelCode: 'English'},
+   {value: 'bg', labelCode: 'Bulgarian'},
+ ],
+ defaultLanguage: {value: 'en', labelCode: 'English'}
+};
 
-counterpart.setLocale('bg');
+translationLanguages.languages.forEach(language => {
+  let languageValue = language.value;
+  counterpart.registerTranslations(languageValue, require('localesDir/' + languageValue));
+});
 
-var NavigationTree = componentRequire('app/components/navigation-tree', 'navigation-tree');
+counterpart.setLocale(translationLanguages.defaultLanguage.value);
+
+let NavigationTree = componentRequire('app/components/nemesis-navigation-tree/nemesis-navigation-tree', 'navigation-tree');
+let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
 
 export default class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
         <div>
-            <button onClick={() => {counterpart.setLocale('bg')}}>BG</button>
-            <button onClick={() => {counterpart.setLocale('en')}}>EN</button>
-            <NavigationTree />
+          <AppBar title="Nemesis Console" iconElementRight={
+            <LanguageChanger
+              onLanguageChange={language => counterpart.setLocale(language)}
+              availableLanguages={translationLanguages.languages}
+              selectedLanguage={translationLanguages.defaultLanguage}
+            />
+          }/>
+          <NavigationTree />
         </div>
       </MuiThemeProvider>
-
     );
   }
 }

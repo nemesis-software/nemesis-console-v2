@@ -23,7 +23,8 @@ module.exports = {
   resolve: {
     alias: {
       source: __dirname+ '/src',
-      customFiles: __dirname + '/src/custom_files'
+      customFiles: __dirname + '/src/custom_files',
+      localesDir: __dirname + '/src/locales'
     },
     extensions: ['', '.js', '.jsx']
   },

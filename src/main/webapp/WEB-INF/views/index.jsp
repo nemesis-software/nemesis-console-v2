@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Backend Console | Nemesis</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="resources/styles.css" type="text/css">
 </head>
 <body>

@@ -1,5 +1,9 @@
 module.exports = {
+  navigationTree: {
+
+  },
   main: {
+    'filter...': 'Filter...',
     navigation: 'Navigation',
     samplestore: 'Sample store',
     core: 'Core',
