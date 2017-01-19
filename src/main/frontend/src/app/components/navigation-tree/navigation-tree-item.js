@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton'
 import Translate from 'react-translate-component';
+import { componentRequire } from '../../utils/require-util';
 
 const alignStyle = {
   verticalAlign: 'middle'
@@ -10,6 +11,7 @@ export default class TreeItem extends Component {
   constructor(props) {
     super(props);
     this.state = {isChildrenVisible: !!this.props.initiallyOpen};
+    console.log(this.props.children);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -17,6 +19,7 @@ export default class TreeItem extends Component {
   }
 
   render() {
+
     return (
       <div style={this.getContainerStyles(this.props.nestingLevel)}>
         <FlatButton onClick={this.handleItemClick.bind(this)}
@@ -24,8 +27,8 @@ export default class TreeItem extends Component {
                     children={(
                       <div>
                         {
-                          this.props.children && this.props.children.length > 0 ?
-                            <i className="material-icons" style={alignStyle}>{this.state.isChildrenVisible ? 'expand_more' : 'chevron_right'}</i> :
+                          this.props.nestedItems && this.props.nestedItems.length > 0 ?
+                            <i className="material-icons" style={alignStyle}>{this.state.isChildrenVisible ? this.getOpenedItemIcon() : this.getClosedItemIcon()}</i> :
                             false
                         }
                         <Translate component="span"
@@ -34,15 +37,8 @@ export default class TreeItem extends Component {
                                    fallback={this.props.item.text}/>
                       </div>
                     )}/>
-
         {
-          this.props.children.map((nestedItem, index) =>
-            <TreeItem initiallyOpen={this.props.initiallyOpen}
-                      isVisible={this.state.isChildrenVisible}
-                      key={index} item={nestedItem}
-                      nestingLevel={this.props.nestingLevel + 1}
-                      children={nestedItem.children || []} />
-          )
+          this.props.nestedItems.map(this.renderChildren.bind(this))
         }
       </div>
     )
@@ -57,6 +53,28 @@ export default class TreeItem extends Component {
     }
 
     return styles;
+  }
+
+  getClosedItemIcon() {
+    return 'chevron_right';
+  }
+
+  getOpenedItemIcon() {
+    return 'expand_more';
+  }
+
+  renderChildren(nestedItem, index) {
+    return React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {
+        initiallyOpen: this.props.initiallyOpen,
+        isVisible: this.state.isChildrenVisible,
+        key: index,
+        item: nestedItem,
+        nestingLevel: this.props.nestingLevel + 1,
+        nestedItems: nestedItem.children || [],
+        children: child
+      })
+    });
   }
 
   handleItemClick() {
@@ -75,3 +93,6 @@ export default class TreeItem extends Component {
     };
   }
 }
+
+let TreeItemImplementation = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item1');
+console.log(TreeItemImplementation);

@@ -3,7 +3,7 @@ import { componentRequire } from '../../utils/require-util';
 import CONFIG from '../../../CONFIG'
 import axios from 'axios';
 
-let TreeItem = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree');
+let TreeItem = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item');
 let NavigationFilter = componentRequire('app/components/navigation-tree/navigation-filter', 'navigation-filter');
 
 
@@ -27,7 +27,7 @@ export default class NavigationTree extends Component {
     return (
       <div>
         <NavigationFilter onFilterChange={this.onFilterChange.bind(this)} data={this.state.treeData} />
-        {this.state.filteredData.map((item, index) => <TreeItem initiallyOpen={this.state.filteredData.length !== this.state.treeData.length} key={index} item={item} nestingLevel={0} children={item.children || []} />)}
+        {this.state.filteredData.map((item, index) => <TreeItem  initiallyOpen={this.state.filteredData.length !== this.state.treeData.length} key={index} item={item} nestingLevel={0} nestedItems={item.children || []}><TreeItem/></TreeItem>)}
       </div>
     )
   };
