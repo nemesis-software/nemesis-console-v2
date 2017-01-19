@@ -21906,8 +21906,6 @@
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
-	var _requireUtil = __webpack_require__(184);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21929,7 +21927,6 @@
 	    var _this = _possibleConstructorReturn(this, (TreeItem.__proto__ || Object.getPrototypeOf(TreeItem)).call(this, props));
 
 	    _this.state = { isChildrenVisible: !!_this.props.initiallyOpen };
-	    console.log(_this.props.children);
 	    return _this;
 	  }
 
@@ -21941,7 +21938,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-
 	      return _react2.default.createElement(
 	        'div',
 	        { style: this.getContainerStyles(this.props.nestingLevel) },
@@ -22009,7 +22005,7 @@
 	  }, {
 	    key: 'getItemStyles',
 	    value: function getItemStyles(nestingLevel) {
-	      var additionPadding = this.props.children && this.props.children.length > 0 ? 0 : 24;
+	      var additionPadding = this.props.nestedItems && this.props.nestedItems.length > 0 ? 0 : 24;
 	      var paddingLeft = nestingLevel * 20 + additionPadding;
 
 	      return {
@@ -22024,10 +22020,6 @@
 	}(_react.Component);
 
 	exports.default = TreeItem;
-
-
-	var TreeItemImplementation = (0, _requireUtil.componentRequire)('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item1');
-	console.log(TreeItemImplementation);
 
 /***/ },
 /* 188 */

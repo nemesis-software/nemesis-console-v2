@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton'
 import Translate from 'react-translate-component';
-import { componentRequire } from '../../utils/require-util';
 
 const alignStyle = {
   verticalAlign: 'middle'
@@ -11,7 +10,6 @@ export default class TreeItem extends Component {
   constructor(props) {
     super(props);
     this.state = {isChildrenVisible: !!this.props.initiallyOpen};
-    console.log(this.props.children);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -19,7 +17,6 @@ export default class TreeItem extends Component {
   }
 
   render() {
-
     return (
       <div style={this.getContainerStyles(this.props.nestingLevel)}>
         <FlatButton onClick={this.handleItemClick.bind(this)}
@@ -37,9 +34,7 @@ export default class TreeItem extends Component {
                                    fallback={this.props.item.text}/>
                       </div>
                     )}/>
-        {
-          this.props.nestedItems.map(this.renderChildren.bind(this))
-        }
+        {this.props.nestedItems.map(this.renderChildren.bind(this))}
       </div>
     )
   };
@@ -83,7 +78,7 @@ export default class TreeItem extends Component {
 
 
   getItemStyles(nestingLevel) {
-    let additionPadding = this.props.children && (this.props.children.length > 0) ? 0 : 24;
+    let additionPadding = this.props.nestedItems && (this.props.nestedItems.length > 0) ? 0 : 24;
     let paddingLeft = (nestingLevel * 20) + additionPadding;
 
     return {
@@ -93,6 +88,3 @@ export default class TreeItem extends Component {
     };
   }
 }
-
-let TreeItemImplementation = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item1');
-console.log(TreeItemImplementation);
