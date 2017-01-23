@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { componentRequire } from '../../utils/require-util';
-import CONFIG from '../../../CONFIG'
-import axios from 'axios';
+import ApiCall from '../../services/api-call'
 
-let TreeItem = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item');
+let TreeItem = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item1');
 let NavigationFilter = componentRequire('app/components/navigation-tree/navigation-filter', 'navigation-filter');
 
 
@@ -14,13 +13,9 @@ export default class NavigationTree extends Component {
   }
 
   componentWillMount() {
-    let url = CONFIG.baseUrl + 'backend/navigation';
-    let nemesisToken = document.getElementById('token').getAttribute('value');
-    axios.get(url, {
-      headers: {'X-Nemesis-Token': nemesisToken}
-    }).then(result => {
+    ApiCall.get('backend/navigation').then(result => {
       this.setState({treeData: result.data, filteredData: result.data});
-    })
+    });
   }
 
   render() {

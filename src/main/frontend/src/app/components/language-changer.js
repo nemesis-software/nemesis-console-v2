@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import counterpart from 'counterpart';
 
 const styles = {
   customWidth: {
     width: 200,
-  },
+  }
 };
 
 export default class LanguageChanger extends Component {

@@ -29164,6 +29164,8 @@
 		"./app/components/navigation-tree/navigation-tree-item": 187,
 		"./app/components/navigation-tree/navigation-tree-item.js": 187,
 		"./app/components/navigation-tree/navigation-tree.js": 395,
+		"./app/services/api-call": 484,
+		"./app/services/api-call.js": 484,
 		"./app/utils/require-util": 184,
 		"./app/utils/require-util.js": 184,
 		"./custom_files/navigation-tree-item": 186,
@@ -29227,10 +29229,6 @@
 	var _MenuItem = __webpack_require__(385);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
-
-	var _counterpart = __webpack_require__(321);
-
-	var _counterpart2 = _interopRequireDefault(_counterpart);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54194,13 +54192,9 @@
 
 	var _requireUtil = __webpack_require__(184);
 
-	var _CONFIG = __webpack_require__(334);
+	var _apiCall = __webpack_require__(484);
 
-	var _CONFIG2 = _interopRequireDefault(_CONFIG);
-
-	var _axios = __webpack_require__(396);
-
-	var _axios2 = _interopRequireDefault(_axios);
+	var _apiCall2 = _interopRequireDefault(_apiCall);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54210,7 +54204,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var TreeItem = (0, _requireUtil.componentRequire)('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item');
+	var TreeItem = (0, _requireUtil.componentRequire)('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item1');
 	var NavigationFilter = (0, _requireUtil.componentRequire)('app/components/navigation-tree/navigation-filter', 'navigation-filter');
 
 	var NavigationTree = function (_Component) {
@@ -54230,11 +54224,7 @@
 	    value: function componentWillMount() {
 	      var _this2 = this;
 
-	      var url = _CONFIG2.default.baseUrl + 'backend/navigation';
-	      var nemesisToken = document.getElementById('token').getAttribute('value');
-	      _axios2.default.get(url, {
-	        headers: { 'X-Nemesis-Token': nemesisToken }
-	      }).then(function (result) {
+	      _apiCall2.default.get('backend/navigation').then(function (result) {
 	        _this2.setState({ treeData: result.data, filteredData: result.data });
 	      });
 	    }
@@ -62466,6 +62456,99 @@
 	module.exports = webpackContext;
 	webpackContext.id = 483;
 
+
+/***/ },
+/* 484 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _axios = __webpack_require__(396);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var baseUrl = null;
+
+	var ApiCall = function () {
+	  function ApiCall() {
+	    _classCallCheck(this, ApiCall);
+	  }
+
+	  _createClass(ApiCall, null, [{
+	    key: 'get',
+	    value: function get(url, queryParams, contentType) {
+	      return this.requestHelper(url, 'GET', null, queryParams, contentType);
+	    }
+	  }, {
+	    key: 'post',
+	    value: function post(url, data, contentType) {
+	      return this.requestHelper(url, 'POST', data, null, contentType);
+	    }
+	  }, {
+	    key: 'put',
+	    value: function put(url, data, contentType) {
+	      return this.requestHelper(url, 'PUT', data, null, contentType);
+	    }
+	  }, {
+	    key: 'delete',
+	    value: function _delete(url) {
+	      return this.requestHelper(url, 'DELETE', null, null, null);
+	    }
+	  }, {
+	    key: 'patch',
+	    value: function patch(url, data, contentType) {
+	      return this.requestHelper(url, 'PATCH', data, null, contentType);
+	    }
+	  }, {
+	    key: 'requestHelper',
+	    value: function requestHelper(url, method, data, params, contentType) {
+	      return (0, _axios2.default)({
+	        url: url,
+	        method: method,
+	        baseURL: this.getRestUrl(),
+	        headers: this.getHeaders(contentType),
+	        data: data,
+	        params: params
+	      });
+	    }
+	  }, {
+	    key: 'getRestUrl',
+	    value: function getRestUrl() {
+	      if (!baseUrl) {
+	        baseUrl = document.getElementById('rest-base-url').getAttribute('url');
+	      }
+
+	      return baseUrl;
+	    }
+	  }, {
+	    key: 'getHeaders',
+	    value: function getHeaders(contentType) {
+	      var result = {
+	        'Content-Type': contentType || 'application/json'
+	      };
+	      var nemesisToken = document.getElementById('token').getAttribute('value');
+	      if (nemesisToken) {
+	        result['X-Nemesis-Token'] = nemesisToken;
+	      }
+
+	      return result;
+	    }
+	  }]);
+
+	  return ApiCall;
+	}();
+
+	exports.default = ApiCall;
 
 /***/ }
 /******/ ]);

@@ -39,7 +39,6 @@ export default class TreeItem extends Component {
     )
   };
 
-
   getContainerStyles(nestingLevel) {
     let styles = { };
 
