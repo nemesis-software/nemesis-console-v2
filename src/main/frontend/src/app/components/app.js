@@ -23,23 +23,34 @@ translationLanguages.languages.forEach(language => {
 counterpart.setLocale(translationLanguages.defaultLanguage.value);
 
 let NavigationTree = componentRequire('app/components/navigation-tree/navigation-tree', 'navigation-tree');
+let MainView = componentRequire('app/components/main-view/main-view', 'main-view');
 let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {selectedEntityId: null};
+  }
+
   render() {
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar title="Nemesis Console" iconElementRight={
+          <AppBar style={{position: 'fixed'}} title="Nemesis Console" iconElementRight={
             <LanguageChanger
               onLanguageChange={language => counterpart.setLocale(language)}
               availableLanguages={translationLanguages.languages}
               selectedLanguage={translationLanguages.defaultLanguage}
             />
           }/>
-          <NavigationTree />
+          <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
+          <MainView selectedEntityId={this.state.selectedEntityId}/>
         </div>
       </MuiThemeProvider>
     );
+  }
+
+  onEntityClick(entityId) {
+    this.setState({selectedEntityId: entityId});
   }
 }

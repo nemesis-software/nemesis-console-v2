@@ -5,6 +5,14 @@ import ApiCall from '../../services/api-call'
 let TreeItem = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item1');
 let NavigationFilter = componentRequire('app/components/navigation-tree/navigation-filter', 'navigation-filter');
 
+const styles = {
+  position: 'fixed',
+  width: '300px',
+  left: '0',
+  top: '68px',
+  height: 'calc(100vh - 68px)',
+  overflowY: 'auto'
+};
 
 export default class NavigationTree extends Component {
   constructor(props) {
@@ -20,14 +28,22 @@ export default class NavigationTree extends Component {
 
   render() {
     return (
-      <div>
+      <div style={styles}>
         <NavigationFilter onFilterChange={this.onFilterChange.bind(this)} data={this.state.treeData} />
-        {this.state.filteredData.map((item, index) => <TreeItem  initiallyOpen={this.state.filteredData.length !== this.state.treeData.length} key={index} item={item} nestingLevel={0} nestedItems={item.children || []}><TreeItem/></TreeItem>)}
+        {this.state.filteredData.map((item, index) => <TreeItem onEntityClick={this.props.onEntityClick} initiallyOpen={this.state.filteredData.length !== this.state.treeData.length} key={index} item={item} nestingLevel={0} nestedItems={item.children || []}><TreeItem/></TreeItem>)}
       </div>
     )
   };
 
   onFilterChange(filteredTreeItems) {
     this.setState({...this.state, filteredData: filteredTreeItems});
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+   if (this.state === nextState) {
+     return false;
+   }
+
+   return true;
   }
 }

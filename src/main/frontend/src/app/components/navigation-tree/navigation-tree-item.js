@@ -19,7 +19,7 @@ export default class TreeItem extends Component {
   render() {
     return (
       <div style={this.getContainerStyles(this.props.nestingLevel)}>
-        <FlatButton onClick={this.handleItemClick.bind(this)}
+        <FlatButton onClick={() => this.handleItemClick(this.props.item)}
                     style={this.getItemStyles(this.props.nestingLevel)}
                     children={(
                       <div>
@@ -66,12 +66,16 @@ export default class TreeItem extends Component {
         item: nestedItem,
         nestingLevel: this.props.nestingLevel + 1,
         nestedItems: nestedItem.children || [],
+        onEntityClick: this.props.onEntityClick,
         children: child
       })
     });
   }
 
-  handleItemClick() {
+  handleItemClick(entity) {
+    if (this.props.onEntityClick && entity.leaf) {
+      this.props.onEntityClick(entity.id);
+    }
     this.setState({isChildrenVisible: !this.state.isChildrenVisible});
   }
 
