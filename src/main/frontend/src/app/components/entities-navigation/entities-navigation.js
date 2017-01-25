@@ -1,38 +1,30 @@
 import React, { Component } from 'react';
 import EntitiesNavigationItem from './entity-navigation-item'
 import { componentRequire } from '../../utils/require-util';
+import {GridList, GridTile} from 'material-ui/GridList';
+import _ from 'lodash';
 
 
-
+const styles = {
+  display: 'flex',
+  flexWrap: 'nowrap',
+  overflowX: 'auto'
+};
 export default class EntitiesNavigation extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      open: false,
-    };
+    this.state = {groupedEntities: []};
   }
 
-  handleTouchTap = (event) => {
-    event.preventDefault();
-
-    this.setState({
-      open: true,
-      anchorEl: event.currentTarget,
-    });
-  };
-
-  handleRequestClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
+  componentWillReceiveProps(nextProps) {
+    this.setState({groupedEntities: _.groupBy(nextProps.entities, 'entityId')});
+  }
 
   render() {
     return (
-      <div>
-        {this.props.entities.map((entity, index) => <EntitiesNavigationItem key={index} entity={entity}/> )}
-      </div>
+      <GridList style={styles} cellHeight="auto" cols={2.2}>
+        {_.map(this.state.groupedEntities, (value, key) => <GridTile style={{width: 'auto'}} containerElement="span" key={key}><EntitiesNavigationItem entityId={key} entities={value} onNavigationItemClick={this.props.onNavigationItemClick}/></GridTile> )}
+      </GridList>
     )
   }
 }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
+import TouchRipple from 'material-ui/internal/TouchRipple'
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Translate from 'react-translate-component';
 
-const entitySearchType = 'SEARCH';
+import {entitySearchType, entityItemType} from '../../types/entity-types'
 
 export default class EntitiesNavigationItem extends Component {
   constructor(props) {
@@ -25,6 +25,14 @@ export default class EntitiesNavigationItem extends Component {
     });
   };
 
+  onNestedItemTouchTab = (entity) => {
+    this.setState({
+      open: false,
+    });
+
+    this.props.onNavigationItemClick(entity);
+  };
+
   handleRequestClose = () => {
     this.setState({
       open: false,
@@ -34,36 +42,31 @@ export default class EntitiesNavigationItem extends Component {
   render() {
     return (
       <span>
-               <RaisedButton
-                 style={{margin: '5px'}}
-                 onTouchTap={this.handleTouchTap}
-                 children={
-                   <Translate style={{padding: '5px'}}
-                              component="span"
-                              content={'main.' + this.props.entity.entityId}
-                              fallback={this.props.entity.entityId}/>
-                 }
-               />
-              <Popover
-                open={this.state.open}
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                onRequestClose={this.handleRequestClose}
-                animation={PopoverAnimationVertical}>
-                <Menu>
-                  {this.props.entity.subEntities.map((subEntity, index) => {
-                    if (subEntity.type === entitySearchType) {
-                      return (
-                        <MenuItem key={index} primaryText="Entity Search" />
-                      )
-                    } else {
-                      return <MenuItem key={index} primaryText="Not implemented" />
-                    }
-                  })}
-                </Menu>
-              </Popover>
-            </span>
+        <TouchRipple>
+          <Translate style={{padding: '5px', textAlign: 'center'}}
+                     component="div"
+                     onTouchTap={this.handleTouchTap}
+                     content={'main.' + this.props.entityId}
+                     fallback={this.props.entityId}/>
+        </TouchRipple>
+        <Popover
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+          targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+          onRequestClose={this.handleRequestClose}
+          animation={PopoverAnimationVertical}>
+          <Menu>
+            {this.props.entities.map((subEntity, index) => {
+              if (subEntity.type === entitySearchType) {
+                return <MenuItem onTouchTap={(event) => this.onNestedItemTouchTab(subEntity)} key={index} primaryText="Entity Search" />
+              } else {
+                return <MenuItem onTouchTap={(event) => this.onNestedItemTouchTab(subEntity)} key={index} primaryText={subEntity.itemId + ' - ' + subEntity.entityId} />
+              }
+            })}
+          </Menu>
+        </Popover>
+      </span>
     )
   }
 }
