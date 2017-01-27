@@ -5,4 +5,10 @@ export default class EntitiesFilter extends Component {
   constructor(props) {
     super(props);
   }
+
+  render() {
+    return (
+      <div>Entities filter</div>
+    )
+  }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { componentRequire } from '../../utils/require-util';
-import ApiCall from '../../services/api-call'
+import ApiCall from '../../services/api-call';
+import _ from 'lodash';
 
 let TreeItem = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item1');
 let NavigationFilter = componentRequire('app/components/navigation-tree/navigation-filter', 'navigation-filter');
@@ -40,7 +41,7 @@ export default class NavigationTree extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-   if (this.state === nextState) {
+   if (_.isEqual(this.state, nextState)) {
      return false;
    }
 
