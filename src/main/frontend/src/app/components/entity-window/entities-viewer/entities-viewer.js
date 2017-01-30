@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { componentRequire } from '../../../utils/require-util';
 import EntitiesTableViewer from './entities-table-viewer/entities-table-viewer';
-import Translate from 'react-translate-component';
 
 export default class EntitiesViewer extends Component {
   constructor(props) {
@@ -13,7 +12,8 @@ export default class EntitiesViewer extends Component {
       <EntitiesTableViewer entities={this.props.entities}
                            entitiesMarkup={this.props.entitiesMarkup}
                            onPagerChange={this.props.onPagerChange}
-                           page={this.props.page}/>
+                           page={this.props.page}
+                           onEntityItemClick={this.props.onEntityItemClick}/>
     )
   }
 }

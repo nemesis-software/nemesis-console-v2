@@ -25,18 +25,14 @@ export default class EntitiesTableViewer extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (_.isEqual(this.state, nextState) && _.isEqual(this.props, nextProps)) {
-      return false;
-    }
-
-    return true;
+    return !(_.isEqual(this.state, nextState) && _.isEqual(this.props, nextProps));
   }
 
   render() {
     console.log(this.props, 'table renderer');
     return (
       <div>
-        <Table selectable={false}>
+        <Table selectable={true} onRowSelection={this.onRowSelected.bind(this)}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
               <TableHeaderColumn colSpan={this.state.entitiesMarkup.length}>
@@ -91,5 +87,12 @@ export default class EntitiesTableViewer extends Component {
 
   onLanguageChange(language) {
     this.setState({...this.state, selectedLanguage: language});
+  }
+
+  onRowSelected(event) {
+    let item = this.props.entities[event[0]];
+    if (item) {
+      this.props.onEntityItemClick(item);
+    }
   }
 }

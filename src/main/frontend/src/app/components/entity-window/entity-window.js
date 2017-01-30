@@ -47,7 +47,8 @@ export default class EntitiesWindow extends Component {
             <EnititiesViewer entities={this.state.searchResult}
                              entitiesMarkup={this.props.entity.data.result}
                              onPagerChange={this.onPagerChange.bind(this)}
-                             page={this.state.page}/>
+                             page={this.state.page}
+                             onEntityItemClick={this.onEntityItemClick.bind(this)}/>
             {/*{this.state.searchResult.map((item, index) => <div onClick={() => {this.props.onEntityItemClick(item, entity.entityId)}} key={index}>{item.id}</div>)}*/}
           </div>
         );
@@ -56,6 +57,10 @@ export default class EntitiesWindow extends Component {
         return <div>INVALID ENTITY TYPE!!!</div>
       }
     }
+  }
+
+  onEntityItemClick(item) {
+    this.props.onEntityItemClick(item, this.props.entity.entityId)
   }
 
   onPagerChange(page, pageSize) {

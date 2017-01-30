@@ -53147,11 +53147,7 @@
 	  }, {
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
-	      if (_lodash2.default.isEqual(this.state, nextState) && _lodash2.default.isEqual(this.props, nextProps)) {
-	        return false;
-	      }
-
-	      return true;
+	      return !(_lodash2.default.isEqual(this.state, nextState) && _lodash2.default.isEqual(this.props, nextProps));
 	    }
 	  }, {
 	    key: 'render',
@@ -53164,7 +53160,7 @@
 	        null,
 	        _react2.default.createElement(
 	          _Table.Table,
-	          { selectable: false },
+	          { selectable: true, onRowSelection: this.onRowSelected.bind(this) },
 	          _react2.default.createElement(
 	            _Table.TableHeader,
 	            { displaySelectAll: false, adjustForCheckbox: false },
@@ -53227,6 +53223,14 @@
 	    key: 'onLanguageChange',
 	    value: function onLanguageChange(language) {
 	      this.setState(_extends({}, this.state, { selectedLanguage: language }));
+	    }
+	  }, {
+	    key: 'onRowSelected',
+	    value: function onRowSelected(event) {
+	      var item = this.props.entities[event[0]];
+	      if (item) {
+	        this.props.onEntityItemClick(item);
+	      }
 	    }
 	  }]);
 
@@ -56971,10 +56975,6 @@
 
 	var _entitiesTableViewer2 = _interopRequireDefault(_entitiesTableViewer);
 
-	var _reactTranslateComponent = __webpack_require__(316);
-
-	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56998,7 +56998,8 @@
 	      return _react2.default.createElement(_entitiesTableViewer2.default, { entities: this.props.entities,
 	        entitiesMarkup: this.props.entitiesMarkup,
 	        onPagerChange: this.props.onPagerChange,
-	        page: this.props.page });
+	        page: this.props.page,
+	        onEntityItemClick: this.props.onEntityItemClick });
 	    }
 	  }]);
 
@@ -57149,7 +57150,8 @@
 	              _react2.default.createElement(_entitiesViewer2.default, { entities: this.state.searchResult,
 	                entitiesMarkup: this.props.entity.data.result,
 	                onPagerChange: this.onPagerChange.bind(this),
-	                page: this.state.page })
+	                page: this.state.page,
+	                onEntityItemClick: this.onEntityItemClick.bind(this) })
 	            );
 	          }
 	        default:
@@ -57161,6 +57163,11 @@
 	            );
 	          }
 	      }
+	    }
+	  }, {
+	    key: 'onEntityItemClick',
+	    value: function onEntityItemClick(item) {
+	      this.props.onEntityItemClick(item, this.props.entity.entityId);
 	    }
 	  }, {
 	    key: 'onPagerChange',
