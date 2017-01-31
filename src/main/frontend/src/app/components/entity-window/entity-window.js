@@ -43,13 +43,12 @@ export default class EntitiesWindow extends Component {
         return (
           <div>
             <Translate component="h2" content={'main.' + entity.entityId} fallback={entity.entityId}/>
-            <EnititiesFilter/>
+            <EnititiesFilter filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
             <EnititiesViewer entities={this.state.searchResult}
                              entitiesMarkup={this.props.entity.data.result}
                              onPagerChange={this.onPagerChange.bind(this)}
                              page={this.state.page}
                              onEntityItemClick={this.onEntityItemClick.bind(this)}/>
-            {/*{this.state.searchResult.map((item, index) => <div onClick={() => {this.props.onEntityItemClick(item, entity.entityId)}} key={index}>{item.id}</div>)}*/}
           </div>
         );
       }
@@ -61,6 +60,10 @@ export default class EntitiesWindow extends Component {
 
   onEntityItemClick(item) {
     this.props.onEntityItemClick(item, this.props.entity.entityId)
+  }
+
+  onFilterApply() {
+
   }
 
   onPagerChange(page, pageSize) {
@@ -78,7 +81,7 @@ export default class EntitiesWindow extends Component {
           let data = [];
           _.forIn(result.data._embedded, (value) => data = data.concat(value));
           this.setState({...this.state, searchResult: data, page: result.data.page});
-          console.log(this.state);
+          console.log(result);
         });
         return;
       }

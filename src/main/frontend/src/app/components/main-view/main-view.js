@@ -20,6 +20,15 @@ export default class MainView extends Component {
 
   componentWillMount() {
     Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
+      var result1 = {};
+      _.forEach(result[0].data, function(item) {
+        _.forEach(item.filter, function(item) {
+          if (!result1[item.xtype]) {
+            result1[item.xtype] = 1;
+          }
+        })
+      });
+      console.log(result1);
       this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data});
       console.log(this.state);
     })
