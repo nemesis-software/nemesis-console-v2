@@ -5,7 +5,6 @@ import Translate from 'react-translate-component';
 import { searchRestrictionTypes } from '../../../../../types/nemesis-types';
 import _ from 'lodash';
 
-
 const restrictionFields = [
   searchRestrictionTypes.startingWith,
   searchRestrictionTypes.endingWith,
