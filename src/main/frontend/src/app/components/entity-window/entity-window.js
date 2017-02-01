@@ -81,7 +81,6 @@ export default class EntitiesWindow extends Component {
           let data = [];
           _.forIn(result.data._embedded, (value) => data = data.concat(value));
           this.setState({...this.state, searchResult: data, page: result.data.page});
-          console.log(result);
         });
         return;
       }

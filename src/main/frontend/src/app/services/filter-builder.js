@@ -23,7 +23,7 @@ export default class FilterBuilder {
     let result = {};
 
     result[searchRestrictionTypes.startingWith] = {
-      getFilterString: (item) => `startwith(${item.field}, ${item.value}) eq true`,
+      getFilterString: (item) => `startswith(${item.field}, ${item.value}) eq true`,
       isValueRequired: true
     };
 

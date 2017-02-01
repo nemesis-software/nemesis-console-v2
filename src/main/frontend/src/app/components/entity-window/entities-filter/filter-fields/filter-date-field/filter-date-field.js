@@ -20,7 +20,6 @@ const styles = {
 export default class FilterDateField extends Component {
   constructor(props) {
     super(props);
-    console.log(moment);
     this.state = {restrictionField: null, dateField: null};
   }
 
@@ -50,7 +49,8 @@ export default class FilterDateField extends Component {
     this.props.onFilterChange({
       value: dateField,
       restriction: restrictionValue,
-      field: this.props.filterItem.name
+      field: this.props.filterItem.name,
+      id: this.props.filterItem.name
     });
   }
 

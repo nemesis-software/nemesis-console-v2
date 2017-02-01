@@ -10,7 +10,6 @@ export default class EntitiesFilter extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <DefaultFilter onFilterApply={this.props.onFilterApply} filterMarkup={this.state.filterMarkup}/>

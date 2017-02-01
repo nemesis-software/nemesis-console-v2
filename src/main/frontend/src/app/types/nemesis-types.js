@@ -22,5 +22,3 @@ export const searchRestrictionTypes = {
   isNull: 'Null',
   equals: 'Equals'
 };
-//        id
-//baseurl/catalog_version/search -asdasdasdasdasd : asdasdasdasdasdasdadasd

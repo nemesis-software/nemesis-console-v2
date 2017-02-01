@@ -17,7 +17,7 @@ export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: 'en'};
+    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value};
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,7 +29,6 @@ export default class EntitiesTableViewer extends Component {
   }
 
   render() {
-    console.log(this.props, 'table renderer');
     return (
       <div>
         <Table selectable={true} onRowSelection={this.onRowSelected.bind(this)}>
@@ -37,6 +36,7 @@ export default class EntitiesTableViewer extends Component {
             <TableRow>
               <TableHeaderColumn colSpan={this.state.entitiesMarkup.length}>
                 <LanguageChanger
+                  label="language"
                   onLanguageChange={this.onLanguageChange.bind(this)}
                   availableLanguages={translationLanguages.languages}
                   selectedLanguage={translationLanguages.defaultLanguage}
