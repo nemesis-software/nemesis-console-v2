@@ -79,9 +79,7 @@ export default class EntitiesTableViewer extends Component {
       itemValue = item[markupItem.name][this.state.selectedLanguage] && item[markupItem.name][this.state.selectedLanguage].value;
     }
     return (
-      <TableRowColumn key={index}>
-        {!!itemValue ? <Translate component="span" content={'main.' + itemValue} fallback={itemValue}/> : ''}
-      </TableRowColumn>
+      <TableRowColumn key={index}>{itemValue || ''}</TableRowColumn>
     )
   }
 

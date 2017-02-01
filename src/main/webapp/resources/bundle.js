@@ -29187,6 +29187,8 @@
 		"./app/components/entity-window/entities-filter/filter-fields/filter-date-field/filter-date-field.js": 408,
 		"./app/components/entity-window/entities-filter/filter-fields/filter-localized-text-field/filter-localized-text-field": 656,
 		"./app/components/entity-window/entities-filter/filter-fields/filter-localized-text-field/filter-localized-text-field.js": 656,
+		"./app/components/entity-window/entities-filter/filter-fields/filter-number-field/filter-number-field": 662,
+		"./app/components/entity-window/entities-filter/filter-fields/filter-number-field/filter-number-field.js": 662,
 		"./app/components/entity-window/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field": 394,
 		"./app/components/entity-window/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field.js": 394,
 		"./app/components/entity-window/entities-filter/filter-fields/filter-text-field/filter-text-field": 393,
@@ -52949,6 +52951,10 @@
 
 	var _filterBooleanField2 = _interopRequireDefault(_filterBooleanField);
 
+	var _filterNumberField = __webpack_require__(662);
+
+	var _filterNumberField2 = _interopRequireDefault(_filterNumberField);
+
 	var _filterBuilder = __webpack_require__(539);
 
 	var _filterBuilder2 = _interopRequireDefault(_filterBuilder);
@@ -53014,6 +53020,9 @@
 	          reactElement = _filterLocalizedTextField2.default;break;
 	        case _nemesisTypes.searchFormTypes.nemesisBooleanField:
 	          reactElement = _filterBooleanField2.default;break;
+	        case _nemesisTypes.searchFormTypes.nemesisIntegerField:
+	        case _nemesisTypes.searchFormTypes.nemesisDecimalField:
+	          reactElement = _filterNumberField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -74911,7 +74920,7 @@
 	      return _react2.default.createElement(
 	        _Table.TableRowColumn,
 	        { key: index },
-	        !!itemValue ? _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span', content: 'main.' + itemValue, fallback: itemValue }) : ''
+	        itemValue || ''
 	      );
 	    }
 	  }, {
@@ -87439,6 +87448,120 @@
 	} : void 0;
 	exports.default = RadioButtonGroup;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 662 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _filterRestrictionField = __webpack_require__(394);
+
+	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
+
+	var _TextField = __webpack_require__(397);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _lodash = __webpack_require__(389);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.greaterThan, _nemesisTypes.searchRestrictionTypes.lessThan, _nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull, _nemesisTypes.searchRestrictionTypes.equals];
+
+	var styles = {
+	  verticalAlign: 'top',
+	  marginRight: '10px'
+	};
+
+	var FilterNumberField = function (_Component) {
+	  _inherits(FilterNumberField, _Component);
+
+	  function FilterNumberField(props) {
+	    _classCallCheck(this, FilterNumberField);
+
+	    var _this = _possibleConstructorReturn(this, (FilterNumberField.__proto__ || Object.getPrototypeOf(FilterNumberField)).call(this, props));
+
+	    _this.state = { restrictionField: null, numberField: null };
+	    return _this;
+	  }
+
+	  _createClass(FilterNumberField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_filterRestrictionField2.default, { onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_TextField2.default, { type: 'number', step: this.props.filterItem.xtype === _nemesisTypes.searchFormTypes.nemesisDecimalField ? '0.1' : '1', style: this.getNumberFieldStyles(),
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.filterItem.fieldLabel, fallback: this.props.filterItem.fieldLabel }),
+	          onChange: _lodash2.default.debounce(this.onNumberFieldChange.bind(this), 250) })
+	      );
+	    }
+	  }, {
+	    key: 'onRestrictionFieldChange',
+	    value: function onRestrictionFieldChange(restrictionValue) {
+	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
+	      this.updateParentFilter(this.state.textField, restrictionValue);
+	    }
+	  }, {
+	    key: 'onNumberFieldChange',
+	    value: function onNumberFieldChange(event, value) {
+	      this.setState(_extends({}, this.state, { numberField: value }));
+	      this.updateParentFilter(value, this.state.restrictionField);
+	    }
+	  }, {
+	    key: 'updateParentFilter',
+	    value: function updateParentFilter(numberField, restrictionValue) {
+	      this.props.onFilterChange({
+	        value: numberField,
+	        restriction: restrictionValue,
+	        field: this.props.filterItem.name,
+	        id: this.props.filterItem.name
+	      });
+	    }
+	  }, {
+	    key: 'getNumberFieldStyles',
+	    value: function getNumberFieldStyles() {
+	      var result = _extends({}, styles);
+	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
+	        result.display = 'none';
+	      }
+
+	      return result;
+	    }
+	  }]);
+
+	  return FilterNumberField;
+	}(_react.Component);
+
+	exports.default = FilterNumberField;
 
 /***/ }
 /******/ ]);
