@@ -19,7 +19,7 @@ export default class FilterEnumField extends Component {
     return (
       <div>
         <SelectField
-          style={this.getEnumFieldStyles()}
+          style={styles}
           value={this.state.enumField}
           floatingLabelText={<Translate content={'main.' + this.props.filterItem.fieldLabel} fallback={this.props.filterItem.fieldLabel} />}
           onChange={this.onEnumFieldChange.bind(this)}>
@@ -42,14 +42,5 @@ export default class FilterEnumField extends Component {
       field: this.props.filterItem.name,
       id: this.props.filterItem.name
     });
-  }
-
-  getEnumFieldStyles() {
-    let result = {...styles};
-    if ([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-      result.display = 'none';
-    }
-
-    return result;
   }
 }

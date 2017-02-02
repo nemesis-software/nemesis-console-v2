@@ -76078,8 +76078,6 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -76134,7 +76132,7 @@
 	        _react2.default.createElement(
 	          _SelectField2.default,
 	          {
-	            style: this.getEnumFieldStyles(),
+	            style: styles,
 	            value: this.state.enumField,
 	            floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.filterItem.fieldLabel, fallback: this.props.filterItem.fieldLabel }),
 	            onChange: this.onEnumFieldChange.bind(this) },
@@ -76160,16 +76158,6 @@
 	        field: this.props.filterItem.name,
 	        id: this.props.filterItem.name
 	      });
-	    }
-	  }, {
-	    key: 'getEnumFieldStyles',
-	    value: function getEnumFieldStyles() {
-	      var result = _extends({}, styles);
-	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-	        result.display = 'none';
-	      }
-
-	      return result;
 	    }
 	  }]);
 
