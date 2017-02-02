@@ -5,6 +5,7 @@ import FilterDateField from '../filter-fields/filter-date-field/filter-date-fiel
 import FilterLocalizedTextField from '../filter-fields/filter-localized-text-field/filter-localized-text-field';
 import FilterBooleanField from '../filter-fields/filter-boolean-field/filter-boolean-field';
 import FilterNumberField from '../filter-fields/filter-number-field/filter-number-field';
+import FilterEnumField from '../filter-fields/filter-enum-field/filter-enum-field'
 import FilterBuilder from '../../../../services/filter-builder';
 import _ from 'lodash';
 
@@ -31,6 +32,7 @@ export default class DefaultFilter extends Component {
       case searchFormTypes.nemesisDateField: reactElement = FilterDateField; break;
       case searchFormTypes.nemesisLocalizedTextField: reactElement = FilterLocalizedTextField; break;
       case searchFormTypes.nemesisBooleanField: reactElement = FilterBooleanField; break;
+      case searchFormTypes.nemesisEnumField: reactElement = FilterEnumField; break;
       case searchFormTypes.nemesisIntegerField:
       case searchFormTypes.nemesisDecimalField: reactElement = FilterNumberField; break;
       default: return <div key={renderIndex}>Not supported yet - {filterItem.xtype}</div>
