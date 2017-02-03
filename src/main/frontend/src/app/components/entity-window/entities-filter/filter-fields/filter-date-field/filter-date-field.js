@@ -26,7 +26,7 @@ export default class FilterDateField extends Component {
   render() {
     return (
       <div>
-        <FilterRestrictionFields onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
         <DatePicker style={this.getDateFieldStyles()}
                     onChange={this.onDateFieldChange.bind(this)}
                     floatingLabelText={<Translate content={'main.' + this.props.filterItem.fieldLabel} fallback={this.props.filterItem.fieldLabel} />} />

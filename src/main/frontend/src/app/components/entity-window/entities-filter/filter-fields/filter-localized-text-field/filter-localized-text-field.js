@@ -37,7 +37,7 @@ export default class FilterLocalizedTextField extends Component {
   render() {
     return (
       <div>
-        <FilterRestrictionFields onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
         <LanguageChanger
           label="language"
           style={this.getTextFieldStyles()}

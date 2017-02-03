@@ -17,7 +17,7 @@ export default class FilterRestrictionField extends Component {
 
   render() {
     return (
-      <SelectField style={this.props.style} floatingLabelText="Restriction"
+      <SelectField style={this.props.style} floatingLabelText={this.props.label ? `${this.props.label} restriction` : 'Restriction'}
         value={this.state.selectedRestrictionField}
         onChange={this.handleChange.bind(this)}>
         {this.props.restrictionFields.map((field, index) => <MenuItem key={index} value={field} primaryText={<Translate content={'main.' + field} fallback={field} />} />)}

@@ -27,7 +27,7 @@ export default class FilterNumberField extends Component {
   render() {
     return (
       <div>
-        <FilterRestrictionFields onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
         <TextField type="number" step={this.props.filterItem.xtype === searchFormTypes.nemesisDecimalField ? '0.1' : '1'} style={this.getNumberFieldStyles()}
                    floatingLabelText={<Translate content={'main.' + this.props.filterItem.fieldLabel} fallback={this.props.filterItem.fieldLabel} />}
                    onChange={_.debounce(this.onNumberFieldChange.bind(this), 250)}/>

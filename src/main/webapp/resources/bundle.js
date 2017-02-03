@@ -53187,7 +53187,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
 	        _react2.default.createElement(_TextField2.default, { style: this.getTextFieldStyles(),
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.filterItem.fieldLabel, fallback: this.props.filterItem.fieldLabel }),
 	          onChange: _lodash2.default.debounce(this.onTextFieldChange.bind(this), 250) })
@@ -53292,7 +53292,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        _SelectField2.default,
-	        { style: this.props.style, floatingLabelText: 'Restriction',
+	        { style: this.props.style, floatingLabelText: this.props.label ? this.props.label + ' restriction' : 'Restriction',
 	          value: this.state.selectedRestrictionField,
 	          onChange: this.handleChange.bind(this) },
 	        this.props.restrictionFields.map(function (field, index) {
@@ -55604,7 +55604,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
 	        _react2.default.createElement(_DatePicker2.default, { style: this.getDateFieldStyles(),
 	          onChange: this.onDateFieldChange.bind(this),
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.filterItem.fieldLabel, fallback: this.props.filterItem.fieldLabel }) })
@@ -74421,7 +74421,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
 	        _react2.default.createElement(_languageChanger2.default, {
 	          label: 'language',
 	          style: this.getTextFieldStyles(),
@@ -75818,7 +75818,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
 	        _react2.default.createElement(_TextField2.default, { type: 'number', step: this.props.filterItem.xtype === _nemesisTypes.searchFormTypes.nemesisDecimalField ? '0.1' : '1', style: this.getNumberFieldStyles(),
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.filterItem.fieldLabel, fallback: this.props.filterItem.fieldLabel }),
 	          onChange: _lodash2.default.debounce(this.onNumberFieldChange.bind(this), 250) })
@@ -76036,7 +76036,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
 	        _react2.default.createElement(_AutoComplete2.default, { style: this.getTextFieldStyles(),
 	          dataSource: this.state.dataSource,
 	          filter: function filter(searchText, key) {

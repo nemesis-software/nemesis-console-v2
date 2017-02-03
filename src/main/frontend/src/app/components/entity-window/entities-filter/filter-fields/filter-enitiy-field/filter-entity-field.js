@@ -26,7 +26,7 @@ export default class FilterEntityField extends Component {
   render() {
     return (
       <div>
-        <FilterRestrictionFields onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
         <AutoComplete style={this.getTextFieldStyles()}
                       dataSource={this.state.dataSource}
                       filter={(searchText, key) => true}

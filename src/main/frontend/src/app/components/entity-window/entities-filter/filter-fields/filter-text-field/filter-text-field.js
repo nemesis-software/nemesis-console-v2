@@ -28,7 +28,7 @@ export default class FilterTextField extends Component {
   render() {
     return (
       <div>
-        <FilterRestrictionFields onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
         <TextField style={this.getTextFieldStyles()}
           floatingLabelText={<Translate content={'main.' + this.props.filterItem.fieldLabel} fallback={this.props.filterItem.fieldLabel} />}
           onChange={_.debounce(this.onTextFieldChange.bind(this), 250)}/>
