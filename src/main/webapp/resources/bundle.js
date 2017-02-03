@@ -79235,11 +79235,21 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _SelectField = __webpack_require__(395);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _MenuItem = __webpack_require__(361);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -79250,20 +79260,28 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var styles = {
+	  table: {
+	    display: 'table'
+	  },
+	  tableRow: {
+	    display: 'table-row'
+	  },
+	  tableCell: {
+	    display: 'table-cell',
+	    verticalAlign: 'middle'
+	  },
 	  navButton: {
 	    cursor: 'pointer',
 	    fontSize: '30px'
 	  },
 	  container: {
 	    display: 'inline-block',
-	    userSelect: 'none'
-	  },
-	  content: {
-	    fontSize: '24px',
-	    verticalAlign: 'top',
-	    padding: '0 10px'
+	    userSelect: 'none',
+	    margin: '0 10px'
 	  }
 	};
+
+	var pageSizes = [20, 50, 100, 1000];
 
 	var EntitiesPager = function (_Component) {
 	  _inherits(EntitiesPager, _Component);
@@ -79281,33 +79299,73 @@
 	        'div',
 	        { style: styles.container },
 	        _react2.default.createElement(
-	          'i',
-	          { style: styles.navButton, className: 'material-icons', onClick: this.onFirstPageButtonClick.bind(this) },
-	          'first_page'
+	          'div',
+	          { style: { display: 'inline-block' } },
+	          _react2.default.createElement(
+	            'div',
+	            { style: styles.table },
+	            _react2.default.createElement(
+	              'div',
+	              { style: styles.tableCell },
+	              _react2.default.createElement(
+	                'i',
+	                { style: styles.navButton, className: 'material-icons', onClick: this.onFirstPageButtonClick.bind(this) },
+	                'first_page'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { style: styles.tableCell },
+	              _react2.default.createElement(
+	                'i',
+	                { style: styles.navButton, className: 'material-icons', onClick: this.onPrevPageButtonClick.bind(this) },
+	                'chevron_left'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { style: _extends({}, styles.tableCell, { fontSize: '24px' }) },
+	              this.props.page.number + 1,
+	              ' of ',
+	              Math.max(this.props.page.totalPages, 1)
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { style: styles.tableCell },
+	              _react2.default.createElement(
+	                'i',
+	                { style: styles.navButton, className: 'material-icons', onClick: this.onNextPageButtonClick.bind(this) },
+	                'chevron_right'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { style: styles.tableCell },
+	              _react2.default.createElement(
+	                'i',
+	                { style: styles.navButton, className: 'material-icons', onClick: this.onLastPageButtonClick.bind(this) },
+	                'last_page'
+	              )
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
-	          'i',
-	          { style: styles.navButton, className: 'material-icons', onClick: this.onPrevPageButtonClick.bind(this) },
-	          'chevron_left'
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { style: styles.content },
-	          this.props.page.number + 1,
-	          ' of ',
-	          Math.max(this.props.page.totalPages, 1)
-	        ),
-	        _react2.default.createElement(
-	          'i',
-	          { style: styles.navButton, className: 'material-icons', onClick: this.onNextPageButtonClick.bind(this) },
-	          'chevron_right'
-	        ),
-	        _react2.default.createElement(
-	          'i',
-	          { style: styles.navButton, className: 'material-icons', onClick: this.onLastPageButtonClick.bind(this) },
-	          'last_page'
+	          _SelectField2.default,
+	          {
+	            style: { width: '100px', marginLeft: '15px' },
+	            value: this.props.page.size,
+	            floatingLabelText: 'Page size',
+	            onChange: this.handlePageSizeChange.bind(this) },
+	          pageSizes.map(function (size, index) {
+	            return _react2.default.createElement(_MenuItem2.default, { key: index, value: size, primaryText: size });
+	          })
 	        )
 	      );
+	    }
+	  }, {
+	    key: 'handlePageSizeChange',
+	    value: function handlePageSizeChange(event, index, value) {
+	      this.props.onPagerChange(1, pageSizes[index]);
 	    }
 	  }, {
 	    key: 'onFirstPageButtonClick',
@@ -82179,7 +82237,7 @@
 	    key: 'onFilterApply',
 	    value: function onFilterApply(filter) {
 	      this.setState(_extends({}, this.state, { filter: filter }));
-	      this.getDataByEntityType(this.props.entity, pagerData.page, pagerData.pageSize, filter);
+	      this.getDataByEntityType(this.props.entity, pagerData.page, this.state.page.size, filter);
 	    }
 	  }, {
 	    key: 'onPagerChange',
