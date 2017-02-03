@@ -8,20 +8,22 @@ import FilterNumberField from '../filter-fields/filter-number-field/filter-numbe
 import FilterEnumField from '../filter-fields/filter-enum-field/filter-enum-field';
 import FilterEntityField from '../filter-fields/filter-enitiy-field/filter-entity-field';
 import FilterBuilder from '../../../../services/filter-builder';
+import RaisedButton from 'material-ui/RaisedButton';
 import _ from 'lodash';
+
+const keyPrefix = 'defaultFilter';
 
 export default class DefaultFilter extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {appliedFilters: []};
+    this.state = {appliedFilters: [], key: keyPrefix + Date.now()};
   }
 
   render() {
     return (
-      <div>
+      <div key={this.state.key}>
         {this.props.filterMarkup.map((filterItem, index) => this.getFilterItemRender(filterItem, index))}
-        <button onClick={this.onSearchButtonClick.bind(this)}>Search</button> <button onClick={this.onClearButtonClick.bind(this)}>Clear</button>
+        <RaisedButton style={{margin: '10px'}} label="Search" onClick={this.onSearchButtonClick.bind(this)} /><RaisedButton label="Clear" onClick={this.onClearButtonClick.bind(this)} />
       </div>
     )
   }
@@ -63,12 +65,11 @@ export default class DefaultFilter extends Component {
 
   onSearchButtonClick() {
     let filterString = FilterBuilder.buildFilter(this.state.appliedFilters);
-    console.log(filterString);
     this.props.onFilterApply(filterString);
   }
 
   onClearButtonClick() {
-    this.setState({appliedFilters: []});
+    this.setState({appliedFilters: [], key: keyPrefix + Date.now()});
     this.props.onFilterApply();
   }
 }

@@ -68,7 +68,7 @@ export default class EntitiesWindow extends Component {
 
   onFilterApply(filter) {
     this.setState({...this.state, filter: filter});
-    this.getDataByEntityType(this.props.entity, this.state.page.number + 1, this.state.page.size, filter);
+    this.getDataByEntityType(this.props.entity, pagerData.page, pagerData.pageSize, filter);
   }
 
   onPagerChange(page, pageSize) {
