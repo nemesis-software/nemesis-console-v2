@@ -21,5 +21,3 @@ export default class EntitiesFilter extends Component {
     this.setState({filterMarkup: nextProps.filterMarkup})
   }
 }
-
-//nemesisEntityField markup name and entity id

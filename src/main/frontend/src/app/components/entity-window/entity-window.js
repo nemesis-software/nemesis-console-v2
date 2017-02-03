@@ -6,14 +6,18 @@ import EnititiesFilter from './entities-filter/entities-filter';
 import EnititiesViewer from './entities-viewer/entities-viewer';
 import Translate from 'react-translate-component';
 
+const pagerData = {
+  page: 1,
+  pageSize: 20
+};
 export default class EntitiesWindow extends Component {
   constructor(props) {
     super(props);
-    this.state = {searchResult: [], itemResult: {}, page: {}};
+    this.state = {searchResult: [], itemResult: {}, page: {}, filter: null};
   }
 
   componentWillMount() {
-    this.getDataByEntityType(this.props.entity, 1, 20);
+    this.getDataByEntityType(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter);
   }
 
   render() {
@@ -62,22 +66,23 @@ export default class EntitiesWindow extends Component {
     this.props.onEntityItemClick(item, this.props.entity.entityId)
   }
 
-  onFilterApply() {
-
+  onFilterApply(filter) {
+    this.setState({...this.state, filter: filter});
+    this.getDataByEntityType(this.props.entity, this.state.page.number + 1, this.state.page.size, filter);
   }
 
   onPagerChange(page, pageSize) {
-    this.getDataByEntityType(this.props.entity, page, pageSize);
+    this.getDataByEntityType(this.props.entity, page, pageSize, this.state.filter);
   }
 
-  getDataByEntityType(entity, page, pageSize) {
+  getDataByEntityType(entity, page, pageSize, filter) {
     switch (entity.type) {
       case entityItemType: {
         ApiCall.get(entity.entityId + '/' + entity.itemId).then(result => console.log(result));
         return;
       }
       case entitySearchType: {
-        ApiCall.get(entity.entityId, {page: page, size: pageSize}).then(result => {
+        ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter}).then(result => {
           let data = [];
           _.forIn(result.data._embedded, (value) => data = data.concat(value));
           this.setState({...this.state, searchResult: data, page: result.data.page});
