@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import {entitySearchType, entityItemType} from '../../types/entity-types'
 import ApiCall from '../../services/api-call';
 import _ from 'lodash';
-import EnititiesFilter from './entities-filter/entities-filter';
-import EnititiesViewer from './entities-viewer/entities-viewer';
+import EntitiesFilter from './entities-filter/entities-filter';
+import EntitiesViewer from './entities-viewer/entities-viewer';
+import EntitySections from './entity-sections/entity-sections'
 import Translate from 'react-translate-component';
+import { searchFormTypes } from '../../types/nemesis-types'
 
 const pagerData = {
   page: 1,
@@ -40,15 +42,17 @@ export default class EntitiesWindow extends Component {
     switch (entity.type) {
       case entityItemType: {
         return (
-          <div>{entity.entityId}</div>
+          <div>
+            <EntitySections entity={entity} entityResult={this.state.itemResult}/>
+          </div>
         );
       }
       case entitySearchType: {
         return (
           <div>
             <Translate component="h2" content={'main.' + entity.entityId} fallback={entity.entityId}/>
-            <EnititiesFilter filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
-            <EnititiesViewer entities={this.state.searchResult}
+            <EntitiesFilter filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
+            <EntitiesViewer entities={this.state.searchResult}
                              entitiesMarkup={this.props.entity.data.result}
                              onPagerChange={this.onPagerChange.bind(this)}
                              page={this.state.page}
@@ -78,14 +82,37 @@ export default class EntitiesWindow extends Component {
   getDataByEntityType(entity, page, pageSize, filter) {
     switch (entity.type) {
       case entityItemType: {
-        ApiCall.get(entity.entityId + '/' + entity.itemId).then(result => console.log(result));
+        let relatedEntities = this.getEntityRelatedEntities(entity);
+        ApiCall.get(entity.entityId + '/' + entity.itemId).then(result => {
+          this.setState({...this.state, itemResult: result.data});
+          Promise.all(
+            relatedEntities.map(item => ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
+            //TODO: Patch for return 404 for empty relation - https://github.com/nemesis-software/nemesis-platform/issues/293
+            .then(result => {
+              return Promise.resolve(result);
+            }, err => {
+              return Promise.resolve({data: null});
+            }))
+          ).then(result => {
+            let relatedEntitiesResult = {};
+            relatedEntities.forEach((item, index) => {
+              let data;
+              if (item.type === searchFormTypes.nemesisCollectionField) {
+                data = this.mapCollectionResult(result[index].data);
+              } else {
+                data = this.mapEntityResult(result[index].data);
+              }
+
+              relatedEntitiesResult[item.name] = data;
+            });
+            this.setState({...this.state, itemResult: {...this.state.itemResult, customClientData: relatedEntitiesResult}})
+          })
+        });
         return;
       }
       case entitySearchType: {
         ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter}).then(result => {
-          let data = [];
-          _.forIn(result.data._embedded, (value) => data = data.concat(value));
-          this.setState({...this.state, searchResult: data, page: result.data.page});
+          this.setState({...this.state, searchResult: this.mapCollectionResult(result.data), page: result.data.page});
         });
         return;
       }
@@ -93,5 +120,35 @@ export default class EntitiesWindow extends Component {
         throw 'INVALID ENTITY TYPE!!!';
       }
     }
+  }
+
+  getEntityRelatedEntities(entity) {
+    let result = [];
+    if (!entity) {
+      return result;
+    }
+    entity.data.sections.forEach(item => {
+      item.items.forEach(subItem => {
+        if ([searchFormTypes.nemesisCollectionField, searchFormTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+          result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
+        }
+      })
+    });
+
+    return result;
+  }
+
+  mapCollectionResult(data) {
+    let result = [];
+    _.forIn(data._embedded, (value) => result = result.concat(value));
+    return result;
+  }
+
+  mapEntityResult(data) {
+    if (!data) {
+      return null;
+    }
+
+    return data.content || data;
   }
 }

@@ -48,7 +48,6 @@ export default class FilterEntityField extends Component {
   }
 
   onTextFieldChange(value) {
-    console.log(value);
     this.filterEntityData(value);
     this.setState({...this.state, textField: value});
   }

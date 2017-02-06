@@ -74586,10 +74586,6 @@
 
 	var _RadioButton = __webpack_require__(542);
 
-	var _TextField = __webpack_require__(397);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76063,7 +76059,6 @@
 	  }, {
 	    key: 'onTextFieldChange',
 	    value: function onTextFieldChange(value) {
-	      console.log(value);
 	      this.filterEntityData(value);
 	      this.setState(_extends({}, this.state, { textField: value }));
 	    }
@@ -82077,11 +82072,15 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	var _requireUtil = __webpack_require__(184);
+
+	var _Tabs = __webpack_require__(671);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82097,8 +82096,36 @@
 	  function EntitySection(props) {
 	    _classCallCheck(this, EntitySection);
 
-	    return _possibleConstructorReturn(this, (EntitySection.__proto__ || Object.getPrototypeOf(EntitySection)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (EntitySection.__proto__ || Object.getPrototypeOf(EntitySection)).call(this, props));
+
+	    _this.handleChange = function (value) {
+	      _this.setState({
+	        sectionIndex: value
+	      });
+	    };
+
+	    _this.state = { sectionIndex: 0 };
+	    return _this;
 	  }
+
+	  _createClass(EntitySection, [{
+	    key: 'render',
+	    value: function render() {
+	      console.log(this.props);
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _Tabs.Tabs,
+	          { onChange: this.handleChange,
+	            value: this.state.sectionIndex },
+	          this.props.entity.data.sections.map(function (item, index) {
+	            return _react2.default.createElement(_Tabs.Tab, { key: index, value: index, label: item.title });
+	          })
+	        )
+	      );
+	    }
+	  }]);
 
 	  return EntitySection;
 	}(_react.Component);
@@ -82114,6 +82141,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -82141,9 +82170,15 @@
 
 	var _entitiesViewer2 = _interopRequireDefault(_entitiesViewer);
 
+	var _entitySections = __webpack_require__(603);
+
+	var _entitySections2 = _interopRequireDefault(_entitySections);
+
 	var _reactTranslateComponent = __webpack_require__(316);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _nemesisTypes = __webpack_require__(392);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82201,7 +82236,7 @@
 	            return _react2.default.createElement(
 	              'div',
 	              null,
-	              entity.entityId
+	              _react2.default.createElement(_entitySections2.default, { entity: entity, entityResult: this.state.itemResult })
 	            );
 	          }
 	        case _entityTypes.entitySearchType:
@@ -82252,19 +82287,44 @@
 	      switch (entity.type) {
 	        case _entityTypes.entityItemType:
 	          {
-	            _apiCall2.default.get(entity.entityId + '/' + entity.itemId).then(function (result) {
-	              return console.log(result);
-	            });
-	            return;
+	            var _ret = function () {
+	              var relatedEntities = _this2.getEntityRelatedEntities(entity);
+	              _apiCall2.default.get(entity.entityId + '/' + entity.itemId).then(function (result) {
+	                _this2.setState(_extends({}, _this2.state, { itemResult: result.data }));
+	                Promise.all(relatedEntities.map(function (item) {
+	                  return _apiCall2.default.get(result.data._links[item.name].href, { projection: 'search' })
+	                  //TODO: Patch for return 404 for empty relation - https://github.com/nemesis-software/nemesis-platform/issues/293
+	                  .then(function (result) {
+	                    return Promise.resolve(result);
+	                  }, function (err) {
+	                    return Promise.resolve({ data: null });
+	                  });
+	                })).then(function (result) {
+	                  var relatedEntitiesResult = {};
+	                  relatedEntities.forEach(function (item, index) {
+	                    var data = void 0;
+	                    if (item.type === _nemesisTypes.searchFormTypes.nemesisCollectionField) {
+	                      data = _this2.mapCollectionResult(result[index].data);
+	                    } else {
+	                      data = _this2.mapEntityResult(result[index].data);
+	                    }
+
+	                    relatedEntitiesResult[item.name] = data;
+	                  });
+	                  _this2.setState(_extends({}, _this2.state, { itemResult: _extends({}, _this2.state.itemResult, { customClientData: relatedEntitiesResult }) }));
+	                });
+	              });
+	              return {
+	                v: void 0
+	              };
+	            }();
+
+	            if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
 	          }
 	        case _entityTypes.entitySearchType:
 	          {
 	            _apiCall2.default.get(entity.entityId, { page: page, size: pageSize, $filter: filter }).then(function (result) {
-	              var data = [];
-	              _lodash2.default.forIn(result.data._embedded, function (value) {
-	                return data = data.concat(value);
-	              });
-	              _this2.setState(_extends({}, _this2.state, { searchResult: data, page: result.data.page }));
+	              _this2.setState(_extends({}, _this2.state, { searchResult: _this2.mapCollectionResult(result.data), page: result.data.page }));
 	            });
 	            return;
 	          }
@@ -82273,6 +82333,41 @@
 	            throw 'INVALID ENTITY TYPE!!!';
 	          }
 	      }
+	    }
+	  }, {
+	    key: 'getEntityRelatedEntities',
+	    value: function getEntityRelatedEntities(entity) {
+	      var result = [];
+	      if (!entity) {
+	        return result;
+	      }
+	      entity.data.sections.forEach(function (item) {
+	        item.items.forEach(function (subItem) {
+	          if ([_nemesisTypes.searchFormTypes.nemesisCollectionField, _nemesisTypes.searchFormTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+	            result.push({ type: subItem.xtype, name: subItem.name.replace('entity-', '') });
+	          }
+	        });
+	      });
+
+	      return result;
+	    }
+	  }, {
+	    key: 'mapCollectionResult',
+	    value: function mapCollectionResult(data) {
+	      var result = [];
+	      _lodash2.default.forIn(data._embedded, function (value) {
+	        return result = result.concat(value);
+	      });
+	      return result;
+	    }
+	  }, {
+	    key: 'mapEntityResult',
+	    value: function mapEntityResult(data) {
+	      if (!data) {
+	        return null;
+	      }
+
+	      return data.content || data;
 	    }
 	  }]);
 
@@ -89211,6 +89306,719 @@
 	module.exports = webpackContext;
 	webpackContext.id = 670;
 
+
+/***/ },
+/* 671 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = exports.Tabs = exports.Tab = undefined;
+
+	var _Tab2 = __webpack_require__(672);
+
+	var _Tab3 = _interopRequireDefault(_Tab2);
+
+	var _Tabs2 = __webpack_require__(673);
+
+	var _Tabs3 = _interopRequireDefault(_Tabs2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.Tab = _Tab3.default;
+	exports.Tabs = _Tabs3.default;
+	exports.default = _Tabs3.default;
+
+/***/ },
+/* 672 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends2 = __webpack_require__(190);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(228);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(229);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(234);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(235);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(239);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(274);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(282);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _EnhancedButton = __webpack_require__(288);
+
+	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getStyles(props, context) {
+	  var tabs = context.muiTheme.tabs;
+
+
+	  return {
+	    root: {
+	      color: props.selected ? tabs.selectedTextColor : tabs.textColor,
+	      fontWeight: 500,
+	      fontSize: 14,
+	      width: props.width,
+	      textTransform: 'uppercase',
+	      padding: 0
+	    },
+	    button: {
+	      display: 'flex',
+	      flexDirection: 'column',
+	      alignItems: 'center',
+	      justifyContent: 'center',
+	      height: props.label && props.icon ? 72 : 48
+	    }
+	  };
+	}
+
+	var Tab = function (_Component) {
+	  (0, _inherits3.default)(Tab, _Component);
+
+	  function Tab() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    (0, _classCallCheck3.default)(this, Tab);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Tab.__proto__ || (0, _getPrototypeOf2.default)(Tab)).call.apply(_ref, [this].concat(args))), _this), _this.handleTouchTap = function (event) {
+	      if (_this.props.onTouchTap) {
+	        _this.props.onTouchTap(_this.props.value, event, _this);
+	      }
+	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+	  }
+
+	  (0, _createClass3.default)(Tab, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          icon = _props.icon,
+	          index = _props.index,
+	          onActive = _props.onActive,
+	          onTouchTap = _props.onTouchTap,
+	          selected = _props.selected,
+	          label = _props.label,
+	          style = _props.style,
+	          value = _props.value,
+	          width = _props.width,
+	          other = (0, _objectWithoutProperties3.default)(_props, ['icon', 'index', 'onActive', 'onTouchTap', 'selected', 'label', 'style', 'value', 'width']);
+
+
+	      var styles = getStyles(this.props, this.context);
+
+	      var iconElement = void 0;
+	      if (icon && _react2.default.isValidElement(icon)) {
+	        var iconProps = {
+	          style: {
+	            fontSize: 24,
+	            color: styles.root.color,
+	            marginBottom: label ? 5 : 0
+	          }
+	        };
+	        // If it's svg icon set color via props
+	        if (icon.type.muiName !== 'FontIcon') {
+	          iconProps.color = styles.root.color;
+	        }
+	        iconElement = _react2.default.cloneElement(icon, iconProps);
+	      }
+
+	      var rippleOpacity = 0.3;
+	      var rippleColor = this.context.muiTheme.tabs.selectedTextColor;
+
+	      return _react2.default.createElement(
+	        _EnhancedButton2.default,
+	        (0, _extends3.default)({}, other, {
+	          style: (0, _simpleAssign2.default)(styles.root, style),
+	          focusRippleColor: rippleColor,
+	          touchRippleColor: rippleColor,
+	          focusRippleOpacity: rippleOpacity,
+	          touchRippleOpacity: rippleOpacity,
+	          onTouchTap: this.handleTouchTap
+	        }),
+	        _react2.default.createElement(
+	          'div',
+	          { style: styles.button },
+	          iconElement,
+	          label
+	        )
+	      );
+	    }
+	  }]);
+	  return Tab;
+	}(_react.Component);
+
+	Tab.muiName = 'Tab';
+	Tab.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? Tab.propTypes = {
+	  /**
+	   * The css class name of the root element.
+	   */
+	  className: _react.PropTypes.string,
+	  /**
+	   * Sets the icon of the tab, you can pass `FontIcon` or `SvgIcon` elements.
+	   */
+	  icon: _react.PropTypes.node,
+	  /**
+	   * @ignore
+	   */
+	  index: _react.PropTypes.any,
+	  /**
+	   * Sets the text value of the tab item to the string specified.
+	   */
+	  label: _react.PropTypes.node,
+	  /**
+	   * Fired when the active tab changes by touch or tap.
+	   * Use this event to specify any functionality when an active tab changes.
+	   * For example - we are using this to route to home when the third tab becomes active.
+	   * This function will always recieve the active tab as it\'s first argument.
+	   */
+	  onActive: _react.PropTypes.func,
+	  /**
+	   * @ignore
+	   * This property is overriden by the Tabs component.
+	   */
+	  onTouchTap: _react.PropTypes.func,
+	  /**
+	   * @ignore
+	   * Defines if the current tab is selected or not.
+	   * The Tabs component is responsible for setting this property.
+	   */
+	  selected: _react.PropTypes.bool,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object,
+	  /**
+	   * If value prop passed to Tabs component, this value prop is also required.
+	   * It assigns a value to the tab so that it can be selected by the Tabs.
+	   */
+	  value: _react.PropTypes.any,
+	  /**
+	   * @ignore
+	   * This property is overriden by the Tabs component.
+	   */
+	  width: _react.PropTypes.string
+	} : void 0;
+	exports.default = Tab;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 673 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends2 = __webpack_require__(190);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(228);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(229);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(234);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(235);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(239);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(274);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(282);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _warning = __webpack_require__(343);
+
+	var _warning2 = _interopRequireDefault(_warning);
+
+	var _TabTemplate = __webpack_require__(674);
+
+	var _TabTemplate2 = _interopRequireDefault(_TabTemplate);
+
+	var _InkBar = __webpack_require__(675);
+
+	var _InkBar2 = _interopRequireDefault(_InkBar);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getStyles(props, context) {
+	  var tabs = context.muiTheme.tabs;
+
+
+	  return {
+	    tabItemContainer: {
+	      width: '100%',
+	      backgroundColor: tabs.backgroundColor,
+	      whiteSpace: 'nowrap',
+	      display: 'flex'
+	    }
+	  };
+	}
+
+	var Tabs = function (_Component) {
+	  (0, _inherits3.default)(Tabs, _Component);
+
+	  function Tabs() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    (0, _classCallCheck3.default)(this, Tabs);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Tabs.__proto__ || (0, _getPrototypeOf2.default)(Tabs)).call.apply(_ref, [this].concat(args))), _this), _this.state = { selectedIndex: 0 }, _this.handleTabTouchTap = function (value, event, tab) {
+	      var valueLink = _this.getValueLink(_this.props);
+	      var index = tab.props.index;
+
+	      if (valueLink.value && valueLink.value !== value || _this.state.selectedIndex !== index) {
+	        valueLink.requestChange(value, event, tab);
+	      }
+
+	      _this.setState({ selectedIndex: index });
+
+	      if (tab.props.onActive) {
+	        tab.props.onActive(tab);
+	      }
+	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+	  }
+
+	  (0, _createClass3.default)(Tabs, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var valueLink = this.getValueLink(this.props);
+	      var initialIndex = this.props.initialSelectedIndex;
+
+	      this.setState({
+	        selectedIndex: valueLink.value !== undefined ? this.getSelectedIndex(this.props) : initialIndex < this.getTabCount() ? initialIndex : 0
+	      });
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(newProps, nextContext) {
+	      var valueLink = this.getValueLink(newProps);
+	      var newState = {
+	        muiTheme: nextContext.muiTheme || this.context.muiTheme
+	      };
+
+	      if (valueLink.value !== undefined) {
+	        newState.selectedIndex = this.getSelectedIndex(newProps);
+	      }
+
+	      this.setState(newState);
+	    }
+	  }, {
+	    key: 'getTabs',
+	    value: function getTabs() {
+	      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.props;
+
+	      var tabs = [];
+
+	      _react.Children.forEach(props.children, function (tab) {
+	        if ((0, _react.isValidElement)(tab)) {
+	          tabs.push(tab);
+	        }
+	      });
+
+	      return tabs;
+	    }
+	  }, {
+	    key: 'getTabCount',
+	    value: function getTabCount() {
+	      return this.getTabs().length;
+	    }
+
+	    // Do not use outside of this component, it will be removed once valueLink is deprecated
+
+	  }, {
+	    key: 'getValueLink',
+	    value: function getValueLink(props) {
+	      return props.valueLink || {
+	        value: props.value,
+	        requestChange: props.onChange
+	      };
+	    }
+	  }, {
+	    key: 'getSelectedIndex',
+	    value: function getSelectedIndex(props) {
+	      var valueLink = this.getValueLink(props);
+	      var selectedIndex = -1;
+
+	      this.getTabs(props).forEach(function (tab, index) {
+	        if (valueLink.value === tab.props.value) {
+	          selectedIndex = index;
+	        }
+	      });
+
+	      return selectedIndex;
+	    }
+	  }, {
+	    key: 'getSelected',
+	    value: function getSelected(tab, index) {
+	      var valueLink = this.getValueLink(this.props);
+	      return valueLink.value ? valueLink.value === tab.props.value : this.state.selectedIndex === index;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var _props = this.props,
+	          contentContainerClassName = _props.contentContainerClassName,
+	          contentContainerStyle = _props.contentContainerStyle,
+	          initialSelectedIndex = _props.initialSelectedIndex,
+	          inkBarStyle = _props.inkBarStyle,
+	          onChange = _props.onChange,
+	          style = _props.style,
+	          tabItemContainerStyle = _props.tabItemContainerStyle,
+	          tabTemplate = _props.tabTemplate,
+	          tabTemplateStyle = _props.tabTemplateStyle,
+	          other = (0, _objectWithoutProperties3.default)(_props, ['contentContainerClassName', 'contentContainerStyle', 'initialSelectedIndex', 'inkBarStyle', 'onChange', 'style', 'tabItemContainerStyle', 'tabTemplate', 'tabTemplateStyle']);
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      var styles = getStyles(this.props, this.context);
+	      var valueLink = this.getValueLink(this.props);
+	      var tabValue = valueLink.value;
+	      var tabContent = [];
+	      var width = 100 / this.getTabCount();
+
+	      var tabs = this.getTabs().map(function (tab, index) {
+	        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(tab.type && tab.type.muiName === 'Tab', 'Material-UI: Tabs only accepts Tab Components as children.\n        Found ' + (tab.type.muiName || tab.type) + ' as child number ' + (index + 1) + ' of Tabs') : void 0;
+
+	        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(!tabValue || tab.props.value !== undefined, 'Material-UI: Tabs value prop has been passed, but Tab ' + index + '\n        does not have a value prop. Needs value if Tabs is going\n        to be a controlled component.') : void 0;
+
+	        tabContent.push(tab.props.children ? (0, _react.createElement)(tabTemplate || _TabTemplate2.default, {
+	          key: index,
+	          selected: _this2.getSelected(tab, index),
+	          style: tabTemplateStyle
+	        }, tab.props.children) : undefined);
+
+	        return (0, _react.cloneElement)(tab, {
+	          key: index,
+	          index: index,
+	          selected: _this2.getSelected(tab, index),
+	          width: width + '%',
+	          onTouchTap: _this2.handleTabTouchTap
+	        });
+	      });
+
+	      var inkBar = this.state.selectedIndex !== -1 ? _react2.default.createElement(_InkBar2.default, {
+	        left: width * this.state.selectedIndex + '%',
+	        width: width + '%',
+	        style: inkBarStyle
+	      }) : null;
+
+	      var inkBarContainerWidth = tabItemContainerStyle ? tabItemContainerStyle.width : '100%';
+
+	      return _react2.default.createElement(
+	        'div',
+	        (0, _extends3.default)({
+	          style: prepareStyles((0, _simpleAssign2.default)({}, style))
+	        }, other),
+	        _react2.default.createElement(
+	          'div',
+	          { style: prepareStyles((0, _simpleAssign2.default)(styles.tabItemContainer, tabItemContainerStyle)) },
+	          tabs
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { style: { width: inkBarContainerWidth } },
+	          inkBar
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          {
+	            style: prepareStyles((0, _simpleAssign2.default)({}, contentContainerStyle)),
+	            className: contentContainerClassName
+	          },
+	          tabContent
+	        )
+	      );
+	    }
+	  }]);
+	  return Tabs;
+	}(_react.Component);
+
+	Tabs.defaultProps = {
+	  initialSelectedIndex: 0,
+	  onChange: function onChange() {}
+	};
+	Tabs.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? Tabs.propTypes = {
+	  /**
+	   * Should be used to pass `Tab` components.
+	   */
+	  children: _react.PropTypes.node,
+	  /**
+	   * The css class name of the root element.
+	   */
+	  className: _react.PropTypes.string,
+	  /**
+	   * The css class name of the content's container.
+	   */
+	  contentContainerClassName: _react.PropTypes.string,
+	  /**
+	   * Override the inline-styles of the content's container.
+	   */
+	  contentContainerStyle: _react.PropTypes.object,
+	  /**
+	   * Specify initial visible tab index.
+	   * If `initialSelectedIndex` is set but larger than the total amount of specified tabs,
+	   * `initialSelectedIndex` will revert back to default.
+	   * If `initialSlectedIndex` is set to any negative value, no tab will be selected intially.
+	   */
+	  initialSelectedIndex: _react.PropTypes.number,
+	  /**
+	   * Override the inline-styles of the InkBar.
+	   */
+	  inkBarStyle: _react.PropTypes.object,
+	  /**
+	   * Called when the selected value change.
+	   */
+	  onChange: _react.PropTypes.func,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object,
+	  /**
+	   * Override the inline-styles of the tab-labels container.
+	   */
+	  tabItemContainerStyle: _react.PropTypes.object,
+	  /**
+	   * Override the default tab template used to wrap the content of each tab element.
+	   */
+	  tabTemplate: _react.PropTypes.func,
+	  /**
+	   * Override the inline-styles of the tab template.
+	   */
+	  tabTemplateStyle: _react.PropTypes.object,
+	  /**
+	   * Makes Tabs controllable and selects the tab whose value prop matches this prop.
+	   */
+	  value: _react.PropTypes.any
+	} : void 0;
+	exports.default = Tabs;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 674 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _simpleAssign = __webpack_require__(282);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var styles = {
+	  width: '100%',
+	  position: 'relative',
+	  textAlign: 'initial'
+	};
+
+	var TabTemplate = function TabTemplate(_ref) {
+	  var children = _ref.children,
+	      selected = _ref.selected,
+	      style = _ref.style;
+
+	  var templateStyle = (0, _simpleAssign2.default)({}, styles, style);
+	  if (!selected) {
+	    templateStyle.height = 0;
+	    templateStyle.overflow = 'hidden';
+	  }
+
+	  return _react2.default.createElement(
+	    'div',
+	    { style: templateStyle },
+	    children
+	  );
+	};
+
+	process.env.NODE_ENV !== "production" ? TabTemplate.propTypes = {
+	  children: _react.PropTypes.node,
+	  selected: _react.PropTypes.bool,
+	  style: _react.PropTypes.object
+	} : void 0;
+
+	exports.default = TabTemplate;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 675 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(229);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(234);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(235);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(239);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(274);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(282);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _transitions = __webpack_require__(283);
+
+	var _transitions2 = _interopRequireDefault(_transitions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getStyles(props, context) {
+	  var inkBar = context.muiTheme.inkBar;
+
+
+	  return {
+	    root: {
+	      left: props.left,
+	      width: props.width,
+	      bottom: 0,
+	      display: 'block',
+	      backgroundColor: props.color || inkBar.backgroundColor,
+	      height: 2,
+	      marginTop: -2,
+	      position: 'relative',
+	      transition: _transitions2.default.easeOut('1s', 'left')
+	    }
+	  };
+	}
+
+	var InkBar = function (_Component) {
+	  (0, _inherits3.default)(InkBar, _Component);
+
+	  function InkBar() {
+	    (0, _classCallCheck3.default)(this, InkBar);
+	    return (0, _possibleConstructorReturn3.default)(this, (InkBar.__proto__ || (0, _getPrototypeOf2.default)(InkBar)).apply(this, arguments));
+	  }
+
+	  (0, _createClass3.default)(InkBar, [{
+	    key: 'render',
+	    value: function render() {
+	      var style = this.props.style;
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      var styles = getStyles(this.props, this.context);
+
+	      return _react2.default.createElement('div', { style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) });
+	    }
+	  }]);
+	  return InkBar;
+	}(_react.Component);
+
+	InkBar.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? InkBar.propTypes = {
+	  color: _react.PropTypes.string,
+	  left: _react.PropTypes.string.isRequired,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object,
+	  width: _react.PropTypes.string.isRequired
+	} : void 0;
+	exports.default = InkBar;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }
 /******/ ]);

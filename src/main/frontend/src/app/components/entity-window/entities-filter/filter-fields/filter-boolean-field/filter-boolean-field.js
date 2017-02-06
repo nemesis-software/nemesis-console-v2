@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { searchRestrictionTypes } from '../../../../../types/nemesis-types';
 import Translate from 'react-translate-component';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import TextField from 'material-ui/TextField';
 
 const styles = {
   parent: {
