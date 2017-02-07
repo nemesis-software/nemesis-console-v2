@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import FilterRestrictionFields from '../filter-restriction-field/filter-restriction-field';
-import TextField from 'material-ui/TextField';
-import Translate from 'react-translate-component';
 import { searchRestrictionTypes } from '../../../../../types/nemesis-types';
 import _ from 'lodash';
+import NemesisTextField from '../../../../field-components/nemesis-text-field/nemesis-text-field';
 
 const restrictionFields = [
   searchRestrictionTypes.startingWith,
@@ -29,9 +28,7 @@ export default class FilterTextField extends Component {
     return (
       <div>
         <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <TextField style={this.getTextFieldStyles()}
-          floatingLabelText={<Translate content={'main.' + this.props.filterItem.fieldLabel} fallback={this.props.filterItem.fieldLabel} />}
-          onChange={_.debounce(this.onTextFieldChange.bind(this), 250)}/>
+        <NemesisTextField style={this.getTextFieldStyles()} onValueChange={_.debounce(this.onTextFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
   }
@@ -41,7 +38,7 @@ export default class FilterTextField extends Component {
     this.updateParentFilter(this.state.textField, restrictionValue);
   }
 
-  onTextFieldChange(event, value) {
+  onTextFieldChange(value) {
     this.setState({...this.state, textField: value});
     this.updateParentFilter(value, this.state.restrictionField);
   }

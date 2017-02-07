@@ -15,7 +15,7 @@ const pagerData = {
 export default class EntitiesWindow extends Component {
   constructor(props) {
     super(props);
-    this.state = {searchResult: [], itemResult: {}, page: {}, filter: null};
+    this.state = {searchData: [], entityData: {}, page: {}, filter: null};
   }
 
   componentWillMount() {
@@ -43,7 +43,7 @@ export default class EntitiesWindow extends Component {
       case entityItemType: {
         return (
           <div>
-            <EntitySections entity={entity} entityResult={this.state.itemResult}/>
+            <EntitySections entity={entity} entityData={this.state.entityData}/>
           </div>
         );
       }
@@ -52,11 +52,11 @@ export default class EntitiesWindow extends Component {
           <div>
             <Translate component="h2" content={'main.' + entity.entityId} fallback={entity.entityId}/>
             <EntitiesFilter filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
-            <EntitiesViewer entities={this.state.searchResult}
-                             entitiesMarkup={this.props.entity.data.result}
-                             onPagerChange={this.onPagerChange.bind(this)}
-                             page={this.state.page}
-                             onEntityItemClick={this.onEntityItemClick.bind(this)}/>
+            <EntitiesViewer entities={this.state.searchData}
+                            entitiesMarkup={this.props.entity.data.result}
+                            onPagerChange={this.onPagerChange.bind(this)}
+                            page={this.state.page}
+                            onEntityItemClick={this.onEntityItemClick.bind(this)}/>
           </div>
         );
       }
@@ -84,7 +84,7 @@ export default class EntitiesWindow extends Component {
       case entityItemType: {
         let relatedEntities = this.getEntityRelatedEntities(entity);
         ApiCall.get(entity.entityId + '/' + entity.itemId).then(result => {
-          this.setState({...this.state, itemResult: result.data});
+          this.setState({...this.state, entityData: result.data});
           Promise.all(
             relatedEntities.map(item => ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
             //TODO: Patch for return 404 for empty relation - https://github.com/nemesis-software/nemesis-platform/issues/293
@@ -98,21 +98,21 @@ export default class EntitiesWindow extends Component {
             relatedEntities.forEach((item, index) => {
               let data;
               if (item.type === searchFormTypes.nemesisCollectionField) {
-                data = this.mapCollectionResult(result[index].data);
+                data = this.mapCollectionData(result[index].data);
               } else {
-                data = this.mapEntityResult(result[index].data);
+                data = this.mapEntityData(result[index].data);
               }
 
               relatedEntitiesResult[item.name] = data;
             });
-            this.setState({...this.state, itemResult: {...this.state.itemResult, customClientData: relatedEntitiesResult}})
+            this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}})
           })
         });
         return;
       }
       case entitySearchType: {
         ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter}).then(result => {
-          this.setState({...this.state, searchResult: this.mapCollectionResult(result.data), page: result.data.page});
+          this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page});
         });
         return;
       }
@@ -138,13 +138,13 @@ export default class EntitiesWindow extends Component {
     return result;
   }
 
-  mapCollectionResult(data) {
+  mapCollectionData(data) {
     let result = [];
     _.forIn(data._embedded, (value) => result = result.concat(value));
     return result;
   }
 
-  mapEntityResult(data) {
+  mapEntityData(data) {
     if (!data) {
       return null;
     }
