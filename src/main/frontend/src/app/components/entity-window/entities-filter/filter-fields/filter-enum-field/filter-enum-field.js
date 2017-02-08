@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import Translate from 'react-translate-component';
 import { searchRestrictionTypes } from '../../../../../types/nemesis-types';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import NemesisEnumField from '../../../../field-components/nemesis-enum-field/nemesis-enum-field'
 
 const styles = {
   verticalAlign: 'top',
@@ -18,19 +16,12 @@ export default class FilterEnumField extends Component {
   render() {
     return (
       <div>
-        <SelectField
-          style={styles}
-          value={this.state.enumField}
-          floatingLabelText={<Translate content={'main.' + this.props.filterItem.fieldLabel} fallback={this.props.filterItem.fieldLabel} />}
-          onChange={this.onEnumFieldChange.bind(this)}>
-          {this.props.filterItem.values.map((value, index) => <MenuItem key={index} value={value} primaryText={value} />)}
-        </SelectField>
+        <NemesisEnumField style={styles} values={this.props.filterItem.values} onValueChange={this.onEnumFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
   }
 
-  onEnumFieldChange(event, index) {
-    let value = this.props.filterItem.values[index];
+  onEnumFieldChange(value) {
     this.setState({enumField: value});
     this.updateParentFilter(value);
   }

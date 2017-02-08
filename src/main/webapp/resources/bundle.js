@@ -29213,6 +29213,8 @@
 		"./app/components/field-components/nemesis-base-field.js": 409,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field": 691,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field.js": 691,
+		"./app/components/field-components/nemesis-enum-field/nemesis-enum-field": 695,
+		"./app/components/field-components/nemesis-enum-field/nemesis-enum-field.js": 695,
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field": 692,
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field.js": 692,
 		"./app/components/field-components/nemesis-text-field/nemesis-text-field": 408,
@@ -76042,19 +76044,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactTranslateComponent = __webpack_require__(316);
-
-	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
-
 	var _nemesisTypes = __webpack_require__(392);
 
-	var _SelectField = __webpack_require__(395);
+	var _nemesisEnumField = __webpack_require__(695);
 
-	var _SelectField2 = _interopRequireDefault(_SelectField);
-
-	var _MenuItem = __webpack_require__(361);
-
-	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+	var _nemesisEnumField2 = _interopRequireDefault(_nemesisEnumField);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -76087,23 +76081,12 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          _SelectField2.default,
-	          {
-	            style: styles,
-	            value: this.state.enumField,
-	            floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.filterItem.fieldLabel, fallback: this.props.filterItem.fieldLabel }),
-	            onChange: this.onEnumFieldChange.bind(this) },
-	          this.props.filterItem.values.map(function (value, index) {
-	            return _react2.default.createElement(_MenuItem2.default, { key: index, value: value, primaryText: value });
-	          })
-	        )
+	        _react2.default.createElement(_nemesisEnumField2.default, { style: styles, values: this.props.filterItem.values, onValueChange: this.onEnumFieldChange.bind(this), label: this.props.filterItem.fieldLabel })
 	      );
 	    }
 	  }, {
 	    key: 'onEnumFieldChange',
-	    value: function onEnumFieldChange(event, index) {
-	      var value = this.props.filterItem.values[index];
+	    value: function onEnumFieldChange(value) {
 	      this.setState({ enumField: value });
 	      this.updateParentFilter(value);
 	    }
@@ -82259,6 +82242,10 @@
 
 	var _nemesisNumberField2 = _interopRequireDefault(_nemesisNumberField);
 
+	var _nemesisEnumField = __webpack_require__(695);
+
+	var _nemesisEnumField2 = _interopRequireDefault(_nemesisEnumField);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -82319,6 +82306,8 @@
 	          elementConfig.step = '0.1';reactElement = _nemesisNumberField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisIntegerField:
 	          reactElement = _nemesisNumberField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisEnumField:
+	          elementConfig.values = item.values;elementConfig.value = item.values.indexOf(elementConfig.value);reactElement = _nemesisEnumField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -91627,6 +91616,84 @@
 	}(_nemesisBaseField2.default);
 
 	exports.default = NemesisNumberField;
+
+/***/ },
+/* 693 */,
+/* 694 */,
+/* 695 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _nemesisBaseField = __webpack_require__(409);
+
+	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
+
+	var _SelectField = __webpack_require__(395);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _MenuItem = __webpack_require__(361);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisEnumField = function (_NemesisBaseField) {
+	  _inherits(NemesisEnumField, _NemesisBaseField);
+
+	  function NemesisEnumField(props) {
+	    _classCallCheck(this, NemesisEnumField);
+
+	    return _possibleConstructorReturn(this, (NemesisEnumField.__proto__ || Object.getPrototypeOf(NemesisEnumField)).call(this, props));
+	  }
+
+	  _createClass(NemesisEnumField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _SelectField2.default,
+	        { style: this.props.style,
+	          value: this.getFormattedValue(this.state.value) || '',
+	          disabled: this.props.readOnly,
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	          onChange: this.onValueChange.bind(this) },
+	        this.props.values.map(function (value, index) {
+	          return _react2.default.createElement(_MenuItem2.default, { key: index, value: value, primaryText: value });
+	        })
+	      );
+	    }
+	  }, {
+	    key: 'getFormattedValue',
+	    value: function getFormattedValue(value) {
+	      return this.props.values[value];
+	    }
+	  }]);
+
+	  return NemesisEnumField;
+	}(_nemesisBaseField2.default);
+
+	exports.default = NemesisEnumField;
 
 /***/ }
 /******/ ]);
