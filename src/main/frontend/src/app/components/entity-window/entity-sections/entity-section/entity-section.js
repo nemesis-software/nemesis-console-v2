@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { searchFormTypes } from '../../../../types/nemesis-types';
+import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../../../types/nemesis-types';
 import NemesisTextField from '../../../field-components/nemesis-text-field/nemesis-text-field';
+import NemesisDateField from '../../../field-components/nemesis-date-field/nemesis-date-field';
 
 export default class EntitySection extends Component {
   constructor(props) {
@@ -20,7 +21,8 @@ export default class EntitySection extends Component {
   getSectionItemRenderer(item, index) {
     let reactElement;
     switch (item.xtype) {
-      case searchFormTypes.nemesisTextField: reactElement = NemesisTextField; break;
+      case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
+      case nemesisFieldTypes.nemesisDateField: reactElement = NemesisDateField; break;
       default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
 
@@ -30,7 +32,8 @@ export default class EntitySection extends Component {
       name: item.name,
       readOnly: item.readOnly,
       required: item.required,
-      value: this.props.entityData[item.name]
+      value: this.props.entityData[item.name],
+      type: nemesisFieldUsageTypes.edit
     })
   }
 }

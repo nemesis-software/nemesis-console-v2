@@ -6,7 +6,7 @@ import EntitiesFilter from './entities-filter/entities-filter';
 import EntitiesViewer from './entities-viewer/entities-viewer';
 import EntitySections from './entity-sections/entity-sections'
 import Translate from 'react-translate-component';
-import { searchFormTypes } from '../../types/nemesis-types'
+import { nemesisFieldTypes } from '../../types/nemesis-types'
 
 const pagerData = {
   page: 1,
@@ -97,7 +97,7 @@ export default class EntitiesWindow extends Component {
             let relatedEntitiesResult = {};
             relatedEntities.forEach((item, index) => {
               let data;
-              if (item.type === searchFormTypes.nemesisCollectionField) {
+              if (item.type === nemesisFieldTypes.nemesisCollectionField) {
                 data = this.mapCollectionData(result[index].data);
               } else {
                 data = this.mapEntityData(result[index].data);
@@ -129,7 +129,7 @@ export default class EntitiesWindow extends Component {
     }
     entity.data.sections.forEach(item => {
       item.items.forEach(subItem => {
-        if ([searchFormTypes.nemesisCollectionField, searchFormTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+        if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
           result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
         }
       })

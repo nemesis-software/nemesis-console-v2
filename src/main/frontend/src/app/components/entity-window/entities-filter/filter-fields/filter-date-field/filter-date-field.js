@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { searchRestrictionTypes } from '../../../../../types/nemesis-types';
 import FilterRestrictionFields from '../filter-restriction-field/filter-restriction-field';
-import DatePicker from 'material-ui/DatePicker';
-import Translate from 'react-translate-component';
-import moment from 'moment';
+import NemesisDateField from '../../../../field-components/nemesis-date-field/nemesis-date-field';
 
 const restrictionFields = [
   searchRestrictionTypes.before,
@@ -27,9 +25,7 @@ export default class FilterDateField extends Component {
     return (
       <div>
         <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <DatePicker style={this.getDateFieldStyles()}
-                    onChange={this.onDateFieldChange.bind(this)}
-                    floatingLabelText={<Translate content={'main.' + this.props.filterItem.fieldLabel} fallback={this.props.filterItem.fieldLabel} />} />
+        <NemesisDateField style={this.getDateFieldStyles()} onValueChange={this.onDateFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
   }
@@ -39,10 +35,9 @@ export default class FilterDateField extends Component {
     this.updateParentFilter(this.state.dateField, restrictionValue);
   }
 
-  onDateFieldChange(event, value) {
-    let date = moment(value).set({hour:0,minute:0,second:0,millisecond:0}).format('Y-MM-DD\\THH:mm:ss');
-    this.setState({...this.state, dateField: date});
-    this.updateParentFilter(date, this.state.restrictionField);
+  onDateFieldChange(value) {
+    this.setState({...this.state, dateField: value});
+    this.updateParentFilter(value, this.state.restrictionField);
   }
 
   updateParentFilter(dateField, restrictionValue) {

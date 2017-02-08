@@ -5,7 +5,7 @@ export default class NemesisBaseField extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {isDirty: false, value: this.props.value};
+    this.state = {isDirty: false, value: this.setFormattedValue(this.props.value)};
   }
 
   render() {
@@ -16,7 +16,7 @@ export default class NemesisBaseField extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.value, nextProps.value)) {
-      this.setState({isDirty: false, value: nextProps.value});
+      this.setState({isDirty: false, value: this.setFormattedValue(nextProps.value)});
     }
 
   }
@@ -24,7 +24,7 @@ export default class NemesisBaseField extends Component {
   onValueChange(event, value) {
     this.setState({...this.state, isDirty: true, value: value});
     if (this.props.onValueChange) {
-      this.props.onValueChange(value);
+      this.props.onValueChange(this.getFormattedValue(value));
     }
   }
 
@@ -38,10 +38,18 @@ export default class NemesisBaseField extends Component {
 
   getChangeValue() {
     if (this.state.isDirty) {
-      return {name: this.props.name, value: this.props.value};
+      return {name: this.props.name, value: this.getFormattedValue(this.props.value)};
     }
 
     return null;
+  }
+
+  getFormattedValue(value) {
+    return value;
+  }
+
+  setFormattedValue(value) {
+    return value;
   }
 }
 
@@ -49,8 +57,9 @@ NemesisBaseField.propTypes = {
   label: React.PropTypes.string.isRequired,
   onValueChange: React.PropTypes.func,
   style: React.PropTypes.object,
-  value: React.PropTypes.string,
+  value: React.PropTypes.any,
   readOnly: React.PropTypes.bool,
   required: React.PropTypes.bool,
-  name: React.PropTypes.string
+  name: React.PropTypes.string,
+  type: React.PropTypes.string
 };

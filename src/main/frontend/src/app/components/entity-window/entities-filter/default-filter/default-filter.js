@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { searchFormTypes } from '../../../../types/nemesis-types';
+import { nemesisFieldTypes } from '../../../../types/nemesis-types';
 import FilterTextField from '../filter-fields/filter-text-field/filter-text-field';
 import FilterDateField from '../filter-fields/filter-date-field/filter-date-field';
 import FilterLocalizedTextField from '../filter-fields/filter-localized-text-field/filter-localized-text-field';
@@ -31,14 +31,14 @@ export default class DefaultFilter extends Component {
   getFilterItemRender(filterItem, renderIndex) {
     let reactElement;
     switch (filterItem.xtype) {
-      case searchFormTypes.nemesisTextField: reactElement = FilterTextField; break;
-      case searchFormTypes.nemesisDateField: reactElement = FilterDateField; break;
-      case searchFormTypes.nemesisLocalizedTextField: reactElement = FilterLocalizedTextField; break;
-      case searchFormTypes.nemesisBooleanField: reactElement = FilterBooleanField; break;
-      case searchFormTypes.nemesisEnumField: reactElement = FilterEnumField; break;
-      case searchFormTypes.nemesisIntegerField:
-      case searchFormTypes.nemesisDecimalField: reactElement = FilterNumberField; break;
-      case searchFormTypes.nemesisEntityField: reactElement = FilterEntityField; break;
+      case nemesisFieldTypes.nemesisTextField: reactElement = FilterTextField; break;
+      case nemesisFieldTypes.nemesisDateField: reactElement = FilterDateField; break;
+      case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = FilterLocalizedTextField; break;
+      case nemesisFieldTypes.nemesisBooleanField: reactElement = FilterBooleanField; break;
+      case nemesisFieldTypes.nemesisEnumField: reactElement = FilterEnumField; break;
+      case nemesisFieldTypes.nemesisIntegerField:
+      case nemesisFieldTypes.nemesisDecimalField: reactElement = FilterNumberField; break;
+      case nemesisFieldTypes.nemesisEntityField: reactElement = FilterEntityField; break;
       default: return <div key={renderIndex}>Not supported yet - {filterItem.xtype}</div>
     }
 

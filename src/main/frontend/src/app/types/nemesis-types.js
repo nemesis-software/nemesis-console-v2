@@ -1,4 +1,4 @@
-export const searchFormTypes = {
+export const nemesisFieldTypes = {
   nemesisBooleanField: 'nemesisBooleanField',
   nemesisCollectionField: 'nemesisCollectionField',
   nemesisDateField: 'nemesisDateField',
@@ -8,6 +8,11 @@ export const searchFormTypes = {
   nemesisTextField: 'nemesisTextField',
   nemesisDecimalField: 'nemesisDecimalField',
   nemesisIntegerField: 'nemesisIntegerField'
+};
+
+export const nemesisFieldUsageTypes = {
+  search: 'SEARCH',
+  edit: 'EDIT'
 };
 
 export const searchRestrictionTypes = {
