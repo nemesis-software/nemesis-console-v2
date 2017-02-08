@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import FilterRestrictionFields from '../filter-restriction-field/filter-restriction-field';
-import TextField from 'material-ui/TextField';
-import Translate from 'react-translate-component';
 import { searchRestrictionTypes, nemesisFieldTypes } from '../../../../../types/nemesis-types';
 import _ from 'lodash';
+import NemesisDecimalField from '../../../../field-components/nemesis-number-field/nemesis-decimal-field/nemesis-decimal-field';
+import NemesisIntegerField from '../../../../field-components/nemesis-number-field/nemesis-interger-field/nemesis-interger-field';
 
 const restrictionFields = [
   searchRestrictionTypes.greaterThan,
@@ -28,19 +28,17 @@ export default class FilterNumberField extends Component {
     return (
       <div>
         <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <TextField type="number" step={this.props.filterItem.xtype === nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1'} style={this.getNumberFieldStyles()}
-                   floatingLabelText={<Translate content={'main.' + this.props.filterItem.fieldLabel} fallback={this.props.filterItem.fieldLabel} />}
-                   onChange={_.debounce(this.onNumberFieldChange.bind(this), 250)}/>
+        {this.getNumberElementByType(this.props.filterItem.xtype)}
       </div>
     )
   }
 
   onRestrictionFieldChange(restrictionValue) {
     this.setState({...this.state, restrictionField: restrictionValue});
-    this.updateParentFilter(this.state.textField, restrictionValue);
+    this.updateParentFilter(this.state.numberField, restrictionValue);
   }
 
-  onNumberFieldChange(event, value) {
+  onNumberFieldChange(value) {
     this.setState({...this.state, numberField: value});
     this.updateParentFilter(value, this.state.restrictionField);
   }
@@ -61,5 +59,19 @@ export default class FilterNumberField extends Component {
     }
 
     return result;
+  }
+
+  getNumberElementByType(type) {
+    let reactElement;
+    switch (type) {
+      case nemesisFieldTypes.nemesisDecimalField: reactElement = NemesisDecimalField; break;
+      case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisIntegerField; break;
+      default: return <div>Invalid Type</div>
+    }
+    return React.createElement(reactElement, {
+      style: this.getNumberFieldStyles(),
+      onValueChange: _.debounce(this.onNumberFieldChange.bind(this), 250),
+      label: this.props.filterItem.fieldLabel
+    })
   }
 }

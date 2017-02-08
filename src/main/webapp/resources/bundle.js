@@ -29213,6 +29213,12 @@
 		"./app/components/field-components/nemesis-base-field.js": 409,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field": 691,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field.js": 691,
+		"./app/components/field-components/nemesis-number-field/nemesis-decimal-field/nemesis-decimal-field": 694,
+		"./app/components/field-components/nemesis-number-field/nemesis-decimal-field/nemesis-decimal-field.js": 694,
+		"./app/components/field-components/nemesis-number-field/nemesis-interger-field/nemesis-interger-field": 693,
+		"./app/components/field-components/nemesis-number-field/nemesis-interger-field/nemesis-interger-field.js": 693,
+		"./app/components/field-components/nemesis-number-field/nemesis-number-field": 692,
+		"./app/components/field-components/nemesis-number-field/nemesis-number-field.js": 692,
 		"./app/components/field-components/nemesis-text-field/nemesis-text-field": 408,
 		"./app/components/field-components/nemesis-text-field/nemesis-text-field.js": 408,
 		"./app/components/language-changer": 542,
@@ -53076,6 +53082,7 @@
 	  }, {
 	    key: 'onSearchButtonClick',
 	    value: function onSearchButtonClick() {
+	      console.log(this.state.appliedFilters);
 	      var filterString = _filterBuilder2.default.buildFilter(this.state.appliedFilters);
 	      this.props.onFilterApply(filterString);
 	    }
@@ -75937,19 +75944,19 @@
 
 	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
 
-	var _TextField = __webpack_require__(397);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
-	var _reactTranslateComponent = __webpack_require__(316);
-
-	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
-
 	var _nemesisTypes = __webpack_require__(392);
 
 	var _lodash = __webpack_require__(389);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _nemesisDecimalField = __webpack_require__(694);
+
+	var _nemesisDecimalField2 = _interopRequireDefault(_nemesisDecimalField);
+
+	var _nemesisIntergerField = __webpack_require__(693);
+
+	var _nemesisIntergerField2 = _interopRequireDefault(_nemesisIntergerField);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75985,20 +75992,18 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
-	        _react2.default.createElement(_TextField2.default, { type: 'number', step: this.props.filterItem.xtype === _nemesisTypes.nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1', style: this.getNumberFieldStyles(),
-	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.filterItem.fieldLabel, fallback: this.props.filterItem.fieldLabel }),
-	          onChange: _lodash2.default.debounce(this.onNumberFieldChange.bind(this), 250) })
+	        this.getNumberElementByType(this.props.filterItem.xtype)
 	      );
 	    }
 	  }, {
 	    key: 'onRestrictionFieldChange',
 	    value: function onRestrictionFieldChange(restrictionValue) {
 	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
-	      this.updateParentFilter(this.state.textField, restrictionValue);
+	      this.updateParentFilter(this.state.numberField, restrictionValue);
 	    }
 	  }, {
 	    key: 'onNumberFieldChange',
-	    value: function onNumberFieldChange(event, value) {
+	    value: function onNumberFieldChange(value) {
 	      this.setState(_extends({}, this.state, { numberField: value }));
 	      this.updateParentFilter(value, this.state.restrictionField);
 	    }
@@ -76021,6 +76026,28 @@
 	      }
 
 	      return result;
+	    }
+	  }, {
+	    key: 'getNumberElementByType',
+	    value: function getNumberElementByType(type) {
+	      var reactElement = void 0;
+	      switch (type) {
+	        case _nemesisTypes.nemesisFieldTypes.nemesisDecimalField:
+	          reactElement = _nemesisDecimalField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisIntegerField:
+	          reactElement = _nemesisIntergerField2.default;break;
+	        default:
+	          return _react2.default.createElement(
+	            'div',
+	            null,
+	            'Invalid Type'
+	          );
+	      }
+	      return _react2.default.createElement(reactElement, {
+	        style: this.getNumberFieldStyles(),
+	        onValueChange: _lodash2.default.debounce(this.onNumberFieldChange.bind(this), 250),
+	        label: this.props.filterItem.fieldLabel
+	      });
 	    }
 	  }]);
 
@@ -78768,14 +78795,14 @@
 
 	      result[_nemesisTypes.searchRestrictionTypes.greaterThan] = {
 	        getFilterString: function getFilterString(item) {
-	          return item.field + ' ge ' + item.value;
+	          return item.field + ' ge ' + item.value + 'M';
 	        },
 	        isValueRequired: true
 	      };
 
 	      result[_nemesisTypes.searchRestrictionTypes.lessThan] = {
 	        getFilterString: function getFilterString(item) {
-	          return item.field + ' le ' + item.value;
+	          return item.field + ' le ' + item.value + 'M';
 	        },
 	        isValueRequired: true
 	      };
@@ -82258,6 +82285,14 @@
 
 	var _nemesisDateField2 = _interopRequireDefault(_nemesisDateField);
 
+	var _nemesisIntergerField = __webpack_require__(693);
+
+	var _nemesisIntergerField2 = _interopRequireDefault(_nemesisIntergerField);
+
+	var _nemesisDecimalField = __webpack_require__(694);
+
+	var _nemesisDecimalField2 = _interopRequireDefault(_nemesisDecimalField);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -82304,6 +82339,10 @@
 	          reactElement = _nemesisTextField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisDateField:
 	          reactElement = _nemesisDateField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisIntegerField:
+	          reactElement = _nemesisIntergerField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisDecimalField:
+	          reactElement = _nemesisDecimalField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -91558,6 +91597,162 @@
 	}(_nemesisBaseField2.default);
 
 	exports.default = NemesisDateField;
+
+/***/ },
+/* 692 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(397);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _nemesisBaseField = __webpack_require__(409);
+
+	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisNumberField = function (_NemesisBaseField) {
+	  _inherits(NemesisNumberField, _NemesisBaseField);
+
+	  function NemesisNumberField(props) {
+	    _classCallCheck(this, NemesisNumberField);
+
+	    return _possibleConstructorReturn(this, (NemesisNumberField.__proto__ || Object.getPrototypeOf(NemesisNumberField)).call(this, props));
+	  }
+
+	  _createClass(NemesisNumberField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	        type: 'number', step: this.getStepSize(),
+	        value: this.state.value || '',
+	        disabled: this.props.readOnly,
+	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	        onChange: this.onValueChange.bind(this) });
+	    }
+	  }, {
+	    key: 'getStepSize',
+	    value: function getStepSize() {
+	      return '1';
+	    }
+	  }]);
+
+	  return NemesisNumberField;
+	}(_nemesisBaseField2.default);
+
+	exports.default = NemesisNumberField;
+
+/***/ },
+/* 693 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisNumberField = __webpack_require__(692);
+
+	var _nemesisNumberField2 = _interopRequireDefault(_nemesisNumberField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisIntegerField = function (_NemesisNumberField) {
+	  _inherits(NemesisIntegerField, _NemesisNumberField);
+
+	  function NemesisIntegerField(props) {
+	    _classCallCheck(this, NemesisIntegerField);
+
+	    return _possibleConstructorReturn(this, (NemesisIntegerField.__proto__ || Object.getPrototypeOf(NemesisIntegerField)).call(this, props));
+	  }
+
+	  return NemesisIntegerField;
+	}(_nemesisNumberField2.default);
+
+	exports.default = NemesisIntegerField;
+
+/***/ },
+/* 694 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisNumberField = __webpack_require__(692);
+
+	var _nemesisNumberField2 = _interopRequireDefault(_nemesisNumberField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisDecimalField = function (_NemesisNumberField) {
+	  _inherits(NemesisDecimalField, _NemesisNumberField);
+
+	  function NemesisDecimalField(props) {
+	    _classCallCheck(this, NemesisDecimalField);
+
+	    return _possibleConstructorReturn(this, (NemesisDecimalField.__proto__ || Object.getPrototypeOf(NemesisDecimalField)).call(this, props));
+	  }
+
+	  _createClass(NemesisDecimalField, [{
+	    key: 'getStepSize',
+	    value: function getStepSize() {
+	      return '0.1';
+	    }
+	  }]);
+
+	  return NemesisDecimalField;
+	}(_nemesisNumberField2.default);
+
+	exports.default = NemesisDecimalField;
 
 /***/ }
 /******/ ]);

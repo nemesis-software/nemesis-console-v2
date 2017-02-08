@@ -64,6 +64,7 @@ export default class DefaultFilter extends Component {
   }
 
   onSearchButtonClick() {
+    console.log(this.state.appliedFilters);
     let filterString = FilterBuilder.buildFilter(this.state.appliedFilters);
     this.props.onFilterApply(filterString);
   }

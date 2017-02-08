@@ -48,12 +48,12 @@ export default class FilterBuilder {
     };
 
     result[searchRestrictionTypes.greaterThan] = {
-      getFilterString: (item) => `${item.field} ge ${item.value}`,
+      getFilterString: (item) => `${item.field} ge ${item.value}M`,
       isValueRequired: true
     };
 
     result[searchRestrictionTypes.lessThan] = {
-      getFilterString: (item) => `${item.field} le ${item.value}`,
+      getFilterString: (item) => `${item.field} le ${item.value}M`,
       isValueRequired: true
     };
 
