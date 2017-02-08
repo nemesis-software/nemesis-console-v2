@@ -11,15 +11,11 @@ export default class NemesisNumberField extends NemesisBaseField {
   render() {
     return (
       <TextField style={this.props.style}
-                 type="number" step={this.getStepSize()}
+                 type="number" step={this.props.step || '1'}
                  value={this.state.value || ''}
                  disabled={this.props.readOnly}
                  floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                  onChange={this.onValueChange.bind(this)}/>
     )
-  }
-
-  getStepSize() {
-    return '1';
   }
 }

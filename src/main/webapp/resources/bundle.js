@@ -29213,10 +29213,6 @@
 		"./app/components/field-components/nemesis-base-field.js": 409,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field": 691,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field.js": 691,
-		"./app/components/field-components/nemesis-number-field/nemesis-decimal-field/nemesis-decimal-field": 694,
-		"./app/components/field-components/nemesis-number-field/nemesis-decimal-field/nemesis-decimal-field.js": 694,
-		"./app/components/field-components/nemesis-number-field/nemesis-interger-field/nemesis-interger-field": 693,
-		"./app/components/field-components/nemesis-number-field/nemesis-interger-field/nemesis-interger-field.js": 693,
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field": 692,
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field.js": 692,
 		"./app/components/field-components/nemesis-text-field/nemesis-text-field": 408,
@@ -75950,13 +75946,9 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _nemesisDecimalField = __webpack_require__(694);
+	var _nemesisNumberField = __webpack_require__(692);
 
-	var _nemesisDecimalField2 = _interopRequireDefault(_nemesisDecimalField);
-
-	var _nemesisIntergerField = __webpack_require__(693);
-
-	var _nemesisIntergerField2 = _interopRequireDefault(_nemesisIntergerField);
+	var _nemesisNumberField2 = _interopRequireDefault(_nemesisNumberField);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75992,7 +75984,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
-	        this.getNumberElementByType(this.props.filterItem.xtype)
+	        _react2.default.createElement(_nemesisNumberField2.default, { step: this.props.filterItem.xtype === _nemesisTypes.nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1', style: this.getNumberFieldStyles(), onValueChange: _lodash2.default.debounce(this.onNumberFieldChange.bind(this), 250), label: this.props.filterItem.fieldLabel })
 	      );
 	    }
 	  }, {
@@ -76026,28 +76018,6 @@
 	      }
 
 	      return result;
-	    }
-	  }, {
-	    key: 'getNumberElementByType',
-	    value: function getNumberElementByType(type) {
-	      var reactElement = void 0;
-	      switch (type) {
-	        case _nemesisTypes.nemesisFieldTypes.nemesisDecimalField:
-	          reactElement = _nemesisDecimalField2.default;break;
-	        case _nemesisTypes.nemesisFieldTypes.nemesisIntegerField:
-	          reactElement = _nemesisIntergerField2.default;break;
-	        default:
-	          return _react2.default.createElement(
-	            'div',
-	            null,
-	            'Invalid Type'
-	          );
-	      }
-	      return _react2.default.createElement(reactElement, {
-	        style: this.getNumberFieldStyles(),
-	        onValueChange: _lodash2.default.debounce(this.onNumberFieldChange.bind(this), 250),
-	        label: this.props.filterItem.fieldLabel
-	      });
 	    }
 	  }]);
 
@@ -82285,13 +82255,9 @@
 
 	var _nemesisDateField2 = _interopRequireDefault(_nemesisDateField);
 
-	var _nemesisIntergerField = __webpack_require__(693);
+	var _nemesisNumberField = __webpack_require__(692);
 
-	var _nemesisIntergerField2 = _interopRequireDefault(_nemesisIntergerField);
-
-	var _nemesisDecimalField = __webpack_require__(694);
-
-	var _nemesisDecimalField2 = _interopRequireDefault(_nemesisDecimalField);
+	var _nemesisNumberField2 = _interopRequireDefault(_nemesisNumberField);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82334,15 +82300,25 @@
 	    key: 'getSectionItemRenderer',
 	    value: function getSectionItemRenderer(item, index) {
 	      var reactElement = void 0;
+	      var elementConfig = {
+	        key: index,
+	        label: item.fieldLabel,
+	        name: item.name,
+	        readOnly: item.readOnly,
+	        required: item.required,
+	        value: this.props.entityData[item.name],
+	        type: _nemesisTypes.nemesisFieldUsageTypes.edit
+	      };
+
 	      switch (item.xtype) {
 	        case _nemesisTypes.nemesisFieldTypes.nemesisTextField:
 	          reactElement = _nemesisTextField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisDateField:
 	          reactElement = _nemesisDateField2.default;break;
-	        case _nemesisTypes.nemesisFieldTypes.nemesisIntegerField:
-	          reactElement = _nemesisIntergerField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisDecimalField:
-	          reactElement = _nemesisDecimalField2.default;break;
+	          elementConfig.step = '0.1';reactElement = _nemesisNumberField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisIntegerField:
+	          reactElement = _nemesisNumberField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -82352,15 +82328,7 @@
 	          );
 	      }
 
-	      return _react2.default.createElement(reactElement, {
-	        key: index,
-	        label: item.fieldLabel,
-	        name: item.name,
-	        readOnly: item.readOnly,
-	        required: item.required,
-	        value: this.props.entityData[item.name],
-	        type: _nemesisTypes.nemesisFieldUsageTypes.edit
-	      });
+	      return _react2.default.createElement(reactElement, elementConfig);
 	    }
 	  }]);
 
@@ -91647,16 +91615,11 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	        type: 'number', step: this.getStepSize(),
+	        type: 'number', step: this.props.step || '1',
 	        value: this.state.value || '',
 	        disabled: this.props.readOnly,
 	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	        onChange: this.onValueChange.bind(this) });
-	    }
-	  }, {
-	    key: 'getStepSize',
-	    value: function getStepSize() {
-	      return '1';
 	    }
 	  }]);
 
@@ -91664,95 +91627,6 @@
 	}(_nemesisBaseField2.default);
 
 	exports.default = NemesisNumberField;
-
-/***/ },
-/* 693 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _nemesisNumberField = __webpack_require__(692);
-
-	var _nemesisNumberField2 = _interopRequireDefault(_nemesisNumberField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var NemesisIntegerField = function (_NemesisNumberField) {
-	  _inherits(NemesisIntegerField, _NemesisNumberField);
-
-	  function NemesisIntegerField(props) {
-	    _classCallCheck(this, NemesisIntegerField);
-
-	    return _possibleConstructorReturn(this, (NemesisIntegerField.__proto__ || Object.getPrototypeOf(NemesisIntegerField)).call(this, props));
-	  }
-
-	  return NemesisIntegerField;
-	}(_nemesisNumberField2.default);
-
-	exports.default = NemesisIntegerField;
-
-/***/ },
-/* 694 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _nemesisNumberField = __webpack_require__(692);
-
-	var _nemesisNumberField2 = _interopRequireDefault(_nemesisNumberField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var NemesisDecimalField = function (_NemesisNumberField) {
-	  _inherits(NemesisDecimalField, _NemesisNumberField);
-
-	  function NemesisDecimalField(props) {
-	    _classCallCheck(this, NemesisDecimalField);
-
-	    return _possibleConstructorReturn(this, (NemesisDecimalField.__proto__ || Object.getPrototypeOf(NemesisDecimalField)).call(this, props));
-	  }
-
-	  _createClass(NemesisDecimalField, [{
-	    key: 'getStepSize',
-	    value: function getStepSize() {
-	      return '0.1';
-	    }
-	  }]);
-
-	  return NemesisDecimalField;
-	}(_nemesisNumberField2.default);
-
-	exports.default = NemesisDecimalField;
 
 /***/ }
 /******/ ]);
