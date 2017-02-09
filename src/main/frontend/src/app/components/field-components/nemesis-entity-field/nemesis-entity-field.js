@@ -77,11 +77,11 @@ export default class NemesisEntityField extends NemesisBaseField {
 
   getSearchUrl() {
     let urlSuffix = '/search/findByCodeIsStartingWithIgnoreCase/';
-    if (this.props.name === 'catalog_version') {
+    if (this.props.entityId === 'catalog_version') {
       urlSuffix = '/search/findByCodeIsStartingWithIgnoreCaseOrCatalogCodeIsStartingWithIgnoreCase/';
     }
 
-    return `${this.props.name}${urlSuffix}`;
+    return `${this.props.entityId}${urlSuffix}`;
   }
 
   mapDataSource(item) {
@@ -97,7 +97,7 @@ export default class NemesisEntityField extends NemesisBaseField {
     }
     let text = item.code;
 
-    if (this.props.name === 'catalog_version') {
+    if (this.props.entityId === 'catalog_version') {
       text = item.catalogVersion || item.code;
     } else if (item.catalogVersion){
       text = `${item.code} - ${item.catalogVersion}`

@@ -76416,7 +76416,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
-	        _react2.default.createElement(_nemesisEntityField2.default, { name: this.props.filterItem.entityId, style: this.getTextFieldStyles(), onValueChange: this.onSelectedMenuItem.bind(this), label: this.props.filterItem.fieldLabel })
+	        _react2.default.createElement(_nemesisEntityField2.default, { entityId: this.props.filterItem.entityId, style: this.getTextFieldStyles(), onValueChange: this.onSelectedMenuItem.bind(this), label: this.props.filterItem.fieldLabel })
 	      );
 	    }
 	  }, {
@@ -82527,7 +82527,7 @@
 	        case _nemesisTypes.nemesisFieldTypes.nemesisEnumField:
 	          elementConfig.values = item.values;elementConfig.value = item.values.indexOf(elementConfig.value);reactElement = _nemesisEnumField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisEntityField:
-	          reactElement = _nemesisEntityField2.default;break;
+	          elementConfig.entityId = item.entityId;reactElement = _nemesisEntityField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -91835,11 +91835,11 @@
 	    key: 'getSearchUrl',
 	    value: function getSearchUrl() {
 	      var urlSuffix = '/search/findByCodeIsStartingWithIgnoreCase/';
-	      if (this.props.name === 'catalog_version') {
+	      if (this.props.entityId === 'catalog_version') {
 	        urlSuffix = '/search/findByCodeIsStartingWithIgnoreCaseOrCatalogCodeIsStartingWithIgnoreCase/';
 	      }
 
-	      return '' + this.props.name + urlSuffix;
+	      return '' + this.props.entityId + urlSuffix;
 	    }
 	  }, {
 	    key: 'mapDataSource',
@@ -91857,7 +91857,7 @@
 	      }
 	      var text = item.code;
 
-	      if (this.props.name === 'catalog_version') {
+	      if (this.props.entityId === 'catalog_version') {
 	        text = item.catalogVersion || item.code;
 	      } else if (item.catalogVersion) {
 	        text = item.code + ' - ' + item.catalogVersion;

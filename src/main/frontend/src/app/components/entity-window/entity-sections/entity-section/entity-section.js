@@ -40,7 +40,7 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
-      case nemesisFieldTypes.nemesisEntityField: reactElement = NemesisEntityField; break;
+      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; reactElement = NemesisEntityField; break;
       default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
 

@@ -28,7 +28,7 @@ export default class FilterEntityField extends Component {
     return (
       <div>
         <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisEntityField name={this.props.filterItem.entityId} style={this.getTextFieldStyles()} onValueChange={this.onSelectedMenuItem.bind(this)} label={this.props.filterItem.fieldLabel}/>
+        <NemesisEntityField entityId={this.props.filterItem.entityId} style={this.getTextFieldStyles()} onValueChange={this.onSelectedMenuItem.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
   }
