@@ -16,12 +16,13 @@ export default class NemesisBaseField extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.value, nextProps.value)) {
-      this.setState({isDirty: false, value: this.setFormattedValue(nextProps.value)});
+      this.setState({...this.state, isDirty: false, value: this.setFormattedValue(nextProps.value)});
     }
 
   }
 
   onValueChange(event, value) {
+    console.log('value change');
     this.setState({...this.state, isDirty: true, value: value});
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));

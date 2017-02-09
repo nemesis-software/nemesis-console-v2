@@ -111,7 +111,7 @@ export default class EntitiesWindow extends Component {
         return;
       }
       case entitySearchType: {
-        ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter}).then(result => {
+        ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, projection: 'search'}).then(result => {
           this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page});
         });
         return;

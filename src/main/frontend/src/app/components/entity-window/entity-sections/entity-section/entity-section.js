@@ -4,6 +4,7 @@ import NemesisTextField from '../../../field-components/nemesis-text-field/nemes
 import NemesisDateField from '../../../field-components/nemesis-date-field/nemesis-date-field';
 import NemesisNumberField from '../../../field-components/nemesis-number-field/nemesis-number-field';
 import NemesisEnumField from '../../../field-components/nemesis-enum-field/nemesis-enum-field';
+import NemesisEntityField from '../../../field-components/nemesis-entity-field/nemesis-entity-field';
 
 export default class EntitySection extends Component {
   constructor(props) {
@@ -22,13 +23,14 @@ export default class EntitySection extends Component {
 
   getSectionItemRenderer(item, index) {
     let reactElement;
+    let itemName = item.name.replace('entity-', '');
     let elementConfig ={
       key: index,
       label: item.fieldLabel,
-      name: item.name,
+      name: itemName,
       readOnly: item.readOnly,
       required: item.required,
-      value: this.props.entityData[item.name],
+      value: this.getItemValue(item, itemName),
       type: nemesisFieldUsageTypes.edit
     };
 
@@ -38,9 +40,18 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
+      case nemesisFieldTypes.nemesisEntityField: reactElement = NemesisEntityField; break;
       default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
 
     return React.createElement(reactElement, elementConfig)
+  }
+
+  getItemValue(item, itemName) {
+    if ([nemesisFieldTypes.nemesisEntityField, nemesisFieldTypes.nemesisCollectionField].indexOf(item.xtype) > -1) {
+      return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
+    }
+
+    return this.props.entityData[itemName];
   }
 }
