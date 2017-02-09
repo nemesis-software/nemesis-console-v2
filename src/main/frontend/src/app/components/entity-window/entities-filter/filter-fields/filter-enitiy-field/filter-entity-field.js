@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import FilterRestrictionFields from '../filter-restriction-field/filter-restriction-field';
-import AutoComplete from 'material-ui/AutoComplete';
-import Translate from 'react-translate-component';
 import { searchRestrictionTypes } from '../../../../../types/nemesis-types';
-import ApiCall from '../../../../../services/api-call';
 import _ from 'lodash';
 import NemesisEntityField from '../../../../field-components/nemesis-entity-field/nemesis-entity-field';
 
@@ -21,7 +18,7 @@ const styles = {
 export default class FilterEntityField extends Component {
   constructor(props) {
     super(props);
-    this.state = {restrictionField: null, textField: null, dataSource: [], selectedId: null};
+    this.state = {restrictionField: null, textField: null, selectedId: null};
   }
 
   render() {
@@ -37,11 +34,6 @@ export default class FilterEntityField extends Component {
     this.setState({...this.state, restrictionField: restrictionValue});
     this.updateParentFilter(this.state.selectedId, restrictionValue);
   }
-
-  // onTextFieldChange(value) {
-  //   this.filterEntityData(value);
-  //   this.setState({...this.state, textField: value});
-  // }
 
   updateParentFilter(selectedId, restrictionValue) {
     this.props.onFilterChange({
@@ -65,38 +57,4 @@ export default class FilterEntityField extends Component {
 
     return result;
   }
-
-  // filterEntityData(inputText) {
-  //   let inputTextActual = inputText || '';
-  //   ApiCall.get(this.getSearchUrl(this.props.filterItem), {page: 1, size: 10, catalogCode: inputTextActual, code: inputTextActual, projection: 'search'}).then(result => {
-  //     let data = [];
-  //     _.forIn(result.data._embedded, (value) => data = data.concat(value));
-  //     let mappedData = data.map(this.mapDataSource.bind(this));
-  //     this.setState({...this.state, dataSource: mappedData});
-  //   })
-  // }
-  //
-  // getSearchUrl(filterItem) {
-  //   let urlSuffix = '/search/findByCodeIsStartingWithIgnoreCase/';
-  //   if (filterItem.entityId === 'catalog_version') {
-  //     urlSuffix = '/search/findByCodeIsStartingWithIgnoreCaseOrCatalogCodeIsStartingWithIgnoreCase/';
-  //   }
-  //
-  //   return `${filterItem.entityId}${urlSuffix}`;
-  // }
-  //
-  // mapDataSource(item) {
-  //   let text = item.code;
-  //
-  //   if (this.props.filterItem.entityId === 'catalog_version') {
-  //     text = item.catalogVersion;
-  //   } else if (item.catalogVersion){
-  //     text = `${item.code} - ${item.catalogVersion}`
-  //   }
-  //
-  //   return {
-  //     value: item.id,
-  //     text: text
-  //   }
-  // }
 }

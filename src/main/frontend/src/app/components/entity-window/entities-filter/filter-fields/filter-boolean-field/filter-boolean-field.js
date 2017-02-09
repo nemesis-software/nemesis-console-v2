@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { searchRestrictionTypes } from '../../../../../types/nemesis-types';
-import Translate from 'react-translate-component';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import NemesisBooleanField from '../../../../field-components/nemesis-boolean-field/nemesis-boolean-field';
 
 const styles = {
   parent: {
@@ -28,27 +27,11 @@ export default class FilterBooleanField extends Component {
 
   render() {
     return (
-      <div style={styles.parent}>
-        <Translate component="div" style={{...styles.container, ...styles.label}} content={'main.' + this.props.filterItem.fieldLabel} fallback={this.props.filterItem.fieldLabel} />
-        <RadioButtonGroup name="boolean" labelPosition="right" style={styles.container}
-                          onChange={this.onBooleanFieldChange.bind(this)}
-                          >
-          <RadioButton
-            style={styles.container}
-            value="true"
-            label="True"
-          />
-          <RadioButton
-            style={styles.container}
-            value="false"
-            label="False"
-          />
-        </RadioButtonGroup>
-      </div>
+      <NemesisBooleanField style={styles.container} onValueChange={this.onBooleanFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
     )
   }
 
-  onBooleanFieldChange(event, value) {
+  onBooleanFieldChange(value) {
     this.setState({booleanField: value});
     this.updateParentFilter(value);
   }

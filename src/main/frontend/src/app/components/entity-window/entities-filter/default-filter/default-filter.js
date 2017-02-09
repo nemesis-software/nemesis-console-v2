@@ -23,7 +23,7 @@ export default class DefaultFilter extends Component {
     return (
       <div key={this.state.key}>
         {this.props.filterMarkup.map((filterItem, index) => this.getFilterItemRender(filterItem, index))}
-        <RaisedButton style={{margin: '10px'}} label="Search" onClick={this.onSearchButtonClick.bind(this)} /><RaisedButton label="Clear" onClick={this.onClearButtonClick.bind(this)} />
+        <div><RaisedButton style={{margin: '10px'}} label="Search" onClick={this.onSearchButtonClick.bind(this)} /><RaisedButton label="Clear" onClick={this.onClearButtonClick.bind(this)} /></div>
       </div>
     )
   }

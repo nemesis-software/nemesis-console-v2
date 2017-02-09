@@ -29211,6 +29211,8 @@
 		"./app/components/entity-window/entity-window.js": 626,
 		"./app/components/field-components/nemesis-base-field": 409,
 		"./app/components/field-components/nemesis-base-field.js": 409,
+		"./app/components/field-components/nemesis-boolean-field/nemesis-boolean-field": 694,
+		"./app/components/field-components/nemesis-boolean-field/nemesis-boolean-field.js": 694,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field": 411,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field.js": 411,
 		"./app/components/field-components/nemesis-entity-field/nemesis-entity-field": 693,
@@ -53026,8 +53028,12 @@
 	        this.props.filterMarkup.map(function (filterItem, index) {
 	          return _this2.getFilterItemRender(filterItem, index);
 	        }),
-	        _react2.default.createElement(_RaisedButton2.default, { style: { margin: '10px' }, label: 'Search', onClick: this.onSearchButtonClick.bind(this) }),
-	        _react2.default.createElement(_RaisedButton2.default, { label: 'Clear', onClick: this.onClearButtonClick.bind(this) })
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(_RaisedButton2.default, { style: { margin: '10px' }, label: 'Search', onClick: this.onSearchButtonClick.bind(this) }),
+	          _react2.default.createElement(_RaisedButton2.default, { label: 'Clear', onClick: this.onClearButtonClick.bind(this) })
+	        )
 	      );
 	    }
 	  }, {
@@ -74838,8 +74844,6 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -74848,11 +74852,9 @@
 
 	var _nemesisTypes = __webpack_require__(392);
 
-	var _reactTranslateComponent = __webpack_require__(316);
+	var _nemesisBooleanField = __webpack_require__(694);
 
-	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
-
-	var _RadioButton = __webpack_require__(545);
+	var _nemesisBooleanField2 = _interopRequireDefault(_nemesisBooleanField);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74894,31 +74896,11 @@
 	  _createClass(FilterBooleanField, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { style: styles.parent },
-	        _react2.default.createElement(_reactTranslateComponent2.default, { component: 'div', style: _extends({}, styles.container, styles.label), content: 'main.' + this.props.filterItem.fieldLabel, fallback: this.props.filterItem.fieldLabel }),
-	        _react2.default.createElement(
-	          _RadioButton.RadioButtonGroup,
-	          { name: 'boolean', labelPosition: 'right', style: styles.container,
-	            onChange: this.onBooleanFieldChange.bind(this)
-	          },
-	          _react2.default.createElement(_RadioButton.RadioButton, {
-	            style: styles.container,
-	            value: 'true',
-	            label: 'True'
-	          }),
-	          _react2.default.createElement(_RadioButton.RadioButton, {
-	            style: styles.container,
-	            value: 'false',
-	            label: 'False'
-	          })
-	        )
-	      );
+	      return _react2.default.createElement(_nemesisBooleanField2.default, { style: styles.container, onValueChange: this.onBooleanFieldChange.bind(this), label: this.props.filterItem.fieldLabel });
 	    }
 	  }, {
 	    key: 'onBooleanFieldChange',
-	    value: function onBooleanFieldChange(event, value) {
+	    value: function onBooleanFieldChange(value) {
 	      this.setState({ booleanField: value });
 	      this.updateParentFilter(value);
 	    }
@@ -76360,19 +76342,7 @@
 
 	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
 
-	var _AutoComplete = __webpack_require__(556);
-
-	var _AutoComplete2 = _interopRequireDefault(_AutoComplete);
-
-	var _reactTranslateComponent = __webpack_require__(316);
-
-	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
-
 	var _nemesisTypes = __webpack_require__(392);
-
-	var _apiCall = __webpack_require__(560);
-
-	var _apiCall2 = _interopRequireDefault(_apiCall);
 
 	var _lodash = __webpack_require__(389);
 
@@ -76405,7 +76375,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (FilterEntityField.__proto__ || Object.getPrototypeOf(FilterEntityField)).call(this, props));
 
-	    _this.state = { restrictionField: null, textField: null, dataSource: [], selectedId: null };
+	    _this.state = { restrictionField: null, textField: null, selectedId: null };
 	    return _this;
 	  }
 
@@ -76425,12 +76395,6 @@
 	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
 	      this.updateParentFilter(this.state.selectedId, restrictionValue);
 	    }
-
-	    // onTextFieldChange(value) {
-	    //   this.filterEntityData(value);
-	    //   this.setState({...this.state, textField: value});
-	    // }
-
 	  }, {
 	    key: 'updateParentFilter',
 	    value: function updateParentFilter(selectedId, restrictionValue) {
@@ -76457,41 +76421,6 @@
 
 	      return result;
 	    }
-
-	    // filterEntityData(inputText) {
-	    //   let inputTextActual = inputText || '';
-	    //   ApiCall.get(this.getSearchUrl(this.props.filterItem), {page: 1, size: 10, catalogCode: inputTextActual, code: inputTextActual, projection: 'search'}).then(result => {
-	    //     let data = [];
-	    //     _.forIn(result.data._embedded, (value) => data = data.concat(value));
-	    //     let mappedData = data.map(this.mapDataSource.bind(this));
-	    //     this.setState({...this.state, dataSource: mappedData});
-	    //   })
-	    // }
-	    //
-	    // getSearchUrl(filterItem) {
-	    //   let urlSuffix = '/search/findByCodeIsStartingWithIgnoreCase/';
-	    //   if (filterItem.entityId === 'catalog_version') {
-	    //     urlSuffix = '/search/findByCodeIsStartingWithIgnoreCaseOrCatalogCodeIsStartingWithIgnoreCase/';
-	    //   }
-	    //
-	    //   return `${filterItem.entityId}${urlSuffix}`;
-	    // }
-	    //
-	    // mapDataSource(item) {
-	    //   let text = item.code;
-	    //
-	    //   if (this.props.filterItem.entityId === 'catalog_version') {
-	    //     text = item.catalogVersion;
-	    //   } else if (item.catalogVersion){
-	    //     text = `${item.code} - ${item.catalogVersion}`
-	    //   }
-	    //
-	    //   return {
-	    //     value: item.id,
-	    //     text: text
-	    //   }
-	    // }
-
 	  }]);
 
 	  return FilterEntityField;
@@ -82463,6 +82392,10 @@
 
 	var _nemesisEntityField2 = _interopRequireDefault(_nemesisEntityField);
 
+	var _nemesisBooleanField = __webpack_require__(694);
+
+	var _nemesisBooleanField2 = _interopRequireDefault(_nemesisBooleanField);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -82524,6 +82457,8 @@
 	          elementConfig.step = '0.1';reactElement = _nemesisNumberField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisIntegerField:
 	          reactElement = _nemesisNumberField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisBooleanField:
+	          reactElement = _nemesisBooleanField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisEnumField:
 	          elementConfig.values = item.values;elementConfig.value = item.values.indexOf(elementConfig.value);reactElement = _nemesisEnumField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisEntityField:
@@ -91874,6 +91809,141 @@
 
 
 	exports.default = NemesisEntityField;
+
+/***/ },
+/* 694 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _RadioButton = __webpack_require__(545);
+
+	var _nemesisBaseField = __webpack_require__(409);
+
+	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var styles = {
+	  container: {
+	    display: 'inline-block',
+	    width: 'auto',
+	    marginRight: '10px'
+	  },
+	  label: {
+	    color: '#9e9e9e',
+	    fontSize: '18px',
+	    lineHeight: '24px',
+	    verticalAlign: 'top'
+	  }
+	};
+
+	var NemesisBooleanField = function (_NemesisBaseField) {
+	  _inherits(NemesisBooleanField, _NemesisBaseField);
+
+	  function NemesisBooleanField(props) {
+	    _classCallCheck(this, NemesisBooleanField);
+
+	    return _possibleConstructorReturn(this, (NemesisBooleanField.__proto__ || Object.getPrototypeOf(NemesisBooleanField)).call(this, props));
+	  }
+
+	  _createClass(NemesisBooleanField, [{
+	    key: 'render',
+	    value: function render() {
+	      console.log(this.state);
+	      return _react2.default.createElement(
+	        'div',
+	        { style: this.props.style },
+	        _react2.default.createElement(_reactTranslateComponent2.default, { component: 'div', style: _extends({}, styles.container, styles.label), content: 'main.' + this.props.label, fallback: this.props.label }),
+	        _react2.default.createElement(
+	          _RadioButton.RadioButtonGroup,
+	          { name: 'boolean', labelPosition: 'right', style: styles.container,
+	            valueSelected: this.state.value,
+	            onChange: this.onValueChange.bind(this)
+	          },
+	          _react2.default.createElement(_RadioButton.RadioButton, {
+	            style: styles.container,
+	            value: 'true',
+	            label: 'True',
+	            disabled: this.props.readOnly
+	          }),
+	          _react2.default.createElement(_RadioButton.RadioButton, {
+	            style: styles.container,
+	            value: 'false',
+	            label: 'False',
+	            disabled: this.props.readOnly
+	          }),
+	          _react2.default.createElement(_RadioButton.RadioButton, {
+	            style: this.getNotAvailableButtonStyle(),
+	            value: 'null',
+	            label: 'N/A',
+	            disabled: this.props.readOnly
+	          })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'setFormattedValue',
+	    value: function setFormattedValue(value) {
+	      if (value === undefined) {
+	        return;
+	      }
+
+	      return value + '';
+	    }
+	  }, {
+	    key: 'getFormattedValue',
+	    value: function getFormattedValue(value) {
+	      if (value === 'true') {
+	        return true;
+	      }
+
+	      if (value === 'false') {
+	        return false;
+	      }
+
+	      return null;
+	    }
+	  }, {
+	    key: 'getNotAvailableButtonStyle',
+	    value: function getNotAvailableButtonStyle() {
+	      var style = _extends({}, styles.container);
+	      if (this.props.type !== _nemesisTypes.nemesisFieldUsageTypes.edit) {
+	        style.display = 'none';
+	      }
+
+	      return style;
+	    }
+	  }]);
+
+	  return NemesisBooleanField;
+	}(_nemesisBaseField2.default);
+
+	exports.default = NemesisBooleanField;
 
 /***/ }
 /******/ ]);
