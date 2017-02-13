@@ -29213,6 +29213,10 @@
 		"./app/components/field-components/nemesis-base-field.js": 409,
 		"./app/components/field-components/nemesis-boolean-field/nemesis-boolean-field": 545,
 		"./app/components/field-components/nemesis-boolean-field/nemesis-boolean-field.js": 545,
+		"./app/components/field-components/nemesis-collection-field/nemesis-base-collection-field": 696,
+		"./app/components/field-components/nemesis-collection-field/nemesis-base-collection-field.js": 696,
+		"./app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field": 701,
+		"./app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field.js": 701,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field": 411,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field.js": 411,
 		"./app/components/field-components/nemesis-entity-field/nemesis-entity-field": 557,
@@ -53125,7 +53129,8 @@
 	  nemesisLocalizedTextField: 'nemesisLocalizedTextField',
 	  nemesisTextField: 'nemesisTextField',
 	  nemesisDecimalField: 'nemesisDecimalField',
-	  nemesisIntegerField: 'nemesisIntegerField'
+	  nemesisIntegerField: 'nemesisIntegerField',
+	  nemesisSimpleCollectionField: 'nemesisSimpleCollectionField'
 	};
 
 	var nemesisFieldUsageTypes = exports.nemesisFieldUsageTypes = {
@@ -82688,6 +82693,10 @@
 
 	var _nemesisLocalizedTextField2 = _interopRequireDefault(_nemesisLocalizedTextField);
 
+	var _nemesisSimpleCollectionField = __webpack_require__(701);
+
+	var _nemesisSimpleCollectionField2 = _interopRequireDefault(_nemesisSimpleCollectionField);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -82756,6 +82765,8 @@
 	          elementConfig.entityId = item.entityId;reactElement = _nemesisEntityField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisLocalizedTextField:
 	          reactElement = _nemesisLocalizedTextField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisSimpleCollectionField:
+	          elementConfig.value = elementConfig.value || [];reactElement = _nemesisSimpleCollectionField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -92013,7 +92024,6 @@
 	  }, {
 	    key: 'getTextFieldValue',
 	    value: function getTextFieldValue() {
-	      console.log(this.state);
 	      if (!this.state.value) {
 	        return '';
 	      }
@@ -92046,6 +92056,569 @@
 	}(_nemesisBaseField2.default);
 
 	exports.default = NemesisLocalizedTextField;
+
+/***/ },
+/* 696 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisBaseField = __webpack_require__(409);
+
+	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
+
+	var _Chip = __webpack_require__(697);
+
+	var _Chip2 = _interopRequireDefault(_Chip);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisBaseCollectionField = function (_NemesisBaseField) {
+	  _inherits(NemesisBaseCollectionField, _NemesisBaseField);
+
+	  function NemesisBaseCollectionField(props) {
+	    _classCallCheck(this, NemesisBaseCollectionField);
+
+	    return _possibleConstructorReturn(this, (NemesisBaseCollectionField.__proto__ || Object.getPrototypeOf(NemesisBaseCollectionField)).call(this, props));
+	  }
+
+	  _createClass(NemesisBaseCollectionField, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          this.state.value.map(function (item, index) {
+	            return _react2.default.createElement(
+	              _Chip2.default,
+	              { key: index, onRequestDelete: function onRequestDelete() {
+	                  return _this2.onDeleteRequest(index);
+	                } },
+	              _this2.getItemRenderingValue(item)
+	            );
+	          })
+	        ),
+	        this.getInputField()
+	      );
+	    }
+	  }, {
+	    key: 'getInputField',
+	    value: function getInputField() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'Implement in parent'
+	      );
+	    }
+	  }, {
+	    key: 'onDeleteRequest',
+	    value: function onDeleteRequest(itemIndex) {
+	      var items = this.state.value;
+	      items.splice(itemIndex, 1);
+	      this.onValueChange(null, items);
+	    }
+	  }, {
+	    key: 'getItemRenderingValue',
+	    value: function getItemRenderingValue(item) {
+	      return item;
+	    }
+	  }]);
+
+	  return NemesisBaseCollectionField;
+	}(_nemesisBaseField2.default);
+
+	exports.default = NemesisBaseCollectionField;
+
+/***/ },
+/* 697 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _Chip = __webpack_require__(698);
+
+	var _Chip2 = _interopRequireDefault(_Chip);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _Chip2.default;
+
+/***/ },
+/* 698 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends2 = __webpack_require__(190);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(228);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(229);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(234);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(235);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(239);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(274);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(282);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _keycode = __webpack_require__(290);
+
+	var _keycode2 = _interopRequireDefault(_keycode);
+
+	var _colorManipulator = __webpack_require__(287);
+
+	var _EnhancedButton = __webpack_require__(288);
+
+	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
+
+	var _cancel = __webpack_require__(699);
+
+	var _cancel2 = _interopRequireDefault(_cancel);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getStyles(props, context, state) {
+	  var chip = context.muiTheme.chip;
+
+
+	  var backgroundColor = props.backgroundColor || chip.backgroundColor;
+	  var focusColor = (0, _colorManipulator.emphasize)(backgroundColor, 0.08);
+	  var pressedColor = (0, _colorManipulator.emphasize)(backgroundColor, 0.12);
+
+	  return {
+	    avatar: {
+	      marginRight: -4
+	    },
+	    deleteIcon: {
+	      color: state.deleteHovered ? (0, _colorManipulator.fade)(chip.deleteIconColor, 0.4) : chip.deleteIconColor,
+	      cursor: 'pointer',
+	      margin: '4px 4px 0px -8px'
+	    },
+	    label: {
+	      color: props.labelColor || chip.textColor,
+	      fontSize: chip.fontSize,
+	      fontWeight: chip.fontWeight,
+	      lineHeight: '32px',
+	      paddingLeft: 12,
+	      paddingRight: 12,
+	      userSelect: 'none',
+	      whiteSpace: 'nowrap'
+	    },
+	    root: {
+	      backgroundColor: state.clicked ? pressedColor : state.focused || state.hovered ? focusColor : backgroundColor,
+	      borderRadius: 16,
+	      boxShadow: state.clicked ? chip.shadow : null,
+	      cursor: props.onTouchTap ? 'pointer' : 'default',
+	      display: 'flex',
+	      whiteSpace: 'nowrap',
+	      width: 'fit-content'
+	    }
+	  };
+	}
+
+	var Chip = function (_Component) {
+	  (0, _inherits3.default)(Chip, _Component);
+
+	  function Chip() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    (0, _classCallCheck3.default)(this, Chip);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Chip.__proto__ || (0, _getPrototypeOf2.default)(Chip)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+	      clicked: false,
+	      deleteHovered: false,
+	      focused: false,
+	      hovered: false
+	    }, _this.handleBlur = function (event) {
+	      _this.setState({ clicked: false, focused: false });
+	      _this.props.onBlur(event);
+	    }, _this.handleFocus = function (event) {
+	      if (_this.props.onTouchTap || _this.props.onRequestDelete) {
+	        _this.setState({ focused: true });
+	      }
+	      _this.props.onFocus(event);
+	    }, _this.handleKeyboardFocus = function (event, keyboardFocused) {
+	      if (keyboardFocused) {
+	        _this.handleFocus();
+	        _this.props.onFocus(event);
+	      } else {
+	        _this.handleBlur();
+	      }
+
+	      _this.props.onKeyboardFocus(event, keyboardFocused);
+	    }, _this.handleKeyDown = function (event) {
+	      if ((0, _keycode2.default)(event) === 'backspace') {
+	        event.preventDefault();
+	        if (_this.props.onRequestDelete) {
+	          _this.props.onRequestDelete(event);
+	        }
+	      }
+	      _this.props.onKeyDown(event);
+	    }, _this.handleMouseDown = function (event) {
+	      // Only listen to left clicks
+	      if (event.button === 0) {
+	        event.stopPropagation();
+	        if (_this.props.onTouchTap) {
+	          _this.setState({ clicked: true });
+	        }
+	      }
+	      _this.props.onMouseDown(event);
+	    }, _this.handleMouseEnter = function (event) {
+	      if (_this.props.onTouchTap) {
+	        _this.setState({ hovered: true });
+	      }
+	      _this.props.onMouseEnter(event);
+	    }, _this.handleMouseEnterDeleteIcon = function () {
+	      _this.setState({ deleteHovered: true });
+	    }, _this.handleMouseLeave = function (event) {
+	      _this.setState({
+	        clicked: false,
+	        hovered: false
+	      });
+	      _this.props.onMouseLeave(event);
+	    }, _this.handleMouseLeaveDeleteIcon = function () {
+	      _this.setState({ deleteHovered: false });
+	    }, _this.handleMouseUp = function (event) {
+	      _this.setState({ clicked: false });
+	      _this.props.onMouseUp(event);
+	    }, _this.handleTouchTapDeleteIcon = function (event) {
+	      // Stop the event from bubbling up to the `Chip`
+	      event.stopPropagation();
+	      _this.props.onRequestDelete(event);
+	    }, _this.handleTouchEnd = function (event) {
+	      _this.setState({ clicked: false });
+	      _this.props.onTouchEnd(event);
+	    }, _this.handleTouchStart = function (event) {
+	      event.stopPropagation();
+	      if (_this.props.onTouchTap) {
+	        _this.setState({ clicked: true });
+	      }
+	      _this.props.onTouchStart(event);
+	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+	  }
+
+	  (0, _createClass3.default)(Chip, [{
+	    key: 'render',
+	    value: function render() {
+	      var buttonEventHandlers = {
+	        onBlur: this.handleBlur,
+	        onFocus: this.handleFocus,
+	        onKeyDown: this.handleKeyDown,
+	        onMouseDown: this.handleMouseDown,
+	        onMouseEnter: this.handleMouseEnter,
+	        onMouseLeave: this.handleMouseLeave,
+	        onMouseUp: this.handleMouseUp,
+	        onTouchEnd: this.handleTouchEnd,
+	        onTouchStart: this.handleTouchStart,
+	        onKeyboardFocus: this.handleKeyboardFocus
+	      };
+
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      var styles = getStyles(this.props, this.context, this.state);
+
+	      var _props = this.props,
+	          childrenProp = _props.children,
+	          style = _props.style,
+	          className = _props.className,
+	          labelStyle = _props.labelStyle,
+	          labelColor = _props.labelColor,
+	          backgroundColor = _props.backgroundColor,
+	          onRequestDelete = _props.onRequestDelete,
+	          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'style', 'className', 'labelStyle', 'labelColor', 'backgroundColor', 'onRequestDelete']);
+
+
+	      var deletable = this.props.onRequestDelete;
+	      var avatar = null;
+
+	      var deleteIcon = deletable ? _react2.default.createElement(_cancel2.default, {
+	        color: styles.deleteIcon.color,
+	        style: styles.deleteIcon,
+	        onTouchTap: this.handleTouchTapDeleteIcon,
+	        onMouseEnter: this.handleMouseEnterDeleteIcon,
+	        onMouseLeave: this.handleMouseLeaveDeleteIcon
+	      }) : null;
+
+	      var children = childrenProp;
+	      var childCount = _react2.default.Children.count(children);
+
+	      // If the first child is an avatar, extract it and style it
+	      if (childCount > 1) {
+	        children = _react2.default.Children.toArray(children);
+
+	        if (_react2.default.isValidElement(children[0]) && children[0].type.muiName === 'Avatar') {
+	          avatar = children.shift();
+
+	          avatar = _react2.default.cloneElement(avatar, {
+	            style: (0, _simpleAssign2.default)(styles.avatar, avatar.props.style),
+	            size: 32
+	          });
+	        }
+	      }
+
+	      return _react2.default.createElement(
+	        _EnhancedButton2.default,
+	        (0, _extends3.default)({}, other, buttonEventHandlers, {
+	          className: className,
+	          containerElement: 'div' // Firefox doesn't support nested buttons
+	          , disableTouchRipple: true,
+	          disableFocusRipple: true,
+	          style: (0, _simpleAssign2.default)(styles.root, style)
+	        }),
+	        avatar,
+	        _react2.default.createElement(
+	          'span',
+	          { style: prepareStyles((0, _simpleAssign2.default)(styles.label, labelStyle)) },
+	          children
+	        ),
+	        deleteIcon
+	      );
+	    }
+	  }]);
+	  return Chip;
+	}(_react.Component);
+
+	Chip.defaultProps = {
+	  onBlur: function onBlur() {},
+	  onFocus: function onFocus() {},
+	  onKeyDown: function onKeyDown() {},
+	  onKeyboardFocus: function onKeyboardFocus() {},
+	  onMouseDown: function onMouseDown() {},
+	  onMouseEnter: function onMouseEnter() {},
+	  onMouseLeave: function onMouseLeave() {},
+	  onMouseUp: function onMouseUp() {},
+	  onTouchEnd: function onTouchEnd() {},
+	  onTouchStart: function onTouchStart() {}
+	};
+	Chip.contextTypes = { muiTheme: _react.PropTypes.object.isRequired };
+	process.env.NODE_ENV !== "production" ? Chip.propTypes = {
+	  /**
+	   * Override the background color of the chip.
+	   */
+	  backgroundColor: _react.PropTypes.string,
+	  /**
+	   * Used to render elements inside the Chip.
+	   */
+	  children: _react.PropTypes.node,
+	  /**
+	   * CSS `className` of the root element.
+	   */
+	  className: _react.PropTypes.node,
+	  /**
+	   * Override the label color.
+	   */
+	  labelColor: _react.PropTypes.string,
+	  /**
+	   * Override the inline-styles of the label.
+	   */
+	  labelStyle: _react.PropTypes.object,
+	  /** @ignore */
+	  onBlur: _react.PropTypes.func,
+	  /** @ignore */
+	  onFocus: _react.PropTypes.func,
+	  /** @ignore */
+	  onKeyDown: _react.PropTypes.func,
+	  /** @ignore */
+	  onKeyboardFocus: _react.PropTypes.func,
+	  /** @ignore */
+	  onMouseDown: _react.PropTypes.func,
+	  /** @ignore */
+	  onMouseEnter: _react.PropTypes.func,
+	  /** @ignore */
+	  onMouseLeave: _react.PropTypes.func,
+	  /** @ignore */
+	  onMouseUp: _react.PropTypes.func,
+	  /**
+	   * Callback function fired when the delete icon is clicked. If set, the delete icon will be shown.
+	   * @param {object} event `touchTap` event targeting the element.
+	   */
+	  onRequestDelete: _react.PropTypes.func,
+	  /** @ignore */
+	  onTouchEnd: _react.PropTypes.func,
+	  /** @ignore */
+	  onTouchStart: _react.PropTypes.func,
+	  /**
+	   * Callback function fired when the `Chip` element is touch-tapped.
+	   *
+	   * @param {object} event TouchTap event targeting the element.
+	   */
+	  onTouchTap: _react.PropTypes.func,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object
+	} : void 0;
+	exports.default = Chip;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 699 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(364);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(373);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavigationCancel = function NavigationCancel(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' })
+	  );
+	};
+	NavigationCancel = (0, _pure2.default)(NavigationCancel);
+	NavigationCancel.displayName = 'NavigationCancel';
+	NavigationCancel.muiName = 'SvgIcon';
+
+	exports.default = NavigationCancel;
+
+/***/ },
+/* 700 */,
+/* 701 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisBaseCollectionField = __webpack_require__(696);
+
+	var _nemesisBaseCollectionField2 = _interopRequireDefault(_nemesisBaseCollectionField);
+
+	var _TextField = __webpack_require__(397);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisSimpleCollectionField = function (_NemesisBaseCollectio) {
+	  _inherits(NemesisSimpleCollectionField, _NemesisBaseCollectio);
+
+	  function NemesisSimpleCollectionField(props) {
+	    _classCallCheck(this, NemesisSimpleCollectionField);
+
+	    return _possibleConstructorReturn(this, (NemesisSimpleCollectionField.__proto__ || Object.getPrototypeOf(NemesisSimpleCollectionField)).call(this, props));
+	  }
+
+	  _createClass(NemesisSimpleCollectionField, [{
+	    key: 'getInputField',
+	    value: function getInputField() {
+	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	        disabled: this.props.readOnly,
+	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	        onKeyPress: this.onInputKeyPress.bind(this) });
+	    }
+	  }, {
+	    key: 'onInputKeyPress',
+	    value: function onInputKeyPress(e) {
+	      if (e.key === 'Enter') {
+	        var valueActual = this.state.value || [];
+	        valueActual.push(e.target.value);
+	        this.setState(_extends({}, this.state, { value: valueActual }));
+	      }
+	    }
+	  }]);
+
+	  return NemesisSimpleCollectionField;
+	}(_nemesisBaseCollectionField2.default);
+
+	exports.default = NemesisSimpleCollectionField;
 
 /***/ }
 /******/ ]);

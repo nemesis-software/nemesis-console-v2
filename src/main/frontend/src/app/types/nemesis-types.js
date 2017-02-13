@@ -7,7 +7,8 @@ export const nemesisFieldTypes = {
   nemesisLocalizedTextField: 'nemesisLocalizedTextField',
   nemesisTextField: 'nemesisTextField',
   nemesisDecimalField: 'nemesisDecimalField',
-  nemesisIntegerField: 'nemesisIntegerField'
+  nemesisIntegerField: 'nemesisIntegerField',
+  nemesisSimpleCollectionField: 'nemesisSimpleCollectionField'
 };
 
 export const nemesisFieldUsageTypes = {

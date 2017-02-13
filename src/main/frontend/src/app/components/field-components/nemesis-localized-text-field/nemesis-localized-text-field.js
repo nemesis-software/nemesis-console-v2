@@ -47,7 +47,6 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   }
 
   getTextFieldValue() {
-    console.log(this.state);
     if (!this.state.value) {
       return '';
     }
