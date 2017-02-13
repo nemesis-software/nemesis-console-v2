@@ -22,7 +22,6 @@ export default class NemesisBaseField extends Component {
   }
 
   onValueChange(event, value) {
-    console.log('value change');
     this.setState({...this.state, isDirty: true, value: value});
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));

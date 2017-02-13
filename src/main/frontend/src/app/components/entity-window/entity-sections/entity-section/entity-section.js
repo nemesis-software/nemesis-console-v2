@@ -6,6 +6,7 @@ import NemesisNumberField from '../../../field-components/nemesis-number-field/n
 import NemesisEnumField from '../../../field-components/nemesis-enum-field/nemesis-enum-field';
 import NemesisEntityField from '../../../field-components/nemesis-entity-field/nemesis-entity-field';
 import NemesisBooleanField from '../../../field-components/nemesis-boolean-field/nemesis-boolean-field';
+import NemesisLocalizedTextField from '../../../field-components/nemesis-localized-text-field/nemesis-localized-text-field';
 
 export default class EntitySection extends Component {
   constructor(props) {
@@ -13,7 +14,6 @@ export default class EntitySection extends Component {
 
   }
   render() {
-    console.log(this.props);
     return (
       <div>
         <div>Title: {this.props.section.title}</div>
@@ -43,6 +43,7 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;
       case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
       case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; reactElement = NemesisEntityField; break;
+      case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisLocalizedTextField; break;
       default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
 

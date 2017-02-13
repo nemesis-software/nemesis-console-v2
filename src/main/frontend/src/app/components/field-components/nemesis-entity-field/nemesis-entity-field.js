@@ -12,7 +12,6 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   render() {
-    console.log(this.state);
     return (
     <AutoComplete style={this.props.style}
                   dataSource={this.state.dataSource}

@@ -24,7 +24,6 @@ export default class NemesisBooleanField extends NemesisBaseField {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div style={this.props.style} >
         <Translate component="div" style={{...styles.container, ...styles.label}} content={'main.' + this.props.label} fallback={this.props.label} />
