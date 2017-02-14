@@ -29231,6 +29231,8 @@
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field.js": 554,
 		"./app/components/field-components/nemesis-text-field/nemesis-text-field": 408,
 		"./app/components/field-components/nemesis-text-field/nemesis-text-field.js": 408,
+		"./app/components/field-components/nemesis-textarea-field/nemesis-textarea-field": 702,
+		"./app/components/field-components/nemesis-textarea-field/nemesis-textarea-field.js": 702,
 		"./app/components/language-changer": 544,
 		"./app/components/language-changer.js": 544,
 		"./app/components/main-view/main-view": 636,
@@ -53132,7 +53134,8 @@
 	  nemesisTextField: 'nemesisTextField',
 	  nemesisDecimalField: 'nemesisDecimalField',
 	  nemesisIntegerField: 'nemesisIntegerField',
-	  nemesisSimpleCollectionField: 'nemesisSimpleCollectionField'
+	  nemesisSimpleCollectionField: 'nemesisSimpleCollectionField',
+	  nemesisTextarea: 'nemesisTextarea'
 	};
 
 	var nemesisFieldUsageTypes = exports.nemesisFieldUsageTypes = {
@@ -53155,7 +53158,7 @@
 
 	// "nemesisTextField" - done
 	// "nemesisEntityField" - done
-	// "nemesisCollectionField"
+	// "nemesisCollectionField" - done
 	// "nemesisDateField" - done
 	// "nemesisBooleanField" - done
 	// "nemesisIntegerField" - done
@@ -53166,7 +53169,7 @@
 	// "nemesisSimpleCollectionField" - done
 	// "nemesisHtmlEditor"
 	// "nemesisLocalizedRichtextField"
-	// "nemesisTextarea"
+	// "nemesisTextarea" - done
 	// "nemesisColorpickerField"
 	// "nemesisMediaField"
 
@@ -82810,6 +82813,10 @@
 
 	var _nemesisTextField2 = _interopRequireDefault(_nemesisTextField);
 
+	var _nemesisTextareaField = __webpack_require__(702);
+
+	var _nemesisTextareaField2 = _interopRequireDefault(_nemesisTextareaField);
+
 	var _nemesisDateField = __webpack_require__(411);
 
 	var _nemesisDateField2 = _interopRequireDefault(_nemesisDateField);
@@ -82896,6 +82903,8 @@
 	      switch (item.xtype) {
 	        case _nemesisTypes.nemesisFieldTypes.nemesisTextField:
 	          reactElement = _nemesisTextField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisTextarea:
+	          reactElement = _nemesisTextareaField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisDateField:
 	          reactElement = _nemesisDateField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisDecimalField:
@@ -85942,12 +85951,14 @@
 
 	      Promise.all([_apiCall2.default.get('markup/search/all'), _apiCall2.default.get('markup/entity/all')]).then(function (result) {
 	        _this2.setState(_extends({}, _this2.state, { markupData: result[0].data, entityMarkupData: result[1].data }));
-	        var test = [];
+	        var test = {};
 	        _lodash2.default.forIn(result[1].data, function (item) {
 	          item.sections.forEach(function (sections) {
 	            sections.items.forEach(function (item1) {
-	              if (test.indexOf(item1.xtype) === -1) {
-	                test.push(item1.xtype);
+	              if (test[item1.xtype]) {
+	                test[item1.xtype] = test[item1.xtype] + 1;
+	              } else {
+	                test[item1.xtype] = 1;
 	              }
 	            });
 	          });
@@ -92812,6 +92823,70 @@
 	module.exports = webpackContext;
 	webpackContext.id = 701;
 
+
+/***/ },
+/* 702 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(397);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _nemesisBaseField = __webpack_require__(409);
+
+	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisTextAreaField = function (_NemesisBaseField) {
+	  _inherits(NemesisTextAreaField, _NemesisBaseField);
+
+	  function NemesisTextAreaField(props) {
+	    _classCallCheck(this, NemesisTextAreaField);
+
+	    return _possibleConstructorReturn(this, (NemesisTextAreaField.__proto__ || Object.getPrototypeOf(NemesisTextAreaField)).call(this, props));
+	  }
+
+	  _createClass(NemesisTextAreaField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	        value: this.state.value || '',
+	        disabled: this.props.readOnly,
+	        multiLine: true,
+	        rows: 1,
+	        rowsMax: 4,
+	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	        onChange: this.onValueChange.bind(this) });
+	    }
+	  }]);
+
+	  return NemesisTextAreaField;
+	}(_nemesisBaseField2.default);
+
+	exports.default = NemesisTextAreaField;
 
 /***/ }
 /******/ ]);

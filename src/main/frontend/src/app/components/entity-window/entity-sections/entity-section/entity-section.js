@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../../../types/nemesis-types';
 import NemesisTextField from '../../../field-components/nemesis-text-field/nemesis-text-field';
+import NemesisTextareaField from '../../../field-components/nemesis-textarea-field/nemesis-textarea-field';
 import NemesisDateField from '../../../field-components/nemesis-date-field/nemesis-date-field';
 import NemesisNumberField from '../../../field-components/nemesis-number-field/nemesis-number-field';
 import NemesisEnumField from '../../../field-components/nemesis-enum-field/nemesis-enum-field';
@@ -39,6 +40,7 @@ export default class EntitySection extends Component {
 
     switch (item.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
+      case nemesisFieldTypes.nemesisTextarea: reactElement = NemesisTextareaField; break;
       case nemesisFieldTypes.nemesisDateField: reactElement = NemesisDateField; break;
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
