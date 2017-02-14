@@ -29229,6 +29229,8 @@
 		"./app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field.js": 543,
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field": 554,
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field.js": 554,
+		"./app/components/field-components/nemesis-password-field/nemesis-password-field": 703,
+		"./app/components/field-components/nemesis-password-field/nemesis-password-field.js": 703,
 		"./app/components/field-components/nemesis-text-field/nemesis-text-field": 408,
 		"./app/components/field-components/nemesis-text-field/nemesis-text-field.js": 408,
 		"./app/components/field-components/nemesis-textarea-field/nemesis-textarea-field": 702,
@@ -53135,7 +53137,8 @@
 	  nemesisDecimalField: 'nemesisDecimalField',
 	  nemesisIntegerField: 'nemesisIntegerField',
 	  nemesisSimpleCollectionField: 'nemesisSimpleCollectionField',
-	  nemesisTextarea: 'nemesisTextarea'
+	  nemesisTextarea: 'nemesisTextarea',
+	  nemesisPasswordField: 'nemesisPasswordField'
 	};
 
 	var nemesisFieldUsageTypes = exports.nemesisFieldUsageTypes = {
@@ -53163,7 +53166,7 @@
 	// "nemesisBooleanField" - done
 	// "nemesisIntegerField" - done
 	// "nemesisEnumField" - done
-	// "nemesisPasswordField"
+	// "nemesisPasswordField" - done
 	// "nemesisLocalizedTextField" - done
 	// "nemesisDecimalField" - done
 	// "nemesisSimpleCollectionField" - done
@@ -82817,6 +82820,10 @@
 
 	var _nemesisTextareaField2 = _interopRequireDefault(_nemesisTextareaField);
 
+	var _nemesisPasswordField = __webpack_require__(703);
+
+	var _nemesisPasswordField2 = _interopRequireDefault(_nemesisPasswordField);
+
 	var _nemesisDateField = __webpack_require__(411);
 
 	var _nemesisDateField2 = _interopRequireDefault(_nemesisDateField);
@@ -82905,6 +82912,8 @@
 	          reactElement = _nemesisTextField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisTextarea:
 	          reactElement = _nemesisTextareaField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisPasswordField:
+	          reactElement = _nemesisPasswordField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisDateField:
 	          reactElement = _nemesisDateField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisDecimalField:
@@ -92887,6 +92896,68 @@
 	}(_nemesisBaseField2.default);
 
 	exports.default = NemesisTextAreaField;
+
+/***/ },
+/* 703 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(397);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _nemesisBaseField = __webpack_require__(409);
+
+	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisPasswordField = function (_NemesisBaseField) {
+	  _inherits(NemesisPasswordField, _NemesisBaseField);
+
+	  function NemesisPasswordField(props) {
+	    _classCallCheck(this, NemesisPasswordField);
+
+	    return _possibleConstructorReturn(this, (NemesisPasswordField.__proto__ || Object.getPrototypeOf(NemesisPasswordField)).call(this, props));
+	  }
+
+	  _createClass(NemesisPasswordField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	        type: 'password',
+	        value: this.state.value || '',
+	        disabled: this.props.readOnly,
+	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	        onChange: this.onValueChange.bind(this) });
+	    }
+	  }]);
+
+	  return NemesisPasswordField;
+	}(_nemesisBaseField2.default);
+
+	exports.default = NemesisPasswordField;
 
 /***/ }
 /******/ ]);

@@ -9,7 +9,8 @@ export const nemesisFieldTypes = {
   nemesisDecimalField: 'nemesisDecimalField',
   nemesisIntegerField: 'nemesisIntegerField',
   nemesisSimpleCollectionField: 'nemesisSimpleCollectionField',
-  nemesisTextarea: 'nemesisTextarea'
+  nemesisTextarea: 'nemesisTextarea',
+  nemesisPasswordField: 'nemesisPasswordField'
 };
 
 export const nemesisFieldUsageTypes = {
@@ -38,7 +39,7 @@ export const searchRestrictionTypes = {
 // "nemesisBooleanField" - done
 // "nemesisIntegerField" - done
 // "nemesisEnumField" - done
-// "nemesisPasswordField"
+// "nemesisPasswordField" - done
 // "nemesisLocalizedTextField" - done
 // "nemesisDecimalField" - done
 // "nemesisSimpleCollectionField" - done
