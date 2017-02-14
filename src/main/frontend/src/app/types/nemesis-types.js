@@ -28,3 +28,21 @@ export const searchRestrictionTypes = {
   isNull: 'Null',
   equals: 'Equals'
 };
+
+
+// "nemesisTextField" - done
+// "nemesisEntityField" - done
+// "nemesisCollectionField"
+// "nemesisDateField" - done
+// "nemesisBooleanField" - done
+// "nemesisIntegerField" - done
+// "nemesisEnumField" - done
+// "nemesisPasswordField"
+// "nemesisLocalizedTextField" - done
+// "nemesisDecimalField" - done
+// "nemesisSimpleCollectionField" - done
+// "nemesisHtmlEditor"
+// "nemesisLocalizedRichtextField"
+// "nemesisTextarea"
+// "nemesisColorpickerField"
+// "nemesisMediaField"

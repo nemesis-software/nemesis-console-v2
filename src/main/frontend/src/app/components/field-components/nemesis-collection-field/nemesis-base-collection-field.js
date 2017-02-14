@@ -10,11 +10,7 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
   render() {
     return (
       <div>
-        <div>
-          {this.state.value.map((item, index) => {
-            return <Chip key={index} onRequestDelete={() => this.onDeleteRequest(index)}>{this.getItemRenderingValue(item)}</Chip>
-          })}
-        </div>
+        {this.getItemsRender()}
         {this.getInputField()}
       </div>
     )
@@ -32,5 +28,30 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
 
   getItemRenderingValue(item) {
     return item;
+  }
+
+  getChipRenderer(item, index) {
+    let config = {
+      key: index,
+      children: this.getItemRenderingValue(item)
+    };
+
+    if (!this.props.readOnly) {
+      config.onRequestDelete = () => this.onDeleteRequest(index);
+    }
+
+    return React.createElement(Chip, config)
+  }
+
+  getItemsRender() {
+    if (!this.state.value || this.state.value.length === 0) {
+      return <div>No Records</div>
+    } else {
+      return (
+        <div>
+          {this.state.value.map((item, index) => this.getChipRenderer(item, index))}
+        </div>
+      )
+    }
   }
 }

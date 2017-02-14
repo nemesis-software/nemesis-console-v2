@@ -105,5 +105,3 @@ export default class NemesisEntityField extends NemesisBaseField {
     return text;
   }
 }
-
-//onChange={this.onValueChange.bind(this)}
