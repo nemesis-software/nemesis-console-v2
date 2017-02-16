@@ -9,6 +9,7 @@ import NemesisEnumField from '../../../field-components/nemesis-enum-field/nemes
 import NemesisEntityField from '../../../field-components/nemesis-entity-field/nemesis-entity-field';
 import NemesisBooleanField from '../../../field-components/nemesis-boolean-field/nemesis-boolean-field';
 import NemesisLocalizedTextField from '../../../field-components/nemesis-localized-text-field/nemesis-localized-text-field';
+import NemesisRichTextField from '../../../field-components/nemesis-richtext-field/nemesis-richtext-field';
 import NemesisSimpleCollectionField from '../../../field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field';
 import NemesisEntityCollectionField from '../../../field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field';
 
@@ -42,6 +43,7 @@ export default class EntitySection extends Component {
     switch (item.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
       case nemesisFieldTypes.nemesisTextarea: reactElement = NemesisTextareaField; break;
+      case nemesisFieldTypes.nemesisHtmlEditor: reactElement = NemesisRichTextField; break;
       case nemesisFieldTypes.nemesisPasswordField: reactElement = NemesisPasswordField; break;
       case nemesisFieldTypes.nemesisDateField: reactElement = NemesisDateField; break;
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;

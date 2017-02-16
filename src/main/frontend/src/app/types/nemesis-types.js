@@ -10,7 +10,8 @@ export const nemesisFieldTypes = {
   nemesisIntegerField: 'nemesisIntegerField',
   nemesisSimpleCollectionField: 'nemesisSimpleCollectionField',
   nemesisTextarea: 'nemesisTextarea',
-  nemesisPasswordField: 'nemesisPasswordField'
+  nemesisPasswordField: 'nemesisPasswordField',
+  nemesisHtmlEditor: 'nemesisHtmlEditor'
 };
 
 export const nemesisFieldUsageTypes = {
@@ -33,6 +34,7 @@ export const searchRestrictionTypes = {
 
 
 // "nemesisTextField" - done
+// "nemesisTextarea" - done
 // "nemesisEntityField" - done
 // "nemesisCollectionField" - done
 // "nemesisDateField" - done
@@ -43,8 +45,7 @@ export const searchRestrictionTypes = {
 // "nemesisLocalizedTextField" - done
 // "nemesisDecimalField" - done
 // "nemesisSimpleCollectionField" - done
-// "nemesisHtmlEditor"
+// "nemesisHtmlEditor" - done // use textarea
 // "nemesisLocalizedRichtextField"
-// "nemesisTextarea" - done
 // "nemesisColorpickerField"
 // "nemesisMediaField"
