@@ -5,6 +5,7 @@ export const nemesisFieldTypes = {
   nemesisEntityField: 'nemesisEntityField',
   nemesisEnumField: 'nemesisEnumField',
   nemesisLocalizedTextField: 'nemesisLocalizedTextField',
+  nemesisLocalizedRichtextField: 'nemesisLocalizedRichtextField',
   nemesisTextField: 'nemesisTextField',
   nemesisDecimalField: 'nemesisDecimalField',
   nemesisIntegerField: 'nemesisIntegerField',

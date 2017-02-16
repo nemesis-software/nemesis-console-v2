@@ -29225,6 +29225,8 @@
 		"./app/components/field-components/nemesis-entity-field/nemesis-entity-field.js": 558,
 		"./app/components/field-components/nemesis-enum-field/nemesis-enum-field": 556,
 		"./app/components/field-components/nemesis-enum-field/nemesis-enum-field.js": 556,
+		"./app/components/field-components/nemesis-localized-text-field/nemesis-localized-richtext-field": 705,
+		"./app/components/field-components/nemesis-localized-text-field/nemesis-localized-richtext-field.js": 705,
 		"./app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field": 543,
 		"./app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field.js": 543,
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field": 554,
@@ -53135,6 +53137,7 @@
 	  nemesisEntityField: 'nemesisEntityField',
 	  nemesisEnumField: 'nemesisEnumField',
 	  nemesisLocalizedTextField: 'nemesisLocalizedTextField',
+	  nemesisLocalizedRichtextField: 'nemesisLocalizedRichtextField',
 	  nemesisTextField: 'nemesisTextField',
 	  nemesisDecimalField: 'nemesisDecimalField',
 	  nemesisIntegerField: 'nemesisIntegerField',
@@ -74833,12 +74836,17 @@
 	          availableLanguages: translationLanguages.languages,
 	          selectedLanguage: translationLanguages.defaultLanguage
 	        }),
-	        _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	          value: this.getTextFieldValue(),
-	          disabled: this.props.readOnly,
-	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	          onChange: this.onTextChange.bind(this) })
+	        this.getInputField()
 	      );
+	    }
+	  }, {
+	    key: 'getInputField',
+	    value: function getInputField() {
+	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	        value: this.getTextFieldValue(),
+	        disabled: this.props.readOnly,
+	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	        onChange: this.onTextChange.bind(this) });
 	    }
 	  }, {
 	    key: 'onLanguageChange',
@@ -74861,6 +74869,9 @@
 	    key: 'onTextChange',
 	    value: function onTextChange(event, value) {
 	      var actualValue = _extends({}, this.state.value);
+	      if (!actualValue[this.state.selectedLanguage]) {
+	        actualValue[this.state.selectedLanguage] = {};
+	      }
 	      actualValue[this.state.selectedLanguage].value = value;
 	      this.onValueChange(event, actualValue);
 	    }
@@ -82851,6 +82862,10 @@
 
 	var _nemesisLocalizedTextField2 = _interopRequireDefault(_nemesisLocalizedTextField);
 
+	var _nemesisLocalizedRichtextField = __webpack_require__(705);
+
+	var _nemesisLocalizedRichtextField2 = _interopRequireDefault(_nemesisLocalizedRichtextField);
+
 	var _nemesisRichtextField = __webpack_require__(614);
 
 	var _nemesisRichtextField2 = _interopRequireDefault(_nemesisRichtextField);
@@ -82937,6 +82952,8 @@
 	          elementConfig.entityId = item.entityId;reactElement = _nemesisEntityField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisLocalizedTextField:
 	          reactElement = _nemesisLocalizedTextField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisLocalizedRichtextField:
+	          reactElement = _nemesisLocalizedRichtextField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisSimpleCollectionField:
 	          elementConfig.value = elementConfig.value || [];reactElement = _nemesisSimpleCollectionField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisCollectionField:
@@ -93031,6 +93048,69 @@
 	module.exports = webpackContext;
 	webpackContext.id = 704;
 
+
+/***/ },
+/* 705 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(397);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _nemesisLocalizedTextField = __webpack_require__(543);
+
+	var _nemesisLocalizedTextField2 = _interopRequireDefault(_nemesisLocalizedTextField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisTextField = function (_NemesisLocalizedText) {
+	  _inherits(NemesisTextField, _NemesisLocalizedText);
+
+	  function NemesisTextField(props) {
+	    _classCallCheck(this, NemesisTextField);
+
+	    return _possibleConstructorReturn(this, (NemesisTextField.__proto__ || Object.getPrototypeOf(NemesisTextField)).call(this, props));
+	  }
+
+	  _createClass(NemesisTextField, [{
+	    key: 'getInputField',
+	    value: function getInputField() {
+	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	        value: this.getTextFieldValue(),
+	        disabled: this.props.readOnly,
+	        multiLine: true,
+	        rowsMax: 4,
+	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	        onChange: this.onTextChange.bind(this) });
+	    }
+	  }]);
+
+	  return NemesisTextField;
+	}(_nemesisLocalizedTextField2.default);
+
+	exports.default = NemesisTextField;
 
 /***/ }
 /******/ ]);

@@ -30,12 +30,18 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           availableLanguages={translationLanguages.languages}
           selectedLanguage={translationLanguages.defaultLanguage}
         />
-        <TextField style={this.props.style}
-                   value={this.getTextFieldValue()}
-                   disabled={this.props.readOnly}
-                   floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                   onChange={this.onTextChange.bind(this)}/>
+        {this.getInputField()}
       </div>
+    )
+  }
+
+  getInputField() {
+    return (
+      <TextField style={this.props.style}
+                 value={this.getTextFieldValue()}
+                 disabled={this.props.readOnly}
+                 floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
+                 onChange={this.onTextChange.bind(this)}/>
     )
   }
 
@@ -56,6 +62,9 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
 
   onTextChange(event, value) {
     let actualValue = {...this.state.value};
+    if (!actualValue[this.state.selectedLanguage]) {
+      actualValue[this.state.selectedLanguage] = {};
+    }
     actualValue[this.state.selectedLanguage].value = value;
     this.onValueChange(event, actualValue);
   }
