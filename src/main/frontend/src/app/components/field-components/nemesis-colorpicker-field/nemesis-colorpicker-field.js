@@ -9,13 +9,6 @@ const popover = {
   position: 'absolute',
   zIndex: '1000',
 };
-const cover = {
-  position: 'fixed',
-  top: '0px',
-  right: '0px',
-  bottom: '0px',
-  left: '0px',
-};
 
 export default class NemesisColorpickerField extends NemesisBaseField {
   constructor(props) {
@@ -45,21 +38,9 @@ export default class NemesisColorpickerField extends NemesisBaseField {
 
   handleClick = () => {
     this.setState({...this.state, displayColorPicker: true });
-    // this.addCoverElementToBody();
   };
 
   handleClose = () => {
     this.setState({...this.state, displayColorPicker: false });
-    // console.log(this.coverElement);
-    // document.body.removeChild(this.coverElement);
-    // this.coverElement = null;
   };
-
-  addCoverElementToBody() {
-    let coverElement = document.createElement('div');
-    coverElement.setAttribute('style', 'position: fixed; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 1');
-    coverElement.addEventListener('click', this.handleClose.bind(this));
-    this.coverElement = coverElement;
-    document.body.appendChild(coverElement);
-  }
 }

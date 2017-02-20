@@ -83295,13 +83295,6 @@
 	  position: 'absolute',
 	  zIndex: '1000'
 	};
-	var cover = {
-	  position: 'fixed',
-	  top: '0px',
-	  right: '0px',
-	  bottom: '0px',
-	  left: '0px'
-	};
 
 	var NemesisColorpickerField = function (_NemesisBaseField) {
 	  _inherits(NemesisColorpickerField, _NemesisBaseField);
@@ -83313,14 +83306,10 @@
 
 	    _this.handleClick = function () {
 	      _this.setState(_extends({}, _this.state, { displayColorPicker: true }));
-	      // this.addCoverElementToBody();
 	    };
 
 	    _this.handleClose = function () {
 	      _this.setState(_extends({}, _this.state, { displayColorPicker: false }));
-	      // console.log(this.coverElement);
-	      // document.body.removeChild(this.coverElement);
-	      // this.coverElement = null;
 	    };
 
 	    _this.state = _extends({}, _this.state, { displayColorPicker: false });
@@ -83352,15 +83341,6 @@
 	          _react2.default.createElement(_RaisedButton2.default, { style: { width: '100%' }, onClick: this.handleClose.bind(this), label: "Done" })
 	        ) : null
 	      );
-	    }
-	  }, {
-	    key: 'addCoverElementToBody',
-	    value: function addCoverElementToBody() {
-	      var coverElement = document.createElement('div');
-	      coverElement.setAttribute('style', 'position: fixed; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 1');
-	      coverElement.addEventListener('click', this.handleClose.bind(this));
-	      this.coverElement = coverElement;
-	      document.body.appendChild(coverElement);
 	    }
 	  }]);
 
