@@ -12,6 +12,7 @@ import NemesisLocalizedTextField from '../../../field-components/nemesis-localiz
 import NemesisLocalizedRichTextField from '../../../field-components/nemesis-localized-text-field/nemesis-localized-richtext-field';
 import NemesisRichTextField from '../../../field-components/nemesis-richtext-field/nemesis-richtext-field';
 import NemesisColorpickerField from '../../../field-components/nemesis-colorpicker-field/nemesis-colorpicker-field';
+import NemesisMediaField from '../../../field-components/nemesis-media-field/nemesis-media-field';
 import NemesisSimpleCollectionField from '../../../field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field';
 import NemesisEntityCollectionField from '../../../field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field';
 
@@ -56,6 +57,7 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisLocalizedTextField; break;
       case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisLocalizedRichTextField; break;
       case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;
+      case nemesisFieldTypes.nemesisMediaField: reactElement = NemesisMediaField; break;
       case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
       case nemesisFieldTypes.nemesisCollectionField: elementConfig.readOnly = true; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
       default: return <div key={index}>Not supported yet - {item.xtype}</div>
