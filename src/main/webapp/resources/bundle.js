@@ -29177,48 +29177,50 @@
 		"./app/components/entities-navigation/entities-navigation.js": 335,
 		"./app/components/entities-navigation/entity-navigation-item": 336,
 		"./app/components/entities-navigation/entity-navigation-item.js": 336,
-		"./app/components/entity-window/entities-filter/default-filter/default-filter": 391,
-		"./app/components/entity-window/entities-filter/default-filter/default-filter.js": 391,
-		"./app/components/entity-window/entities-filter/entities-filter": 592,
-		"./app/components/entity-window/entities-filter/entities-filter.js": 592,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-boolean-field/filter-boolean-field": 545,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-boolean-field/filter-boolean-field.js": 545,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-date-field/filter-date-field": 410,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-date-field/filter-date-field.js": 410,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-enitiy-field/filter-entity-field": 557,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-enitiy-field/filter-entity-field.js": 557,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-enum-field/filter-enum-field": 555,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-enum-field/filter-enum-field.js": 555,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-localized-text-field/filter-localized-text-field": 542,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-localized-text-field/filter-localized-text-field.js": 542,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-number-field/filter-number-field": 553,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-number-field/filter-number-field.js": 553,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field": 394,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field.js": 394,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-text-field/filter-text-field": 393,
-		"./app/components/entity-window/entities-filter/filter-fields/filter-text-field/filter-text-field.js": 393,
+		"./app/components/entity-window/entities-viewer/entities-filter/default-filter/default-filter": 947,
+		"./app/components/entity-window/entities-viewer/entities-filter/default-filter/default-filter.js": 947,
+		"./app/components/entity-window/entities-viewer/entities-filter/entities-filter": 956,
+		"./app/components/entity-window/entities-viewer/entities-filter/entities-filter.js": 956,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-boolean-field/filter-boolean-field": 952,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-boolean-field/filter-boolean-field.js": 952,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-date-field/filter-date-field": 950,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-date-field/filter-date-field.js": 950,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-enitiy-field/filter-entity-field": 955,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-enitiy-field/filter-entity-field.js": 955,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-enum-field/filter-enum-field": 954,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-enum-field/filter-enum-field.js": 954,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-localized-text-field/filter-localized-text-field": 951,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-localized-text-field/filter-localized-text-field.js": 951,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-number-field/filter-number-field": 953,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-number-field/filter-number-field.js": 953,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field": 949,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field.js": 949,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-text-field/filter-text-field": 948,
+		"./app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-text-field/filter-text-field.js": 948,
 		"./app/components/entity-window/entities-viewer/entities-pager/entities-pager": 593,
 		"./app/components/entity-window/entities-viewer/entities-pager/entities-pager.js": 593,
+		"./app/components/entity-window/entities-viewer/entities-result-viewer/entities-result-viewer": 946,
+		"./app/components/entity-window/entities-viewer/entities-result-viewer/entities-result-viewer.js": 946,
 		"./app/components/entity-window/entities-viewer/entities-table-viewer/entities-table-viewer": 594,
 		"./app/components/entity-window/entities-viewer/entities-table-viewer/entities-table-viewer.js": 594,
 		"./app/components/entity-window/entities-viewer/entities-viewer": 610,
 		"./app/components/entity-window/entities-viewer/entities-viewer.js": 610,
 		"./app/components/entity-window/entity-sections/entity-section/entity-section": 611,
 		"./app/components/entity-window/entity-sections/entity-section/entity-section.js": 611,
-		"./app/components/entity-window/entity-sections/entity-sections": 861,
-		"./app/components/entity-window/entity-sections/entity-sections.js": 861,
-		"./app/components/entity-window/entity-window": 878,
-		"./app/components/entity-window/entity-window.js": 878,
+		"./app/components/entity-window/entity-sections/entity-sections": 862,
+		"./app/components/entity-window/entity-sections/entity-sections.js": 862,
+		"./app/components/entity-window/entity-window": 879,
+		"./app/components/entity-window/entity-window.js": 879,
 		"./app/components/field-components/nemesis-base-field": 409,
 		"./app/components/field-components/nemesis-base-field.js": 409,
 		"./app/components/field-components/nemesis-boolean-field/nemesis-boolean-field": 546,
 		"./app/components/field-components/nemesis-boolean-field/nemesis-boolean-field.js": 546,
-		"./app/components/field-components/nemesis-collection-field/nemesis-base-collection-field": 856,
-		"./app/components/field-components/nemesis-collection-field/nemesis-base-collection-field.js": 856,
-		"./app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field": 860,
-		"./app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field.js": 860,
-		"./app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field": 855,
-		"./app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field.js": 855,
+		"./app/components/field-components/nemesis-collection-field/nemesis-base-collection-field": 857,
+		"./app/components/field-components/nemesis-collection-field/nemesis-base-collection-field.js": 857,
+		"./app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field": 861,
+		"./app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field.js": 861,
+		"./app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field": 856,
+		"./app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field.js": 856,
 		"./app/components/field-components/nemesis-colorpicker-field/nemesis-colorpicker-field": 616,
 		"./app/components/field-components/nemesis-colorpicker-field/nemesis-colorpicker-field.js": 616,
 		"./app/components/field-components/nemesis-date-field/nemesis-date-field": 411,
@@ -29231,8 +29233,8 @@
 		"./app/components/field-components/nemesis-localized-text-field/nemesis-localized-richtext-field.js": 614,
 		"./app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field": 543,
 		"./app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field.js": 543,
-		"./app/components/field-components/nemesis-media-field/nemesis-media-field": 879,
-		"./app/components/field-components/nemesis-media-field/nemesis-media-field.js": 879,
+		"./app/components/field-components/nemesis-media-field/nemesis-media-field": 855,
+		"./app/components/field-components/nemesis-media-field/nemesis-media-field.js": 855,
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field": 554,
 		"./app/components/field-components/nemesis-number-field/nemesis-number-field.js": 554,
 		"./app/components/field-components/nemesis-password-field/nemesis-password-field": 613,
@@ -52958,174 +52960,7 @@
 
 
 /***/ },
-/* 391 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _nemesisTypes = __webpack_require__(392);
-
-	var _filterTextField = __webpack_require__(393);
-
-	var _filterTextField2 = _interopRequireDefault(_filterTextField);
-
-	var _filterDateField = __webpack_require__(410);
-
-	var _filterDateField2 = _interopRequireDefault(_filterDateField);
-
-	var _filterLocalizedTextField = __webpack_require__(542);
-
-	var _filterLocalizedTextField2 = _interopRequireDefault(_filterLocalizedTextField);
-
-	var _filterBooleanField = __webpack_require__(545);
-
-	var _filterBooleanField2 = _interopRequireDefault(_filterBooleanField);
-
-	var _filterNumberField = __webpack_require__(553);
-
-	var _filterNumberField2 = _interopRequireDefault(_filterNumberField);
-
-	var _filterEnumField = __webpack_require__(555);
-
-	var _filterEnumField2 = _interopRequireDefault(_filterEnumField);
-
-	var _filterEntityField = __webpack_require__(557);
-
-	var _filterEntityField2 = _interopRequireDefault(_filterEntityField);
-
-	var _filterBuilder = __webpack_require__(589);
-
-	var _filterBuilder2 = _interopRequireDefault(_filterBuilder);
-
-	var _RaisedButton = __webpack_require__(590);
-
-	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-
-	var _lodash = __webpack_require__(389);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var keyPrefix = 'defaultFilter';
-
-	var DefaultFilter = function (_Component) {
-	  _inherits(DefaultFilter, _Component);
-
-	  function DefaultFilter(props) {
-	    _classCallCheck(this, DefaultFilter);
-
-	    var _this = _possibleConstructorReturn(this, (DefaultFilter.__proto__ || Object.getPrototypeOf(DefaultFilter)).call(this, props));
-
-	    _this.state = { appliedFilters: [], key: keyPrefix + Date.now() };
-	    return _this;
-	  }
-
-	  _createClass(DefaultFilter, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      return _react2.default.createElement(
-	        'div',
-	        { key: this.state.key },
-	        this.props.filterMarkup.map(function (filterItem, index) {
-	          return _this2.getFilterItemRender(filterItem, index);
-	        }),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(_RaisedButton2.default, { style: { margin: '10px' }, label: 'Search', onClick: this.onSearchButtonClick.bind(this) }),
-	          _react2.default.createElement(_RaisedButton2.default, { label: 'Clear', onClick: this.onClearButtonClick.bind(this) })
-	        )
-	      );
-	    }
-	  }, {
-	    key: 'getFilterItemRender',
-	    value: function getFilterItemRender(filterItem, renderIndex) {
-	      var reactElement = void 0;
-	      switch (filterItem.xtype) {
-	        case _nemesisTypes.nemesisFieldTypes.nemesisTextField:
-	          reactElement = _filterTextField2.default;break;
-	        case _nemesisTypes.nemesisFieldTypes.nemesisDateField:
-	          reactElement = _filterDateField2.default;break;
-	        case _nemesisTypes.nemesisFieldTypes.nemesisLocalizedTextField:
-	          reactElement = _filterLocalizedTextField2.default;break;
-	        case _nemesisTypes.nemesisFieldTypes.nemesisBooleanField:
-	          reactElement = _filterBooleanField2.default;break;
-	        case _nemesisTypes.nemesisFieldTypes.nemesisEnumField:
-	          reactElement = _filterEnumField2.default;break;
-	        case _nemesisTypes.nemesisFieldTypes.nemesisIntegerField:
-	        case _nemesisTypes.nemesisFieldTypes.nemesisDecimalField:
-	          reactElement = _filterNumberField2.default;break;
-	        case _nemesisTypes.nemesisFieldTypes.nemesisEntityField:
-	          reactElement = _filterEntityField2.default;break;
-	        default:
-	          return _react2.default.createElement(
-	            'div',
-	            { key: renderIndex },
-	            'Not supported yet - ',
-	            filterItem.xtype
-	          );
-	      }
-
-	      return _react2.default.createElement(reactElement, {
-	        onFilterChange: this.onFilterChange.bind(this),
-	        key: renderIndex,
-	        filterItem: filterItem
-	      });
-	    }
-	  }, {
-	    key: 'onFilterChange',
-	    value: function onFilterChange(filterObject) {
-	      var filterIndex = _lodash2.default.findIndex(this.state.appliedFilters, { id: filterObject.id });
-	      var appliedFilters = this.state.appliedFilters;
-
-	      if (filterIndex < 0) {
-	        appliedFilters.push(filterObject);
-	      } else {
-	        appliedFilters[filterIndex] = filterObject;
-	      }
-
-	      this.setState({ appliedFilters: appliedFilters });
-	    }
-	  }, {
-	    key: 'onSearchButtonClick',
-	    value: function onSearchButtonClick() {
-	      console.log(this.state.appliedFilters);
-	      var filterString = _filterBuilder2.default.buildFilter(this.state.appliedFilters);
-	      this.props.onFilterApply(filterString);
-	    }
-	  }, {
-	    key: 'onClearButtonClick',
-	    value: function onClearButtonClick() {
-	      this.setState({ appliedFilters: [], key: keyPrefix + Date.now() });
-	      this.props.onFilterApply();
-	    }
-	  }]);
-
-	  return DefaultFilter;
-	}(_react.Component);
-
-	exports.default = DefaultFilter;
-
-/***/ },
+/* 391 */,
 /* 392 */
 /***/ function(module, exports) {
 
@@ -53189,189 +53024,8 @@
 	// "nemesisMediaField"
 
 /***/ },
-/* 393 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _filterRestrictionField = __webpack_require__(394);
-
-	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
-
-	var _nemesisTypes = __webpack_require__(392);
-
-	var _lodash = __webpack_require__(389);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	var _nemesisTextField = __webpack_require__(408);
-
-	var _nemesisTextField2 = _interopRequireDefault(_nemesisTextField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.startingWith, _nemesisTypes.searchRestrictionTypes.endingWith, _nemesisTypes.searchRestrictionTypes.contains, _nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull, _nemesisTypes.searchRestrictionTypes.equals];
-
-	var styles = {
-	  verticalAlign: 'top',
-	  marginRight: '10px'
-	};
-
-	var FilterTextField = function (_Component) {
-	  _inherits(FilterTextField, _Component);
-
-	  function FilterTextField(props) {
-	    _classCallCheck(this, FilterTextField);
-
-	    var _this = _possibleConstructorReturn(this, (FilterTextField.__proto__ || Object.getPrototypeOf(FilterTextField)).call(this, props));
-
-	    _this.state = { restrictionField: null, textField: null };
-	    return _this;
-	  }
-
-	  _createClass(FilterTextField, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
-	        _react2.default.createElement(_nemesisTextField2.default, { style: this.getTextFieldStyles(), onValueChange: _lodash2.default.debounce(this.onTextFieldChange.bind(this), 250), label: this.props.filterItem.fieldLabel })
-	      );
-	    }
-	  }, {
-	    key: 'onRestrictionFieldChange',
-	    value: function onRestrictionFieldChange(restrictionValue) {
-	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
-	      this.updateParentFilter(this.state.textField, restrictionValue);
-	    }
-	  }, {
-	    key: 'onTextFieldChange',
-	    value: function onTextFieldChange(value) {
-	      this.setState(_extends({}, this.state, { textField: value }));
-	      this.updateParentFilter(value, this.state.restrictionField);
-	    }
-	  }, {
-	    key: 'updateParentFilter',
-	    value: function updateParentFilter(textField, restrictionValue) {
-	      this.props.onFilterChange({
-	        value: _lodash2.default.isEmpty(textField) ? null : '\'' + textField + '\'',
-	        restriction: restrictionValue,
-	        field: this.props.filterItem.name,
-	        id: this.props.filterItem.name
-	      });
-	    }
-	  }, {
-	    key: 'getTextFieldStyles',
-	    value: function getTextFieldStyles() {
-	      var result = _extends({}, styles);
-	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-	        result.display = 'none';
-	      }
-
-	      return result;
-	    }
-	  }]);
-
-	  return FilterTextField;
-	}(_react.Component);
-
-	exports.default = FilterTextField;
-
-/***/ },
-/* 394 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _SelectField = __webpack_require__(395);
-
-	var _SelectField2 = _interopRequireDefault(_SelectField);
-
-	var _MenuItem = __webpack_require__(361);
-
-	var _MenuItem2 = _interopRequireDefault(_MenuItem);
-
-	var _reactTranslateComponent = __webpack_require__(316);
-
-	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var FilterRestrictionField = function (_Component) {
-	  _inherits(FilterRestrictionField, _Component);
-
-	  function FilterRestrictionField(props) {
-	    _classCallCheck(this, FilterRestrictionField);
-
-	    var _this = _possibleConstructorReturn(this, (FilterRestrictionField.__proto__ || Object.getPrototypeOf(FilterRestrictionField)).call(this, props));
-
-	    _this.state = { selectedRestrictionField: null };
-	    return _this;
-	  }
-
-	  _createClass(FilterRestrictionField, [{
-	    key: 'handleChange',
-	    value: function handleChange(event, index, value) {
-	      var restrictionField = this.props.restrictionFields[index];
-	      this.props.onRestrictionFieldChange(restrictionField);
-	      this.setState({ selectedRestrictionField: restrictionField });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        _SelectField2.default,
-	        { style: this.props.style, floatingLabelText: this.props.label ? this.props.label + ' restriction' : 'Restriction',
-	          value: this.state.selectedRestrictionField,
-	          onChange: this.handleChange.bind(this) },
-	        this.props.restrictionFields.map(function (field, index) {
-	          return _react2.default.createElement(_MenuItem2.default, { key: index, value: field, primaryText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + field, fallback: field }) });
-	        })
-	      );
-	    }
-	  }]);
-
-	  return FilterRestrictionField;
-	}(_react.Component);
-
-	exports.default = FilterRestrictionField;
-
-/***/ },
+/* 393 */,
+/* 394 */,
 /* 395 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -55774,111 +55428,7 @@
 	};
 
 /***/ },
-/* 410 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _nemesisTypes = __webpack_require__(392);
-
-	var _filterRestrictionField = __webpack_require__(394);
-
-	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
-
-	var _nemesisDateField = __webpack_require__(411);
-
-	var _nemesisDateField2 = _interopRequireDefault(_nemesisDateField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.before, _nemesisTypes.searchRestrictionTypes.after, _nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull];
-
-	var styles = {
-	  verticalAlign: 'top',
-	  marginRight: '10px'
-	};
-
-	var FilterDateField = function (_Component) {
-	  _inherits(FilterDateField, _Component);
-
-	  function FilterDateField(props) {
-	    _classCallCheck(this, FilterDateField);
-
-	    var _this = _possibleConstructorReturn(this, (FilterDateField.__proto__ || Object.getPrototypeOf(FilterDateField)).call(this, props));
-
-	    _this.state = { restrictionField: null, dateField: null };
-	    return _this;
-	  }
-
-	  _createClass(FilterDateField, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
-	        _react2.default.createElement(_nemesisDateField2.default, { style: this.getDateFieldStyles(), onValueChange: this.onDateFieldChange.bind(this), label: this.props.filterItem.fieldLabel })
-	      );
-	    }
-	  }, {
-	    key: 'onRestrictionFieldChange',
-	    value: function onRestrictionFieldChange(restrictionValue) {
-	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
-	      this.updateParentFilter(this.state.dateField, restrictionValue);
-	    }
-	  }, {
-	    key: 'onDateFieldChange',
-	    value: function onDateFieldChange(value) {
-	      this.setState(_extends({}, this.state, { dateField: value }));
-	      this.updateParentFilter(value, this.state.restrictionField);
-	    }
-	  }, {
-	    key: 'updateParentFilter',
-	    value: function updateParentFilter(dateField, restrictionValue) {
-	      this.props.onFilterChange({
-	        value: dateField,
-	        restriction: restrictionValue,
-	        field: this.props.filterItem.name,
-	        id: this.props.filterItem.name
-	      });
-	    }
-	  }, {
-	    key: 'getDateFieldStyles',
-	    value: function getDateFieldStyles() {
-	      var result = _extends({}, styles);
-	      result.display = 'inline-block';
-	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-	        result.display = 'none';
-	      }
-
-	      return result;
-	    }
-	  }]);
-
-	  return FilterDateField;
-	}(_react.Component);
-
-	exports.default = FilterDateField;
-
-/***/ },
+/* 410 */,
 /* 411 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -74661,114 +74211,7 @@
 
 
 /***/ },
-/* 542 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _filterRestrictionField = __webpack_require__(394);
-
-	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
-
-	var _nemesisTypes = __webpack_require__(392);
-
-	var _nemesisLocalizedTextField = __webpack_require__(543);
-
-	var _nemesisLocalizedTextField2 = _interopRequireDefault(_nemesisLocalizedTextField);
-
-	var _lodash = __webpack_require__(389);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.startingWith, _nemesisTypes.searchRestrictionTypes.endingWith, _nemesisTypes.searchRestrictionTypes.contains, _nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull, _nemesisTypes.searchRestrictionTypes.equals];
-
-	var styles = {
-	  verticalAlign: 'top',
-	  marginRight: '10px'
-	};
-
-	var FilterLocalizedTextField = function (_Component) {
-	  _inherits(FilterLocalizedTextField, _Component);
-
-	  function FilterLocalizedTextField(props) {
-	    _classCallCheck(this, FilterLocalizedTextField);
-
-	    var _this = _possibleConstructorReturn(this, (FilterLocalizedTextField.__proto__ || Object.getPrototypeOf(FilterLocalizedTextField)).call(this, props));
-
-	    _this.state = { restrictionField: null, value: {} };
-	    return _this;
-	  }
-
-	  _createClass(FilterLocalizedTextField, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
-	        _react2.default.createElement(_nemesisLocalizedTextField2.default, { style: this.getLocalizedFieldStyles(), onValueChange: this.onLocalizedFieldChange.bind(this), label: this.props.filterItem.fieldLabel })
-	      );
-	    }
-	  }, {
-	    key: 'onRestrictionFieldChange',
-	    value: function onRestrictionFieldChange(restrictionValue) {
-	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
-	      this.updateParentFilter(this.state.value, restrictionValue, this.state.selectedLanguage);
-	    }
-	  }, {
-	    key: 'onLocalizedFieldChange',
-	    value: function onLocalizedFieldChange(value) {
-	      this.setState(_extends({}, this.state, { value: value }));
-	      this.updateParentFilter(value, this.state.restrictionField, this.state.selectedLanguage);
-	    }
-	  }, {
-	    key: 'updateParentFilter',
-	    value: function updateParentFilter(value, restrictionValue) {
-	      this.props.onFilterChange({
-	        value: _lodash2.default.isEmpty(value.value) ? null : '\'' + value.value + '\'',
-	        restriction: restrictionValue,
-	        field: this.props.filterItem.name + '/' + value.language + '/value',
-	        id: this.props.filterItem.name
-	      });
-	    }
-	  }, {
-	    key: 'getLocalizedFieldStyles',
-	    value: function getLocalizedFieldStyles() {
-	      var result = _extends({}, styles);
-	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-	        result.display = 'none';
-	      }
-
-	      return result;
-	    }
-	  }]);
-
-	  return FilterLocalizedTextField;
-	}(_react.Component);
-
-	exports.default = FilterLocalizedTextField;
-
-/***/ },
+/* 542 */,
 /* 543 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -74983,93 +74426,7 @@
 	exports.default = LanguageChanger;
 
 /***/ },
-/* 545 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _nemesisTypes = __webpack_require__(392);
-
-	var _nemesisBooleanField = __webpack_require__(546);
-
-	var _nemesisBooleanField2 = _interopRequireDefault(_nemesisBooleanField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var styles = {
-	  parent: {
-	    margin: '20px 0'
-	  },
-	  container: {
-	    display: 'inline-block',
-	    width: 'auto',
-	    marginRight: '10px'
-	  },
-	  label: {
-	    color: '#9e9e9e',
-	    fontSize: '18px',
-	    lineHeight: '24px',
-	    verticalAlign: 'top'
-	  }
-	};
-
-	var FilterBooleanField = function (_Component) {
-	  _inherits(FilterBooleanField, _Component);
-
-	  function FilterBooleanField(props) {
-	    _classCallCheck(this, FilterBooleanField);
-
-	    var _this = _possibleConstructorReturn(this, (FilterBooleanField.__proto__ || Object.getPrototypeOf(FilterBooleanField)).call(this, props));
-
-	    _this.state = { booleanField: null };
-	    return _this;
-	  }
-
-	  _createClass(FilterBooleanField, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(_nemesisBooleanField2.default, { style: styles.container, onValueChange: this.onBooleanFieldChange.bind(this), label: this.props.filterItem.fieldLabel });
-	    }
-	  }, {
-	    key: 'onBooleanFieldChange',
-	    value: function onBooleanFieldChange(value) {
-	      this.setState({ booleanField: value });
-	      this.updateParentFilter(value);
-	    }
-	  }, {
-	    key: 'updateParentFilter',
-	    value: function updateParentFilter(booleanField) {
-	      this.props.onFilterChange({
-	        value: booleanField,
-	        restriction: _nemesisTypes.searchRestrictionTypes.equals,
-	        field: this.props.filterItem.name,
-	        id: this.props.filterItem.name
-	      });
-	    }
-	  }]);
-
-	  return FilterBooleanField;
-	}(_react.Component);
-
-	exports.default = FilterBooleanField;
-
-/***/ },
+/* 545 */,
 /* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -76278,114 +75635,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 553 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _filterRestrictionField = __webpack_require__(394);
-
-	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
-
-	var _nemesisTypes = __webpack_require__(392);
-
-	var _lodash = __webpack_require__(389);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	var _nemesisNumberField = __webpack_require__(554);
-
-	var _nemesisNumberField2 = _interopRequireDefault(_nemesisNumberField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.greaterThan, _nemesisTypes.searchRestrictionTypes.lessThan, _nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull, _nemesisTypes.searchRestrictionTypes.equals];
-
-	var styles = {
-	  verticalAlign: 'top',
-	  marginRight: '10px'
-	};
-
-	var FilterNumberField = function (_Component) {
-	  _inherits(FilterNumberField, _Component);
-
-	  function FilterNumberField(props) {
-	    _classCallCheck(this, FilterNumberField);
-
-	    var _this = _possibleConstructorReturn(this, (FilterNumberField.__proto__ || Object.getPrototypeOf(FilterNumberField)).call(this, props));
-
-	    _this.state = { restrictionField: null, numberField: null };
-	    return _this;
-	  }
-
-	  _createClass(FilterNumberField, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
-	        _react2.default.createElement(_nemesisNumberField2.default, { step: this.props.filterItem.xtype === _nemesisTypes.nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1', style: this.getNumberFieldStyles(), onValueChange: _lodash2.default.debounce(this.onNumberFieldChange.bind(this), 250), label: this.props.filterItem.fieldLabel })
-	      );
-	    }
-	  }, {
-	    key: 'onRestrictionFieldChange',
-	    value: function onRestrictionFieldChange(restrictionValue) {
-	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
-	      this.updateParentFilter(this.state.numberField, restrictionValue);
-	    }
-	  }, {
-	    key: 'onNumberFieldChange',
-	    value: function onNumberFieldChange(value) {
-	      this.setState(_extends({}, this.state, { numberField: value }));
-	      this.updateParentFilter(value, this.state.restrictionField);
-	    }
-	  }, {
-	    key: 'updateParentFilter',
-	    value: function updateParentFilter(numberField, restrictionValue) {
-	      this.props.onFilterChange({
-	        value: numberField,
-	        restriction: restrictionValue,
-	        field: this.props.filterItem.name,
-	        id: this.props.filterItem.name
-	      });
-	    }
-	  }, {
-	    key: 'getNumberFieldStyles',
-	    value: function getNumberFieldStyles() {
-	      var result = _extends({}, styles);
-	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-	        result.display = 'none';
-	      }
-
-	      return result;
-	    }
-	  }]);
-
-	  return FilterNumberField;
-	}(_react.Component);
-
-	exports.default = FilterNumberField;
-
-/***/ },
+/* 553 */,
 /* 554 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -76448,85 +75698,7 @@
 	exports.default = NemesisNumberField;
 
 /***/ },
-/* 555 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _nemesisTypes = __webpack_require__(392);
-
-	var _nemesisEnumField = __webpack_require__(556);
-
-	var _nemesisEnumField2 = _interopRequireDefault(_nemesisEnumField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var styles = {
-	  verticalAlign: 'top',
-	  marginRight: '10px'
-	};
-
-	var FilterEnumField = function (_Component) {
-	  _inherits(FilterEnumField, _Component);
-
-	  function FilterEnumField(props) {
-	    _classCallCheck(this, FilterEnumField);
-
-	    var _this = _possibleConstructorReturn(this, (FilterEnumField.__proto__ || Object.getPrototypeOf(FilterEnumField)).call(this, props));
-
-	    _this.state = { enumField: null };
-	    return _this;
-	  }
-
-	  _createClass(FilterEnumField, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_nemesisEnumField2.default, { style: styles, values: this.props.filterItem.values, onValueChange: this.onEnumFieldChange.bind(this), label: this.props.filterItem.fieldLabel })
-	      );
-	    }
-	  }, {
-	    key: 'onEnumFieldChange',
-	    value: function onEnumFieldChange(value) {
-	      this.setState({ enumField: value });
-	      this.updateParentFilter(value);
-	    }
-	  }, {
-	    key: 'updateParentFilter',
-	    value: function updateParentFilter(enumField) {
-	      this.props.onFilterChange({
-	        value: enumField,
-	        restriction: _nemesisTypes.searchRestrictionTypes.equals,
-	        field: this.props.filterItem.name,
-	        id: this.props.filterItem.name
-	      });
-	    }
-	  }]);
-
-	  return FilterEnumField;
-	}(_react.Component);
-
-	exports.default = FilterEnumField;
-
-/***/ },
+/* 555 */,
 /* 556 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -76603,114 +75775,7 @@
 	exports.default = NemesisEnumField;
 
 /***/ },
-/* 557 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _filterRestrictionField = __webpack_require__(394);
-
-	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
-
-	var _nemesisTypes = __webpack_require__(392);
-
-	var _lodash = __webpack_require__(389);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	var _nemesisEntityField = __webpack_require__(558);
-
-	var _nemesisEntityField2 = _interopRequireDefault(_nemesisEntityField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull, _nemesisTypes.searchRestrictionTypes.equals];
-
-	var styles = {
-	  verticalAlign: 'top',
-	  marginRight: '10px'
-	};
-
-	var FilterEntityField = function (_Component) {
-	  _inherits(FilterEntityField, _Component);
-
-	  function FilterEntityField(props) {
-	    _classCallCheck(this, FilterEntityField);
-
-	    var _this = _possibleConstructorReturn(this, (FilterEntityField.__proto__ || Object.getPrototypeOf(FilterEntityField)).call(this, props));
-
-	    _this.state = { restrictionField: null, textField: null, selectedId: null };
-	    return _this;
-	  }
-
-	  _createClass(FilterEntityField, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
-	        _react2.default.createElement(_nemesisEntityField2.default, { entityId: this.props.filterItem.entityId, style: this.getTextFieldStyles(), onValueChange: this.onSelectedMenuItem.bind(this), label: this.props.filterItem.fieldLabel })
-	      );
-	    }
-	  }, {
-	    key: 'onRestrictionFieldChange',
-	    value: function onRestrictionFieldChange(restrictionValue) {
-	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
-	      this.updateParentFilter(this.state.selectedId, restrictionValue);
-	    }
-	  }, {
-	    key: 'updateParentFilter',
-	    value: function updateParentFilter(selectedId, restrictionValue) {
-	      this.props.onFilterChange({
-	        value: _lodash2.default.isEmpty(selectedId) ? null : selectedId + 'L',
-	        restriction: restrictionValue,
-	        field: this.props.filterItem.name.replace('entity-', '') + '/id',
-	        id: this.props.filterItem.name
-	      });
-	    }
-	  }, {
-	    key: 'onSelectedMenuItem',
-	    value: function onSelectedMenuItem(item) {
-	      this.setState(_extends({}, this.state, { selectedId: item }));
-	      this.updateParentFilter(item, this.state.restrictionField);
-	    }
-	  }, {
-	    key: 'getTextFieldStyles',
-	    value: function getTextFieldStyles() {
-	      var result = _extends({}, styles);
-	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-	        result.display = 'none';
-	      }
-
-	      return result;
-	    }
-	  }]);
-
-	  return FilterEntityField;
-	}(_react.Component);
-
-	exports.default = FilterEntityField;
-
-/***/ },
+/* 557 */,
 /* 558 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -79910,69 +78975,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 592 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _requireUtil = __webpack_require__(184);
-
-	var _defaultFilter = __webpack_require__(391);
-
-	var _defaultFilter2 = _interopRequireDefault(_defaultFilter);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var EntitiesFilter = function (_Component) {
-	  _inherits(EntitiesFilter, _Component);
-
-	  function EntitiesFilter(props) {
-	    _classCallCheck(this, EntitiesFilter);
-
-	    var _this = _possibleConstructorReturn(this, (EntitiesFilter.__proto__ || Object.getPrototypeOf(EntitiesFilter)).call(this, props));
-
-	    _this.state = { filterMarkup: _this.props.filterMarkup };
-	    return _this;
-	  }
-
-	  _createClass(EntitiesFilter, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_defaultFilter2.default, { onFilterApply: this.props.onFilterApply, filterMarkup: this.state.filterMarkup })
-	      );
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      this.setState({ filterMarkup: nextProps.filterMarkup });
-	    }
-	  }]);
-
-	  return EntitiesFilter;
-	}(_react.Component);
-
-	exports.default = EntitiesFilter;
-
-/***/ },
+/* 592 */,
 /* 593 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -82769,6 +81772,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -82777,9 +81782,25 @@
 
 	var _requireUtil = __webpack_require__(184);
 
-	var _entitiesTableViewer = __webpack_require__(594);
+	var _entitiesResultViewer = __webpack_require__(946);
 
-	var _entitiesTableViewer2 = _interopRequireDefault(_entitiesTableViewer);
+	var _entitiesResultViewer2 = _interopRequireDefault(_entitiesResultViewer);
+
+	var _entitiesFilter = __webpack_require__(956);
+
+	var _entitiesFilter2 = _interopRequireDefault(_entitiesFilter);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _apiCall = __webpack_require__(563);
+
+	var _apiCall2 = _interopRequireDefault(_apiCall);
+
+	var _lodash = __webpack_require__(389);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82789,23 +81810,76 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var pagerData = {
+	  page: 1,
+	  pageSize: 20
+	};
+
 	var EntitiesViewer = function (_Component) {
 	  _inherits(EntitiesViewer, _Component);
 
 	  function EntitiesViewer(props) {
 	    _classCallCheck(this, EntitiesViewer);
 
-	    return _possibleConstructorReturn(this, (EntitiesViewer.__proto__ || Object.getPrototypeOf(EntitiesViewer)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (EntitiesViewer.__proto__ || Object.getPrototypeOf(EntitiesViewer)).call(this, props));
+
+	    _this.state = { searchData: [], page: {}, filter: null };
+	    return _this;
 	  }
 
 	  _createClass(EntitiesViewer, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.getEntitiesData(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_entitiesTableViewer2.default, { entities: this.props.entities,
-	        entitiesMarkup: this.props.entitiesMarkup,
-	        onPagerChange: this.props.onPagerChange,
-	        page: this.props.page,
-	        onEntityItemClick: this.props.onEntityItemClick });
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_reactTranslateComponent2.default, { component: 'h2', content: 'main.' + this.props.entity.entityId, fallback: this.props.entity.entityId }),
+	        _react2.default.createElement(_entitiesFilter2.default, { filterMarkup: this.props.entity.data.filter, onFilterApply: this.onFilterApply.bind(this) }),
+	        _react2.default.createElement(_entitiesResultViewer2.default, { entities: this.state.searchData,
+	          entitiesMarkup: this.props.entity.data.result,
+	          onPagerChange: this.onPagerChange.bind(this),
+	          page: this.state.page,
+	          onEntityItemClick: this.onEntityItemClick.bind(this) })
+	      );
+	    }
+	  }, {
+	    key: 'onFilterApply',
+	    value: function onFilterApply(filter) {
+	      this.setState(_extends({}, this.state, { filter: filter }));
+	      this.getEntitiesData(this.props.entity, pagerData.page, this.state.page.size, filter);
+	    }
+	  }, {
+	    key: 'getEntitiesData',
+	    value: function getEntitiesData(entity, page, pageSize, filter) {
+	      var _this2 = this;
+
+	      _apiCall2.default.get(entity.entityId, { page: page, size: pageSize, $filter: filter, projection: 'search' }).then(function (result) {
+	        _this2.setState(_extends({}, _this2.state, { searchData: _this2.mapCollectionData(result.data), page: result.data.page }));
+	      });
+	    }
+	  }, {
+	    key: 'mapCollectionData',
+	    value: function mapCollectionData(data) {
+	      var result = [];
+	      _lodash2.default.forIn(data._embedded, function (value) {
+	        return result = result.concat(value);
+	      });
+	      return result;
+	    }
+	  }, {
+	    key: 'onEntityItemClick',
+	    value: function onEntityItemClick(item) {
+	      this.props.onEntityItemClick(item, this.props.entity.entityId);
+	    }
+	  }, {
+	    key: 'onPagerChange',
+	    value: function onPagerChange(page, pageSize) {
+	      this.getEntitiesData(this.props.entity, page, pageSize, this.state.filter);
 	    }
 	  }]);
 
@@ -82880,15 +81954,15 @@
 
 	var _nemesisColorpickerField2 = _interopRequireDefault(_nemesisColorpickerField);
 
-	var _nemesisMediaField = __webpack_require__(879);
+	var _nemesisMediaField = __webpack_require__(855);
 
 	var _nemesisMediaField2 = _interopRequireDefault(_nemesisMediaField);
 
-	var _nemesisSimpleCollectionField = __webpack_require__(855);
+	var _nemesisSimpleCollectionField = __webpack_require__(856);
 
 	var _nemesisSimpleCollectionField2 = _interopRequireDefault(_nemesisSimpleCollectionField);
 
-	var _nemesisEntityCollectionField = __webpack_require__(860);
+	var _nemesisEntityCollectionField = __webpack_require__(861);
 
 	var _nemesisEntityCollectionField2 = _interopRequireDefault(_nemesisEntityCollectionField);
 
@@ -96339,7 +95413,108 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _nemesisBaseCollectionField = __webpack_require__(856);
+	var _RaisedButton = __webpack_require__(590);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _nemesisBaseField = __webpack_require__(409);
+
+	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NemesisTextField = function (_NemesisBaseField) {
+	  _inherits(NemesisTextField, _NemesisBaseField);
+
+	  function NemesisTextField(props) {
+	    _classCallCheck(this, NemesisTextField);
+
+	    var _this = _possibleConstructorReturn(this, (NemesisTextField.__proto__ || Object.getPrototypeOf(NemesisTextField)).call(this, props));
+
+	    _this.state = _extends({}, _this.state, { file: '' });
+	    return _this;
+	  }
+
+	  _createClass(NemesisTextField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _RaisedButton2.default,
+	          {
+	            containerElement: 'label',
+	            label: 'Upload' },
+	          _react2.default.createElement('input', { onChange: this.handleImageChange.bind(this), style: { display: 'none' }, type: 'file' })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement('img', { src: this.state.value, alt: 'No image', height: '200', width: '300' })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'handleImageChange',
+	    value: function handleImageChange(e) {
+	      var _this2 = this;
+
+	      e.preventDefault();
+
+	      var reader = new FileReader();
+	      var file = e.target.files[0];
+
+	      reader.onloadend = function () {
+	        _this2.setState(_extends({}, _this2.state, {
+	          file: file,
+	          value: reader.result
+	        }));
+	      };
+
+	      reader.readAsDataURL(file);
+	    }
+	  }, {
+	    key: 'getChangeValue',
+	    value: function getChangeValue() {
+	      if (this.state.isDirty) {
+	        return { name: this.props.name, value: this.state.file, isMedia: true };
+	      }
+
+	      return null;
+	    }
+	  }]);
+
+	  return NemesisTextField;
+	}(_nemesisBaseField2.default);
+
+	exports.default = NemesisTextField;
+
+/***/ },
+/* 856 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisBaseCollectionField = __webpack_require__(857);
 
 	var _nemesisBaseCollectionField2 = _interopRequireDefault(_nemesisBaseCollectionField);
 
@@ -96393,7 +95568,7 @@
 	exports.default = NemesisSimpleCollectionField;
 
 /***/ },
-/* 856 */
+/* 857 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96412,7 +95587,7 @@
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
 
-	var _Chip = __webpack_require__(857);
+	var _Chip = __webpack_require__(858);
 
 	var _Chip2 = _interopRequireDefault(_Chip);
 
@@ -96511,7 +95686,7 @@
 	exports.default = NemesisBaseCollectionField;
 
 /***/ },
-/* 857 */
+/* 858 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96521,7 +95696,7 @@
 	});
 	exports.default = undefined;
 
-	var _Chip = __webpack_require__(858);
+	var _Chip = __webpack_require__(859);
 
 	var _Chip2 = _interopRequireDefault(_Chip);
 
@@ -96530,7 +95705,7 @@
 	exports.default = _Chip2.default;
 
 /***/ },
-/* 858 */
+/* 859 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -96585,7 +95760,7 @@
 
 	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
-	var _cancel = __webpack_require__(859);
+	var _cancel = __webpack_require__(860);
 
 	var _cancel2 = _interopRequireDefault(_cancel);
 
@@ -96872,7 +96047,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 859 */
+/* 860 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96909,7 +96084,7 @@
 	exports.default = NavigationCancel;
 
 /***/ },
-/* 860 */
+/* 861 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -96926,7 +96101,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _nemesisBaseCollectionField = __webpack_require__(856);
+	var _nemesisBaseCollectionField = __webpack_require__(857);
 
 	var _nemesisBaseCollectionField2 = _interopRequireDefault(_nemesisBaseCollectionField);
 
@@ -97045,7 +96220,7 @@
 	exports.default = NemesisEntityCollectionField;
 
 /***/ },
-/* 861 */
+/* 862 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97053,6 +96228,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -97062,15 +96239,29 @@
 
 	var _requireUtil = __webpack_require__(184);
 
-	var _Tabs = __webpack_require__(862);
+	var _Tabs = __webpack_require__(863);
 
-	var _reactSwipeableViews = __webpack_require__(867);
+	var _reactSwipeableViews = __webpack_require__(868);
 
 	var _reactSwipeableViews2 = _interopRequireDefault(_reactSwipeableViews);
 
 	var _entitySection = __webpack_require__(611);
 
 	var _entitySection2 = _interopRequireDefault(_entitySection);
+
+	var _RaisedButton = __webpack_require__(590);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _apiCall = __webpack_require__(563);
+
+	var _apiCall2 = _interopRequireDefault(_apiCall);
+
+	var _lodash = __webpack_require__(389);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -97089,16 +96280,21 @@
 	    var _this = _possibleConstructorReturn(this, (EntitySections.__proto__ || Object.getPrototypeOf(EntitySections)).call(this, props));
 
 	    _this.handleChange = function (value) {
-	      _this.setState({
+	      _this.setState(_extends({}, _this.state, {
 	        sectionIndex: value
-	      });
+	      }));
 	    };
 
-	    _this.state = { sectionIndex: 0 };
+	    _this.state = { sectionIndex: 0, entityData: {} };
 	    return _this;
 	  }
 
 	  _createClass(EntitySections, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.getDataEntity(this.props.entity);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -97106,6 +96302,13 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(_RaisedButton2.default, { label: 'Save' }),
+	          _react2.default.createElement(_RaisedButton2.default, { label: 'Save and close' }),
+	          _react2.default.createElement(_RaisedButton2.default, { label: 'Delete' })
+	        ),
 	        _react2.default.createElement(
 	          _Tabs.Tabs,
 	          { onChange: this.handleChange,
@@ -97121,10 +96324,77 @@
 	            onChangeIndex: this.handleChange
 	          },
 	          this.props.entity.data.sections.map(function (item, index) {
-	            return _react2.default.createElement(_entitySection2.default, { key: index, section: item, entityData: _this2.props.entityData });
+	            return _react2.default.createElement(_entitySection2.default, { key: index, section: item, entityData: _this2.state.entityData });
 	          })
 	        )
 	      );
+	    }
+	  }, {
+	    key: 'getDataEntity',
+	    value: function getDataEntity(entity) {
+	      var _this3 = this;
+
+	      var relatedEntities = this.getEntityRelatedEntities(entity);
+	      _apiCall2.default.get(entity.entityId + '/' + entity.itemId).then(function (result) {
+	        _this3.setState(_extends({}, _this3.state, { entityData: result.data }));
+	        Promise.all(relatedEntities.map(function (item) {
+	          return _apiCall2.default.get(result.data._links[item.name].href, { projection: 'search' })
+	          //TODO: Patch for return 404 for empty relation - https://github.com/nemesis-software/nemesis-platform/issues/293
+	          .then(function (result) {
+	            return Promise.resolve(result);
+	          }, function (err) {
+	            return Promise.resolve({ data: null });
+	          });
+	        })).then(function (result) {
+	          var relatedEntitiesResult = {};
+	          relatedEntities.forEach(function (item, index) {
+	            var data = void 0;
+	            if (item.type === _nemesisTypes.nemesisFieldTypes.nemesisCollectionField) {
+	              data = _this3.mapCollectionData(result[index].data);
+	            } else {
+	              data = _this3.mapEntityData(result[index].data);
+	            }
+
+	            relatedEntitiesResult[item.name] = data;
+	          });
+	          _this3.setState(_extends({}, _this3.state, { entityData: _extends({}, _this3.state.entityData, { customClientData: relatedEntitiesResult }) }));
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'getEntityRelatedEntities',
+	    value: function getEntityRelatedEntities(entity) {
+	      var result = [];
+	      if (!entity) {
+	        return result;
+	      }
+	      entity.data.sections.forEach(function (item) {
+	        item.items.forEach(function (subItem) {
+	          if ([_nemesisTypes.nemesisFieldTypes.nemesisCollectionField, _nemesisTypes.nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+	            result.push({ type: subItem.xtype, name: subItem.name.replace('entity-', '') });
+	          }
+	        });
+	      });
+
+	      return result;
+	    }
+	  }, {
+	    key: 'mapCollectionData',
+	    value: function mapCollectionData(data) {
+	      var result = [];
+	      _lodash2.default.forIn(data._embedded, function (value) {
+	        return result = result.concat(value);
+	      });
+	      return result;
+	    }
+	  }, {
+	    key: 'mapEntityData',
+	    value: function mapEntityData(data) {
+	      if (!data) {
+	        return null;
+	      }
+
+	      return data.content || data;
 	    }
 	  }]);
 
@@ -97134,7 +96404,7 @@
 	exports.default = EntitySections;
 
 /***/ },
-/* 862 */
+/* 863 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97144,11 +96414,11 @@
 	});
 	exports.default = exports.Tabs = exports.Tab = undefined;
 
-	var _Tab2 = __webpack_require__(863);
+	var _Tab2 = __webpack_require__(864);
 
 	var _Tab3 = _interopRequireDefault(_Tab2);
 
-	var _Tabs2 = __webpack_require__(864);
+	var _Tabs2 = __webpack_require__(865);
 
 	var _Tabs3 = _interopRequireDefault(_Tabs2);
 
@@ -97159,7 +96429,7 @@
 	exports.default = _Tabs3.default;
 
 /***/ },
-/* 863 */
+/* 864 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -97371,7 +96641,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 864 */
+/* 865 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -97420,11 +96690,11 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _TabTemplate = __webpack_require__(865);
+	var _TabTemplate = __webpack_require__(866);
 
 	var _TabTemplate2 = _interopRequireDefault(_TabTemplate);
 
-	var _InkBar = __webpack_require__(866);
+	var _InkBar = __webpack_require__(867);
 
 	var _InkBar2 = _interopRequireDefault(_InkBar);
 
@@ -97694,7 +96964,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 865 */
+/* 866 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -97747,7 +97017,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 866 */
+/* 867 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -97847,7 +97117,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 867 */
+/* 868 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97856,7 +97126,7 @@
 	  value: true
 	});
 
-	var _SwipeableViews = __webpack_require__(868);
+	var _SwipeableViews = __webpack_require__(869);
 
 	var _SwipeableViews2 = _interopRequireDefault(_SwipeableViews);
 
@@ -97865,7 +97135,7 @@
 	exports.default = _SwipeableViews2.default; //  weak
 
 /***/ },
-/* 868 */
+/* 869 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -97917,15 +97187,15 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _properties = __webpack_require__(869);
+	var _properties = __webpack_require__(870);
 
 	var _properties2 = _interopRequireDefault(_properties);
 
-	var _on = __webpack_require__(871);
+	var _on = __webpack_require__(872);
 
 	var _on2 = _interopRequireDefault(_on);
 
-	var _reactSwipeableViewsCore = __webpack_require__(872);
+	var _reactSwipeableViewsCore = __webpack_require__(873);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -98711,7 +97981,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 869 */
+/* 870 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98721,7 +97991,7 @@
 	});
 	exports.animationEnd = exports.animationDelay = exports.animationTiming = exports.animationDuration = exports.animationName = exports.transitionEnd = exports.transitionDuration = exports.transitionDelay = exports.transitionTiming = exports.transitionProperty = exports.transform = undefined;
 
-	var _inDOM = __webpack_require__(870);
+	var _inDOM = __webpack_require__(871);
 
 	var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -98826,7 +98096,7 @@
 	}
 
 /***/ },
-/* 870 */
+/* 871 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -98838,7 +98108,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 871 */
+/* 872 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -98847,7 +98117,7 @@
 	  value: true
 	});
 
-	var _inDOM = __webpack_require__(870);
+	var _inDOM = __webpack_require__(871);
 
 	var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -98874,19 +98144,19 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 872 */
+/* 873 */
 /***/ function(module, exports, __webpack_require__) {
 
-	Object.defineProperty(exports,"__esModule",{value:true});var _checkIndexBounds=__webpack_require__(873);Object.defineProperty(exports,'checkIndexBounds',{enumerable:true,get:function get(){return _interopRequireDefault(_checkIndexBounds).
+	Object.defineProperty(exports,"__esModule",{value:true});var _checkIndexBounds=__webpack_require__(874);Object.defineProperty(exports,'checkIndexBounds',{enumerable:true,get:function get(){return _interopRequireDefault(_checkIndexBounds).
 
-	default;}});var _computeIndex=__webpack_require__(874);Object.defineProperty(exports,'computeIndex',{enumerable:true,get:function get(){return _interopRequireDefault(_computeIndex).
-	default;}});var _constant=__webpack_require__(875);Object.defineProperty(exports,'constant',{enumerable:true,get:function get(){return _interopRequireDefault(_constant).
-	default;}});var _getDisplaySameSlide=__webpack_require__(876);Object.defineProperty(exports,'getDisplaySameSlide',{enumerable:true,get:function get(){return _interopRequireDefault(_getDisplaySameSlide).
-	default;}});var _mod=__webpack_require__(877);Object.defineProperty(exports,'mod',{enumerable:true,get:function get(){return _interopRequireDefault(_mod).
+	default;}});var _computeIndex=__webpack_require__(875);Object.defineProperty(exports,'computeIndex',{enumerable:true,get:function get(){return _interopRequireDefault(_computeIndex).
+	default;}});var _constant=__webpack_require__(876);Object.defineProperty(exports,'constant',{enumerable:true,get:function get(){return _interopRequireDefault(_constant).
+	default;}});var _getDisplaySameSlide=__webpack_require__(877);Object.defineProperty(exports,'getDisplaySameSlide',{enumerable:true,get:function get(){return _interopRequireDefault(_getDisplaySameSlide).
+	default;}});var _mod=__webpack_require__(878);Object.defineProperty(exports,'mod',{enumerable:true,get:function get(){return _interopRequireDefault(_mod).
 	default;}});function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
 
 /***/ },
-/* 873 */
+/* 874 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});
@@ -98910,7 +98180,7 @@
 	checkIndexBounds;
 
 /***/ },
-/* 874 */
+/* 875 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});exports.default=
@@ -98918,7 +98188,7 @@
 
 
 
-	computeIndex;var _react=__webpack_require__(2);var _constant=__webpack_require__(875);var _constant2=_interopRequireDefault(_constant);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function computeIndex(params){var
+	computeIndex;var _react=__webpack_require__(2);var _constant=__webpack_require__(876);var _constant2=_interopRequireDefault(_constant);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function computeIndex(params){var
 
 	children=
 
@@ -98954,7 +98224,7 @@
 	}
 
 /***/ },
-/* 875 */
+/* 876 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});exports.default=
@@ -98967,7 +98237,7 @@
 	UNCERTAINTY_THRESHOLD:3};
 
 /***/ },
-/* 876 */
+/* 877 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});
@@ -98995,7 +98265,7 @@
 	getDisplaySameSlide;
 
 /***/ },
-/* 877 */
+/* 878 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});
@@ -99008,7 +98278,7 @@
 	mod;
 
 /***/ },
-/* 878 */
+/* 879 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -99016,10 +98286,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -99037,7 +98303,7 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _entitiesFilter = __webpack_require__(592);
+	var _entitiesFilter = __webpack_require__(956);
 
 	var _entitiesFilter2 = _interopRequireDefault(_entitiesFilter);
 
@@ -99045,7 +98311,7 @@
 
 	var _entitiesViewer2 = _interopRequireDefault(_entitiesViewer);
 
-	var _entitySections = __webpack_require__(861);
+	var _entitySections = __webpack_require__(862);
 
 	var _entitySections2 = _interopRequireDefault(_entitySections);
 
@@ -99074,18 +98340,15 @@
 	  function EntitiesWindow(props) {
 	    _classCallCheck(this, EntitiesWindow);
 
-	    var _this = _possibleConstructorReturn(this, (EntitiesWindow.__proto__ || Object.getPrototypeOf(EntitiesWindow)).call(this, props));
-
-	    _this.state = { searchData: [], entityData: {}, page: {}, filter: null };
-	    return _this;
+	    return _possibleConstructorReturn(this, (EntitiesWindow.__proto__ || Object.getPrototypeOf(EntitiesWindow)).call(this, props));
+	    // this.state = {searchData: [], entityData: {}, page: {}, filter: null};
 	  }
+	  //
+	  // componentWillMount() {
+	  //   this.getDataByEntityType(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter);
+	  // }
 
 	  _createClass(EntitiesWindow, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.getDataByEntityType(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var styles = {
@@ -99111,22 +98374,22 @@
 	            return _react2.default.createElement(
 	              'div',
 	              null,
-	              _react2.default.createElement(_entitySections2.default, { entity: entity, entityData: this.state.entityData })
+	              _react2.default.createElement(_entitySections2.default, { entity: entity })
 	            );
 	          }
 	        case _entityTypes.entitySearchType:
 	          {
-	            return _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(_reactTranslateComponent2.default, { component: 'h2', content: 'main.' + entity.entityId, fallback: entity.entityId }),
-	              _react2.default.createElement(_entitiesFilter2.default, { filterMarkup: this.props.entity.data.filter, onFilterApply: this.onFilterApply.bind(this) }),
-	              _react2.default.createElement(_entitiesViewer2.default, { entities: this.state.searchData,
-	                entitiesMarkup: this.props.entity.data.result,
-	                onPagerChange: this.onPagerChange.bind(this),
-	                page: this.state.page,
-	                onEntityItemClick: this.onEntityItemClick.bind(this) })
-	            );
+	            return _react2.default.createElement(_entitiesViewer2.default, { entity: entity, onEntityItemClick: this.props.onEntityItemClick })
+	            // <div>
+	            //   <Translate component="h2" content={'main.' + entity.entityId} fallback={entity.entityId}/>
+	            //   <EntitiesFilter filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
+	            //   <EntitiesViewer entities={this.state.searchData}
+	            //                   entitiesMarkup={this.props.entity.data.result}
+	            //                   onPagerChange={this.onPagerChange.bind(this)}
+	            //                   page={this.state.page}
+	            //                   onEntityItemClick={this.onEntityItemClick.bind(this)}/>
+	            // </div>
+	            ;
 	          }
 	        default:
 	          {
@@ -99138,219 +98401,99 @@
 	          }
 	      }
 	    }
-	  }, {
-	    key: 'onEntityItemClick',
-	    value: function onEntityItemClick(item) {
-	      this.props.onEntityItemClick(item, this.props.entity.entityId);
-	    }
-	  }, {
-	    key: 'onFilterApply',
-	    value: function onFilterApply(filter) {
-	      this.setState(_extends({}, this.state, { filter: filter }));
-	      this.getDataByEntityType(this.props.entity, pagerData.page, this.state.page.size, filter);
-	    }
-	  }, {
-	    key: 'onPagerChange',
-	    value: function onPagerChange(page, pageSize) {
-	      this.getDataByEntityType(this.props.entity, page, pageSize, this.state.filter);
-	    }
-	  }, {
-	    key: 'getDataByEntityType',
-	    value: function getDataByEntityType(entity, page, pageSize, filter) {
-	      var _this2 = this;
 
-	      switch (entity.type) {
-	        case _entityTypes.entityItemType:
-	          {
-	            var _ret = function () {
-	              var relatedEntities = _this2.getEntityRelatedEntities(entity);
-	              _apiCall2.default.get(entity.entityId + '/' + entity.itemId).then(function (result) {
-	                _this2.setState(_extends({}, _this2.state, { entityData: result.data }));
-	                Promise.all(relatedEntities.map(function (item) {
-	                  console.log(item);_apiCall2.default.get(result.data._links[item.name].href, { projection: 'search' })
-	                  //TODO: Patch for return 404 for empty relation - https://github.com/nemesis-software/nemesis-platform/issues/293
-	                  .then(function (result) {
-	                    return Promise.resolve(result);
-	                  }, function (err) {
-	                    return Promise.resolve({ data: null });
-	                  });
-	                })).then(function (result) {
-	                  var relatedEntitiesResult = {};
-	                  relatedEntities.forEach(function (item, index) {
-	                    var data = void 0;
-	                    if (item.type === _nemesisTypes.nemesisFieldTypes.nemesisCollectionField) {
-	                      data = _this2.mapCollectionData(result[index].data);
-	                    } else {
-	                      data = _this2.mapEntityData(result[index].data);
-	                    }
+	    // onEntityItemClick(item) {
+	    //   this.props.onEntityItemClick(item, this.props.entity.entityId)
+	    // }
+	    //
+	    // onFilterApply(filter) {
+	    //   this.setState({...this.state, filter: filter});
+	    //   this.getDataByEntityType(this.props.entity, pagerData.page, this.state.page.size, filter);
+	    // }
+	    //
+	    // onPagerChange(page, pageSize) {
+	    //   this.getDataByEntityType(this.props.entity, page, pageSize, this.state.filter);
+	    // }
 
-	                    relatedEntitiesResult[item.name] = data;
-	                  });
-	                  _this2.setState(_extends({}, _this2.state, { entityData: _extends({}, _this2.state.entityData, { customClientData: relatedEntitiesResult }) }));
-	                });
-	              });
-	              return {
-	                v: void 0
-	              };
-	            }();
+	    // getDataByEntityType(entity, page, pageSize, filter) {
+	    //   switch (entity.type) {
+	    //     case entityItemType: {
+	    //       let relatedEntities = this.getEntityRelatedEntities(entity);
+	    //       ApiCall.get(entity.entityId + '/' + entity.itemId).then(result => {
+	    //         this.setState({...this.state, entityData: result.data});
+	    //         Promise.all(
+	    //           relatedEntities.map(item => {console.log(item); ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
+	    //           //TODO: Patch for return 404 for empty relation - https://github.com/nemesis-software/nemesis-platform/issues/293
+	    //           .then(result => {
+	    //             return Promise.resolve(result);
+	    //           }, err => {
+	    //             return Promise.resolve({data: null});
+	    //           })})
+	    //         ).then(result => {
+	    //           let relatedEntitiesResult = {};
+	    //           relatedEntities.forEach((item, index) => {
+	    //             let data;
+	    //             if (item.type === nemesisFieldTypes.nemesisCollectionField) {
+	    //               data = this.mapCollectionData(result[index].data);
+	    //             } else {
+	    //               data = this.mapEntityData(result[index].data);
+	    //             }
+	    //
+	    //             relatedEntitiesResult[item.name] = data;
+	    //           });
+	    //           this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}})
+	    //         })
+	    //       });
+	    //       return;
+	    //     }
+	    //     // case entitySearchType: {
+	    //     //   ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, projection: 'search'}).then(result => {
+	    //     //     this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page});
+	    //     //   });
+	    //     //   return;
+	    //     // }
+	    //     default: {
+	    //       throw 'INVALID ENTITY TYPE!!!';
+	    //     }
+	    //   }
+	    // }
+	    //
+	    // getEntityRelatedEntities(entity) {
+	    //   let result = [];
+	    //   if (!entity) {
+	    //     return result;
+	    //   }
+	    //   entity.data.sections.forEach(item => {
+	    //     item.items.forEach(subItem => {
+	    //       if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+	    //         result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
+	    //       }
+	    //     })
+	    //   });
+	    //
+	    //   return result;
+	    // }
+	    //
+	    // mapCollectionData(data) {
+	    //   let result = [];
+	    //   _.forIn(data._embedded, (value) => result = result.concat(value));
+	    //   return result;
+	    // }
+	    //
+	    // mapEntityData(data) {
+	    //   if (!data) {
+	    //     return null;
+	    //   }
+	    //
+	    //   return data.content || data;
+	    // }
 
-	            if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-	          }
-	        case _entityTypes.entitySearchType:
-	          {
-	            _apiCall2.default.get(entity.entityId, { page: page, size: pageSize, $filter: filter, projection: 'search' }).then(function (result) {
-	              _this2.setState(_extends({}, _this2.state, { searchData: _this2.mapCollectionData(result.data), page: result.data.page }));
-	            });
-	            return;
-	          }
-	        default:
-	          {
-	            throw 'INVALID ENTITY TYPE!!!';
-	          }
-	      }
-	    }
-	  }, {
-	    key: 'getEntityRelatedEntities',
-	    value: function getEntityRelatedEntities(entity) {
-	      var result = [];
-	      if (!entity) {
-	        return result;
-	      }
-	      entity.data.sections.forEach(function (item) {
-	        item.items.forEach(function (subItem) {
-	          if ([_nemesisTypes.nemesisFieldTypes.nemesisCollectionField, _nemesisTypes.nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
-	            result.push({ type: subItem.xtype, name: subItem.name.replace('entity-', '') });
-	          }
-	        });
-	      });
-
-	      return result;
-	    }
-	  }, {
-	    key: 'mapCollectionData',
-	    value: function mapCollectionData(data) {
-	      var result = [];
-	      _lodash2.default.forIn(data._embedded, function (value) {
-	        return result = result.concat(value);
-	      });
-	      return result;
-	    }
-	  }, {
-	    key: 'mapEntityData',
-	    value: function mapEntityData(data) {
-	      if (!data) {
-	        return null;
-	      }
-
-	      return data.content || data;
-	    }
 	  }]);
 
 	  return EntitiesWindow;
 	}(_react.Component);
 
 	exports.default = EntitiesWindow;
-
-/***/ },
-/* 879 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _RaisedButton = __webpack_require__(590);
-
-	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-
-	var _nemesisBaseField = __webpack_require__(409);
-
-	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var NemesisTextField = function (_NemesisBaseField) {
-	  _inherits(NemesisTextField, _NemesisBaseField);
-
-	  function NemesisTextField(props) {
-	    _classCallCheck(this, NemesisTextField);
-
-	    var _this = _possibleConstructorReturn(this, (NemesisTextField.__proto__ || Object.getPrototypeOf(NemesisTextField)).call(this, props));
-
-	    _this.state = _extends({}, _this.state, { file: '' });
-	    return _this;
-	  }
-
-	  _createClass(NemesisTextField, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _RaisedButton2.default,
-	          {
-	            containerElement: 'label',
-	            label: 'Upload' },
-	          _react2.default.createElement('input', { onChange: this.handleImageChange.bind(this), style: { display: 'none' }, type: 'file' })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement('img', { src: this.state.value, alt: 'No image', height: '200', width: '300' })
-	        )
-	      );
-	    }
-	  }, {
-	    key: 'handleImageChange',
-	    value: function handleImageChange(e) {
-	      var _this2 = this;
-
-	      e.preventDefault();
-
-	      var reader = new FileReader();
-	      var file = e.target.files[0];
-
-	      reader.onloadend = function () {
-	        _this2.setState(_extends({}, _this2.state, {
-	          file: file,
-	          value: reader.result
-	        }));
-	      };
-
-	      reader.readAsDataURL(file);
-	    }
-	  }, {
-	    key: 'getChangeValue',
-	    value: function getChangeValue() {
-	      if (this.state.isDirty) {
-	        return { name: this.props.name, value: this.state.file, isMedia: true };
-	      }
-
-	      return null;
-	    }
-	  }]);
-
-	  return NemesisTextField;
-	}(_nemesisBaseField2.default);
-
-	exports.default = NemesisTextField;
 
 /***/ },
 /* 880 */
@@ -99382,7 +98525,7 @@
 
 	var _entitiesNavigation2 = _interopRequireDefault(_entitiesNavigation);
 
-	var _entityWindow = __webpack_require__(878);
+	var _entityWindow = __webpack_require__(879);
 
 	var _entityWindow2 = _interopRequireDefault(_entityWindow);
 
@@ -106295,6 +105438,1070 @@
 	module.exports = webpackContext;
 	webpackContext.id = 945;
 
+
+/***/ },
+/* 946 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _requireUtil = __webpack_require__(184);
+
+	var _entitiesTableViewer = __webpack_require__(594);
+
+	var _entitiesTableViewer2 = _interopRequireDefault(_entitiesTableViewer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var EntitiesResultViewer = function (_Component) {
+	  _inherits(EntitiesResultViewer, _Component);
+
+	  function EntitiesResultViewer(props) {
+	    _classCallCheck(this, EntitiesResultViewer);
+
+	    return _possibleConstructorReturn(this, (EntitiesResultViewer.__proto__ || Object.getPrototypeOf(EntitiesResultViewer)).call(this, props));
+	  }
+
+	  _createClass(EntitiesResultViewer, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_entitiesTableViewer2.default, { entities: this.props.entities,
+	        entitiesMarkup: this.props.entitiesMarkup,
+	        onPagerChange: this.props.onPagerChange,
+	        page: this.props.page,
+	        onEntityItemClick: this.props.onEntityItemClick });
+	    }
+	  }]);
+
+	  return EntitiesResultViewer;
+	}(_react.Component);
+
+	exports.default = EntitiesResultViewer;
+
+/***/ },
+/* 947 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _filterTextField = __webpack_require__(948);
+
+	var _filterTextField2 = _interopRequireDefault(_filterTextField);
+
+	var _filterDateField = __webpack_require__(950);
+
+	var _filterDateField2 = _interopRequireDefault(_filterDateField);
+
+	var _filterLocalizedTextField = __webpack_require__(951);
+
+	var _filterLocalizedTextField2 = _interopRequireDefault(_filterLocalizedTextField);
+
+	var _filterBooleanField = __webpack_require__(952);
+
+	var _filterBooleanField2 = _interopRequireDefault(_filterBooleanField);
+
+	var _filterNumberField = __webpack_require__(953);
+
+	var _filterNumberField2 = _interopRequireDefault(_filterNumberField);
+
+	var _filterEnumField = __webpack_require__(954);
+
+	var _filterEnumField2 = _interopRequireDefault(_filterEnumField);
+
+	var _filterEntityField = __webpack_require__(955);
+
+	var _filterEntityField2 = _interopRequireDefault(_filterEntityField);
+
+	var _filterBuilder = __webpack_require__(589);
+
+	var _filterBuilder2 = _interopRequireDefault(_filterBuilder);
+
+	var _RaisedButton = __webpack_require__(590);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _lodash = __webpack_require__(389);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var keyPrefix = 'defaultFilter';
+
+	var DefaultFilter = function (_Component) {
+	  _inherits(DefaultFilter, _Component);
+
+	  function DefaultFilter(props) {
+	    _classCallCheck(this, DefaultFilter);
+
+	    var _this = _possibleConstructorReturn(this, (DefaultFilter.__proto__ || Object.getPrototypeOf(DefaultFilter)).call(this, props));
+
+	    _this.state = { appliedFilters: [], key: keyPrefix + Date.now() };
+	    return _this;
+	  }
+
+	  _createClass(DefaultFilter, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { key: this.state.key },
+	        this.props.filterMarkup.map(function (filterItem, index) {
+	          return _this2.getFilterItemRender(filterItem, index);
+	        }),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(_RaisedButton2.default, { style: { margin: '10px' }, label: 'Search', onClick: this.onSearchButtonClick.bind(this) }),
+	          _react2.default.createElement(_RaisedButton2.default, { label: 'Clear', onClick: this.onClearButtonClick.bind(this) })
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'getFilterItemRender',
+	    value: function getFilterItemRender(filterItem, renderIndex) {
+	      var reactElement = void 0;
+	      switch (filterItem.xtype) {
+	        case _nemesisTypes.nemesisFieldTypes.nemesisTextField:
+	          reactElement = _filterTextField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisDateField:
+	          reactElement = _filterDateField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisLocalizedTextField:
+	          reactElement = _filterLocalizedTextField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisBooleanField:
+	          reactElement = _filterBooleanField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisEnumField:
+	          reactElement = _filterEnumField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisIntegerField:
+	        case _nemesisTypes.nemesisFieldTypes.nemesisDecimalField:
+	          reactElement = _filterNumberField2.default;break;
+	        case _nemesisTypes.nemesisFieldTypes.nemesisEntityField:
+	          reactElement = _filterEntityField2.default;break;
+	        default:
+	          return _react2.default.createElement(
+	            'div',
+	            { key: renderIndex },
+	            'Not supported yet - ',
+	            filterItem.xtype
+	          );
+	      }
+
+	      return _react2.default.createElement(reactElement, {
+	        onFilterChange: this.onFilterChange.bind(this),
+	        key: renderIndex,
+	        filterItem: filterItem
+	      });
+	    }
+	  }, {
+	    key: 'onFilterChange',
+	    value: function onFilterChange(filterObject) {
+	      var filterIndex = _lodash2.default.findIndex(this.state.appliedFilters, { id: filterObject.id });
+	      var appliedFilters = this.state.appliedFilters;
+
+	      if (filterIndex < 0) {
+	        appliedFilters.push(filterObject);
+	      } else {
+	        appliedFilters[filterIndex] = filterObject;
+	      }
+
+	      this.setState({ appliedFilters: appliedFilters });
+	    }
+	  }, {
+	    key: 'onSearchButtonClick',
+	    value: function onSearchButtonClick() {
+	      console.log(this.state.appliedFilters);
+	      var filterString = _filterBuilder2.default.buildFilter(this.state.appliedFilters);
+	      this.props.onFilterApply(filterString);
+	    }
+	  }, {
+	    key: 'onClearButtonClick',
+	    value: function onClearButtonClick() {
+	      this.setState({ appliedFilters: [], key: keyPrefix + Date.now() });
+	      this.props.onFilterApply();
+	    }
+	  }]);
+
+	  return DefaultFilter;
+	}(_react.Component);
+
+	exports.default = DefaultFilter;
+
+/***/ },
+/* 948 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _filterRestrictionField = __webpack_require__(949);
+
+	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _lodash = __webpack_require__(389);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _nemesisTextField = __webpack_require__(408);
+
+	var _nemesisTextField2 = _interopRequireDefault(_nemesisTextField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.startingWith, _nemesisTypes.searchRestrictionTypes.endingWith, _nemesisTypes.searchRestrictionTypes.contains, _nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull, _nemesisTypes.searchRestrictionTypes.equals];
+
+	var styles = {
+	  verticalAlign: 'top',
+	  marginRight: '10px'
+	};
+
+	var FilterTextField = function (_Component) {
+	  _inherits(FilterTextField, _Component);
+
+	  function FilterTextField(props) {
+	    _classCallCheck(this, FilterTextField);
+
+	    var _this = _possibleConstructorReturn(this, (FilterTextField.__proto__ || Object.getPrototypeOf(FilterTextField)).call(this, props));
+
+	    _this.state = { restrictionField: null, textField: null };
+	    return _this;
+	  }
+
+	  _createClass(FilterTextField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_nemesisTextField2.default, { style: this.getTextFieldStyles(), onValueChange: _lodash2.default.debounce(this.onTextFieldChange.bind(this), 250), label: this.props.filterItem.fieldLabel })
+	      );
+	    }
+	  }, {
+	    key: 'onRestrictionFieldChange',
+	    value: function onRestrictionFieldChange(restrictionValue) {
+	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
+	      this.updateParentFilter(this.state.textField, restrictionValue);
+	    }
+	  }, {
+	    key: 'onTextFieldChange',
+	    value: function onTextFieldChange(value) {
+	      this.setState(_extends({}, this.state, { textField: value }));
+	      this.updateParentFilter(value, this.state.restrictionField);
+	    }
+	  }, {
+	    key: 'updateParentFilter',
+	    value: function updateParentFilter(textField, restrictionValue) {
+	      this.props.onFilterChange({
+	        value: _lodash2.default.isEmpty(textField) ? null : '\'' + textField + '\'',
+	        restriction: restrictionValue,
+	        field: this.props.filterItem.name,
+	        id: this.props.filterItem.name
+	      });
+	    }
+	  }, {
+	    key: 'getTextFieldStyles',
+	    value: function getTextFieldStyles() {
+	      var result = _extends({}, styles);
+	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
+	        result.display = 'none';
+	      }
+
+	      return result;
+	    }
+	  }]);
+
+	  return FilterTextField;
+	}(_react.Component);
+
+	exports.default = FilterTextField;
+
+/***/ },
+/* 949 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _SelectField = __webpack_require__(395);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _MenuItem = __webpack_require__(361);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	var _reactTranslateComponent = __webpack_require__(316);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FilterRestrictionField = function (_Component) {
+	  _inherits(FilterRestrictionField, _Component);
+
+	  function FilterRestrictionField(props) {
+	    _classCallCheck(this, FilterRestrictionField);
+
+	    var _this = _possibleConstructorReturn(this, (FilterRestrictionField.__proto__ || Object.getPrototypeOf(FilterRestrictionField)).call(this, props));
+
+	    _this.state = { selectedRestrictionField: null };
+	    return _this;
+	  }
+
+	  _createClass(FilterRestrictionField, [{
+	    key: 'handleChange',
+	    value: function handleChange(event, index, value) {
+	      var restrictionField = this.props.restrictionFields[index];
+	      this.props.onRestrictionFieldChange(restrictionField);
+	      this.setState({ selectedRestrictionField: restrictionField });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _SelectField2.default,
+	        { style: this.props.style, floatingLabelText: this.props.label ? this.props.label + ' restriction' : 'Restriction',
+	          value: this.state.selectedRestrictionField,
+	          onChange: this.handleChange.bind(this) },
+	        this.props.restrictionFields.map(function (field, index) {
+	          return _react2.default.createElement(_MenuItem2.default, { key: index, value: field, primaryText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + field, fallback: field }) });
+	        })
+	      );
+	    }
+	  }]);
+
+	  return FilterRestrictionField;
+	}(_react.Component);
+
+	exports.default = FilterRestrictionField;
+
+/***/ },
+/* 950 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _filterRestrictionField = __webpack_require__(949);
+
+	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
+
+	var _nemesisDateField = __webpack_require__(411);
+
+	var _nemesisDateField2 = _interopRequireDefault(_nemesisDateField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.before, _nemesisTypes.searchRestrictionTypes.after, _nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull];
+
+	var styles = {
+	  verticalAlign: 'top',
+	  marginRight: '10px'
+	};
+
+	var FilterDateField = function (_Component) {
+	  _inherits(FilterDateField, _Component);
+
+	  function FilterDateField(props) {
+	    _classCallCheck(this, FilterDateField);
+
+	    var _this = _possibleConstructorReturn(this, (FilterDateField.__proto__ || Object.getPrototypeOf(FilterDateField)).call(this, props));
+
+	    _this.state = { restrictionField: null, dateField: null };
+	    return _this;
+	  }
+
+	  _createClass(FilterDateField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_nemesisDateField2.default, { style: this.getDateFieldStyles(), onValueChange: this.onDateFieldChange.bind(this), label: this.props.filterItem.fieldLabel })
+	      );
+	    }
+	  }, {
+	    key: 'onRestrictionFieldChange',
+	    value: function onRestrictionFieldChange(restrictionValue) {
+	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
+	      this.updateParentFilter(this.state.dateField, restrictionValue);
+	    }
+	  }, {
+	    key: 'onDateFieldChange',
+	    value: function onDateFieldChange(value) {
+	      this.setState(_extends({}, this.state, { dateField: value }));
+	      this.updateParentFilter(value, this.state.restrictionField);
+	    }
+	  }, {
+	    key: 'updateParentFilter',
+	    value: function updateParentFilter(dateField, restrictionValue) {
+	      this.props.onFilterChange({
+	        value: dateField,
+	        restriction: restrictionValue,
+	        field: this.props.filterItem.name,
+	        id: this.props.filterItem.name
+	      });
+	    }
+	  }, {
+	    key: 'getDateFieldStyles',
+	    value: function getDateFieldStyles() {
+	      var result = _extends({}, styles);
+	      result.display = 'inline-block';
+	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
+	        result.display = 'none';
+	      }
+
+	      return result;
+	    }
+	  }]);
+
+	  return FilterDateField;
+	}(_react.Component);
+
+	exports.default = FilterDateField;
+
+/***/ },
+/* 951 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _filterRestrictionField = __webpack_require__(949);
+
+	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _nemesisLocalizedTextField = __webpack_require__(543);
+
+	var _nemesisLocalizedTextField2 = _interopRequireDefault(_nemesisLocalizedTextField);
+
+	var _lodash = __webpack_require__(389);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.startingWith, _nemesisTypes.searchRestrictionTypes.endingWith, _nemesisTypes.searchRestrictionTypes.contains, _nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull, _nemesisTypes.searchRestrictionTypes.equals];
+
+	var styles = {
+	  verticalAlign: 'top',
+	  marginRight: '10px'
+	};
+
+	var FilterLocalizedTextField = function (_Component) {
+	  _inherits(FilterLocalizedTextField, _Component);
+
+	  function FilterLocalizedTextField(props) {
+	    _classCallCheck(this, FilterLocalizedTextField);
+
+	    var _this = _possibleConstructorReturn(this, (FilterLocalizedTextField.__proto__ || Object.getPrototypeOf(FilterLocalizedTextField)).call(this, props));
+
+	    _this.state = { restrictionField: null, value: {} };
+	    return _this;
+	  }
+
+	  _createClass(FilterLocalizedTextField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_nemesisLocalizedTextField2.default, { style: this.getLocalizedFieldStyles(), onValueChange: this.onLocalizedFieldChange.bind(this), label: this.props.filterItem.fieldLabel })
+	      );
+	    }
+	  }, {
+	    key: 'onRestrictionFieldChange',
+	    value: function onRestrictionFieldChange(restrictionValue) {
+	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
+	      this.updateParentFilter(this.state.value, restrictionValue, this.state.selectedLanguage);
+	    }
+	  }, {
+	    key: 'onLocalizedFieldChange',
+	    value: function onLocalizedFieldChange(value) {
+	      this.setState(_extends({}, this.state, { value: value }));
+	      this.updateParentFilter(value, this.state.restrictionField, this.state.selectedLanguage);
+	    }
+	  }, {
+	    key: 'updateParentFilter',
+	    value: function updateParentFilter(value, restrictionValue) {
+	      this.props.onFilterChange({
+	        value: _lodash2.default.isEmpty(value.value) ? null : '\'' + value.value + '\'',
+	        restriction: restrictionValue,
+	        field: this.props.filterItem.name + '/' + value.language + '/value',
+	        id: this.props.filterItem.name
+	      });
+	    }
+	  }, {
+	    key: 'getLocalizedFieldStyles',
+	    value: function getLocalizedFieldStyles() {
+	      var result = _extends({}, styles);
+	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
+	        result.display = 'none';
+	      }
+
+	      return result;
+	    }
+	  }]);
+
+	  return FilterLocalizedTextField;
+	}(_react.Component);
+
+	exports.default = FilterLocalizedTextField;
+
+/***/ },
+/* 952 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _nemesisBooleanField = __webpack_require__(546);
+
+	var _nemesisBooleanField2 = _interopRequireDefault(_nemesisBooleanField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var styles = {
+	  parent: {
+	    margin: '20px 0'
+	  },
+	  container: {
+	    display: 'inline-block',
+	    width: 'auto',
+	    marginRight: '10px'
+	  },
+	  label: {
+	    color: '#9e9e9e',
+	    fontSize: '18px',
+	    lineHeight: '24px',
+	    verticalAlign: 'top'
+	  }
+	};
+
+	var FilterBooleanField = function (_Component) {
+	  _inherits(FilterBooleanField, _Component);
+
+	  function FilterBooleanField(props) {
+	    _classCallCheck(this, FilterBooleanField);
+
+	    var _this = _possibleConstructorReturn(this, (FilterBooleanField.__proto__ || Object.getPrototypeOf(FilterBooleanField)).call(this, props));
+
+	    _this.state = { booleanField: null };
+	    return _this;
+	  }
+
+	  _createClass(FilterBooleanField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_nemesisBooleanField2.default, { style: styles.container, onValueChange: this.onBooleanFieldChange.bind(this), label: this.props.filterItem.fieldLabel });
+	    }
+	  }, {
+	    key: 'onBooleanFieldChange',
+	    value: function onBooleanFieldChange(value) {
+	      this.setState({ booleanField: value });
+	      this.updateParentFilter(value);
+	    }
+	  }, {
+	    key: 'updateParentFilter',
+	    value: function updateParentFilter(booleanField) {
+	      this.props.onFilterChange({
+	        value: booleanField,
+	        restriction: _nemesisTypes.searchRestrictionTypes.equals,
+	        field: this.props.filterItem.name,
+	        id: this.props.filterItem.name
+	      });
+	    }
+	  }]);
+
+	  return FilterBooleanField;
+	}(_react.Component);
+
+	exports.default = FilterBooleanField;
+
+/***/ },
+/* 953 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _filterRestrictionField = __webpack_require__(949);
+
+	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _lodash = __webpack_require__(389);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _nemesisNumberField = __webpack_require__(554);
+
+	var _nemesisNumberField2 = _interopRequireDefault(_nemesisNumberField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.greaterThan, _nemesisTypes.searchRestrictionTypes.lessThan, _nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull, _nemesisTypes.searchRestrictionTypes.equals];
+
+	var styles = {
+	  verticalAlign: 'top',
+	  marginRight: '10px'
+	};
+
+	var FilterNumberField = function (_Component) {
+	  _inherits(FilterNumberField, _Component);
+
+	  function FilterNumberField(props) {
+	    _classCallCheck(this, FilterNumberField);
+
+	    var _this = _possibleConstructorReturn(this, (FilterNumberField.__proto__ || Object.getPrototypeOf(FilterNumberField)).call(this, props));
+
+	    _this.state = { restrictionField: null, numberField: null };
+	    return _this;
+	  }
+
+	  _createClass(FilterNumberField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_nemesisNumberField2.default, { step: this.props.filterItem.xtype === _nemesisTypes.nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1', style: this.getNumberFieldStyles(), onValueChange: _lodash2.default.debounce(this.onNumberFieldChange.bind(this), 250), label: this.props.filterItem.fieldLabel })
+	      );
+	    }
+	  }, {
+	    key: 'onRestrictionFieldChange',
+	    value: function onRestrictionFieldChange(restrictionValue) {
+	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
+	      this.updateParentFilter(this.state.numberField, restrictionValue);
+	    }
+	  }, {
+	    key: 'onNumberFieldChange',
+	    value: function onNumberFieldChange(value) {
+	      this.setState(_extends({}, this.state, { numberField: value }));
+	      this.updateParentFilter(value, this.state.restrictionField);
+	    }
+	  }, {
+	    key: 'updateParentFilter',
+	    value: function updateParentFilter(numberField, restrictionValue) {
+	      this.props.onFilterChange({
+	        value: numberField,
+	        restriction: restrictionValue,
+	        field: this.props.filterItem.name,
+	        id: this.props.filterItem.name
+	      });
+	    }
+	  }, {
+	    key: 'getNumberFieldStyles',
+	    value: function getNumberFieldStyles() {
+	      var result = _extends({}, styles);
+	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
+	        result.display = 'none';
+	      }
+
+	      return result;
+	    }
+	  }]);
+
+	  return FilterNumberField;
+	}(_react.Component);
+
+	exports.default = FilterNumberField;
+
+/***/ },
+/* 954 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _nemesisEnumField = __webpack_require__(556);
+
+	var _nemesisEnumField2 = _interopRequireDefault(_nemesisEnumField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var styles = {
+	  verticalAlign: 'top',
+	  marginRight: '10px'
+	};
+
+	var FilterEnumField = function (_Component) {
+	  _inherits(FilterEnumField, _Component);
+
+	  function FilterEnumField(props) {
+	    _classCallCheck(this, FilterEnumField);
+
+	    var _this = _possibleConstructorReturn(this, (FilterEnumField.__proto__ || Object.getPrototypeOf(FilterEnumField)).call(this, props));
+
+	    _this.state = { enumField: null };
+	    return _this;
+	  }
+
+	  _createClass(FilterEnumField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_nemesisEnumField2.default, { style: styles, values: this.props.filterItem.values, onValueChange: this.onEnumFieldChange.bind(this), label: this.props.filterItem.fieldLabel })
+	      );
+	    }
+	  }, {
+	    key: 'onEnumFieldChange',
+	    value: function onEnumFieldChange(value) {
+	      this.setState({ enumField: value });
+	      this.updateParentFilter(value);
+	    }
+	  }, {
+	    key: 'updateParentFilter',
+	    value: function updateParentFilter(enumField) {
+	      this.props.onFilterChange({
+	        value: enumField,
+	        restriction: _nemesisTypes.searchRestrictionTypes.equals,
+	        field: this.props.filterItem.name,
+	        id: this.props.filterItem.name
+	      });
+	    }
+	  }]);
+
+	  return FilterEnumField;
+	}(_react.Component);
+
+	exports.default = FilterEnumField;
+
+/***/ },
+/* 955 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _filterRestrictionField = __webpack_require__(949);
+
+	var _filterRestrictionField2 = _interopRequireDefault(_filterRestrictionField);
+
+	var _nemesisTypes = __webpack_require__(392);
+
+	var _lodash = __webpack_require__(389);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _nemesisEntityField = __webpack_require__(558);
+
+	var _nemesisEntityField2 = _interopRequireDefault(_nemesisEntityField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var restrictionFields = [_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull, _nemesisTypes.searchRestrictionTypes.equals];
+
+	var styles = {
+	  verticalAlign: 'top',
+	  marginRight: '10px'
+	};
+
+	var FilterEntityField = function (_Component) {
+	  _inherits(FilterEntityField, _Component);
+
+	  function FilterEntityField(props) {
+	    _classCallCheck(this, FilterEntityField);
+
+	    var _this = _possibleConstructorReturn(this, (FilterEntityField.__proto__ || Object.getPrototypeOf(FilterEntityField)).call(this, props));
+
+	    _this.state = { restrictionField: null, textField: null, selectedId: null };
+	    return _this;
+	  }
+
+	  _createClass(FilterEntityField, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_filterRestrictionField2.default, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(_nemesisEntityField2.default, { entityId: this.props.filterItem.entityId, style: this.getTextFieldStyles(), onValueChange: this.onSelectedMenuItem.bind(this), label: this.props.filterItem.fieldLabel })
+	      );
+	    }
+	  }, {
+	    key: 'onRestrictionFieldChange',
+	    value: function onRestrictionFieldChange(restrictionValue) {
+	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
+	      this.updateParentFilter(this.state.selectedId, restrictionValue);
+	    }
+	  }, {
+	    key: 'updateParentFilter',
+	    value: function updateParentFilter(selectedId, restrictionValue) {
+	      this.props.onFilterChange({
+	        value: _lodash2.default.isEmpty(selectedId) ? null : selectedId + 'L',
+	        restriction: restrictionValue,
+	        field: this.props.filterItem.name.replace('entity-', '') + '/id',
+	        id: this.props.filterItem.name
+	      });
+	    }
+	  }, {
+	    key: 'onSelectedMenuItem',
+	    value: function onSelectedMenuItem(item) {
+	      this.setState(_extends({}, this.state, { selectedId: item }));
+	      this.updateParentFilter(item, this.state.restrictionField);
+	    }
+	  }, {
+	    key: 'getTextFieldStyles',
+	    value: function getTextFieldStyles() {
+	      var result = _extends({}, styles);
+	      if ([_nemesisTypes.searchRestrictionTypes.notNull, _nemesisTypes.searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
+	        result.display = 'none';
+	      }
+
+	      return result;
+	    }
+	  }]);
+
+	  return FilterEntityField;
+	}(_react.Component);
+
+	exports.default = FilterEntityField;
+
+/***/ },
+/* 956 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _requireUtil = __webpack_require__(184);
+
+	var _defaultFilter = __webpack_require__(947);
+
+	var _defaultFilter2 = _interopRequireDefault(_defaultFilter);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var EntitiesFilter = function (_Component) {
+	  _inherits(EntitiesFilter, _Component);
+
+	  function EntitiesFilter(props) {
+	    _classCallCheck(this, EntitiesFilter);
+
+	    var _this = _possibleConstructorReturn(this, (EntitiesFilter.__proto__ || Object.getPrototypeOf(EntitiesFilter)).call(this, props));
+
+	    _this.state = { filterMarkup: _this.props.filterMarkup };
+	    return _this;
+	  }
+
+	  _createClass(EntitiesFilter, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_defaultFilter2.default, { onFilterApply: this.props.onFilterApply, filterMarkup: this.state.filterMarkup })
+	      );
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState({ filterMarkup: nextProps.filterMarkup });
+	    }
+	  }]);
+
+	  return EntitiesFilter;
+	}(_react.Component);
+
+	exports.default = EntitiesFilter;
 
 /***/ }
 /******/ ]);

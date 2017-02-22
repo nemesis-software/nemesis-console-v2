@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { searchRestrictionTypes } from '../../../../../types/nemesis-types';
+import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
 import FilterRestrictionFields from '../filter-restriction-field/filter-restriction-field';
-import NemesisDateField from '../../../../field-components/nemesis-date-field/nemesis-date-field';
+import NemesisDateField from '../../../../../field-components/nemesis-date-field/nemesis-date-field';
 
 const restrictionFields = [
   searchRestrictionTypes.before,

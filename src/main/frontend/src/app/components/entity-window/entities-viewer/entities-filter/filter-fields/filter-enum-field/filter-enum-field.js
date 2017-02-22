@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { searchRestrictionTypes } from '../../../../../types/nemesis-types';
-import NemesisEnumField from '../../../../field-components/nemesis-enum-field/nemesis-enum-field'
+import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
+import NemesisEnumField from '../../../../../field-components/nemesis-enum-field/nemesis-enum-field'
 
 const styles = {
   verticalAlign: 'top',

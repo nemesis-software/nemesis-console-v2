@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { componentRequire } from '../../../utils/require-util';
-import DefaultFilter from '../entities-filter/default-filter/default-filter'
+import { componentRequire } from '../../../../utils/require-util';
+import DefaultFilter from './default-filter/default-filter'
 
 export default class EntitiesFilter extends Component {
   constructor(props) {

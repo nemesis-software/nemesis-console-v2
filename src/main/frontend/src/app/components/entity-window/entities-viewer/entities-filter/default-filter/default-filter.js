@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { nemesisFieldTypes } from '../../../../types/nemesis-types';
+import { nemesisFieldTypes } from '../../../../../types/nemesis-types';
 import FilterTextField from '../filter-fields/filter-text-field/filter-text-field';
 import FilterDateField from '../filter-fields/filter-date-field/filter-date-field';
 import FilterLocalizedTextField from '../filter-fields/filter-localized-text-field/filter-localized-text-field';
@@ -7,7 +7,7 @@ import FilterBooleanField from '../filter-fields/filter-boolean-field/filter-boo
 import FilterNumberField from '../filter-fields/filter-number-field/filter-number-field';
 import FilterEnumField from '../filter-fields/filter-enum-field/filter-enum-field';
 import FilterEntityField from '../filter-fields/filter-enitiy-field/filter-entity-field';
-import FilterBuilder from '../../../../services/filter-builder';
+import FilterBuilder from '../../../../../services/filter-builder';
 import RaisedButton from 'material-ui/RaisedButton';
 import _ from 'lodash';
 
