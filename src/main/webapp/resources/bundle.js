@@ -98295,18 +98295,6 @@
 
 	var _entityTypes = __webpack_require__(384);
 
-	var _apiCall = __webpack_require__(563);
-
-	var _apiCall2 = _interopRequireDefault(_apiCall);
-
-	var _lodash = __webpack_require__(389);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	var _entitiesFilter = __webpack_require__(956);
-
-	var _entitiesFilter2 = _interopRequireDefault(_entitiesFilter);
-
 	var _entitiesViewer = __webpack_require__(610);
 
 	var _entitiesViewer2 = _interopRequireDefault(_entitiesViewer);
@@ -98314,12 +98302,6 @@
 	var _entitySections = __webpack_require__(862);
 
 	var _entitySections2 = _interopRequireDefault(_entitySections);
-
-	var _reactTranslateComponent = __webpack_require__(316);
-
-	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
-
-	var _nemesisTypes = __webpack_require__(392);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -98341,12 +98323,7 @@
 	    _classCallCheck(this, EntitiesWindow);
 
 	    return _possibleConstructorReturn(this, (EntitiesWindow.__proto__ || Object.getPrototypeOf(EntitiesWindow)).call(this, props));
-	    // this.state = {searchData: [], entityData: {}, page: {}, filter: null};
 	  }
-	  //
-	  // componentWillMount() {
-	  //   this.getDataByEntityType(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter);
-	  // }
 
 	  _createClass(EntitiesWindow, [{
 	    key: 'render',
@@ -98371,25 +98348,11 @@
 	      switch (entity.type) {
 	        case _entityTypes.entityItemType:
 	          {
-	            return _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(_entitySections2.default, { entity: entity })
-	            );
+	            return _react2.default.createElement(_entitySections2.default, { entity: entity });
 	          }
 	        case _entityTypes.entitySearchType:
 	          {
-	            return _react2.default.createElement(_entitiesViewer2.default, { entity: entity, onEntityItemClick: this.props.onEntityItemClick })
-	            // <div>
-	            //   <Translate component="h2" content={'main.' + entity.entityId} fallback={entity.entityId}/>
-	            //   <EntitiesFilter filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
-	            //   <EntitiesViewer entities={this.state.searchData}
-	            //                   entitiesMarkup={this.props.entity.data.result}
-	            //                   onPagerChange={this.onPagerChange.bind(this)}
-	            //                   page={this.state.page}
-	            //                   onEntityItemClick={this.onEntityItemClick.bind(this)}/>
-	            // </div>
-	            ;
+	            return _react2.default.createElement(_entitiesViewer2.default, { entity: entity, onEntityItemClick: this.props.onEntityItemClick });
 	          }
 	        default:
 	          {
@@ -98401,93 +98364,6 @@
 	          }
 	      }
 	    }
-
-	    // onEntityItemClick(item) {
-	    //   this.props.onEntityItemClick(item, this.props.entity.entityId)
-	    // }
-	    //
-	    // onFilterApply(filter) {
-	    //   this.setState({...this.state, filter: filter});
-	    //   this.getDataByEntityType(this.props.entity, pagerData.page, this.state.page.size, filter);
-	    // }
-	    //
-	    // onPagerChange(page, pageSize) {
-	    //   this.getDataByEntityType(this.props.entity, page, pageSize, this.state.filter);
-	    // }
-
-	    // getDataByEntityType(entity, page, pageSize, filter) {
-	    //   switch (entity.type) {
-	    //     case entityItemType: {
-	    //       let relatedEntities = this.getEntityRelatedEntities(entity);
-	    //       ApiCall.get(entity.entityId + '/' + entity.itemId).then(result => {
-	    //         this.setState({...this.state, entityData: result.data});
-	    //         Promise.all(
-	    //           relatedEntities.map(item => {console.log(item); ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
-	    //           //TODO: Patch for return 404 for empty relation - https://github.com/nemesis-software/nemesis-platform/issues/293
-	    //           .then(result => {
-	    //             return Promise.resolve(result);
-	    //           }, err => {
-	    //             return Promise.resolve({data: null});
-	    //           })})
-	    //         ).then(result => {
-	    //           let relatedEntitiesResult = {};
-	    //           relatedEntities.forEach((item, index) => {
-	    //             let data;
-	    //             if (item.type === nemesisFieldTypes.nemesisCollectionField) {
-	    //               data = this.mapCollectionData(result[index].data);
-	    //             } else {
-	    //               data = this.mapEntityData(result[index].data);
-	    //             }
-	    //
-	    //             relatedEntitiesResult[item.name] = data;
-	    //           });
-	    //           this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}})
-	    //         })
-	    //       });
-	    //       return;
-	    //     }
-	    //     // case entitySearchType: {
-	    //     //   ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, projection: 'search'}).then(result => {
-	    //     //     this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page});
-	    //     //   });
-	    //     //   return;
-	    //     // }
-	    //     default: {
-	    //       throw 'INVALID ENTITY TYPE!!!';
-	    //     }
-	    //   }
-	    // }
-	    //
-	    // getEntityRelatedEntities(entity) {
-	    //   let result = [];
-	    //   if (!entity) {
-	    //     return result;
-	    //   }
-	    //   entity.data.sections.forEach(item => {
-	    //     item.items.forEach(subItem => {
-	    //       if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
-	    //         result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
-	    //       }
-	    //     })
-	    //   });
-	    //
-	    //   return result;
-	    // }
-	    //
-	    // mapCollectionData(data) {
-	    //   let result = [];
-	    //   _.forIn(data._embedded, (value) => result = result.concat(value));
-	    //   return result;
-	    // }
-	    //
-	    // mapEntityData(data) {
-	    //   if (!data) {
-	    //     return null;
-	    //   }
-	    //
-	    //   return data.content || data;
-	    // }
-
 	  }]);
 
 	  return EntitiesWindow;
