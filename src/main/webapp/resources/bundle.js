@@ -82931,6 +82931,11 @@
 	      this.props.onEntityItemClick(item, this.props.entity.entityId);
 	    }
 	  }, {
+	    key: 'retakeEntityData',
+	    value: function retakeEntityData() {
+	      this.getEntitiesData(this.props.entity, this.state.page.number + 1, this.state.page.size, this.state.filter);
+	    }
+	  }, {
 	    key: 'onPagerChange',
 	    value: function onPagerChange(page, pageSize) {
 	      this.getEntitiesData(this.props.entity, page, pageSize, this.state.filter);
@@ -99392,7 +99397,10 @@
 	  function EntitiesWindow(props) {
 	    _classCallCheck(this, EntitiesWindow);
 
-	    return _possibleConstructorReturn(this, (EntitiesWindow.__proto__ || Object.getPrototypeOf(EntitiesWindow)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (EntitiesWindow.__proto__ || Object.getPrototypeOf(EntitiesWindow)).call(this, props));
+
+	    _this.entitiesViewerInstance = null;
+	    return _this;
 	  }
 
 	  _createClass(EntitiesWindow, [{
@@ -99422,7 +99430,7 @@
 	          }
 	        case _entityTypes.entitySearchType:
 	          {
-	            return _react2.default.createElement(_entitiesViewer2.default, { entity: entity, onEntityItemClick: this.props.onEntityItemClick });
+	            return _react2.default.createElement(_entitiesViewer2.default, { ref: this.setEntitiesViewerInstance.bind(this), entity: entity, onEntityItemClick: this.props.onEntityItemClick });
 	          }
 	        default:
 	          {
@@ -99432,6 +99440,20 @@
 	              'INVALID ENTITY TYPE!!!'
 	            );
 	          }
+	      }
+	    }
+	  }, {
+	    key: 'retakeEntitiesViewerData',
+	    value: function retakeEntitiesViewerData() {
+	      if (this.entitiesViewerInstance) {
+	        this.entitiesViewerInstance.retakeEntityData();
+	      }
+	    }
+	  }, {
+	    key: 'setEntitiesViewerInstance',
+	    value: function setEntitiesViewerInstance(item) {
+	      if (item) {
+	        this.entitiesViewerInstance = item;
 	      }
 	    }
 	  }]);
@@ -99502,6 +99524,7 @@
 	    var _this = _possibleConstructorReturn(this, (MainView.__proto__ || Object.getPrototypeOf(MainView)).call(this, props));
 
 	    _this.state = { markupData: [], entityMarkupData: [], selectedEntity: null, openedEntities: [] };
+	    _this.searchEntityWindowReferences = [];
 	    return _this;
 	  }
 
@@ -99583,7 +99606,15 @@
 	  }, {
 	    key: 'onEntityWindowClose',
 	    value: function onEntityWindowClose(entity, updateSearch) {
-	      console.log('close');
+	      if (updateSearch) {
+	        var searchIndex = _lodash2.default.findIndex(this.searchEntityWindowReferences, function (window) {
+	          return window.entity.entityId = entity.entityId;
+	        });
+	        if (searchIndex > -1) {
+	          this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();
+	        }
+	      }
+
 	      var entityToCloseIndex = _lodash2.default.findIndex(this.state.openedEntities, { entityId: entity.entityId, type: entity.type, itemId: entity.itemId });
 	      var openedEntities = this.state.openedEntities;
 	      openedEntities.splice(entityToCloseIndex, 1);
@@ -99595,22 +99626,34 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
-
 	      return _react2.default.createElement(
 	        'div',
 	        { style: styles },
 	        _react2.default.createElement(_entitiesNavigation2.default, { onNavigationItemClick: this.onNavigationItemClick.bind(this), entities: this.state.openedEntities }),
 	        _react2.default.createElement('hr', null),
-	        this.state.openedEntities.map(function (entity, index) {
-	          return _react2.default.createElement(_entityWindow2.default, { onEntityItemClick: _this3.onEntityItemClick.bind(_this3), onEntityWindowClose: _this3.onEntityWindowClose.bind(_this3), key: _this3.getEntityWindowKey(entity), entity: entity });
-	        })
+	        this.renderOpenedEntities()
 	      );
 	    }
 	  }, {
 	    key: 'getEntityWindowKey',
 	    value: function getEntityWindowKey(entity) {
 	      return entity.entityId + entity.type + entity.itemId;
+	    }
+	  }, {
+	    key: 'renderOpenedEntities',
+	    value: function renderOpenedEntities() {
+	      var _this3 = this;
+
+	      this.searchEntityWindowReferences = [];
+	      return this.state.openedEntities.map(function (entity, index) {
+	        return _react2.default.createElement(_entityWindow2.default, { onEntityItemClick: _this3.onEntityItemClick.bind(_this3),
+	          ref: function ref(item) {
+	            return item && entity.type === _entityTypes.entitySearchType && _this3.searchEntityWindowReferences.push({ entity: entity, refItem: item });
+	          },
+	          onEntityWindowClose: _this3.onEntityWindowClose.bind(_this3),
+	          key: _this3.getEntityWindowKey(entity),
+	          entity: entity });
+	      });
 	    }
 	  }]);
 

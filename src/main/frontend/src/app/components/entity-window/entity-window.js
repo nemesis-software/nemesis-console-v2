@@ -6,6 +6,7 @@ import EntitySections from './entity-sections/entity-sections'
 export default class EntitiesWindow extends Component {
   constructor(props) {
     super(props);
+    this.entitiesViewerInstance = null;
   }
 
   render() {
@@ -30,11 +31,23 @@ export default class EntitiesWindow extends Component {
         return <EntitySections entity={entity} onEntityWindowClose={this.props.onEntityWindowClose}/>
       }
       case entitySearchType: {
-        return <EntitiesViewer entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>
+        return <EntitiesViewer ref={this.setEntitiesViewerInstance.bind(this)} entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>
       }
       default: {
         return <div>INVALID ENTITY TYPE!!!</div>
       }
+    }
+  }
+
+  retakeEntitiesViewerData() {
+    if (this.entitiesViewerInstance) {
+      this.entitiesViewerInstance.retakeEntityData();
+    }
+  }
+
+  setEntitiesViewerInstance(item) {
+    if (item) {
+      this.entitiesViewerInstance = item;
     }
   }
 }

@@ -16,6 +16,7 @@ export default class MainView extends Component {
   constructor(props) {
     super(props);
     this.state = {markupData: [], entityMarkupData: [], selectedEntity: null, openedEntities: []};
+    this.searchEntityWindowReferences = [];
   }
 
   componentWillMount() {
@@ -85,7 +86,15 @@ export default class MainView extends Component {
   }
 
   onEntityWindowClose(entity, updateSearch) {
-    console.log('close');
+    if (updateSearch) {
+      let searchIndex = _.findIndex(this.searchEntityWindowReferences, (window) => {
+        return window.entity.entityId = entity.entityId;
+      });
+      if (searchIndex > -1) {
+        this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();
+      }
+    }
+
     let entityToCloseIndex = _.findIndex(this.state.openedEntities, {entityId: entity.entityId, type: entity.type, itemId: entity.itemId});
     let openedEntities = this.state.openedEntities;
     openedEntities.splice(entityToCloseIndex, 1);
@@ -101,12 +110,23 @@ export default class MainView extends Component {
       <div style={styles}>
         <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} entities={this.state.openedEntities} />
         <hr/>
-        {this.state.openedEntities.map((entity, index) => <EntityWindow onEntityItemClick={this.onEntityItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)} key={this.getEntityWindowKey(entity)} entity={entity}/>) }
+        {this.renderOpenedEntities()}
       </div>
     )
   }
 
   getEntityWindowKey(entity) {
     return entity.entityId + entity.type + entity.itemId;
+  }
+
+  renderOpenedEntities() {
+    this.searchEntityWindowReferences = [];
+    return this.state.openedEntities.map(
+      (entity, index) => <EntityWindow onEntityItemClick={this.onEntityItemClick.bind(this)}
+                                       ref={item => item && entity.type === entitySearchType && this.searchEntityWindowReferences.push({entity: entity, refItem: item})}
+                                       onEntityWindowClose={this.onEntityWindowClose.bind(this)}
+                                       key={this.getEntityWindowKey(entity)}
+                                       entity={entity}/>
+    )
   }
 }

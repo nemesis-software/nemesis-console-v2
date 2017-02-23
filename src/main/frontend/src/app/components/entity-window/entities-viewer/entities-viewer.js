@@ -56,6 +56,10 @@ export default class EntitiesViewer extends Component {
     this.props.onEntityItemClick(item, this.props.entity.entityId)
   }
 
+  retakeEntityData() {
+    this.getEntitiesData(this.props.entity, this.state.page.number + 1, this.state.page.size, this.state.filter);
+  }
+
   onPagerChange(page, pageSize) {
     this.getEntitiesData(this.props.entity, page, pageSize, this.state.filter);
   }
