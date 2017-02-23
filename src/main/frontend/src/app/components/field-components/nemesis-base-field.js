@@ -15,7 +15,7 @@ export default class NemesisBaseField extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(this.props.value, nextProps.value)) {
+    if (!_.isEqual(this.props.value, nextProps.value) || this.state.isDirty) {
       this.setState({...this.state, isDirty: false, value: this.setFormattedValue(nextProps.value)});
     }
 

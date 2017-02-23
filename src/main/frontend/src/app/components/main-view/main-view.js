@@ -84,13 +84,29 @@ export default class MainView extends Component {
     this.setSelectedItemInState(selectedEntity);
   }
 
+  onEntityWindowClose(entity, updateSearch) {
+    console.log('close');
+    let entityToCloseIndex = _.findIndex(this.state.openedEntities, {entityId: entity.entityId, type: entity.type, itemId: entity.itemId});
+    let openedEntities = this.state.openedEntities;
+    openedEntities.splice(entityToCloseIndex, 1);
+    this.setState({
+      ...this.state,
+      selectedEntity: null,
+      openedEntities: openedEntities
+    });
+  }
+
   render() {
     return (
       <div style={styles}>
         <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} entities={this.state.openedEntities} />
         <hr/>
-        {this.state.openedEntities.map((entity, index) => <EntityWindow onEntityItemClick={this.onEntityItemClick.bind(this)} key={index} entity={entity}/>) }
+        {this.state.openedEntities.map((entity, index) => <EntityWindow onEntityItemClick={this.onEntityItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)} key={this.getEntityWindowKey(entity)} entity={entity}/>) }
       </div>
     )
+  }
+
+  getEntityWindowKey(entity) {
+    return entity.entityId + entity.type + entity.itemId;
   }
 }

@@ -3,10 +3,6 @@ import {entitySearchType, entityItemType} from '../../types/entity-types'
 import EntitiesViewer from './entities-viewer/entities-viewer';
 import EntitySections from './entity-sections/entity-sections'
 
-const pagerData = {
-  page: 1,
-  pageSize: 20
-};
 export default class EntitiesWindow extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +27,7 @@ export default class EntitiesWindow extends Component {
   renderEntityByType(entity) {
     switch (entity.type) {
       case entityItemType: {
-        return <EntitySections entity={entity}/>
+        return <EntitySections entity={entity} onEntityWindowClose={this.props.onEntityWindowClose}/>
       }
       case entitySearchType: {
         return <EntitiesViewer entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>

@@ -30,9 +30,7 @@ export default class EntitySections extends Component {
     return (
       <div>
         <div>
-          <RaisedButton label='Save' />
-          <RaisedButton label='Save and close' />
-          <RaisedButton label='Delete' />
+          {this.getFunctionalButtons(this.props.entity).map((button, index) => <RaisedButton label={button.label} onClick={button.onClickFunction} key={index}/>)}
         </div>
         <Tabs onChange={this.handleChange}
               value={this.state.sectionIndex}>
@@ -50,6 +48,22 @@ export default class EntitySections extends Component {
         </SwipeableViews>
       </div>
     )
+  }
+
+  getFunctionalButtons(entity) {
+    let result = [
+      {label: 'Save'},
+      {label: 'Save and close'},
+      {label: 'Delete'},
+      {label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this)},
+    ];
+    if (entity.data.synchronizable) {
+      result.push({label: 'Synchronize'})
+    }
+
+    result.push({label: 'Close', onClickFunction: () => this.props.onEntityWindowClose(this.props.entity)});
+
+    return result;
   }
 
   getDataEntity(entity) {
@@ -109,5 +123,9 @@ export default class EntitySections extends Component {
     }
 
     return data.content || data;
+  }
+
+  handleRefreshButtonClick() {
+    this.getDataEntity(this.props.entity);
   }
 }
