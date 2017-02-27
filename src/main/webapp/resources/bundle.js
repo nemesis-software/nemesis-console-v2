@@ -97395,7 +97395,7 @@
 
 	      var result = [{ label: 'Save' }, { label: 'Save and close' }, { label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
 	      if (entity.data.synchronizable) {
-	        result.push({ label: 'Synchronize' });
+	        result.push({ label: 'Synchronize', onClickFunction: this.handleSynchronizeButtonClick.bind(this) });
 	      }
 
 	      result.push({ label: 'Close', onClickFunction: function onClickFunction() {
@@ -97485,11 +97485,22 @@
 	      //TODO: add popup for asking if you want to delete this
 	      _apiCall2.default.delete(entity.entityId + '/' + entity.itemId).then(function () {
 	        _this5.props.onEntityWindowClose(_this5.props.entity, true);
-	      }, function (err) {
-	        //TODO: Make error visualization
-	        alert('cannot delete');
-	        console.log(err);
-	      });
+	      }, this.handleRequestError);
+	    }
+	  }, {
+	    key: 'handleSynchronizeButtonClick',
+	    value: function handleSynchronizeButtonClick() {
+	      var entity = this.props.entity;
+	      _apiCall2.default.get('backend/synchronize', { entityName: entity.entityId, id: entity.itemId }).then(function () {
+	        alert('synchronized'); //TODO: use material popup
+	      }, this.handleRequestError);
+	    }
+	  }, {
+	    key: 'handleRequestError',
+	    value: function handleRequestError(err) {
+	      //TODO: Make error visualization
+	      alert('cannot delete');
+	      console.log(err);
 	    }
 	  }]);
 

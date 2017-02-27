@@ -58,7 +58,7 @@ export default class EntitySections extends Component {
       {label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this)},
     ];
     if (entity.data.synchronizable) {
-      result.push({label: 'Synchronize'})
+      result.push({label: 'Synchronize', onClickFunction: this.handleSynchronizeButtonClick.bind(this)})
     }
 
     result.push({label: 'Close', onClickFunction: () => this.props.onEntityWindowClose(this.props.entity)});
@@ -134,10 +134,19 @@ export default class EntitySections extends Component {
     //TODO: add popup for asking if you want to delete this
     ApiCall.delete(entity.entityId + '/' + entity.itemId).then(() => {
       this.props.onEntityWindowClose(this.props.entity, true);
-    }, (err) => {
-      //TODO: Make error visualization
-      alert('cannot delete');
-      console.log(err);
-    })
+    }, this.handleRequestError)
+  }
+
+  handleSynchronizeButtonClick() {
+    let entity = this.props.entity;
+    ApiCall.get('backend/synchronize', {entityName: entity.entityId, id: entity.itemId}).then(() => {
+      alert('synchronized'); //TODO: use material popup
+    }, this.handleRequestError)
+  }
+
+  handleRequestError(err) {
+    //TODO: Make error visualization
+    alert('cannot delete');
+    console.log(err);
   }
 }
