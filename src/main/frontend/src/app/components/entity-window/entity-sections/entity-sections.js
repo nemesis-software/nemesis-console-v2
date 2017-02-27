@@ -8,15 +8,23 @@ import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
 import _ from 'lodash';
 
+const keyPrefix = 'entitySection';
+
 export default class EntitySections extends Component {
   constructor(props) {
     super(props);
+    this.sectionsReferences = [];
 
-    this.state = { sectionIndex: 0, entityData: {} };
+    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now() };
   }
 
   componentWillMount() {
     this.getDataEntity(this.props.entity);
+    this.sectionsReferences = [];
+  }
+
+  componentWillUpdate() {
+    this.sectionsReferences = [];
   }
 
   handleChange = (value) => {
@@ -28,7 +36,7 @@ export default class EntitySections extends Component {
 
   render() {
     return (
-      <div>
+      <div key={this.state.key}>
         <div>
           {this.getFunctionalButtons(this.props.entity).map((button, index) => <RaisedButton label={button.label} onClick={button.onClickFunction} key={index}/>)}
         </div>
@@ -43,7 +51,7 @@ export default class EntitySections extends Component {
           onChangeIndex={this.handleChange}
         >
           {this.props.entity.data.sections.map((item, index) => {
-            return <EntitySection key={index} section={item} entityData={this.state.entityData} />
+            return <EntitySection ref={(section) => {section && this.sectionsReferences.push(section)}} key={index} section={item} entityData={this.state.entityData} />
           })}
         </SwipeableViews>
       </div>
@@ -52,7 +60,7 @@ export default class EntitySections extends Component {
 
   getFunctionalButtons(entity) {
     let result = [
-      {label: 'Save'},
+      {label: 'Save', onClickFunction: this.handleSaveButtonClick.bind(this)},
       {label: 'Save and close'},
       {label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this)},
       {label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this)},
@@ -68,7 +76,7 @@ export default class EntitySections extends Component {
 
   getDataEntity(entity) {
     let relatedEntities = this.getEntityRelatedEntities(entity);
-    ApiCall.get(entity.entityId + '/' + entity.itemId).then(result => {
+    return ApiCall.get(entity.entityId + '/' + entity.itemId).then(result => {
       this.setState({...this.state, entityData: result.data});
       Promise.all(
         relatedEntities.map(item => ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
@@ -90,7 +98,7 @@ export default class EntitySections extends Component {
 
           relatedEntitiesResult[item.name] = data;
         });
-        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}})
+        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now()})
       })
     });
   }
@@ -144,9 +152,18 @@ export default class EntitySections extends Component {
     }, this.handleRequestError)
   }
 
+  handleSaveButtonClick() {
+    let result = {};
+    this.sectionsReferences.forEach(section => {
+      result = {...result, ...section.getDirtyValues()};
+    });
+
+    console.log(result);
+  }
+
   handleRequestError(err) {
     //TODO: Make error visualization
-    alert('cannot delete');
+    alert('button click err');
     console.log(err);
   }
 }

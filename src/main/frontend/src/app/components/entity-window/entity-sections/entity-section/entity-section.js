@@ -19,7 +19,7 @@ import NemesisEntityCollectionField from '../../../field-components/nemesis-coll
 export default class EntitySection extends Component {
   constructor(props) {
     super(props);
-
+    this.fieldsReferences = [];
   }
   render() {
     return (
@@ -28,6 +28,14 @@ export default class EntitySection extends Component {
         {this.props.section.items.map((item, index) => this.getSectionItemRenderer(item, index))}
       </div>
     )
+  }
+
+  componentWillMount() {
+    this.fieldsReferences = [];
+  }
+
+  componentWillUpdate() {
+    this.fieldsReferences = [];
   }
 
   getSectionItemRenderer(item, index) {
@@ -40,7 +48,8 @@ export default class EntitySection extends Component {
       readOnly: item.readOnly,
       required: item.required,
       value: this.getItemValue(item, itemName),
-      type: nemesisFieldUsageTypes.edit
+      type: nemesisFieldUsageTypes.edit,
+      ref: (field) => { field && this.fieldsReferences.push(field)}
     };
 
     switch (item.xtype) {
@@ -72,5 +81,16 @@ export default class EntitySection extends Component {
     }
 
     return this.props.entityData[itemName];
+  }
+
+  getDirtyValues() {
+    let result = {};
+    this.fieldsReferences.forEach(field => {
+      let dirtyValue = field.getChangeValue();
+      if (dirtyValue) {
+        result[dirtyValue.name] = dirtyValue.value;
+      }
+    });
+    return result;
   }
 }

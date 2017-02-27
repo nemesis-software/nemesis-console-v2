@@ -55716,7 +55716,7 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      if (!_lodash2.default.isEqual(this.props.value, nextProps.value) || this.state.isDirty) {
+	      if (!_lodash2.default.isEqual(this.props.value, nextProps.value)) {
 	        this.setState(_extends({}, this.state, { isDirty: false, value: this.setFormattedValue(nextProps.value) }));
 	      }
 	    }
@@ -55741,7 +55741,7 @@
 	    key: 'getChangeValue',
 	    value: function getChangeValue() {
 	      if (this.state.isDirty) {
-	        return { name: this.props.name, value: this.getFormattedValue(this.props.value) };
+	        return { name: this.props.name, value: this.getFormattedValue(this.state.value) };
 	      }
 
 	      return null;
@@ -83039,7 +83039,10 @@
 	  function EntitySection(props) {
 	    _classCallCheck(this, EntitySection);
 
-	    return _possibleConstructorReturn(this, (EntitySection.__proto__ || Object.getPrototypeOf(EntitySection)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (EntitySection.__proto__ || Object.getPrototypeOf(EntitySection)).call(this, props));
+
+	    _this.fieldsReferences = [];
+	    return _this;
 	  }
 
 	  _createClass(EntitySection, [{
@@ -83062,8 +83065,20 @@
 	      );
 	    }
 	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.fieldsReferences = [];
+	    }
+	  }, {
+	    key: 'componentWillUpdate',
+	    value: function componentWillUpdate() {
+	      this.fieldsReferences = [];
+	    }
+	  }, {
 	    key: 'getSectionItemRenderer',
 	    value: function getSectionItemRenderer(item, index) {
+	      var _this3 = this;
+
 	      var reactElement = void 0;
 	      var itemName = item.name.replace('entity-', '');
 	      var elementConfig = {
@@ -83073,7 +83088,10 @@
 	        readOnly: item.readOnly,
 	        required: item.required,
 	        value: this.getItemValue(item, itemName),
-	        type: _nemesisTypes.nemesisFieldUsageTypes.edit
+	        type: _nemesisTypes.nemesisFieldUsageTypes.edit,
+	        ref: function ref(field) {
+	          field && _this3.fieldsReferences.push(field);
+	        }
 	      };
 
 	      switch (item.xtype) {
@@ -83128,6 +83146,18 @@
 	      }
 
 	      return this.props.entityData[itemName];
+	    }
+	  }, {
+	    key: 'getDirtyValues',
+	    value: function getDirtyValues() {
+	      var result = {};
+	      this.fieldsReferences.forEach(function (field) {
+	        var dirtyValue = field.getChangeValue();
+	        if (dirtyValue) {
+	          result[dirtyValue.name] = dirtyValue.value;
+	        }
+	      });
+	      return result;
 	    }
 	  }]);
 
@@ -97330,6 +97360,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var keyPrefix = 'entitySection';
+
 	var EntitySections = function (_Component) {
 	  _inherits(EntitySections, _Component);
 
@@ -97344,7 +97376,9 @@
 	      }));
 	    };
 
-	    _this.state = { sectionIndex: 0, entityData: {} };
+	    _this.sectionsReferences = [];
+
+	    _this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now() };
 	    return _this;
 	  }
 
@@ -97352,6 +97386,12 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.getDataEntity(this.props.entity);
+	      this.sectionsReferences = [];
+	    }
+	  }, {
+	    key: 'componentWillUpdate',
+	    value: function componentWillUpdate() {
+	      this.sectionsReferences = [];
 	    }
 	  }, {
 	    key: 'render',
@@ -97360,7 +97400,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { key: this.state.key },
 	        _react2.default.createElement(
 	          'div',
 	          null,
@@ -97383,7 +97423,9 @@
 	            onChangeIndex: this.handleChange
 	          },
 	          this.props.entity.data.sections.map(function (item, index) {
-	            return _react2.default.createElement(_entitySection2.default, { key: index, section: item, entityData: _this2.state.entityData });
+	            return _react2.default.createElement(_entitySection2.default, { ref: function ref(section) {
+	                section && _this2.sectionsReferences.push(section);
+	              }, key: index, section: item, entityData: _this2.state.entityData });
 	          })
 	        )
 	      );
@@ -97393,7 +97435,7 @@
 	    value: function getFunctionalButtons(entity) {
 	      var _this3 = this;
 
-	      var result = [{ label: 'Save' }, { label: 'Save and close' }, { label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
+	      var result = [{ label: 'Save', onClickFunction: this.handleSaveButtonClick.bind(this) }, { label: 'Save and close' }, { label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
 	      if (entity.data.synchronizable) {
 	        result.push({ label: 'Synchronize', onClickFunction: this.handleSynchronizeButtonClick.bind(this) });
 	      }
@@ -97410,7 +97452,7 @@
 	      var _this4 = this;
 
 	      var relatedEntities = this.getEntityRelatedEntities(entity);
-	      _apiCall2.default.get(entity.entityId + '/' + entity.itemId).then(function (result) {
+	      return _apiCall2.default.get(entity.entityId + '/' + entity.itemId).then(function (result) {
 	        _this4.setState(_extends({}, _this4.state, { entityData: result.data }));
 	        Promise.all(relatedEntities.map(function (item) {
 	          return _apiCall2.default.get(result.data._links[item.name].href, { projection: 'search' })
@@ -97432,7 +97474,7 @@
 
 	            relatedEntitiesResult[item.name] = data;
 	          });
-	          _this4.setState(_extends({}, _this4.state, { entityData: _extends({}, _this4.state.entityData, { customClientData: relatedEntitiesResult }) }));
+	          _this4.setState(_extends({}, _this4.state, { entityData: _extends({}, _this4.state.entityData, { customClientData: relatedEntitiesResult }), key: keyPrefix + Date.now() }));
 	        });
 	      });
 	    }
@@ -97496,10 +97538,20 @@
 	      }, this.handleRequestError);
 	    }
 	  }, {
+	    key: 'handleSaveButtonClick',
+	    value: function handleSaveButtonClick() {
+	      var result = {};
+	      this.sectionsReferences.forEach(function (section) {
+	        result = _extends({}, result, section.getDirtyValues());
+	      });
+
+	      console.log(result);
+	    }
+	  }, {
 	    key: 'handleRequestError',
 	    value: function handleRequestError(err) {
 	      //TODO: Make error visualization
-	      alert('cannot delete');
+	      alert('button click err');
 	      console.log(err);
 	    }
 	  }]);

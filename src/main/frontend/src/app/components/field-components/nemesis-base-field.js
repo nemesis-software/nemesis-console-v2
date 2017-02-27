@@ -15,10 +15,9 @@ export default class NemesisBaseField extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(this.props.value, nextProps.value) || this.state.isDirty) {
+    if (!_.isEqual(this.props.value, nextProps.value)) {
       this.setState({...this.state, isDirty: false, value: this.setFormattedValue(nextProps.value)});
     }
-
   }
 
   onValueChange(event, value) {
@@ -38,7 +37,7 @@ export default class NemesisBaseField extends Component {
 
   getChangeValue() {
     if (this.state.isDirty) {
-      return {name: this.props.name, value: this.getFormattedValue(this.props.value)};
+      return {name: this.props.name, value: this.getFormattedValue(this.state.value)};
     }
 
     return null;
