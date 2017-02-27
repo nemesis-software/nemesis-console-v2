@@ -54,7 +54,7 @@ export default class EntitySections extends Component {
     let result = [
       {label: 'Save'},
       {label: 'Save and close'},
-      {label: 'Delete'},
+      {label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this)},
       {label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this)},
     ];
     if (entity.data.synchronizable) {
@@ -127,5 +127,17 @@ export default class EntitySections extends Component {
 
   handleRefreshButtonClick() {
     this.getDataEntity(this.props.entity);
+  }
+
+  handleDeleteButtonClick() {
+    let entity = this.props.entity;
+    //TODO: add popup for asking if you want to delete this
+    ApiCall.delete(entity.entityId + '/' + entity.itemId).then(() => {
+      this.props.onEntityWindowClose(this.props.entity, true);
+    }, (err) => {
+      //TODO: Make error visualization
+      alert('cannot delete');
+      console.log(err);
+    })
   }
 }

@@ -97393,7 +97393,7 @@
 	    value: function getFunctionalButtons(entity) {
 	      var _this3 = this;
 
-	      var result = [{ label: 'Save' }, { label: 'Save and close' }, { label: 'Delete' }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
+	      var result = [{ label: 'Save' }, { label: 'Save and close' }, { label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
 	      if (entity.data.synchronizable) {
 	        result.push({ label: 'Synchronize' });
 	      }
@@ -97475,6 +97475,21 @@
 	    key: 'handleRefreshButtonClick',
 	    value: function handleRefreshButtonClick() {
 	      this.getDataEntity(this.props.entity);
+	    }
+	  }, {
+	    key: 'handleDeleteButtonClick',
+	    value: function handleDeleteButtonClick() {
+	      var _this5 = this;
+
+	      var entity = this.props.entity;
+	      //TODO: add popup for asking if you want to delete this
+	      _apiCall2.default.delete(entity.entityId + '/' + entity.itemId).then(function () {
+	        _this5.props.onEntityWindowClose(_this5.props.entity, true);
+	      }, function (err) {
+	        //TODO: Make error visualization
+	        alert('cannot delete');
+	        console.log(err);
+	      });
 	    }
 	  }]);
 
