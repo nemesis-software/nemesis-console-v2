@@ -87,7 +87,7 @@ export default class MainView extends Component {
 
   onEntityWindowClose(entity) {
     let entityToCloseIndex = _.findIndex(this.state.openedEntities, {entityId: entity.entityId, type: entity.type, itemId: entity.itemId});
-    let openedEntities = this.state.openedEntities;
+    let openedEntities = _.cloneDeep(this.state.openedEntities);
     openedEntities.splice(entityToCloseIndex, 1);
     this.setState({
       ...this.state,
@@ -98,7 +98,7 @@ export default class MainView extends Component {
 
   onUpdateEntitySearchView(entity) {
     let searchIndex = _.findIndex(this.searchEntityWindowReferences, (window) => {
-      return window.entity.entityId = entity.entityId;
+      return window.entity.entityId === entity.entityId;
     });
     if (searchIndex > -1) {
       this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();

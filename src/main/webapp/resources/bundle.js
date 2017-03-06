@@ -97436,7 +97436,11 @@
 	    value: function getFunctionalButtons(entity) {
 	      var _this3 = this;
 
-	      var result = [{ label: 'Save', onClickFunction: this.handleSaveButtonClick.bind(this) }, { label: 'Save and close', onClickFunction: this.handleSaveAndCloseButtonClick.bind(this) }, { label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
+	      var result = [{ label: 'Save', onClickFunction: function onClickFunction() {
+	          return _this3.handleSaveButtonClick(false);
+	        } }, { label: 'Save and close', onClickFunction: function onClickFunction() {
+	          return _this3.handleSaveButtonClick(true);
+	        } }, { label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
 	      if (entity.data.synchronizable) {
 	        result.push({ label: 'Synchronize', onClickFunction: this.handleSynchronizeButtonClick.bind(this) });
 	      }
@@ -97527,8 +97531,8 @@
 	      var entity = this.props.entity;
 	      //TODO: add popup for asking if you want to delete this
 	      _apiCall2.default.delete(entity.entityId + '/' + entity.itemId).then(function () {
-	        _this5.props.onEntityWindowClose(_this5.props.entity);
 	        _this5.props.onUpdateEntitySearchView(_this5.props.entity);
+	        _this5.props.onEntityWindowClose(_this5.props.entity);
 	      }, this.handleRequestError);
 	    }
 	  }, {
@@ -97541,7 +97545,7 @@
 	    }
 	  }, {
 	    key: 'handleSaveButtonClick',
-	    value: function handleSaveButtonClick() {
+	    value: function handleSaveButtonClick(windowShouldClose) {
 	      var _this6 = this;
 
 	      var entity = this.props.entity;
@@ -97562,16 +97566,18 @@
 	        if (mediaFields.length > 0) {
 	          var data = new FormData();
 	          data.append('file', mediaFields[0].value);
-	          return _apiCall2.default.post('upload/media/' + entity.itemId, data, 'multipart/form-data').then(function () {
-	            return console.log('file uploaded');
-	          });
+	          _apiCall2.default.post('upload/media/' + entity.itemId, data, 'multipart/form-data').then(function () {
+	            console.log('file uploaded');
+	            if (windowShouldClose) {
+	              _this6.props.onEntityWindowClose(_this6.props.entity);
+	            }
+	          }, _this6.handleRequestError);
+	        } else if (windowShouldClose) {
+	          _this6.props.onEntityWindowClose(_this6.props.entity);
 	        }
 	        console.log(mediaFields);
 	      }, this.handleRequestError);
 	    }
-	  }, {
-	    key: 'handleSaveAndCloseButtonClick',
-	    value: function handleSaveAndCloseButtonClick() {}
 	  }, {
 	    key: 'getDirtyEntityProps',
 	    value: function getDirtyEntityProps() {
@@ -99722,7 +99728,7 @@
 	    key: 'onEntityWindowClose',
 	    value: function onEntityWindowClose(entity) {
 	      var entityToCloseIndex = _lodash2.default.findIndex(this.state.openedEntities, { entityId: entity.entityId, type: entity.type, itemId: entity.itemId });
-	      var openedEntities = this.state.openedEntities;
+	      var openedEntities = _lodash2.default.cloneDeep(this.state.openedEntities);
 	      openedEntities.splice(entityToCloseIndex, 1);
 	      this.setState(_extends({}, this.state, {
 	        selectedEntity: null,
@@ -99733,7 +99739,7 @@
 	    key: 'onUpdateEntitySearchView',
 	    value: function onUpdateEntitySearchView(entity) {
 	      var searchIndex = _lodash2.default.findIndex(this.searchEntityWindowReferences, function (window) {
-	        return window.entity.entityId = entity.entityId;
+	        return window.entity.entityId === entity.entityId;
 	      });
 	      if (searchIndex > -1) {
 	        this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();

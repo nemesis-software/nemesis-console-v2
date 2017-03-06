@@ -60,8 +60,8 @@ export default class EntitySections extends Component {
 
   getFunctionalButtons(entity) {
     let result = [
-      {label: 'Save', onClickFunction: this.handleSaveButtonClick.bind(this)},
-      {label: 'Save and close', onClickFunction: this.handleSaveAndCloseButtonClick.bind(this)},
+      {label: 'Save', onClickFunction: () => this.handleSaveButtonClick(false)},
+      {label: 'Save and close', onClickFunction: () => this.handleSaveButtonClick(true)},
       {label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this)},
       {label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this)},
     ];
@@ -141,8 +141,8 @@ export default class EntitySections extends Component {
     let entity = this.props.entity;
     //TODO: add popup for asking if you want to delete this
     ApiCall.delete(entity.entityId + '/' + entity.itemId).then(() => {
-      this.props.onEntityWindowClose(this.props.entity);
       this.props.onUpdateEntitySearchView(this.props.entity);
+      this.props.onEntityWindowClose(this.props.entity);
     }, this.handleRequestError)
   }
 
@@ -153,7 +153,7 @@ export default class EntitySections extends Component {
     }, this.handleRequestError)
   }
 
-  handleSaveButtonClick() {
+  handleSaveButtonClick(windowShouldClose) {
     let entity = this.props.entity;
     let dirtyEntityProps = this.getDirtyEntityProps();
     let resultObject = {};
@@ -172,14 +172,19 @@ export default class EntitySections extends Component {
       if (mediaFields.length > 0) {
         let data = new FormData();
         data.append('file', mediaFields[0].value);
-        return ApiCall.post('upload/media/' + entity.itemId, data, 'multipart/form-data').then(() => console.log('file uploaded'));
+        ApiCall.post('upload/media/' + entity.itemId, data, 'multipart/form-data').then(
+          () => {
+            console.log('file uploaded');
+            if (windowShouldClose) {
+              this.props.onEntityWindowClose(this.props.entity);
+            }
+          },
+          this.handleRequestError);
+      } else if (windowShouldClose) {
+        this.props.onEntityWindowClose(this.props.entity);
       }
       console.log(mediaFields);
     }, this.handleRequestError);
-  }
-
-  handleSaveAndCloseButtonClick() {
-
   }
 
   getDirtyEntityProps() {
