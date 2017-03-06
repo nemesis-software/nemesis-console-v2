@@ -32,6 +32,7 @@ export default class NemesisTextField extends NemesisBaseField {
     reader.onloadend = () => {
       this.setState({
         ...this.state,
+        isDirty: true,
         file: file,
         value: reader.result
       });

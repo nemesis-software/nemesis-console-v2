@@ -83150,11 +83150,11 @@
 	  }, {
 	    key: 'getDirtyValues',
 	    value: function getDirtyValues() {
-	      var result = {};
+	      var result = [];
 	      this.fieldsReferences.forEach(function (field) {
 	        var dirtyValue = field.getChangeValue();
 	        if (dirtyValue) {
-	          result[dirtyValue.name] = dirtyValue.value;
+	          result.push(dirtyValue);
 	        }
 	      });
 	      return result;
@@ -96562,6 +96562,7 @@
 
 	      reader.onloadend = function () {
 	        _this2.setState(_extends({}, _this2.state, {
+	          isDirty: true,
 	          file: file,
 	          value: reader.result
 	        }));
@@ -97435,7 +97436,7 @@
 	    value: function getFunctionalButtons(entity) {
 	      var _this3 = this;
 
-	      var result = [{ label: 'Save', onClickFunction: this.handleSaveButtonClick.bind(this) }, { label: 'Save and close' }, { label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
+	      var result = [{ label: 'Save', onClickFunction: this.handleSaveButtonClick.bind(this) }, { label: 'Save and close', onClickFunction: this.handleSaveAndCloseButtonClick.bind(this) }, { label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
 	      if (entity.data.synchronizable) {
 	        result.push({ label: 'Synchronize', onClickFunction: this.handleSynchronizeButtonClick.bind(this) });
 	      }
@@ -97540,12 +97541,42 @@
 	  }, {
 	    key: 'handleSaveButtonClick',
 	    value: function handleSaveButtonClick() {
-	      var result = {};
-	      this.sectionsReferences.forEach(function (section) {
-	        result = _extends({}, result, section.getDirtyValues());
+	      var entity = this.props.entity;
+	      var dirtyEntityProps = this.getDirtyEntityProps();
+	      var resultObject = {};
+	      var mediaFields = [];
+	      dirtyEntityProps.forEach(function (prop) {
+	        if (prop.isMedia) {
+	          mediaFields.push(prop);
+	        } else {
+	          resultObject[prop.name] = prop.value;
+	        }
 	      });
 
-	      console.log(result);
+	      _apiCall2.default.patch(entity.entityId + '/' + entity.itemId, resultObject).then(function () {
+	        console.log('updated'); //TODO: use material popup
+	        if (mediaFields.length > 0) {
+	          var data = new FormData();
+	          data.append('file', mediaFields[0].value);
+	          return _apiCall2.default.post('upload/media/' + entity.itemId, data, 'multipart/form-data').then(function () {
+	            return console.log('file uploaded');
+	          });
+	        }
+	        console.log(mediaFields);
+	      }, this.handleRequestError);
+	    }
+	  }, {
+	    key: 'handleSaveAndCloseButtonClick',
+	    value: function handleSaveAndCloseButtonClick() {}
+	  }, {
+	    key: 'getDirtyEntityProps',
+	    value: function getDirtyEntityProps() {
+	      var result = [];
+	      this.sectionsReferences.forEach(function (section) {
+	        result = result.concat(section.getDirtyValues());
+	      });
+
+	      return result;
 	    }
 	  }, {
 	    key: 'handleRequestError',

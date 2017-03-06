@@ -61,7 +61,7 @@ export default class EntitySections extends Component {
   getFunctionalButtons(entity) {
     let result = [
       {label: 'Save', onClickFunction: this.handleSaveButtonClick.bind(this)},
-      {label: 'Save and close'},
+      {label: 'Save and close', onClickFunction: this.handleSaveAndCloseButtonClick.bind(this)},
       {label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this)},
       {label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this)},
     ];
@@ -153,12 +153,40 @@ export default class EntitySections extends Component {
   }
 
   handleSaveButtonClick() {
-    let result = {};
-    this.sectionsReferences.forEach(section => {
-      result = {...result, ...section.getDirtyValues()};
+    let entity = this.props.entity;
+    let dirtyEntityProps = this.getDirtyEntityProps();
+    let resultObject = {};
+    let mediaFields = [];
+    dirtyEntityProps.forEach(prop => {
+      if (prop.isMedia) {
+        mediaFields.push(prop);
+      } else {
+        resultObject[prop.name] = prop.value;
+      }
     });
 
-    console.log(result);
+    ApiCall.patch(entity.entityId + '/' + entity.itemId, resultObject).then(() => {
+      console.log('updated'); //TODO: use material popup
+      if (mediaFields.length > 0) {
+        let data = new FormData();
+        data.append('file', mediaFields[0].value);
+        return ApiCall.post('upload/media/' + entity.itemId, data, 'multipart/form-data').then(() => console.log('file uploaded'));
+      }
+      console.log(mediaFields);
+    }, this.handleRequestError);
+  }
+
+  handleSaveAndCloseButtonClick() {
+
+  }
+
+  getDirtyEntityProps() {
+    let result = [];
+    this.sectionsReferences.forEach(section => {
+      result = result.concat(section.getDirtyValues());
+    });
+
+    return result;
   }
 
   handleRequestError(err) {

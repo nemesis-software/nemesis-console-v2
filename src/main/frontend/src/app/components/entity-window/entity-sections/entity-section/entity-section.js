@@ -84,11 +84,11 @@ export default class EntitySection extends Component {
   }
 
   getDirtyValues() {
-    let result = {};
+    let result = [];
     this.fieldsReferences.forEach(field => {
       let dirtyValue = field.getChangeValue();
       if (dirtyValue) {
-        result[dirtyValue.name] = dirtyValue.value;
+        result.push(dirtyValue);
       }
     });
     return result;
