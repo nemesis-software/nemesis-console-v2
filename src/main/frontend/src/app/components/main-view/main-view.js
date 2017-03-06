@@ -85,16 +85,7 @@ export default class MainView extends Component {
     this.setSelectedItemInState(selectedEntity);
   }
 
-  onEntityWindowClose(entity, updateSearch) {
-    if (updateSearch) {
-      let searchIndex = _.findIndex(this.searchEntityWindowReferences, (window) => {
-        return window.entity.entityId = entity.entityId;
-      });
-      if (searchIndex > -1) {
-        this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();
-      }
-    }
-
+  onEntityWindowClose(entity) {
     let entityToCloseIndex = _.findIndex(this.state.openedEntities, {entityId: entity.entityId, type: entity.type, itemId: entity.itemId});
     let openedEntities = this.state.openedEntities;
     openedEntities.splice(entityToCloseIndex, 1);
@@ -103,6 +94,15 @@ export default class MainView extends Component {
       selectedEntity: null,
       openedEntities: openedEntities
     });
+  }
+
+  onUpdateEntitySearchView(entity) {
+    let searchIndex = _.findIndex(this.searchEntityWindowReferences, (window) => {
+      return window.entity.entityId = entity.entityId;
+    });
+    if (searchIndex > -1) {
+      this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();
+    }
   }
 
   render() {
@@ -125,6 +125,7 @@ export default class MainView extends Component {
       (entity, index) => <EntityWindow onEntityItemClick={this.onEntityItemClick.bind(this)}
                                        ref={item => item && entity.type === entitySearchType && this.searchEntityWindowReferences.push({entity: entity, refItem: item})}
                                        onEntityWindowClose={this.onEntityWindowClose.bind(this)}
+                                       onUpdateEntitySearchView={this.onUpdateEntitySearchView.bind(this)}
                                        key={this.getEntityWindowKey(entity)}
                                        entity={entity}/>
     )

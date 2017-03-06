@@ -141,7 +141,8 @@ export default class EntitySections extends Component {
     let entity = this.props.entity;
     //TODO: add popup for asking if you want to delete this
     ApiCall.delete(entity.entityId + '/' + entity.itemId).then(() => {
-      this.props.onEntityWindowClose(this.props.entity, true);
+      this.props.onEntityWindowClose(this.props.entity);
+      this.props.onUpdateEntitySearchView(this.props.entity);
     }, this.handleRequestError)
   }
 
@@ -166,6 +167,7 @@ export default class EntitySections extends Component {
     });
 
     ApiCall.patch(entity.entityId + '/' + entity.itemId, resultObject).then(() => {
+      this.props.onUpdateEntitySearchView(this.props.entity);
       console.log('updated'); //TODO: use material popup
       if (mediaFields.length > 0) {
         let data = new FormData();

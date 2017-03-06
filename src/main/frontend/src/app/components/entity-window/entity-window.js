@@ -28,7 +28,9 @@ export default class EntitiesWindow extends Component {
   renderEntityByType(entity) {
     switch (entity.type) {
       case entityItemType: {
-        return <EntitySections entity={entity} onEntityWindowClose={this.props.onEntityWindowClose}/>
+        return <EntitySections entity={entity}
+                               onEntityWindowClose={this.props.onEntityWindowClose}
+                               onUpdateEntitySearchView={this.props.onUpdateEntitySearchView}/>
       }
       case entitySearchType: {
         return <EntitiesViewer ref={this.setEntitiesViewerInstance.bind(this)} entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>

@@ -97527,7 +97527,8 @@
 	      var entity = this.props.entity;
 	      //TODO: add popup for asking if you want to delete this
 	      _apiCall2.default.delete(entity.entityId + '/' + entity.itemId).then(function () {
-	        _this5.props.onEntityWindowClose(_this5.props.entity, true);
+	        _this5.props.onEntityWindowClose(_this5.props.entity);
+	        _this5.props.onUpdateEntitySearchView(_this5.props.entity);
 	      }, this.handleRequestError);
 	    }
 	  }, {
@@ -97541,6 +97542,8 @@
 	  }, {
 	    key: 'handleSaveButtonClick',
 	    value: function handleSaveButtonClick() {
+	      var _this6 = this;
+
 	      var entity = this.props.entity;
 	      var dirtyEntityProps = this.getDirtyEntityProps();
 	      var resultObject = {};
@@ -97554,6 +97557,7 @@
 	      });
 
 	      _apiCall2.default.patch(entity.entityId + '/' + entity.itemId, resultObject).then(function () {
+	        _this6.props.onUpdateEntitySearchView(_this6.props.entity);
 	        console.log('updated'); //TODO: use material popup
 	        if (mediaFields.length > 0) {
 	          var data = new FormData();
@@ -99535,7 +99539,9 @@
 	      switch (entity.type) {
 	        case _entityTypes.entityItemType:
 	          {
-	            return _react2.default.createElement(_entitySections2.default, { entity: entity, onEntityWindowClose: this.props.onEntityWindowClose });
+	            return _react2.default.createElement(_entitySections2.default, { entity: entity,
+	              onEntityWindowClose: this.props.onEntityWindowClose,
+	              onUpdateEntitySearchView: this.props.onUpdateEntitySearchView });
 	          }
 	        case _entityTypes.entitySearchType:
 	          {
@@ -99714,16 +99720,7 @@
 	    }
 	  }, {
 	    key: 'onEntityWindowClose',
-	    value: function onEntityWindowClose(entity, updateSearch) {
-	      if (updateSearch) {
-	        var searchIndex = _lodash2.default.findIndex(this.searchEntityWindowReferences, function (window) {
-	          return window.entity.entityId = entity.entityId;
-	        });
-	        if (searchIndex > -1) {
-	          this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();
-	        }
-	      }
-
+	    value: function onEntityWindowClose(entity) {
 	      var entityToCloseIndex = _lodash2.default.findIndex(this.state.openedEntities, { entityId: entity.entityId, type: entity.type, itemId: entity.itemId });
 	      var openedEntities = this.state.openedEntities;
 	      openedEntities.splice(entityToCloseIndex, 1);
@@ -99731,6 +99728,16 @@
 	        selectedEntity: null,
 	        openedEntities: openedEntities
 	      }));
+	    }
+	  }, {
+	    key: 'onUpdateEntitySearchView',
+	    value: function onUpdateEntitySearchView(entity) {
+	      var searchIndex = _lodash2.default.findIndex(this.searchEntityWindowReferences, function (window) {
+	        return window.entity.entityId = entity.entityId;
+	      });
+	      if (searchIndex > -1) {
+	        this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -99760,6 +99767,7 @@
 	            return item && entity.type === _entityTypes.entitySearchType && _this3.searchEntityWindowReferences.push({ entity: entity, refItem: item });
 	          },
 	          onEntityWindowClose: _this3.onEntityWindowClose.bind(_this3),
+	          onUpdateEntitySearchView: _this3.onUpdateEntitySearchView.bind(_this3),
 	          key: _this3.getEntityWindowKey(entity),
 	          entity: entity });
 	      });
