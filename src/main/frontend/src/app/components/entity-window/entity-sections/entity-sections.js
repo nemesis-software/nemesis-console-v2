@@ -51,7 +51,10 @@ export default class EntitySections extends Component {
           onChangeIndex={this.handleChange}
         >
           {this.props.entity.data.sections.map((item, index) => {
-            return <EntitySection ref={(section) => {section && this.sectionsReferences.push(section)}} key={index} section={item} entityData={this.state.entityData} />
+            return <EntitySection ref={(section) => {section && this.sectionsReferences.push(section)}}
+                                  key={index} section={item}
+                                  entityData={this.state.entityData}
+                                  onEntityItemClick={this.props.onEntityItemClick} />
           })}
         </SwipeableViews>
       </div>

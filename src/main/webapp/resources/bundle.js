@@ -76775,24 +76775,33 @@
 	    value: function render() {
 	      var _this2 = this;
 
-	      return _react2.default.createElement(_AutoComplete2.default, { style: this.props.style,
-	        dataSource: this.state.dataSource,
-	        filter: function filter(searchText, key) {
-	          return true;
-	        },
-	        onFocus: this.onAutocompleteFocus.bind(this),
-	        onBlur: this.onAutocompleteBlur.bind(this),
-	        onUpdateInput: _lodash2.default.debounce(this.onTextFieldChange.bind(this), 250),
-	        openOnFocus: true,
-	        disabled: this.props.readOnly,
-	        onNewRequest: function onNewRequest(item) {
-	          return _this2.onValueChange(item.value);
-	        },
-	        listStyle: { width: 'auto' },
-	        menuStyle: { width: 'auto', maxHeight: '300px' },
-	        maxSearchResults: 10,
-	        searchText: this.state.searchText,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }) });
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_AutoComplete2.default, { style: this.props.style,
+	          dataSource: this.state.dataSource,
+	          filter: function filter(searchText, key) {
+	            return true;
+	          },
+	          onFocus: this.onAutocompleteFocus.bind(this),
+	          onBlur: this.onAutocompleteBlur.bind(this),
+	          onUpdateInput: _lodash2.default.debounce(this.onTextFieldChange.bind(this), 250),
+	          openOnFocus: true,
+	          disabled: this.props.readOnly,
+	          onNewRequest: function onNewRequest(item) {
+	            return _this2.onValueChange(item.value);
+	          },
+	          listStyle: { width: 'auto' },
+	          menuStyle: { width: 'auto', maxHeight: '300px' },
+	          maxSearchResults: 10,
+	          searchText: this.state.searchText,
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }) }),
+	        _react2.default.createElement(
+	          'i',
+	          { className: 'material-icons', onClick: this.openEntityWindow.bind(this) },
+	          'launch'
+	        )
+	      );
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -76882,6 +76891,13 @@
 	      }
 
 	      return text;
+	    }
+	  }, {
+	    key: 'openEntityWindow',
+	    value: function openEntityWindow() {
+	      if (this.state.value) {
+	        this.props.onEntityItemClick(this.state.value, this.props.entityId);
+	      }
 	    }
 	  }]);
 
@@ -83114,7 +83130,7 @@
 	        case _nemesisTypes.nemesisFieldTypes.nemesisEnumField:
 	          elementConfig.values = item.values;elementConfig.value = item.values.indexOf(elementConfig.value);reactElement = _nemesisEnumField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisEntityField:
-	          elementConfig.entityId = item.entityId;reactElement = _nemesisEntityField2.default;break;
+	          elementConfig.entityId = item.entityId;elementConfig.onEntityItemClick = this.props.onEntityItemClick;reactElement = _nemesisEntityField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisLocalizedTextField:
 	          reactElement = _nemesisLocalizedTextField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisLocalizedRichtextField:
@@ -97426,7 +97442,10 @@
 	          this.props.entity.data.sections.map(function (item, index) {
 	            return _react2.default.createElement(_entitySection2.default, { ref: function ref(section) {
 	                section && _this2.sectionsReferences.push(section);
-	              }, key: index, section: item, entityData: _this2.state.entityData });
+	              },
+	              key: index, section: item,
+	              entityData: _this2.state.entityData,
+	              onEntityItemClick: _this2.props.onEntityItemClick });
 	          })
 	        )
 	      );
@@ -99546,6 +99565,7 @@
 	        case _entityTypes.entityItemType:
 	          {
 	            return _react2.default.createElement(_entitySections2.default, { entity: entity,
+	              onEntityItemClick: this.props.onEntityItemClick,
 	              onEntityWindowClose: this.props.onEntityWindowClose,
 	              onUpdateEntitySearchView: this.props.onUpdateEntitySearchView });
 	          }

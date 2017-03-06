@@ -62,7 +62,7 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;
       case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
-      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; reactElement = NemesisEntityField; break;
+      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
       case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisLocalizedTextField; break;
       case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisLocalizedRichTextField; break;
       case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;

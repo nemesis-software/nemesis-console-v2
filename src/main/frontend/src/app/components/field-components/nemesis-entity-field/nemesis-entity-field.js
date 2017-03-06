@@ -13,20 +13,24 @@ export default class NemesisEntityField extends NemesisBaseField {
 
   render() {
     return (
-    <AutoComplete style={this.props.style}
-                  dataSource={this.state.dataSource}
-                  filter={(searchText, key) => true}
-                  onFocus={this.onAutocompleteFocus.bind(this)}
-                  onBlur={this.onAutocompleteBlur.bind(this)}
-                  onUpdateInput={_.debounce(this.onTextFieldChange.bind(this), 250)}
-                  openOnFocus={true}
-                  disabled={this.props.readOnly}
-                  onNewRequest={(item) => this.onValueChange(item.value)}
-                  listStyle={{width: 'auto'}}
-                  menuStyle={{width: 'auto', maxHeight: '300px'}}
-                  maxSearchResults={10}
-                  searchText={this.state.searchText}
-                  floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}/>
+    <div>
+      <AutoComplete style={this.props.style}
+                    dataSource={this.state.dataSource}
+                    filter={(searchText, key) => true}
+                    onFocus={this.onAutocompleteFocus.bind(this)}
+                    onBlur={this.onAutocompleteBlur.bind(this)}
+                    onUpdateInput={_.debounce(this.onTextFieldChange.bind(this), 250)}
+                    openOnFocus={true}
+                    disabled={this.props.readOnly}
+                    onNewRequest={(item) => this.onValueChange(item.value)}
+                    listStyle={{width: 'auto'}}
+                    menuStyle={{width: 'auto', maxHeight: '300px'}}
+                    maxSearchResults={10}
+                    searchText={this.state.searchText}
+                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}/>
+      <i className="material-icons" onClick={this.openEntityWindow.bind(this)}>launch</i>
+    </div>
+
     )
   }
 
@@ -103,5 +107,11 @@ export default class NemesisEntityField extends NemesisBaseField {
     }
 
     return text;
+  }
+
+  openEntityWindow() {
+    if (this.state.value) {
+      this.props.onEntityItemClick(this.state.value, this.props.entityId);
+    }
   }
 }
