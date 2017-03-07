@@ -29,7 +29,7 @@ let LanguageChanger = componentRequire('app/components/language-changer', 'langu
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {selectedEntityId: null};
+    this.state = {selectedEntity: null};
   }
 
   render() {
@@ -44,13 +44,13 @@ export default class App extends Component {
             />
           }/>
           <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
-          <MainView selectedEntityId={this.state.selectedEntityId}/>
+          <MainView selectedEntity={this.state.selectedEntity}/>
         </div>
       </MuiThemeProvider>
     );
   }
 
-  onEntityClick(entityId) {
-    this.setState({selectedEntityId: entityId});
+  onEntityClick(entity) {
+    this.setState({selectedEntity: entity});
   }
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {entitySearchType, entityItemType} from '../../types/entity-types'
+import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types';
 import EntitiesViewer from './entities-viewer/entities-viewer';
 import EntitySections from './entity-sections/entity-sections'
 
@@ -27,11 +27,13 @@ export default class EntitiesWindow extends Component {
 
   renderEntityByType(entity) {
     switch (entity.type) {
+      case entityCreateType:
       case entityItemType: {
         return <EntitySections entity={entity}
                                onEntityItemClick={this.props.onEntityItemClick}
                                onEntityWindowClose={this.props.onEntityWindowClose}
-                               onUpdateEntitySearchView={this.props.onUpdateEntitySearchView}/>
+                               onUpdateEntitySearchView={this.props.onUpdateEntitySearchView}
+                               updateCreatedEntity={this.props.updateCreatedEntity}/>
       }
       case entitySearchType: {
         return <EntitiesViewer ref={this.setEntitiesViewerInstance.bind(this)} entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>

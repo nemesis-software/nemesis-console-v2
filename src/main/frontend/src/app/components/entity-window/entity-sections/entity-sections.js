@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
 import _ from 'lodash';
+import {entityItemType, entityCreateType} from '../../../types/entity-types';
 
 const keyPrefix = 'entitySection';
 
@@ -19,7 +20,10 @@ export default class EntitySections extends Component {
   }
 
   componentWillMount() {
-    this.getDataEntity(this.props.entity);
+    if (this.props.entity.type === entityItemType) {
+      this.getDataEntity(this.props.entity);
+    }
+
     this.sectionsReferences = [];
   }
 
@@ -79,7 +83,7 @@ export default class EntitySections extends Component {
 
   getDataEntity(entity) {
     let relatedEntities = this.getEntityRelatedEntities(entity);
-    return ApiCall.get(entity.entityId + '/' + entity.itemId).then(result => {
+    return ApiCall.get(entity.entityName + '/' + entity.itemId).then(result => {
       this.setState({...this.state, entityData: result.data});
       Promise.all(
         relatedEntities.map(item => ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
@@ -151,7 +155,7 @@ export default class EntitySections extends Component {
 
   handleSynchronizeButtonClick() {
     let entity = this.props.entity;
-    ApiCall.get('backend/synchronize', {entityName: entity.entityId, id: entity.itemId}).then(() => {
+    ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
       alert('synchronized'); //TODO: use material popup
     }, this.handleRequestError)
   }
@@ -168,26 +172,40 @@ export default class EntitySections extends Component {
         resultObject[prop.name] = prop.value;
       }
     });
-
-    ApiCall.patch(entity.entityId + '/' + entity.itemId, resultObject).then(() => {
+    console.log(entity);
+    let restMethod = entity.type === entityItemType ? 'patch' : 'post';
+    let restUrl = entity.type === entityItemType ? `${entity.entityName}/${entity.itemId}` : entity.entityName;
+    ApiCall[restMethod](restUrl, resultObject).then((result) => {
       this.props.onUpdateEntitySearchView(this.props.entity);
-      console.log('updated'); //TODO: use material popup
+      let itemId = entity.type === entityItemType ? entity.itemId : result.data.id;
+      console.log('updated', result, itemId); //TODO: use material popup
       if (mediaFields.length > 0) {
-        let data = new FormData();
-        data.append('file', mediaFields[0].value);
-        ApiCall.post('upload/media/' + entity.itemId, data, 'multipart/form-data').then(
-          () => {
-            console.log('file uploaded');
-            if (windowShouldClose) {
-              this.props.onEntityWindowClose(this.props.entity);
-            }
-          },
-          this.handleRequestError);
-      } else if (windowShouldClose) {
-        this.props.onEntityWindowClose(this.props.entity);
+        this.uploadMediaFile(itemId, mediaFields[0].value, windowShouldClose);
+        return;
       }
-      console.log(mediaFields);
+
+      if (windowShouldClose) {
+        this.props.onEntityWindowClose(this.props.entity);
+        return;
+      }
+
+      if (entity.type === entityCreateType) {
+        this.props.updateCreatedEntity(entity, itemId);
+      }
     }, this.handleRequestError);
+  }
+
+  uploadMediaFile(itemId, file, windowShouldClose) {
+    let data = new FormData();
+    data.append('file', file);
+    ApiCall.post('upload/media/' + itemId, data, 'multipart/form-data').then(
+      () => {
+        console.log('file uploaded');
+        if (windowShouldClose) {
+          this.props.onEntityWindowClose(this.props.entity);
+        }
+      },
+      this.handleRequestError);
   }
 
   getDirtyEntityProps() {

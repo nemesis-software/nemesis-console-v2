@@ -3,7 +3,7 @@ import ApiCall from '../../services/api-call'
 import _ from 'lodash';
 import EntitiesNavigation from '../entities-navigation/entities-navigation'
 import EntityWindow from '../entity-window/entity-window'
-import {entitySearchType, entityItemType} from '../../types/entity-types'
+import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types'
 import { componentRequire } from '../../utils/require-util';
 
 const styles = {
@@ -17,6 +17,7 @@ export default class MainView extends Component {
     super(props);
     this.state = {markupData: [], entityMarkupData: [], selectedEntity: null, openedEntities: []};
     this.searchEntityWindowReferences = [];
+    this.createWindowIncrementor = 1;
   }
 
   componentWillMount() {
@@ -39,13 +40,27 @@ export default class MainView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let selectedEntity = {
-      entityId: nextProps.selectedEntityId,
-      data: this.state.markupData[nextProps.selectedEntityId],
-      type: entitySearchType,
-      itemId: null
-    };
 
+    let selectedEntity = {};
+
+    if (nextProps.selectedEntity.isNew) {
+      selectedEntity = {
+        entityId: nextProps.selectedEntity.entityId,
+        data: this.state.entityMarkupData[nextProps.selectedEntity.entityName],
+        type: entityCreateType,
+        itemId: this.createWindowIncrementor,
+        entityName: nextProps.selectedEntity.entityName
+      };
+      this.createWindowIncrementor++;
+    } else {
+      selectedEntity = {
+        entityId: nextProps.selectedEntity.entityId,
+        data: this.state.markupData[nextProps.selectedEntity.entityId],
+        type: entitySearchType,
+        itemId: null
+      };
+    }
+    console.log(selectedEntity);
     this.setSelectedItemInState(selectedEntity);
   }
 
@@ -79,7 +94,8 @@ export default class MainView extends Component {
       entityId: entityId,
       data: this.state.entityMarkupData[entityItem.entityName],
       type: entityItemType,
-      itemId: entityItem.id
+      itemId: entityItem.id,
+      entityName: entityItem.entityName
     };
 
     this.setSelectedItemInState(selectedEntity);
@@ -92,6 +108,18 @@ export default class MainView extends Component {
     this.setState({
       ...this.state,
       selectedEntity: null,
+      openedEntities: openedEntities
+    });
+  }
+
+  updateCreatedEntity(entity, itemId) {
+    let createEntityWindowIndex = _.findIndex(this.state.openedEntities, {entityId: entity.entityId, type: entity.type, itemId: entity.itemId});
+    let openedEntities = _.cloneDeep(this.state.openedEntities);
+    openedEntities[createEntityWindowIndex].type = entityItemType;
+    openedEntities[createEntityWindowIndex].itemId = itemId;
+    this.setState({
+      ...this.state,
+      selectedEntity: openedEntities[createEntityWindowIndex],
       openedEntities: openedEntities
     });
   }
@@ -126,6 +154,7 @@ export default class MainView extends Component {
                                        ref={item => item && entity.type === entitySearchType && this.searchEntityWindowReferences.push({entity: entity, refItem: item})}
                                        onEntityWindowClose={this.onEntityWindowClose.bind(this)}
                                        onUpdateEntitySearchView={this.onUpdateEntitySearchView.bind(this)}
+                                       updateCreatedEntity={this.updateCreatedEntity.bind(this)}
                                        key={this.getEntityWindowKey(entity)}
                                        entity={entity}/>
     )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton'
 import Translate from 'react-translate-component';
+import FontIcon from 'material-ui/FontIcon';
 
 const alignStyle = {
   verticalAlign: 'middle'
@@ -19,7 +20,7 @@ export default class TreeItem extends Component {
   render() {
     return (
       <div style={this.getContainerStyles(this.props.nestingLevel)}>
-        <FlatButton onClick={() => this.handleItemClick(this.props.item)}
+        <FlatButton onClick={this.handleItemClick.bind(this)}
                     style={this.getItemStyles(this.props.nestingLevel)}
                     children={(
                       <div>
@@ -32,6 +33,7 @@ export default class TreeItem extends Component {
                                    style={alignStyle}
                                    content={'main.' + this.props.item.text}
                                    fallback={this.props.item.text}/>
+                        { !this.props.nestedItems || this.props.nestedItems.length === 0 ? <i style={{verticalAlign: 'middle', marginLeft: '15px'}} className="material-icons add-icon">add</i> : false}
                       </div>
                     )}/>
         {this.props.nestedItems.map(this.renderChildren.bind(this))}
@@ -72,9 +74,26 @@ export default class TreeItem extends Component {
     });
   }
 
-  handleItemClick(entity) {
+  handleItemClick(event) {
+    let entity = this.props.item;
+    if (event.target.className.indexOf('add-icon') > -1) {
+      let entityForCreate = {
+        isNew: true,
+        entityId: entity.id
+      };
+
+      if (!entity.childNodes || entity.childNodes.length === 0) {
+        entityForCreate.entityName = entity.id;
+      } else {
+        console.log('multi nodes');
+      }
+
+      this.props.onEntityClick(entityForCreate);
+      return;
+    }
+
     if (this.props.onEntityClick && entity.leaf) {
-      this.props.onEntityClick(entity.id);
+      this.props.onEntityClick({entityId: entity.id});
     }
     this.setState({isChildrenVisible: !this.state.isChildrenVisible});
   }
