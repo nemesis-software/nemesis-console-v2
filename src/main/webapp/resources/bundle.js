@@ -22022,17 +22022,7 @@
 	    value: function handleItemClick(event) {
 	      var entity = this.props.item;
 	      if (event.target.className.indexOf('add-icon') > -1) {
-
-	        if (!entity.childNodes || entity.childNodes.length === 0) {
-	          this.props.onEntityClick({
-	            isNew: true,
-	            entityId: entity.id,
-	            entityName: entity.id
-	          });
-	        } else {
-	          this.props.onCreateEntityClick(entity);
-	        }
-
+	        this.props.onCreateEntityClick(entity);
 	        return;
 	      }
 
@@ -100066,7 +100056,7 @@
 	        primary: true,
 	        onTouchTap: this.handleClose.bind(this)
 	      }), _react2.default.createElement(_FlatButton2.default, {
-	        label: 'Select',
+	        label: 'Create',
 	        primary: true,
 	        onTouchTap: this.handleSelectCreateEntity.bind(this)
 	      })];
@@ -100097,6 +100087,11 @@
 	            open: this.state.openModalCreation
 	          },
 	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'Please select entity type'
+	          ),
+	          _react2.default.createElement(
 	            _RadioButton.RadioButtonGroup,
 	            { name: 'Choosed Item',
 	              valueSelected: this.selectedCreatingItem,
@@ -100124,7 +100119,7 @@
 	  }, {
 	    key: 'getRadioButtonStyle',
 	    value: function getRadioButtonStyle(item) {
-	      var marginValue = item.nestingLevel * 20;
+	      var marginValue = item.nestingLevel * 15;
 	      return {
 	        marginLeft: marginValue + 'px'
 	      };

@@ -39,7 +39,7 @@ export default class NavigationTree extends Component {
         onTouchTap={this.handleClose.bind(this)}
       />,
       <FlatButton
-        label="Select"
+        label="Create"
         primary={true}
         onTouchTap={this.handleSelectCreateEntity.bind(this)}
       />,
@@ -63,6 +63,7 @@ export default class NavigationTree extends Component {
           modal={true}
           open={this.state.openModalCreation}
         >
+          <div>Please select entity type</div>
           <RadioButtonGroup name="Choosed Item"
                             valueSelected={this.selectedCreatingItem}
                             onChange={(e, v) => this.selectedCreatingItem = v}
@@ -87,7 +88,7 @@ export default class NavigationTree extends Component {
   }
 
   getRadioButtonStyle(item) {
-    let marginValue = item.nestingLevel * 20;
+    let marginValue = item.nestingLevel * 15;
     return {
       marginLeft: marginValue + 'px'
     }

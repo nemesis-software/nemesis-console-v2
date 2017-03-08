@@ -78,17 +78,7 @@ export default class TreeItem extends Component {
   handleItemClick(event) {
     let entity = this.props.item;
     if (event.target.className.indexOf('add-icon') > -1) {
-
-      if (!entity.childNodes || entity.childNodes.length === 0) {
-        this.props.onEntityClick({
-          isNew: true,
-          entityId: entity.id,
-          entityName: entity.id
-        });
-      } else {
-        this.props.onCreateEntityClick(entity);
-      }
-
+      this.props.onCreateEntityClick(entity);
       return;
     }
 
