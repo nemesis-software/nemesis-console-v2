@@ -69,6 +69,7 @@ export default class TreeItem extends Component {
         nestingLevel: this.props.nestingLevel + 1,
         nestedItems: nestedItem.children || [],
         onEntityClick: this.props.onEntityClick,
+        onCreateEntityClick: this.props.onCreateEntityClick,
         children: child
       })
     });
@@ -77,18 +78,17 @@ export default class TreeItem extends Component {
   handleItemClick(event) {
     let entity = this.props.item;
     if (event.target.className.indexOf('add-icon') > -1) {
-      let entityForCreate = {
-        isNew: true,
-        entityId: entity.id
-      };
 
       if (!entity.childNodes || entity.childNodes.length === 0) {
-        entityForCreate.entityName = entity.id;
+        this.props.onEntityClick({
+          isNew: true,
+          entityId: entity.id,
+          entityName: entity.id
+        });
       } else {
-        console.log('multi nodes');
+        this.props.onCreateEntityClick(entity);
       }
 
-      this.props.onEntityClick(entityForCreate);
       return;
     }
 

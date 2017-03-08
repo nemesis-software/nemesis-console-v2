@@ -22012,6 +22012,7 @@
 	          nestingLevel: _this2.props.nestingLevel + 1,
 	          nestedItems: nestedItem.children || [],
 	          onEntityClick: _this2.props.onEntityClick,
+	          onCreateEntityClick: _this2.props.onCreateEntityClick,
 	          children: child
 	        });
 	      });
@@ -22021,18 +22022,17 @@
 	    value: function handleItemClick(event) {
 	      var entity = this.props.item;
 	      if (event.target.className.indexOf('add-icon') > -1) {
-	        var entityForCreate = {
-	          isNew: true,
-	          entityId: entity.id
-	        };
 
 	        if (!entity.childNodes || entity.childNodes.length === 0) {
-	          entityForCreate.entityName = entity.id;
+	          this.props.onEntityClick({
+	            isNew: true,
+	            entityId: entity.id,
+	            entityName: entity.id
+	          });
 	        } else {
-	          console.log('multi nodes');
+	          this.props.onCreateEntityClick(entity);
 	        }
 
-	        this.props.onEntityClick(entityForCreate);
 	        return;
 	      }
 
@@ -100000,6 +100000,16 @@
 
 	var _apiCall2 = _interopRequireDefault(_apiCall);
 
+	var _FlatButton = __webpack_require__(188);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _Dialog = __webpack_require__(428);
+
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+
+	var _RadioButton = __webpack_require__(547);
+
 	var _lodash = __webpack_require__(389);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
@@ -100032,7 +100042,8 @@
 
 	    var _this = _possibleConstructorReturn(this, (NavigationTree.__proto__ || Object.getPrototypeOf(NavigationTree)).call(this, props));
 
-	    _this.state = { treeData: [], filteredData: [] };
+	    _this.state = { treeData: [], filteredData: [], openModalCreation: false, creationEntity: null };
+	    _this.selectedCreatingItem = null;
 	    return _this;
 	  }
 
@@ -100042,13 +100053,23 @@
 	      var _this2 = this;
 
 	      _apiCall2.default.get('backend/navigation').then(function (result) {
-	        _this2.setState({ treeData: result.data, filteredData: result.data });
+	        _this2.setState(_extends({}, _this2.state, { treeData: result.data, filteredData: result.data }));
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
+
+	      var actions = [_react2.default.createElement(_FlatButton2.default, {
+	        label: 'Cancel',
+	        primary: true,
+	        onTouchTap: this.handleClose.bind(this)
+	      }), _react2.default.createElement(_FlatButton2.default, {
+	        label: 'Select',
+	        primary: true,
+	        onTouchTap: this.handleSelectCreateEntity.bind(this)
+	      })];
 
 	      return _react2.default.createElement(
 	        'div',
@@ -100057,16 +100078,96 @@
 	        this.state.filteredData.map(function (item, index) {
 	          return _react2.default.createElement(
 	            TreeItem,
-	            { onEntityClick: _this3.props.onEntityClick, initiallyOpen: _this3.state.filteredData.length !== _this3.state.treeData.length, key: index, item: item, nestingLevel: 0, nestedItems: item.children || [] },
+	            { onEntityClick: _this3.props.onEntityClick,
+	              onCreateEntityClick: _this3.onCreateEntityClick.bind(_this3),
+	              initiallyOpen: _this3.state.filteredData.length !== _this3.state.treeData.length,
+	              key: index,
+	              item: item,
+	              nestingLevel: 0,
+	              nestedItems: item.children || [] },
 	            _react2.default.createElement(TreeItem, null)
 	          );
-	        })
+	        }),
+	        _react2.default.createElement(
+	          _Dialog2.default,
+	          {
+	            title: 'Create Entity',
+	            actions: actions,
+	            modal: true,
+	            open: this.state.openModalCreation
+	          },
+	          _react2.default.createElement(
+	            _RadioButton.RadioButtonGroup,
+	            { name: 'Choosed Item',
+	              valueSelected: this.selectedCreatingItem,
+	              onChange: function onChange(e, v) {
+	                return _this3.selectedCreatingItem = v;
+	              }
+	            },
+	            this.getEntityCategories(this.state.creationEntity, 0).map(function (item, index) {
+	              return _react2.default.createElement(_RadioButton.RadioButton, {
+	                style: _this3.getRadioButtonStyle(item),
+	                key: index,
+	                value: item.entityId,
+	                label: item.text
+	              });
+	            })
+	          )
+	        )
 	      );
 	    }
 	  }, {
 	    key: 'onFilterChange',
 	    value: function onFilterChange(filteredTreeItems) {
 	      this.setState(_extends({}, this.state, { filteredData: filteredTreeItems }));
+	    }
+	  }, {
+	    key: 'getRadioButtonStyle',
+	    value: function getRadioButtonStyle(item) {
+	      var marginValue = item.nestingLevel * 20;
+	      return {
+	        marginLeft: marginValue + 'px'
+	      };
+	    }
+	  }, {
+	    key: 'handleSelectCreateEntity',
+	    value: function handleSelectCreateEntity() {
+	      this.props.onEntityClick({
+	        isNew: true,
+	        entityId: this.state.creationEntity.id,
+	        entityName: this.selectedCreatingItem
+	      });
+	      this.setState(_extends({}, this.state, { openModalCreation: false }));
+	    }
+	  }, {
+	    key: 'getEntityCategories',
+	    value: function getEntityCategories(entity, nestingLevel) {
+	      var _this4 = this;
+
+	      var result = [];
+	      if (!entity) {
+	        return result;
+	      }
+
+	      result.push({ entityId: entity.id, text: entity.text, nestingLevel: nestingLevel });
+	      if (entity.childNodes && entity.childNodes.length > 0) {
+	        entity.childNodes.map(function (node) {
+	          result = result.concat(_this4.getEntityCategories(node, nestingLevel + 1));
+	        });
+	      }
+
+	      return result;
+	    }
+	  }, {
+	    key: 'onCreateEntityClick',
+	    value: function onCreateEntityClick(entity) {
+	      this.selectedCreatingItem = entity.id;
+	      this.setState(_extends({}, this.state, { creationEntity: entity, openModalCreation: true }));
+	    }
+	  }, {
+	    key: 'handleClose',
+	    value: function handleClose() {
+	      this.setState(_extends({}, this.state, { openModalCreation: false }));
 	    }
 	  }, {
 	    key: 'shouldComponentUpdate',
