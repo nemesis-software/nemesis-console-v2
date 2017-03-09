@@ -67,6 +67,6 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getItemRenderingValue(item) {
-    return item.code;
+    return <div>{item.code} <i className="material-icons" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId)}>launch</i></div>
   }
 }

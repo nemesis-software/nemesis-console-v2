@@ -83157,7 +83157,7 @@
 	        case _nemesisTypes.nemesisFieldTypes.nemesisSimpleCollectionField:
 	          elementConfig.value = elementConfig.value || [];reactElement = _nemesisSimpleCollectionField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisCollectionField:
-	          elementConfig.readOnly = true;elementConfig.entityId = item.entityId;elementConfig.value = elementConfig.value || [];reactElement = _nemesisEntityCollectionField2.default;break;
+	          elementConfig.readOnly = true;elementConfig.onEntityItemClick = this.props.onEntityItemClick;elementConfig.entityId = item.entityId;elementConfig.value = elementConfig.value || [];reactElement = _nemesisEntityCollectionField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -97331,7 +97331,21 @@
 	  }, {
 	    key: 'getItemRenderingValue',
 	    value: function getItemRenderingValue(item) {
-	      return item.code;
+	      var _this3 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        item.code,
+	        ' ',
+	        _react2.default.createElement(
+	          'i',
+	          { className: 'material-icons', onClick: function onClick() {
+	              return _this3.props.onEntityItemClick(item, _this3.props.entityId);
+	            } },
+	          'launch'
+	        )
+	      );
 	    }
 	  }]);
 
