@@ -55769,6 +55769,11 @@
 	    value: function setFormattedValue(value) {
 	      return value;
 	    }
+	  }, {
+	    key: 'resetDirtyState',
+	    value: function resetDirtyState() {
+	      this.setState(_extends({}, this.state, { isDirty: false }));
+	    }
 	  }]);
 
 	  return NemesisBaseField;
@@ -83190,6 +83195,13 @@
 	      });
 	      return result;
 	    }
+	  }, {
+	    key: 'resetDirtyStates',
+	    value: function resetDirtyStates() {
+	      this.fieldsReferences.forEach(function (field) {
+	        field.resetDirtyState();
+	      });
+	    }
 	  }]);
 
 	  return EntitySection;
@@ -97643,6 +97655,7 @@
 	          snackbarOpen: true,
 	          snackbarMessage: 'Entity successfully saved'
 	        }));
+	        _this7.resetDirtyEntityFields();
 	        console.log('updated', result, itemId); //TODO: use material popup
 	        if (mediaFields.length > 0) {
 	          _this7.uploadMediaFile(itemId, mediaFields[0].value, windowShouldClose);
@@ -97682,6 +97695,13 @@
 	      });
 
 	      return result;
+	    }
+	  }, {
+	    key: 'resetDirtyEntityFields',
+	    value: function resetDirtyEntityFields() {
+	      this.sectionsReferences.forEach(function (section) {
+	        section.resetDirtyStates();
+	      });
 	    }
 	  }, {
 	    key: 'handleRequestError',

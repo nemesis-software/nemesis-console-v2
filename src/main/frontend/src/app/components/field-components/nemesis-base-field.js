@@ -50,6 +50,10 @@ export default class NemesisBaseField extends Component {
   setFormattedValue(value) {
     return value;
   }
+
+  resetDirtyState() {
+    this.setState({...this.state, isDirty: false});
+  }
 }
 
 NemesisBaseField.propTypes = {

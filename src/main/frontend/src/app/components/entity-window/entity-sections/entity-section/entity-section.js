@@ -93,4 +93,10 @@ export default class EntitySection extends Component {
     });
     return result;
   }
+
+  resetDirtyStates() {
+    this.fieldsReferences.forEach(field => {
+      field.resetDirtyState();
+    });
+  }
 }

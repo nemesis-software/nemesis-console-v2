@@ -198,6 +198,7 @@ export default class EntitySections extends Component {
         snackbarOpen: true,
         snackbarMessage: 'Entity successfully saved'
       });
+      this.resetDirtyEntityFields();
       console.log('updated', result, itemId); //TODO: use material popup
       if (mediaFields.length > 0) {
         this.uploadMediaFile(itemId, mediaFields[0].value, windowShouldClose);
@@ -235,6 +236,12 @@ export default class EntitySections extends Component {
     });
 
     return result;
+  }
+
+  resetDirtyEntityFields() {
+    this.sectionsReferences.forEach(section => {
+      section.resetDirtyStates();
+    });
   }
 
   handleRequestError(err) {
