@@ -3,6 +3,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import Translate from 'react-translate-component';
 import ApiCall from '../../../services/api-call';
 import _ from 'lodash';
+import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 import NemesisBaseField from '../nemesis-base-field'
 
 export default class NemesisEntityField extends NemesisBaseField {
@@ -28,7 +29,7 @@ export default class NemesisEntityField extends NemesisBaseField {
                     maxSearchResults={10}
                     searchText={this.state.searchText}
                     floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}/>
-      <i className="material-icons" onClick={this.openEntityWindow.bind(this)}>launch</i>
+      {this.props.type === nemesisFieldUsageTypes.edit ? <i className="material-icons" onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
     </div>
 
     )

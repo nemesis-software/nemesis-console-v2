@@ -76759,6 +76759,8 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
+	var _nemesisTypes = __webpack_require__(392);
+
 	var _nemesisBaseField = __webpack_require__(409);
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
@@ -76809,11 +76811,11 @@
 	          maxSearchResults: 10,
 	          searchText: this.state.searchText,
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }) }),
-	        _react2.default.createElement(
+	        this.props.type === _nemesisTypes.nemesisFieldUsageTypes.edit ? _react2.default.createElement(
 	          'i',
 	          { className: 'material-icons', onClick: this.openEntityWindow.bind(this) },
 	          'launch'
-	        )
+	        ) : false
 	      );
 	    }
 	  }, {
