@@ -6,6 +6,7 @@ import EntitySection from './entity-section/entity-section';
 import RaisedButton from 'material-ui/RaisedButton';
 import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
+import Snackbar from 'material-ui/Snackbar';
 import _ from 'lodash';
 import {entityItemType, entityCreateType} from '../../../types/entity-types';
 
@@ -16,7 +17,7 @@ export default class EntitySections extends Component {
     super(props);
     this.sectionsReferences = [];
 
-    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now() };
+    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), snackbarOpen: false, snackbarMessage: '' };
   }
 
   componentWillMount() {
@@ -61,6 +62,12 @@ export default class EntitySections extends Component {
                                   onEntityItemClick={this.props.onEntityItemClick} />
           })}
         </SwipeableViews>
+        <Snackbar
+          open={this.state.snackbarOpen}
+          message={this.state.snackbarMessage}
+          autoHideDuration={3000}
+          onRequestClose={this.handleSnackbarRequestClose.bind(this)}
+        />
       </div>
     )
   }
@@ -160,7 +167,11 @@ export default class EntitySections extends Component {
   handleSynchronizeButtonClick() {
     let entity = this.props.entity;
     ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
-      alert('synchronized'); //TODO: use material popup
+      this.setState({
+        ...this.state,
+        snackbarOpen: true,
+        snackbarMessage: 'Entity successfully synchronized'
+      });
     }, this.handleRequestError)
   }
 
@@ -182,6 +193,11 @@ export default class EntitySections extends Component {
     ApiCall[restMethod](restUrl, resultObject).then((result) => {
       this.props.onUpdateEntitySearchView(this.props.entity);
       let itemId = entity.type === entityItemType ? entity.itemId : result.data.id;
+      this.setState({
+        ...this.state,
+        snackbarOpen: true,
+        snackbarMessage: 'Entity successfully saved'
+      });
       console.log('updated', result, itemId); //TODO: use material popup
       if (mediaFields.length > 0) {
         this.uploadMediaFile(itemId, mediaFields[0].value, windowShouldClose);
@@ -226,4 +242,11 @@ export default class EntitySections extends Component {
     alert('button click err');
     console.log(err);
   }
+
+  handleSnackbarRequestClose() {
+    this.setState({
+      ...this.state,
+      snackbarOpen: false,
+    });
+  };
 }
