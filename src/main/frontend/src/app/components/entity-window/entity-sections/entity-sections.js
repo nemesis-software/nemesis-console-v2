@@ -68,10 +68,14 @@ export default class EntitySections extends Component {
   getFunctionalButtons(entity) {
     let result = [
       {label: 'Save', onClickFunction: () => this.handleSaveButtonClick(false)},
-      {label: 'Save and close', onClickFunction: () => this.handleSaveButtonClick(true)},
-      {label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this)},
-      {label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this)},
+      {label: 'Save and close', onClickFunction: () => this.handleSaveButtonClick(true)}
     ];
+
+    if (entity.type === entityItemType) {
+      result.push({label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this)});
+      result.push({label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this)});
+    }
+
     if (entity.data.synchronizable) {
       result.push({label: 'Synchronize', onClickFunction: this.handleSynchronizeButtonClick.bind(this)})
     }

@@ -97477,7 +97477,13 @@
 	          return _this3.handleSaveButtonClick(false);
 	        } }, { label: 'Save and close', onClickFunction: function onClickFunction() {
 	          return _this3.handleSaveButtonClick(true);
-	        } }, { label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) }, { label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) }];
+	        } }];
+
+	      if (entity.type === _entityTypes.entityItemType) {
+	        result.push({ label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) });
+	        result.push({ label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) });
+	      }
+
 	      if (entity.data.synchronizable) {
 	        result.push({ label: 'Synchronize', onClickFunction: this.handleSynchronizeButtonClick.bind(this) });
 	      }
