@@ -4,6 +4,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import EntitySection from './entity-section/entity-section';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
 import Snackbar from 'material-ui/Snackbar';
@@ -17,7 +19,7 @@ export default class EntitySections extends Component {
     super(props);
     this.sectionsReferences = [];
 
-    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), snackbarOpen: false, snackbarMessage: '' };
+    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), snackbarOpen: false, snackbarMessage: '', openDeleteConfirmation: false };
   }
 
   componentWillMount() {
@@ -68,6 +70,7 @@ export default class EntitySections extends Component {
           autoHideDuration={3000}
           onRequestClose={this.handleSnackbarRequestClose.bind(this)}
         />
+        {this.getDeleteConfirmationDialog()}
       </div>
     )
   }
@@ -121,6 +124,31 @@ export default class EntitySections extends Component {
     });
   }
 
+  getDeleteConfirmationDialog() {
+    const actions = [
+      <FlatButton
+        label="No"
+        primary={true}
+        onTouchTap={this.handleCloseDeleteConfirmation.bind(this)}
+      />,
+      <FlatButton
+        label="Yes"
+        primary={true}
+        onTouchTap={this.handleConfirmationDeleteButtonClick.bind(this)}
+      />,
+    ];
+    return (
+      <Dialog
+        title="Delete Entity"
+        actions={actions}
+        modal={true}
+        open={this.state.openDeleteConfirmation}
+      >
+        <div>Are you sure you want to delete it?</div>
+      </Dialog>
+    );
+  }
+
   getEntityRelatedEntities(entity) {
     let result = [];
     if (!entity) {
@@ -155,13 +183,16 @@ export default class EntitySections extends Component {
     this.getDataEntity(this.props.entity);
   }
 
-  handleDeleteButtonClick() {
+  handleConfirmationDeleteButtonClick() {
     let entity = this.props.entity;
-    //TODO: add popup for asking if you want to delete this
     ApiCall.delete(entity.entityId + '/' + entity.itemId).then(() => {
       this.props.onUpdateEntitySearchView(this.props.entity);
       this.props.onEntityWindowClose(this.props.entity);
     }, this.handleRequestError)
+  }
+
+  handleDeleteButtonClick() {
+    this.setState({...this.state, openDeleteConfirmation: true});
   }
 
   handleSynchronizeButtonClick() {
@@ -255,5 +286,9 @@ export default class EntitySections extends Component {
       ...this.state,
       snackbarOpen: false,
     });
+  };
+
+  handleCloseDeleteConfirmation() {
+    this.setState({...this.state, openDeleteConfirmation: false});
   };
 }
