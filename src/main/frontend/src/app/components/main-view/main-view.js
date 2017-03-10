@@ -136,7 +136,7 @@ export default class MainView extends Component {
   render() {
     return (
       <div style={styles}>
-        <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} entities={this.state.openedEntities} />
+        <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)} entities={this.state.openedEntities} />
         <hr/>
         {this.renderOpenedEntities()}
       </div>

@@ -5,7 +5,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Translate from 'react-translate-component';
 
-import {entitySearchType, entityItemType} from '../../types/entity-types'
+import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types'
 
 export default class EntitiesNavigationItem extends Component {
   constructor(props) {
@@ -25,7 +25,11 @@ export default class EntitiesNavigationItem extends Component {
     });
   };
 
-  onNestedItemTouchTab = (entity) => {
+  onNestedItemTouchTab = (event, entity) => {
+    if (event.target.className.indexOf('close-icon') > -1) {
+      this.props.onEntityWindowClose(entity);
+      return;
+    }
     this.setState({
       open: false,
     });
@@ -58,15 +62,29 @@ export default class EntitiesNavigationItem extends Component {
           animation={PopoverAnimationVertical}>
           <Menu>
             {this.props.entities.map((subEntity, index) => {
-              if (subEntity.type === entitySearchType) {
-                return <MenuItem onTouchTap={(event) => this.onNestedItemTouchTab(subEntity)} key={index} primaryText="Entity Search" />
-              } else {
-                return <MenuItem onTouchTap={(event) => this.onNestedItemTouchTab(subEntity)} key={index} primaryText={subEntity.itemId + ' - ' + subEntity.entityId} />
-              }
+              return <MenuItem onTouchTap={(event) => this.onNestedItemTouchTab(event, subEntity)} key={index} primaryText={this.getMenuItemContentByEntityType(subEntity)} />
             })}
           </Menu>
         </Popover>
       </span>
     )
+  }
+
+  getMenuItemContentByEntityType(entity) {
+    let text = '';
+    let type = entity.type;
+    if (type === entitySearchType) {
+      text = 'Entity Search';
+    }
+
+    if (type === entityItemType) {
+      text = entity.itemId + ' - ' + entity.entityId;
+    }
+
+    if (type === entityCreateType) {
+      text = entity.itemId + 'Create Entity';
+    }
+
+    return <div><span>{text}</span><i style={{marginLeft: '15px', verticalAlign: 'middle'}} className="material-icons close-icon">close</i></div>
   }
 }

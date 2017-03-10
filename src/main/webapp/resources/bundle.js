@@ -29563,7 +29563,10 @@
 	          return _react2.default.createElement(
 	            _GridList.GridTile,
 	            { style: { width: 'auto' }, containerElement: 'span', key: key },
-	            _react2.default.createElement(_entityNavigationItem2.default, { entityId: key, entities: value, onNavigationItemClick: _this2.props.onNavigationItemClick })
+	            _react2.default.createElement(_entityNavigationItem2.default, { entityId: key,
+	              entities: value,
+	              onEntityWindowClose: _this2.props.onEntityWindowClose,
+	              onNavigationItemClick: _this2.props.onNavigationItemClick })
 	          );
 	        })
 	      );
@@ -29638,7 +29641,11 @@
 	      });
 	    };
 
-	    _this.onNestedItemTouchTab = function (entity) {
+	    _this.onNestedItemTouchTab = function (event, entity) {
+	      if (event.target.className.indexOf('close-icon') > -1) {
+	        _this.props.onEntityWindowClose(entity);
+	        return;
+	      }
 	      _this.setState({
 	        open: false
 	      });
@@ -29688,17 +29695,43 @@
 	            _Menu2.default,
 	            null,
 	            this.props.entities.map(function (subEntity, index) {
-	              if (subEntity.type === _entityTypes.entitySearchType) {
-	                return _react2.default.createElement(_MenuItem2.default, { onTouchTap: function onTouchTap(event) {
-	                    return _this2.onNestedItemTouchTab(subEntity);
-	                  }, key: index, primaryText: 'Entity Search' });
-	              } else {
-	                return _react2.default.createElement(_MenuItem2.default, { onTouchTap: function onTouchTap(event) {
-	                    return _this2.onNestedItemTouchTab(subEntity);
-	                  }, key: index, primaryText: subEntity.itemId + ' - ' + subEntity.entityId });
-	              }
+	              return _react2.default.createElement(_MenuItem2.default, { onTouchTap: function onTouchTap(event) {
+	                  return _this2.onNestedItemTouchTab(event, subEntity);
+	                }, key: index, primaryText: _this2.getMenuItemContentByEntityType(subEntity) });
 	            })
 	          )
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'getMenuItemContentByEntityType',
+	    value: function getMenuItemContentByEntityType(entity) {
+	      var text = '';
+	      var type = entity.type;
+	      if (type === _entityTypes.entitySearchType) {
+	        text = 'Entity Search';
+	      }
+
+	      if (type === _entityTypes.entityItemType) {
+	        text = entity.itemId + ' - ' + entity.entityId;
+	      }
+
+	      if (type === _entityTypes.entityCreateType) {
+	        text = entity.itemId + 'Create Entity';
+	      }
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          text
+	        ),
+	        _react2.default.createElement(
+	          'i',
+	          { style: { marginLeft: '15px', verticalAlign: 'middle' }, className: 'material-icons close-icon' },
+	          'close'
 	        )
 	      );
 	    }
@@ -100603,7 +100636,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { style: styles },
-	        _react2.default.createElement(_entitiesNavigation2.default, { onNavigationItemClick: this.onNavigationItemClick.bind(this), entities: this.state.openedEntities }),
+	        _react2.default.createElement(_entitiesNavigation2.default, { onNavigationItemClick: this.onNavigationItemClick.bind(this), onEntityWindowClose: this.onEntityWindowClose.bind(this), entities: this.state.openedEntities }),
 	        _react2.default.createElement('hr', null),
 	        this.renderOpenedEntities()
 	      );

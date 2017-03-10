@@ -23,7 +23,14 @@ export default class EntitiesNavigation extends Component {
   render() {
     return (
       <GridList style={styles} cellHeight="auto" cols={2.2}>
-        {_.map(this.state.groupedEntities, (value, key) => <GridTile style={{width: 'auto'}} containerElement="span" key={key}><EntitiesNavigationItem entityId={key} entities={value} onNavigationItemClick={this.props.onNavigationItemClick}/></GridTile> )}
+        {_.map(this.state.groupedEntities, (value, key) =>
+          <GridTile style={{width: 'auto'}} containerElement="span" key={key}>
+            <EntitiesNavigationItem entityId={key}
+                                    entities={value}
+                                    onEntityWindowClose={this.props.onEntityWindowClose}
+                                    onNavigationItemClick={this.props.onNavigationItemClick}/>
+          </GridTile>
+        )}
       </GridList>
     )
   }
