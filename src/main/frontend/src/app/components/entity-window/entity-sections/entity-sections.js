@@ -230,34 +230,36 @@ export default class EntitySections extends Component {
         snackbarMessage: 'Entity successfully saved'
       });
       this.resetDirtyEntityFields();
-      console.log('updated', result, itemId); //TODO: use material popup
-      if (mediaFields.length > 0) {
-        this.uploadMediaFile(itemId, mediaFields[0].value, windowShouldClose);
-        return;
-      }
 
-      if (windowShouldClose) {
-        this.props.onEntityWindowClose(this.props.entity);
-        return;
-      }
-
-      if (entity.type === entityCreateType) {
-        this.props.updateCreatedEntity(entity, itemId);
-      }
+      this.uploadMediaFile(itemId, mediaFields, windowShouldClose).then(() => {
+        if (windowShouldClose) {
+          this.props.onEntityWindowClose(this.props.entity);
+        } else if (entity.type === entityCreateType) {
+          this.props.updateCreatedEntity(entity, itemId);
+        }
+      });
     }, this.handleRequestError);
   }
 
-  uploadMediaFile(itemId, file, windowShouldClose) {
+  uploadMediaFile(itemId, mediaFields) {
+    if (!mediaFields || mediaFields.length === 0) {
+      return Promise.resolve();
+    }
     let data = new FormData();
-    data.append('file', file);
-    ApiCall.post('upload/media/' + itemId, data, 'multipart/form-data').then(
+    data.append('file', mediaFields[0].value);
+    return ApiCall.post('upload/media/' + itemId, data, 'multipart/form-data').then(
       () => {
-        console.log('file uploaded');
-        if (windowShouldClose) {
-          this.props.onEntityWindowClose(this.props.entity);
-        }
+        this.setState({
+          ...this.state,
+          snackbarOpen: true,
+          snackbarMessage: 'File successfully uploaded'
+        });
+        return Promise.resolve();
       },
-      this.handleRequestError);
+      (err) => {
+        return Promise.resolve();
+        this.handleRequestError(err);
+      });
   }
 
   getDirtyEntityProps() {

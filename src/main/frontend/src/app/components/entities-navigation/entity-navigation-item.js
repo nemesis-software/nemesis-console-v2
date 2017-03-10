@@ -82,7 +82,7 @@ export default class EntitiesNavigationItem extends Component {
     }
 
     if (type === entityCreateType) {
-      text = entity.itemId + 'Create Entity';
+      text = entity.itemId + ' - Create Entity';
     }
 
     return <div><span>{text}</span><i style={{marginLeft: '15px', verticalAlign: 'middle'}} className="material-icons close-icon">close</i></div>

@@ -29717,7 +29717,7 @@
 	      }
 
 	      if (type === _entityTypes.entityCreateType) {
-	        text = entity.itemId + 'Create Entity';
+	        text = entity.itemId + ' - Create Entity';
 	      }
 
 	      return _react2.default.createElement(
@@ -97729,35 +97729,36 @@
 	          snackbarMessage: 'Entity successfully saved'
 	        }));
 	        _this7.resetDirtyEntityFields();
-	        console.log('updated', result, itemId); //TODO: use material popup
-	        if (mediaFields.length > 0) {
-	          _this7.uploadMediaFile(itemId, mediaFields[0].value, windowShouldClose);
-	          return;
-	        }
 
-	        if (windowShouldClose) {
-	          _this7.props.onEntityWindowClose(_this7.props.entity);
-	          return;
-	        }
-
-	        if (entity.type === _entityTypes.entityCreateType) {
-	          _this7.props.updateCreatedEntity(entity, itemId);
-	        }
+	        _this7.uploadMediaFile(itemId, mediaFields, windowShouldClose).then(function () {
+	          if (windowShouldClose) {
+	            _this7.props.onEntityWindowClose(_this7.props.entity);
+	          } else if (entity.type === _entityTypes.entityCreateType) {
+	            _this7.props.updateCreatedEntity(entity, itemId);
+	          }
+	        });
 	      }, this.handleRequestError);
 	    }
 	  }, {
 	    key: 'uploadMediaFile',
-	    value: function uploadMediaFile(itemId, file, windowShouldClose) {
+	    value: function uploadMediaFile(itemId, mediaFields) {
 	      var _this8 = this;
 
+	      if (!mediaFields || mediaFields.length === 0) {
+	        return Promise.resolve();
+	      }
 	      var data = new FormData();
-	      data.append('file', file);
-	      _apiCall2.default.post('upload/media/' + itemId, data, 'multipart/form-data').then(function () {
-	        console.log('file uploaded');
-	        if (windowShouldClose) {
-	          _this8.props.onEntityWindowClose(_this8.props.entity);
-	        }
-	      }, this.handleRequestError);
+	      data.append('file', mediaFields[0].value);
+	      return _apiCall2.default.post('upload/media/' + itemId, data, 'multipart/form-data').then(function () {
+	        _this8.setState(_extends({}, _this8.state, {
+	          snackbarOpen: true,
+	          snackbarMessage: 'File successfully uploaded'
+	        }));
+	        return Promise.resolve();
+	      }, function (err) {
+	        return Promise.resolve();
+	        _this8.handleRequestError(err);
+	      });
 	    }
 	  }, {
 	    key: 'getDirtyEntityProps',
