@@ -83143,12 +83143,6 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'Title: ',
-	          this.props.section.title
-	        ),
 	        this.props.section.items.map(function (item, index) {
 	          return _this2.getSectionItemRenderer(item, index);
 	        })
@@ -97450,10 +97444,6 @@
 
 	var _entitySection2 = _interopRequireDefault(_entitySection);
 
-	var _RaisedButton = __webpack_require__(590);
-
-	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-
 	var _FlatButton = __webpack_require__(188);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
@@ -97471,6 +97461,10 @@
 	var _Snackbar = __webpack_require__(880);
 
 	var _Snackbar2 = _interopRequireDefault(_Snackbar);
+
+	var _Paper = __webpack_require__(350);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
 
 	var _lodash = __webpack_require__(389);
 
@@ -97531,10 +97525,10 @@
 	        'div',
 	        { key: this.state.key },
 	        _react2.default.createElement(
-	          'div',
-	          null,
+	          _Paper2.default,
+	          { zDepth: 1, style: { margin: '5px 0', padding: '5px' } },
 	          this.getFunctionalButtons(this.props.entity).map(function (button, index) {
-	            return _react2.default.createElement(_RaisedButton2.default, { label: button.label, onClick: button.onClickFunction, key: index });
+	            return _react2.default.createElement(_FlatButton2.default, { label: button.label, onClick: button.onClickFunction, key: index });
 	          })
 	        ),
 	        _react2.default.createElement(

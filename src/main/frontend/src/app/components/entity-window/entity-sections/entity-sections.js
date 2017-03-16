@@ -3,12 +3,12 @@ import { componentRequire } from '../../../utils/require-util';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import EntitySection from './entity-section/entity-section';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
 import Snackbar from 'material-ui/Snackbar';
+import Paper from 'material-ui/Paper';
 import _ from 'lodash';
 import {entityItemType, entityCreateType} from '../../../types/entity-types';
 
@@ -44,9 +44,9 @@ export default class EntitySections extends Component {
   render() {
     return (
       <div key={this.state.key}>
-        <div>
-          {this.getFunctionalButtons(this.props.entity).map((button, index) => <RaisedButton label={button.label} onClick={button.onClickFunction} key={index}/>)}
-        </div>
+        <Paper zDepth={1} style={{margin: '5px 0', padding: '5px'}}>
+          {this.getFunctionalButtons(this.props.entity).map((button, index) => <FlatButton label={button.label} onClick={button.onClickFunction} key={index}/>)}
+        </Paper>
         <Tabs onChange={this.handleChange}
               value={this.state.sectionIndex}>
               {this.props.entity.data.sections.map((item, index) => {

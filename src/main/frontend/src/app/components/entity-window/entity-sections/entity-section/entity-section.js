@@ -24,7 +24,6 @@ export default class EntitySection extends Component {
   render() {
     return (
       <div>
-        <div>Title: {this.props.section.title}</div>
         {this.props.section.items.map((item, index) => this.getSectionItemRenderer(item, index))}
       </div>
     )
