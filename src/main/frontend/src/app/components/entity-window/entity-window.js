@@ -12,7 +12,8 @@ export default class EntitiesWindow extends Component {
   render() {
     let styles = {
       height: 'calc(100vh - 120px)',
-      overflowY: 'auto'
+      overflowY: 'auto',
+      padding: '5px'
     };
     if (!this.props.entity.isVisible) {
       styles.display = 'none';

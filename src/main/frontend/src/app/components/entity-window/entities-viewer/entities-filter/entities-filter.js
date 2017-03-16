@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { componentRequire } from '../../../../utils/require-util';
-import DefaultFilter from './default-filter/default-filter'
+import DefaultFilter from './default-filter/default-filter';
+import Paper from 'material-ui/Paper';
 
 export default class EntitiesFilter extends Component {
   constructor(props) {
@@ -11,9 +12,9 @@ export default class EntitiesFilter extends Component {
 
   render() {
     return (
-      <div>
+      <Paper zDepth={1} style={{margin: '5px', padding: '5px'}}>
         <DefaultFilter onFilterApply={this.props.onFilterApply} filterMarkup={this.state.filterMarkup}/>
-      </div>
+      </Paper>
     )
   }
 

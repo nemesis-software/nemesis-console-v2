@@ -80002,6 +80002,10 @@
 
 	var _defaultFilter2 = _interopRequireDefault(_defaultFilter);
 
+	var _Paper = __webpack_require__(350);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -80026,8 +80030,8 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        null,
+	        _Paper2.default,
+	        { zDepth: 1, style: { margin: '5px', padding: '5px' } },
 	        _react2.default.createElement(_defaultFilter2.default, { onFilterApply: this.props.onFilterApply, filterMarkup: this.state.filterMarkup })
 	      );
 	    }
@@ -80246,6 +80250,10 @@
 
 	var _requireUtil = __webpack_require__(184);
 
+	var _Paper = __webpack_require__(350);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	var _entitiesTableViewer = __webpack_require__(595);
 
 	var _entitiesTableViewer2 = _interopRequireDefault(_entitiesTableViewer);
@@ -80270,11 +80278,15 @@
 	  _createClass(EntitiesResultViewer, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_entitiesTableViewer2.default, { entities: this.props.entities,
-	        entitiesMarkup: this.props.entitiesMarkup,
-	        onPagerChange: this.props.onPagerChange,
-	        page: this.props.page,
-	        onEntityItemClick: this.props.onEntityItemClick });
+	      return _react2.default.createElement(
+	        _Paper2.default,
+	        { zDepth: 1, style: { margin: '5px', padding: '5px', marginTop: '20px' } },
+	        _react2.default.createElement(_entitiesTableViewer2.default, { entities: this.props.entities,
+	          entitiesMarkup: this.props.entitiesMarkup,
+	          onPagerChange: this.props.onPagerChange,
+	          page: this.props.page,
+	          onEntityItemClick: this.props.onEntityItemClick })
+	      );
 	    }
 	  }]);
 
@@ -100382,7 +100394,8 @@
 	    value: function render() {
 	      var styles = {
 	        height: 'calc(100vh - 120px)',
-	        overflowY: 'auto'
+	        overflowY: 'auto',
+	        padding: '5px'
 	      };
 	      if (!this.props.entity.isVisible) {
 	        styles.display = 'none';
@@ -100515,19 +100528,6 @@
 
 	      Promise.all([_apiCall2.default.get('markup/search/all'), _apiCall2.default.get('markup/entity/all')]).then(function (result) {
 	        _this2.setState(_extends({}, _this2.state, { markupData: result[0].data, entityMarkupData: result[1].data }));
-	        var test = {};
-	        _lodash2.default.forIn(result[1].data, function (item) {
-	          item.sections.forEach(function (sections) {
-	            sections.items.forEach(function (item1) {
-	              if (test[item1.xtype]) {
-	                test[item1.xtype] = test[item1.xtype] + 1;
-	              } else {
-	                test[item1.xtype] = 1;
-	              }
-	            });
-	          });
-	        });
-	        console.log(test);
 	      });
 	    }
 	  }, {
