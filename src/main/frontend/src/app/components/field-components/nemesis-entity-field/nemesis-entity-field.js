@@ -14,7 +14,7 @@ export default class NemesisEntityField extends NemesisBaseField {
 
   render() {
     return (
-    <div>
+    <div style={{display: 'inline-block'}}>
       <AutoComplete style={this.props.style}
                     dataSource={this.state.dataSource}
                     filter={(searchText, key) => true}

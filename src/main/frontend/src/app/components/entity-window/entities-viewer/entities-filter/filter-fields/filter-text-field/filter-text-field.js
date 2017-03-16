@@ -26,7 +26,7 @@ export default class FilterTextField extends Component {
 
   render() {
     return (
-      <div>
+      <div className="filter-item-container">
         <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
         <NemesisTextField style={this.getTextFieldStyles()} onValueChange={_.debounce(this.onTextFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/>
       </div>

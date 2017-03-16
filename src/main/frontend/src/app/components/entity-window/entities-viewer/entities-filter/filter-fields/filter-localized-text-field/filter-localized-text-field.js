@@ -26,7 +26,7 @@ export default class FilterLocalizedTextField extends Component {
 
   render() {
     return (
-      <div>
+      <div className="filter-item-container">
         <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
         <NemesisLocalizedTextField style={this.getLocalizedFieldStyles()} onValueChange={this.onLocalizedFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>

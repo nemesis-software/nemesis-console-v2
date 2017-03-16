@@ -15,7 +15,7 @@ export default class FilterEnumField extends Component {
 
   render() {
     return (
-      <div>
+      <div className="filter-item-container">
         <NemesisEnumField style={styles} values={this.props.filterItem.values} onValueChange={this.onEnumFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )

@@ -12,7 +12,7 @@ const styles = {
   },
   label: {
     color: '#9e9e9e',
-    fontSize: '18px',
+    fontSize: '16px',
     lineHeight: '24px',
     verticalAlign: 'top'
   }

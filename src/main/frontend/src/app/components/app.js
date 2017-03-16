@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import counterpart from 'counterpart';
 import AppBar from 'material-ui/AppBar';
+import '../../styles/style.less';
 
 injectTapEventPlugin();
 

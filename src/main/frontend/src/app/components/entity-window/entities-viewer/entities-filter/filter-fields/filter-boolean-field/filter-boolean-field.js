@@ -10,15 +10,8 @@ const styles = {
     display: 'inline-block',
     width: 'auto',
     marginRight: '10px'
-  },
-  label: {
-    color: '#9e9e9e',
-    fontSize: '18px',
-    lineHeight: '24px',
-    verticalAlign: 'top'
   }
 };
-
 export default class FilterBooleanField extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +20,9 @@ export default class FilterBooleanField extends Component {
 
   render() {
     return (
-      <NemesisBooleanField style={styles.container} onValueChange={this.onBooleanFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
+      <div className="filter-item-container boolean-field-container">
+        <NemesisBooleanField style={styles.container} onValueChange={this.onBooleanFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
+      </div>
     )
   }
 

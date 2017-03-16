@@ -23,7 +23,7 @@ export default class FilterDateField extends Component {
 
   render() {
     return (
-      <div>
+      <div className="filter-item-container">
         <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
         <NemesisDateField style={this.getDateFieldStyles()} onValueChange={this.onDateFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>

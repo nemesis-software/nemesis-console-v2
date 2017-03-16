@@ -9,6 +9,7 @@ import FilterEnumField from '../filter-fields/filter-enum-field/filter-enum-fiel
 import FilterEntityField from '../filter-fields/filter-enitiy-field/filter-entity-field';
 import FilterBuilder from '../../../../../services/filter-builder';
 import RaisedButton from 'material-ui/RaisedButton';
+import Divider from 'material-ui/Divider';
 import _ from 'lodash';
 
 const keyPrefix = 'defaultFilter';
@@ -22,13 +23,20 @@ export default class DefaultFilter extends Component {
   render() {
     return (
       <div key={this.state.key}>
-        {this.props.filterMarkup.map((filterItem, index) => this.getFilterItemRender(filterItem, index))}
-        <div><RaisedButton style={{margin: '10px'}} label="Search" onClick={this.onSearchButtonClick.bind(this)} /><RaisedButton label="Clear" onClick={this.onClearButtonClick.bind(this)} /></div>
+        {this.props.filterMarkup.map((filterItem, index) => {
+          return (
+            <div key={index}>
+              {this.getFilterItemRender(filterItem)}
+              <Divider />
+            </div>
+          )
+        })}
+        <div style={{padding: '10px 0'}} ><RaisedButton style={{margin: '10px'}} label="Search" onClick={this.onSearchButtonClick.bind(this)} /><RaisedButton label="Clear" onClick={this.onClearButtonClick.bind(this)} /></div>
       </div>
     )
   }
 
-  getFilterItemRender(filterItem, renderIndex) {
+  getFilterItemRender(filterItem) {
     let reactElement;
     switch (filterItem.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = FilterTextField; break;
@@ -39,12 +47,11 @@ export default class DefaultFilter extends Component {
       case nemesisFieldTypes.nemesisIntegerField:
       case nemesisFieldTypes.nemesisDecimalField: reactElement = FilterNumberField; break;
       case nemesisFieldTypes.nemesisEntityField: reactElement = FilterEntityField; break;
-      default: return <div key={renderIndex}>Not supported yet - {filterItem.xtype}</div>
+      default: return <div>Not supported yet - {filterItem.xtype}</div>
     }
 
     return React.createElement(reactElement, {
       onFilterChange: this.onFilterChange.bind(this),
-      key: renderIndex,
       filterItem: filterItem
     })
   }
