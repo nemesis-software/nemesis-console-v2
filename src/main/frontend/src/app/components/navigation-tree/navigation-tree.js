@@ -15,7 +15,7 @@ const styles = {
   left: '0',
   top: '68px',
   height: 'calc(100vh - 68px)',
-  overflowY: 'auto'
+  overflowY: 'scroll'
 };
 
 export default class NavigationTree extends Component {

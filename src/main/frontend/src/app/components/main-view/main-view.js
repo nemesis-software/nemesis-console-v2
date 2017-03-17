@@ -9,7 +9,6 @@ import { componentRequire } from '../../utils/require-util';
 const styles = {
   paddingLeft: '300px',
   paddingTop: '68px',
-  paddingRight: '10px'
 };
 
 export default class MainView extends Component {
@@ -124,7 +123,6 @@ export default class MainView extends Component {
     return (
       <div style={styles}>
         <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)} entities={this.state.openedEntities} />
-        <hr/>
         {this.renderOpenedEntities()}
       </div>
     )

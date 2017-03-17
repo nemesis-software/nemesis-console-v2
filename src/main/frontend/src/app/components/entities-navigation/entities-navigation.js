@@ -4,12 +4,6 @@ import { componentRequire } from '../../utils/require-util';
 import {GridList, GridTile} from 'material-ui/GridList';
 import _ from 'lodash';
 
-
-const styles = {
-  display: 'flex',
-  flexWrap: 'nowrap',
-  overflowX: 'auto'
-};
 export default class EntitiesNavigation extends Component {
   constructor(props) {
     super(props);
@@ -22,9 +16,9 @@ export default class EntitiesNavigation extends Component {
 
   render() {
     return (
-      <GridList style={styles} cellHeight="auto" cols={2.2}>
+      <GridList className="entity-navigation" cellHeight="auto" cols={2.2}>
         {_.map(this.state.groupedEntities, (value, key) =>
-          <GridTile style={{width: 'auto'}} containerElement="span" key={key}>
+          <GridTile className="navigation-item-container" style={{width: 'auto'}} containerElement="span" key={key}>
             <EntitiesNavigationItem entityId={key}
                                     entities={value}
                                     onEntityWindowClose={this.props.onEntityWindowClose}

@@ -11,7 +11,7 @@ export default class EntitiesWindow extends Component {
 
   render() {
     let styles = {
-      height: 'calc(100vh - 120px)',
+      height: 'calc(100vh - 130px)',
       overflowY: 'auto',
       padding: '5px'
     };

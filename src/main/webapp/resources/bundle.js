@@ -29531,12 +29531,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var styles = {
-	  display: 'flex',
-	  flexWrap: 'nowrap',
-	  overflowX: 'auto'
-	};
-
 	var EntitiesNavigation = function (_Component) {
 	  _inherits(EntitiesNavigation, _Component);
 
@@ -29561,11 +29555,11 @@
 
 	      return _react2.default.createElement(
 	        _GridList.GridList,
-	        { style: styles, cellHeight: 'auto', cols: 2.2 },
+	        { className: 'entity-navigation', cellHeight: 'auto', cols: 2.2 },
 	        _lodash2.default.map(this.state.groupedEntities, function (value, key) {
 	          return _react2.default.createElement(
 	            _GridList.GridTile,
-	            { style: { width: 'auto' }, containerElement: 'span', key: key },
+	            { className: 'navigation-item-container', style: { width: 'auto' }, containerElement: 'span', key: key },
 	            _react2.default.createElement(_entityNavigationItem2.default, { entityId: key,
 	              entities: value,
 	              onEntityWindowClose: _this2.props.onEntityWindowClose,
@@ -83210,7 +83204,7 @@
 	        case _nemesisTypes.nemesisFieldTypes.nemesisSimpleCollectionField:
 	          elementConfig.value = elementConfig.value || [];reactElement = _nemesisSimpleCollectionField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisCollectionField:
-	          elementConfig.readOnly = true;elementConfig.onEntityItemClick = this.props.onEntityItemClick;elementConfig.entityId = item.entityId;elementConfig.value = elementConfig.value || [];reactElement = _nemesisEntityCollectionField2.default;break;
+	          elementConfig.onEntityItemClick = this.props.onEntityItemClick;elementConfig.entityId = item.entityId;elementConfig.value = elementConfig.value || [];reactElement = _nemesisEntityCollectionField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -100396,7 +100390,7 @@
 	    key: 'render',
 	    value: function render() {
 	      var styles = {
-	        height: 'calc(100vh - 120px)',
+	        height: 'calc(100vh - 130px)',
 	        overflowY: 'auto',
 	        padding: '5px'
 	      };
@@ -100506,8 +100500,7 @@
 
 	var styles = {
 	  paddingLeft: '300px',
-	  paddingTop: '68px',
-	  paddingRight: '10px'
+	  paddingTop: '68px'
 	};
 
 	var MainView = function (_Component) {
@@ -100641,7 +100634,6 @@
 	        'div',
 	        { style: styles },
 	        _react2.default.createElement(_entitiesNavigation2.default, { onNavigationItemClick: this.onNavigationItemClick.bind(this), onEntityWindowClose: this.onEntityWindowClose.bind(this), entities: this.state.openedEntities }),
-	        _react2.default.createElement('hr', null),
 	        this.renderOpenedEntities()
 	      );
 	    }
@@ -100825,7 +100817,7 @@
 	  left: '0',
 	  top: '68px',
 	  height: 'calc(100vh - 68px)',
-	  overflowY: 'auto'
+	  overflowY: 'scroll'
 	};
 
 	var NavigationTree = function (_Component) {
@@ -101233,7 +101225,7 @@
 
 
 	// module
-	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n", ""]);
+	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap!important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0!important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n", ""]);
 
 	// exports
 
