@@ -8,15 +8,18 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
     super(props);
   }
 
-  getInputField() {
+  getDialogInputField(language, index) {
     return (
-      <TextField style={this.props.style}
-                 value={this.getTextFieldValue()}
-                 disabled={this.props.readOnly}
-                 multiLine={true}
-                 rowsMax={4}
-                 floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                 onChange={this.onTextChange.bind(this)}/>
+      <div key={index}>
+        <TextField style={{width: '100%'}}
+                   multiLine={true}
+                   rows={4}
+                   rowsMax={4}
+                   value={this.getTextFieldValue(language.value)}
+                   disabled={this.props.readOnly}
+                   floatingLabelText={language.labelCode}
+                   onChange={(e, v) => this.onTextChange(e, v, language.value)}/>
+      </div>
     )
   }
 }

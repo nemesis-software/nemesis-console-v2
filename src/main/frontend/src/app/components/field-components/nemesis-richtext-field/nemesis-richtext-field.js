@@ -4,7 +4,6 @@ import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import Subheader from 'material-ui/Subheader';
 
 export default class NemesisRichTextField extends NemesisBaseField {
   constructor(props) {
@@ -44,7 +43,6 @@ export default class NemesisRichTextField extends NemesisBaseField {
                      rowsMax={6}
                      floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                      onChange={this.onValueChange.bind(this)}/>
-          <Subheader>Content preview</Subheader>
           <div dangerouslySetInnerHTML={{__html: this.state.value || ''}}></div>
         </Dialog>
       </div>

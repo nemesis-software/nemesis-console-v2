@@ -74862,6 +74862,14 @@
 
 	var _nemesisTypes = __webpack_require__(392);
 
+	var _FlatButton = __webpack_require__(188);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _Dialog = __webpack_require__(428);
+
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -74883,13 +74891,29 @@
 
 	    var _this = _possibleConstructorReturn(this, (NemesisLocalizedTextField.__proto__ || Object.getPrototypeOf(NemesisLocalizedTextField)).call(this, props));
 
-	    _this.state = _extends({}, _this.state, { selectedLanguage: translationLanguages.defaultLanguage.value });
+	    _this.handleTranslateIconClick = function () {
+	      _this.setState(_extends({}, _this.state, { openTranslateDialog: true }));
+	    };
+
+	    _this.handleTranslateDialogClose = function () {
+	      _this.setState(_extends({}, _this.state, { openTranslateDialog: false }));
+	    };
+
+	    _this.state = _extends({}, _this.state, { selectedLanguage: translationLanguages.defaultLanguage.value, openTranslateDialog: false });
 	    return _this;
 	  }
 
 	  _createClass(NemesisLocalizedTextField, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
+	      var actions = [_react2.default.createElement(_FlatButton2.default, {
+	        label: 'Done',
+	        primary: true,
+	        onTouchTap: this.handleTranslateDialogClose.bind(this)
+	      })];
+
 	      return _react2.default.createElement(
 	        'div',
 	        { style: { display: 'inline-block' } },
@@ -74900,17 +74924,46 @@
 	          availableLanguages: translationLanguages.languages,
 	          selectedLanguage: translationLanguages.defaultLanguage
 	        }),
-	        this.getInputField()
+	        _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	          value: this.getTextFieldValue(this.state.selectedLanguage),
+	          disabled: this.props.readOnly,
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	          onChange: function onChange(e, v) {
+	            return _this2.onTextChange(e, v, _this2.state.selectedLanguage);
+	          } }),
+	        this.props.type === _nemesisTypes.nemesisFieldUsageTypes.edit ? _react2.default.createElement(
+	          'i',
+	          { className: 'material-icons', onClick: this.handleTranslateIconClick.bind(this) },
+	          'translate'
+	        ) : false,
+	        this.props.type === _nemesisTypes.nemesisFieldUsageTypes.edit ? _react2.default.createElement(
+	          _Dialog2.default,
+	          {
+	            title: 'Select Color',
+	            actions: actions,
+	            modal: true,
+	            open: this.state.openTranslateDialog
+	          },
+	          translationLanguages.languages.map(this.getDialogInputField.bind(this))
+	        ) : false
 	      );
 	    }
 	  }, {
-	    key: 'getInputField',
-	    value: function getInputField() {
-	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	        value: this.getTextFieldValue(),
-	        disabled: this.props.readOnly,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	        onChange: this.onTextChange.bind(this) });
+	    key: 'getDialogInputField',
+	    value: function getDialogInputField(language, index) {
+	      var _this3 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { key: index },
+	        _react2.default.createElement(_TextField2.default, { style: { width: '100%' },
+	          value: this.getTextFieldValue(language.value),
+	          disabled: this.props.readOnly,
+	          floatingLabelText: language.labelCode,
+	          onChange: function onChange(e, v) {
+	            return _this3.onTextChange(e, v, language.value);
+	          } })
+	      );
 	    }
 	  }, {
 	    key: 'onLanguageChange',
@@ -74922,21 +74975,21 @@
 	    }
 	  }, {
 	    key: 'getTextFieldValue',
-	    value: function getTextFieldValue() {
+	    value: function getTextFieldValue(language) {
 	      if (!this.state.value) {
 	        return '';
 	      }
 
-	      return this.state.value[this.state.selectedLanguage] && this.state.value[this.state.selectedLanguage].value || '';
+	      return this.state.value[language] && this.state.value[language].value || '';
 	    }
 	  }, {
 	    key: 'onTextChange',
-	    value: function onTextChange(event, value) {
+	    value: function onTextChange(event, value, language) {
 	      var actualValue = _extends({}, this.state.value);
-	      if (!actualValue[this.state.selectedLanguage]) {
-	        actualValue[this.state.selectedLanguage] = {};
+	      if (!actualValue[language]) {
+	        actualValue[language] = {};
 	      }
-	      actualValue[this.state.selectedLanguage].value = value;
+	      actualValue[language].value = value;
 	      this.onValueChange(event, actualValue);
 	    }
 	  }, {
@@ -83473,15 +83526,24 @@
 	  }
 
 	  _createClass(NemesisTextField, [{
-	    key: 'getInputField',
-	    value: function getInputField() {
-	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	        value: this.getTextFieldValue(),
-	        disabled: this.props.readOnly,
-	        multiLine: true,
-	        rowsMax: 4,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	        onChange: this.onTextChange.bind(this) });
+	    key: 'getDialogInputField',
+	    value: function getDialogInputField(language, index) {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { key: index },
+	        _react2.default.createElement(_TextField2.default, { style: { width: '100%' },
+	          multiLine: true,
+	          rows: 4,
+	          rowsMax: 4,
+	          value: this.getTextFieldValue(language.value),
+	          disabled: this.props.readOnly,
+	          floatingLabelText: language.labelCode,
+	          onChange: function onChange(e, v) {
+	            return _this2.onTextChange(e, v, language.value);
+	          } })
+	      );
 	    }
 	  }]);
 
@@ -83527,10 +83589,6 @@
 	var _Dialog = __webpack_require__(428);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
-
-	var _Subheader = __webpack_require__(360);
-
-	var _Subheader2 = _interopRequireDefault(_Subheader);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83598,11 +83656,6 @@
 	            rowsMax: 6,
 	            floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	            onChange: this.onValueChange.bind(this) }),
-	          _react2.default.createElement(
-	            _Subheader2.default,
-	            null,
-	            'Content preview'
-	          ),
 	          _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: this.state.value || '' } })
 	        )
 	      );
