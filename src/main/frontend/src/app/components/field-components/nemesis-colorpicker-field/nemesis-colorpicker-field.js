@@ -3,7 +3,8 @@ import TextField from 'material-ui/TextField';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
 import { ChromePicker } from 'react-color';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 
 const popover = {
   position: 'absolute',
@@ -17,20 +18,32 @@ export default class NemesisColorpickerField extends NemesisBaseField {
   }
 
   render() {
+    const actions = [
+      <FlatButton
+        label="Done"
+        primary={true}
+        onTouchTap={this.handleClose.bind(this)}
+      />,
+    ];
+
     return (
     <div style={{position: 'relative'}}>
       <TextField style={this.props.style}
                  value={this.state.value || ''}
                  disabled={this.props.readOnly}
-                 onFocus={this.handleClick.bind(this)}
+                 onChange={this.onValueChange.bind(this)}
                  floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                  />
-          { this.state.displayColorPicker ?
-
-            <div ref={(item) => item && item.focus()} style={ popover } onBlur={this.handleClose.bind(this)}>
-              <ChromePicker color={this.state.value} onChange={(color, event) => this.onValueChange(event, color.hex)}/>
-              <RaisedButton style={{width: '100%'}} onClick={this.handleClose.bind(this)} label={"Done"}/>
-            </div> : null }
+      <i className="material-icons" onClick={this.handleClick.bind(this)}>color_lens</i>
+      <Dialog
+        title="Select Color"
+        actions={actions}
+        modal={true}
+        contentStyle={{width: '350px'}}
+        open={this.state.displayColorPicker}
+      >
+        <ChromePicker color={this.state.value} disableAlpha={true} onChange={(color, event) => this.onValueChange(event, color.hex)}/>
+      </Dialog>
     </div>
 
     )

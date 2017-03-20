@@ -83536,9 +83536,13 @@
 
 	var _reactColor = __webpack_require__(618);
 
-	var _RaisedButton = __webpack_require__(590);
+	var _FlatButton = __webpack_require__(188);
 
-	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _Dialog = __webpack_require__(428);
+
+	var _Dialog2 = _interopRequireDefault(_Dialog);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83578,25 +83582,39 @@
 	    value: function render() {
 	      var _this2 = this;
 
+	      var actions = [_react2.default.createElement(_FlatButton2.default, {
+	        label: 'Done',
+	        primary: true,
+	        onTouchTap: this.handleClose.bind(this)
+	      })];
+
 	      return _react2.default.createElement(
 	        'div',
 	        { style: { position: 'relative' } },
 	        _react2.default.createElement(_TextField2.default, { style: this.props.style,
 	          value: this.state.value || '',
 	          disabled: this.props.readOnly,
-	          onFocus: this.handleClick.bind(this),
+	          onChange: this.onValueChange.bind(this),
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label })
 	        }),
-	        this.state.displayColorPicker ? _react2.default.createElement(
-	          'div',
-	          { ref: function ref(item) {
-	              return item && item.focus();
-	            }, style: popover, onBlur: this.handleClose.bind(this) },
-	          _react2.default.createElement(_reactColor.ChromePicker, { color: this.state.value, onChange: function onChange(color, event) {
+	        _react2.default.createElement(
+	          'i',
+	          { className: 'material-icons', onClick: this.handleClick.bind(this) },
+	          'color_lens'
+	        ),
+	        _react2.default.createElement(
+	          _Dialog2.default,
+	          {
+	            title: 'Select Color',
+	            actions: actions,
+	            modal: true,
+	            contentStyle: { width: '350px' },
+	            open: this.state.displayColorPicker
+	          },
+	          _react2.default.createElement(_reactColor.ChromePicker, { color: this.state.value, disableAlpha: true, onChange: function onChange(color, event) {
 	              return _this2.onValueChange(event, color.hex);
-	            } }),
-	          _react2.default.createElement(_RaisedButton2.default, { style: { width: '100%' }, onClick: this.handleClose.bind(this), label: "Done" })
-	        ) : null
+	            } })
+	        )
 	      );
 	    }
 	  }]);
