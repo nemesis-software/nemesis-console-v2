@@ -83261,6 +83261,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -83279,6 +83281,14 @@
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
 
+	var _FlatButton = __webpack_require__(188);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _Dialog = __webpack_require__(428);
+
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83293,20 +83303,60 @@
 	  function NemesisTextAreaField(props) {
 	    _classCallCheck(this, NemesisTextAreaField);
 
-	    return _possibleConstructorReturn(this, (NemesisTextAreaField.__proto__ || Object.getPrototypeOf(NemesisTextAreaField)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (NemesisTextAreaField.__proto__ || Object.getPrototypeOf(NemesisTextAreaField)).call(this, props));
+
+	    _this.handleFullscreenClick = function () {
+	      _this.setState(_extends({}, _this.state, { openFullScreenDialog: true }));
+	    };
+
+	    _this.handleDialogClose = function () {
+	      _this.setState(_extends({}, _this.state, { openFullScreenDialog: false }));
+	    };
+
+	    _this.state = _extends({}, _this.state, { openFullScreenDialog: false });
+
+	    return _this;
 	  }
 
 	  _createClass(NemesisTextAreaField, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	        value: this.state.value || '',
-	        disabled: this.props.readOnly,
-	        multiLine: true,
-	        rows: 1,
-	        rowsMax: 4,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	        onChange: this.onValueChange.bind(this) });
+	      var actions = [_react2.default.createElement(_FlatButton2.default, {
+	        label: 'Done',
+	        primary: true,
+	        onTouchTap: this.handleDialogClose.bind(this)
+	      })];
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	          value: this.state.value || '',
+	          disabled: this.props.readOnly,
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	          onChange: this.onValueChange.bind(this) }),
+	        _react2.default.createElement(
+	          'i',
+	          { className: 'material-icons', onClick: this.handleFullscreenClick.bind(this) },
+	          'fullscreen'
+	        ),
+	        _react2.default.createElement(
+	          _Dialog2.default,
+	          {
+	            title: 'Edit text area',
+	            actions: actions,
+	            modal: true,
+	            open: this.state.openFullScreenDialog
+	          },
+	          _react2.default.createElement(_TextField2.default, { style: { width: '100%' },
+	            value: this.state.value || '',
+	            disabled: this.props.readOnly,
+	            multiLine: true,
+	            rows: 10,
+	            rowsMax: 10,
+	            floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	            onChange: this.onValueChange.bind(this) })
+	        )
+	      );
 	    }
 	  }]);
 
@@ -83450,6 +83500,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -83468,6 +83520,18 @@
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
 
+	var _FlatButton = __webpack_require__(188);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _Dialog = __webpack_require__(428);
+
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+
+	var _Subheader = __webpack_require__(360);
+
+	var _Subheader2 = _interopRequireDefault(_Subheader);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -83482,20 +83546,66 @@
 	  function NemesisRichTextField(props) {
 	    _classCallCheck(this, NemesisRichTextField);
 
-	    return _possibleConstructorReturn(this, (NemesisRichTextField.__proto__ || Object.getPrototypeOf(NemesisRichTextField)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (NemesisRichTextField.__proto__ || Object.getPrototypeOf(NemesisRichTextField)).call(this, props));
+
+	    _this.handleFullscreenClick = function () {
+	      _this.setState(_extends({}, _this.state, { openFullScreenDialog: true }));
+	    };
+
+	    _this.handleDialogClose = function () {
+	      _this.setState(_extends({}, _this.state, { openFullScreenDialog: false }));
+	    };
+
+	    _this.state = _extends({}, _this.state, { openFullScreenDialog: false });
+	    return _this;
 	  }
 
 	  _createClass(NemesisRichTextField, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	        value: this.state.value || '',
-	        disabled: this.props.readOnly,
-	        multiLine: true,
-	        rows: 1,
-	        rowsMax: 4,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	        onChange: this.onValueChange.bind(this) });
+	      var actions = [_react2.default.createElement(_FlatButton2.default, {
+	        label: 'Done',
+	        primary: true,
+	        onTouchTap: this.handleDialogClose.bind(this)
+	      })];
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	          value: this.state.value || '',
+	          disabled: this.props.readOnly,
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	          onChange: this.onValueChange.bind(this) }),
+	        _react2.default.createElement(
+	          'i',
+	          { className: 'material-icons', onClick: this.handleFullscreenClick.bind(this) },
+	          'fullscreen'
+	        ),
+	        _react2.default.createElement(
+	          _Dialog2.default,
+	          {
+	            title: 'Edit richtext',
+	            actions: actions,
+	            modal: true,
+	            open: this.state.openFullScreenDialog,
+	            autoScrollBodyContent: true
+	          },
+	          _react2.default.createElement(_TextField2.default, { style: { width: '100%' },
+	            value: this.state.value || '',
+	            disabled: this.props.readOnly,
+	            multiLine: true,
+	            rows: 6,
+	            rowsMax: 6,
+	            floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	            onChange: this.onValueChange.bind(this) }),
+	          _react2.default.createElement(
+	            _Subheader2.default,
+	            null,
+	            'Content preview'
+	          ),
+	          _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: this.state.value || '' } })
+	        )
+	      );
 	    }
 	  }]);
 
