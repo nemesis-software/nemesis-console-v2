@@ -6,11 +6,6 @@ import { ChromePicker } from 'react-color';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 
-const popover = {
-  position: 'absolute',
-  zIndex: '1000',
-};
-
 export default class NemesisColorpickerField extends NemesisBaseField {
   constructor(props) {
     super(props);
@@ -23,7 +18,7 @@ export default class NemesisColorpickerField extends NemesisBaseField {
         label="Done"
         primary={true}
         onTouchTap={this.handleClose.bind(this)}
-      />,
+      />
     ];
 
     return (

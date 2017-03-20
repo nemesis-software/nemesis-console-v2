@@ -67,7 +67,7 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;
       case nemesisFieldTypes.nemesisMediaField: reactElement = NemesisMediaField; break;
       case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
-      case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
+      case nemesisFieldTypes.nemesisCollectionField: console.log(item); elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
       default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
 

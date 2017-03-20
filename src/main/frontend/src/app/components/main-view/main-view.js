@@ -52,7 +52,13 @@ export default class MainView extends Component {
 
   getOpenedEntities(selectedEntity) {
     let openedEntities = this.state.openedEntities.map(item => {return {...item, isVisible: false}});
-    let selectedEntityIndex = _.findIndex(this.state.openedEntities, {entityId: selectedEntity.entityId, type: selectedEntity.type, itemId: selectedEntity.itemId});
+    let selectedEntityIndex = -1;
+    if (selectedEntity.type === entityItemType) {
+      selectedEntityIndex = _.findIndex(this.state.openedEntities, {itemId: selectedEntity.itemId});
+    } else {
+      selectedEntityIndex = _.findIndex(this.state.openedEntities, {entityId: selectedEntity.entityId, type: selectedEntity.type, itemId: selectedEntity.itemId});
+
+    }
     if (selectedEntityIndex < 0) {
       selectedEntity.isVisible = true;
       openedEntities.push(selectedEntity);

@@ -83204,7 +83204,7 @@
 	        case _nemesisTypes.nemesisFieldTypes.nemesisSimpleCollectionField:
 	          elementConfig.value = elementConfig.value || [];reactElement = _nemesisSimpleCollectionField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisCollectionField:
-	          elementConfig.onEntityItemClick = this.props.onEntityItemClick;elementConfig.entityId = item.entityId;elementConfig.value = elementConfig.value || [];reactElement = _nemesisEntityCollectionField2.default;break;
+	          console.log(item);elementConfig.onEntityItemClick = this.props.onEntityItemClick;elementConfig.entityId = item.entityId;elementConfig.value = elementConfig.value || [];reactElement = _nemesisEntityCollectionField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -83551,11 +83551,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var popover = {
-	  position: 'absolute',
-	  zIndex: '1000'
-	};
 
 	var NemesisColorpickerField = function (_NemesisBaseField) {
 	  _inherits(NemesisColorpickerField, _NemesisBaseField);
@@ -97365,6 +97360,7 @@
 	          return data = data.concat(value);
 	        });
 	        var mappedData = data.map(_this2.mapDataSource.bind(_this2));
+	        console.log(mappedData);
 	        _this2.setState(_extends({}, _this2.state, { dataSource: mappedData }));
 	      });
 	    }
@@ -97397,8 +97393,13 @@
 	    value: function mapDataSource(item) {
 	      return {
 	        value: item,
-	        text: this.getItemRenderingValue(item)
+	        text: this.getAutocompleteRenderingValue(item)
 	      };
+	    }
+	  }, {
+	    key: 'getAutocompleteRenderingValue',
+	    value: function getAutocompleteRenderingValue(item) {
+	      return item.code;
 	    }
 	  }, {
 	    key: 'getItemRenderingValue',
@@ -97409,7 +97410,6 @@
 	        'div',
 	        null,
 	        item.code,
-	        ' ',
 	        _react2.default.createElement(
 	          'i',
 	          { className: 'material-icons', onClick: function onClick() {
@@ -100576,7 +100576,12 @@
 	      var openedEntities = this.state.openedEntities.map(function (item) {
 	        return _extends({}, item, { isVisible: false });
 	      });
-	      var selectedEntityIndex = _lodash2.default.findIndex(this.state.openedEntities, { entityId: selectedEntity.entityId, type: selectedEntity.type, itemId: selectedEntity.itemId });
+	      var selectedEntityIndex = -1;
+	      if (selectedEntity.type === _entityTypes.entityItemType) {
+	        selectedEntityIndex = _lodash2.default.findIndex(this.state.openedEntities, { itemId: selectedEntity.itemId });
+	      } else {
+	        selectedEntityIndex = _lodash2.default.findIndex(this.state.openedEntities, { entityId: selectedEntity.entityId, type: selectedEntity.type, itemId: selectedEntity.itemId });
+	      }
 	      if (selectedEntityIndex < 0) {
 	        selectedEntity.isVisible = true;
 	        openedEntities.push(selectedEntity);

@@ -35,6 +35,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
       let mappedData = data.map(this.mapDataSource.bind(this));
+      console.log(mappedData);
       this.setState({...this.state, dataSource: mappedData});
     })
   }
@@ -62,11 +63,15 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   mapDataSource(item) {
     return {
       value: item,
-      text: this.getItemRenderingValue(item)
+      text: this.getAutocompleteRenderingValue(item)
     }
   }
 
+  getAutocompleteRenderingValue(item) {
+    return item.code;
+  }
+
   getItemRenderingValue(item) {
-    return <div>{item.code} <i className="material-icons" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId)}>launch</i></div>
+    return <div>{item.code}<i className="material-icons" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId)}>launch</i></div>
   }
 }
