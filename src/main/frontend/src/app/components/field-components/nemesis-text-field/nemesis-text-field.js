@@ -10,11 +10,14 @@ export default class NemesisTextField extends NemesisBaseField {
 
   render() {
     return (
-      <TextField style={this.props.style}
-                 value={this.state.value || ''}
-                 disabled={this.props.readOnly}
-                 floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                 onChange={this.onValueChange.bind(this)}/>
+      <div className="entity-field-container">
+        <TextField className="entity-field"
+                   style={this.props.style}
+                   value={this.state.value || ''}
+                   disabled={this.props.readOnly}
+                   floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
+                   onChange={this.onValueChange.bind(this)}/>
+      </div>
     )
   }
 }

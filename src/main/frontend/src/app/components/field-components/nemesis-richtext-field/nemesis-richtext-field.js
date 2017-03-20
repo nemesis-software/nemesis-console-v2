@@ -21,13 +21,14 @@ export default class NemesisRichTextField extends NemesisBaseField {
       />
     ];
     return (
-      <div>
-        <TextField style={this.props.style}
+      <div className="entity-field-container">
+        <TextField className="entity-field"
+                   style={this.props.style}
                    value={this.state.value || ''}
                    disabled={this.props.readOnly}
                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                    onChange={this.onValueChange.bind(this)}/>
-        <i className="material-icons" onClick={this.handleFullscreenClick.bind(this)}>fullscreen</i>
+        <i className="material-icons entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}>fullscreen</i>
         <Dialog
           title="Edit richtext"
           actions={actions}

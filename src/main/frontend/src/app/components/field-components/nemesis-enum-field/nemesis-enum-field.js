@@ -11,13 +11,15 @@ export default class NemesisEnumField extends NemesisBaseField {
 
   render() {
     return (
-      <SelectField style={this.props.style}
-                   value={this.getFormattedValue(this.state.value) || ''}
-                   disabled={this.props.readOnly}
-                   floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                   onChange={this.onValueChange.bind(this)}>
-        {this.props.values.map((value, index) => <MenuItem key={index} value={value} primaryText={value} />)}
-      </SelectField>
+      <div className="entity-field-container">
+        <SelectField style={this.props.style}
+                     value={this.getFormattedValue(this.state.value) || ''}
+                     disabled={this.props.readOnly}
+                     floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
+                     onChange={this.onValueChange.bind(this)}>
+          {this.props.values.map((value, index) => <MenuItem key={index} value={value} primaryText={value} />)}
+        </SelectField>
+      </div>
     )
   }
 

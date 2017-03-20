@@ -22,14 +22,14 @@ export default class NemesisColorpickerField extends NemesisBaseField {
     ];
 
     return (
-    <div style={{position: 'relative'}}>
-      <TextField style={this.props.style}
+    <div className="entity-field-container">
+      <TextField className="entity-field" style={this.props.style}
                  value={this.state.value || ''}
                  disabled={this.props.readOnly}
                  onChange={this.onValueChange.bind(this)}
                  floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                  />
-      <i className="material-icons" onClick={this.handleClick.bind(this)}>color_lens</i>
+      <i className="material-icons entity-navigation-icon" onClick={this.handleClick.bind(this)}>color_lens</i>
       <Dialog
         title="Select Color"
         actions={actions}

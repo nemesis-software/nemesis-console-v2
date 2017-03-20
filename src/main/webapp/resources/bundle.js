@@ -55700,11 +55700,16 @@
 	  _createClass(NemesisTextField, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	        value: this.state.value || '',
-	        disabled: this.props.readOnly,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	        onChange: this.onValueChange.bind(this) });
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'entity-field-container' },
+	        _react2.default.createElement(_TextField2.default, { className: 'entity-field',
+	          style: this.props.style,
+	          value: this.state.value || '',
+	          disabled: this.props.readOnly,
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	          onChange: this.onValueChange.bind(this) })
+	      );
 	    }
 	  }]);
 
@@ -55990,11 +55995,15 @@
 	  _createClass(NemesisDateField, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_DatePicker2.default, { style: this.props.style,
-	        value: this.state.value,
-	        disabled: this.props.readOnly,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	        onChange: this.onValueChange.bind(this) });
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'entity-field-container' },
+	        _react2.default.createElement(_DatePicker2.default, { style: this.props.style,
+	          value: this.state.value,
+	          disabled: this.props.readOnly,
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	          onChange: this.onValueChange.bind(this) })
+	      );
 	    }
 	  }, {
 	    key: 'getFormattedValue',
@@ -74916,7 +74925,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { style: { display: 'inline-block' } },
+	        { className: 'entity-field-container' },
 	        _react2.default.createElement(_languageChanger2.default, {
 	          label: 'language',
 	          style: this.props.style,
@@ -74924,7 +74933,8 @@
 	          availableLanguages: translationLanguages.languages,
 	          selectedLanguage: translationLanguages.defaultLanguage
 	        }),
-	        _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	        _react2.default.createElement(_TextField2.default, { className: 'entity-field',
+	          style: this.props.style,
 	          value: this.getTextFieldValue(this.state.selectedLanguage),
 	          disabled: this.props.readOnly,
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
@@ -74933,13 +74943,13 @@
 	          } }),
 	        this.props.type === _nemesisTypes.nemesisFieldUsageTypes.edit ? _react2.default.createElement(
 	          'i',
-	          { className: 'material-icons', onClick: this.handleTranslateIconClick.bind(this) },
+	          { className: 'material-icons entity-navigation-icon', onClick: this.handleTranslateIconClick.bind(this) },
 	          'translate'
 	        ) : false,
 	        this.props.type === _nemesisTypes.nemesisFieldUsageTypes.edit ? _react2.default.createElement(
 	          _Dialog2.default,
 	          {
-	            title: 'Select Color',
+	            title: 'Translate field',
 	            actions: actions,
 	            modal: true,
 	            open: this.state.openTranslateDialog
@@ -75244,7 +75254,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { style: this.props.style },
+	        { className: 'entity-field-container', style: { paddingTop: '44px' } },
 	        _react2.default.createElement(_reactTranslateComponent2.default, { component: 'div', style: _extends({}, styles.container, styles.label), content: 'main.' + this.props.label, fallback: this.props.label }),
 	        _react2.default.createElement(
 	          _RadioButton.RadioButtonGroup,
@@ -76542,12 +76552,17 @@
 	  _createClass(NemesisNumberField, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	        type: 'number', step: this.props.step || '1',
-	        value: this.state.value || '',
-	        disabled: this.props.readOnly,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	        onChange: this.onValueChange.bind(this) });
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'entity-field-container' },
+	        _react2.default.createElement(_TextField2.default, { className: 'entity-field',
+	          style: this.props.style,
+	          type: 'number', step: this.props.step || '1',
+	          value: this.state.value || '',
+	          disabled: this.props.readOnly,
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	          onChange: this.onValueChange.bind(this) })
+	      );
 	    }
 	  }]);
 
@@ -76688,15 +76703,19 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        _SelectField2.default,
-	        { style: this.props.style,
-	          value: this.getFormattedValue(this.state.value) || '',
-	          disabled: this.props.readOnly,
-	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	          onChange: this.onValueChange.bind(this) },
-	        this.props.values.map(function (value, index) {
-	          return _react2.default.createElement(_MenuItem2.default, { key: index, value: value, primaryText: value });
-	        })
+	        'div',
+	        { className: 'entity-field-container' },
+	        _react2.default.createElement(
+	          _SelectField2.default,
+	          { style: this.props.style,
+	            value: this.getFormattedValue(this.state.value) || '',
+	            disabled: this.props.readOnly,
+	            floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	            onChange: this.onValueChange.bind(this) },
+	          this.props.values.map(function (value, index) {
+	            return _react2.default.createElement(_MenuItem2.default, { key: index, value: value, primaryText: value });
+	          })
+	        )
 	      );
 	    }
 	  }, {
@@ -76886,8 +76905,9 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { style: { display: 'inline-block' } },
-	        _react2.default.createElement(_AutoComplete2.default, { style: this.props.style,
+	        { className: 'entity-field-container' },
+	        _react2.default.createElement(_AutoComplete2.default, { className: 'entity-field',
+	          style: this.props.style,
 	          dataSource: this.state.dataSource,
 	          filter: function filter(searchText, key) {
 	            return true;
@@ -76907,7 +76927,7 @@
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }) }),
 	        this.props.type === _nemesisTypes.nemesisFieldUsageTypes.edit ? _react2.default.createElement(
 	          'i',
-	          { className: 'material-icons', onClick: this.openEntityWindow.bind(this) },
+	          { className: 'material-icons entity-navigation-icon', onClick: this.openEntityWindow.bind(this) },
 	          'launch'
 	        ) : false
 	      );
@@ -83466,12 +83486,17 @@
 	  _createClass(NemesisPasswordField, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	        type: 'password',
-	        value: this.state.value || '',
-	        disabled: this.props.readOnly,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	        onChange: this.onValueChange.bind(this) });
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'entity-field-container' },
+	        _react2.default.createElement(_TextField2.default, { className: 'entity-field',
+	          style: this.props.style,
+	          type: 'password',
+	          value: this.state.value || '',
+	          disabled: this.props.readOnly,
+	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
+	          onChange: this.onValueChange.bind(this) })
+	      );
 	    }
 	  }]);
 
@@ -83628,15 +83653,16 @@
 	      })];
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	        { className: 'entity-field-container' },
+	        _react2.default.createElement(_TextField2.default, { className: 'entity-field',
+	          style: this.props.style,
 	          value: this.state.value || '',
 	          disabled: this.props.readOnly,
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	          onChange: this.onValueChange.bind(this) }),
 	        _react2.default.createElement(
 	          'i',
-	          { className: 'material-icons', onClick: this.handleFullscreenClick.bind(this) },
+	          { className: 'material-icons entity-navigation-icon', onClick: this.handleFullscreenClick.bind(this) },
 	          'fullscreen'
 	        ),
 	        _react2.default.createElement(
@@ -83748,8 +83774,8 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { style: { position: 'relative' } },
-	        _react2.default.createElement(_TextField2.default, { style: this.props.style,
+	        { className: 'entity-field-container' },
+	        _react2.default.createElement(_TextField2.default, { className: 'entity-field', style: this.props.style,
 	          value: this.state.value || '',
 	          disabled: this.props.readOnly,
 	          onChange: this.onValueChange.bind(this),
@@ -83757,7 +83783,7 @@
 	        }),
 	        _react2.default.createElement(
 	          'i',
-	          { className: 'material-icons', onClick: this.handleClick.bind(this) },
+	          { className: 'material-icons entity-navigation-icon', onClick: this.handleClick.bind(this) },
 	          'color_lens'
 	        ),
 	        _react2.default.createElement(
@@ -101411,7 +101437,7 @@
 
 
 	// module
-	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap!important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0!important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n", ""]);
+	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap!important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0!important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n", ""]);
 
 	// exports
 

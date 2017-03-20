@@ -32,7 +32,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
     ];
 
     return (
-      <div style={{display: 'inline-block'}}>
+      <div className="entity-field-container">
         <LanguageChanger
           label="language"
           style={this.props.style}
@@ -40,20 +40,21 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           availableLanguages={translationLanguages.languages}
           selectedLanguage={translationLanguages.defaultLanguage}
         />
-        <TextField style={this.props.style}
+        <TextField className="entity-field"
+                   style={this.props.style}
                    value={this.getTextFieldValue(this.state.selectedLanguage)}
                    disabled={this.props.readOnly}
                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                    onChange={(e, v) => this.onTextChange(e, v, this.state.selectedLanguage)}/>
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
-            <i className="material-icons" onClick={this.handleTranslateIconClick.bind(this)}>translate</i>
+            <i className="material-icons entity-navigation-icon" onClick={this.handleTranslateIconClick.bind(this)}>translate</i>
           ) :
           false}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
             <Dialog
-              title="Select Color"
+              title="Translate field"
               actions={actions}
               modal={true}
               open={this.state.openTranslateDialog}

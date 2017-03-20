@@ -12,11 +12,13 @@ export default class NemesisDateField extends NemesisBaseField {
 
   render() {
     return (
-      <DatePicker style={this.props.style}
-                  value={this.state.value}
-                  disabled={this.props.readOnly}
-                  floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                  onChange={this.onValueChange.bind(this)}/>
+      <div className="entity-field-container">
+        <DatePicker style={this.props.style}
+                    value={this.state.value}
+                    disabled={this.props.readOnly}
+                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
+                    onChange={this.onValueChange.bind(this)}/>
+      </div>
     )
   }
 

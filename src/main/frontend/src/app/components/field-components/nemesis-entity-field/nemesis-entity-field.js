@@ -14,8 +14,9 @@ export default class NemesisEntityField extends NemesisBaseField {
 
   render() {
     return (
-    <div style={{display: 'inline-block'}}>
-      <AutoComplete style={this.props.style}
+    <div className="entity-field-container">
+      <AutoComplete className="entity-field"
+                    style={this.props.style}
                     dataSource={this.state.dataSource}
                     filter={(searchText, key) => true}
                     onFocus={this.onAutocompleteFocus.bind(this)}
@@ -29,7 +30,7 @@ export default class NemesisEntityField extends NemesisBaseField {
                     maxSearchResults={10}
                     searchText={this.state.searchText}
                     floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}/>
-      {this.props.type === nemesisFieldUsageTypes.edit ? <i className="material-icons" onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
+      {this.props.type === nemesisFieldUsageTypes.edit ? <i className="material-icons entity-navigation-icon" onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
     </div>
 
     )

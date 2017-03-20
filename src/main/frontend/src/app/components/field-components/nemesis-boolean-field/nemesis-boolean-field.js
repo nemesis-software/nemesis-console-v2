@@ -25,7 +25,7 @@ export default class NemesisBooleanField extends NemesisBaseField {
 
   render() {
     return (
-      <div style={this.props.style} >
+      <div className="entity-field-container"  style={{paddingTop: '44px'}}>
         <Translate component="div" style={{...styles.container, ...styles.label}} content={'main.' + this.props.label} fallback={this.props.label} />
         <RadioButtonGroup name="boolean" labelPosition="right" style={styles.container}
                           valueSelected={this.state.value}
