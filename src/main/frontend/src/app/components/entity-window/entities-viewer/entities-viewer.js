@@ -53,7 +53,7 @@ export default class EntitiesViewer extends Component {
   }
 
   onEntityItemClick(item) {
-    this.props.onEntityItemClick(item, this.props.entity.entityId)
+    this.props.onEntityItemClick(item, this.props.entity.entityId, item._links.self.href);
   }
 
   retakeEntityData() {

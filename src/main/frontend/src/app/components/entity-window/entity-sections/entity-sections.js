@@ -97,7 +97,8 @@ export default class EntitySections extends Component {
 
   getDataEntity(entity) {
     let relatedEntities = this.getEntityRelatedEntities(entity);
-    return ApiCall.get(entity.entityName + '/' + entity.itemId).then(result => {
+    let restUrl = entity.entityUrl || (entity.entityName + '/' + entity.itemId);
+    return ApiCall.get(restUrl).then(result => {
       this.setState({...this.state, entityData: result.data});
       Promise.all(
         relatedEntities.map(item => ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
@@ -218,10 +219,9 @@ export default class EntitySections extends Component {
         resultObject[prop.name] = prop.value;
       }
     });
-    console.log(entity);
     let restMethod = entity.type === entityItemType ? 'patch' : 'post';
     let restUrl = entity.type === entityItemType ? `${entity.entityName}/${entity.itemId}` : entity.entityName;
-    ApiCall[restMethod](restUrl, resultObject).then((result) => {
+    ApiCall[restMethod](entity.entityUrl || restUrl, resultObject).then((result) => {
       this.props.onUpdateEntitySearchView(this.props.entity);
       let itemId = entity.type === entityItemType ? entity.itemId : result.data.id;
       this.setState({

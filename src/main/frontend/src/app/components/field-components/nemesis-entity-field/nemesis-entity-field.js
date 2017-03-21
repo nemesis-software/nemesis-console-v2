@@ -113,7 +113,7 @@ export default class NemesisEntityField extends NemesisBaseField {
 
   openEntityWindow() {
     if (this.state.value) {
-      this.props.onEntityItemClick(this.state.value, this.props.entityId);
+      this.props.onEntityItemClick(this.state.value, this.props.entityId, this.state.value._links.self.href);
     }
   }
 }

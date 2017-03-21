@@ -43,7 +43,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   onItemSelect(item) {
     let valueActual = this.state.value || [];
     valueActual.push(item.value);
-    this.setState({...this.state, value: valueActual, searchText: ''});
+    this.setState({...this.state, isDirty: true, value: valueActual, searchText: ''});
   }
 
   getSearchUrl() {
@@ -71,7 +71,11 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
     return item.code;
   }
 
+  getFormattedValue() {
+    return this.state.value.map(item => item.id);
+  }
+
   getItemRenderingValue(item) {
-    return <div>{item.code}<i className="material-icons" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId)}>launch</i></div>
+    return <div>{item.code}<i className="material-icons collection-item-icon" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i></div>
   }
 }

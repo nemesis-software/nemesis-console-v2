@@ -81,13 +81,14 @@ export default class MainView extends Component {
     });
   }
 
-  onEntityItemClick(entityItem, entityId) {
+  onEntityItemClick(entityItem, entityId, url) {
     let selectedEntity = {
       entityId: entityId,
       data: this.state.entityMarkupData[entityItem.entityName],
       type: entityItemType,
       itemId: entityItem.id,
-      entityName: entityItem.entityName
+      entityName: entityItem.entityName,
+      entityUrl: url
     };
 
     this.setSelectedItemInState(selectedEntity);

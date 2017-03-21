@@ -21,7 +21,7 @@ export default class NemesisSimpleCollectionField extends NemesisBaseCollectionF
     if (e.key === 'Enter') {
       let valueActual = this.state.value || [];
       valueActual.push(e.target.value);
-      this.setState({...this.state, value: valueActual});
+      this.setState({...this.state, isDirty: true, value: valueActual});
     }
   }
 }

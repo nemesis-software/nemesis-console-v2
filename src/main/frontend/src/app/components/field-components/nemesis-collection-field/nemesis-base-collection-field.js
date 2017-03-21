@@ -33,7 +33,8 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
   getChipRenderer(item, index) {
     let config = {
       key: index,
-      children: this.getItemRenderingValue(item)
+      children: this.getItemRenderingValue(item),
+      className: 'collection-item'
     };
 
     if (!this.props.readOnly) {
@@ -48,7 +49,7 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
       return <div>No Records</div>
     } else {
       return (
-        <div>
+        <div className="collection-container">
           {this.state.value.map((item, index) => this.getChipRenderer(item, index))}
         </div>
       )

@@ -77025,7 +77025,7 @@
 	    key: 'openEntityWindow',
 	    value: function openEntityWindow() {
 	      if (this.state.value) {
-	        this.props.onEntityItemClick(this.state.value, this.props.entityId);
+	        this.props.onEntityItemClick(this.state.value, this.props.entityId, this.state.value._links.self.href);
 	      }
 	    }
 	  }]);
@@ -83085,7 +83085,7 @@
 	  }, {
 	    key: 'onEntityItemClick',
 	    value: function onEntityItemClick(item) {
-	      this.props.onEntityItemClick(item, this.props.entity.entityId);
+	      this.props.onEntityItemClick(item, this.props.entity.entityId, item._links.self.href);
 	    }
 	  }, {
 	    key: 'retakeEntityData',
@@ -83277,7 +83277,7 @@
 	        case _nemesisTypes.nemesisFieldTypes.nemesisSimpleCollectionField:
 	          elementConfig.value = elementConfig.value || [];reactElement = _nemesisSimpleCollectionField2.default;break;
 	        case _nemesisTypes.nemesisFieldTypes.nemesisCollectionField:
-	          console.log(item);elementConfig.onEntityItemClick = this.props.onEntityItemClick;elementConfig.entityId = item.entityId;elementConfig.value = elementConfig.value || [];reactElement = _nemesisEntityCollectionField2.default;break;
+	          elementConfig.onEntityItemClick = this.props.onEntityItemClick;elementConfig.entityId = item.entityId;elementConfig.value = elementConfig.value || [];reactElement = _nemesisEntityCollectionField2.default;break;
 	        default:
 	          return _react2.default.createElement(
 	            'div',
@@ -96934,7 +96934,7 @@
 	      if (e.key === 'Enter') {
 	        var valueActual = this.state.value || [];
 	        valueActual.push(e.target.value);
-	        this.setState(_extends({}, this.state, { value: valueActual }));
+	        this.setState(_extends({}, this.state, { isDirty: true, value: valueActual }));
 	      }
 	    }
 	  }]);
@@ -97023,7 +97023,8 @@
 
 	      var config = {
 	        key: index,
-	        children: this.getItemRenderingValue(item)
+	        children: this.getItemRenderingValue(item),
+	        className: 'collection-item'
 	      };
 
 	      if (!this.props.readOnly) {
@@ -97048,7 +97049,7 @@
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'collection-container' },
 	          this.state.value.map(function (item, index) {
 	            return _this3.getChipRenderer(item, index);
 	          })
@@ -97558,7 +97559,7 @@
 	    value: function onItemSelect(item) {
 	      var valueActual = this.state.value || [];
 	      valueActual.push(item.value);
-	      this.setState(_extends({}, this.state, { value: valueActual, searchText: '' }));
+	      this.setState(_extends({}, this.state, { isDirty: true, value: valueActual, searchText: '' }));
 	    }
 	  }, {
 	    key: 'getSearchUrl',
@@ -97591,6 +97592,13 @@
 	      return item.code;
 	    }
 	  }, {
+	    key: 'getFormattedValue',
+	    value: function getFormattedValue() {
+	      return this.state.value.map(function (item) {
+	        return item.id;
+	      });
+	    }
+	  }, {
 	    key: 'getItemRenderingValue',
 	    value: function getItemRenderingValue(item) {
 	      var _this3 = this;
@@ -97601,8 +97609,8 @@
 	        item.code,
 	        _react2.default.createElement(
 	          'i',
-	          { className: 'material-icons', onClick: function onClick() {
-	              return _this3.props.onEntityItemClick(item, _this3.props.entityId);
+	          { className: 'material-icons collection-item-icon', onClick: function onClick() {
+	              return _this3.props.onEntityItemClick(item, _this3.props.entityId, item._links.self.href);
 	            } },
 	          'launch'
 	        )
@@ -97796,7 +97804,9 @@
 	      var _this4 = this;
 
 	      var relatedEntities = this.getEntityRelatedEntities(entity);
-	      return _apiCall2.default.get(entity.entityName + '/' + entity.itemId).then(function (result) {
+	      var restUrl = entity.entityUrl || entity.entityName + '/' + entity.itemId;
+	      console.log(restUrl, entity);
+	      return _apiCall2.default.get(restUrl).then(function (result) {
 	        _this4.setState(_extends({}, _this4.state, { entityData: result.data }));
 	        Promise.all(relatedEntities.map(function (item) {
 	          return _apiCall2.default.get(result.data._links[item.name].href, { projection: 'search' })
@@ -97934,10 +97944,9 @@
 	          resultObject[prop.name] = prop.value;
 	        }
 	      });
-	      console.log(entity);
 	      var restMethod = entity.type === _entityTypes.entityItemType ? 'patch' : 'post';
 	      var restUrl = entity.type === _entityTypes.entityItemType ? entity.entityName + '/' + entity.itemId : entity.entityName;
-	      _apiCall2.default[restMethod](restUrl, resultObject).then(function (result) {
+	      _apiCall2.default[restMethod](entity.entityUrl || restUrl, resultObject).then(function (result) {
 	        _this7.props.onUpdateEntitySearchView(_this7.props.entity);
 	        var itemId = entity.type === _entityTypes.entityItemType ? entity.itemId : result.data.id;
 	        _this7.setState(_extends({}, _this7.state, {
@@ -100795,13 +100804,14 @@
 	    }
 	  }, {
 	    key: 'onEntityItemClick',
-	    value: function onEntityItemClick(entityItem, entityId) {
+	    value: function onEntityItemClick(entityItem, entityId, url) {
 	      var selectedEntity = {
 	        entityId: entityId,
 	        data: this.state.entityMarkupData[entityItem.entityName],
 	        type: _entityTypes.entityItemType,
 	        itemId: entityItem.id,
-	        entityName: entityItem.entityName
+	        entityName: entityItem.entityName,
+	        entityUrl: url
 	      };
 
 	      this.setSelectedItemInState(selectedEntity);
@@ -101437,7 +101447,7 @@
 
 
 	// module
-	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap!important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0!important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n", ""]);
+	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n}\n.collection-container .collection-item {\n  margin: 5px!important;\n}\n.collection-container .collection-item .collection-item-icon {\n  vertical-align: middle;\n  margin-left: 5px;\n  cursor: pointer;\n}\n", ""]);
 
 	// exports
 
