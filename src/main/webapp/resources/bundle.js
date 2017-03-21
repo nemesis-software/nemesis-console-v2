@@ -53161,7 +53161,6 @@
 	  }, {
 	    key: 'onSearchButtonClick',
 	    value: function onSearchButtonClick() {
-	      console.log(this.state.appliedFilters);
 	      var filterString = _filterBuilder2.default.buildFilter(this.state.appliedFilters);
 	      this.props.onFilterApply(filterString);
 	    }
@@ -97550,7 +97549,6 @@
 	          return data = data.concat(value);
 	        });
 	        var mappedData = data.map(_this2.mapDataSource.bind(_this2));
-	        console.log(mappedData);
 	        _this2.setState(_extends({}, _this2.state, { dataSource: mappedData }));
 	      });
 	    }
@@ -97805,7 +97803,6 @@
 
 	      var relatedEntities = this.getEntityRelatedEntities(entity);
 	      var restUrl = entity.entityUrl || entity.entityName + '/' + entity.itemId;
-	      console.log(restUrl, entity);
 	      return _apiCall2.default.get(restUrl).then(function (result) {
 	        _this4.setState(_extends({}, _this4.state, { entityData: result.data }));
 	        Promise.all(relatedEntities.map(function (item) {
@@ -100765,7 +100762,6 @@
 	          itemId: null
 	        };
 	      }
-	      console.log(selectedEntity);
 	      this.setSelectedItemInState(selectedEntity);
 	    }
 	  }, {
@@ -101447,7 +101443,7 @@
 
 
 	// module
-	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n}\n.collection-container .collection-item {\n  margin: 5px!important;\n}\n.collection-container .collection-item .collection-item-icon {\n  vertical-align: middle;\n  margin-left: 5px;\n  cursor: pointer;\n}\n", ""]);
+	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 20px;\n}\n.collection-container .collection-item {\n  margin: 5px!important;\n}\n.collection-container .collection-item .collection-item-icon {\n  vertical-align: middle;\n  margin-left: 5px;\n  cursor: pointer;\n}\n", ""]);
 
 	// exports
 

@@ -1,3 +1,5 @@
+@default-color: #00bcd4;
+
 .filter-item-container {
   padding-bottom: 5px;
 
@@ -7,7 +9,7 @@
 }
 
 .entity-navigation {
-  background-color: #00bcd4;
+  background-color: @default-color;
   display: flex;
   flex-wrap: nowrap !important;
   overflow-x: auto;
@@ -16,7 +18,7 @@
   box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
 
   .navigation-item-container {
-    background-color: #00bcd4;
+    background-color: @default-color;
     color: white;
   }
 }
@@ -40,6 +42,7 @@
 .collection-container {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 20px;
 
   .collection-item {
     margin: 5px!important;

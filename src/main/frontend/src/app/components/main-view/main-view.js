@@ -46,7 +46,6 @@ export default class MainView extends Component {
         itemId: null
       };
     }
-    console.log(selectedEntity);
     this.setSelectedItemInState(selectedEntity);
   }
 

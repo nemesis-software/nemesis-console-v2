@@ -35,7 +35,6 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
       let mappedData = data.map(this.mapDataSource.bind(this));
-      console.log(mappedData);
       this.setState({...this.state, dataSource: mappedData});
     })
   }
