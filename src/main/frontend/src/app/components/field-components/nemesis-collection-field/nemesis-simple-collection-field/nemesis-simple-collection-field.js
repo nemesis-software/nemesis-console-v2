@@ -12,6 +12,7 @@ export default class NemesisSimpleCollectionField extends NemesisBaseCollectionF
     return (
       <TextField style={this.props.style}
                  disabled={this.props.readOnly}
+                 errorText={this.state.errorMessage}
                  floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                  onKeyPress={this.onInputKeyPress.bind(this)}/>
     )

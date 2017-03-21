@@ -60,6 +60,7 @@ export default class EntitySections extends Component {
           {this.props.entity.data.sections.map((item, index) => {
             return <EntitySection ref={(section) => {section && this.sectionsReferences.push(section)}}
                                   key={index} section={item}
+                                  sectionIndex={index}
                                   entityData={this.state.entityData}
                                   onEntityItemClick={this.props.onEntityItemClick} />
           })}
@@ -208,6 +209,10 @@ export default class EntitySections extends Component {
   }
 
   handleSaveButtonClick(windowShouldClose) {
+    if (!this.isRequiredFieldValid()) {
+      return;
+    }
+
     let entity = this.props.entity;
     let dirtyEntityProps = this.getDirtyEntityProps();
     let resultObject = {};
@@ -269,6 +274,21 @@ export default class EntitySections extends Component {
     });
 
     return result;
+  }
+
+  isRequiredFieldValid() {
+    let isValid = true;
+    this.sectionsReferences.forEach(section => {
+      if (!isValid) {
+        return;
+      }
+      isValid = section.isFieldsValid();
+      if (!isValid) {
+        this.handleChange(section.getSectionIndex());
+      }
+    });
+
+    return isValid;
   }
 
   resetDirtyEntityFields() {

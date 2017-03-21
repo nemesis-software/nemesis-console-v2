@@ -15,6 +15,7 @@ export default class NemesisPasswordField extends NemesisBaseField {
                    style={this.props.style}
                    type="password"
                    value={this.state.value || ''}
+                   errorText={this.state.errorMessage}
                    disabled={this.props.readOnly}
                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                    onChange={this.onValueChange.bind(this)}/>

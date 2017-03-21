@@ -44,6 +44,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
                    style={this.props.style}
                    value={this.getTextFieldValue(this.state.selectedLanguage)}
                    disabled={this.props.readOnly}
+                   errorText={this.state.errorMessage}
                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                    onChange={(e, v) => this.onTextChange(e, v, this.state.selectedLanguage)}/>
         {this.props.type === nemesisFieldUsageTypes.edit ?

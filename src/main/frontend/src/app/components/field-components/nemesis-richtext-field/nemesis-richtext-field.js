@@ -26,6 +26,7 @@ export default class NemesisRichTextField extends NemesisBaseField {
                    style={this.props.style}
                    value={this.state.value || ''}
                    disabled={this.props.readOnly}
+                   errorText={this.state.errorMessage}
                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                    onChange={this.onValueChange.bind(this)}/>
         <i className="material-icons entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}>fullscreen</i>

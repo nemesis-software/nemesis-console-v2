@@ -16,6 +16,7 @@ export default class NemesisDateField extends NemesisBaseField {
         <DatePicker style={this.props.style}
                     value={this.state.value}
                     disabled={this.props.readOnly}
+                    errorText={this.state.errorMessage}
                     floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                     onChange={this.onValueChange.bind(this)}/>
       </div>

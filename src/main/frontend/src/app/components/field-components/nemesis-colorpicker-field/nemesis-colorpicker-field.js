@@ -26,6 +26,7 @@ export default class NemesisColorpickerField extends NemesisBaseField {
       <TextField className="entity-field" style={this.props.style}
                  value={this.state.value || ''}
                  disabled={this.props.readOnly}
+                 errorText={this.state.errorMessage}
                  onChange={this.onValueChange.bind(this)}
                  floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                  />

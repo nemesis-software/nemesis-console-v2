@@ -29,7 +29,14 @@ export default class NemesisBaseField extends Component {
 
   isFieldValid() {
     if (this.props.required) {
-      return _.isEmpty(this.state.value);
+      let isEmptyValue = _.isEmpty(this.state.value);
+      if (isEmptyValue) {
+        this.setState({...this.state, errorMessage: this.getErrorMessage()});
+      } else {
+        this.setState({...this.state, errorMessage: null});
+      }
+
+      return !isEmptyValue;
     }
 
     return true;
@@ -53,6 +60,10 @@ export default class NemesisBaseField extends Component {
 
   resetDirtyState() {
     this.setState({...this.state, isDirty: false});
+  }
+
+  getErrorMessage() {
+    return 'This field is required';
   }
 }
 

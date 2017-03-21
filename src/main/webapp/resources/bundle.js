@@ -55706,6 +55706,7 @@
 	          style: this.props.style,
 	          value: this.state.value || '',
 	          disabled: this.props.readOnly,
+	          errorText: this.state.errorMessage,
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	          onChange: this.onValueChange.bind(this) })
 	      );
@@ -55787,7 +55788,14 @@
 	    key: 'isFieldValid',
 	    value: function isFieldValid() {
 	      if (this.props.required) {
-	        return _lodash2.default.isEmpty(this.state.value);
+	        var isEmptyValue = _lodash2.default.isEmpty(this.state.value);
+	        if (isEmptyValue) {
+	          this.setState(_extends({}, this.state, { errorMessage: this.getErrorMessage() }));
+	        } else {
+	          this.setState(_extends({}, this.state, { errorMessage: null }));
+	        }
+
+	        return !isEmptyValue;
 	      }
 
 	      return true;
@@ -55815,6 +55823,11 @@
 	    key: 'resetDirtyState',
 	    value: function resetDirtyState() {
 	      this.setState(_extends({}, this.state, { isDirty: false }));
+	    }
+	  }, {
+	    key: 'getErrorMessage',
+	    value: function getErrorMessage() {
+	      return 'This field is required';
 	    }
 	  }]);
 
@@ -56000,6 +56013,7 @@
 	        _react2.default.createElement(_DatePicker2.default, { style: this.props.style,
 	          value: this.state.value,
 	          disabled: this.props.readOnly,
+	          errorText: this.state.errorMessage,
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	          onChange: this.onValueChange.bind(this) })
 	      );
@@ -74936,6 +74950,7 @@
 	          style: this.props.style,
 	          value: this.getTextFieldValue(this.state.selectedLanguage),
 	          disabled: this.props.readOnly,
+	          errorText: this.state.errorMessage,
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	          onChange: function onChange(e, v) {
 	            return _this2.onTextChange(e, v, _this2.state.selectedLanguage);
@@ -76559,6 +76574,7 @@
 	          type: 'number', step: this.props.step || '1',
 	          value: this.state.value || '',
 	          disabled: this.props.readOnly,
+	          errorText: this.state.errorMessage,
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	          onChange: this.onValueChange.bind(this) })
 	      );
@@ -76709,6 +76725,7 @@
 	          { style: this.props.style,
 	            value: this.getFormattedValue(this.state.value) || '',
 	            disabled: this.props.readOnly,
+	            errorText: this.state.errorMessage,
 	            floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	            onChange: this.onValueChange.bind(this) },
 	          this.props.values.map(function (value, index) {
@@ -83310,6 +83327,21 @@
 	      return result;
 	    }
 	  }, {
+	    key: 'isFieldsValid',
+	    value: function isFieldsValid() {
+	      var isNotValid = false;
+	      this.fieldsReferences.forEach(function (field) {
+	        var isFieldValid = field.isFieldValid();
+	        isNotValid = isNotValid || !isFieldValid;
+	      });
+	      return !isNotValid;
+	    }
+	  }, {
+	    key: 'getSectionIndex',
+	    value: function getSectionIndex() {
+	      return this.props.sectionIndex;
+	    }
+	  }, {
 	    key: 'resetDirtyStates',
 	    value: function resetDirtyStates() {
 	      this.fieldsReferences.forEach(function (field) {
@@ -83492,6 +83524,7 @@
 	          style: this.props.style,
 	          type: 'password',
 	          value: this.state.value || '',
+	          errorText: this.state.errorMessage,
 	          disabled: this.props.readOnly,
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	          onChange: this.onValueChange.bind(this) })
@@ -83657,6 +83690,7 @@
 	          style: this.props.style,
 	          value: this.state.value || '',
 	          disabled: this.props.readOnly,
+	          errorText: this.state.errorMessage,
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	          onChange: this.onValueChange.bind(this) }),
 	        _react2.default.createElement(
@@ -83777,6 +83811,7 @@
 	        _react2.default.createElement(_TextField2.default, { className: 'entity-field', style: this.props.style,
 	          value: this.state.value || '',
 	          disabled: this.props.readOnly,
+	          errorText: this.state.errorMessage,
 	          onChange: this.onValueChange.bind(this),
 	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label })
 	        }),
@@ -96924,6 +96959,7 @@
 	    value: function getInputField() {
 	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
 	        disabled: this.props.readOnly,
+	        errorText: this.state.errorMessage,
 	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
 	        onKeyPress: this.onInputKeyPress.bind(this) });
 	    }
@@ -97529,6 +97565,7 @@
 	        onFocus: this.onAutocompleteFocus.bind(this),
 	        onUpdateInput: _lodash2.default.debounce(this.onTextFieldChange.bind(this), 250),
 	        openOnFocus: true,
+	        errorText: this.state.errorMessage,
 	        disabled: this.props.readOnly,
 	        onNewRequest: this.onItemSelect.bind(this),
 	        listStyle: { width: 'auto' },
@@ -97757,6 +97794,7 @@
 	                section && _this2.sectionsReferences.push(section);
 	              },
 	              key: index, section: item,
+	              sectionIndex: index,
 	              entityData: _this2.state.entityData,
 	              onEntityItemClick: _this2.props.onEntityItemClick });
 	          })
@@ -97930,6 +97968,10 @@
 	    value: function handleSaveButtonClick(windowShouldClose) {
 	      var _this7 = this;
 
+	      if (!this.isRequiredFieldValid()) {
+	        return;
+	      }
+
 	      var entity = this.props.entity;
 	      var dirtyEntityProps = this.getDirtyEntityProps();
 	      var resultObject = {};
@@ -97991,6 +98033,24 @@
 	      });
 
 	      return result;
+	    }
+	  }, {
+	    key: 'isRequiredFieldValid',
+	    value: function isRequiredFieldValid() {
+	      var _this9 = this;
+
+	      var isValid = true;
+	      this.sectionsReferences.forEach(function (section) {
+	        if (!isValid) {
+	          return;
+	        }
+	        isValid = section.isFieldsValid();
+	        if (!isValid) {
+	          _this9.handleChange(section.getSectionIndex());
+	        }
+	      });
+
+	      return isValid;
 	    }
 	  }, {
 	    key: 'resetDirtyEntityFields',

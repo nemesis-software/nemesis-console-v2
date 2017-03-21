@@ -93,6 +93,19 @@ export default class EntitySection extends Component {
     return result;
   }
 
+  isFieldsValid() {
+    let isNotValid = false;
+    this.fieldsReferences.forEach(field => {
+      let isFieldValid = field.isFieldValid();
+      isNotValid = isNotValid || !isFieldValid;
+    });
+    return !isNotValid;
+  }
+
+  getSectionIndex() {
+    return this.props.sectionIndex;
+  }
+
   resetDirtyStates() {
     this.fieldsReferences.forEach(field => {
       field.resetDirtyState();

@@ -19,6 +19,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
                     onFocus={this.onAutocompleteFocus.bind(this)}
                     onUpdateInput={_.debounce(this.onTextFieldChange.bind(this), 250)}
                     openOnFocus={true}
+                    errorText={this.state.errorMessage}
                     disabled={this.props.readOnly}
                     onNewRequest={this.onItemSelect.bind(this)}
                     listStyle={{width: 'auto'}}

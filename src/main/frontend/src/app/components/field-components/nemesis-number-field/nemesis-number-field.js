@@ -16,6 +16,7 @@ export default class NemesisNumberField extends NemesisBaseField {
                    type="number" step={this.props.step || '1'}
                    value={this.state.value || ''}
                    disabled={this.props.readOnly}
+                   errorText={this.state.errorMessage}
                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
                    onChange={this.onValueChange.bind(this)}/>
       </div>
