@@ -4,6 +4,7 @@ import TouchRipple from 'material-ui/internal/TouchRipple'
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Translate from 'react-translate-component';
+import _ from 'lodash';
 
 import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types'
 
@@ -49,6 +50,7 @@ export default class EntitiesNavigationItem extends Component {
         <TouchRipple>
           <Translate style={{padding: '5px', textAlign: 'center'}}
                      component="div"
+                     className={'entity-navigation-item' + (_.some(this.props.entities, {isVisible: true}) ? ' selected' : '')}
                      onTouchTap={this.handleTouchTap}
                      content={'main.' + this.props.entityId}
                      fallback={this.props.entityId}/>
@@ -78,13 +80,13 @@ export default class EntitiesNavigationItem extends Component {
     }
 
     if (type === entityItemType) {
-      text = entity.itemId + ' - ' + entity.entityId;
+      text = entity.itemId;
     }
 
     if (type === entityCreateType) {
       text = entity.itemId + ' - Create Entity';
     }
 
-    return <div><span>{text}</span><i style={{marginLeft: '15px', verticalAlign: 'middle'}} className="material-icons close-icon">close</i></div>
+    return <div><span className={entity.isVisible ? 'selected-navigation-menu-item' : ''}>{text}</span><i style={{marginLeft: '15px', verticalAlign: 'middle'}} className="material-icons close-icon">close</i></div>
   }
 }

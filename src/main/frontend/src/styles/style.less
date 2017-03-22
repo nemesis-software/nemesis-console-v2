@@ -1,4 +1,5 @@
 @default-color: #00bcd4;
+@yellow-color: #dcff41;
 
 .filter-item-container {
   padding-bottom: 5px;
@@ -20,7 +21,18 @@
   .navigation-item-container {
     background-color: @default-color;
     color: white;
+
+    .entity-navigation-item {
+      &.selected {
+        color: @yellow-color;
+        font-weight: bold;
+      }
+    }
   }
+}
+
+.selected-navigation-menu-item {
+  color: @default-color;
 }
 
 .entity-field-container {

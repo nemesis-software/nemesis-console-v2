@@ -29611,6 +29611,10 @@
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
+	var _lodash = __webpack_require__(389);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
 	var _entityTypes = __webpack_require__(384);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -29675,6 +29679,7 @@
 	          null,
 	          _react2.default.createElement(_reactTranslateComponent2.default, { style: { padding: '5px', textAlign: 'center' },
 	            component: 'div',
+	            className: 'entity-navigation-item' + (_lodash2.default.some(this.props.entities, { isVisible: true }) ? ' selected' : ''),
 	            onTouchTap: this.handleTouchTap,
 	            content: 'main.' + this.props.entityId,
 	            fallback: this.props.entityId })
@@ -29710,7 +29715,7 @@
 	      }
 
 	      if (type === _entityTypes.entityItemType) {
-	        text = entity.itemId + ' - ' + entity.entityId;
+	        text = entity.itemId;
 	      }
 
 	      if (type === _entityTypes.entityCreateType) {
@@ -29722,7 +29727,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'span',
-	          null,
+	          { className: entity.isVisible ? 'selected-navigation-menu-item' : '' },
 	          text
 	        ),
 	        _react2.default.createElement(
@@ -101514,7 +101519,7 @@
 
 
 	// module
-	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 20px;\n}\n.collection-container .collection-item {\n  margin: 5px!important;\n}\n.collection-container .collection-item .collection-item-icon {\n  vertical-align: middle;\n  margin-left: 5px;\n  cursor: pointer;\n}\n", ""]);
+	exports.push([module.id, ".filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-navigation .navigation-item-container .entity-navigation-item.selected {\n  color: #dcff41;\n  font-weight: bold;\n}\n.selected-navigation-menu-item {\n  color: #00bcd4;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 20px;\n}\n.collection-container .collection-item {\n  margin: 5px!important;\n}\n.collection-container .collection-item .collection-item-icon {\n  vertical-align: middle;\n  margin-left: 5px;\n  cursor: pointer;\n}\n", ""]);
 
 	// exports
 
