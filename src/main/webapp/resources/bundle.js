@@ -55788,7 +55788,7 @@
 	    key: 'isFieldValid',
 	    value: function isFieldValid() {
 	      if (this.props.required) {
-	        var isEmptyValue = _lodash2.default.isEmpty(this.state.value);
+	        var isEmptyValue = this.isEmptyValue();
 	        if (isEmptyValue) {
 	          this.setState(_extends({}, this.state, { errorMessage: this.getErrorMessage() }));
 	        } else {
@@ -55799,6 +55799,11 @@
 	      }
 
 	      return true;
+	    }
+	  }, {
+	    key: 'isEmptyValue',
+	    value: function isEmptyValue() {
+	      return _lodash2.default.isEmpty(this.state.value);
 	    }
 	  }, {
 	    key: 'getChangeValue',
@@ -76738,6 +76743,11 @@
 	    key: 'getFormattedValue',
 	    value: function getFormattedValue(value) {
 	      return this.props.values[value];
+	    }
+	  }, {
+	    key: 'isEmptyValue',
+	    value: function isEmptyValue() {
+	      return this.state.value < 0;
 	    }
 	  }]);
 

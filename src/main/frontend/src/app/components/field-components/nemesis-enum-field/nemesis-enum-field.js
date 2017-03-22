@@ -27,4 +27,8 @@ export default class NemesisEnumField extends NemesisBaseField {
   getFormattedValue(value) {
     return this.props.values[value];
   }
+
+  isEmptyValue() {
+    return this.state.value < 0;
+  }
 }
