@@ -37,13 +37,13 @@ export default class App extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar style={{position: 'fixed'}} title="Nemesis Console" iconElementRight={
+          <AppBar style={{position: 'fixed'}} title="Nemesis Backend Console" iconElementRight={
             <LanguageChanger
               onLanguageChange={language => counterpart.setLocale(language)}
               availableLanguages={translationLanguages.languages}
               selectedLanguage={translationLanguages.defaultLanguage}
             />
-          }/>
+          } iconStyleLeft={{display: 'none'}}/>
           <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
           <MainView selectedEntity={this.state.selectedEntity}/>
         </div>

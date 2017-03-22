@@ -4,6 +4,7 @@ import _ from 'lodash';
 import EntitiesNavigation from '../entities-navigation/entities-navigation'
 import EntityWindow from '../entity-window/entity-window'
 import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types'
+import Snackbar from 'material-ui/Snackbar';
 import { componentRequire } from '../../utils/require-util';
 
 const styles = {
@@ -14,7 +15,7 @@ const styles = {
 export default class MainView extends Component {
   constructor(props) {
     super(props);
-    this.state = {markupData: [], entityMarkupData: [], selectedEntity: null, openedEntities: []};
+    this.state = {markupData: [], entityMarkupData: [], selectedEntity: null, openedEntities: [], snackbarOpen: false, snackbarMessage: ''};
     this.searchEntityWindowReferences = [];
     this.createWindowIncrementor = 1;
   }
@@ -26,7 +27,6 @@ export default class MainView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     let selectedEntity = {};
 
     if (nextProps.selectedEntity.isNew) {
@@ -130,6 +130,12 @@ export default class MainView extends Component {
       <div style={styles}>
         <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)} entities={this.state.openedEntities} />
         {this.renderOpenedEntities()}
+        <Snackbar
+          open={this.state.snackbarOpen}
+          message={this.state.snackbarMessage}
+          autoHideDuration={3000}
+          onRequestClose={this.handleSnackbarRequestClose.bind(this)}
+        />
       </div>
     )
   }
@@ -142,6 +148,7 @@ export default class MainView extends Component {
     this.searchEntityWindowReferences = [];
     return this.state.openedEntities.map(
       (entity, index) => <EntityWindow onEntityItemClick={this.onEntityItemClick.bind(this)}
+                                       openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}
                                        ref={item => item && entity.type === entitySearchType && this.searchEntityWindowReferences.push({entity: entity, refItem: item})}
                                        onEntityWindowClose={this.onEntityWindowClose.bind(this)}
                                        onUpdateEntitySearchView={this.onUpdateEntitySearchView.bind(this)}
@@ -150,4 +157,19 @@ export default class MainView extends Component {
                                        entity={entity}/>
     )
   }
+
+  openNotificationSnackbar(message) {
+    this.setState({
+      ...this.state,
+      snackbarOpen: true,
+      snackbarMessage: message
+    });
+  }
+
+  handleSnackbarRequestClose() {
+    this.setState({
+      ...this.state,
+      snackbarOpen: false,
+    });
+  };
 }

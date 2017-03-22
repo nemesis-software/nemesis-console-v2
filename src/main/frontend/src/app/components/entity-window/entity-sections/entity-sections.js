@@ -7,7 +7,6 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
-import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import _ from 'lodash';
 import {entityItemType, entityCreateType} from '../../../types/entity-types';
@@ -19,7 +18,7 @@ export default class EntitySections extends Component {
     super(props);
     this.sectionsReferences = [];
 
-    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), snackbarOpen: false, snackbarMessage: '', openDeleteConfirmation: false };
+    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false };
   }
 
   componentWillMount() {
@@ -65,12 +64,6 @@ export default class EntitySections extends Component {
                                   onEntityItemClick={this.props.onEntityItemClick} />
           })}
         </SwipeableViews>
-        <Snackbar
-          open={this.state.snackbarOpen}
-          message={this.state.snackbarMessage}
-          autoHideDuration={3000}
-          onRequestClose={this.handleSnackbarRequestClose.bind(this)}
-        />
         {this.getDeleteConfirmationDialog()}
       </div>
     )
@@ -190,6 +183,7 @@ export default class EntitySections extends Component {
     ApiCall.delete(entity.entityId + '/' + entity.itemId).then(() => {
       this.props.onUpdateEntitySearchView(this.props.entity);
       this.props.onEntityWindowClose(this.props.entity);
+      this.props.openNotificationSnackbar('Entity successfully deleted');
     }, this.handleRequestError)
   }
 
@@ -200,11 +194,7 @@ export default class EntitySections extends Component {
   handleSynchronizeButtonClick() {
     let entity = this.props.entity;
     ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
-      this.setState({
-        ...this.state,
-        snackbarOpen: true,
-        snackbarMessage: 'Entity successfully synchronized'
-      });
+      this.props.openNotificationSnackbar('Entity successfully synchronized');
     }, this.handleRequestError)
   }
 
@@ -229,11 +219,7 @@ export default class EntitySections extends Component {
     ApiCall[restMethod](entity.entityUrl || restUrl, resultObject).then((result) => {
       this.props.onUpdateEntitySearchView(this.props.entity);
       let itemId = entity.type === entityItemType ? entity.itemId : result.data.id;
-      this.setState({
-        ...this.state,
-        snackbarOpen: true,
-        snackbarMessage: 'Entity successfully saved'
-      });
+      this.props.openNotificationSnackbar('Entity successfully saved');
       this.resetDirtyEntityFields();
 
       this.uploadMediaFile(itemId, mediaFields, windowShouldClose).then(() => {
@@ -254,11 +240,7 @@ export default class EntitySections extends Component {
     data.append('file', mediaFields[0].value);
     return ApiCall.post('upload/media/' + itemId, data, 'multipart/form-data').then(
       () => {
-        this.setState({
-          ...this.state,
-          snackbarOpen: true,
-          snackbarMessage: 'File successfully uploaded'
-        });
+        this.props.openNotificationSnackbar('File successfully uploaded');
         return Promise.resolve();
       },
       (err) => {
@@ -302,13 +284,6 @@ export default class EntitySections extends Component {
     alert('button click err');
     console.log(err);
   }
-
-  handleSnackbarRequestClose() {
-    this.setState({
-      ...this.state,
-      snackbarOpen: false,
-    });
-  };
 
   handleCloseDeleteConfirmation() {
     this.setState({...this.state, openDeleteConfirmation: false});

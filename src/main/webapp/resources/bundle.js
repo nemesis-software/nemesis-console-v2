@@ -21780,13 +21780,13 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement(_AppBar2.default, { style: { position: 'fixed' }, title: 'Nemesis Console', iconElementRight: _react2.default.createElement(LanguageChanger, {
+	          _react2.default.createElement(_AppBar2.default, { style: { position: 'fixed' }, title: 'Nemesis Backend Console', iconElementRight: _react2.default.createElement(LanguageChanger, {
 	              onLanguageChange: function onLanguageChange(language) {
 	                return _counterpart2.default.setLocale(language);
 	              },
 	              availableLanguages: translationLanguages.languages,
 	              selectedLanguage: translationLanguages.defaultLanguage
-	            }) }),
+	            }), iconStyleLeft: { display: 'none' } }),
 	          _react2.default.createElement(NavigationTree, { onEntityClick: this.onEntityClick.bind(this) }),
 	          _react2.default.createElement(MainView, { selectedEntity: this.state.selectedEntity })
 	        )
@@ -97712,10 +97712,6 @@
 
 	var _apiCall2 = _interopRequireDefault(_apiCall);
 
-	var _Snackbar = __webpack_require__(880);
-
-	var _Snackbar2 = _interopRequireDefault(_Snackbar);
-
 	var _Paper = __webpack_require__(350);
 
 	var _Paper2 = _interopRequireDefault(_Paper);
@@ -97752,7 +97748,7 @@
 
 	    _this.sectionsReferences = [];
 
-	    _this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), snackbarOpen: false, snackbarMessage: '', openDeleteConfirmation: false };
+	    _this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false };
 	    return _this;
 	  }
 
@@ -97809,12 +97805,6 @@
 	              onEntityItemClick: _this2.props.onEntityItemClick });
 	          })
 	        ),
-	        _react2.default.createElement(_Snackbar2.default, {
-	          open: this.state.snackbarOpen,
-	          message: this.state.snackbarMessage,
-	          autoHideDuration: 3000,
-	          onRequestClose: this.handleSnackbarRequestClose.bind(this)
-	        }),
 	        this.getDeleteConfirmationDialog()
 	      );
 	    }
@@ -97953,6 +97943,7 @@
 	      _apiCall2.default.delete(entity.entityId + '/' + entity.itemId).then(function () {
 	        _this5.props.onUpdateEntitySearchView(_this5.props.entity);
 	        _this5.props.onEntityWindowClose(_this5.props.entity);
+	        _this5.props.openNotificationSnackbar('Entity successfully deleted');
 	      }, this.handleRequestError);
 	    }
 	  }, {
@@ -97967,10 +97958,7 @@
 
 	      var entity = this.props.entity;
 	      _apiCall2.default.get('backend/synchronize', { entityName: entity.entityName, id: entity.itemId }).then(function () {
-	        _this6.setState(_extends({}, _this6.state, {
-	          snackbarOpen: true,
-	          snackbarMessage: 'Entity successfully synchronized'
-	        }));
+	        _this6.props.openNotificationSnackbar('Entity successfully synchronized');
 	      }, this.handleRequestError);
 	    }
 	  }, {
@@ -97998,10 +97986,7 @@
 	      _apiCall2.default[restMethod](entity.entityUrl || restUrl, resultObject).then(function (result) {
 	        _this7.props.onUpdateEntitySearchView(_this7.props.entity);
 	        var itemId = entity.type === _entityTypes.entityItemType ? entity.itemId : result.data.id;
-	        _this7.setState(_extends({}, _this7.state, {
-	          snackbarOpen: true,
-	          snackbarMessage: 'Entity successfully saved'
-	        }));
+	        _this7.props.openNotificationSnackbar('Entity successfully saved');
 	        _this7.resetDirtyEntityFields();
 
 	        _this7.uploadMediaFile(itemId, mediaFields, windowShouldClose).then(function () {
@@ -98024,10 +98009,7 @@
 	      var data = new FormData();
 	      data.append('file', mediaFields[0].value);
 	      return _apiCall2.default.post('upload/media/' + itemId, data, 'multipart/form-data').then(function () {
-	        _this8.setState(_extends({}, _this8.state, {
-	          snackbarOpen: true,
-	          snackbarMessage: 'File successfully uploaded'
-	        }));
+	        _this8.props.openNotificationSnackbar('File successfully uploaded');
 	        return Promise.resolve();
 	      }, function (err) {
 	        return Promise.resolve();
@@ -98075,13 +98057,6 @@
 	      //TODO: Make error visualization
 	      alert('button click err');
 	      console.log(err);
-	    }
-	  }, {
-	    key: 'handleSnackbarRequestClose',
-	    value: function handleSnackbarRequestClose() {
-	      this.setState(_extends({}, this.state, {
-	        snackbarOpen: false
-	      }));
 	    }
 	  }, {
 	    key: 'handleCloseDeleteConfirmation',
@@ -100698,7 +100673,8 @@
 	              onEntityItemClick: this.props.onEntityItemClick,
 	              onEntityWindowClose: this.props.onEntityWindowClose,
 	              onUpdateEntitySearchView: this.props.onUpdateEntitySearchView,
-	              updateCreatedEntity: this.props.updateCreatedEntity });
+	              updateCreatedEntity: this.props.updateCreatedEntity,
+	              openNotificationSnackbar: this.props.openNotificationSnackbar });
 	          }
 	        case _entityTypes.entitySearchType:
 	          {
@@ -100771,6 +100747,10 @@
 
 	var _entityTypes = __webpack_require__(384);
 
+	var _Snackbar = __webpack_require__(880);
+
+	var _Snackbar2 = _interopRequireDefault(_Snackbar);
+
 	var _requireUtil = __webpack_require__(184);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -100794,7 +100774,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (MainView.__proto__ || Object.getPrototypeOf(MainView)).call(this, props));
 
-	    _this.state = { markupData: [], entityMarkupData: [], selectedEntity: null, openedEntities: [] };
+	    _this.state = { markupData: [], entityMarkupData: [], selectedEntity: null, openedEntities: [], snackbarOpen: false, snackbarMessage: '' };
 	    _this.searchEntityWindowReferences = [];
 	    _this.createWindowIncrementor = 1;
 	    return _this;
@@ -100812,7 +100792,6 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-
 	      var selectedEntity = {};
 
 	      if (nextProps.selectedEntity.isNew) {
@@ -100922,7 +100901,13 @@
 	        'div',
 	        { style: styles },
 	        _react2.default.createElement(_entitiesNavigation2.default, { onNavigationItemClick: this.onNavigationItemClick.bind(this), onEntityWindowClose: this.onEntityWindowClose.bind(this), entities: this.state.openedEntities }),
-	        this.renderOpenedEntities()
+	        this.renderOpenedEntities(),
+	        _react2.default.createElement(_Snackbar2.default, {
+	          open: this.state.snackbarOpen,
+	          message: this.state.snackbarMessage,
+	          autoHideDuration: 3000,
+	          onRequestClose: this.handleSnackbarRequestClose.bind(this)
+	        })
 	      );
 	    }
 	  }, {
@@ -100938,6 +100923,7 @@
 	      this.searchEntityWindowReferences = [];
 	      return this.state.openedEntities.map(function (entity, index) {
 	        return _react2.default.createElement(_entityWindow2.default, { onEntityItemClick: _this3.onEntityItemClick.bind(_this3),
+	          openNotificationSnackbar: _this3.openNotificationSnackbar.bind(_this3),
 	          ref: function ref(item) {
 	            return item && entity.type === _entityTypes.entitySearchType && _this3.searchEntityWindowReferences.push({ entity: entity, refItem: item });
 	          },
@@ -100947,6 +100933,21 @@
 	          key: _this3.getEntityWindowKey(entity),
 	          entity: entity });
 	      });
+	    }
+	  }, {
+	    key: 'openNotificationSnackbar',
+	    value: function openNotificationSnackbar(message) {
+	      this.setState(_extends({}, this.state, {
+	        snackbarOpen: true,
+	        snackbarMessage: message
+	      }));
+	    }
+	  }, {
+	    key: 'handleSnackbarRequestClose',
+	    value: function handleSnackbarRequestClose() {
+	      this.setState(_extends({}, this.state, {
+	        snackbarOpen: false
+	      }));
 	    }
 	  }]);
 

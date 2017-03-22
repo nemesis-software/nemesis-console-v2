@@ -34,7 +34,8 @@ export default class EntitiesWindow extends Component {
                                onEntityItemClick={this.props.onEntityItemClick}
                                onEntityWindowClose={this.props.onEntityWindowClose}
                                onUpdateEntitySearchView={this.props.onUpdateEntitySearchView}
-                               updateCreatedEntity={this.props.updateCreatedEntity}/>
+                               updateCreatedEntity={this.props.updateCreatedEntity}
+                               openNotificationSnackbar={this.props.openNotificationSnackbar}/>
       }
       case entitySearchType: {
         return <EntitiesViewer ref={this.setEntitiesViewerInstance.bind(this)} entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>
