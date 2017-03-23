@@ -100242,11 +100242,8 @@
 
 	      Promise.all([_apiCall2.default.get('markup/search/all'), _apiCall2.default.get('markup/entity/all')]).then(function (result) {
 	        _this2.setState(_extends({}, _this2.state, { markupData: result[0].data, entityMarkupData: result[1].data }));
-	      });
+	      }).then(this.parseUrlEntity.bind(this));
 	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
@@ -100302,6 +100299,7 @@
 	  }, {
 	    key: 'setSelectedItemInState',
 	    value: function setSelectedItemInState(selectedEntity) {
+	      this.addHashUrlForSelectedEntity(selectedEntity);
 	      this.setState(_extends({}, this.state, {
 	        selectedEntity: selectedEntity,
 	        openedEntities: this.getOpenedEntities(selectedEntity)
@@ -100333,6 +100331,7 @@
 	        openedEntities[lastIndex].isVisible = true;
 	        selectedEntity = openedEntities[lastIndex];
 	      }
+	      this.addHashUrlForSelectedEntity(selectedEntity);
 	      this.setState(_extends({}, this.state, {
 	        selectedEntity: selectedEntity,
 	        openedEntities: openedEntities
@@ -100345,6 +100344,7 @@
 	      var openedEntities = _lodash2.default.cloneDeep(this.state.openedEntities);
 	      openedEntities[createEntityWindowIndex].type = _entityTypes.entityItemType;
 	      openedEntities[createEntityWindowIndex].itemId = itemId;
+	      this.addHashUrlForSelectedEntity(openedEntities[createEntityWindowIndex]);
 	      this.setState(_extends({}, this.state, {
 	        selectedEntity: openedEntities[createEntityWindowIndex],
 	        openedEntities: openedEntities
@@ -100414,6 +100414,45 @@
 	      this.setState(_extends({}, this.state, {
 	        snackbarOpen: false
 	      }));
+	    }
+	  }, {
+	    key: 'addHashUrlForSelectedEntity',
+	    value: function addHashUrlForSelectedEntity(entity) {
+	      console.log(entity);
+	      if (!entity || entity.type === _entityTypes.entityCreateType) {
+	        window.location.hash = '';
+	        return;
+	      }
+
+	      window.location.hash = 'type=' + entity.type + '&itemId=' + (entity.itemId || '') + '&entityId=' + entity.entityId + '&entityName=' + (entity.entityName || '') + '&entityUrl=' + (entity.entityUrl || '');
+	    }
+	  }, {
+	    key: 'parseUrlEntity',
+	    value: function parseUrlEntity() {
+	      if (!window.location.hash.indexOf('type=') < 0) {
+	        return;
+	      }
+
+	      var locationHash = window.location.hash.slice(1);
+
+	      var splittedHashUrl = locationHash.split('&');
+	      var urlEntity = {};
+	      splittedHashUrl.forEach(function (item) {
+	        var splitItem = item.split('=');
+	        if (splitItem[1]) {
+	          urlEntity[splitItem[0]] = splitItem[1];
+	        }
+	      });
+
+	      if (urlEntity.type === _entityTypes.entityItemType) {
+	        urlEntity.data = this.state.entityMarkupData[urlEntity.entityName];
+	      } else if (urlEntity.type === _entityTypes.entitySearchType) {
+	        urlEntity.data = this.state.markupData[urlEntity.entityId];
+	      } else {
+	        return;
+	      }
+
+	      this.setSelectedItemInState(urlEntity);
 	    }
 	  }]);
 

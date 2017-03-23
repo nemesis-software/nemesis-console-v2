@@ -23,11 +23,7 @@ export default class MainView extends Component {
   componentWillMount() {
     Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
       this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data});
-    })
-  }
-
-  componentDidMount() {
-
+    }).then(this.parseUrlEntity.bind(this))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -79,6 +75,7 @@ export default class MainView extends Component {
   }
 
   setSelectedItemInState(selectedEntity) {
+    this.addHashUrlForSelectedEntity(selectedEntity);
     this.setState({
       ...this.state,
       selectedEntity: selectedEntity,
@@ -109,6 +106,7 @@ export default class MainView extends Component {
       openedEntities[lastIndex].isVisible = true;
       selectedEntity = openedEntities[lastIndex];
     }
+    this.addHashUrlForSelectedEntity(selectedEntity);
     this.setState({
       ...this.state,
       selectedEntity: selectedEntity,
@@ -121,6 +119,7 @@ export default class MainView extends Component {
     let openedEntities = _.cloneDeep(this.state.openedEntities);
     openedEntities[createEntityWindowIndex].type = entityItemType;
     openedEntities[createEntityWindowIndex].itemId = itemId;
+    this.addHashUrlForSelectedEntity(openedEntities[createEntityWindowIndex]);
     this.setState({
       ...this.state,
       selectedEntity: openedEntities[createEntityWindowIndex],
@@ -184,4 +183,41 @@ export default class MainView extends Component {
       snackbarOpen: false,
     });
   };
+
+  addHashUrlForSelectedEntity(entity) {
+    console.log(entity);
+    if (!entity || entity.type === entityCreateType) {
+      window.location.hash = '';
+      return;
+    }
+
+    window.location.hash = `type=${entity.type}&itemId=${entity.itemId || ''}&entityId=${entity.entityId}&entityName=${entity.entityName || ''}&entityUrl=${entity.entityUrl || ''}`;
+  }
+
+  parseUrlEntity() {
+    if (!window.location.hash.indexOf('type=') < 0) {
+      return;
+    }
+
+    let locationHash = window.location.hash.slice(1);
+
+    let splittedHashUrl = locationHash.split('&');
+    let urlEntity = {};
+    splittedHashUrl.forEach(item => {
+      let splitItem = item.split('=');
+      if (splitItem[1]) {
+        urlEntity[splitItem[0]] = splitItem[1];
+      }
+    });
+
+    if (urlEntity.type === entityItemType) {
+      urlEntity.data = this.state.entityMarkupData[urlEntity.entityName]
+    } else if (urlEntity.type === entitySearchType) {
+      urlEntity.data = this.state.markupData[urlEntity.entityId]
+    } else {
+      return;
+    }
+
+    this.setSelectedItemInState(urlEntity);
+  }
 }
