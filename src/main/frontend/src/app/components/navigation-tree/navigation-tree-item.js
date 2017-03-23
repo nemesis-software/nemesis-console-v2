@@ -70,7 +70,6 @@ export default class TreeItem extends Component {
                 />
               })}
             </RadioButtonGroup>
-
           </Dialog> : false}
       </div>
     )
@@ -110,7 +109,6 @@ export default class TreeItem extends Component {
   }
 
   handleItemClick(event) {
-    console.log('click', event.target);
     let entity = this.props.item;
     if (event.target.className.indexOf('add-icon') > -1) {
       this.onCreateEntityClick(entity);

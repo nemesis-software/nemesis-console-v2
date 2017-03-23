@@ -26,9 +26,12 @@ export default class MainView extends Component {
     })
   }
 
+  componentDidMount() {
+
+  }
+
   componentWillReceiveProps(nextProps) {
     let selectedEntity = {};
-
     if (nextProps.selectedEntity.isNew) {
       selectedEntity = {
         entityId: nextProps.selectedEntity.entityId,
@@ -62,7 +65,10 @@ export default class MainView extends Component {
       selectedEntity.isVisible = true;
       openedEntities.push(selectedEntity);
     } else {
-      openedEntities[selectedEntityIndex].isVisible = true;
+      let selectedEntityActual = openedEntities[selectedEntityIndex];
+      selectedEntityActual.isVisible = true;
+      openedEntities.splice(selectedEntityIndex, 1);
+      openedEntities.push(selectedEntityActual);
     }
 
     return openedEntities;
@@ -97,9 +103,15 @@ export default class MainView extends Component {
     let entityToCloseIndex = _.findIndex(this.state.openedEntities, {entityId: entity.entityId, type: entity.type, itemId: entity.itemId});
     let openedEntities = _.cloneDeep(this.state.openedEntities);
     openedEntities.splice(entityToCloseIndex, 1);
+    let lastIndex = openedEntities.length - 1;
+    let selectedEntity = entity.isVisible ? null : this.state.selectedEntity;
+    if (lastIndex > -1 && entity.isVisible) {
+      openedEntities[lastIndex].isVisible = true;
+      selectedEntity = openedEntities[lastIndex];
+    }
     this.setState({
       ...this.state,
-      selectedEntity: null,
+      selectedEntity: selectedEntity,
       openedEntities: openedEntities
     });
   }

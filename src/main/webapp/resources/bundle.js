@@ -22074,7 +22074,6 @@
 	  }, {
 	    key: 'handleItemClick',
 	    value: function handleItemClick(event) {
-	      console.log('click', event.target);
 	      var entity = this.props.item;
 	      if (event.target.className.indexOf('add-icon') > -1) {
 	        this.onCreateEntityClick(entity);
@@ -100246,10 +100245,12 @@
 	      });
 	    }
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      var selectedEntity = {};
-
 	      if (nextProps.selectedEntity.isNew) {
 	        selectedEntity = {
 	          entityId: nextProps.selectedEntity.entityId,
@@ -100285,7 +100286,10 @@
 	        selectedEntity.isVisible = true;
 	        openedEntities.push(selectedEntity);
 	      } else {
-	        openedEntities[selectedEntityIndex].isVisible = true;
+	        var selectedEntityActual = openedEntities[selectedEntityIndex];
+	        selectedEntityActual.isVisible = true;
+	        openedEntities.splice(selectedEntityIndex, 1);
+	        openedEntities.push(selectedEntityActual);
 	      }
 
 	      return openedEntities;
@@ -100323,8 +100327,14 @@
 	      var entityToCloseIndex = _lodash2.default.findIndex(this.state.openedEntities, { entityId: entity.entityId, type: entity.type, itemId: entity.itemId });
 	      var openedEntities = _lodash2.default.cloneDeep(this.state.openedEntities);
 	      openedEntities.splice(entityToCloseIndex, 1);
+	      var lastIndex = openedEntities.length - 1;
+	      var selectedEntity = entity.isVisible ? null : this.state.selectedEntity;
+	      if (lastIndex > -1 && entity.isVisible) {
+	        openedEntities[lastIndex].isVisible = true;
+	        selectedEntity = openedEntities[lastIndex];
+	      }
 	      this.setState(_extends({}, this.state, {
-	        selectedEntity: null,
+	        selectedEntity: selectedEntity,
 	        openedEntities: openedEntities
 	      }));
 	    }
