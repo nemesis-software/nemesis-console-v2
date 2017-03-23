@@ -27535,7 +27535,7 @@
 	  _createClass(EntitiesNavigation, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      this.setState({ groupedEntities: _lodash2.default.groupBy(nextProps.entities, 'entityId') });
+	      this.setState({ groupedEntities: this.getGroupedEntities(nextProps.entities) });
 	    }
 	  }, {
 	    key: 'render',
@@ -27556,6 +27556,18 @@
 	          );
 	        })
 	      );
+	    }
+	  }, {
+	    key: 'getGroupedEntities',
+	    value: function getGroupedEntities(entities) {
+	      var groupedEntities = _lodash2.default.groupBy(entities, 'entityId');
+
+	      var keys = Object.keys(groupedEntities);
+	      var sortedKeys = _lodash2.default.sortBy(keys);
+
+	      return _lodash2.default.fromPairs(_lodash2.default.map(sortedKeys, function (key) {
+	        return [key, groupedEntities[key]];
+	      }));
 	    }
 	  }]);
 
@@ -100439,9 +100451,7 @@
 	      var urlEntity = {};
 	      splittedHashUrl.forEach(function (item) {
 	        var splitItem = item.split('=');
-	        if (splitItem[1]) {
-	          urlEntity[splitItem[0]] = splitItem[1];
-	        }
+	        urlEntity[splitItem[0]] = !!splitItem[1] ? splitItem[1] : null;
 	      });
 
 	      if (urlEntity.type === _entityTypes.entityItemType) {

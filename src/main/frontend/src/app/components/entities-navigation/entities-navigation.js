@@ -11,7 +11,7 @@ export default class EntitiesNavigation extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({groupedEntities: _.groupBy(nextProps.entities, 'entityId')});
+    this.setState({groupedEntities: this.getGroupedEntities(nextProps.entities)});
   }
 
   render() {
@@ -26,6 +26,17 @@ export default class EntitiesNavigation extends Component {
           </GridTile>
         )}
       </GridList>
+    )
+  }
+
+  getGroupedEntities(entities) {
+    let groupedEntities = _.groupBy(entities, 'entityId');
+
+    const keys = Object.keys(groupedEntities);
+    const sortedKeys = _.sortBy(keys);
+
+    return _.fromPairs(
+      _.map(sortedKeys, key => [key, groupedEntities[key]])
     )
   }
 }

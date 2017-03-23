@@ -205,9 +205,7 @@ export default class MainView extends Component {
     let urlEntity = {};
     splittedHashUrl.forEach(item => {
       let splitItem = item.split('=');
-      if (splitItem[1]) {
-        urlEntity[splitItem[0]] = splitItem[1];
-      }
+      urlEntity[splitItem[0]] = !!splitItem[1] ? splitItem[1] : null;
     });
 
     if (urlEntity.type === entityItemType) {
