@@ -20,7 +20,7 @@ export default class EntitiesNavigation extends Component {
         {_.map(this.state.groupedEntities, (value, key) =>
           <GridTile className="navigation-item-container" style={{width: 'auto'}} containerElement="span" key={key}>
             <EntitiesNavigationItem entityId={key}
-                                    entities={value}
+                                    entities={value.reverse()}
                                     onEntityWindowClose={this.props.onEntityWindowClose}
                                     onNavigationItemClick={this.props.onNavigationItemClick}/>
           </GridTile>

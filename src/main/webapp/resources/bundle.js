@@ -27550,7 +27550,7 @@
 	            _GridList.GridTile,
 	            { className: 'navigation-item-container', style: { width: 'auto' }, containerElement: 'span', key: key },
 	            _react2.default.createElement(_entityNavigationItem2.default, { entityId: key,
-	              entities: value,
+	              entities: value.reverse(),
 	              onEntityWindowClose: _this2.props.onEntityWindowClose,
 	              onNavigationItemClick: _this2.props.onNavigationItemClick })
 	          );
