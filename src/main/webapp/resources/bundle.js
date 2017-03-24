@@ -97820,10 +97820,15 @@
 	    value: function getItemRenderingValue(item) {
 	      var _this3 = this;
 
+	      var visualizationContent = item.code;
+	      if (item.entityName === 'cms_slot') {
+	        visualizationContent = item.code + ' ' + item.position;
+	      }
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        item.code,
+	        visualizationContent,
 	        _react2.default.createElement(
 	          'i',
 	          { className: 'material-icons collection-item-icon', onClick: function onClick() {
@@ -100371,13 +100376,15 @@
 	  }, {
 	    key: 'onEntityItemClick',
 	    value: function onEntityItemClick(entityItem, entityId, url) {
+	      console.log(entityItem);
 	      var selectedEntity = {
 	        entityId: entityId,
 	        data: this.state.entityMarkupData[entityItem.entityName],
 	        type: _entityTypes.entityItemType,
 	        itemId: entityItem.id,
 	        entityName: entityItem.entityName,
-	        entityUrl: url
+	        entityUrl: url,
+	        entityCode: entityItem.code
 	      };
 
 	      this.setSelectedItemInState(selectedEntity);
@@ -100487,7 +100494,7 @@
 	        return;
 	      }
 
-	      window.location.hash = 'type=' + entity.type + '&itemId=' + (entity.itemId || '') + '&entityId=' + entity.entityId + '&entityName=' + (entity.entityName || '') + '&entityUrl=' + (entity.entityUrl || '');
+	      window.location.hash = 'type=' + entity.type + '&itemId=' + (entity.itemId || '') + '&entityId=' + entity.entityId + '&entityName=' + (entity.entityName || '') + '&entityUrl=' + (entity.entityUrl || '') + '&entityUrl=' + (entity.entityUrl || '');
 	    }
 	  }, {
 	    key: 'parseUrlEntity',

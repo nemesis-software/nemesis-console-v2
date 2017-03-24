@@ -84,13 +84,15 @@ export default class MainView extends Component {
   }
 
   onEntityItemClick(entityItem, entityId, url) {
+    console.log(entityItem);
     let selectedEntity = {
       entityId: entityId,
       data: this.state.entityMarkupData[entityItem.entityName],
       type: entityItemType,
       itemId: entityItem.id,
       entityName: entityItem.entityName,
-      entityUrl: url
+      entityUrl: url,
+      entityCode: entityItem.code
     };
 
     this.setSelectedItemInState(selectedEntity);
@@ -191,7 +193,7 @@ export default class MainView extends Component {
       return;
     }
 
-    window.location.hash = `type=${entity.type}&itemId=${entity.itemId || ''}&entityId=${entity.entityId}&entityName=${entity.entityName || ''}&entityUrl=${entity.entityUrl || ''}`;
+    window.location.hash = `type=${entity.type}&itemId=${entity.itemId || ''}&entityId=${entity.entityId}&entityName=${entity.entityName || ''}&entityUrl=${entity.entityUrl || ''}&entityUrl=${entity.entityUrl || ''}`;
   }
 
   parseUrlEntity() {

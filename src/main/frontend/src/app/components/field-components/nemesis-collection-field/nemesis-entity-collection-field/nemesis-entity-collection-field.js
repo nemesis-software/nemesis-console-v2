@@ -76,6 +76,11 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getItemRenderingValue(item) {
-    return <div>{item.code}<i className="material-icons collection-item-icon" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i></div>
+    let visualizationContent = item.code;
+    if (item.entityName === 'cms_slot') {
+      visualizationContent = `${item.code} ${item.position}`;
+    }
+
+    return <div>{visualizationContent}<i className="material-icons collection-item-icon" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i></div>
   }
 }
