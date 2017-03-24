@@ -30,7 +30,7 @@ export default class NavigationTree extends Component {
 
   render() {
     return (
-      <div style={styles}>
+      <div className="navigation-tree">
         <NavigationFilter onFilterChange={this.onFilterChange.bind(this)} data={this.state.treeData} />
         {this.state.filteredData.map((item, index) => <TreeItem onEntityClick={this.props.onEntityClick}
                                                                 initiallyOpen={this.state.filteredData.length !== this.state.treeData.length}

@@ -21788,6 +21788,7 @@
 	              'div',
 	              null,
 	              _react2.default.createElement(LanguageChanger, {
+	                labelStyle: { color: 'white' },
 	                onLanguageChange: function onLanguageChange(language) {
 	                  return _counterpart2.default.setLocale(language);
 	                },
@@ -76335,7 +76336,7 @@
 	      return _react2.default.createElement(
 	        _SelectField2.default,
 	        {
-	          style: this.props.style,
+	          labelStyle: this.props.labelStyle,
 	          value: this.state.selectedLanguage.value,
 	          floatingLabelText: this.props.label ? _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }) : null,
 	          onChange: this.handleChange.bind(this) },
@@ -101347,7 +101348,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { style: styles },
+	        { className: 'navigation-tree' },
 	        _react2.default.createElement(NavigationFilter, { onFilterChange: this.onFilterChange.bind(this), data: this.state.treeData }),
 	        this.state.filteredData.map(function (item, index) {
 	          return _react2.default.createElement(
@@ -101633,7 +101634,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\n  font-family: Roboto, sans-serif;\n}\n.filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-navigation .navigation-item-container .entity-navigation-item.selected {\n  color: #dcff41;\n  font-weight: bold;\n}\n.selected-navigation-menu-item {\n  color: #00bcd4;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 20px;\n}\n.collection-container .collection-item {\n  margin: 5px!important;\n}\n.collection-container .collection-item .collection-item-icon {\n  vertical-align: middle;\n  margin-left: 5px;\n  cursor: pointer;\n}\n", ""]);
+	exports.push([module.id, "* {\n  font-family: Roboto, sans-serif;\n}\n.filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-navigation .navigation-item-container .entity-navigation-item.selected {\n  color: #dcff41;\n  font-weight: bold;\n}\n.selected-navigation-menu-item {\n  color: #00bcd4;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 20px;\n}\n.collection-container .collection-item {\n  margin: 5px!important;\n}\n.collection-container .collection-item .collection-item-icon {\n  vertical-align: middle;\n  margin-left: 5px;\n  cursor: pointer;\n}\n.navigation-tree {\n  position: fixed;\n  width: 300px;\n  left: 0;\n  top: 68px;\n  height: calc(100vh - 68px);\n  overflow-y: scroll;\n}\n", ""]);
 
 	// exports
 

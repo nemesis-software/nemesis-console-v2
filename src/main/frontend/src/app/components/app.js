@@ -42,6 +42,7 @@ export default class App extends Component {
           <AppBar style={{position: 'fixed'}} title="Nemesis Backend Console" iconElementRight={
             <div>
               <LanguageChanger
+                labelStyle={{color: 'white'}}
                 onLanguageChange={language => counterpart.setLocale(language)}
                 availableLanguages={translationLanguages.languages}
                 selectedLanguage={translationLanguages.defaultLanguage}
