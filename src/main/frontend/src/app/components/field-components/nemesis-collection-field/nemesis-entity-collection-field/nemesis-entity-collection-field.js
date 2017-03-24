@@ -68,6 +68,10 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getAutocompleteRenderingValue(item) {
+    if (item.entityName === 'cms_slot'){
+      return `${item.code}:${item.position}`
+    }
+    
     return item.code;
   }
 
