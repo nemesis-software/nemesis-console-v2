@@ -55,7 +55,6 @@ export default class MainView extends Component {
       selectedEntityIndex = _.findIndex(this.state.openedEntities, {itemId: selectedEntity.itemId});
     } else {
       selectedEntityIndex = _.findIndex(this.state.openedEntities, {entityId: selectedEntity.entityId, type: selectedEntity.type, itemId: selectedEntity.itemId});
-
     }
     if (selectedEntityIndex < 0) {
       selectedEntity.isVisible = true;
@@ -116,11 +115,12 @@ export default class MainView extends Component {
     });
   }
 
-  updateCreatedEntity(entity, itemId) {
+  updateCreatedEntity(entity, itemId, code) {
     let createEntityWindowIndex = _.findIndex(this.state.openedEntities, {entityId: entity.entityId, type: entity.type, itemId: entity.itemId});
     let openedEntities = _.cloneDeep(this.state.openedEntities);
     openedEntities[createEntityWindowIndex].type = entityItemType;
     openedEntities[createEntityWindowIndex].itemId = itemId;
+    openedEntities[createEntityWindowIndex].entityCode = code;
     this.addHashUrlForSelectedEntity(openedEntities[createEntityWindowIndex]);
     this.setState({
       ...this.state,
@@ -130,12 +130,24 @@ export default class MainView extends Component {
   }
 
   onUpdateEntitySearchView(entity) {
+    console.log(entity);
     let searchIndex = _.findIndex(this.searchEntityWindowReferences, (window) => {
       return window.entity.entityId === entity.entityId;
     });
     if (searchIndex > -1) {
       this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();
     }
+  }
+
+  updateNavigationCode(entity, code) {
+    if (entity.type !== entityItemType) {
+      return;
+    }
+
+    let entityIndex = _.findIndex(this.state.openedEntities, {itemId: entity.itemId});
+    let openedEntities = _.cloneDeep(this.state.openedEntities);
+    openedEntities[entityIndex].entityCode = code;
+    this.setState({...this.state, openedEntities: openedEntities});
   }
 
   render() {
@@ -162,6 +174,7 @@ export default class MainView extends Component {
     return this.state.openedEntities.map(
       (entity, index) => <EntityWindow onEntityItemClick={this.onEntityItemClick.bind(this)}
                                        openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}
+                                       updateNavigationCode={this.updateNavigationCode.bind(this)}
                                        ref={item => item && entity.type === entitySearchType && this.searchEntityWindowReferences.push({entity: entity, refItem: item})}
                                        onEntityWindowClose={this.onEntityWindowClose.bind(this)}
                                        onUpdateEntitySearchView={this.onUpdateEntitySearchView.bind(this)}
@@ -187,13 +200,12 @@ export default class MainView extends Component {
   };
 
   addHashUrlForSelectedEntity(entity) {
-    console.log(entity);
     if (!entity || entity.type === entityCreateType) {
       window.location.hash = '';
       return;
     }
 
-    window.location.hash = `type=${entity.type}&itemId=${entity.itemId || ''}&entityId=${entity.entityId}&entityName=${entity.entityName || ''}&entityUrl=${entity.entityUrl || ''}&entityUrl=${entity.entityUrl || ''}`;
+    window.location.hash = `type=${entity.type}&itemId=${entity.itemId || ''}&entityId=${entity.entityId}&entityName=${entity.entityName || ''}&entityUrl=${entity.entityUrl || ''}&entityCode=${entity.entityCode || ''}`;
   }
 
   parseUrlEntity() {

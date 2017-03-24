@@ -63,7 +63,7 @@ export default class EntitiesNavigationItem extends Component {
           onRequestClose={this.handleRequestClose}
           animation={PopoverAnimationVertical}>
           <Menu>
-            {this.props.entities.map((subEntity, index) => {
+            {this.getFilteredSubEntities().map((subEntity, index) => {
               return <MenuItem onTouchTap={(event) => this.onNestedItemTouchTab(event, subEntity)} key={index} primaryText={this.getMenuItemContentByEntityType(subEntity)} />
             })}
           </Menu>
@@ -73,14 +73,14 @@ export default class EntitiesNavigationItem extends Component {
   }
 
   getMenuItemContentByEntityType(entity) {
-    let text = '';
+    let text = entity.entityCode;
     let type = entity.type;
     if (type === entitySearchType) {
       text = 'Entity Search';
     }
 
     if (type === entityItemType) {
-      text = entity.itemId;
+      text = `${entity.entityCode} - ${entity.itemId}` ;
     }
 
     if (type === entityCreateType) {
@@ -88,5 +88,28 @@ export default class EntitiesNavigationItem extends Component {
     }
 
     return <div><span className={entity.isVisible ? 'selected-navigation-menu-item' : ''}>{text}</span><i style={{marginLeft: '15px', verticalAlign: 'middle'}} className="material-icons close-icon">close</i></div>
+  }
+
+  getFilteredSubEntities() {
+    let result = [];
+    let groupedEntities = _.groupBy(this.props.entities, 'type');
+    if (groupedEntities[entitySearchType]) {
+      result = result.concat(groupedEntities[entitySearchType]);
+      delete groupedEntities[entitySearchType];
+    }
+
+    if (groupedEntities[entityCreateType]) {
+      result = result.concat(_.orderBy(groupedEntities[entityCreateType], 'itemId'));
+      delete groupedEntities[entityCreateType];
+    }
+
+    if (groupedEntities[entityItemType]) {
+      result = result.concat(_.orderBy(groupedEntities[entityItemType], 'entityCode'));
+      delete groupedEntities[entityItemType];
+    }
+
+    _.forIn(groupedEntities, (value, key) => result = result.concat(value));
+
+    return result;
   }
 }

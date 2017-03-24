@@ -101,7 +101,6 @@ export default class NemesisEntityField extends NemesisBaseField {
       return '';
     }
     let text = item.code;
-    console.log(item);
     if (this.props.entityId === 'catalog_version') {
       text = item.catalogVersion || item.code;
     } else if (this.props.entityId === 'cms_slot'){

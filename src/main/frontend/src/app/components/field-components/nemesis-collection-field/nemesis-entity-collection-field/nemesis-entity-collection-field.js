@@ -71,7 +71,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
     if (item.entityName === 'cms_slot'){
       return `${item.code}:${item.position}`
     }
-    
+
     return item.code;
   }
 

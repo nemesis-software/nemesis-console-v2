@@ -32941,7 +32941,7 @@
 	          _react2.default.createElement(
 	            _Menu2.default,
 	            null,
-	            this.props.entities.map(function (subEntity, index) {
+	            this.getFilteredSubEntities().map(function (subEntity, index) {
 	              return _react2.default.createElement(_MenuItem2.default, { onTouchTap: function onTouchTap(event) {
 	                  return _this2.onNestedItemTouchTab(event, subEntity);
 	                }, key: index, primaryText: _this2.getMenuItemContentByEntityType(subEntity) });
@@ -32953,14 +32953,14 @@
 	  }, {
 	    key: 'getMenuItemContentByEntityType',
 	    value: function getMenuItemContentByEntityType(entity) {
-	      var text = '';
+	      var text = entity.entityCode;
 	      var type = entity.type;
 	      if (type === _entityTypes.entitySearchType) {
 	        text = 'Entity Search';
 	      }
 
 	      if (type === _entityTypes.entityItemType) {
-	        text = entity.itemId;
+	        text = entity.entityCode + ' - ' + entity.itemId;
 	      }
 
 	      if (type === _entityTypes.entityCreateType) {
@@ -32981,6 +32981,32 @@
 	          'close'
 	        )
 	      );
+	    }
+	  }, {
+	    key: 'getFilteredSubEntities',
+	    value: function getFilteredSubEntities() {
+	      var result = [];
+	      var groupedEntities = _lodash2.default.groupBy(this.props.entities, 'type');
+	      if (groupedEntities[_entityTypes.entitySearchType]) {
+	        result = result.concat(groupedEntities[_entityTypes.entitySearchType]);
+	        delete groupedEntities[_entityTypes.entitySearchType];
+	      }
+
+	      if (groupedEntities[_entityTypes.entityCreateType]) {
+	        result = result.concat(_lodash2.default.orderBy(groupedEntities[_entityTypes.entityCreateType], 'itemId'));
+	        delete groupedEntities[_entityTypes.entityCreateType];
+	      }
+
+	      if (groupedEntities[_entityTypes.entityItemType]) {
+	        result = result.concat(_lodash2.default.orderBy(groupedEntities[_entityTypes.entityItemType], 'entityCode'));
+	        delete groupedEntities[_entityTypes.entityItemType];
+	      }
+
+	      _lodash2.default.forIn(groupedEntities, function (value, key) {
+	        return result = result.concat(value);
+	      });
+
+	      return result;
 	    }
 	  }]);
 
@@ -77194,7 +77220,6 @@
 	        return '';
 	      }
 	      var text = item.code;
-	      console.log(item);
 	      if (this.props.entityId === 'catalog_version') {
 	        text = item.catalogVersion || item.code;
 	      } else if (this.props.entityId === 'cms_slot') {
@@ -98176,7 +98201,9 @@
 	          if (windowShouldClose) {
 	            _this7.props.onEntityWindowClose(_this7.props.entity);
 	          } else if (entity.type === _entityTypes.entityCreateType) {
-	            _this7.props.updateCreatedEntity(entity, itemId);
+	            _this7.props.updateCreatedEntity(entity, itemId, result.data.code);
+	          } else if (resultObject.code) {
+	            _this7.props.updateNavigationCode(_this7.props.entity, resultObject.code);
 	          }
 	        });
 	      }, this.handleRequestError);
@@ -100200,6 +100227,7 @@
 	          {
 	            return _react2.default.createElement(_entitySections2.default, { entity: entity,
 	              onEntityItemClick: this.props.onEntityItemClick,
+	              updateNavigationCode: this.props.updateNavigationCode,
 	              onEntityWindowClose: this.props.onEntityWindowClose,
 	              onUpdateEntitySearchView: this.props.onUpdateEntitySearchView,
 	              updateCreatedEntity: this.props.updateCreatedEntity,
@@ -100415,11 +100443,12 @@
 	    }
 	  }, {
 	    key: 'updateCreatedEntity',
-	    value: function updateCreatedEntity(entity, itemId) {
+	    value: function updateCreatedEntity(entity, itemId, code) {
 	      var createEntityWindowIndex = _lodash2.default.findIndex(this.state.openedEntities, { entityId: entity.entityId, type: entity.type, itemId: entity.itemId });
 	      var openedEntities = _lodash2.default.cloneDeep(this.state.openedEntities);
 	      openedEntities[createEntityWindowIndex].type = _entityTypes.entityItemType;
 	      openedEntities[createEntityWindowIndex].itemId = itemId;
+	      openedEntities[createEntityWindowIndex].entityCode = code;
 	      this.addHashUrlForSelectedEntity(openedEntities[createEntityWindowIndex]);
 	      this.setState(_extends({}, this.state, {
 	        selectedEntity: openedEntities[createEntityWindowIndex],
@@ -100429,12 +100458,25 @@
 	  }, {
 	    key: 'onUpdateEntitySearchView',
 	    value: function onUpdateEntitySearchView(entity) {
+	      console.log(entity);
 	      var searchIndex = _lodash2.default.findIndex(this.searchEntityWindowReferences, function (window) {
 	        return window.entity.entityId === entity.entityId;
 	      });
 	      if (searchIndex > -1) {
 	        this.searchEntityWindowReferences[searchIndex].refItem.retakeEntitiesViewerData();
 	      }
+	    }
+	  }, {
+	    key: 'updateNavigationCode',
+	    value: function updateNavigationCode(entity, code) {
+	      if (entity.type !== _entityTypes.entityItemType) {
+	        return;
+	      }
+
+	      var entityIndex = _lodash2.default.findIndex(this.state.openedEntities, { itemId: entity.itemId });
+	      var openedEntities = _lodash2.default.cloneDeep(this.state.openedEntities);
+	      openedEntities[entityIndex].entityCode = code;
+	      this.setState(_extends({}, this.state, { openedEntities: openedEntities }));
 	    }
 	  }, {
 	    key: 'render',
@@ -100466,6 +100508,7 @@
 	      return this.state.openedEntities.map(function (entity, index) {
 	        return _react2.default.createElement(_entityWindow2.default, { onEntityItemClick: _this3.onEntityItemClick.bind(_this3),
 	          openNotificationSnackbar: _this3.openNotificationSnackbar.bind(_this3),
+	          updateNavigationCode: _this3.updateNavigationCode.bind(_this3),
 	          ref: function ref(item) {
 	            return item && entity.type === _entityTypes.entitySearchType && _this3.searchEntityWindowReferences.push({ entity: entity, refItem: item });
 	          },
@@ -100494,13 +100537,12 @@
 	  }, {
 	    key: 'addHashUrlForSelectedEntity',
 	    value: function addHashUrlForSelectedEntity(entity) {
-	      console.log(entity);
 	      if (!entity || entity.type === _entityTypes.entityCreateType) {
 	        window.location.hash = '';
 	        return;
 	      }
 
-	      window.location.hash = 'type=' + entity.type + '&itemId=' + (entity.itemId || '') + '&entityId=' + entity.entityId + '&entityName=' + (entity.entityName || '') + '&entityUrl=' + (entity.entityUrl || '') + '&entityUrl=' + (entity.entityUrl || '');
+	      window.location.hash = 'type=' + entity.type + '&itemId=' + (entity.itemId || '') + '&entityId=' + entity.entityId + '&entityName=' + (entity.entityName || '') + '&entityUrl=' + (entity.entityUrl || '') + '&entityCode=' + (entity.entityCode || '');
 	    }
 	  }, {
 	    key: 'parseUrlEntity',

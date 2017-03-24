@@ -226,7 +226,9 @@ export default class EntitySections extends Component {
         if (windowShouldClose) {
           this.props.onEntityWindowClose(this.props.entity);
         } else if (entity.type === entityCreateType) {
-          this.props.updateCreatedEntity(entity, itemId);
+          this.props.updateCreatedEntity(entity, itemId, result.data.code);
+        } else if (resultObject.code) {
+          this.props.updateNavigationCode(this.props.entity, resultObject.code);
         }
       });
     }, this.handleRequestError);
