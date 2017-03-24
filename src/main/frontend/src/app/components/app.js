@@ -4,6 +4,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import counterpart from 'counterpart';
 import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+import axios from 'axios';
+
 import '../../styles/style.less';
 
 injectTapEventPlugin();
@@ -38,11 +41,20 @@ export default class App extends Component {
       <MuiThemeProvider>
         <div>
           <AppBar style={{position: 'fixed'}} title="Nemesis Backend Console" iconElementRight={
-            <LanguageChanger
-              onLanguageChange={language => counterpart.setLocale(language)}
-              availableLanguages={translationLanguages.languages}
-              selectedLanguage={translationLanguages.defaultLanguage}
-            />
+            <div>
+              <LanguageChanger
+                onLanguageChange={language => counterpart.setLocale(language)}
+                availableLanguages={translationLanguages.languages}
+                selectedLanguage={translationLanguages.defaultLanguage}
+              />
+              <div style={{display: 'inline-block', verticalAlign: 'top', margin: '5px 15px'}}>
+                <FlatButton
+                  style={{color: 'white'}}
+                  label="Logout"
+                  onTouchTap={this.handleLogoutButtonClick.bind(this)}
+                />
+              </div>
+            </div>
           } iconStyleLeft={{display: 'none'}}/>
           <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
           <MainView selectedEntity={this.state.selectedEntity}/>
@@ -53,5 +65,21 @@ export default class App extends Component {
 
   onEntityClick(entity) {
     this.setState({selectedEntity: entity});
+  }
+
+  handleLogoutButtonClick() {
+    let csrfToken = document.getElementById('security').getAttribute('token');
+    let form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('action', 'j_spring_security_logout');
+    let hiddenField = document.createElement("input");
+    hiddenField.setAttribute('type', 'hidden');
+    hiddenField.setAttribute('name', '_csrf');
+    hiddenField.setAttribute('value', csrfToken);
+
+    form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
   }
 }
