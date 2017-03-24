@@ -100410,7 +100410,6 @@
 	  }, {
 	    key: 'onEntityItemClick',
 	    value: function onEntityItemClick(entityItem, entityId, url) {
-	      console.log(entityItem);
 	      var selectedEntity = {
 	        entityId: entityId,
 	        data: this.state.entityMarkupData[entityItem.entityName],
@@ -100458,7 +100457,6 @@
 	  }, {
 	    key: 'onUpdateEntitySearchView',
 	    value: function onUpdateEntitySearchView(entity) {
-	      console.log(entity);
 	      var searchIndex = _lodash2.default.findIndex(this.searchEntityWindowReferences, function (window) {
 	        return window.entity.entityId === entity.entityId;
 	      });

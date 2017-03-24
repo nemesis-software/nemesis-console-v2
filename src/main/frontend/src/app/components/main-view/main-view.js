@@ -83,7 +83,6 @@ export default class MainView extends Component {
   }
 
   onEntityItemClick(entityItem, entityId, url) {
-    console.log(entityItem);
     let selectedEntity = {
       entityId: entityId,
       data: this.state.entityMarkupData[entityItem.entityName],
@@ -130,7 +129,6 @@ export default class MainView extends Component {
   }
 
   onUpdateEntitySearchView(entity) {
-    console.log(entity);
     let searchIndex = _.findIndex(this.searchEntityWindowReferences, (window) => {
       return window.entity.entityId === entity.entityId;
     });
