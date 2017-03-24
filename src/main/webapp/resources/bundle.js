@@ -97822,7 +97822,7 @@
 
 	      var visualizationContent = item.code;
 	      if (item.entityName === 'cms_slot') {
-	        visualizationContent = item.code + ' ' + item.position;
+	        visualizationContent = item.code + ':' + item.position;
 	      }
 
 	      return _react2.default.createElement(
