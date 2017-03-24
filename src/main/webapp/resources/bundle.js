@@ -76258,7 +76258,7 @@
 	      if (this.props.type !== _nemesisTypes.nemesisFieldUsageTypes.edit) {
 	        var result = {};
 	        result.language = languageActual;
-	        result.value = value[languageActual];
+	        result.value = value[languageActual].value;
 	        return result;
 	      }
 

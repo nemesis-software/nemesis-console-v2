@@ -109,7 +109,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
     if (this.props.type !== nemesisFieldUsageTypes.edit) {
       let result = {};
       result.language = languageActual;
-      result.value = value[languageActual];
+      result.value = value[languageActual].value;
       return result;
     }
 
