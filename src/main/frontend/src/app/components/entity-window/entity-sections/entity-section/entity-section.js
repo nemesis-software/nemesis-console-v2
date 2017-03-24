@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Paper from 'material-ui/Paper';
 import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../../../types/nemesis-types';
 import NemesisTextField from '../../../field-components/nemesis-text-field/nemesis-text-field';
 import NemesisTextareaField from '../../../field-components/nemesis-textarea-field/nemesis-textarea-field';
@@ -24,7 +25,13 @@ export default class EntitySection extends Component {
   render() {
     return (
       <div>
-        {this.props.section.items.map((item, index) => this.getSectionItemRenderer(item, index))}
+        {this.props.section.items.map((item, index) => {
+          return (
+            <Paper key={index} zDepth={1} style={this.getPaperStyles(item)}>
+              {this.getSectionItemRenderer(item, index)}
+            </Paper>
+          )
+        })}
       </div>
     )
   }
@@ -37,11 +44,10 @@ export default class EntitySection extends Component {
     this.fieldsReferences = [];
   }
 
-  getSectionItemRenderer(item, index) {
+  getSectionItemRenderer(item) {
     let reactElement;
     let itemName = item.name.replace('entity-', '');
     let elementConfig ={
-      key: index,
       label: item.fieldLabel,
       name: itemName,
       readOnly: item.readOnly,
@@ -110,5 +116,13 @@ export default class EntitySection extends Component {
     this.fieldsReferences.forEach(field => {
       field.resetDirtyState();
     });
+  }
+
+  getPaperStyles(item) {
+    let displayType = 'inline-block';
+    if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisMediaField, nemesisFieldTypes.nemesisSimpleCollectionField].indexOf(item.xtype) > -1) {
+      displayType = 'block';
+    }
+    return {margin: '5px', padding: '5px', display: displayType, minHeight: '95px'};
   }
 }

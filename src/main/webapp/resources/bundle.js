@@ -21735,10 +21735,6 @@
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-	var _axios = __webpack_require__(564);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
 	__webpack_require__(890);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -83305,6 +83301,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Paper = __webpack_require__(345);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	var _nemesisTypes = __webpack_require__(402);
 
 	var _nemesisTextField = __webpack_require__(418);
@@ -83396,7 +83396,11 @@
 	        'div',
 	        null,
 	        this.props.section.items.map(function (item, index) {
-	          return _this2.getSectionItemRenderer(item, index);
+	          return _react2.default.createElement(
+	            _Paper2.default,
+	            { key: index, zDepth: 1, style: _this2.getPaperStyles(item) },
+	            _this2.getSectionItemRenderer(item, index)
+	          );
 	        })
 	      );
 	    }
@@ -83412,13 +83416,12 @@
 	    }
 	  }, {
 	    key: 'getSectionItemRenderer',
-	    value: function getSectionItemRenderer(item, index) {
+	    value: function getSectionItemRenderer(item) {
 	      var _this3 = this;
 
 	      var reactElement = void 0;
 	      var itemName = item.name.replace('entity-', '');
 	      var elementConfig = {
-	        key: index,
 	        label: item.fieldLabel,
 	        name: itemName,
 	        readOnly: item.readOnly,
@@ -83516,6 +83519,15 @@
 	      this.fieldsReferences.forEach(function (field) {
 	        field.resetDirtyState();
 	      });
+	    }
+	  }, {
+	    key: 'getPaperStyles',
+	    value: function getPaperStyles(item) {
+	      var displayType = 'inline-block';
+	      if ([_nemesisTypes.nemesisFieldTypes.nemesisCollectionField, _nemesisTypes.nemesisFieldTypes.nemesisMediaField, _nemesisTypes.nemesisFieldTypes.nemesisSimpleCollectionField].indexOf(item.xtype) > -1) {
+	        displayType = 'block';
+	      }
+	      return { margin: '5px', padding: '5px', display: displayType, minHeight: '95px' };
 	    }
 	  }]);
 
@@ -97195,8 +97207,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        this.getItemsRender(),
-	        this.getInputField()
+	        this.getInputField(),
+	        this.getItemsRender()
 	      );
 	    }
 	  }, {

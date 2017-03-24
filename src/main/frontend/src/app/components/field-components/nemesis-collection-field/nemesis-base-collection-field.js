@@ -10,8 +10,8 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
   render() {
     return (
       <div>
-        {this.getItemsRender()}
         {this.getInputField()}
+        {this.getItemsRender()}
       </div>
     )
   }
