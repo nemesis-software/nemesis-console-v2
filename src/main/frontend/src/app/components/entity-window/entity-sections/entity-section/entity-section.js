@@ -52,6 +52,7 @@ export default class EntitySection extends Component {
     let reactElement;
     let itemName = item.name.replace('entity-', '');
     let elementConfig ={
+      mainEntity: this.props.entity,
       label: item.fieldLabel,
       name: itemName,
       readOnly: item.readOnly,

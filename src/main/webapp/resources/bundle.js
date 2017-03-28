@@ -21867,7 +21867,9 @@
 		"./navigation-tree-item1": 956,
 		"./navigation-tree-item1.js": 956,
 		"./nemesis-entity-collection-field": 959,
-		"./nemesis-entity-collection-field.js": 959
+		"./nemesis-entity-collection-field.js": 959,
+		"./nemesis-localized-text-field": 960,
+		"./nemesis-localized-text-field.js": 960
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -32653,6 +32655,8 @@
 		"./custom_files/navigation-tree-item1.js": 956,
 		"./custom_files/nemesis-entity-collection-field": 959,
 		"./custom_files/nemesis-entity-collection-field.js": 959,
+		"./custom_files/nemesis-localized-text-field": 960,
+		"./custom_files/nemesis-localized-text-field.js": 960,
 		"./index": 1,
 		"./index.js": 1,
 		"./locales/bg": 888,
@@ -83214,6 +83218,7 @@
 	      var reactElement = void 0;
 	      var itemName = item.name.replace('entity-', '');
 	      var elementConfig = {
+	        mainEntity: this.props.entity,
 	        label: item.fieldLabel,
 	        name: itemName,
 	        readOnly: item.readOnly,
@@ -97770,6 +97775,7 @@
 	                section && _this2.sectionsReferences.push(section);
 	              },
 	              key: index, section: item,
+	              entity: _this2.props.entity,
 	              sectionIndex: index,
 	              entityData: _this2.state.entityData,
 	              onEntityItemClick: _this2.props.onEntityItemClick });
@@ -108477,6 +108483,84 @@
 	}(_nemesisEntityCollectionField2.default);
 
 	exports.default = CustomEntityCollectionField;
+
+/***/ },
+/* 960 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _nemesisLocalizedTextField = __webpack_require__(549);
+
+	var _nemesisLocalizedTextField2 = _interopRequireDefault(_nemesisLocalizedTextField);
+
+	var _lodash = __webpack_require__(394);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CustomValidationLocalizedText = function (_NemesisLocalizedText) {
+	  _inherits(CustomValidationLocalizedText, _NemesisLocalizedText);
+
+	  function CustomValidationLocalizedText(props) {
+	    _classCallCheck(this, CustomValidationLocalizedText);
+
+	    return _possibleConstructorReturn(this, (CustomValidationLocalizedText.__proto__ || Object.getPrototypeOf(CustomValidationLocalizedText)).call(this, props));
+	  }
+	  //Make custom validation for entity and field
+
+
+	  _createClass(CustomValidationLocalizedText, [{
+	    key: 'isFieldValid',
+	    value: function isFieldValid() {
+	      if (this.props.mainEntity.entityName === 'category' && this.props.name === 'name') {
+	        return this.customValidationForCategory();
+	      }
+	      return _get(CustomValidationLocalizedText.prototype.__proto__ || Object.getPrototypeOf(CustomValidationLocalizedText.prototype), 'isFieldValid', this).call(this);
+	    }
+	  }, {
+	    key: 'customValidationForCategory',
+	    value: function customValidationForCategory() {
+	      if (!this.state.value['en'] || _lodash2.default.isEmpty(this.state.value['en'].value) || !this.state.value['bg_BG'] || _lodash2.default.isEmpty(this.state.value['bg_BG'].value)) {
+	        this.setState(_extends({}, this.state, { errorMessage: this.getErrorMessage() }));
+	        return false;
+	      }
+
+	      this.setState(_extends({}, this.state, { errorMessage: null }));
+	      return true;
+	    }
+	  }, {
+	    key: 'getErrorMessage',
+	    value: function getErrorMessage() {
+	      return 'English and Bulgarian translation are required';
+	    }
+	  }]);
+
+	  return CustomValidationLocalizedText;
+	}(_nemesisLocalizedTextField2.default);
+
+	exports.default = CustomValidationLocalizedText;
 
 /***/ }
 /******/ ]);

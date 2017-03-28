@@ -63,6 +63,7 @@ export default class EntitySections extends Component {
           {this.props.entity.data.sections.map((item, index) => {
             return <EntitySection ref={(section) => {section && this.sectionsReferences.push(section)}}
                                   key={index} section={item}
+                                  entity={this.props.entity}
                                   sectionIndex={index}
                                   entityData={this.state.entityData}
                                   onEntityItemClick={this.props.onEntityItemClick} />
