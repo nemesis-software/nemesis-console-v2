@@ -21862,8 +21862,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./navigation-tree-item": 186,
-		"./navigation-tree-item.js": 186
+		"./entity-sections": 958,
+		"./entity-sections.js": 958,
+		"./navigation-tree-item1": 956,
+		"./navigation-tree-item1.js": 956,
+		"./nemesis-entity-collection-field": 959,
+		"./nemesis-entity-collection-field.js": 959
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -21880,55 +21884,7 @@
 
 
 /***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _navigationTreeItem = __webpack_require__(187);
-
-	var _navigationTreeItem2 = _interopRequireDefault(_navigationTreeItem);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var CustomTreeItem = function (_NavigationTreeItem) {
-	  _inherits(CustomTreeItem, _NavigationTreeItem);
-
-	  function CustomTreeItem(props) {
-	    _classCallCheck(this, CustomTreeItem);
-
-	    return _possibleConstructorReturn(this, (CustomTreeItem.__proto__ || Object.getPrototypeOf(CustomTreeItem)).call(this, props));
-	  }
-
-	  _createClass(CustomTreeItem, [{
-	    key: 'getClosedItemIcon',
-	    value: function getClosedItemIcon() {
-	      return 'folder';
-	    }
-	  }]);
-
-	  return CustomTreeItem;
-	}(_navigationTreeItem2.default);
-
-	exports.default = CustomTreeItem;
-
-/***/ },
+/* 186 */,
 /* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32691,8 +32647,12 @@
 		"./app/types/nemesis-types.js": 402,
 		"./app/utils/require-util": 184,
 		"./app/utils/require-util.js": 184,
-		"./custom_files/navigation-tree-item": 186,
-		"./custom_files/navigation-tree-item.js": 186,
+		"./custom_files/entity-sections": 958,
+		"./custom_files/entity-sections.js": 958,
+		"./custom_files/navigation-tree-item1": 956,
+		"./custom_files/navigation-tree-item1.js": 956,
+		"./custom_files/nemesis-entity-collection-field": 959,
+		"./custom_files/nemesis-entity-collection-field.js": 959,
 		"./index": 1,
 		"./index.js": 1,
 		"./locales/bg": 888,
@@ -108259,6 +108219,264 @@
 	}(_react.Component);
 
 	exports.default = FilterEntityField;
+
+/***/ },
+/* 956 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _navigationTreeItem = __webpack_require__(187);
+
+	var _navigationTreeItem2 = _interopRequireDefault(_navigationTreeItem);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CustomTreeItem = function (_NavigationTreeItem) {
+	  _inherits(CustomTreeItem, _NavigationTreeItem);
+
+	  function CustomTreeItem(props) {
+	    _classCallCheck(this, CustomTreeItem);
+
+	    return _possibleConstructorReturn(this, (CustomTreeItem.__proto__ || Object.getPrototypeOf(CustomTreeItem)).call(this, props));
+	  }
+
+	  _createClass(CustomTreeItem, [{
+	    key: 'getClosedItemIcon',
+	    value: function getClosedItemIcon() {
+	      return 'folder';
+	    }
+	  }]);
+
+	  return CustomTreeItem;
+	}(_navigationTreeItem2.default);
+
+	exports.default = CustomTreeItem;
+
+/***/ },
+/* 957 */,
+/* 958 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _entitySections = __webpack_require__(863);
+
+	var _entitySections2 = _interopRequireDefault(_entitySections);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CustomEntitySection = function (_EntitySections) {
+	  _inherits(CustomEntitySection, _EntitySections);
+
+	  function CustomEntitySection(props) {
+	    _classCallCheck(this, CustomEntitySection);
+
+	    return _possibleConstructorReturn(this, (CustomEntitySection.__proto__ || Object.getPrototypeOf(CustomEntitySection)).call(this, props));
+	  }
+
+	  _createClass(CustomEntitySection, [{
+	    key: 'getFunctionalButtons',
+	    value: function getFunctionalButtons(entity) {
+	      var _this2 = this;
+
+	      //get base array of buttons
+	      var buttons = _get(CustomEntitySection.prototype.__proto__ || Object.getPrototypeOf(CustomEntitySection.prototype), 'getFunctionalButtons', this).call(this, entity);
+
+	      // if entity name is "category" add custom button
+	      if (entity.entityName === 'category') {
+	        buttons.push({ label: 'Open google', onClickFunction: function onClickFunction() {
+	            return _this2.handleOpenGoogleButton();
+	          } });
+	      }
+
+	      return buttons;
+	    }
+
+	    //custom function for new button
+
+	  }, {
+	    key: 'handleOpenGoogleButton',
+	    value: function handleOpenGoogleButton() {
+	      window.open('http://google.com');
+	    }
+	  }]);
+
+	  return CustomEntitySection;
+	}(_entitySections2.default);
+
+	exports.default = CustomEntitySection;
+
+/***/ },
+/* 959 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Table = __webpack_require__(596);
+
+	var _nemesisEntityCollectionField = __webpack_require__(862);
+
+	var _nemesisEntityCollectionField2 = _interopRequireDefault(_nemesisEntityCollectionField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CustomEntityCollectionField = function (_NemesisEntityCollect) {
+	  _inherits(CustomEntityCollectionField, _NemesisEntityCollect);
+
+	  function CustomEntityCollectionField(props) {
+	    _classCallCheck(this, CustomEntityCollectionField);
+
+	    return _possibleConstructorReturn(this, (CustomEntityCollectionField.__proto__ || Object.getPrototypeOf(CustomEntityCollectionField)).call(this, props));
+	  }
+
+	  _createClass(CustomEntityCollectionField, [{
+	    key: 'getItemsRender',
+	    value: function getItemsRender() {
+	      var _this2 = this;
+
+	      //Override visualization for cms_slot to be table instead of default chip view
+	      if (this.props.entityId === 'cms_slot') {
+	        if (!this.state.value || this.state.value.length === 0) {
+	          return _react2.default.createElement(
+	            'div',
+	            null,
+	            'No Records'
+	          );
+	        } else {
+	          return _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              _Table.Table,
+	              { selectable: false },
+	              _react2.default.createElement(
+	                _Table.TableHeader,
+	                { displaySelectAll: false, adjustForCheckbox: false },
+	                _react2.default.createElement(
+	                  _Table.TableRow,
+	                  null,
+	                  _react2.default.createElement(
+	                    _Table.TableHeaderColumn,
+	                    null,
+	                    'Code'
+	                  ),
+	                  _react2.default.createElement(
+	                    _Table.TableHeaderColumn,
+	                    null,
+	                    'Position'
+	                  ),
+	                  _react2.default.createElement(
+	                    _Table.TableHeaderColumn,
+	                    null,
+	                    'Remove'
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _Table.TableBody,
+	                { displayRowCheckbox: false, showRowHover: true },
+	                this.props.value.map(function (item, index) {
+	                  return _react2.default.createElement(
+	                    _Table.TableRow,
+	                    { key: index },
+	                    _react2.default.createElement(
+	                      _Table.TableRowColumn,
+	                      null,
+	                      item.code,
+	                      ' ',
+	                      _react2.default.createElement(
+	                        'i',
+	                        { className: 'material-icons', style: { cursor: 'pointer' }, onClick: function onClick() {
+	                            return _this2.props.onEntityItemClick(item, _this2.props.entityId, item._links.self.href);
+	                          } },
+	                        'launch'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      _Table.TableRowColumn,
+	                      null,
+	                      item.position
+	                    ),
+	                    _react2.default.createElement(
+	                      _Table.TableRowColumn,
+	                      null,
+	                      _react2.default.createElement(
+	                        'span',
+	                        { style: { color: 'red', cursor: 'pointer' }, onClick: function onClick() {
+	                            return _this2.onDeleteRequest(index);
+	                          } },
+	                        'Remove'
+	                      )
+	                    )
+	                  );
+	                })
+	              )
+	            )
+	          );
+	        }
+	      } else {
+	        return _get(CustomEntityCollectionField.prototype.__proto__ || Object.getPrototypeOf(CustomEntityCollectionField.prototype), 'getItemsRender', this).call(this);
+	      }
+	    }
+	  }]);
+
+	  return CustomEntityCollectionField;
+	}(_nemesisEntityCollectionField2.default);
+
+	exports.default = CustomEntityCollectionField;
 
 /***/ }
 /******/ ]);

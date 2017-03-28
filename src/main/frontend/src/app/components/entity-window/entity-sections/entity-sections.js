@@ -15,7 +15,6 @@ import { componentRequire } from '../../../utils/require-util';
 
 let EntitySection = componentRequire('app/components/entity-window/entity-sections/entity-section/entity-section', 'entity-section');
 
-
 const keyPrefix = 'entitySection';
 
 export default class EntitySections extends Component {
