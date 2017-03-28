@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import FilterRestrictionFields from '../filter-restriction-field/filter-restriction-field';
-import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
-import NemesisLocalizedTextField from '../../../../../field-components/nemesis-localized-text-field/nemesis-localized-text-field';
+
 import _ from 'lodash';
+
+import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
+import { componentRequire } from '../../../../../../utils/require-util';
+
+let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
+let NemesisLocalizedTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field', 'nemesis-localized-text-field');
 
 const restrictionFields = [
   searchRestrictionTypes.startingWith,

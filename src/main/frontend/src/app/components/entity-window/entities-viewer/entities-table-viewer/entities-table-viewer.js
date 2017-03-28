@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+
 import Translate from 'react-translate-component';
-import EntitiesPager from '../entities-pager/entities-pager';
-import LanguageChanger from '../../../language-changer';
 import _ from 'lodash';
+
+import { componentRequire } from '../../../../utils/require-util';
+
+let EntitiesPager = componentRequire('app/components/entity-window/entities-viewer/entities-pager/entities-pager', 'entities-pager');
+let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
 
 const translationLanguages = {
   languages: [

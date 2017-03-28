@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+
 import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
-import NemesisBooleanField from '../../../../../field-components/nemesis-boolean-field/nemesis-boolean-field';
+import { componentRequire } from '../../../../../../utils/require-util';
+
+let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
 
 const styles = {
   parent: {

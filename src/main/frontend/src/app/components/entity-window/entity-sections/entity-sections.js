@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { componentRequire } from '../../../utils/require-util';
+
 import {Tabs, Tab} from 'material-ui/Tabs';
-import SwipeableViews from 'react-swipeable-views';
-import EntitySection from './entity-section/entity-section';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import Paper from 'material-ui/Paper';
+import SwipeableViews from 'react-swipeable-views';
+
+import _ from 'lodash';
+
+import {entityItemType, entityCreateType} from '../../../types/entity-types';
 import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
-import Paper from 'material-ui/Paper';
-import _ from 'lodash';
-import {entityItemType, entityCreateType} from '../../../types/entity-types';
+import { componentRequire } from '../../../utils/require-util';
+
+let EntitySection = componentRequire('app/components/entity-window/entity-sections/entity-section/entity-section', 'entity-section');
+
 
 const keyPrefix = 'entitySection';
 

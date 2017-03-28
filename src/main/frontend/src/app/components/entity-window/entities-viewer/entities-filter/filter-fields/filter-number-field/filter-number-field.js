@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import FilterRestrictionFields from '../filter-restriction-field/filter-restriction-field';
-import { searchRestrictionTypes, nemesisFieldTypes } from '../../../../../../types/nemesis-types';
+
 import _ from 'lodash';
-import NemesisNumberField from '../../../../../field-components/nemesis-number-field/nemesis-number-field'
+
+import { componentRequire } from '../../../../../../utils/require-util';
+import { searchRestrictionTypes, nemesisFieldTypes } from '../../../../../../types/nemesis-types';
+
+let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
+let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
 
 const restrictionFields = [
   searchRestrictionTypes.greaterThan,

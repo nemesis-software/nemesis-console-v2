@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import EntitiesNavigationItem from './entity-navigation-item'
-import { componentRequire } from '../../utils/require-util';
+
 import {GridList, GridTile} from 'material-ui/GridList';
+
 import _ from 'lodash';
+
+import { componentRequire } from '../../utils/require-util';
+
+let EntitiesNavigationItem = componentRequire('app/components/entities-navigation/entity-navigation-item', 'entity-navigation-item');
 
 export default class EntitiesNavigation extends Component {
   constructor(props) {

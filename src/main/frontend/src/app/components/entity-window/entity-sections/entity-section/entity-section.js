@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
+
 import Paper from 'material-ui/Paper';
+
 import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../../../types/nemesis-types';
-import NemesisTextField from '../../../field-components/nemesis-text-field/nemesis-text-field';
-import NemesisTextareaField from '../../../field-components/nemesis-textarea-field/nemesis-textarea-field';
-import NemesisPasswordField from '../../../field-components/nemesis-password-field/nemesis-password-field';
-import NemesisDateField from '../../../field-components/nemesis-date-field/nemesis-date-field';
-import NemesisNumberField from '../../../field-components/nemesis-number-field/nemesis-number-field';
-import NemesisEnumField from '../../../field-components/nemesis-enum-field/nemesis-enum-field';
-import NemesisEntityField from '../../../field-components/nemesis-entity-field/nemesis-entity-field';
-import NemesisBooleanField from '../../../field-components/nemesis-boolean-field/nemesis-boolean-field';
-import NemesisLocalizedTextField from '../../../field-components/nemesis-localized-text-field/nemesis-localized-text-field';
-import NemesisLocalizedRichTextField from '../../../field-components/nemesis-localized-text-field/nemesis-localized-richtext-field';
-import NemesisRichTextField from '../../../field-components/nemesis-richtext-field/nemesis-richtext-field';
-import NemesisColorpickerField from '../../../field-components/nemesis-colorpicker-field/nemesis-colorpicker-field';
-import NemesisMediaField from '../../../field-components/nemesis-media-field/nemesis-media-field';
-import NemesisSimpleCollectionField from '../../../field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field';
-import NemesisEntityCollectionField from '../../../field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field';
+import { componentRequire } from '../../../../utils/require-util';
+
+let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
+let NemesisTextareaField = componentRequire('app/components/field-components/nemesis-textarea-field/nemesis-textarea-field', 'nemesis-textarea-field');
+let NemesisPasswordField = componentRequire('app/components/field-components/nemesis-password-field/nemesis-password-field', 'nemesis-password-field');
+let NemesisDateField = componentRequire('app/components/field-components/nemesis-date-field/nemesis-date-field', 'nemesis-date-field');
+let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
+let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
+let NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
+let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
+let NemesisLocalizedTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field', 'nemesis-localized-text-field');
+let NemesisLocalizedRichTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-richtext-field', 'nemesis-localized-richtext-field');
+let NemesisRichTextField = componentRequire('app/components/field-components/nemesis-richtext-field/nemesis-richtext-field', 'nemesis-richtext-field');
+let NemesisColorpickerField = componentRequire('app/components/field-components/nemesis-colorpicker-field/nemesis-colorpicker-field', 'nemesis-colorpicker-field');
+let NemesisMediaField = componentRequire('app/components/field-components/nemesis-media-field/nemesis-media-field', 'nemesis-media-field');
+let NemesisSimpleCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field', 'nemesis-simple-collection-field');
+let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
 
 export default class EntitySection extends Component {
   constructor(props) {

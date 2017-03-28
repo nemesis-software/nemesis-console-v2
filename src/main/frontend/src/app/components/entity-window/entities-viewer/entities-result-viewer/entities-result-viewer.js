@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { componentRequire } from '../../../../utils/require-util';
+
 import Paper from 'material-ui/Paper';
-import EntitiesTableViewer from '../entities-table-viewer/entities-table-viewer';
+
+import { componentRequire } from '../../../../utils/require-util';
+let EntitiesTableViewer = componentRequire('app/components/entity-window/entities-viewer/entities-table-viewer/entities-table-viewer', 'entities-table-viewer');
 
 export default class EntitiesResultViewer extends Component {
   constructor(props) {

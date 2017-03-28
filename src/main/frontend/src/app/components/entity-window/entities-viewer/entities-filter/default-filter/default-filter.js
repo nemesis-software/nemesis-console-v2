@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import { nemesisFieldTypes } from '../../../../../types/nemesis-types';
-import FilterTextField from '../filter-fields/filter-text-field/filter-text-field';
-import FilterDateField from '../filter-fields/filter-date-field/filter-date-field';
-import FilterLocalizedTextField from '../filter-fields/filter-localized-text-field/filter-localized-text-field';
-import FilterBooleanField from '../filter-fields/filter-boolean-field/filter-boolean-field';
-import FilterNumberField from '../filter-fields/filter-number-field/filter-number-field';
-import FilterEnumField from '../filter-fields/filter-enum-field/filter-enum-field';
-import FilterEntityField from '../filter-fields/filter-enitiy-field/filter-entity-field';
-import FilterBuilder from '../../../../../services/filter-builder';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
+
 import _ from 'lodash';
+
+import { componentRequire } from '../../../../../utils/require-util';
+import { nemesisFieldTypes } from '../../../../../types/nemesis-types';
+
+let FilterTextField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-text-field/filter-text-field', 'filter-text-field');
+let FilterDateField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-date-field/filter-date-field', 'filter-date-field');
+let FilterLocalizedTextField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-localized-text-field/filter-localized-text-field', '');
+let FilterBooleanField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-boolean-field/filter-boolean-field', 'filter-boolean-field');
+let FilterNumberField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-number-field/filter-number-field', 'filter-number-field');
+let FilterEnumField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-enum-field/filter-enum-field', 'filter-enum-field');
+let FilterEntityField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-entity-field/filter-entity-field', 'filter-entity-field');
+let FilterBuilder = componentRequire('app/services/filter-builder', 'filter-builder');
 
 const keyPrefix = 'defaultFilter';
 

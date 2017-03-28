@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types';
-import EntitiesViewer from './entities-viewer/entities-viewer';
-import EntitySections from './entity-sections/entity-sections'
+import { componentRequire } from '../../utils/require-util';
+
+let EntitiesViewer = componentRequire('app/components/entity-window/entities-viewer/entities-viewer', 'entities-viewer');
+let EntitySections = componentRequire('app/components/entity-window/entity-sections/entity-sections', 'entity-sections');
 
 export default class EntitiesWindow extends Component {
   constructor(props) {

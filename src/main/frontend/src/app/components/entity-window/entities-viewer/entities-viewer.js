@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { componentRequire } from '../../../utils/require-util';
-import EntitiesResultViewer from './entities-result-viewer/entities-result-viewer';
-import EntitiesFilter from './entities-filter/entities-filter';
+
 import Translate from 'react-translate-component';
-import ApiCall from '../../../services/api-call';
 import _ from 'lodash';
+
+import ApiCall from '../../../services/api-call';
+import { componentRequire } from '../../../utils/require-util';
+
+let EntitiesResultViewer = componentRequire('app/components/entity-window/entities-viewer/entities-result-viewer/entities-result-viewer', 'entities-result-viewer');
+let EntitiesFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/entities-filter', 'entities-filter');
 
 const pagerData = {
   page: 1,

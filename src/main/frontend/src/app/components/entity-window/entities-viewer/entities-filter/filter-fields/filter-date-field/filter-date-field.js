@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
-import FilterRestrictionFields from '../filter-restriction-field/filter-restriction-field';
-import NemesisDateField from '../../../../../field-components/nemesis-date-field/nemesis-date-field';
+import { componentRequire } from '../../../../../../utils/require-util';
+
+let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
+let NemesisDateField = componentRequire('app/components/field-components/nemesis-date-field/nemesis-date-field', 'nemesis-date-field');
 
 const restrictionFields = [
   searchRestrictionTypes.before,

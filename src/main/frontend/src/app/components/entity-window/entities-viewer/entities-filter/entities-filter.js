@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { componentRequire } from '../../../../utils/require-util';
-import DefaultFilter from './default-filter/default-filter';
+
 import Paper from 'material-ui/Paper';
+
+import { componentRequire } from '../../../../utils/require-util';
+
+let DefaultFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/default-filter/default-filter', 'default-filter');
 
 export default class EntitiesFilter extends Component {
   constructor(props) {

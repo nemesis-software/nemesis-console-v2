@@ -3,17 +3,8 @@ import { componentRequire } from '../../utils/require-util';
 import ApiCall from '../../services/api-call';
 import _ from 'lodash';
 
-let TreeItem = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item1');
+let TreeItem = componentRequire('app/components/navigation-tree/navigation-tree-item', 'navigation-tree-item');
 let NavigationFilter = componentRequire('app/components/navigation-tree/navigation-filter', 'navigation-filter');
-
-const styles = {
-  position: 'fixed',
-  width: '300px',
-  left: '0',
-  top: '68px',
-  height: 'calc(100vh - 68px)',
-  overflowY: 'scroll'
-};
 
 export default class NavigationTree extends Component {
   constructor(props) {

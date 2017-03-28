@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Translate from 'react-translate-component';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import NemesisBaseField from '../nemesis-base-field'
+import NemesisBaseField from '../nemesis-base-field';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 
 const styles = {

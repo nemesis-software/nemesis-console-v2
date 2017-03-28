@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import ApiCall from '../../services/api-call'
-import _ from 'lodash';
-import EntitiesNavigation from '../entities-navigation/entities-navigation'
-import EntityWindow from '../entity-window/entity-window'
-import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types'
+
 import Snackbar from 'material-ui/Snackbar';
+
+import _ from 'lodash';
+
+import ApiCall from '../../services/api-call'
+import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types'
 import { componentRequire } from '../../utils/require-util';
+
+let EntitiesNavigation = componentRequire('app/components/entities-navigation/entities-navigation', 'entities-navigation');
+let EntityWindow = componentRequire('app/components/entity-window/entity-window', 'entity-window');
 
 const styles = {
   paddingLeft: '300px',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
-import TouchRipple from 'material-ui/internal/TouchRipple'
+import TouchRipple from 'material-ui/internal/TouchRipple';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Translate from 'react-translate-component';
