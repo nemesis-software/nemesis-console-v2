@@ -25,14 +25,21 @@ const styles = {
 export default class FilterTextField extends Component {
   constructor(props) {
     super(props);
-    this.state = {restrictionField: null, textField: null};
+    this.state = {restrictionField: props.defaultRestriction || null, textField: props.defaultValue || null};
+
+  }
+
+  componentWillMount() {
+    if (this.props.defaultRestriction || this.props.defaultValue) {
+      this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction)
+    }
   }
 
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisTextField style={this.getTextFieldStyles()} onValueChange={_.debounce(this.onTextFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/>
+        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <NemesisTextField readOnly={this.props.readOnly} value={this.state.textField} style={this.getTextFieldStyles()} onValueChange={_.debounce(this.onTextFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
   }
