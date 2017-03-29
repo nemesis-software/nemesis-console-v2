@@ -21864,8 +21864,14 @@
 	var map = {
 		"./entity-sections": 186,
 		"./entity-sections.js": 186,
+		"./entity-window": 960,
+		"./entity-window.js": 960,
+		"./main-view": 959,
+		"./main-view.js": 959,
+		"./navigation-tree": 958,
 		"./navigation-tree-item1": 377,
 		"./navigation-tree-item1.js": 377,
+		"./navigation-tree.js": 958,
 		"./nemesis-entity-collection-field": 413,
 		"./nemesis-entity-collection-field.js": 413,
 		"./nemesis-localized-text-field": 468,
@@ -65086,8 +65092,14 @@
 		"./app/utils/require-util.js": 184,
 		"./custom_files/entity-sections": 186,
 		"./custom_files/entity-sections.js": 186,
+		"./custom_files/entity-window": 960,
+		"./custom_files/entity-window.js": 960,
+		"./custom_files/main-view": 959,
+		"./custom_files/main-view.js": 959,
+		"./custom_files/navigation-tree": 958,
 		"./custom_files/navigation-tree-item1": 377,
 		"./custom_files/navigation-tree-item1.js": 377,
+		"./custom_files/navigation-tree.js": 958,
 		"./custom_files/nemesis-entity-collection-field": 413,
 		"./custom_files/nemesis-entity-collection-field.js": 413,
 		"./custom_files/nemesis-localized-text-field": 468,
@@ -108637,6 +108649,191 @@
 	module.exports = webpackContext;
 	webpackContext.id = 957;
 
+
+/***/ },
+/* 958 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _navigationTree = __webpack_require__(889);
+
+	var _navigationTree2 = _interopRequireDefault(_navigationTree);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CustomTreeItem = function (_NavigationTree) {
+	  _inherits(CustomTreeItem, _NavigationTree);
+
+	  function CustomTreeItem(props) {
+	    _classCallCheck(this, CustomTreeItem);
+
+	    return _possibleConstructorReturn(this, (CustomTreeItem.__proto__ || Object.getPrototypeOf(CustomTreeItem)).call(this, props));
+	  }
+
+	  _createClass(CustomTreeItem, [{
+	    key: 'populateNavigationData',
+	    value: function populateNavigationData() {
+	      var _this2 = this;
+
+	      this.getNavigationData().then(function (result) {
+	        var data = result.data;
+	        data.unshift({
+	          id: 'iframe',
+	          text: 'Custom IFrame',
+	          children: [{ id: 'Nemesis', text: 'Nemesis frame', leaf: true }]
+	        });
+	        _this2.setState(_extends({}, _this2.state, { treeData: data, filteredData: data }));
+	      });
+	    }
+	  }]);
+
+	  return CustomTreeItem;
+	}(_navigationTree2.default);
+
+	exports.default = CustomTreeItem;
+
+/***/ },
+/* 959 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _mainView = __webpack_require__(883);
+
+	var _mainView2 = _interopRequireDefault(_mainView);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CustomMainView = function (_MainView) {
+	  _inherits(CustomMainView, _MainView);
+
+	  function CustomMainView(props) {
+	    _classCallCheck(this, CustomMainView);
+
+	    return _possibleConstructorReturn(this, (CustomMainView.__proto__ || Object.getPrototypeOf(CustomMainView)).call(this, props));
+	  }
+
+	  _createClass(CustomMainView, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.selectedEntity.entityId === 'Nemesis') {
+	        var selectedEntity = {
+	          type: 'iframe',
+	          url: 'http://nemesis.io',
+	          entityCode: nextProps.selectedEntity.entityId,
+	          entityId: 'iframe',
+	          itemId: null
+	        };
+	        this.setSelectedItemInState(selectedEntity);
+	        return;
+	      }
+	      _get(CustomMainView.prototype.__proto__ || Object.getPrototypeOf(CustomMainView.prototype), 'componentWillReceiveProps', this).call(this, nextProps);
+	    }
+	  }]);
+
+	  return CustomMainView;
+	}(_mainView2.default);
+
+	exports.default = CustomMainView;
+
+/***/ },
+/* 960 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _entityWindow = __webpack_require__(505);
+
+	var _entityWindow2 = _interopRequireDefault(_entityWindow);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CustomEntityWindow = function (_EntityWindow) {
+	  _inherits(CustomEntityWindow, _EntityWindow);
+
+	  function CustomEntityWindow(props) {
+	    _classCallCheck(this, CustomEntityWindow);
+
+	    return _possibleConstructorReturn(this, (CustomEntityWindow.__proto__ || Object.getPrototypeOf(CustomEntityWindow)).call(this, props));
+	  }
+
+	  _createClass(CustomEntityWindow, [{
+	    key: 'renderEntityByType',
+	    value: function renderEntityByType(entity) {
+
+	      switch (entity.type) {
+	        case 'iframe':
+	          {
+	            //TODO: make a custom react component and prevent window update to can keep state on the iframe
+	            return _react2.default.createElement('iframe', { style: { width: '98%', height: '98%' }, src: entity.url });
+	          }
+	        default:
+	          {
+	            return _get(CustomEntityWindow.prototype.__proto__ || Object.getPrototypeOf(CustomEntityWindow.prototype), 'renderEntityByType', this).call(this, entity);
+	          }
+	      }
+	    }
+	  }]);
+
+	  return CustomEntityWindow;
+	}(_entityWindow2.default);
+
+	exports.default = CustomEntityWindow;
 
 /***/ }
 /******/ ]);
