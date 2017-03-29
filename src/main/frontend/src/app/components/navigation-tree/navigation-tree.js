@@ -14,9 +14,7 @@ export default class NavigationTree extends Component {
   }
 
   componentWillMount() {
-    ApiCall.get('backend/navigation').then(result => {
-      this.setState({...this.state, treeData: result.data, filteredData: result.data});
-    });
+    this.populateNavigationData();
   }
 
   render() {
@@ -45,5 +43,15 @@ export default class NavigationTree extends Component {
    }
 
    return true;
+  }
+
+  getNavigationData() {
+    return ApiCall.get('backend/navigation');
+  }
+
+  populateNavigationData() {
+    this.getNavigationData().then(result => {
+      this.setState({...this.state, treeData: result.data, filteredData: result.data});
+    });
   }
 }
