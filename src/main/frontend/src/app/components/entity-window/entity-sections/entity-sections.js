@@ -22,7 +22,7 @@ export default class EntitySections extends Component {
     super(props);
     this.sectionsReferences = [];
 
-    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false };
+    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false, openErrorDialog: false, errorMessage: null };
   }
 
   componentWillMount() {
@@ -70,6 +70,7 @@ export default class EntitySections extends Component {
           })}
         </SwipeableViews>
         {this.getDeleteConfirmationDialog()}
+        {this.getErrorDialog()}
       </div>
     )
   }
@@ -149,6 +150,29 @@ export default class EntitySections extends Component {
     );
   }
 
+  getErrorDialog() {
+    const actions = [
+      <FlatButton
+        label="ok"
+        onTouchTap={this.handleCloseErrorDialog.bind(this)}
+      />,
+    ];
+    return (
+      <Dialog
+        title="Something went wrong!"
+        actions={actions}
+        modal={true}
+        open={this.state.openErrorDialog}
+      >
+        <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+      </Dialog>
+    );
+  }
+
+  handleCloseErrorDialog() {
+    this.setState({...this.state, openErrorDialog: false});
+  }
+
   getEntityRelatedEntities(entity) {
     let result = [];
     if (!entity) {
@@ -189,7 +213,7 @@ export default class EntitySections extends Component {
       this.props.onUpdateEntitySearchView(this.props.entity);
       this.props.onEntityWindowClose(this.props.entity);
       this.props.openNotificationSnackbar('Entity successfully deleted');
-    }, this.handleRequestError)
+    }, this.handleRequestError.bind(this))
   }
 
   handleDeleteButtonClick() {
@@ -200,7 +224,7 @@ export default class EntitySections extends Component {
     let entity = this.props.entity;
     ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
       this.props.openNotificationSnackbar('Entity successfully synchronized');
-    }, this.handleRequestError)
+    }, this.handleRequestError.bind(this))
   }
 
   handleSaveButtonClick(windowShouldClose) {
@@ -236,7 +260,7 @@ export default class EntitySections extends Component {
           this.props.updateNavigationCode(this.props.entity, resultObject.code);
         }
       });
-    }, this.handleRequestError);
+    }, this.handleRequestError.bind(this));
   }
 
   uploadMediaFile(itemId, mediaFields) {
@@ -251,8 +275,8 @@ export default class EntitySections extends Component {
         return Promise.resolve();
       },
       (err) => {
-        return Promise.resolve();
         this.handleRequestError(err);
+        return Promise.resolve();
       });
   }
 
@@ -287,9 +311,8 @@ export default class EntitySections extends Component {
   }
 
   handleRequestError(err) {
-    //TODO: Make error visualization
-    alert('button click err');
-    console.log(err);
+    let errorMsg = (err && err.response && err.response.data && err.response.data.message) || err.message || err;
+    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true})
   }
 
   handleCloseDeleteConfirmation() {

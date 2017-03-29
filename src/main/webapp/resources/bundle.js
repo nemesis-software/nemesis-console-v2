@@ -22034,7 +22034,7 @@
 
 	    _this.sectionsReferences = [];
 
-	    _this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false };
+	    _this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false, openErrorDialog: false, errorMessage: null };
 	    return _this;
 	  }
 
@@ -22092,7 +22092,8 @@
 	              onEntityItemClick: _this2.props.onEntityItemClick });
 	          })
 	        ),
-	        this.getDeleteConfirmationDialog()
+	        this.getDeleteConfirmationDialog(),
+	        this.getErrorDialog()
 	      );
 	    }
 	  }, {
@@ -22182,6 +22183,33 @@
 	      );
 	    }
 	  }, {
+	    key: 'getErrorDialog',
+	    value: function getErrorDialog() {
+	      var actions = [_react2.default.createElement(_FlatButton2.default, {
+	        label: 'ok',
+	        onTouchTap: this.handleCloseErrorDialog.bind(this)
+	      })];
+	      return _react2.default.createElement(
+	        _Dialog2.default,
+	        {
+	          title: 'Something went wrong!',
+	          actions: actions,
+	          modal: true,
+	          open: this.state.openErrorDialog
+	        },
+	        _react2.default.createElement(
+	          'div',
+	          { style: { color: 'red' } },
+	          this.state.errorMessage
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'handleCloseErrorDialog',
+	    value: function handleCloseErrorDialog() {
+	      this.setState(_extends({}, this.state, { openErrorDialog: false }));
+	    }
+	  }, {
 	    key: 'getEntityRelatedEntities',
 	    value: function getEntityRelatedEntities(entity) {
 	      var result = [];
@@ -22231,7 +22259,7 @@
 	        _this5.props.onUpdateEntitySearchView(_this5.props.entity);
 	        _this5.props.onEntityWindowClose(_this5.props.entity);
 	        _this5.props.openNotificationSnackbar('Entity successfully deleted');
-	      }, this.handleRequestError);
+	      }, this.handleRequestError.bind(this));
 	    }
 	  }, {
 	    key: 'handleDeleteButtonClick',
@@ -22246,7 +22274,7 @@
 	      var entity = this.props.entity;
 	      _apiCall2.default.get('backend/synchronize', { entityName: entity.entityName, id: entity.itemId }).then(function () {
 	        _this6.props.openNotificationSnackbar('Entity successfully synchronized');
-	      }, this.handleRequestError);
+	      }, this.handleRequestError.bind(this));
 	    }
 	  }, {
 	    key: 'handleSaveButtonClick',
@@ -22285,7 +22313,7 @@
 	            _this7.props.updateNavigationCode(_this7.props.entity, resultObject.code);
 	          }
 	        });
-	      }, this.handleRequestError);
+	      }, this.handleRequestError.bind(this));
 	    }
 	  }, {
 	    key: 'uploadMediaFile',
@@ -22301,8 +22329,8 @@
 	        _this8.props.openNotificationSnackbar('File successfully uploaded');
 	        return Promise.resolve();
 	      }, function (err) {
-	        return Promise.resolve();
 	        _this8.handleRequestError(err);
+	        return Promise.resolve();
 	      });
 	    }
 	  }, {
@@ -22343,9 +22371,8 @@
 	  }, {
 	    key: 'handleRequestError',
 	    value: function handleRequestError(err) {
-	      //TODO: Make error visualization
-	      alert('button click err');
-	      console.log(err);
+	      var errorMsg = err && err.response && err.response.data && err.response.data.message || err.message || err;
+	      this.setState(_extends({}, this.state, { errorMessage: errorMsg, openErrorDialog: true }));
 	    }
 	  }, {
 	    key: 'handleCloseDeleteConfirmation',
@@ -99472,6 +99499,14 @@
 
 	var _nemesisTypes = __webpack_require__(350);
 
+	var _FlatButton = __webpack_require__(318);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _Dialog = __webpack_require__(322);
+
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+
 	var _nemesisBaseField = __webpack_require__(433);
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
@@ -99492,7 +99527,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (NemesisEntityField.__proto__ || Object.getPrototypeOf(NemesisEntityField)).call(this, props));
 
-	    _this.state = _extends({}, _this.state, { searchText: _this.getItemText(_this.state.value), dataSource: [] });
+	    _this.state = _extends({}, _this.state, { searchText: _this.getItemText(_this.state.value), dataSource: [], openErrorDialog: false, errorMessage: null });
 	    return _this;
 	  }
 
@@ -99527,7 +99562,8 @@
 	          'i',
 	          { className: 'material-icons entity-navigation-icon', onClick: this.openEntityWindow.bind(this) },
 	          'launch'
-	        ) : false
+	        ) : false,
+	        this.getErrorDialog()
 	      );
 	    }
 	  }, {
@@ -99583,7 +99619,7 @@
 	        });
 	        var mappedData = data.map(_this3.mapDataSource.bind(_this3));
 	        _this3.setState(_extends({}, _this3.state, { dataSource: mappedData }));
-	      });
+	      }, this.handleRequestError.bind(this));
 	    }
 	  }, {
 	    key: 'getSearchUrl',
@@ -99626,6 +99662,39 @@
 	      if (this.state.value) {
 	        this.props.onEntityItemClick(this.state.value, this.props.entityId, this.state.value._links.self.href);
 	      }
+	    }
+	  }, {
+	    key: 'handleRequestError',
+	    value: function handleRequestError(err) {
+	      var errorMsg = err && err.response && err.response.data && err.response.data.message || err.message || err;
+	      this.setState(_extends({}, this.state, { errorMessage: errorMsg, openErrorDialog: true }));
+	    }
+	  }, {
+	    key: 'getErrorDialog',
+	    value: function getErrorDialog() {
+	      var actions = [_react2.default.createElement(_FlatButton2.default, {
+	        label: 'ok',
+	        onTouchTap: this.handleCloseErrorDialog.bind(this)
+	      })];
+	      return _react2.default.createElement(
+	        _Dialog2.default,
+	        {
+	          title: 'Something went wrong!',
+	          actions: actions,
+	          modal: true,
+	          open: this.state.openErrorDialog
+	        },
+	        _react2.default.createElement(
+	          'div',
+	          { style: { color: 'red' } },
+	          this.state.errorMessage
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'handleCloseErrorDialog',
+	    value: function handleCloseErrorDialog() {
+	      this.setState(_extends({}, this.state, { openErrorDialog: false }));
 	    }
 	  }]);
 

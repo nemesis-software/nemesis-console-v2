@@ -4,12 +4,14 @@ import Translate from 'react-translate-component';
 import ApiCall from '../../../services/api-call';
 import _ from 'lodash';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 import NemesisBaseField from '../nemesis-base-field'
 
 export default class NemesisEntityField extends NemesisBaseField {
   constructor(props) {
     super(props);
-    this.state = {...this.state, searchText: this.getItemText(this.state.value), dataSource: []};
+    this.state = {...this.state, searchText: this.getItemText(this.state.value), dataSource: [], openErrorDialog: false, errorMessage: null };
   }
 
   render() {
@@ -31,8 +33,8 @@ export default class NemesisEntityField extends NemesisBaseField {
                     searchText={this.state.searchText}
                     floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}/>
       {this.props.type === nemesisFieldUsageTypes.edit ? <i className="material-icons entity-navigation-icon" onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
+      {this.getErrorDialog()}
     </div>
-
     )
   }
 
@@ -77,7 +79,7 @@ export default class NemesisEntityField extends NemesisBaseField {
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
       let mappedData = data.map(this.mapDataSource.bind(this));
       this.setState({...this.state, dataSource: mappedData});
-    })
+    }, this.handleRequestError.bind(this))
   }
 
   getSearchUrl() {
@@ -116,5 +118,33 @@ export default class NemesisEntityField extends NemesisBaseField {
     if (this.state.value) {
       this.props.onEntityItemClick(this.state.value, this.props.entityId, this.state.value._links.self.href);
     }
+  }
+
+  handleRequestError(err) {
+    let errorMsg = (err && err.response && err.response.data && err.response.data.message) || err.message || err;
+    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true})
+  }
+
+  getErrorDialog() {
+    const actions = [
+      <FlatButton
+        label="ok"
+        onTouchTap={this.handleCloseErrorDialog.bind(this)}
+      />,
+    ];
+    return (
+      <Dialog
+        title="Something went wrong!"
+        actions={actions}
+        modal={true}
+        open={this.state.openErrorDialog}
+      >
+        <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+      </Dialog>
+    );
+  }
+
+  handleCloseErrorDialog() {
+    this.setState({...this.state, openErrorDialog: false});
   }
 }
