@@ -101,7 +101,6 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
       actualValue[language] = {};
     }
     actualValue[language].value = value;
-    console.log(actualValue);
     this.onValueChange(event, actualValue);
   }
 

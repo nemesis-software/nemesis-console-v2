@@ -13,13 +13,19 @@ const styles = {
 export default class FilterEnumField extends Component {
   constructor(props) {
     super(props);
-    this.state = {enumField: null};
+    this.state = {enumField: props.defaultValue || null};
+  }
+
+  componentWillMount() {
+    if (this.props.defaultValue) {
+      this.updateParentFilter(this.props.defaultValue)
+    }
   }
 
   render() {
     return (
       <div className="filter-item-container">
-        <NemesisEnumField style={styles} values={this.props.filterItem.values} onValueChange={this.onEnumFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
+        <NemesisEnumField readOnly={this.props.readOnly} style={styles} value={this.props.filterItem.values.indexOf(this.state.enumField)} values={this.props.filterItem.values} onValueChange={this.onEnumFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
   }
@@ -31,7 +37,7 @@ export default class FilterEnumField extends Component {
 
   updateParentFilter(enumField)  {
     this.props.onFilterChange({
-      value: enumField,
+      value: `'${enumField}'`,
       restriction: searchRestrictionTypes.equals,
       field: this.props.filterItem.name,
       id: this.props.filterItem.name
