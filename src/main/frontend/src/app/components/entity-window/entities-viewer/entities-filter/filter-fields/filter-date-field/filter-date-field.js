@@ -20,14 +20,20 @@ const styles = {
 export default class FilterDateField extends Component {
   constructor(props) {
     super(props);
-    this.state = {restrictionField: null, dateField: null};
+    this.state = {restrictionField: props.defaultRestriction || null, dateField: props.defaultValue || null};
+  }
+
+  componentWillMount() {
+    if (this.props.defaultRestriction || this.props.defaultValue) {
+      this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction);
+    }
   }
 
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisDateField style={this.getDateFieldStyles()} onValueChange={this.onDateFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
+        <FilterRestrictionFields  readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <NemesisDateField readOnly={this.props.readOnly} value={this.state.dateField} style={this.getDateFieldStyles()} onValueChange={this.onDateFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
   }

@@ -16,10 +16,9 @@ export default class EntitiesFilter extends Component {
   }
 
   render() {
-    console.log(this.props.filterMarkup);
     return (
       <div>
-        <div>
+        <div style={this.getFilterSelectStyle()}>
           <SelectField
             floatingLabelText="Filter"
             value={this.state.selectedMenuIndex}
@@ -47,6 +46,15 @@ export default class EntitiesFilter extends Component {
 
   getFilters() {
     return [{filterName: 'Default filter', filterClass: DefaultFilter}];
+  }
+
+  getFilterSelectStyle() {
+    let style = {};
+    if (this.getFilters().length <= 1) {
+      style = {display: 'none'};
+    }
+
+    return style;
   }
 
   getFilterElement(filter, index) {

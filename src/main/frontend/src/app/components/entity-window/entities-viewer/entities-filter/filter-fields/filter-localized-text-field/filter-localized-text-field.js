@@ -25,16 +25,29 @@ const styles = {
 export default class FilterLocalizedTextField extends Component {
   constructor(props) {
     super(props);
-    this.state = {restrictionField: null, value: {}};
+    this.state = {restrictionField: props.defaultRestriction || null, value: props.defaultValue || {}};
   }
 
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisLocalizedTextField style={this.getLocalizedFieldStyles()} onValueChange={this.onLocalizedFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
+        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <NemesisLocalizedTextField defaultLanguage={this.props.defaultLanguage} readOnly={this.props.readOnly} value={this.getFormatedValue()} style={this.getLocalizedFieldStyles()} onValueChange={this.onLocalizedFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
+  }
+
+   getFormatedValue() {
+     let result = {};
+     result[this.state.value.language] = result[this.state.value.language] || {};
+     result[this.state.value.language].value = this.state.value.value;
+     return result;
+   }
+
+  componentWillMount() {
+    if (this.props.defaultRestriction || this.props.defaultValue) {
+      this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction)
+    }
   }
 
   onRestrictionFieldChange(restrictionValue) {

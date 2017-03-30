@@ -42,7 +42,6 @@ export default class DefaultFilter extends Component {
   }
 
   getFilterItemRender(filterItem) {
-    console.log(filterItem);
     let reactElement;
     switch (filterItem.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = FilterTextField; break;

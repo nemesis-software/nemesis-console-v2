@@ -26,7 +26,6 @@ export default class FilterTextField extends Component {
   constructor(props) {
     super(props);
     this.state = {restrictionField: props.defaultRestriction || null, textField: props.defaultValue || null};
-
   }
 
   componentWillMount() {

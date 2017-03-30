@@ -18,8 +18,8 @@ const translationLanguages = {
 export default class NemesisLocalizedTextField extends NemesisBaseField {
   constructor(props) {
     super(props);
-
-    this.state = {...this.state, selectedLanguage: translationLanguages.defaultLanguage.value, openTranslateDialog: false};
+    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || translationLanguages.defaultLanguage.value;
+    this.state = {...this.state, selectedLanguage: defaultLanguage, openTranslateDialog: false};
   }
 
   render() {
@@ -38,7 +38,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           style={this.props.style}
           onLanguageChange={this.onLanguageChange.bind(this)}
           availableLanguages={translationLanguages.languages}
-          selectedLanguage={translationLanguages.defaultLanguage}
+          selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
         />
         <TextField className="entity-field"
                    style={this.props.style}
@@ -101,6 +101,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
       actualValue[language] = {};
     }
     actualValue[language].value = value;
+    console.log(actualValue);
     this.onValueChange(event, actualValue);
   }
 
@@ -109,7 +110,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
     if (this.props.type !== nemesisFieldUsageTypes.edit) {
       let result = {};
       result.language = languageActual;
-      result.value = value[languageActual].value;
+      result.value = value[languageActual] && value[languageActual].value;
       return result;
     }
 

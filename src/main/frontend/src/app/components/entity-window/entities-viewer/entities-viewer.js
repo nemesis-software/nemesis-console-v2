@@ -28,12 +28,13 @@ export default class EntitiesViewer extends Component {
     return (
       <div>
         <Translate component="h2" content={'main.' + this.props.entity.entityId} fallback={this.props.entity.entityId}/>
-        <EntitiesFilter filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
+        <EntitiesFilter entity={this.props.entity} filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
         <EntitiesResultViewer entities={this.state.searchData}
-                        entitiesMarkup={this.props.entity.data.result}
-                        onPagerChange={this.onPagerChange.bind(this)}
-                        page={this.state.page}
-                        onEntityItemClick={this.onEntityItemClick.bind(this)}/>
+                              entity={this.props.entity}
+                              entitiesMarkup={this.props.entity.data.result}
+                              onPagerChange={this.onPagerChange.bind(this)}
+                              page={this.state.page}
+                              onEntityItemClick={this.onEntityItemClick.bind(this)}/>
       </div>
     )
   }

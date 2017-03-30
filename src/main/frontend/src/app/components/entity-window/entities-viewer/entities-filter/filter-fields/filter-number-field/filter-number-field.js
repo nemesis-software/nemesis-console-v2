@@ -24,16 +24,22 @@ const styles = {
 export default class FilterNumberField extends Component {
   constructor(props) {
     super(props);
-    this.state = {restrictionField: null, numberField: null};
+    this.state = {restrictionField: props.defaultRestriction || null, numberField: props.defaultValue || null};
   }
 
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisNumberField step={this.props.filterItem.xtype === nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1'} style={this.getNumberFieldStyles()} onValueChange={_.debounce(this.onNumberFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/>
+        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <NemesisNumberField readOnly={this.props.readOnly} value={this.state.numberField} step={this.props.filterItem.xtype === nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1'} style={this.getNumberFieldStyles()} onValueChange={_.debounce(this.onNumberFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
+  }
+
+  componentWillMount() {
+    if (this.props.defaultRestriction || this.props.defaultValue) {
+      this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction)
+    }
   }
 
   onRestrictionFieldChange(restrictionValue) {
