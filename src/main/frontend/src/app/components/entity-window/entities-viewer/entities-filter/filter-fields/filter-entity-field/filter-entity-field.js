@@ -22,26 +22,32 @@ const styles = {
 export default class FilterEntityField extends Component {
   constructor(props) {
     super(props);
-    this.state = {restrictionField: null, textField: null, selectedId: null};
+    this.state = {restrictionField: props.defaultRestriction || null, selectedEntity: props.defaultValue || null};
+  }
+
+  componentWillMount() {
+    if (this.props.defaultRestriction || this.props.defaultValue) {
+      this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction);
+    }
   }
 
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisEntityField entityId={this.props.filterItem.entityId} style={this.getTextFieldStyles()} onValueChange={this.onSelectedMenuItem.bind(this)} label={this.props.filterItem.fieldLabel}/>
+        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
+        <NemesisEntityField readOnly={this.props.readOnly} value={this.state.selectedEntity} entityId={this.props.filterItem.entityId} style={this.getTextFieldStyles()} onValueChange={this.onSelectedMenuItem.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
   }
 
   onRestrictionFieldChange(restrictionValue) {
     this.setState({...this.state, restrictionField: restrictionValue});
-    this.updateParentFilter(this.state.selectedId, restrictionValue);
+    this.updateParentFilter(this.state.selectedEntity, restrictionValue);
   }
 
-  updateParentFilter(selectedId, restrictionValue) {
+  updateParentFilter(selectedEntity, restrictionValue) {
     this.props.onFilterChange({
-      value: _.isEmpty(selectedId) ? null : `${selectedId}L`,
+      value: _.isEmpty(selectedEntity) ? null : `${selectedEntity.id}L`,
       restriction: restrictionValue,
       field: this.props.filterItem.name.replace('entity-', '') + '/id',
       id: this.props.filterItem.name
@@ -49,7 +55,7 @@ export default class FilterEntityField extends Component {
   }
 
   onSelectedMenuItem(item) {
-    this.setState({...this.state, selectedId: item});
+    this.setState({...this.state, selectedEntity: item});
     this.updateParentFilter(item, this.state.restrictionField);
   }
 

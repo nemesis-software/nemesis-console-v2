@@ -68,10 +68,6 @@ export default class NemesisEntityField extends NemesisBaseField {
     this.setState({...this.state, searchText: value});
   }
 
-  getFormattedValue(value) {
-    return value.id;
-  }
-
   filterEntityData(inputText) {
     let inputTextActual = inputText || '';
     ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, catalogCode: inputTextActual, code: inputTextActual, projection: 'search'}).then(result => {

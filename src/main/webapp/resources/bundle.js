@@ -69339,31 +69339,38 @@
 
 	    var _this = _possibleConstructorReturn(this, (FilterEntityField.__proto__ || Object.getPrototypeOf(FilterEntityField)).call(this, props));
 
-	    _this.state = { restrictionField: null, textField: null, selectedId: null };
+	    _this.state = { restrictionField: props.defaultRestriction || null, selectedEntity: props.defaultValue || null };
 	    return _this;
 	  }
 
 	  _createClass(FilterEntityField, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      if (this.props.defaultRestriction || this.props.defaultValue) {
+	        this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction);
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'filter-item-container' },
-	        _react2.default.createElement(FilterRestrictionFields, { label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
-	        _react2.default.createElement(NemesisEntityField, { entityId: this.props.filterItem.entityId, style: this.getTextFieldStyles(), onValueChange: this.onSelectedMenuItem.bind(this), label: this.props.filterItem.fieldLabel })
+	        _react2.default.createElement(FilterRestrictionFields, { readOnly: this.props.readOnly, defaultValue: this.props.defaultRestriction, label: this.props.filterItem.fieldLabel, onRestrictionFieldChange: this.onRestrictionFieldChange.bind(this), style: styles, restrictionFields: restrictionFields }),
+	        _react2.default.createElement(NemesisEntityField, { readOnly: this.props.readOnly, value: this.state.selectedEntity, entityId: this.props.filterItem.entityId, style: this.getTextFieldStyles(), onValueChange: this.onSelectedMenuItem.bind(this), label: this.props.filterItem.fieldLabel })
 	      );
 	    }
 	  }, {
 	    key: 'onRestrictionFieldChange',
 	    value: function onRestrictionFieldChange(restrictionValue) {
 	      this.setState(_extends({}, this.state, { restrictionField: restrictionValue }));
-	      this.updateParentFilter(this.state.selectedId, restrictionValue);
+	      this.updateParentFilter(this.state.selectedEntity, restrictionValue);
 	    }
 	  }, {
 	    key: 'updateParentFilter',
-	    value: function updateParentFilter(selectedId, restrictionValue) {
+	    value: function updateParentFilter(selectedEntity, restrictionValue) {
 	      this.props.onFilterChange({
-	        value: _lodash2.default.isEmpty(selectedId) ? null : selectedId + 'L',
+	        value: _lodash2.default.isEmpty(selectedEntity) ? null : selectedEntity.id + 'L',
 	        restriction: restrictionValue,
 	        field: this.props.filterItem.name.replace('entity-', '') + '/id',
 	        id: this.props.filterItem.name
@@ -69372,7 +69379,7 @@
 	  }, {
 	    key: 'onSelectedMenuItem',
 	    value: function onSelectedMenuItem(item) {
-	      this.setState(_extends({}, this.state, { selectedId: item }));
+	      this.setState(_extends({}, this.state, { selectedEntity: item }));
 	      this.updateParentFilter(item, this.state.restrictionField);
 	    }
 	  }, {
@@ -101535,11 +101542,6 @@
 	      this.setState(_extends({}, this.state, { searchText: value }));
 	    }
 	  }, {
-	    key: 'getFormattedValue',
-	    value: function getFormattedValue(value) {
-	      return value.id;
-	    }
-	  }, {
 	    key: 'filterEntityData',
 	    value: function filterEntityData(inputText) {
 	      var _this3 = this;
@@ -109381,9 +109383,15 @@
 
 	var _filterBooleanField2 = _interopRequireDefault(_filterBooleanField);
 
+	var _filterEntityField = __webpack_require__(514);
+
+	var _filterEntityField2 = _interopRequireDefault(_filterEntityField);
+
 	var _baseCustomFilter = __webpack_require__(380);
 
 	var _baseCustomFilter2 = _interopRequireDefault(_baseCustomFilter);
+
+	var _nemesisTypes = __webpack_require__(377);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -109405,16 +109413,32 @@
 	  _createClass(TransactionFilter, [{
 	    key: 'render',
 	    value: function render() {
+	      var selectedCatalog = {
+	        catalog: 'samplestoreB2BProductCatalog',
+	        catalogVersion: 'samplestoreB2BProductCatalog:Staged',
+	        code: 'Staged',
+	        entityName: 'catalog_version',
+	        id: '565386358549216'
+	      };
 	      return _react2.default.createElement(
 	        'div',
 	        { style: this.props.style },
 	        _react2.default.createElement(_filterBooleanField2.default, { readOnly: true, defaultValue: 'false', onFilterChange: this.onFilterChange.bind(this), filterItem: { name: 'active', fieldLabel: 'Active' } }),
+	        _react2.default.createElement(_filterEntityField2.default, { readOnly: true, defaultValue: selectedCatalog, defaultRestriction: _nemesisTypes.searchRestrictionTypes.equals, onFilterChange: this.onFilterChange.bind(this), filterItem: this.getCatalogItem() }),
 	        _react2.default.createElement(
 	          'div',
 	          { style: { padding: '10px 0' } },
 	          _react2.default.createElement(_RaisedButton2.default, { style: { margin: '10px' }, label: 'Search', onClick: this.onSearchButtonClick.bind(this) })
 	        )
 	      );
+	    }
+	  }, {
+	    key: 'getCatalogItem',
+	    value: function getCatalogItem() {
+	      var transactionTypeIndex = _.findIndex(this.props.filterMarkup, { name: 'entity-catalogVersion' });
+	      if (transactionTypeIndex > -1) {
+	        return this.props.filterMarkup[transactionTypeIndex];
+	      }
 	    }
 	  }]);
 
