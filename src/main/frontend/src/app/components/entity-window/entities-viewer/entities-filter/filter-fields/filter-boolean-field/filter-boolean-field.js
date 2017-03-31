@@ -15,18 +15,25 @@ const styles = {
     marginRight: '10px'
   }
 };
+
 export default class FilterBooleanField extends Component {
   constructor(props) {
     super(props);
-    this.state = {booleanField: null};
+    this.state = {booleanField: props.defaultValue || null};
   }
 
   render() {
     return (
       <div className="filter-item-container boolean-field-container">
-        <NemesisBooleanField style={styles.container} onValueChange={this.onBooleanFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
+        <NemesisBooleanField readOnly={this.props.readOnly} value={this.state.booleanField} style={styles.container} onValueChange={this.onBooleanFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
+  }
+
+  componentWillMount() {
+    if (this.props.defaultValue) {
+      this.updateParentFilter(this.props.defaultValue);
+    }
   }
 
   onBooleanFieldChange(value) {
