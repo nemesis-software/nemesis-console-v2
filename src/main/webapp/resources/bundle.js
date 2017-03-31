@@ -21864,6 +21864,8 @@
 	var map = {
 		"./entities-filter": 186,
 		"./entities-filter.js": 186,
+		"./entities-result-viewer": 968,
+		"./entities-result-viewer.js": 968,
 		"./entity-sections": 386,
 		"./entity-sections.js": 386,
 		"./entity-window": 438,
@@ -21887,7 +21889,9 @@
 		"./nemesis-entity-collection-field": 473,
 		"./nemesis-entity-collection-field.js": 473,
 		"./nemesis-localized-text-field": 500,
-		"./nemesis-localized-text-field.js": 500
+		"./nemesis-localized-text-field.js": 500,
+		"./viewers/card-viewer": 969,
+		"./viewers/card-viewer.js": 969
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -68165,6 +68169,8 @@
 		"./app/utils/require-util.js": 184,
 		"./custom_files/entities-filter": 186,
 		"./custom_files/entities-filter.js": 186,
+		"./custom_files/entities-result-viewer": 968,
+		"./custom_files/entities-result-viewer.js": 968,
 		"./custom_files/entity-sections": 386,
 		"./custom_files/entity-sections.js": 386,
 		"./custom_files/entity-window": 438,
@@ -68189,6 +68195,8 @@
 		"./custom_files/nemesis-entity-collection-field.js": 473,
 		"./custom_files/nemesis-localized-text-field": 500,
 		"./custom_files/nemesis-localized-text-field.js": 500,
+		"./custom_files/viewers/card-viewer": 969,
+		"./custom_files/viewers/card-viewer.js": 969,
 		"./index": 1,
 		"./index.js": 1,
 		"./locales/bg": 899,
@@ -69669,6 +69677,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -69678,6 +69688,14 @@
 	var _Paper = __webpack_require__(188);
 
 	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _SelectField = __webpack_require__(285);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _MenuItem = __webpack_require__(370);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
 	var _requireUtil = __webpack_require__(184);
 
@@ -69697,7 +69715,11 @@
 	  function EntitiesResultViewer(props) {
 	    _classCallCheck(this, EntitiesResultViewer);
 
-	    return _possibleConstructorReturn(this, (EntitiesResultViewer.__proto__ || Object.getPrototypeOf(EntitiesResultViewer)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (EntitiesResultViewer.__proto__ || Object.getPrototypeOf(EntitiesResultViewer)).call(this, props));
+
+	    _this.state = { selectedMenuIndex: 0 };
+
+	    return _this;
 	  }
 
 	  _createClass(EntitiesResultViewer, [{
@@ -69706,12 +69728,58 @@
 	      return _react2.default.createElement(
 	        _Paper2.default,
 	        { zDepth: 1, style: { margin: '5px', padding: '5px', marginTop: '20px' } },
-	        _react2.default.createElement(EntitiesTableViewer, { entities: this.props.entities,
-	          entitiesMarkup: this.props.entitiesMarkup,
-	          onPagerChange: this.props.onPagerChange,
-	          page: this.props.page,
-	          onEntityItemClick: this.props.onEntityItemClick })
+	        _react2.default.createElement(
+	          'div',
+	          { style: this.getViewerSelectStyle() },
+	          _react2.default.createElement(
+	            _SelectField2.default,
+	            {
+	              floatingLabelText: 'Viewer',
+	              value: this.state.selectedMenuIndex,
+	              onChange: this.handleViewerChange.bind(this)
+	            },
+	            this.getViewers().map(function (item, index) {
+	              return _react2.default.createElement(_MenuItem2.default, { key: index, value: index, primaryText: item.viewerName });
+	            })
+	          )
+	        ),
+	        this.getViewers().map(this.getViewerElement.bind(this))
 	      );
+	    }
+	  }, {
+	    key: 'handleViewerChange',
+	    value: function handleViewerChange(event, index) {
+	      this.setState(_extends({}, this.state, { selectedMenuIndex: index }));
+	    }
+	  }, {
+	    key: 'getViewerSelectStyle',
+	    value: function getViewerSelectStyle() {
+	      var style = {};
+	      if (this.getViewers().length <= 1) {
+	        style = { display: 'none' };
+	      }
+
+	      return style;
+	    }
+	  }, {
+	    key: 'getViewers',
+	    value: function getViewers() {
+	      return [{ viewerName: 'Default viewer', viewerClass: EntitiesTableViewer }];
+	    }
+	  }, {
+	    key: 'getViewerElement',
+	    value: function getViewerElement(viewer, index) {
+	      var config = {
+	        entities: this.props.entities,
+	        entitiesMarkup: this.props.entitiesMarkup,
+	        onPagerChange: this.props.onPagerChange,
+	        page: this.props.page,
+	        onEntityItemClick: this.props.onEntityItemClick,
+	        key: index,
+	        style: index === this.state.selectedMenuIndex ? {} : { display: 'none' }
+	      };
+
+	      return _react2.default.createElement(viewer.viewerClass, config);
 	    }
 	  }]);
 
@@ -69795,7 +69863,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { style: this.props.style },
 	        _react2.default.createElement(
 	          _Table.Table,
 	          { selectable: true, onRowSelection: this.onRowSelected.bind(this) },
@@ -109446,6 +109514,179 @@
 	}(_baseCustomFilter2.default);
 
 	exports.default = TransactionFilter;
+
+/***/ },
+/* 967 */,
+/* 968 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _entitiesResultViewer = __webpack_require__(517);
+
+	var _entitiesResultViewer2 = _interopRequireDefault(_entitiesResultViewer);
+
+	var _cardViewer = __webpack_require__(969);
+
+	var _cardViewer2 = _interopRequireDefault(_cardViewer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CustomViewers = function (_EntitiesResultViewer) {
+	  _inherits(CustomViewers, _EntitiesResultViewer);
+
+	  function CustomViewers(props) {
+	    _classCallCheck(this, CustomViewers);
+
+	    return _possibleConstructorReturn(this, (CustomViewers.__proto__ || Object.getPrototypeOf(CustomViewers)).call(this, props));
+	  }
+
+	  _createClass(CustomViewers, [{
+	    key: 'getViewers',
+	    value: function getViewers() {
+	      var viewers = _get(CustomViewers.prototype.__proto__ || Object.getPrototypeOf(CustomViewers.prototype), 'getViewers', this).call(this);
+	      if (this.props.entity.entityId === 'category') {
+	        viewers.push({ viewerName: 'Card Viewer', viewerClass: _cardViewer2.default });
+	      }
+
+	      return viewers;
+	    }
+	  }]);
+
+	  return CustomViewers;
+	}(_entitiesResultViewer2.default);
+
+	exports.default = CustomViewers;
+
+/***/ },
+/* 969 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _lodash = __webpack_require__(375);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _Paper = __webpack_require__(188);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _entitiesPager = __webpack_require__(516);
+
+	var _entitiesPager2 = _interopRequireDefault(_entitiesPager);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CardViewer = function (_Component) {
+	  _inherits(CardViewer, _Component);
+
+	  function CardViewer(props) {
+	    _classCallCheck(this, CardViewer);
+
+	    var _this = _possibleConstructorReturn(this, (CardViewer.__proto__ || Object.getPrototypeOf(CardViewer)).call(this, props));
+
+	    _this.state = { entitiesMarkup: _this.props.entitiesMarkup || [] };
+	    return _this;
+	  }
+
+	  _createClass(CardViewer, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState(_extends({}, this.state, { entitiesMarkup: nextProps.entitiesMarkup }));
+	    }
+	  }, {
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState) {
+	      return !(_lodash2.default.isEqual(this.state, nextState) && _lodash2.default.isEqual(this.props, nextProps));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { style: this.props.style },
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(_entitiesPager2.default, { onPagerChange: this.props.onPagerChange, page: this.props.page })
+	        ),
+	        this.props.entities.map(function (item, index) {
+	          return _react2.default.createElement(
+	            'div',
+	            { key: index, onClick: function onClick() {
+	                return _this2.props.onEntityItemClick(item);
+	              }, style: { width: 'calc(50% - 10px)', cursor: 'pointer', display: 'inline-block', padding: '5px' } },
+	            _react2.default.createElement(
+	              _Paper2.default,
+	              { zDepth: 1 },
+	              _this2.state.entitiesMarkup.map(function (markupItem, index) {
+	                return _this2.getRowItem(item, markupItem, index);
+	              })
+	            )
+	          );
+	        })
+	      );
+	    }
+	  }, {
+	    key: 'getRowItem',
+	    value: function getRowItem(item, markupItem, index) {
+	      var itemValue = item[markupItem.name];
+	      if (['nemesisLocalizedRichtextField', 'nemesisLocalizedTextField'].indexOf(markupItem.type) > -1) {
+	        itemValue = item[markupItem.name]['en'] && item[markupItem.name]['en'].value;
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { key: index, style: { padding: '3px' } },
+	        markupItem.name,
+	        ': ',
+	        itemValue || ''
+	      );
+	    }
+	  }]);
+
+	  return CardViewer;
+	}(_react.Component);
+
+	exports.default = CardViewer;
 
 /***/ }
 /******/ ]);

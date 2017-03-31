@@ -35,7 +35,7 @@ export default class EntitiesTableViewer extends Component {
 
   render() {
     return (
-      <div>
+      <div style={this.props.style}>
         <Table selectable={true} onRowSelection={this.onRowSelected.bind(this)}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
