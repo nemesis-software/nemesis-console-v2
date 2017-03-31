@@ -67889,6 +67889,7 @@
 	        'div',
 	        { className: 'entity-field-container' },
 	        _react2.default.createElement(_languageChanger2.default, {
+	          readOnly: this.props.readOnly,
 	          label: 'language',
 	          style: this.props.style,
 	          onLanguageChange: this.onLanguageChange.bind(this),
@@ -68050,6 +68051,7 @@
 	      return _react2.default.createElement(
 	        _SelectField2.default,
 	        {
+	          disabled: this.props.readOnly,
 	          labelStyle: this.props.labelStyle,
 	          value: this.state.selectedLanguage.value,
 	          floatingLabelText: this.props.label ? _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }) : null,

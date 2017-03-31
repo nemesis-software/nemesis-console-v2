@@ -20,6 +20,7 @@ export default class LanguageChanger extends Component {
   render() {
     return (
       <SelectField
+        disabled={this.props.readOnly}
         labelStyle={this.props.labelStyle}
         value={this.state.selectedLanguage.value}
         floatingLabelText={this.props.label ? <Translate content={'main.' + this.props.label} fallback={this.props.label} /> : null}

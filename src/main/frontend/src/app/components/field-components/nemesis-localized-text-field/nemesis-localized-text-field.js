@@ -34,6 +34,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
     return (
       <div className="entity-field-container">
         <LanguageChanger
+          readOnly={this.props.readOnly}
           label="language"
           style={this.props.style}
           onLanguageChange={this.onLanguageChange.bind(this)}
