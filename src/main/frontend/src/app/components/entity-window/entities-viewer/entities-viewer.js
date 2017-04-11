@@ -27,7 +27,6 @@ export default class EntitiesViewer extends Component {
   render() {
     return (
       <div>
-        <Translate component="h2" content={'main.' + this.props.entity.entityId} fallback={this.props.entity.entityId}/>
         <EntitiesFilter entity={this.props.entity} filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
         <EntitiesResultViewer entities={this.state.searchData}
                               entity={this.props.entity}

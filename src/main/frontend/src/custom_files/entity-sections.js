@@ -1,7 +1,7 @@
 import React from 'react';
 import EntitySections from '../app/components/entity-window/entity-sections/entity-sections';
 
-export default class CustomEntitySection extends EntitySections {
+export default class CustomEntitySections extends EntitySections {
   constructor(props) {
     super(props);
   }

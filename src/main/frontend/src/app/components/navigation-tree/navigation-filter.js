@@ -12,6 +12,9 @@ export default class NavigationFilter extends Component {
   render() {
     return (
       <TextField
+        floatingLabelStyle={{color: 'white'}}
+        inputStyle={{color: 'white'}}
+        underlineFocusStyle={{borderColor: 'white'}}
         floatingLabelText={<Translate content={'main.filter...'} fallback="Filter..." />}
         onChange={_.debounce(this.filterNavigationContent.bind(this), 250)}/>
     )

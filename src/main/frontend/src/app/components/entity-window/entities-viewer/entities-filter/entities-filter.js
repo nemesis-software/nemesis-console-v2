@@ -18,18 +18,18 @@ export default class EntitiesFilter extends Component {
   render() {
     return (
       <div>
-        <div style={this.getFilterSelectStyle()}>
-          <SelectField
-            floatingLabelText="Filter"
-            value={this.state.selectedMenuIndex}
-            onChange={this.handleFilterChange.bind(this)}
-          >
-            {this.getFilters().map((item, index) => {
-              return  <MenuItem key={index} value={index} primaryText={item.filterName} />
-            })}
-          </SelectField>
-        </div>
         <Paper zDepth={1} style={{margin: '5px', padding: '5px'}}>
+          <div style={this.getFilterSelectStyle()}>
+            <SelectField
+              floatingLabelText="Filter"
+              value={this.state.selectedMenuIndex}
+              onChange={this.handleFilterChange.bind(this)}
+            >
+              {this.getFilters().map((item, index) => {
+                return  <MenuItem key={index} value={index} primaryText={item.filterName} />
+              })}
+            </SelectField>
+          </div>
           {this.getFilters().map(this.getFilterElement.bind(this))}
         </Paper>
       </div>
