@@ -21715,6 +21715,10 @@
 
 	var _requireUtil = __webpack_require__(184);
 
+	var _reactTranslateComponent = __webpack_require__(395);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
 	var _MuiThemeProvider = __webpack_require__(908);
 
 	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
@@ -21723,7 +21727,7 @@
 
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 
-	var _counterpart = __webpack_require__(462);
+	var _counterpart = __webpack_require__(400);
 
 	var _counterpart2 = _interopRequireDefault(_counterpart);
 
@@ -21731,7 +21735,7 @@
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
-	var _FlatButton = __webpack_require__(400);
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
@@ -21800,7 +21804,7 @@
 	                { style: { display: 'inline-block', verticalAlign: 'top', margin: '5px 15px' } },
 	                _react2.default.createElement(_FlatButton2.default, {
 	                  style: { color: 'white' },
-	                  label: 'Logout',
+	                  label: _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span', content: 'main.Logout', fallback: 'Logout' }),
 	                  onTouchTap: this.handleLogoutButtonClick.bind(this)
 	                })
 	              )
@@ -21868,8 +21872,8 @@
 		"./entities-result-viewer.js": 389,
 		"./entity-sections": 393,
 		"./entity-sections.js": 393,
-		"./entity-window": 445,
-		"./entity-window.js": 445,
+		"./entity-window": 462,
+		"./entity-window.js": 462,
 		"./filters/active-product-filter": 384,
 		"./filters/active-product-filter.js": 384,
 		"./filters/base-custom-filter": 380,
@@ -21880,12 +21884,12 @@
 		"./filters/new-custom-filter.js": 371,
 		"./filters/transaction-filter": 387,
 		"./filters/transaction-filter.js": 387,
-		"./main-view": 447,
-		"./main-view.js": 447,
-		"./navigation-tree": 453,
-		"./navigation-tree-item1": 455,
-		"./navigation-tree-item1.js": 455,
-		"./navigation-tree.js": 453,
+		"./main-view": 464,
+		"./main-view.js": 464,
+		"./navigation-tree": 470,
+		"./navigation-tree-item1": 472,
+		"./navigation-tree-item1.js": 472,
+		"./navigation-tree.js": 470,
 		"./nemesis-entity-collection-field": 480,
 		"./nemesis-entity-collection-field.js": 480,
 		"./nemesis-localized-text-field": 507,
@@ -22010,6 +22014,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactTranslateComponent = __webpack_require__(395);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
 	var _Paper = __webpack_require__(188);
 
 	var _Paper2 = _interopRequireDefault(_Paper);
@@ -22061,7 +22069,7 @@
 	            _react2.default.createElement(
 	              _SelectField2.default,
 	              {
-	                floatingLabelText: 'Filter',
+	                floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span', content: 'main.Filter', fallback: 'Filter' }),
 	                value: this.state.selectedMenuIndex,
 	                onChange: this.handleFilterChange.bind(this)
 	              },
@@ -54067,13 +54075,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Tabs = __webpack_require__(395);
+	var _reactTranslateComponent = __webpack_require__(395);
 
-	var _FlatButton = __webpack_require__(400);
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
+	var _Tabs = __webpack_require__(412);
+
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-	var _Dialog = __webpack_require__(403);
+	var _Dialog = __webpack_require__(420);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -54081,7 +54093,7 @@
 
 	var _Paper2 = _interopRequireDefault(_Paper);
 
-	var _reactSwipeableViews = __webpack_require__(407);
+	var _reactSwipeableViews = __webpack_require__(424);
 
 	var _reactSwipeableViews2 = _interopRequireDefault(_reactSwipeableViews);
 
@@ -54089,11 +54101,11 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _entityTypes = __webpack_require__(418);
+	var _entityTypes = __webpack_require__(435);
 
 	var _nemesisTypes = __webpack_require__(377);
 
-	var _apiCall = __webpack_require__(419);
+	var _apiCall = __webpack_require__(436);
 
 	var _apiCall2 = _interopRequireDefault(_apiCall);
 
@@ -54157,7 +54169,7 @@
 	          _Paper2.default,
 	          { zDepth: 1, style: { margin: '5px 0', padding: '5px' } },
 	          this.getFunctionalButtons(this.props.entity).map(function (button, index) {
-	            return _react2.default.createElement(_FlatButton2.default, { label: button.label, onClick: button.onClickFunction, key: index });
+	            return _react2.default.createElement(_FlatButton2.default, { label: _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span', content: 'main.' + button.label, fallback: button.label }), onClick: button.onClickFunction, key: index });
 	          })
 	        ),
 	        _react2.default.createElement(
@@ -54165,7 +54177,7 @@
 	          { onChange: this.handleChange,
 	            value: this.state.sectionIndex },
 	          this.props.entity.data.sections.map(function (item, index) {
-	            return _react2.default.createElement(_Tabs.Tab, { key: index, value: index, label: item.title });
+	            return _react2.default.createElement(_Tabs.Tab, { key: index, value: index, label: _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span', content: 'main.' + item.title, fallback: item.title }) });
 	          })
 	        ),
 	        _react2.default.createElement(
@@ -54196,7 +54208,7 @@
 
 	      var result = [{ label: 'Save', onClickFunction: function onClickFunction() {
 	          return _this3.handleSaveButtonClick(false);
-	        } }, { label: 'Save and close', onClickFunction: function onClickFunction() {
+	        } }, { label: 'Save & Close', onClickFunction: function onClickFunction() {
 	          return _this3.handleSaveButtonClick(true);
 	        } }];
 
@@ -54485,16 +54497,2255 @@
 
 	'use strict';
 
+	var React       = __webpack_require__(2);
+	var Interpolate = __webpack_require__(396);
+	var translator  = __webpack_require__(400);
+	var extend      = __webpack_require__(5);
+
+	var PropTypes = React.PropTypes;
+
+	var translatorType = PropTypes.shape({
+	  getLocale:        PropTypes.func,
+	  onLocaleChange:   PropTypes.func,
+	  offLocaleChange:  PropTypes.func,
+	  translate:        PropTypes.func
+	});
+
+	var keyType = PropTypes.oneOfType([
+	  PropTypes.string,
+	  PropTypes.arrayOf(PropTypes.string)
+	]);
+
+	var Translate = React.createClass({
+	  displayName: 'Translate',
+
+	  contextTypes: {
+	    translator: translatorType,
+	    scope: keyType
+	  },
+
+	  propTypes: {
+	    locale: PropTypes.string,
+	    count:  PropTypes.number,
+	    content: keyType,
+	    scope: keyType,
+	    attributes: PropTypes.object,
+	    with: PropTypes.object
+	  },
+
+	  statics: {
+	    textContentComponents: ['title', 'option', 'textarea']
+	  },
+
+	  getDefaultProps: function() {
+	    return { component: 'span' };
+	  },
+
+	  getInitialState: function() {
+	    return { locale: this.getTranslator().getLocale() };
+	  },
+
+	  getTranslator: function() {
+	    return this.context.translator || translator;
+	  },
+
+	  componentDidMount: function() {
+	    if (!this.props.locale) {
+	      this.getTranslator().onLocaleChange(this.localeChanged);
+	    }
+	  },
+
+	  componentWillUnmount: function() {
+	    if (!this.props.locale) {
+	      this.getTranslator().offLocaleChange(this.localeChanged);
+	    }
+	  },
+
+	  localeChanged: function(newLocale) {
+	    this.setState({ locale: newLocale });
+	  },
+
+	  render: function() {
+	    var props           = extend({}, this.props);
+	    var translator      = this.getTranslator();
+	    var textContent     = Translate.textContentComponents.indexOf(props.component) > -1;
+	    var interpolate     = textContent || props.unsafe === true;
+	    var interpolations  = props.with;
+
+	    var attributeKey;
+
+	    var attributeTranslationOptions = extend(
+	      { locale: this.state.locale, scope: this.context.scope },
+	      props,
+	      interpolations,
+	      { interpolate: true }
+	    );
+
+	    var contentTranslationOptions = extend(
+	      {},
+	      attributeTranslationOptions,
+	      { interpolate: interpolate }
+	    );
+
+	    delete props.locale;
+	    delete props.scope;
+	    delete props.count;
+	    delete props.with;
+	    delete props.fallback;
+
+	    if (props.attributes) {
+	      for (var name in props.attributes) {
+	        attributeKey = props.attributes[name];
+
+	        if (attributeKey) {
+	          props[name] = translator.translate(attributeKey, attributeTranslationOptions);
+	        }
+	      }
+
+	      delete props.attributes;
+	    }
+
+	    if (props.content) {
+	      var translation      = translator.translate(props.content, contentTranslationOptions);
+	      var interpolateProps = extend({}, props, { with: interpolations });
+
+	      delete interpolateProps.content;
+	      delete interpolateProps.children;
+
+	      return React.createElement(Interpolate, interpolateProps, translation);
+	    } else {
+	      var component = props.component;
+
+	      delete props.component;
+	      delete props.unsafe;
+
+	      return React.createElement(component, props);
+	    }
+	  }
+	});
+
+	module.exports = Translate;
+
+	module.exports.translate = function(key, options) {
+	  return React.createElement(Translate, extend({}, options, { content: key }));
+	};
+
+	module.exports.translatorType = translatorType;
+
+	module.exports.getLocale = translator.getLocale.bind(translator);
+	module.exports.setLocale = translator.setLocale.bind(translator);
+	module.exports.onLocaleChange = translator.onLocaleChange.bind(translator);
+	module.exports.offLocaleChange = translator.offLocaleChange.bind(translator);
+	module.exports.registerTranslations = translator.registerTranslations.bind(translator);
+
+	function withTranslations(DecoratedComponent, translations) {
+	  if (!translations) {
+	    return function(decoratedComponent) {
+	      return withTranslations(decoratedComponent, DecoratedComponent);
+	    };
+	  }
+
+	  var displayName =
+	    DecoratedComponent.displayName ||
+	    DecoratedComponent.name ||
+	    'Component';
+
+	  for (var locale in translations) {
+	    var localeTranslations = translations[locale];
+	    var scopedTranslations = {};
+
+	    scopedTranslations[displayName] = localeTranslations;
+
+	    translator.registerTranslations(locale, scopedTranslations);
+	  }
+
+	  return React.createClass({
+	    displayName: displayName + 'WithTranslations',
+
+	    childContextTypes: {
+	      scope: keyType
+	    },
+
+	    getChildContext: function() {
+	      return {
+	        scope: displayName
+	      };
+	    },
+
+	    render: function() {
+	      return React.createElement(DecoratedComponent, this.props);
+	    }
+	  });
+	}
+
+	module.exports.withTranslations = withTranslations;
+
+
+/***/ },
+/* 396 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React     = __webpack_require__(2);
+	var invariant = __webpack_require__(397);
+	var except    = __webpack_require__(398);
+	var extend    = __webpack_require__(5);
+
+	function isString(object) {
+	  return Object.prototype.toString.call(object) === '[object String]';
+	}
+
+	var REGEXP = /\%\((.+?)\)s/;
+	var OMITTED_PROPS = ['children', 'format', 'component', 'unsafe', 'with'];
+
+	var Interpolate = React.createClass({
+	  displayName: 'Interpolate',
+
+	  getDefaultProps: function() {
+	    return { component: 'span' };
+	  },
+
+	  render: function() {
+	    var format         = this.props.children;
+	    var parent         = this.props.component;
+	    var unsafe         = this.props.unsafe === true;
+	    var interpolations = extend({}, this.props, this.props.with);
+	    var props          = except(this.props, OMITTED_PROPS);
+
+	    var matches = [];
+	    var children = [];
+
+	    if (!isString(format)) {
+	      format = this.props.format;
+	    }
+
+	    invariant(isString(format), 'Interpolate expects either a format string as only child or a `format` prop with a string value');
+
+	    if (unsafe) {
+	      var content = format.split(REGEXP).reduce(function(memo, match, index) {
+	        var html;
+
+	        if (index % 2 === 0) {
+	          html = match;
+	        } else {
+	          html = interpolations[match];
+	          matches.push(match);
+	        }
+
+	        if (React.isValidElement(html)) {
+	          throw new Error('cannot interpolate a React component into unsafe text');
+	        }
+
+	        memo += html;
+
+	        return memo;
+	      }, '');
+
+	      props.dangerouslySetInnerHTML = { __html: content };
+	    } else {
+	      format.split(REGEXP).reduce(function(memo, match, index) {
+	        var child;
+
+	        if (index % 2 === 0) {
+	          if (match.length === 0) {
+	            return memo;
+	          }
+
+	          child = match;
+	        } else {
+	          child = interpolations[match];
+	          matches.push(match);
+	        }
+
+	        memo.push(child);
+
+	        return memo;
+	      }, children);
+	    }
+
+	    props = except(props, matches);
+
+	    return React.createElement.apply(this, [parent, props].concat(children));
+	  }
+	});
+
+	module.exports = Interpolate;
+
+
+/***/ },
+/* 397 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule invariant
+	 */
+
+	'use strict';
+
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+
+	function invariant(condition, format, a, b, c, d, e, f) {
+	  if (process.env.NODE_ENV !== 'production') {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(format.replace(/%s/g, function () {
+	        return args[argIndex++];
+	      }));
+	      error.name = 'Invariant Violation';
+	    }
+
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	}
+
+	module.exports = invariant;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 398 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var ap      = Array.prototype;
+	var concat  = ap.concat;
+	var slice   = ap.slice;
+	var indexOf = __webpack_require__(399);
+
+	function except(object) {
+	  var result = {};
+	  var keys = concat.apply(ap, slice.call(arguments, 1));
+
+	  for (var key in object) {
+	    if (indexOf(keys, key) === -1) {
+	      result[key] = object[key];
+	    }
+	  }
+
+	  return result;
+	}
+
+	module.exports = except;
+
+
+/***/ },
+/* 399 */
+/***/ function(module, exports) {
+
+	
+	var indexOf = [].indexOf;
+
+	module.exports = function(arr, obj){
+	  if (indexOf) return arr.indexOf(obj);
+	  for (var i = 0; i < arr.length; ++i) {
+	    if (arr[i] === obj) return i;
+	  }
+	  return -1;
+	};
+
+/***/ },
+/* 400 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var extend  = __webpack_require__(401);
+	var isArray = __webpack_require__(402).isArray;
+	var isDate  = __webpack_require__(402).isDate;
+	var sprintf = __webpack_require__(405).sprintf;
+	var events  = __webpack_require__(406);
+	var except  = __webpack_require__(398);
+
+	var strftime = __webpack_require__(407);
+
+	var translationScope = 'counterpart';
+
+	function isString(val) {
+	  return typeof val === 'string' || Object.prototype.toString.call(val) === '[object String]';
+	}
+
+	function isFunction(val) {
+	  return typeof val === 'function' || Object.prototype.toString.call(val) === '[object Function]';
+	}
+
+	function isPlainObject(val) {
+	  //Deal with older browsers (IE8) that don't return [object Null] in this case.
+	  if (val === null) {
+	    return false;
+	  }
+	  return Object.prototype.toString.call(val) === '[object Object]';
+	}
+
+	function isSymbol(key) {
+	  return isString(key) && key[0] === ':';
+	}
+
+	function hasOwnProp(obj, key) {
+	  return Object.prototype.hasOwnProperty.call(obj, key);
+	}
+
+	function getEntry(translations, keys) {
+	  return keys.reduce(function(result, key) {
+	    if (isPlainObject(result) && hasOwnProp(result, key)) {
+	      return result[key];
+	    } else {
+	      return null;
+	    }
+	  }, translations);
+	}
+
+	function Counterpart() {
+	  this._registry = {
+	    locale: 'en',
+	    interpolate: true,
+	    fallbackLocale: null,
+	    scope: null,
+	    translations: {},
+	    interpolations: {},
+	    normalizedKeys: {},
+	    separator: '.',
+	    keepTrailingDot: false,
+	    keyTransformer: function(key) { return key; }
+	  };
+
+	  this.registerTranslations('en', __webpack_require__(410));
+	  this.setMaxListeners(0);
+	}
+
+	extend(Counterpart.prototype, events.EventEmitter.prototype);
+
+	Counterpart.prototype.getLocale = function() {
+	  return this._registry.locale;
+	};
+
+	Counterpart.prototype.setLocale = function(value) {
+	  var previous = this._registry.locale;
+
+	  if (previous != value) {
+	    this._registry.locale = value;
+	    this.emit('localechange', value, previous);
+	  }
+
+	  return previous;
+	};
+
+	Counterpart.prototype.getFallbackLocale = function() {
+	  return this._registry.fallbackLocale;
+	};
+
+	Counterpart.prototype.setFallbackLocale = function(value) {
+	  var previous = this._registry.fallbackLocale;
+	  this._registry.fallbackLocale = value;
+	  return previous;
+	};
+
+	Counterpart.prototype.getAvailableLocales = function() {
+	  return this._registry.availableLocales || Object.keys(this._registry.translations);
+	};
+
+	Counterpart.prototype.setAvailableLocales = function(value) {
+	  var previous = this.getAvailableLocales();
+	  this._registry.availableLocales = value;
+	  return previous;
+	};
+
+	Counterpart.prototype.getSeparator = function() {
+	  return this._registry.separator;
+	};
+
+	Counterpart.prototype.setSeparator = function(value) {
+	  var previous = this._registry.separator;
+	  this._registry.separator = value;
+	  return previous;
+	};
+
+	Counterpart.prototype.setInterpolate = function(value) {
+	  var previous = this._registry.interpolate;
+	  this._registry.interpolate = value;
+	  return previous;
+	};
+
+	Counterpart.prototype.getInterpolate = function() {
+	  return this._registry.interpolate;
+	};
+
+	Counterpart.prototype.setKeyTransformer = function(value) {
+	  var previous = this._registry.keyTransformer;
+	  this._registry.keyTransformer = value;
+	  return previous;
+	};
+
+	Counterpart.prototype.getKeyTransformer = function() {
+	  return this._registry.keyTransformer;
+	};
+
+	Counterpart.prototype.registerTranslations = function(locale, data) {
+	  var translations = {};
+	  translations[locale] = data;
+	  extend(true, this._registry.translations, translations);
+	  return translations;
+	};
+
+	Counterpart.prototype.registerInterpolations = function(data) {
+	  return extend(true, this._registry.interpolations, data);
+	};
+
+	Counterpart.prototype.onLocaleChange =
+	Counterpart.prototype.addLocaleChangeListener = function(callback) {
+	  this.addListener('localechange', callback);
+	};
+
+	Counterpart.prototype.offLocaleChange =
+	Counterpart.prototype.removeLocaleChangeListener = function(callback) {
+	  this.removeListener('localechange', callback);
+	};
+
+	Counterpart.prototype.onTranslationNotFound =
+	Counterpart.prototype.addTranslationNotFoundListener = function(callback) {
+	  this.addListener('translationnotfound', callback);
+	};
+
+	Counterpart.prototype.offTranslationNotFound =
+	Counterpart.prototype.removeTranslationNotFoundListener = function(callback) {
+	  this.removeListener('translationnotfound', callback);
+	};
+
+	Counterpart.prototype.translate = function(key, options) {
+	  if (!isArray(key) && !isString(key) || !key.length) {
+	    throw new Error('invalid argument: key');
+	  }
+
+	  if (isSymbol(key)) {
+	    key = key.substr(1);
+	  }
+
+	  key = this._registry.keyTransformer(key, options);
+
+	  options = extend(true, {}, options);
+
+	  var locale = options.locale || this._registry.locale;
+	  delete options.locale;
+
+	  var scope = options.scope || this._registry.scope;
+	  delete options.scope;
+
+	  var separator = options.separator || this._registry.separator;
+	  delete options.separator;
+
+	  var fallbackLocale = options.fallbackLocale || this._registry.fallbackLocale;
+	  delete options.fallbackLocale;
+
+	  var keys = this._normalizeKeys(locale, scope, key, separator);
+
+	  var entry = getEntry(this._registry.translations, keys);
+
+	  if (entry === null && options.fallback) {
+	    this.emit('translationnotfound', locale, key, options.fallback);
+	    entry = this._fallback(locale, scope, key, options.fallback, options);
+	  }
+
+	  if (entry === null && fallbackLocale && locale !== fallbackLocale) {
+	    var fallbackKeys = this._normalizeKeys(fallbackLocale, scope, key, separator);
+	    entry = getEntry(this._registry.translations, fallbackKeys);
+
+	    if (entry) {
+	      locale = fallbackLocale;
+	    }
+	  }
+
+	  if (entry === null) {
+	    entry = 'missing translation: ' + keys.join(separator);
+	  }
+
+	  entry = this._pluralize(locale, entry, options.count);
+
+	  if (this._registry.interpolate !== false && options.interpolate !== false) {
+	    entry = this._interpolate(entry, options);
+	  }
+
+	  return entry;
+	};
+
+	Counterpart.prototype.localize = function(object, options) {
+	  if (!isDate(object)) {
+	    throw new Error('invalid argument: object must be a date');
+	  }
+
+	  options = extend(true, {}, options);
+
+	  var locale  = options.locale  || this._registry.locale;
+	  var scope   = options.scope   || translationScope;
+	  var type    = options.type    || 'datetime';
+	  var format  = options.format  || 'default';
+
+	  options = { locale: locale, scope: scope, interpolate: false };
+	  format  = this.translate(['formats', type, format], extend(true, {}, options));
+
+	  return strftime(object, format, this.translate('names', options));
+	};
+
+	Counterpart.prototype._pluralize = function(locale, entry, count) {
+	  if (typeof entry !== 'object' || entry === null || typeof count !== 'number') {
+	    return entry;
+	  }
+
+	  var pluralizeFunc = this.translate('pluralize', { locale: locale, scope: translationScope });
+
+	  if (Object.prototype.toString.call(pluralizeFunc) !== '[object Function]') {
+	    return pluralizeFunc;
+	  }
+
+	  return pluralizeFunc(entry, count);
+	};
+
+	Counterpart.prototype.withLocale = function(locale, callback, context) {
+	  var previous = this._registry.locale;
+	  this._registry.locale = locale;
+	  var result = callback.call(context);
+	  this._registry.locale = previous;
+	  return result;
+	};
+
+	Counterpart.prototype.withScope = function(scope, callback, context) {
+	  var previous = this._registry.scope;
+	  this._registry.scope = scope;
+	  var result = callback.call(context);
+	  this._registry.scope = previous;
+	  return result;
+	};
+
+	Counterpart.prototype.withSeparator = function(separator, callback, context) {
+	  var previous = this.setSeparator(separator);
+	  var result = callback.call(context);
+	  this.setSeparator(previous);
+	  return result;
+	};
+
+	Counterpart.prototype._normalizeKeys = function(locale, scope, key, separator) {
+	  var keys = [];
+
+	  keys = keys.concat(this._normalizeKey(locale, separator));
+	  keys = keys.concat(this._normalizeKey(scope, separator));
+	  keys = keys.concat(this._normalizeKey(key, separator));
+
+	  return keys;
+	};
+
+	Counterpart.prototype._normalizeKey = function(key, separator) {
+	  this._registry.normalizedKeys[separator] = this._registry.normalizedKeys[separator] || {};
+
+	  this._registry.normalizedKeys[separator][key] = this._registry.normalizedKeys[separator][key] || (function(key) {
+	    if (isArray(key)) {
+	      var normalizedKeyArray = key.map(function(k) { return this._normalizeKey(k, separator); }.bind(this));
+
+	      return [].concat.apply([], normalizedKeyArray);
+	    } else {
+	      if (typeof key === 'undefined' || key === null) {
+	        return [];
+	      }
+
+	      var keys = key.split(separator);
+
+	      for (var i = keys.length - 1; i >= 0; i--) {
+	        if (keys[i] === '') {
+	          keys.splice(i, 1);
+
+	          if (this._registry.keepTrailingDot === true && i == keys.length) {
+	            keys[keys.length - 1] += '' + separator;
+	          }
+	        }
+	      }
+
+	      return keys;
+	    }
+	  }.bind(this))(key);
+
+	  return this._registry.normalizedKeys[separator][key];
+	};
+
+	Counterpart.prototype._interpolate = function(entry, values) {
+	  if (typeof entry !== 'string') {
+	    return entry;
+	  }
+
+	  return sprintf(entry, extend({}, this._registry.interpolations, values));
+	};
+
+	Counterpart.prototype._resolve = function(locale, scope, object, subject, options) {
+	  options = options || {};
+
+	  if (options.resolve === false) {
+	    return subject;
+	  }
+
+	  var result;
+
+	  if (isSymbol(subject)) {
+	    result = this.translate(subject, extend({}, options, { locale: locale, scope: scope }));
+	  } else if (isFunction(subject)) {
+	    var dateOrTime;
+
+	    if (options.object) {
+	      dateOrTime = options.object;
+	      delete options.object;
+	    } else {
+	      dateOrTime = object;
+	    }
+
+	    result = this._resolve(locale, scope, object, subject(dateOrTime, options));
+	  } else {
+	    result = subject;
+	  }
+
+	  return /^missing translation:/.test(result) ? null : result;
+	};
+
+	Counterpart.prototype._fallback = function(locale, scope, object, subject, options) {
+	  options = except(options, 'fallback');
+
+	  if (isArray(subject)) {
+	    for (var i = 0, ii = subject.length; i < ii; i++) {
+	      var result = this._resolve(locale, scope, object, subject[i], options);
+
+	      if (result) {
+	        return result;
+	      }
+	    }
+
+	    return null;
+	  } else {
+	    return this._resolve(locale, scope, object, subject, options);
+	  }
+	};
+
+	var instance = new Counterpart();
+
+	function translate() {
+	  return instance.translate.apply(instance, arguments);
+	}
+
+	extend(translate, instance, {
+	  Instance: Counterpart,
+	  Translator: Counterpart
+	});
+
+	module.exports = translate;
+
+
+/***/ },
+/* 401 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var hasOwn = Object.prototype.hasOwnProperty;
+	var toStr = Object.prototype.toString;
+
+	var isArray = function isArray(arr) {
+		if (typeof Array.isArray === 'function') {
+			return Array.isArray(arr);
+		}
+
+		return toStr.call(arr) === '[object Array]';
+	};
+
+	var isPlainObject = function isPlainObject(obj) {
+		if (!obj || toStr.call(obj) !== '[object Object]') {
+			return false;
+		}
+
+		var hasOwnConstructor = hasOwn.call(obj, 'constructor');
+		var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
+		// Not own constructor property must be Object
+		if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
+			return false;
+		}
+
+		// Own properties are enumerated firstly, so to speed up,
+		// if last one is own, then all properties are own.
+		var key;
+		for (key in obj) {/**/}
+
+		return typeof key === 'undefined' || hasOwn.call(obj, key);
+	};
+
+	module.exports = function extend() {
+		var options, name, src, copy, copyIsArray, clone,
+			target = arguments[0],
+			i = 1,
+			length = arguments.length,
+			deep = false;
+
+		// Handle a deep copy situation
+		if (typeof target === 'boolean') {
+			deep = target;
+			target = arguments[1] || {};
+			// skip the boolean and the target
+			i = 2;
+		} else if ((typeof target !== 'object' && typeof target !== 'function') || target == null) {
+			target = {};
+		}
+
+		for (; i < length; ++i) {
+			options = arguments[i];
+			// Only deal with non-null/undefined values
+			if (options != null) {
+				// Extend the base object
+				for (name in options) {
+					src = target[name];
+					copy = options[name];
+
+					// Prevent never-ending loop
+					if (target !== copy) {
+						// Recurse if we're merging plain objects or arrays
+						if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
+							if (copyIsArray) {
+								copyIsArray = false;
+								clone = src && isArray(src) ? src : [];
+							} else {
+								clone = src && isPlainObject(src) ? src : {};
+							}
+
+							// Never move original objects, clone them
+							target[name] = extend(deep, clone, copy);
+
+						// Don't bring in undefined values
+						} else if (typeof copy !== 'undefined') {
+							target[name] = copy;
+						}
+					}
+				}
+			}
+		}
+
+		// Return the modified object
+		return target;
+	};
+
+
+
+/***/ },
+/* 402 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	var formatRegExp = /%[sdj%]/g;
+	exports.format = function(f) {
+	  if (!isString(f)) {
+	    var objects = [];
+	    for (var i = 0; i < arguments.length; i++) {
+	      objects.push(inspect(arguments[i]));
+	    }
+	    return objects.join(' ');
+	  }
+
+	  var i = 1;
+	  var args = arguments;
+	  var len = args.length;
+	  var str = String(f).replace(formatRegExp, function(x) {
+	    if (x === '%%') return '%';
+	    if (i >= len) return x;
+	    switch (x) {
+	      case '%s': return String(args[i++]);
+	      case '%d': return Number(args[i++]);
+	      case '%j':
+	        try {
+	          return JSON.stringify(args[i++]);
+	        } catch (_) {
+	          return '[Circular]';
+	        }
+	      default:
+	        return x;
+	    }
+	  });
+	  for (var x = args[i]; i < len; x = args[++i]) {
+	    if (isNull(x) || !isObject(x)) {
+	      str += ' ' + x;
+	    } else {
+	      str += ' ' + inspect(x);
+	    }
+	  }
+	  return str;
+	};
+
+
+	// Mark that a method should not be used.
+	// Returns a modified function which warns once by default.
+	// If --no-deprecation is set, then it is a no-op.
+	exports.deprecate = function(fn, msg) {
+	  // Allow for deprecating things in the process of starting up.
+	  if (isUndefined(global.process)) {
+	    return function() {
+	      return exports.deprecate(fn, msg).apply(this, arguments);
+	    };
+	  }
+
+	  if (process.noDeprecation === true) {
+	    return fn;
+	  }
+
+	  var warned = false;
+	  function deprecated() {
+	    if (!warned) {
+	      if (process.throwDeprecation) {
+	        throw new Error(msg);
+	      } else if (process.traceDeprecation) {
+	        console.trace(msg);
+	      } else {
+	        console.error(msg);
+	      }
+	      warned = true;
+	    }
+	    return fn.apply(this, arguments);
+	  }
+
+	  return deprecated;
+	};
+
+
+	var debugs = {};
+	var debugEnviron;
+	exports.debuglog = function(set) {
+	  if (isUndefined(debugEnviron))
+	    debugEnviron = process.env.NODE_DEBUG || '';
+	  set = set.toUpperCase();
+	  if (!debugs[set]) {
+	    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
+	      var pid = process.pid;
+	      debugs[set] = function() {
+	        var msg = exports.format.apply(exports, arguments);
+	        console.error('%s %d: %s', set, pid, msg);
+	      };
+	    } else {
+	      debugs[set] = function() {};
+	    }
+	  }
+	  return debugs[set];
+	};
+
+
+	/**
+	 * Echos the value of a value. Trys to print the value out
+	 * in the best way possible given the different types.
+	 *
+	 * @param {Object} obj The object to print out.
+	 * @param {Object} opts Optional options object that alters the output.
+	 */
+	/* legacy: obj, showHidden, depth, colors*/
+	function inspect(obj, opts) {
+	  // default options
+	  var ctx = {
+	    seen: [],
+	    stylize: stylizeNoColor
+	  };
+	  // legacy...
+	  if (arguments.length >= 3) ctx.depth = arguments[2];
+	  if (arguments.length >= 4) ctx.colors = arguments[3];
+	  if (isBoolean(opts)) {
+	    // legacy...
+	    ctx.showHidden = opts;
+	  } else if (opts) {
+	    // got an "options" object
+	    exports._extend(ctx, opts);
+	  }
+	  // set default options
+	  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+	  if (isUndefined(ctx.depth)) ctx.depth = 2;
+	  if (isUndefined(ctx.colors)) ctx.colors = false;
+	  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+	  if (ctx.colors) ctx.stylize = stylizeWithColor;
+	  return formatValue(ctx, obj, ctx.depth);
+	}
+	exports.inspect = inspect;
+
+
+	// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+	inspect.colors = {
+	  'bold' : [1, 22],
+	  'italic' : [3, 23],
+	  'underline' : [4, 24],
+	  'inverse' : [7, 27],
+	  'white' : [37, 39],
+	  'grey' : [90, 39],
+	  'black' : [30, 39],
+	  'blue' : [34, 39],
+	  'cyan' : [36, 39],
+	  'green' : [32, 39],
+	  'magenta' : [35, 39],
+	  'red' : [31, 39],
+	  'yellow' : [33, 39]
+	};
+
+	// Don't use 'blue' not visible on cmd.exe
+	inspect.styles = {
+	  'special': 'cyan',
+	  'number': 'yellow',
+	  'boolean': 'yellow',
+	  'undefined': 'grey',
+	  'null': 'bold',
+	  'string': 'green',
+	  'date': 'magenta',
+	  // "name": intentionally not styling
+	  'regexp': 'red'
+	};
+
+
+	function stylizeWithColor(str, styleType) {
+	  var style = inspect.styles[styleType];
+
+	  if (style) {
+	    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
+	           '\u001b[' + inspect.colors[style][1] + 'm';
+	  } else {
+	    return str;
+	  }
+	}
+
+
+	function stylizeNoColor(str, styleType) {
+	  return str;
+	}
+
+
+	function arrayToHash(array) {
+	  var hash = {};
+
+	  array.forEach(function(val, idx) {
+	    hash[val] = true;
+	  });
+
+	  return hash;
+	}
+
+
+	function formatValue(ctx, value, recurseTimes) {
+	  // Provide a hook for user-specified inspect functions.
+	  // Check that value is an object with an inspect function on it
+	  if (ctx.customInspect &&
+	      value &&
+	      isFunction(value.inspect) &&
+	      // Filter out the util module, it's inspect function is special
+	      value.inspect !== exports.inspect &&
+	      // Also filter out any prototype objects using the circular check.
+	      !(value.constructor && value.constructor.prototype === value)) {
+	    var ret = value.inspect(recurseTimes, ctx);
+	    if (!isString(ret)) {
+	      ret = formatValue(ctx, ret, recurseTimes);
+	    }
+	    return ret;
+	  }
+
+	  // Primitive types cannot have properties
+	  var primitive = formatPrimitive(ctx, value);
+	  if (primitive) {
+	    return primitive;
+	  }
+
+	  // Look up the keys of the object.
+	  var keys = Object.keys(value);
+	  var visibleKeys = arrayToHash(keys);
+
+	  if (ctx.showHidden) {
+	    keys = Object.getOwnPropertyNames(value);
+	  }
+
+	  // IE doesn't make error fields non-enumerable
+	  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+	  if (isError(value)
+	      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+	    return formatError(value);
+	  }
+
+	  // Some type of object without properties can be shortcutted.
+	  if (keys.length === 0) {
+	    if (isFunction(value)) {
+	      var name = value.name ? ': ' + value.name : '';
+	      return ctx.stylize('[Function' + name + ']', 'special');
+	    }
+	    if (isRegExp(value)) {
+	      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+	    }
+	    if (isDate(value)) {
+	      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+	    }
+	    if (isError(value)) {
+	      return formatError(value);
+	    }
+	  }
+
+	  var base = '', array = false, braces = ['{', '}'];
+
+	  // Make Array say that they are Array
+	  if (isArray(value)) {
+	    array = true;
+	    braces = ['[', ']'];
+	  }
+
+	  // Make functions say that they are functions
+	  if (isFunction(value)) {
+	    var n = value.name ? ': ' + value.name : '';
+	    base = ' [Function' + n + ']';
+	  }
+
+	  // Make RegExps say that they are RegExps
+	  if (isRegExp(value)) {
+	    base = ' ' + RegExp.prototype.toString.call(value);
+	  }
+
+	  // Make dates with properties first say the date
+	  if (isDate(value)) {
+	    base = ' ' + Date.prototype.toUTCString.call(value);
+	  }
+
+	  // Make error with message first say the error
+	  if (isError(value)) {
+	    base = ' ' + formatError(value);
+	  }
+
+	  if (keys.length === 0 && (!array || value.length == 0)) {
+	    return braces[0] + base + braces[1];
+	  }
+
+	  if (recurseTimes < 0) {
+	    if (isRegExp(value)) {
+	      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+	    } else {
+	      return ctx.stylize('[Object]', 'special');
+	    }
+	  }
+
+	  ctx.seen.push(value);
+
+	  var output;
+	  if (array) {
+	    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+	  } else {
+	    output = keys.map(function(key) {
+	      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+	    });
+	  }
+
+	  ctx.seen.pop();
+
+	  return reduceToSingleString(output, base, braces);
+	}
+
+
+	function formatPrimitive(ctx, value) {
+	  if (isUndefined(value))
+	    return ctx.stylize('undefined', 'undefined');
+	  if (isString(value)) {
+	    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
+	                                             .replace(/'/g, "\\'")
+	                                             .replace(/\\"/g, '"') + '\'';
+	    return ctx.stylize(simple, 'string');
+	  }
+	  if (isNumber(value))
+	    return ctx.stylize('' + value, 'number');
+	  if (isBoolean(value))
+	    return ctx.stylize('' + value, 'boolean');
+	  // For some reason typeof null is "object", so special case here.
+	  if (isNull(value))
+	    return ctx.stylize('null', 'null');
+	}
+
+
+	function formatError(value) {
+	  return '[' + Error.prototype.toString.call(value) + ']';
+	}
+
+
+	function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+	  var output = [];
+	  for (var i = 0, l = value.length; i < l; ++i) {
+	    if (hasOwnProperty(value, String(i))) {
+	      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+	          String(i), true));
+	    } else {
+	      output.push('');
+	    }
+	  }
+	  keys.forEach(function(key) {
+	    if (!key.match(/^\d+$/)) {
+	      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+	          key, true));
+	    }
+	  });
+	  return output;
+	}
+
+
+	function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+	  var name, str, desc;
+	  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+	  if (desc.get) {
+	    if (desc.set) {
+	      str = ctx.stylize('[Getter/Setter]', 'special');
+	    } else {
+	      str = ctx.stylize('[Getter]', 'special');
+	    }
+	  } else {
+	    if (desc.set) {
+	      str = ctx.stylize('[Setter]', 'special');
+	    }
+	  }
+	  if (!hasOwnProperty(visibleKeys, key)) {
+	    name = '[' + key + ']';
+	  }
+	  if (!str) {
+	    if (ctx.seen.indexOf(desc.value) < 0) {
+	      if (isNull(recurseTimes)) {
+	        str = formatValue(ctx, desc.value, null);
+	      } else {
+	        str = formatValue(ctx, desc.value, recurseTimes - 1);
+	      }
+	      if (str.indexOf('\n') > -1) {
+	        if (array) {
+	          str = str.split('\n').map(function(line) {
+	            return '  ' + line;
+	          }).join('\n').substr(2);
+	        } else {
+	          str = '\n' + str.split('\n').map(function(line) {
+	            return '   ' + line;
+	          }).join('\n');
+	        }
+	      }
+	    } else {
+	      str = ctx.stylize('[Circular]', 'special');
+	    }
+	  }
+	  if (isUndefined(name)) {
+	    if (array && key.match(/^\d+$/)) {
+	      return str;
+	    }
+	    name = JSON.stringify('' + key);
+	    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+	      name = name.substr(1, name.length - 2);
+	      name = ctx.stylize(name, 'name');
+	    } else {
+	      name = name.replace(/'/g, "\\'")
+	                 .replace(/\\"/g, '"')
+	                 .replace(/(^"|"$)/g, "'");
+	      name = ctx.stylize(name, 'string');
+	    }
+	  }
+
+	  return name + ': ' + str;
+	}
+
+
+	function reduceToSingleString(output, base, braces) {
+	  var numLinesEst = 0;
+	  var length = output.reduce(function(prev, cur) {
+	    numLinesEst++;
+	    if (cur.indexOf('\n') >= 0) numLinesEst++;
+	    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+	  }, 0);
+
+	  if (length > 60) {
+	    return braces[0] +
+	           (base === '' ? '' : base + '\n ') +
+	           ' ' +
+	           output.join(',\n  ') +
+	           ' ' +
+	           braces[1];
+	  }
+
+	  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+	}
+
+
+	// NOTE: These type checking functions intentionally don't use `instanceof`
+	// because it is fragile and can be easily faked with `Object.create()`.
+	function isArray(ar) {
+	  return Array.isArray(ar);
+	}
+	exports.isArray = isArray;
+
+	function isBoolean(arg) {
+	  return typeof arg === 'boolean';
+	}
+	exports.isBoolean = isBoolean;
+
+	function isNull(arg) {
+	  return arg === null;
+	}
+	exports.isNull = isNull;
+
+	function isNullOrUndefined(arg) {
+	  return arg == null;
+	}
+	exports.isNullOrUndefined = isNullOrUndefined;
+
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+	exports.isNumber = isNumber;
+
+	function isString(arg) {
+	  return typeof arg === 'string';
+	}
+	exports.isString = isString;
+
+	function isSymbol(arg) {
+	  return typeof arg === 'symbol';
+	}
+	exports.isSymbol = isSymbol;
+
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+	exports.isUndefined = isUndefined;
+
+	function isRegExp(re) {
+	  return isObject(re) && objectToString(re) === '[object RegExp]';
+	}
+	exports.isRegExp = isRegExp;
+
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+	exports.isObject = isObject;
+
+	function isDate(d) {
+	  return isObject(d) && objectToString(d) === '[object Date]';
+	}
+	exports.isDate = isDate;
+
+	function isError(e) {
+	  return isObject(e) &&
+	      (objectToString(e) === '[object Error]' || e instanceof Error);
+	}
+	exports.isError = isError;
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+	exports.isFunction = isFunction;
+
+	function isPrimitive(arg) {
+	  return arg === null ||
+	         typeof arg === 'boolean' ||
+	         typeof arg === 'number' ||
+	         typeof arg === 'string' ||
+	         typeof arg === 'symbol' ||  // ES6 symbol
+	         typeof arg === 'undefined';
+	}
+	exports.isPrimitive = isPrimitive;
+
+	exports.isBuffer = __webpack_require__(403);
+
+	function objectToString(o) {
+	  return Object.prototype.toString.call(o);
+	}
+
+
+	function pad(n) {
+	  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+	}
+
+
+	var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+	              'Oct', 'Nov', 'Dec'];
+
+	// 26 Feb 16:19:34
+	function timestamp() {
+	  var d = new Date();
+	  var time = [pad(d.getHours()),
+	              pad(d.getMinutes()),
+	              pad(d.getSeconds())].join(':');
+	  return [d.getDate(), months[d.getMonth()], time].join(' ');
+	}
+
+
+	// log is just a thin wrapper to console.log that prepends a timestamp
+	exports.log = function() {
+	  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+	};
+
+
+	/**
+	 * Inherit the prototype methods from one constructor into another.
+	 *
+	 * The Function.prototype.inherits from lang.js rewritten as a standalone
+	 * function (not on Function.prototype). NOTE: If this file is to be loaded
+	 * during bootstrapping this function needs to be rewritten using some native
+	 * functions as prototype setup using normal JavaScript does not work as
+	 * expected during bootstrapping (see mirror.js in r114903).
+	 *
+	 * @param {function} ctor Constructor function which needs to inherit the
+	 *     prototype.
+	 * @param {function} superCtor Constructor function to inherit prototype from.
+	 */
+	exports.inherits = __webpack_require__(404);
+
+	exports._extend = function(origin, add) {
+	  // Don't do anything if add isn't an object
+	  if (!add || !isObject(add)) return origin;
+
+	  var keys = Object.keys(add);
+	  var i = keys.length;
+	  while (i--) {
+	    origin[keys[i]] = add[keys[i]];
+	  }
+	  return origin;
+	};
+
+	function hasOwnProperty(obj, prop) {
+	  return Object.prototype.hasOwnProperty.call(obj, prop);
+	}
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(4)))
+
+/***/ },
+/* 403 */
+/***/ function(module, exports) {
+
+	module.exports = function isBuffer(arg) {
+	  return arg && typeof arg === 'object'
+	    && typeof arg.copy === 'function'
+	    && typeof arg.fill === 'function'
+	    && typeof arg.readUInt8 === 'function';
+	}
+
+/***/ },
+/* 404 */
+/***/ function(module, exports) {
+
+	if (typeof Object.create === 'function') {
+	  // implementation from standard node.js 'util' module
+	  module.exports = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor
+	    ctor.prototype = Object.create(superCtor.prototype, {
+	      constructor: {
+	        value: ctor,
+	        enumerable: false,
+	        writable: true,
+	        configurable: true
+	      }
+	    });
+	  };
+	} else {
+	  // old school shim for old browsers
+	  module.exports = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor
+	    var TempCtor = function () {}
+	    TempCtor.prototype = superCtor.prototype
+	    ctor.prototype = new TempCtor()
+	    ctor.prototype.constructor = ctor
+	  }
+	}
+
+
+/***/ },
+/* 405 */
+/***/ function(module, exports, __webpack_require__) {
+
+	(function(window) {
+	    var re = {
+	        not_string: /[^s]/,
+	        number: /[diefg]/,
+	        json: /[j]/,
+	        not_json: /[^j]/,
+	        text: /^[^\x25]+/,
+	        modulo: /^\x25{2}/,
+	        placeholder: /^\x25(?:([1-9]\d*)\$|\(([^\)]+)\))?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?([b-gijosuxX])/,
+	        key: /^([a-z_][a-z_\d]*)/i,
+	        key_access: /^\.([a-z_][a-z_\d]*)/i,
+	        index_access: /^\[(\d+)\]/,
+	        sign: /^[\+\-]/
+	    }
+
+	    function sprintf() {
+	        var key = arguments[0], cache = sprintf.cache
+	        if (!(cache[key] && cache.hasOwnProperty(key))) {
+	            cache[key] = sprintf.parse(key)
+	        }
+	        return sprintf.format.call(null, cache[key], arguments)
+	    }
+
+	    sprintf.format = function(parse_tree, argv) {
+	        var cursor = 1, tree_length = parse_tree.length, node_type = "", arg, output = [], i, k, match, pad, pad_character, pad_length, is_positive = true, sign = ""
+	        for (i = 0; i < tree_length; i++) {
+	            node_type = get_type(parse_tree[i])
+	            if (node_type === "string") {
+	                output[output.length] = parse_tree[i]
+	            }
+	            else if (node_type === "array") {
+	                match = parse_tree[i] // convenience purposes only
+	                if (match[2]) { // keyword argument
+	                    arg = argv[cursor]
+	                    for (k = 0; k < match[2].length; k++) {
+	                        if (!arg.hasOwnProperty(match[2][k])) {
+	                            throw new Error(sprintf("[sprintf] property '%s' does not exist", match[2][k]))
+	                        }
+	                        arg = arg[match[2][k]]
+	                    }
+	                }
+	                else if (match[1]) { // positional argument (explicit)
+	                    arg = argv[match[1]]
+	                }
+	                else { // positional argument (implicit)
+	                    arg = argv[cursor++]
+	                }
+
+	                if (get_type(arg) == "function") {
+	                    arg = arg()
+	                }
+
+	                if (re.not_string.test(match[8]) && re.not_json.test(match[8]) && (get_type(arg) != "number" && isNaN(arg))) {
+	                    throw new TypeError(sprintf("[sprintf] expecting number but found %s", get_type(arg)))
+	                }
+
+	                if (re.number.test(match[8])) {
+	                    is_positive = arg >= 0
+	                }
+
+	                switch (match[8]) {
+	                    case "b":
+	                        arg = arg.toString(2)
+	                    break
+	                    case "c":
+	                        arg = String.fromCharCode(arg)
+	                    break
+	                    case "d":
+	                    case "i":
+	                        arg = parseInt(arg, 10)
+	                    break
+	                    case "j":
+	                        arg = JSON.stringify(arg, null, match[6] ? parseInt(match[6]) : 0)
+	                    break
+	                    case "e":
+	                        arg = match[7] ? arg.toExponential(match[7]) : arg.toExponential()
+	                    break
+	                    case "f":
+	                        arg = match[7] ? parseFloat(arg).toFixed(match[7]) : parseFloat(arg)
+	                    break
+	                    case "g":
+	                        arg = match[7] ? parseFloat(arg).toPrecision(match[7]) : parseFloat(arg)
+	                    break
+	                    case "o":
+	                        arg = arg.toString(8)
+	                    break
+	                    case "s":
+	                        arg = ((arg = String(arg)) && match[7] ? arg.substring(0, match[7]) : arg)
+	                    break
+	                    case "u":
+	                        arg = arg >>> 0
+	                    break
+	                    case "x":
+	                        arg = arg.toString(16)
+	                    break
+	                    case "X":
+	                        arg = arg.toString(16).toUpperCase()
+	                    break
+	                }
+	                if (re.json.test(match[8])) {
+	                    output[output.length] = arg
+	                }
+	                else {
+	                    if (re.number.test(match[8]) && (!is_positive || match[3])) {
+	                        sign = is_positive ? "+" : "-"
+	                        arg = arg.toString().replace(re.sign, "")
+	                    }
+	                    else {
+	                        sign = ""
+	                    }
+	                    pad_character = match[4] ? match[4] === "0" ? "0" : match[4].charAt(1) : " "
+	                    pad_length = match[6] - (sign + arg).length
+	                    pad = match[6] ? (pad_length > 0 ? str_repeat(pad_character, pad_length) : "") : ""
+	                    output[output.length] = match[5] ? sign + arg + pad : (pad_character === "0" ? sign + pad + arg : pad + sign + arg)
+	                }
+	            }
+	        }
+	        return output.join("")
+	    }
+
+	    sprintf.cache = {}
+
+	    sprintf.parse = function(fmt) {
+	        var _fmt = fmt, match = [], parse_tree = [], arg_names = 0
+	        while (_fmt) {
+	            if ((match = re.text.exec(_fmt)) !== null) {
+	                parse_tree[parse_tree.length] = match[0]
+	            }
+	            else if ((match = re.modulo.exec(_fmt)) !== null) {
+	                parse_tree[parse_tree.length] = "%"
+	            }
+	            else if ((match = re.placeholder.exec(_fmt)) !== null) {
+	                if (match[2]) {
+	                    arg_names |= 1
+	                    var field_list = [], replacement_field = match[2], field_match = []
+	                    if ((field_match = re.key.exec(replacement_field)) !== null) {
+	                        field_list[field_list.length] = field_match[1]
+	                        while ((replacement_field = replacement_field.substring(field_match[0].length)) !== "") {
+	                            if ((field_match = re.key_access.exec(replacement_field)) !== null) {
+	                                field_list[field_list.length] = field_match[1]
+	                            }
+	                            else if ((field_match = re.index_access.exec(replacement_field)) !== null) {
+	                                field_list[field_list.length] = field_match[1]
+	                            }
+	                            else {
+	                                throw new SyntaxError("[sprintf] failed to parse named argument key")
+	                            }
+	                        }
+	                    }
+	                    else {
+	                        throw new SyntaxError("[sprintf] failed to parse named argument key")
+	                    }
+	                    match[2] = field_list
+	                }
+	                else {
+	                    arg_names |= 2
+	                }
+	                if (arg_names === 3) {
+	                    throw new Error("[sprintf] mixing positional and named placeholders is not (yet) supported")
+	                }
+	                parse_tree[parse_tree.length] = match
+	            }
+	            else {
+	                throw new SyntaxError("[sprintf] unexpected placeholder")
+	            }
+	            _fmt = _fmt.substring(match[0].length)
+	        }
+	        return parse_tree
+	    }
+
+	    var vsprintf = function(fmt, argv, _argv) {
+	        _argv = (argv || []).slice(0)
+	        _argv.splice(0, 0, fmt)
+	        return sprintf.apply(null, _argv)
+	    }
+
+	    /**
+	     * helpers
+	     */
+	    function get_type(variable) {
+	        return Object.prototype.toString.call(variable).slice(8, -1).toLowerCase()
+	    }
+
+	    function str_repeat(input, multiplier) {
+	        return Array(multiplier + 1).join(input)
+	    }
+
+	    /**
+	     * export to either browser or node.js
+	     */
+	    if (true) {
+	        exports.sprintf = sprintf
+	        exports.vsprintf = vsprintf
+	    }
+	    else {
+	        window.sprintf = sprintf
+	        window.vsprintf = vsprintf
+
+	        if (typeof define === "function" && define.amd) {
+	            define(function() {
+	                return {
+	                    sprintf: sprintf,
+	                    vsprintf: vsprintf
+	                }
+	            })
+	        }
+	    }
+	})(typeof window === "undefined" ? this : window);
+
+
+/***/ },
+/* 406 */
+/***/ function(module, exports) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	function EventEmitter() {
+	  this._events = this._events || {};
+	  this._maxListeners = this._maxListeners || undefined;
+	}
+	module.exports = EventEmitter;
+
+	// Backwards-compat with node 0.10.x
+	EventEmitter.EventEmitter = EventEmitter;
+
+	EventEmitter.prototype._events = undefined;
+	EventEmitter.prototype._maxListeners = undefined;
+
+	// By default EventEmitters will print a warning if more than 10 listeners are
+	// added to it. This is a useful default which helps finding memory leaks.
+	EventEmitter.defaultMaxListeners = 10;
+
+	// Obviously not all Emitters should be limited to 10. This function allows
+	// that to be increased. Set to zero for unlimited.
+	EventEmitter.prototype.setMaxListeners = function(n) {
+	  if (!isNumber(n) || n < 0 || isNaN(n))
+	    throw TypeError('n must be a positive number');
+	  this._maxListeners = n;
+	  return this;
+	};
+
+	EventEmitter.prototype.emit = function(type) {
+	  var er, handler, len, args, i, listeners;
+
+	  if (!this._events)
+	    this._events = {};
+
+	  // If there is no 'error' event listener then throw.
+	  if (type === 'error') {
+	    if (!this._events.error ||
+	        (isObject(this._events.error) && !this._events.error.length)) {
+	      er = arguments[1];
+	      if (er instanceof Error) {
+	        throw er; // Unhandled 'error' event
+	      } else {
+	        // At least give some kind of context to the user
+	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	        err.context = er;
+	        throw err;
+	      }
+	    }
+	  }
+
+	  handler = this._events[type];
+
+	  if (isUndefined(handler))
+	    return false;
+
+	  if (isFunction(handler)) {
+	    switch (arguments.length) {
+	      // fast cases
+	      case 1:
+	        handler.call(this);
+	        break;
+	      case 2:
+	        handler.call(this, arguments[1]);
+	        break;
+	      case 3:
+	        handler.call(this, arguments[1], arguments[2]);
+	        break;
+	      // slower
+	      default:
+	        args = Array.prototype.slice.call(arguments, 1);
+	        handler.apply(this, args);
+	    }
+	  } else if (isObject(handler)) {
+	    args = Array.prototype.slice.call(arguments, 1);
+	    listeners = handler.slice();
+	    len = listeners.length;
+	    for (i = 0; i < len; i++)
+	      listeners[i].apply(this, args);
+	  }
+
+	  return true;
+	};
+
+	EventEmitter.prototype.addListener = function(type, listener) {
+	  var m;
+
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  if (!this._events)
+	    this._events = {};
+
+	  // To avoid recursion in the case that type === "newListener"! Before
+	  // adding it to the listeners, first emit "newListener".
+	  if (this._events.newListener)
+	    this.emit('newListener', type,
+	              isFunction(listener.listener) ?
+	              listener.listener : listener);
+
+	  if (!this._events[type])
+	    // Optimize the case of one listener. Don't need the extra array object.
+	    this._events[type] = listener;
+	  else if (isObject(this._events[type]))
+	    // If we've already got an array, just append.
+	    this._events[type].push(listener);
+	  else
+	    // Adding the second element, need to change to array.
+	    this._events[type] = [this._events[type], listener];
+
+	  // Check for listener leak
+	  if (isObject(this._events[type]) && !this._events[type].warned) {
+	    if (!isUndefined(this._maxListeners)) {
+	      m = this._maxListeners;
+	    } else {
+	      m = EventEmitter.defaultMaxListeners;
+	    }
+
+	    if (m && m > 0 && this._events[type].length > m) {
+	      this._events[type].warned = true;
+	      console.error('(node) warning: possible EventEmitter memory ' +
+	                    'leak detected. %d listeners added. ' +
+	                    'Use emitter.setMaxListeners() to increase limit.',
+	                    this._events[type].length);
+	      if (typeof console.trace === 'function') {
+	        // not supported in IE 10
+	        console.trace();
+	      }
+	    }
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+	EventEmitter.prototype.once = function(type, listener) {
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  var fired = false;
+
+	  function g() {
+	    this.removeListener(type, g);
+
+	    if (!fired) {
+	      fired = true;
+	      listener.apply(this, arguments);
+	    }
+	  }
+
+	  g.listener = listener;
+	  this.on(type, g);
+
+	  return this;
+	};
+
+	// emits a 'removeListener' event iff the listener was removed
+	EventEmitter.prototype.removeListener = function(type, listener) {
+	  var list, position, length, i;
+
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  if (!this._events || !this._events[type])
+	    return this;
+
+	  list = this._events[type];
+	  length = list.length;
+	  position = -1;
+
+	  if (list === listener ||
+	      (isFunction(list.listener) && list.listener === listener)) {
+	    delete this._events[type];
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+
+	  } else if (isObject(list)) {
+	    for (i = length; i-- > 0;) {
+	      if (list[i] === listener ||
+	          (list[i].listener && list[i].listener === listener)) {
+	        position = i;
+	        break;
+	      }
+	    }
+
+	    if (position < 0)
+	      return this;
+
+	    if (list.length === 1) {
+	      list.length = 0;
+	      delete this._events[type];
+	    } else {
+	      list.splice(position, 1);
+	    }
+
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.removeAllListeners = function(type) {
+	  var key, listeners;
+
+	  if (!this._events)
+	    return this;
+
+	  // not listening for removeListener, no need to emit
+	  if (!this._events.removeListener) {
+	    if (arguments.length === 0)
+	      this._events = {};
+	    else if (this._events[type])
+	      delete this._events[type];
+	    return this;
+	  }
+
+	  // emit removeListener for all listeners on all events
+	  if (arguments.length === 0) {
+	    for (key in this._events) {
+	      if (key === 'removeListener') continue;
+	      this.removeAllListeners(key);
+	    }
+	    this.removeAllListeners('removeListener');
+	    this._events = {};
+	    return this;
+	  }
+
+	  listeners = this._events[type];
+
+	  if (isFunction(listeners)) {
+	    this.removeListener(type, listeners);
+	  } else if (listeners) {
+	    // LIFO order
+	    while (listeners.length)
+	      this.removeListener(type, listeners[listeners.length - 1]);
+	  }
+	  delete this._events[type];
+
+	  return this;
+	};
+
+	EventEmitter.prototype.listeners = function(type) {
+	  var ret;
+	  if (!this._events || !this._events[type])
+	    ret = [];
+	  else if (isFunction(this._events[type]))
+	    ret = [this._events[type]];
+	  else
+	    ret = this._events[type].slice();
+	  return ret;
+	};
+
+	EventEmitter.prototype.listenerCount = function(type) {
+	  if (this._events) {
+	    var evlistener = this._events[type];
+
+	    if (isFunction(evlistener))
+	      return 1;
+	    else if (evlistener)
+	      return evlistener.length;
+	  }
+	  return 0;
+	};
+
+	EventEmitter.listenerCount = function(emitter, type) {
+	  return emitter.listenerCount(type);
+	};
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+
+
+/***/ },
+/* 407 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var dateNames = __webpack_require__(408);
+
+	function strftime(date, format, names) {
+	  var timestamp = date.getTime();
+
+	  names = names || dateNames;
+
+	  return format.replace(/%([-_0]?.)/g, function(_, c) {
+	    var padding = null;
+
+	    if (c.length == 2) {
+	      switch (c[0]) {
+	        case '-': padding = '';  break;
+	        case '_': padding = ' '; break;
+	        case '0': padding = '0'; break;
+	        default: return _; // should never reach this one
+	      }
+
+	      c = c[1];
+	    }
+
+	    switch (c) {
+	      case 'A': return names.days[date.getDay()];
+	      case 'a': return names.abbreviated_days[date.getDay()];
+	      case 'B': return names.months[date.getMonth()];
+	      case 'b': return names.abbreviated_months[date.getMonth()];
+	      case 'C': return pad(Math.floor(date.getFullYear() / 100), padding);
+	      case 'D': return strftime(date, '%m/%d/%y');
+	      case 'd': return pad(date.getDate(), padding);
+	      case 'e': return date.getDate();
+	      case 'F': return strftime(date, '%Y-%m-%d');
+	      case 'H': return pad(date.getHours(), padding);
+	      case 'h': return names.abbreviated_months[date.getMonth()];
+	      case 'I': return pad(hours12(date), padding);
+	      case 'j': return pad(Math.ceil((date.getTime() - (new Date(date.getFullYear(), 0, 1)).getTime()) / (1000 * 60 * 60 * 24)), 3);
+	      case 'k': return pad(date.getHours(), padding === null ? ' ' : padding);
+	      case 'L': return pad(Math.floor(timestamp % 1000), 3);
+	      case 'l': return pad(hours12(date), padding === null ? ' ' : padding);
+	      case 'M': return pad(date.getMinutes(), padding);
+	      case 'm': return pad(date.getMonth() + 1, padding);
+	      case 'n': return '\n';
+	      case 'o': return String(date.getDate()) + ordinal(date.getDate());
+	      case 'P': return date.getHours() < 12 ? names.am.toLowerCase() : names.pm.toLowerCase();
+	      case 'p': return date.getHours() < 12 ? names.am.toUpperCase() : names.pm.toUpperCase();
+	      case 'R': return strftime(date, '%H:%M');
+	      case 'r': return strftime(date, '%I:%M:%S %p');
+	      case 'S': return pad(date.getSeconds(), padding);
+	      case 's': return Math.floor(timestamp / 1000);
+	      case 'T': return strftime(date, '%H:%M:%S');
+	      case 't': return '\t';
+	      case 'U': return pad(weekNumber(date, 'sunday'), padding);
+	      case 'u': return date.getDay() === 0 ? 7 : date.getDay();
+	      case 'v': return strftime(date, '%e-%b-%Y');
+	      case 'W': return pad(weekNumber(date, 'monday'), padding);
+	      case 'w': return date.getDay();
+	      case 'Y': return date.getFullYear();
+	      case 'y': var y = String(date.getFullYear()); return y.slice(y.length - 2);
+	      case 'Z': var tzString = date.toString().match(/\((\w+)\)/); return tzString && tzString[1] || '';
+	      case 'z': var off = date.getTimezoneOffset(); return (off > 0 ? '-' : '+') + pad(Math.round(Math.abs(off / 60)), 2) + ':' + pad(off % 60, 2);
+	      default: return c;
+	    }
+	  });
+	}
+
+	function pad(n, padding, length) {
+	  if (typeof padding === 'number') {
+	    length = padding;
+	    padding = '0';
+	  }
+
+	  if (padding === null) {
+	    padding = '0';
+	  }
+
+	  length = length || 2;
+
+	  var s = String(n);
+
+	  if (padding) {
+	    while (s.length < length) {
+	      s = padding + s;
+	    }
+	  }
+
+	  return s;
+	}
+
+	function hours12(date) {
+	  var hour = date.getHours();
+
+	  if (hour === 0) {
+	    hour = 12;
+	  } else if (hour > 12) {
+	    hour -= 12;
+	  }
+
+	  return hour;
+	}
+
+	function ordinal(n) {
+	  var i = n % 10, ii = n % 100;
+
+	  if ((ii >= 11 && ii <= 13) || i === 0 || i >= 4) {
+	    return 'th';
+	  }
+
+	  switch (i) {
+	    case 1: return 'st';
+	    case 2: return 'nd';
+	    case 3: return 'rd';
+	  }
+	}
+
+	function weekNumber(date, firstWeekday) {
+	  firstWeekday = firstWeekday || 'sunday';
+
+	  var wday = date.getDay();
+
+	  if (firstWeekday == 'monday') {
+	    if (wday === 0) { // Sunday
+	      wday = 6;
+	    } else {
+	      wday--;
+	    }
+	  }
+
+	  var
+	    firstDayOfYear = new Date(date.getFullYear(), 0, 1),
+	    yday = (date - firstDayOfYear) / 86400000,
+	    weekNum = (yday + 7 - wday) / 7;
+
+	  return Math.floor(weekNum);
+	}
+
+	module.exports = strftime;
+
+
+/***/ },
+/* 408 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	module.exports = __webpack_require__(409);
+
+
+/***/ },
+/* 409 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	module.exports = {
+	  __locale: "en",
+	  days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+	  abbreviated_days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+	  months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+	  abbreviated_months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+	  am: 'AM',
+	  pm: 'PM'
+	};
+
+
+/***/ },
+/* 410 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// The translations in this file are added by default.
+
+	'use strict';
+
+	module.exports = {
+	  counterpart: {
+	    names: __webpack_require__(409),
+	    pluralize: __webpack_require__(411),
+
+	    formats: {
+	      date: {
+	        'default':  '%a, %e %b %Y',
+	        long:       '%A, %B %o, %Y',
+	        short:      '%b %e'
+	      },
+
+	      time: {
+	        'default':  '%H:%M',
+	        long:       '%H:%M:%S %z',
+	        short:      '%H:%M'
+	      },
+
+	      datetime: {
+	        'default':  '%a, %e %b %Y %H:%M',
+	        long:       '%A, %B %o, %Y %H:%M:%S %z',
+	        short:      '%e %b %H:%M'
+	      }
+	    }
+	  }
+	};
+
+
+/***/ },
+/* 411 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function(entry, count) {
+	  var key;
+
+	  if (count === 0 && 'zero' in entry) {
+	    key = 'zero';
+	  }
+
+	  key = key || (count === 1 ? 'one' : 'other');
+
+	  return entry[key];
+	};
+
+
+/***/ },
+/* 412 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.default = exports.Tabs = exports.Tab = undefined;
 
-	var _Tab2 = __webpack_require__(396);
+	var _Tab2 = __webpack_require__(413);
 
 	var _Tab3 = _interopRequireDefault(_Tab2);
 
-	var _Tabs2 = __webpack_require__(397);
+	var _Tabs2 = __webpack_require__(414);
 
 	var _Tabs3 = _interopRequireDefault(_Tabs2);
 
@@ -54505,7 +56756,7 @@
 	exports.default = _Tabs3.default;
 
 /***/ },
-/* 396 */
+/* 413 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -54717,7 +56968,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 397 */
+/* 414 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -54766,11 +57017,11 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _TabTemplate = __webpack_require__(398);
+	var _TabTemplate = __webpack_require__(415);
 
 	var _TabTemplate2 = _interopRequireDefault(_TabTemplate);
 
-	var _InkBar = __webpack_require__(399);
+	var _InkBar = __webpack_require__(416);
 
 	var _InkBar2 = _interopRequireDefault(_InkBar);
 
@@ -55040,7 +57291,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 398 */
+/* 415 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -55093,7 +57344,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 399 */
+/* 416 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -55193,7 +57444,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 400 */
+/* 417 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55203,7 +57454,7 @@
 	});
 	exports.default = undefined;
 
-	var _FlatButton = __webpack_require__(401);
+	var _FlatButton = __webpack_require__(418);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
@@ -55212,7 +57463,7 @@
 	exports.default = _FlatButton2.default;
 
 /***/ },
-/* 401 */
+/* 418 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -55269,7 +57520,7 @@
 
 	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
-	var _FlatButtonLabel = __webpack_require__(402);
+	var _FlatButtonLabel = __webpack_require__(419);
 
 	var _FlatButtonLabel2 = _interopRequireDefault(_FlatButtonLabel);
 
@@ -55543,7 +57794,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 402 */
+/* 419 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -55635,7 +57886,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 403 */
+/* 420 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55645,7 +57896,7 @@
 	});
 	exports.default = undefined;
 
-	var _Dialog = __webpack_require__(404);
+	var _Dialog = __webpack_require__(421);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -55654,7 +57905,7 @@
 	exports.default = _Dialog2.default;
 
 /***/ },
-/* 404 */
+/* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -55715,7 +57966,7 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _Overlay = __webpack_require__(405);
+	var _Overlay = __webpack_require__(422);
 
 	var _Overlay2 = _interopRequireDefault(_Overlay);
 
@@ -56247,7 +58498,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 405 */
+/* 422 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -56296,7 +58547,7 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _AutoLockScrolling = __webpack_require__(406);
+	var _AutoLockScrolling = __webpack_require__(423);
 
 	var _AutoLockScrolling2 = _interopRequireDefault(_AutoLockScrolling);
 
@@ -56393,7 +58644,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 406 */
+/* 423 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -56519,7 +58770,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 407 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56528,7 +58779,7 @@
 	  value: true
 	});
 
-	var _SwipeableViews = __webpack_require__(408);
+	var _SwipeableViews = __webpack_require__(425);
 
 	var _SwipeableViews2 = _interopRequireDefault(_SwipeableViews);
 
@@ -56537,7 +58788,7 @@
 	exports.default = _SwipeableViews2.default; //  weak
 
 /***/ },
-/* 408 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -56589,15 +58840,15 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _properties = __webpack_require__(409);
+	var _properties = __webpack_require__(426);
 
 	var _properties2 = _interopRequireDefault(_properties);
 
-	var _on = __webpack_require__(411);
+	var _on = __webpack_require__(428);
 
 	var _on2 = _interopRequireDefault(_on);
 
-	var _reactSwipeableViewsCore = __webpack_require__(412);
+	var _reactSwipeableViewsCore = __webpack_require__(429);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57383,7 +59634,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 409 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57393,7 +59644,7 @@
 	});
 	exports.animationEnd = exports.animationDelay = exports.animationTiming = exports.animationDuration = exports.animationName = exports.transitionEnd = exports.transitionDuration = exports.transitionDelay = exports.transitionTiming = exports.transitionProperty = exports.transform = undefined;
 
-	var _inDOM = __webpack_require__(410);
+	var _inDOM = __webpack_require__(427);
 
 	var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -57498,7 +59749,7 @@
 	}
 
 /***/ },
-/* 410 */
+/* 427 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -57510,7 +59761,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 411 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57519,7 +59770,7 @@
 	  value: true
 	});
 
-	var _inDOM = __webpack_require__(410);
+	var _inDOM = __webpack_require__(427);
 
 	var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -57546,19 +59797,19 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 412 */
+/* 429 */
 /***/ function(module, exports, __webpack_require__) {
 
-	Object.defineProperty(exports,"__esModule",{value:true});var _checkIndexBounds=__webpack_require__(413);Object.defineProperty(exports,'checkIndexBounds',{enumerable:true,get:function get(){return _interopRequireDefault(_checkIndexBounds).
+	Object.defineProperty(exports,"__esModule",{value:true});var _checkIndexBounds=__webpack_require__(430);Object.defineProperty(exports,'checkIndexBounds',{enumerable:true,get:function get(){return _interopRequireDefault(_checkIndexBounds).
 
-	default;}});var _computeIndex=__webpack_require__(414);Object.defineProperty(exports,'computeIndex',{enumerable:true,get:function get(){return _interopRequireDefault(_computeIndex).
-	default;}});var _constant=__webpack_require__(415);Object.defineProperty(exports,'constant',{enumerable:true,get:function get(){return _interopRequireDefault(_constant).
-	default;}});var _getDisplaySameSlide=__webpack_require__(416);Object.defineProperty(exports,'getDisplaySameSlide',{enumerable:true,get:function get(){return _interopRequireDefault(_getDisplaySameSlide).
-	default;}});var _mod=__webpack_require__(417);Object.defineProperty(exports,'mod',{enumerable:true,get:function get(){return _interopRequireDefault(_mod).
+	default;}});var _computeIndex=__webpack_require__(431);Object.defineProperty(exports,'computeIndex',{enumerable:true,get:function get(){return _interopRequireDefault(_computeIndex).
+	default;}});var _constant=__webpack_require__(432);Object.defineProperty(exports,'constant',{enumerable:true,get:function get(){return _interopRequireDefault(_constant).
+	default;}});var _getDisplaySameSlide=__webpack_require__(433);Object.defineProperty(exports,'getDisplaySameSlide',{enumerable:true,get:function get(){return _interopRequireDefault(_getDisplaySameSlide).
+	default;}});var _mod=__webpack_require__(434);Object.defineProperty(exports,'mod',{enumerable:true,get:function get(){return _interopRequireDefault(_mod).
 	default;}});function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
 
 /***/ },
-/* 413 */
+/* 430 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});
@@ -57582,7 +59833,7 @@
 	checkIndexBounds;
 
 /***/ },
-/* 414 */
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});exports.default=
@@ -57590,7 +59841,7 @@
 
 
 
-	computeIndex;var _react=__webpack_require__(2);var _constant=__webpack_require__(415);var _constant2=_interopRequireDefault(_constant);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function computeIndex(params){var
+	computeIndex;var _react=__webpack_require__(2);var _constant=__webpack_require__(432);var _constant2=_interopRequireDefault(_constant);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function computeIndex(params){var
 
 	children=
 
@@ -57626,7 +59877,7 @@
 	}
 
 /***/ },
-/* 415 */
+/* 432 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});exports.default=
@@ -57639,7 +59890,7 @@
 	UNCERTAINTY_THRESHOLD:3};
 
 /***/ },
-/* 416 */
+/* 433 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});
@@ -57667,7 +59918,7 @@
 	getDisplaySameSlide;
 
 /***/ },
-/* 417 */
+/* 434 */
 /***/ function(module, exports) {
 
 	Object.defineProperty(exports,"__esModule",{value:true});
@@ -57680,7 +59931,7 @@
 	mod;
 
 /***/ },
-/* 418 */
+/* 435 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -57693,7 +59944,7 @@
 	var entityCreateType = exports.entityCreateType = 'CREATE_ITEM';
 
 /***/ },
-/* 419 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57704,7 +59955,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _axios = __webpack_require__(420);
+	var _axios = __webpack_require__(437);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -57786,21 +60037,21 @@
 	exports.default = ApiCall;
 
 /***/ },
-/* 420 */
+/* 437 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(421);
+	module.exports = __webpack_require__(438);
 
 /***/ },
-/* 421 */
+/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(422);
-	var bind = __webpack_require__(423);
-	var Axios = __webpack_require__(424);
-	var defaults = __webpack_require__(425);
+	var utils = __webpack_require__(439);
+	var bind = __webpack_require__(440);
+	var Axios = __webpack_require__(441);
+	var defaults = __webpack_require__(442);
 
 	/**
 	 * Create an instance of Axios
@@ -57833,15 +60084,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(442);
-	axios.CancelToken = __webpack_require__(443);
-	axios.isCancel = __webpack_require__(439);
+	axios.Cancel = __webpack_require__(459);
+	axios.CancelToken = __webpack_require__(460);
+	axios.isCancel = __webpack_require__(456);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(444);
+	axios.spread = __webpack_require__(461);
 
 	module.exports = axios;
 
@@ -57850,12 +60101,12 @@
 
 
 /***/ },
-/* 422 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bind = __webpack_require__(423);
+	var bind = __webpack_require__(440);
 
 	/*global toString:true*/
 
@@ -58155,7 +60406,7 @@
 
 
 /***/ },
-/* 423 */
+/* 440 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58172,17 +60423,17 @@
 
 
 /***/ },
-/* 424 */
+/* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(425);
-	var utils = __webpack_require__(422);
-	var InterceptorManager = __webpack_require__(436);
-	var dispatchRequest = __webpack_require__(437);
-	var isAbsoluteURL = __webpack_require__(440);
-	var combineURLs = __webpack_require__(441);
+	var defaults = __webpack_require__(442);
+	var utils = __webpack_require__(439);
+	var InterceptorManager = __webpack_require__(453);
+	var dispatchRequest = __webpack_require__(454);
+	var isAbsoluteURL = __webpack_require__(457);
+	var combineURLs = __webpack_require__(458);
 
 	/**
 	 * Create a new instance of Axios
@@ -58263,13 +60514,13 @@
 
 
 /***/ },
-/* 425 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(422);
-	var normalizeHeaderName = __webpack_require__(426);
+	var utils = __webpack_require__(439);
+	var normalizeHeaderName = __webpack_require__(443);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -58286,10 +60537,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(427);
+	    adapter = __webpack_require__(444);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(427);
+	    adapter = __webpack_require__(444);
 	  }
 	  return adapter;
 	}
@@ -58363,12 +60614,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 426 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(422);
+	var utils = __webpack_require__(439);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -58381,18 +60632,18 @@
 
 
 /***/ },
-/* 427 */
+/* 444 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(422);
-	var settle = __webpack_require__(428);
-	var buildURL = __webpack_require__(431);
-	var parseHeaders = __webpack_require__(432);
-	var isURLSameOrigin = __webpack_require__(433);
-	var createError = __webpack_require__(429);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(434);
+	var utils = __webpack_require__(439);
+	var settle = __webpack_require__(445);
+	var buildURL = __webpack_require__(448);
+	var parseHeaders = __webpack_require__(449);
+	var isURLSameOrigin = __webpack_require__(450);
+	var createError = __webpack_require__(446);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(451);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -58488,7 +60739,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(435);
+	      var cookies = __webpack_require__(452);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -58565,12 +60816,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 428 */
+/* 445 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(429);
+	var createError = __webpack_require__(446);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -58596,12 +60847,12 @@
 
 
 /***/ },
-/* 429 */
+/* 446 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(430);
+	var enhanceError = __webpack_require__(447);
 
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -58619,7 +60870,7 @@
 
 
 /***/ },
-/* 430 */
+/* 447 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58644,12 +60895,12 @@
 
 
 /***/ },
-/* 431 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(422);
+	var utils = __webpack_require__(439);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -58718,12 +60969,12 @@
 
 
 /***/ },
-/* 432 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(422);
+	var utils = __webpack_require__(439);
 
 	/**
 	 * Parse headers into an object
@@ -58761,12 +61012,12 @@
 
 
 /***/ },
-/* 433 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(422);
+	var utils = __webpack_require__(439);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -58835,7 +61086,7 @@
 
 
 /***/ },
-/* 434 */
+/* 451 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58877,12 +61128,12 @@
 
 
 /***/ },
-/* 435 */
+/* 452 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(422);
+	var utils = __webpack_require__(439);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -58936,12 +61187,12 @@
 
 
 /***/ },
-/* 436 */
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(422);
+	var utils = __webpack_require__(439);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -58994,15 +61245,15 @@
 
 
 /***/ },
-/* 437 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(422);
-	var transformData = __webpack_require__(438);
-	var isCancel = __webpack_require__(439);
-	var defaults = __webpack_require__(425);
+	var utils = __webpack_require__(439);
+	var transformData = __webpack_require__(455);
+	var isCancel = __webpack_require__(456);
+	var defaults = __webpack_require__(442);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -59079,12 +61330,12 @@
 
 
 /***/ },
-/* 438 */
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(422);
+	var utils = __webpack_require__(439);
 
 	/**
 	 * Transform the data for a request or a response
@@ -59105,7 +61356,7 @@
 
 
 /***/ },
-/* 439 */
+/* 456 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -59116,7 +61367,7 @@
 
 
 /***/ },
-/* 440 */
+/* 457 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -59136,7 +61387,7 @@
 
 
 /***/ },
-/* 441 */
+/* 458 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -59154,7 +61405,7 @@
 
 
 /***/ },
-/* 442 */
+/* 459 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -59179,12 +61430,12 @@
 
 
 /***/ },
-/* 443 */
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(442);
+	var Cancel = __webpack_require__(459);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -59242,7 +61493,7 @@
 
 
 /***/ },
-/* 444 */
+/* 461 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -59275,7 +61526,7 @@
 
 
 /***/ },
-/* 445 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59292,7 +61543,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _entityWindow = __webpack_require__(446);
+	var _entityWindow = __webpack_require__(463);
 
 	var _entityWindow2 = _interopRequireDefault(_entityWindow);
 
@@ -59337,7 +61588,7 @@
 	exports.default = CustomEntityWindow;
 
 /***/ },
-/* 446 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59352,7 +61603,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _entityTypes = __webpack_require__(418);
+	var _entityTypes = __webpack_require__(435);
 
 	var _requireUtil = __webpack_require__(184);
 
@@ -59449,7 +61700,7 @@
 	exports.default = EntitiesWindow;
 
 /***/ },
-/* 447 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59466,7 +61717,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _mainView = __webpack_require__(448);
+	var _mainView = __webpack_require__(465);
 
 	var _mainView2 = _interopRequireDefault(_mainView);
 
@@ -59511,7 +61762,7 @@
 	exports.default = CustomMainView;
 
 /***/ },
-/* 448 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59528,7 +61779,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Snackbar = __webpack_require__(449);
+	var _Snackbar = __webpack_require__(466);
 
 	var _Snackbar2 = _interopRequireDefault(_Snackbar);
 
@@ -59536,11 +61787,11 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _apiCall = __webpack_require__(419);
+	var _apiCall = __webpack_require__(436);
 
 	var _apiCall2 = _interopRequireDefault(_apiCall);
 
-	var _entityTypes = __webpack_require__(418);
+	var _entityTypes = __webpack_require__(435);
 
 	var _requireUtil = __webpack_require__(184);
 
@@ -59813,7 +62064,7 @@
 	exports.default = MainView;
 
 /***/ },
-/* 449 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59823,7 +62074,7 @@
 	});
 	exports.default = undefined;
 
-	var _Snackbar = __webpack_require__(450);
+	var _Snackbar = __webpack_require__(467);
 
 	var _Snackbar2 = _interopRequireDefault(_Snackbar);
 
@@ -59832,7 +62083,7 @@
 	exports.default = _Snackbar2.default;
 
 /***/ },
-/* 450 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -59885,7 +62136,7 @@
 
 	var _ClickAwayListener2 = _interopRequireDefault(_ClickAwayListener);
 
-	var _SnackbarBody = __webpack_require__(451);
+	var _SnackbarBody = __webpack_require__(468);
 
 	var _SnackbarBody2 = _interopRequireDefault(_SnackbarBody);
 
@@ -60147,7 +62398,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 451 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -60177,11 +62428,11 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _withWidth = __webpack_require__(452);
+	var _withWidth = __webpack_require__(469);
 
 	var _withWidth2 = _interopRequireDefault(_withWidth);
 
-	var _FlatButton = __webpack_require__(400);
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
@@ -60317,7 +62568,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 452 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60467,7 +62718,7 @@
 	}
 
 /***/ },
-/* 453 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60484,7 +62735,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _navigationTree = __webpack_require__(454);
+	var _navigationTree = __webpack_require__(471);
 
 	var _navigationTree2 = _interopRequireDefault(_navigationTree);
 
@@ -60528,7 +62779,7 @@
 	exports.default = CustomTreeItem;
 
 /***/ },
-/* 454 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60547,7 +62798,7 @@
 
 	var _requireUtil = __webpack_require__(184);
 
-	var _apiCall = __webpack_require__(419);
+	var _apiCall = __webpack_require__(436);
 
 	var _apiCall2 = _interopRequireDefault(_apiCall);
 
@@ -60643,7 +62894,7 @@
 	exports.default = NavigationTree;
 
 /***/ },
-/* 455 */
+/* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60658,7 +62909,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _navigationTreeItem = __webpack_require__(456);
+	var _navigationTreeItem = __webpack_require__(473);
 
 	var _navigationTreeItem2 = _interopRequireDefault(_navigationTreeItem);
 
@@ -60692,7 +62943,7 @@
 	exports.default = CustomTreeItem;
 
 /***/ },
-/* 456 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60709,7 +62960,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -60717,11 +62968,11 @@
 
 	var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
 
-	var _FlatButton = __webpack_require__(400);
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-	var _Dialog = __webpack_require__(403);
+	var _Dialog = __webpack_require__(420);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -60953,2245 +63204,6 @@
 	}(_react.Component);
 
 	exports.default = TreeItem;
-
-/***/ },
-/* 457 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React       = __webpack_require__(2);
-	var Interpolate = __webpack_require__(458);
-	var translator  = __webpack_require__(462);
-	var extend      = __webpack_require__(5);
-
-	var PropTypes = React.PropTypes;
-
-	var translatorType = PropTypes.shape({
-	  getLocale:        PropTypes.func,
-	  onLocaleChange:   PropTypes.func,
-	  offLocaleChange:  PropTypes.func,
-	  translate:        PropTypes.func
-	});
-
-	var keyType = PropTypes.oneOfType([
-	  PropTypes.string,
-	  PropTypes.arrayOf(PropTypes.string)
-	]);
-
-	var Translate = React.createClass({
-	  displayName: 'Translate',
-
-	  contextTypes: {
-	    translator: translatorType,
-	    scope: keyType
-	  },
-
-	  propTypes: {
-	    locale: PropTypes.string,
-	    count:  PropTypes.number,
-	    content: keyType,
-	    scope: keyType,
-	    attributes: PropTypes.object,
-	    with: PropTypes.object
-	  },
-
-	  statics: {
-	    textContentComponents: ['title', 'option', 'textarea']
-	  },
-
-	  getDefaultProps: function() {
-	    return { component: 'span' };
-	  },
-
-	  getInitialState: function() {
-	    return { locale: this.getTranslator().getLocale() };
-	  },
-
-	  getTranslator: function() {
-	    return this.context.translator || translator;
-	  },
-
-	  componentDidMount: function() {
-	    if (!this.props.locale) {
-	      this.getTranslator().onLocaleChange(this.localeChanged);
-	    }
-	  },
-
-	  componentWillUnmount: function() {
-	    if (!this.props.locale) {
-	      this.getTranslator().offLocaleChange(this.localeChanged);
-	    }
-	  },
-
-	  localeChanged: function(newLocale) {
-	    this.setState({ locale: newLocale });
-	  },
-
-	  render: function() {
-	    var props           = extend({}, this.props);
-	    var translator      = this.getTranslator();
-	    var textContent     = Translate.textContentComponents.indexOf(props.component) > -1;
-	    var interpolate     = textContent || props.unsafe === true;
-	    var interpolations  = props.with;
-
-	    var attributeKey;
-
-	    var attributeTranslationOptions = extend(
-	      { locale: this.state.locale, scope: this.context.scope },
-	      props,
-	      interpolations,
-	      { interpolate: true }
-	    );
-
-	    var contentTranslationOptions = extend(
-	      {},
-	      attributeTranslationOptions,
-	      { interpolate: interpolate }
-	    );
-
-	    delete props.locale;
-	    delete props.scope;
-	    delete props.count;
-	    delete props.with;
-	    delete props.fallback;
-
-	    if (props.attributes) {
-	      for (var name in props.attributes) {
-	        attributeKey = props.attributes[name];
-
-	        if (attributeKey) {
-	          props[name] = translator.translate(attributeKey, attributeTranslationOptions);
-	        }
-	      }
-
-	      delete props.attributes;
-	    }
-
-	    if (props.content) {
-	      var translation      = translator.translate(props.content, contentTranslationOptions);
-	      var interpolateProps = extend({}, props, { with: interpolations });
-
-	      delete interpolateProps.content;
-	      delete interpolateProps.children;
-
-	      return React.createElement(Interpolate, interpolateProps, translation);
-	    } else {
-	      var component = props.component;
-
-	      delete props.component;
-	      delete props.unsafe;
-
-	      return React.createElement(component, props);
-	    }
-	  }
-	});
-
-	module.exports = Translate;
-
-	module.exports.translate = function(key, options) {
-	  return React.createElement(Translate, extend({}, options, { content: key }));
-	};
-
-	module.exports.translatorType = translatorType;
-
-	module.exports.getLocale = translator.getLocale.bind(translator);
-	module.exports.setLocale = translator.setLocale.bind(translator);
-	module.exports.onLocaleChange = translator.onLocaleChange.bind(translator);
-	module.exports.offLocaleChange = translator.offLocaleChange.bind(translator);
-	module.exports.registerTranslations = translator.registerTranslations.bind(translator);
-
-	function withTranslations(DecoratedComponent, translations) {
-	  if (!translations) {
-	    return function(decoratedComponent) {
-	      return withTranslations(decoratedComponent, DecoratedComponent);
-	    };
-	  }
-
-	  var displayName =
-	    DecoratedComponent.displayName ||
-	    DecoratedComponent.name ||
-	    'Component';
-
-	  for (var locale in translations) {
-	    var localeTranslations = translations[locale];
-	    var scopedTranslations = {};
-
-	    scopedTranslations[displayName] = localeTranslations;
-
-	    translator.registerTranslations(locale, scopedTranslations);
-	  }
-
-	  return React.createClass({
-	    displayName: displayName + 'WithTranslations',
-
-	    childContextTypes: {
-	      scope: keyType
-	    },
-
-	    getChildContext: function() {
-	      return {
-	        scope: displayName
-	      };
-	    },
-
-	    render: function() {
-	      return React.createElement(DecoratedComponent, this.props);
-	    }
-	  });
-	}
-
-	module.exports.withTranslations = withTranslations;
-
-
-/***/ },
-/* 458 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React     = __webpack_require__(2);
-	var invariant = __webpack_require__(459);
-	var except    = __webpack_require__(460);
-	var extend    = __webpack_require__(5);
-
-	function isString(object) {
-	  return Object.prototype.toString.call(object) === '[object String]';
-	}
-
-	var REGEXP = /\%\((.+?)\)s/;
-	var OMITTED_PROPS = ['children', 'format', 'component', 'unsafe', 'with'];
-
-	var Interpolate = React.createClass({
-	  displayName: 'Interpolate',
-
-	  getDefaultProps: function() {
-	    return { component: 'span' };
-	  },
-
-	  render: function() {
-	    var format         = this.props.children;
-	    var parent         = this.props.component;
-	    var unsafe         = this.props.unsafe === true;
-	    var interpolations = extend({}, this.props, this.props.with);
-	    var props          = except(this.props, OMITTED_PROPS);
-
-	    var matches = [];
-	    var children = [];
-
-	    if (!isString(format)) {
-	      format = this.props.format;
-	    }
-
-	    invariant(isString(format), 'Interpolate expects either a format string as only child or a `format` prop with a string value');
-
-	    if (unsafe) {
-	      var content = format.split(REGEXP).reduce(function(memo, match, index) {
-	        var html;
-
-	        if (index % 2 === 0) {
-	          html = match;
-	        } else {
-	          html = interpolations[match];
-	          matches.push(match);
-	        }
-
-	        if (React.isValidElement(html)) {
-	          throw new Error('cannot interpolate a React component into unsafe text');
-	        }
-
-	        memo += html;
-
-	        return memo;
-	      }, '');
-
-	      props.dangerouslySetInnerHTML = { __html: content };
-	    } else {
-	      format.split(REGEXP).reduce(function(memo, match, index) {
-	        var child;
-
-	        if (index % 2 === 0) {
-	          if (match.length === 0) {
-	            return memo;
-	          }
-
-	          child = match;
-	        } else {
-	          child = interpolations[match];
-	          matches.push(match);
-	        }
-
-	        memo.push(child);
-
-	        return memo;
-	      }, children);
-	    }
-
-	    props = except(props, matches);
-
-	    return React.createElement.apply(this, [parent, props].concat(children));
-	  }
-	});
-
-	module.exports = Interpolate;
-
-
-/***/ },
-/* 459 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule invariant
-	 */
-
-	'use strict';
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	function invariant(condition, format, a, b, c, d, e, f) {
-	  if (process.env.NODE_ENV !== 'production') {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error(format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	      error.name = 'Invariant Violation';
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	}
-
-	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 460 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var ap      = Array.prototype;
-	var concat  = ap.concat;
-	var slice   = ap.slice;
-	var indexOf = __webpack_require__(461);
-
-	function except(object) {
-	  var result = {};
-	  var keys = concat.apply(ap, slice.call(arguments, 1));
-
-	  for (var key in object) {
-	    if (indexOf(keys, key) === -1) {
-	      result[key] = object[key];
-	    }
-	  }
-
-	  return result;
-	}
-
-	module.exports = except;
-
-
-/***/ },
-/* 461 */
-/***/ function(module, exports) {
-
-	
-	var indexOf = [].indexOf;
-
-	module.exports = function(arr, obj){
-	  if (indexOf) return arr.indexOf(obj);
-	  for (var i = 0; i < arr.length; ++i) {
-	    if (arr[i] === obj) return i;
-	  }
-	  return -1;
-	};
-
-/***/ },
-/* 462 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var extend  = __webpack_require__(463);
-	var isArray = __webpack_require__(464).isArray;
-	var isDate  = __webpack_require__(464).isDate;
-	var sprintf = __webpack_require__(467).sprintf;
-	var events  = __webpack_require__(468);
-	var except  = __webpack_require__(460);
-
-	var strftime = __webpack_require__(469);
-
-	var translationScope = 'counterpart';
-
-	function isString(val) {
-	  return typeof val === 'string' || Object.prototype.toString.call(val) === '[object String]';
-	}
-
-	function isFunction(val) {
-	  return typeof val === 'function' || Object.prototype.toString.call(val) === '[object Function]';
-	}
-
-	function isPlainObject(val) {
-	  //Deal with older browsers (IE8) that don't return [object Null] in this case.
-	  if (val === null) {
-	    return false;
-	  }
-	  return Object.prototype.toString.call(val) === '[object Object]';
-	}
-
-	function isSymbol(key) {
-	  return isString(key) && key[0] === ':';
-	}
-
-	function hasOwnProp(obj, key) {
-	  return Object.prototype.hasOwnProperty.call(obj, key);
-	}
-
-	function getEntry(translations, keys) {
-	  return keys.reduce(function(result, key) {
-	    if (isPlainObject(result) && hasOwnProp(result, key)) {
-	      return result[key];
-	    } else {
-	      return null;
-	    }
-	  }, translations);
-	}
-
-	function Counterpart() {
-	  this._registry = {
-	    locale: 'en',
-	    interpolate: true,
-	    fallbackLocale: null,
-	    scope: null,
-	    translations: {},
-	    interpolations: {},
-	    normalizedKeys: {},
-	    separator: '.',
-	    keepTrailingDot: false,
-	    keyTransformer: function(key) { return key; }
-	  };
-
-	  this.registerTranslations('en', __webpack_require__(472));
-	  this.setMaxListeners(0);
-	}
-
-	extend(Counterpart.prototype, events.EventEmitter.prototype);
-
-	Counterpart.prototype.getLocale = function() {
-	  return this._registry.locale;
-	};
-
-	Counterpart.prototype.setLocale = function(value) {
-	  var previous = this._registry.locale;
-
-	  if (previous != value) {
-	    this._registry.locale = value;
-	    this.emit('localechange', value, previous);
-	  }
-
-	  return previous;
-	};
-
-	Counterpart.prototype.getFallbackLocale = function() {
-	  return this._registry.fallbackLocale;
-	};
-
-	Counterpart.prototype.setFallbackLocale = function(value) {
-	  var previous = this._registry.fallbackLocale;
-	  this._registry.fallbackLocale = value;
-	  return previous;
-	};
-
-	Counterpart.prototype.getAvailableLocales = function() {
-	  return this._registry.availableLocales || Object.keys(this._registry.translations);
-	};
-
-	Counterpart.prototype.setAvailableLocales = function(value) {
-	  var previous = this.getAvailableLocales();
-	  this._registry.availableLocales = value;
-	  return previous;
-	};
-
-	Counterpart.prototype.getSeparator = function() {
-	  return this._registry.separator;
-	};
-
-	Counterpart.prototype.setSeparator = function(value) {
-	  var previous = this._registry.separator;
-	  this._registry.separator = value;
-	  return previous;
-	};
-
-	Counterpart.prototype.setInterpolate = function(value) {
-	  var previous = this._registry.interpolate;
-	  this._registry.interpolate = value;
-	  return previous;
-	};
-
-	Counterpart.prototype.getInterpolate = function() {
-	  return this._registry.interpolate;
-	};
-
-	Counterpart.prototype.setKeyTransformer = function(value) {
-	  var previous = this._registry.keyTransformer;
-	  this._registry.keyTransformer = value;
-	  return previous;
-	};
-
-	Counterpart.prototype.getKeyTransformer = function() {
-	  return this._registry.keyTransformer;
-	};
-
-	Counterpart.prototype.registerTranslations = function(locale, data) {
-	  var translations = {};
-	  translations[locale] = data;
-	  extend(true, this._registry.translations, translations);
-	  return translations;
-	};
-
-	Counterpart.prototype.registerInterpolations = function(data) {
-	  return extend(true, this._registry.interpolations, data);
-	};
-
-	Counterpart.prototype.onLocaleChange =
-	Counterpart.prototype.addLocaleChangeListener = function(callback) {
-	  this.addListener('localechange', callback);
-	};
-
-	Counterpart.prototype.offLocaleChange =
-	Counterpart.prototype.removeLocaleChangeListener = function(callback) {
-	  this.removeListener('localechange', callback);
-	};
-
-	Counterpart.prototype.onTranslationNotFound =
-	Counterpart.prototype.addTranslationNotFoundListener = function(callback) {
-	  this.addListener('translationnotfound', callback);
-	};
-
-	Counterpart.prototype.offTranslationNotFound =
-	Counterpart.prototype.removeTranslationNotFoundListener = function(callback) {
-	  this.removeListener('translationnotfound', callback);
-	};
-
-	Counterpart.prototype.translate = function(key, options) {
-	  if (!isArray(key) && !isString(key) || !key.length) {
-	    throw new Error('invalid argument: key');
-	  }
-
-	  if (isSymbol(key)) {
-	    key = key.substr(1);
-	  }
-
-	  key = this._registry.keyTransformer(key, options);
-
-	  options = extend(true, {}, options);
-
-	  var locale = options.locale || this._registry.locale;
-	  delete options.locale;
-
-	  var scope = options.scope || this._registry.scope;
-	  delete options.scope;
-
-	  var separator = options.separator || this._registry.separator;
-	  delete options.separator;
-
-	  var fallbackLocale = options.fallbackLocale || this._registry.fallbackLocale;
-	  delete options.fallbackLocale;
-
-	  var keys = this._normalizeKeys(locale, scope, key, separator);
-
-	  var entry = getEntry(this._registry.translations, keys);
-
-	  if (entry === null && options.fallback) {
-	    this.emit('translationnotfound', locale, key, options.fallback);
-	    entry = this._fallback(locale, scope, key, options.fallback, options);
-	  }
-
-	  if (entry === null && fallbackLocale && locale !== fallbackLocale) {
-	    var fallbackKeys = this._normalizeKeys(fallbackLocale, scope, key, separator);
-	    entry = getEntry(this._registry.translations, fallbackKeys);
-
-	    if (entry) {
-	      locale = fallbackLocale;
-	    }
-	  }
-
-	  if (entry === null) {
-	    entry = 'missing translation: ' + keys.join(separator);
-	  }
-
-	  entry = this._pluralize(locale, entry, options.count);
-
-	  if (this._registry.interpolate !== false && options.interpolate !== false) {
-	    entry = this._interpolate(entry, options);
-	  }
-
-	  return entry;
-	};
-
-	Counterpart.prototype.localize = function(object, options) {
-	  if (!isDate(object)) {
-	    throw new Error('invalid argument: object must be a date');
-	  }
-
-	  options = extend(true, {}, options);
-
-	  var locale  = options.locale  || this._registry.locale;
-	  var scope   = options.scope   || translationScope;
-	  var type    = options.type    || 'datetime';
-	  var format  = options.format  || 'default';
-
-	  options = { locale: locale, scope: scope, interpolate: false };
-	  format  = this.translate(['formats', type, format], extend(true, {}, options));
-
-	  return strftime(object, format, this.translate('names', options));
-	};
-
-	Counterpart.prototype._pluralize = function(locale, entry, count) {
-	  if (typeof entry !== 'object' || entry === null || typeof count !== 'number') {
-	    return entry;
-	  }
-
-	  var pluralizeFunc = this.translate('pluralize', { locale: locale, scope: translationScope });
-
-	  if (Object.prototype.toString.call(pluralizeFunc) !== '[object Function]') {
-	    return pluralizeFunc;
-	  }
-
-	  return pluralizeFunc(entry, count);
-	};
-
-	Counterpart.prototype.withLocale = function(locale, callback, context) {
-	  var previous = this._registry.locale;
-	  this._registry.locale = locale;
-	  var result = callback.call(context);
-	  this._registry.locale = previous;
-	  return result;
-	};
-
-	Counterpart.prototype.withScope = function(scope, callback, context) {
-	  var previous = this._registry.scope;
-	  this._registry.scope = scope;
-	  var result = callback.call(context);
-	  this._registry.scope = previous;
-	  return result;
-	};
-
-	Counterpart.prototype.withSeparator = function(separator, callback, context) {
-	  var previous = this.setSeparator(separator);
-	  var result = callback.call(context);
-	  this.setSeparator(previous);
-	  return result;
-	};
-
-	Counterpart.prototype._normalizeKeys = function(locale, scope, key, separator) {
-	  var keys = [];
-
-	  keys = keys.concat(this._normalizeKey(locale, separator));
-	  keys = keys.concat(this._normalizeKey(scope, separator));
-	  keys = keys.concat(this._normalizeKey(key, separator));
-
-	  return keys;
-	};
-
-	Counterpart.prototype._normalizeKey = function(key, separator) {
-	  this._registry.normalizedKeys[separator] = this._registry.normalizedKeys[separator] || {};
-
-	  this._registry.normalizedKeys[separator][key] = this._registry.normalizedKeys[separator][key] || (function(key) {
-	    if (isArray(key)) {
-	      var normalizedKeyArray = key.map(function(k) { return this._normalizeKey(k, separator); }.bind(this));
-
-	      return [].concat.apply([], normalizedKeyArray);
-	    } else {
-	      if (typeof key === 'undefined' || key === null) {
-	        return [];
-	      }
-
-	      var keys = key.split(separator);
-
-	      for (var i = keys.length - 1; i >= 0; i--) {
-	        if (keys[i] === '') {
-	          keys.splice(i, 1);
-
-	          if (this._registry.keepTrailingDot === true && i == keys.length) {
-	            keys[keys.length - 1] += '' + separator;
-	          }
-	        }
-	      }
-
-	      return keys;
-	    }
-	  }.bind(this))(key);
-
-	  return this._registry.normalizedKeys[separator][key];
-	};
-
-	Counterpart.prototype._interpolate = function(entry, values) {
-	  if (typeof entry !== 'string') {
-	    return entry;
-	  }
-
-	  return sprintf(entry, extend({}, this._registry.interpolations, values));
-	};
-
-	Counterpart.prototype._resolve = function(locale, scope, object, subject, options) {
-	  options = options || {};
-
-	  if (options.resolve === false) {
-	    return subject;
-	  }
-
-	  var result;
-
-	  if (isSymbol(subject)) {
-	    result = this.translate(subject, extend({}, options, { locale: locale, scope: scope }));
-	  } else if (isFunction(subject)) {
-	    var dateOrTime;
-
-	    if (options.object) {
-	      dateOrTime = options.object;
-	      delete options.object;
-	    } else {
-	      dateOrTime = object;
-	    }
-
-	    result = this._resolve(locale, scope, object, subject(dateOrTime, options));
-	  } else {
-	    result = subject;
-	  }
-
-	  return /^missing translation:/.test(result) ? null : result;
-	};
-
-	Counterpart.prototype._fallback = function(locale, scope, object, subject, options) {
-	  options = except(options, 'fallback');
-
-	  if (isArray(subject)) {
-	    for (var i = 0, ii = subject.length; i < ii; i++) {
-	      var result = this._resolve(locale, scope, object, subject[i], options);
-
-	      if (result) {
-	        return result;
-	      }
-	    }
-
-	    return null;
-	  } else {
-	    return this._resolve(locale, scope, object, subject, options);
-	  }
-	};
-
-	var instance = new Counterpart();
-
-	function translate() {
-	  return instance.translate.apply(instance, arguments);
-	}
-
-	extend(translate, instance, {
-	  Instance: Counterpart,
-	  Translator: Counterpart
-	});
-
-	module.exports = translate;
-
-
-/***/ },
-/* 463 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var hasOwn = Object.prototype.hasOwnProperty;
-	var toStr = Object.prototype.toString;
-
-	var isArray = function isArray(arr) {
-		if (typeof Array.isArray === 'function') {
-			return Array.isArray(arr);
-		}
-
-		return toStr.call(arr) === '[object Array]';
-	};
-
-	var isPlainObject = function isPlainObject(obj) {
-		if (!obj || toStr.call(obj) !== '[object Object]') {
-			return false;
-		}
-
-		var hasOwnConstructor = hasOwn.call(obj, 'constructor');
-		var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
-		// Not own constructor property must be Object
-		if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
-			return false;
-		}
-
-		// Own properties are enumerated firstly, so to speed up,
-		// if last one is own, then all properties are own.
-		var key;
-		for (key in obj) {/**/}
-
-		return typeof key === 'undefined' || hasOwn.call(obj, key);
-	};
-
-	module.exports = function extend() {
-		var options, name, src, copy, copyIsArray, clone,
-			target = arguments[0],
-			i = 1,
-			length = arguments.length,
-			deep = false;
-
-		// Handle a deep copy situation
-		if (typeof target === 'boolean') {
-			deep = target;
-			target = arguments[1] || {};
-			// skip the boolean and the target
-			i = 2;
-		} else if ((typeof target !== 'object' && typeof target !== 'function') || target == null) {
-			target = {};
-		}
-
-		for (; i < length; ++i) {
-			options = arguments[i];
-			// Only deal with non-null/undefined values
-			if (options != null) {
-				// Extend the base object
-				for (name in options) {
-					src = target[name];
-					copy = options[name];
-
-					// Prevent never-ending loop
-					if (target !== copy) {
-						// Recurse if we're merging plain objects or arrays
-						if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
-							if (copyIsArray) {
-								copyIsArray = false;
-								clone = src && isArray(src) ? src : [];
-							} else {
-								clone = src && isPlainObject(src) ? src : {};
-							}
-
-							// Never move original objects, clone them
-							target[name] = extend(deep, clone, copy);
-
-						// Don't bring in undefined values
-						} else if (typeof copy !== 'undefined') {
-							target[name] = copy;
-						}
-					}
-				}
-			}
-		}
-
-		// Return the modified object
-		return target;
-	};
-
-
-
-/***/ },
-/* 464 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global, process) {// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	var formatRegExp = /%[sdj%]/g;
-	exports.format = function(f) {
-	  if (!isString(f)) {
-	    var objects = [];
-	    for (var i = 0; i < arguments.length; i++) {
-	      objects.push(inspect(arguments[i]));
-	    }
-	    return objects.join(' ');
-	  }
-
-	  var i = 1;
-	  var args = arguments;
-	  var len = args.length;
-	  var str = String(f).replace(formatRegExp, function(x) {
-	    if (x === '%%') return '%';
-	    if (i >= len) return x;
-	    switch (x) {
-	      case '%s': return String(args[i++]);
-	      case '%d': return Number(args[i++]);
-	      case '%j':
-	        try {
-	          return JSON.stringify(args[i++]);
-	        } catch (_) {
-	          return '[Circular]';
-	        }
-	      default:
-	        return x;
-	    }
-	  });
-	  for (var x = args[i]; i < len; x = args[++i]) {
-	    if (isNull(x) || !isObject(x)) {
-	      str += ' ' + x;
-	    } else {
-	      str += ' ' + inspect(x);
-	    }
-	  }
-	  return str;
-	};
-
-
-	// Mark that a method should not be used.
-	// Returns a modified function which warns once by default.
-	// If --no-deprecation is set, then it is a no-op.
-	exports.deprecate = function(fn, msg) {
-	  // Allow for deprecating things in the process of starting up.
-	  if (isUndefined(global.process)) {
-	    return function() {
-	      return exports.deprecate(fn, msg).apply(this, arguments);
-	    };
-	  }
-
-	  if (process.noDeprecation === true) {
-	    return fn;
-	  }
-
-	  var warned = false;
-	  function deprecated() {
-	    if (!warned) {
-	      if (process.throwDeprecation) {
-	        throw new Error(msg);
-	      } else if (process.traceDeprecation) {
-	        console.trace(msg);
-	      } else {
-	        console.error(msg);
-	      }
-	      warned = true;
-	    }
-	    return fn.apply(this, arguments);
-	  }
-
-	  return deprecated;
-	};
-
-
-	var debugs = {};
-	var debugEnviron;
-	exports.debuglog = function(set) {
-	  if (isUndefined(debugEnviron))
-	    debugEnviron = process.env.NODE_DEBUG || '';
-	  set = set.toUpperCase();
-	  if (!debugs[set]) {
-	    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
-	      var pid = process.pid;
-	      debugs[set] = function() {
-	        var msg = exports.format.apply(exports, arguments);
-	        console.error('%s %d: %s', set, pid, msg);
-	      };
-	    } else {
-	      debugs[set] = function() {};
-	    }
-	  }
-	  return debugs[set];
-	};
-
-
-	/**
-	 * Echos the value of a value. Trys to print the value out
-	 * in the best way possible given the different types.
-	 *
-	 * @param {Object} obj The object to print out.
-	 * @param {Object} opts Optional options object that alters the output.
-	 */
-	/* legacy: obj, showHidden, depth, colors*/
-	function inspect(obj, opts) {
-	  // default options
-	  var ctx = {
-	    seen: [],
-	    stylize: stylizeNoColor
-	  };
-	  // legacy...
-	  if (arguments.length >= 3) ctx.depth = arguments[2];
-	  if (arguments.length >= 4) ctx.colors = arguments[3];
-	  if (isBoolean(opts)) {
-	    // legacy...
-	    ctx.showHidden = opts;
-	  } else if (opts) {
-	    // got an "options" object
-	    exports._extend(ctx, opts);
-	  }
-	  // set default options
-	  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
-	  if (isUndefined(ctx.depth)) ctx.depth = 2;
-	  if (isUndefined(ctx.colors)) ctx.colors = false;
-	  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
-	  if (ctx.colors) ctx.stylize = stylizeWithColor;
-	  return formatValue(ctx, obj, ctx.depth);
-	}
-	exports.inspect = inspect;
-
-
-	// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
-	inspect.colors = {
-	  'bold' : [1, 22],
-	  'italic' : [3, 23],
-	  'underline' : [4, 24],
-	  'inverse' : [7, 27],
-	  'white' : [37, 39],
-	  'grey' : [90, 39],
-	  'black' : [30, 39],
-	  'blue' : [34, 39],
-	  'cyan' : [36, 39],
-	  'green' : [32, 39],
-	  'magenta' : [35, 39],
-	  'red' : [31, 39],
-	  'yellow' : [33, 39]
-	};
-
-	// Don't use 'blue' not visible on cmd.exe
-	inspect.styles = {
-	  'special': 'cyan',
-	  'number': 'yellow',
-	  'boolean': 'yellow',
-	  'undefined': 'grey',
-	  'null': 'bold',
-	  'string': 'green',
-	  'date': 'magenta',
-	  // "name": intentionally not styling
-	  'regexp': 'red'
-	};
-
-
-	function stylizeWithColor(str, styleType) {
-	  var style = inspect.styles[styleType];
-
-	  if (style) {
-	    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
-	           '\u001b[' + inspect.colors[style][1] + 'm';
-	  } else {
-	    return str;
-	  }
-	}
-
-
-	function stylizeNoColor(str, styleType) {
-	  return str;
-	}
-
-
-	function arrayToHash(array) {
-	  var hash = {};
-
-	  array.forEach(function(val, idx) {
-	    hash[val] = true;
-	  });
-
-	  return hash;
-	}
-
-
-	function formatValue(ctx, value, recurseTimes) {
-	  // Provide a hook for user-specified inspect functions.
-	  // Check that value is an object with an inspect function on it
-	  if (ctx.customInspect &&
-	      value &&
-	      isFunction(value.inspect) &&
-	      // Filter out the util module, it's inspect function is special
-	      value.inspect !== exports.inspect &&
-	      // Also filter out any prototype objects using the circular check.
-	      !(value.constructor && value.constructor.prototype === value)) {
-	    var ret = value.inspect(recurseTimes, ctx);
-	    if (!isString(ret)) {
-	      ret = formatValue(ctx, ret, recurseTimes);
-	    }
-	    return ret;
-	  }
-
-	  // Primitive types cannot have properties
-	  var primitive = formatPrimitive(ctx, value);
-	  if (primitive) {
-	    return primitive;
-	  }
-
-	  // Look up the keys of the object.
-	  var keys = Object.keys(value);
-	  var visibleKeys = arrayToHash(keys);
-
-	  if (ctx.showHidden) {
-	    keys = Object.getOwnPropertyNames(value);
-	  }
-
-	  // IE doesn't make error fields non-enumerable
-	  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
-	  if (isError(value)
-	      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
-	    return formatError(value);
-	  }
-
-	  // Some type of object without properties can be shortcutted.
-	  if (keys.length === 0) {
-	    if (isFunction(value)) {
-	      var name = value.name ? ': ' + value.name : '';
-	      return ctx.stylize('[Function' + name + ']', 'special');
-	    }
-	    if (isRegExp(value)) {
-	      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-	    }
-	    if (isDate(value)) {
-	      return ctx.stylize(Date.prototype.toString.call(value), 'date');
-	    }
-	    if (isError(value)) {
-	      return formatError(value);
-	    }
-	  }
-
-	  var base = '', array = false, braces = ['{', '}'];
-
-	  // Make Array say that they are Array
-	  if (isArray(value)) {
-	    array = true;
-	    braces = ['[', ']'];
-	  }
-
-	  // Make functions say that they are functions
-	  if (isFunction(value)) {
-	    var n = value.name ? ': ' + value.name : '';
-	    base = ' [Function' + n + ']';
-	  }
-
-	  // Make RegExps say that they are RegExps
-	  if (isRegExp(value)) {
-	    base = ' ' + RegExp.prototype.toString.call(value);
-	  }
-
-	  // Make dates with properties first say the date
-	  if (isDate(value)) {
-	    base = ' ' + Date.prototype.toUTCString.call(value);
-	  }
-
-	  // Make error with message first say the error
-	  if (isError(value)) {
-	    base = ' ' + formatError(value);
-	  }
-
-	  if (keys.length === 0 && (!array || value.length == 0)) {
-	    return braces[0] + base + braces[1];
-	  }
-
-	  if (recurseTimes < 0) {
-	    if (isRegExp(value)) {
-	      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
-	    } else {
-	      return ctx.stylize('[Object]', 'special');
-	    }
-	  }
-
-	  ctx.seen.push(value);
-
-	  var output;
-	  if (array) {
-	    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
-	  } else {
-	    output = keys.map(function(key) {
-	      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
-	    });
-	  }
-
-	  ctx.seen.pop();
-
-	  return reduceToSingleString(output, base, braces);
-	}
-
-
-	function formatPrimitive(ctx, value) {
-	  if (isUndefined(value))
-	    return ctx.stylize('undefined', 'undefined');
-	  if (isString(value)) {
-	    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
-	                                             .replace(/'/g, "\\'")
-	                                             .replace(/\\"/g, '"') + '\'';
-	    return ctx.stylize(simple, 'string');
-	  }
-	  if (isNumber(value))
-	    return ctx.stylize('' + value, 'number');
-	  if (isBoolean(value))
-	    return ctx.stylize('' + value, 'boolean');
-	  // For some reason typeof null is "object", so special case here.
-	  if (isNull(value))
-	    return ctx.stylize('null', 'null');
-	}
-
-
-	function formatError(value) {
-	  return '[' + Error.prototype.toString.call(value) + ']';
-	}
-
-
-	function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
-	  var output = [];
-	  for (var i = 0, l = value.length; i < l; ++i) {
-	    if (hasOwnProperty(value, String(i))) {
-	      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-	          String(i), true));
-	    } else {
-	      output.push('');
-	    }
-	  }
-	  keys.forEach(function(key) {
-	    if (!key.match(/^\d+$/)) {
-	      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
-	          key, true));
-	    }
-	  });
-	  return output;
-	}
-
-
-	function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
-	  var name, str, desc;
-	  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
-	  if (desc.get) {
-	    if (desc.set) {
-	      str = ctx.stylize('[Getter/Setter]', 'special');
-	    } else {
-	      str = ctx.stylize('[Getter]', 'special');
-	    }
-	  } else {
-	    if (desc.set) {
-	      str = ctx.stylize('[Setter]', 'special');
-	    }
-	  }
-	  if (!hasOwnProperty(visibleKeys, key)) {
-	    name = '[' + key + ']';
-	  }
-	  if (!str) {
-	    if (ctx.seen.indexOf(desc.value) < 0) {
-	      if (isNull(recurseTimes)) {
-	        str = formatValue(ctx, desc.value, null);
-	      } else {
-	        str = formatValue(ctx, desc.value, recurseTimes - 1);
-	      }
-	      if (str.indexOf('\n') > -1) {
-	        if (array) {
-	          str = str.split('\n').map(function(line) {
-	            return '  ' + line;
-	          }).join('\n').substr(2);
-	        } else {
-	          str = '\n' + str.split('\n').map(function(line) {
-	            return '   ' + line;
-	          }).join('\n');
-	        }
-	      }
-	    } else {
-	      str = ctx.stylize('[Circular]', 'special');
-	    }
-	  }
-	  if (isUndefined(name)) {
-	    if (array && key.match(/^\d+$/)) {
-	      return str;
-	    }
-	    name = JSON.stringify('' + key);
-	    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
-	      name = name.substr(1, name.length - 2);
-	      name = ctx.stylize(name, 'name');
-	    } else {
-	      name = name.replace(/'/g, "\\'")
-	                 .replace(/\\"/g, '"')
-	                 .replace(/(^"|"$)/g, "'");
-	      name = ctx.stylize(name, 'string');
-	    }
-	  }
-
-	  return name + ': ' + str;
-	}
-
-
-	function reduceToSingleString(output, base, braces) {
-	  var numLinesEst = 0;
-	  var length = output.reduce(function(prev, cur) {
-	    numLinesEst++;
-	    if (cur.indexOf('\n') >= 0) numLinesEst++;
-	    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
-	  }, 0);
-
-	  if (length > 60) {
-	    return braces[0] +
-	           (base === '' ? '' : base + '\n ') +
-	           ' ' +
-	           output.join(',\n  ') +
-	           ' ' +
-	           braces[1];
-	  }
-
-	  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
-	}
-
-
-	// NOTE: These type checking functions intentionally don't use `instanceof`
-	// because it is fragile and can be easily faked with `Object.create()`.
-	function isArray(ar) {
-	  return Array.isArray(ar);
-	}
-	exports.isArray = isArray;
-
-	function isBoolean(arg) {
-	  return typeof arg === 'boolean';
-	}
-	exports.isBoolean = isBoolean;
-
-	function isNull(arg) {
-	  return arg === null;
-	}
-	exports.isNull = isNull;
-
-	function isNullOrUndefined(arg) {
-	  return arg == null;
-	}
-	exports.isNullOrUndefined = isNullOrUndefined;
-
-	function isNumber(arg) {
-	  return typeof arg === 'number';
-	}
-	exports.isNumber = isNumber;
-
-	function isString(arg) {
-	  return typeof arg === 'string';
-	}
-	exports.isString = isString;
-
-	function isSymbol(arg) {
-	  return typeof arg === 'symbol';
-	}
-	exports.isSymbol = isSymbol;
-
-	function isUndefined(arg) {
-	  return arg === void 0;
-	}
-	exports.isUndefined = isUndefined;
-
-	function isRegExp(re) {
-	  return isObject(re) && objectToString(re) === '[object RegExp]';
-	}
-	exports.isRegExp = isRegExp;
-
-	function isObject(arg) {
-	  return typeof arg === 'object' && arg !== null;
-	}
-	exports.isObject = isObject;
-
-	function isDate(d) {
-	  return isObject(d) && objectToString(d) === '[object Date]';
-	}
-	exports.isDate = isDate;
-
-	function isError(e) {
-	  return isObject(e) &&
-	      (objectToString(e) === '[object Error]' || e instanceof Error);
-	}
-	exports.isError = isError;
-
-	function isFunction(arg) {
-	  return typeof arg === 'function';
-	}
-	exports.isFunction = isFunction;
-
-	function isPrimitive(arg) {
-	  return arg === null ||
-	         typeof arg === 'boolean' ||
-	         typeof arg === 'number' ||
-	         typeof arg === 'string' ||
-	         typeof arg === 'symbol' ||  // ES6 symbol
-	         typeof arg === 'undefined';
-	}
-	exports.isPrimitive = isPrimitive;
-
-	exports.isBuffer = __webpack_require__(465);
-
-	function objectToString(o) {
-	  return Object.prototype.toString.call(o);
-	}
-
-
-	function pad(n) {
-	  return n < 10 ? '0' + n.toString(10) : n.toString(10);
-	}
-
-
-	var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
-	              'Oct', 'Nov', 'Dec'];
-
-	// 26 Feb 16:19:34
-	function timestamp() {
-	  var d = new Date();
-	  var time = [pad(d.getHours()),
-	              pad(d.getMinutes()),
-	              pad(d.getSeconds())].join(':');
-	  return [d.getDate(), months[d.getMonth()], time].join(' ');
-	}
-
-
-	// log is just a thin wrapper to console.log that prepends a timestamp
-	exports.log = function() {
-	  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
-	};
-
-
-	/**
-	 * Inherit the prototype methods from one constructor into another.
-	 *
-	 * The Function.prototype.inherits from lang.js rewritten as a standalone
-	 * function (not on Function.prototype). NOTE: If this file is to be loaded
-	 * during bootstrapping this function needs to be rewritten using some native
-	 * functions as prototype setup using normal JavaScript does not work as
-	 * expected during bootstrapping (see mirror.js in r114903).
-	 *
-	 * @param {function} ctor Constructor function which needs to inherit the
-	 *     prototype.
-	 * @param {function} superCtor Constructor function to inherit prototype from.
-	 */
-	exports.inherits = __webpack_require__(466);
-
-	exports._extend = function(origin, add) {
-	  // Don't do anything if add isn't an object
-	  if (!add || !isObject(add)) return origin;
-
-	  var keys = Object.keys(add);
-	  var i = keys.length;
-	  while (i--) {
-	    origin[keys[i]] = add[keys[i]];
-	  }
-	  return origin;
-	};
-
-	function hasOwnProperty(obj, prop) {
-	  return Object.prototype.hasOwnProperty.call(obj, prop);
-	}
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(4)))
-
-/***/ },
-/* 465 */
-/***/ function(module, exports) {
-
-	module.exports = function isBuffer(arg) {
-	  return arg && typeof arg === 'object'
-	    && typeof arg.copy === 'function'
-	    && typeof arg.fill === 'function'
-	    && typeof arg.readUInt8 === 'function';
-	}
-
-/***/ },
-/* 466 */
-/***/ function(module, exports) {
-
-	if (typeof Object.create === 'function') {
-	  // implementation from standard node.js 'util' module
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    ctor.prototype = Object.create(superCtor.prototype, {
-	      constructor: {
-	        value: ctor,
-	        enumerable: false,
-	        writable: true,
-	        configurable: true
-	      }
-	    });
-	  };
-	} else {
-	  // old school shim for old browsers
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    var TempCtor = function () {}
-	    TempCtor.prototype = superCtor.prototype
-	    ctor.prototype = new TempCtor()
-	    ctor.prototype.constructor = ctor
-	  }
-	}
-
-
-/***/ },
-/* 467 */
-/***/ function(module, exports, __webpack_require__) {
-
-	(function(window) {
-	    var re = {
-	        not_string: /[^s]/,
-	        number: /[diefg]/,
-	        json: /[j]/,
-	        not_json: /[^j]/,
-	        text: /^[^\x25]+/,
-	        modulo: /^\x25{2}/,
-	        placeholder: /^\x25(?:([1-9]\d*)\$|\(([^\)]+)\))?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?([b-gijosuxX])/,
-	        key: /^([a-z_][a-z_\d]*)/i,
-	        key_access: /^\.([a-z_][a-z_\d]*)/i,
-	        index_access: /^\[(\d+)\]/,
-	        sign: /^[\+\-]/
-	    }
-
-	    function sprintf() {
-	        var key = arguments[0], cache = sprintf.cache
-	        if (!(cache[key] && cache.hasOwnProperty(key))) {
-	            cache[key] = sprintf.parse(key)
-	        }
-	        return sprintf.format.call(null, cache[key], arguments)
-	    }
-
-	    sprintf.format = function(parse_tree, argv) {
-	        var cursor = 1, tree_length = parse_tree.length, node_type = "", arg, output = [], i, k, match, pad, pad_character, pad_length, is_positive = true, sign = ""
-	        for (i = 0; i < tree_length; i++) {
-	            node_type = get_type(parse_tree[i])
-	            if (node_type === "string") {
-	                output[output.length] = parse_tree[i]
-	            }
-	            else if (node_type === "array") {
-	                match = parse_tree[i] // convenience purposes only
-	                if (match[2]) { // keyword argument
-	                    arg = argv[cursor]
-	                    for (k = 0; k < match[2].length; k++) {
-	                        if (!arg.hasOwnProperty(match[2][k])) {
-	                            throw new Error(sprintf("[sprintf] property '%s' does not exist", match[2][k]))
-	                        }
-	                        arg = arg[match[2][k]]
-	                    }
-	                }
-	                else if (match[1]) { // positional argument (explicit)
-	                    arg = argv[match[1]]
-	                }
-	                else { // positional argument (implicit)
-	                    arg = argv[cursor++]
-	                }
-
-	                if (get_type(arg) == "function") {
-	                    arg = arg()
-	                }
-
-	                if (re.not_string.test(match[8]) && re.not_json.test(match[8]) && (get_type(arg) != "number" && isNaN(arg))) {
-	                    throw new TypeError(sprintf("[sprintf] expecting number but found %s", get_type(arg)))
-	                }
-
-	                if (re.number.test(match[8])) {
-	                    is_positive = arg >= 0
-	                }
-
-	                switch (match[8]) {
-	                    case "b":
-	                        arg = arg.toString(2)
-	                    break
-	                    case "c":
-	                        arg = String.fromCharCode(arg)
-	                    break
-	                    case "d":
-	                    case "i":
-	                        arg = parseInt(arg, 10)
-	                    break
-	                    case "j":
-	                        arg = JSON.stringify(arg, null, match[6] ? parseInt(match[6]) : 0)
-	                    break
-	                    case "e":
-	                        arg = match[7] ? arg.toExponential(match[7]) : arg.toExponential()
-	                    break
-	                    case "f":
-	                        arg = match[7] ? parseFloat(arg).toFixed(match[7]) : parseFloat(arg)
-	                    break
-	                    case "g":
-	                        arg = match[7] ? parseFloat(arg).toPrecision(match[7]) : parseFloat(arg)
-	                    break
-	                    case "o":
-	                        arg = arg.toString(8)
-	                    break
-	                    case "s":
-	                        arg = ((arg = String(arg)) && match[7] ? arg.substring(0, match[7]) : arg)
-	                    break
-	                    case "u":
-	                        arg = arg >>> 0
-	                    break
-	                    case "x":
-	                        arg = arg.toString(16)
-	                    break
-	                    case "X":
-	                        arg = arg.toString(16).toUpperCase()
-	                    break
-	                }
-	                if (re.json.test(match[8])) {
-	                    output[output.length] = arg
-	                }
-	                else {
-	                    if (re.number.test(match[8]) && (!is_positive || match[3])) {
-	                        sign = is_positive ? "+" : "-"
-	                        arg = arg.toString().replace(re.sign, "")
-	                    }
-	                    else {
-	                        sign = ""
-	                    }
-	                    pad_character = match[4] ? match[4] === "0" ? "0" : match[4].charAt(1) : " "
-	                    pad_length = match[6] - (sign + arg).length
-	                    pad = match[6] ? (pad_length > 0 ? str_repeat(pad_character, pad_length) : "") : ""
-	                    output[output.length] = match[5] ? sign + arg + pad : (pad_character === "0" ? sign + pad + arg : pad + sign + arg)
-	                }
-	            }
-	        }
-	        return output.join("")
-	    }
-
-	    sprintf.cache = {}
-
-	    sprintf.parse = function(fmt) {
-	        var _fmt = fmt, match = [], parse_tree = [], arg_names = 0
-	        while (_fmt) {
-	            if ((match = re.text.exec(_fmt)) !== null) {
-	                parse_tree[parse_tree.length] = match[0]
-	            }
-	            else if ((match = re.modulo.exec(_fmt)) !== null) {
-	                parse_tree[parse_tree.length] = "%"
-	            }
-	            else if ((match = re.placeholder.exec(_fmt)) !== null) {
-	                if (match[2]) {
-	                    arg_names |= 1
-	                    var field_list = [], replacement_field = match[2], field_match = []
-	                    if ((field_match = re.key.exec(replacement_field)) !== null) {
-	                        field_list[field_list.length] = field_match[1]
-	                        while ((replacement_field = replacement_field.substring(field_match[0].length)) !== "") {
-	                            if ((field_match = re.key_access.exec(replacement_field)) !== null) {
-	                                field_list[field_list.length] = field_match[1]
-	                            }
-	                            else if ((field_match = re.index_access.exec(replacement_field)) !== null) {
-	                                field_list[field_list.length] = field_match[1]
-	                            }
-	                            else {
-	                                throw new SyntaxError("[sprintf] failed to parse named argument key")
-	                            }
-	                        }
-	                    }
-	                    else {
-	                        throw new SyntaxError("[sprintf] failed to parse named argument key")
-	                    }
-	                    match[2] = field_list
-	                }
-	                else {
-	                    arg_names |= 2
-	                }
-	                if (arg_names === 3) {
-	                    throw new Error("[sprintf] mixing positional and named placeholders is not (yet) supported")
-	                }
-	                parse_tree[parse_tree.length] = match
-	            }
-	            else {
-	                throw new SyntaxError("[sprintf] unexpected placeholder")
-	            }
-	            _fmt = _fmt.substring(match[0].length)
-	        }
-	        return parse_tree
-	    }
-
-	    var vsprintf = function(fmt, argv, _argv) {
-	        _argv = (argv || []).slice(0)
-	        _argv.splice(0, 0, fmt)
-	        return sprintf.apply(null, _argv)
-	    }
-
-	    /**
-	     * helpers
-	     */
-	    function get_type(variable) {
-	        return Object.prototype.toString.call(variable).slice(8, -1).toLowerCase()
-	    }
-
-	    function str_repeat(input, multiplier) {
-	        return Array(multiplier + 1).join(input)
-	    }
-
-	    /**
-	     * export to either browser or node.js
-	     */
-	    if (true) {
-	        exports.sprintf = sprintf
-	        exports.vsprintf = vsprintf
-	    }
-	    else {
-	        window.sprintf = sprintf
-	        window.vsprintf = vsprintf
-
-	        if (typeof define === "function" && define.amd) {
-	            define(function() {
-	                return {
-	                    sprintf: sprintf,
-	                    vsprintf: vsprintf
-	                }
-	            })
-	        }
-	    }
-	})(typeof window === "undefined" ? this : window);
-
-
-/***/ },
-/* 468 */
-/***/ function(module, exports) {
-
-	// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	function EventEmitter() {
-	  this._events = this._events || {};
-	  this._maxListeners = this._maxListeners || undefined;
-	}
-	module.exports = EventEmitter;
-
-	// Backwards-compat with node 0.10.x
-	EventEmitter.EventEmitter = EventEmitter;
-
-	EventEmitter.prototype._events = undefined;
-	EventEmitter.prototype._maxListeners = undefined;
-
-	// By default EventEmitters will print a warning if more than 10 listeners are
-	// added to it. This is a useful default which helps finding memory leaks.
-	EventEmitter.defaultMaxListeners = 10;
-
-	// Obviously not all Emitters should be limited to 10. This function allows
-	// that to be increased. Set to zero for unlimited.
-	EventEmitter.prototype.setMaxListeners = function(n) {
-	  if (!isNumber(n) || n < 0 || isNaN(n))
-	    throw TypeError('n must be a positive number');
-	  this._maxListeners = n;
-	  return this;
-	};
-
-	EventEmitter.prototype.emit = function(type) {
-	  var er, handler, len, args, i, listeners;
-
-	  if (!this._events)
-	    this._events = {};
-
-	  // If there is no 'error' event listener then throw.
-	  if (type === 'error') {
-	    if (!this._events.error ||
-	        (isObject(this._events.error) && !this._events.error.length)) {
-	      er = arguments[1];
-	      if (er instanceof Error) {
-	        throw er; // Unhandled 'error' event
-	      } else {
-	        // At least give some kind of context to the user
-	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-	        err.context = er;
-	        throw err;
-	      }
-	    }
-	  }
-
-	  handler = this._events[type];
-
-	  if (isUndefined(handler))
-	    return false;
-
-	  if (isFunction(handler)) {
-	    switch (arguments.length) {
-	      // fast cases
-	      case 1:
-	        handler.call(this);
-	        break;
-	      case 2:
-	        handler.call(this, arguments[1]);
-	        break;
-	      case 3:
-	        handler.call(this, arguments[1], arguments[2]);
-	        break;
-	      // slower
-	      default:
-	        args = Array.prototype.slice.call(arguments, 1);
-	        handler.apply(this, args);
-	    }
-	  } else if (isObject(handler)) {
-	    args = Array.prototype.slice.call(arguments, 1);
-	    listeners = handler.slice();
-	    len = listeners.length;
-	    for (i = 0; i < len; i++)
-	      listeners[i].apply(this, args);
-	  }
-
-	  return true;
-	};
-
-	EventEmitter.prototype.addListener = function(type, listener) {
-	  var m;
-
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-
-	  if (!this._events)
-	    this._events = {};
-
-	  // To avoid recursion in the case that type === "newListener"! Before
-	  // adding it to the listeners, first emit "newListener".
-	  if (this._events.newListener)
-	    this.emit('newListener', type,
-	              isFunction(listener.listener) ?
-	              listener.listener : listener);
-
-	  if (!this._events[type])
-	    // Optimize the case of one listener. Don't need the extra array object.
-	    this._events[type] = listener;
-	  else if (isObject(this._events[type]))
-	    // If we've already got an array, just append.
-	    this._events[type].push(listener);
-	  else
-	    // Adding the second element, need to change to array.
-	    this._events[type] = [this._events[type], listener];
-
-	  // Check for listener leak
-	  if (isObject(this._events[type]) && !this._events[type].warned) {
-	    if (!isUndefined(this._maxListeners)) {
-	      m = this._maxListeners;
-	    } else {
-	      m = EventEmitter.defaultMaxListeners;
-	    }
-
-	    if (m && m > 0 && this._events[type].length > m) {
-	      this._events[type].warned = true;
-	      console.error('(node) warning: possible EventEmitter memory ' +
-	                    'leak detected. %d listeners added. ' +
-	                    'Use emitter.setMaxListeners() to increase limit.',
-	                    this._events[type].length);
-	      if (typeof console.trace === 'function') {
-	        // not supported in IE 10
-	        console.trace();
-	      }
-	    }
-	  }
-
-	  return this;
-	};
-
-	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-	EventEmitter.prototype.once = function(type, listener) {
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-
-	  var fired = false;
-
-	  function g() {
-	    this.removeListener(type, g);
-
-	    if (!fired) {
-	      fired = true;
-	      listener.apply(this, arguments);
-	    }
-	  }
-
-	  g.listener = listener;
-	  this.on(type, g);
-
-	  return this;
-	};
-
-	// emits a 'removeListener' event iff the listener was removed
-	EventEmitter.prototype.removeListener = function(type, listener) {
-	  var list, position, length, i;
-
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-
-	  if (!this._events || !this._events[type])
-	    return this;
-
-	  list = this._events[type];
-	  length = list.length;
-	  position = -1;
-
-	  if (list === listener ||
-	      (isFunction(list.listener) && list.listener === listener)) {
-	    delete this._events[type];
-	    if (this._events.removeListener)
-	      this.emit('removeListener', type, listener);
-
-	  } else if (isObject(list)) {
-	    for (i = length; i-- > 0;) {
-	      if (list[i] === listener ||
-	          (list[i].listener && list[i].listener === listener)) {
-	        position = i;
-	        break;
-	      }
-	    }
-
-	    if (position < 0)
-	      return this;
-
-	    if (list.length === 1) {
-	      list.length = 0;
-	      delete this._events[type];
-	    } else {
-	      list.splice(position, 1);
-	    }
-
-	    if (this._events.removeListener)
-	      this.emit('removeListener', type, listener);
-	  }
-
-	  return this;
-	};
-
-	EventEmitter.prototype.removeAllListeners = function(type) {
-	  var key, listeners;
-
-	  if (!this._events)
-	    return this;
-
-	  // not listening for removeListener, no need to emit
-	  if (!this._events.removeListener) {
-	    if (arguments.length === 0)
-	      this._events = {};
-	    else if (this._events[type])
-	      delete this._events[type];
-	    return this;
-	  }
-
-	  // emit removeListener for all listeners on all events
-	  if (arguments.length === 0) {
-	    for (key in this._events) {
-	      if (key === 'removeListener') continue;
-	      this.removeAllListeners(key);
-	    }
-	    this.removeAllListeners('removeListener');
-	    this._events = {};
-	    return this;
-	  }
-
-	  listeners = this._events[type];
-
-	  if (isFunction(listeners)) {
-	    this.removeListener(type, listeners);
-	  } else if (listeners) {
-	    // LIFO order
-	    while (listeners.length)
-	      this.removeListener(type, listeners[listeners.length - 1]);
-	  }
-	  delete this._events[type];
-
-	  return this;
-	};
-
-	EventEmitter.prototype.listeners = function(type) {
-	  var ret;
-	  if (!this._events || !this._events[type])
-	    ret = [];
-	  else if (isFunction(this._events[type]))
-	    ret = [this._events[type]];
-	  else
-	    ret = this._events[type].slice();
-	  return ret;
-	};
-
-	EventEmitter.prototype.listenerCount = function(type) {
-	  if (this._events) {
-	    var evlistener = this._events[type];
-
-	    if (isFunction(evlistener))
-	      return 1;
-	    else if (evlistener)
-	      return evlistener.length;
-	  }
-	  return 0;
-	};
-
-	EventEmitter.listenerCount = function(emitter, type) {
-	  return emitter.listenerCount(type);
-	};
-
-	function isFunction(arg) {
-	  return typeof arg === 'function';
-	}
-
-	function isNumber(arg) {
-	  return typeof arg === 'number';
-	}
-
-	function isObject(arg) {
-	  return typeof arg === 'object' && arg !== null;
-	}
-
-	function isUndefined(arg) {
-	  return arg === void 0;
-	}
-
-
-/***/ },
-/* 469 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var dateNames = __webpack_require__(470);
-
-	function strftime(date, format, names) {
-	  var timestamp = date.getTime();
-
-	  names = names || dateNames;
-
-	  return format.replace(/%([-_0]?.)/g, function(_, c) {
-	    var padding = null;
-
-	    if (c.length == 2) {
-	      switch (c[0]) {
-	        case '-': padding = '';  break;
-	        case '_': padding = ' '; break;
-	        case '0': padding = '0'; break;
-	        default: return _; // should never reach this one
-	      }
-
-	      c = c[1];
-	    }
-
-	    switch (c) {
-	      case 'A': return names.days[date.getDay()];
-	      case 'a': return names.abbreviated_days[date.getDay()];
-	      case 'B': return names.months[date.getMonth()];
-	      case 'b': return names.abbreviated_months[date.getMonth()];
-	      case 'C': return pad(Math.floor(date.getFullYear() / 100), padding);
-	      case 'D': return strftime(date, '%m/%d/%y');
-	      case 'd': return pad(date.getDate(), padding);
-	      case 'e': return date.getDate();
-	      case 'F': return strftime(date, '%Y-%m-%d');
-	      case 'H': return pad(date.getHours(), padding);
-	      case 'h': return names.abbreviated_months[date.getMonth()];
-	      case 'I': return pad(hours12(date), padding);
-	      case 'j': return pad(Math.ceil((date.getTime() - (new Date(date.getFullYear(), 0, 1)).getTime()) / (1000 * 60 * 60 * 24)), 3);
-	      case 'k': return pad(date.getHours(), padding === null ? ' ' : padding);
-	      case 'L': return pad(Math.floor(timestamp % 1000), 3);
-	      case 'l': return pad(hours12(date), padding === null ? ' ' : padding);
-	      case 'M': return pad(date.getMinutes(), padding);
-	      case 'm': return pad(date.getMonth() + 1, padding);
-	      case 'n': return '\n';
-	      case 'o': return String(date.getDate()) + ordinal(date.getDate());
-	      case 'P': return date.getHours() < 12 ? names.am.toLowerCase() : names.pm.toLowerCase();
-	      case 'p': return date.getHours() < 12 ? names.am.toUpperCase() : names.pm.toUpperCase();
-	      case 'R': return strftime(date, '%H:%M');
-	      case 'r': return strftime(date, '%I:%M:%S %p');
-	      case 'S': return pad(date.getSeconds(), padding);
-	      case 's': return Math.floor(timestamp / 1000);
-	      case 'T': return strftime(date, '%H:%M:%S');
-	      case 't': return '\t';
-	      case 'U': return pad(weekNumber(date, 'sunday'), padding);
-	      case 'u': return date.getDay() === 0 ? 7 : date.getDay();
-	      case 'v': return strftime(date, '%e-%b-%Y');
-	      case 'W': return pad(weekNumber(date, 'monday'), padding);
-	      case 'w': return date.getDay();
-	      case 'Y': return date.getFullYear();
-	      case 'y': var y = String(date.getFullYear()); return y.slice(y.length - 2);
-	      case 'Z': var tzString = date.toString().match(/\((\w+)\)/); return tzString && tzString[1] || '';
-	      case 'z': var off = date.getTimezoneOffset(); return (off > 0 ? '-' : '+') + pad(Math.round(Math.abs(off / 60)), 2) + ':' + pad(off % 60, 2);
-	      default: return c;
-	    }
-	  });
-	}
-
-	function pad(n, padding, length) {
-	  if (typeof padding === 'number') {
-	    length = padding;
-	    padding = '0';
-	  }
-
-	  if (padding === null) {
-	    padding = '0';
-	  }
-
-	  length = length || 2;
-
-	  var s = String(n);
-
-	  if (padding) {
-	    while (s.length < length) {
-	      s = padding + s;
-	    }
-	  }
-
-	  return s;
-	}
-
-	function hours12(date) {
-	  var hour = date.getHours();
-
-	  if (hour === 0) {
-	    hour = 12;
-	  } else if (hour > 12) {
-	    hour -= 12;
-	  }
-
-	  return hour;
-	}
-
-	function ordinal(n) {
-	  var i = n % 10, ii = n % 100;
-
-	  if ((ii >= 11 && ii <= 13) || i === 0 || i >= 4) {
-	    return 'th';
-	  }
-
-	  switch (i) {
-	    case 1: return 'st';
-	    case 2: return 'nd';
-	    case 3: return 'rd';
-	  }
-	}
-
-	function weekNumber(date, firstWeekday) {
-	  firstWeekday = firstWeekday || 'sunday';
-
-	  var wday = date.getDay();
-
-	  if (firstWeekday == 'monday') {
-	    if (wday === 0) { // Sunday
-	      wday = 6;
-	    } else {
-	      wday--;
-	    }
-	  }
-
-	  var
-	    firstDayOfYear = new Date(date.getFullYear(), 0, 1),
-	    yday = (date - firstDayOfYear) / 86400000,
-	    weekNum = (yday + 7 - wday) / 7;
-
-	  return Math.floor(weekNum);
-	}
-
-	module.exports = strftime;
-
-
-/***/ },
-/* 470 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	module.exports = __webpack_require__(471);
-
-
-/***/ },
-/* 471 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	module.exports = {
-	  __locale: "en",
-	  days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-	  abbreviated_days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-	  months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-	  abbreviated_months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-	  am: 'AM',
-	  pm: 'PM'
-	};
-
-
-/***/ },
-/* 472 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// The translations in this file are added by default.
-
-	'use strict';
-
-	module.exports = {
-	  counterpart: {
-	    names: __webpack_require__(471),
-	    pluralize: __webpack_require__(473),
-
-	    formats: {
-	      date: {
-	        'default':  '%a, %e %b %Y',
-	        long:       '%A, %B %o, %Y',
-	        short:      '%b %e'
-	      },
-
-	      time: {
-	        'default':  '%H:%M',
-	        long:       '%H:%M:%S %z',
-	        short:      '%H:%M'
-	      },
-
-	      datetime: {
-	        'default':  '%a, %e %b %Y %H:%M',
-	        long:       '%A, %B %o, %Y %H:%M:%S %z',
-	        short:      '%e %b %H:%M'
-	      }
-	    }
-	  }
-	};
-
-
-/***/ },
-/* 473 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = function(entry, count) {
-	  var key;
-
-	  if (count === 0 && 'zero' in entry) {
-	    key = 'zero';
-	  }
-
-	  key = key || (count === 1 ? 'one' : 'other');
-
-	  return entry[key];
-	};
-
 
 /***/ },
 /* 474 */
@@ -66871,7 +66883,7 @@
 
 	var _AutoComplete2 = _interopRequireDefault(_AutoComplete);
 
-	var _apiCall = __webpack_require__(419);
+	var _apiCall = __webpack_require__(436);
 
 	var _apiCall2 = _interopRequireDefault(_apiCall);
 
@@ -66879,7 +66891,7 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -68589,7 +68601,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -68603,11 +68615,11 @@
 
 	var _nemesisTypes = __webpack_require__(377);
 
-	var _FlatButton = __webpack_require__(400);
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-	var _Dialog = __webpack_require__(403);
+	var _Dialog = __webpack_require__(420);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -68783,7 +68795,7 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -68884,8 +68896,8 @@
 		"./app/components/entity-window/entity-sections/entity-section/entity-section.js": 523,
 		"./app/components/entity-window/entity-sections/entity-sections": 394,
 		"./app/components/entity-window/entity-sections/entity-sections.js": 394,
-		"./app/components/entity-window/entity-window": 446,
-		"./app/components/entity-window/entity-window.js": 446,
+		"./app/components/entity-window/entity-window": 463,
+		"./app/components/entity-window/entity-window.js": 463,
 		"./app/components/field-components/nemesis-base-field": 498,
 		"./app/components/field-components/nemesis-base-field.js": 498,
 		"./app/components/field-components/nemesis-boolean-field/nemesis-boolean-field": 524,
@@ -68922,20 +68934,20 @@
 		"./app/components/field-components/nemesis-textarea-field/nemesis-textarea-field.js": 900,
 		"./app/components/language-changer": 509,
 		"./app/components/language-changer.js": 509,
-		"./app/components/main-view/main-view": 448,
-		"./app/components/main-view/main-view.js": 448,
+		"./app/components/main-view/main-view": 465,
+		"./app/components/main-view/main-view.js": 465,
 		"./app/components/navigation-tree/navigation-filter": 901,
 		"./app/components/navigation-tree/navigation-filter.js": 901,
-		"./app/components/navigation-tree/navigation-tree": 454,
-		"./app/components/navigation-tree/navigation-tree-item": 456,
-		"./app/components/navigation-tree/navigation-tree-item.js": 456,
-		"./app/components/navigation-tree/navigation-tree.js": 454,
-		"./app/services/api-call": 419,
-		"./app/services/api-call.js": 419,
+		"./app/components/navigation-tree/navigation-tree": 471,
+		"./app/components/navigation-tree/navigation-tree-item": 473,
+		"./app/components/navigation-tree/navigation-tree-item.js": 473,
+		"./app/components/navigation-tree/navigation-tree.js": 471,
+		"./app/services/api-call": 436,
+		"./app/services/api-call.js": 436,
 		"./app/services/filter-builder": 381,
 		"./app/services/filter-builder.js": 381,
-		"./app/types/entity-types": 418,
-		"./app/types/entity-types.js": 418,
+		"./app/types/entity-types": 435,
+		"./app/types/entity-types.js": 435,
 		"./app/types/nemesis-types": 377,
 		"./app/types/nemesis-types.js": 377,
 		"./app/utils/require-util": 184,
@@ -68946,8 +68958,8 @@
 		"./custom_files/entities-result-viewer.js": 389,
 		"./custom_files/entity-sections": 393,
 		"./custom_files/entity-sections.js": 393,
-		"./custom_files/entity-window": 445,
-		"./custom_files/entity-window.js": 445,
+		"./custom_files/entity-window": 462,
+		"./custom_files/entity-window.js": 462,
 		"./custom_files/filters/active-product-filter": 384,
 		"./custom_files/filters/active-product-filter.js": 384,
 		"./custom_files/filters/base-custom-filter": 380,
@@ -68958,12 +68970,12 @@
 		"./custom_files/filters/new-custom-filter.js": 371,
 		"./custom_files/filters/transaction-filter": 387,
 		"./custom_files/filters/transaction-filter.js": 387,
-		"./custom_files/main-view": 447,
-		"./custom_files/main-view.js": 447,
-		"./custom_files/navigation-tree": 453,
-		"./custom_files/navigation-tree-item1": 455,
-		"./custom_files/navigation-tree-item1.js": 455,
-		"./custom_files/navigation-tree.js": 453,
+		"./custom_files/main-view": 464,
+		"./custom_files/main-view.js": 464,
+		"./custom_files/navigation-tree": 470,
+		"./custom_files/navigation-tree-item1": 472,
+		"./custom_files/navigation-tree-item1.js": 472,
+		"./custom_files/navigation-tree.js": 470,
 		"./custom_files/nemesis-entity-collection-field": 480,
 		"./custom_files/nemesis-entity-collection-field.js": 480,
 		"./custom_files/nemesis-localized-text-field": 507,
@@ -69634,7 +69646,7 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -69642,7 +69654,7 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _entityTypes = __webpack_require__(418);
+	var _entityTypes = __webpack_require__(435);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70000,7 +70012,7 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -70071,7 +70083,7 @@
 
 	var _Table = __webpack_require__(481);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -70183,6 +70195,7 @@
 	      if (['nemesisLocalizedRichtextField', 'nemesisLocalizedTextField'].indexOf(markupItem.type) > -1) {
 	        itemValue = item[markupItem.name][this.state.selectedLanguage] && item[markupItem.name][this.state.selectedLanguage].value;
 	      }
+	      itemValue = isFinite(itemValue) ? itemValue + '' : itemValue;
 	      return _react2.default.createElement(
 	        _Table.TableRowColumn,
 	        { key: index },
@@ -70227,7 +70240,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -70235,7 +70248,7 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _apiCall = __webpack_require__(419);
+	var _apiCall = __webpack_require__(436);
 
 	var _apiCall2 = _interopRequireDefault(_apiCall);
 
@@ -70563,7 +70576,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -70705,7 +70718,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -70773,7 +70786,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -70783,11 +70796,11 @@
 
 	var _reactColor = __webpack_require__(527);
 
-	var _FlatButton = __webpack_require__(400);
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-	var _Dialog = __webpack_require__(403);
+	var _Dialog = __webpack_require__(420);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -83850,7 +83863,7 @@
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -84582,7 +84595,7 @@
 
 	var _Calendar2 = _interopRequireDefault(_Calendar);
 
-	var _Dialog = __webpack_require__(403);
+	var _Dialog = __webpack_require__(420);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -85264,7 +85277,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _FlatButton = __webpack_require__(400);
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
@@ -101755,11 +101768,11 @@
 
 	var _AutoComplete2 = _interopRequireDefault(_AutoComplete);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
-	var _apiCall = __webpack_require__(419);
+	var _apiCall = __webpack_require__(436);
 
 	var _apiCall2 = _interopRequireDefault(_apiCall);
 
@@ -101769,11 +101782,11 @@
 
 	var _nemesisTypes = __webpack_require__(377);
 
-	var _FlatButton = __webpack_require__(400);
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-	var _Dialog = __webpack_require__(403);
+	var _Dialog = __webpack_require__(420);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -101984,7 +101997,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -102074,7 +102087,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -102248,7 +102261,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -102316,7 +102329,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -102386,7 +102399,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -102394,11 +102407,11 @@
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
 
-	var _FlatButton = __webpack_require__(400);
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-	var _Dialog = __webpack_require__(403);
+	var _Dialog = __webpack_require__(420);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -102501,7 +102514,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -102570,7 +102583,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
@@ -102578,11 +102591,11 @@
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
 
-	var _FlatButton = __webpack_require__(400);
+	var _FlatButton = __webpack_require__(417);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-	var _Dialog = __webpack_require__(403);
+	var _Dialog = __webpack_require__(420);
 
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 
@@ -102688,11 +102701,11 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _reactTranslateComponent = __webpack_require__(457);
+	var _reactTranslateComponent = __webpack_require__(395);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
-	var _counterpart = __webpack_require__(462);
+	var _counterpart = __webpack_require__(400);
 
 	var _counterpart2 = _interopRequireDefault(_counterpart);
 
@@ -102720,7 +102733,7 @@
 	        floatingLabelStyle: { color: 'white' },
 	        inputStyle: { color: 'white' },
 	        underlineFocusStyle: { borderColor: 'white' },
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.filter...', fallback: 'Filter...' }),
+	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.Filter...', fallback: 'Filter...' }),
 	        onChange: _lodash2.default.debounce(this.filterNavigationContent.bind(this), 250) });
 	    }
 	  }, {
@@ -102861,7 +102874,7 @@
 	    payment_mode: 'Метод на плащане',
 	    payment_transaction: 'Транзакция',
 	    media: 'Медиа'
-	  }, _defineProperty(_main, 'payment_transaction', 'Плащане транзакции'), _defineProperty(_main, 'media_format', 'Медиа формат'), _defineProperty(_main, 'media_folder', 'Медиа папка'), _defineProperty(_main, 'media_container', 'Медиа контейнер'), _defineProperty(_main, 'media_watermark', 'Водензнак'), _defineProperty(_main, 'search_facet_config', 'Facet search config'), _defineProperty(_main, 'search_server_config', 'Search server config'), _defineProperty(_main, 'search_facet', 'Фасет'), _defineProperty(_main, 'search_keyword_destination', 'Кл. думи дестинация'), _defineProperty(_main, 'search_keyword_redirect', 'Кл. думи препрадки'), _defineProperty(_main, 'customer', 'Клиент'), _defineProperty(_main, 'employee', 'Служител'), _defineProperty(_main, 'usergroup', 'Групи'), _defineProperty(_main, 'address', 'Адрес'), _defineProperty(_main, 'title', 'Наименования'), _defineProperty(_main, 'locale', 'Език'), _defineProperty(_main, 'currency', 'Валута'), _defineProperty(_main, 'country', 'Държава'), _defineProperty(_main, 'region', 'Регион'), _defineProperty(_main, 'voucher', 'Ваучер'), _defineProperty(_main, 'voucher_invalidation', 'Използвани ваучери'), _defineProperty(_main, 'notification_settings', 'Настройки за нотификации'), _defineProperty(_main, 'customer_review', 'Ревю'), _defineProperty(_main, 'newsletter_subscriber', 'Нюзлетър абонати'), _defineProperty(_main, 'warehouse', 'Складове'), _defineProperty(_main, 'point_of_service', 'Магазини'), _defineProperty(_main, 'organization', 'Организация'), _defineProperty(_main, 'opening_schedule', 'Работно време'), _defineProperty(_main, 'storefinder_configuration', 'Конфигурация магазинлокатор'), _defineProperty(_main, 'abstract_page', 'Страница'), _defineProperty(_main, 'navigation_node', 'Навигационни единици'), _defineProperty(_main, 'blog', 'Блог'), _defineProperty(_main, 'blog_entry', 'Блог'), _defineProperty(_main, 'blog_category', 'Блог Категория'), _defineProperty(_main, 'bundle_selection', 'Подбор'), _defineProperty(_main, 'bundle_price', 'Цени'), _defineProperty(_main, 'bundle_template', 'Темплейти'), _defineProperty(_main, 'classification', 'Класификация'), _defineProperty(_main, 'classification_category', 'Класификационна категория'), _defineProperty(_main, 'classification_attribute', 'Класификационно поле'), _defineProperty(_main, 'classification_value', 'Класификационнa стойност'), _defineProperty(_main, 'classification_system', 'Класификационна система'), _defineProperty(_main, 'credit_account_balance', 'Кредитен баланс'), _defineProperty(_main, 'deeplink_url', 'Връзка'), _defineProperty(_main, 'deeplink_url_rule', 'Правило за връзка'), _defineProperty(_main, 'abstract_template', 'Макет'), _defineProperty(_main, 'cms_slot', 'Процеп'), _defineProperty(_main, 'site', 'Сайт'), _defineProperty(_main, 'widget', 'Джиджафки'), _defineProperty(_main, 'site_theme', 'Теми'), _defineProperty(_main, 'cronjob', 'Крон задачи'), _defineProperty(_main, 'report', 'Репорт'), _defineProperty(_main, 'report_restriction', 'Репортови Ограничения'), _defineProperty(_main, 'acl_entry', 'ACL Entry'), _defineProperty(_main, 'acl_object_identity', 'ACL Object Identity'), _defineProperty(_main, 'acl_class', 'ACL Class'), _defineProperty(_main, 'acl_mask', 'ACL Mask'), _defineProperty(_main, 'email_message', 'Имейл'), _defineProperty(_main, 'social_configuration', 'Социална'), _defineProperty(_main, 'storage_configuration', 'Файлове'), _defineProperty(_main, 'Currency', 'Валута'), _defineProperty(_main, 'Equals', 'е равно на'), _defineProperty(_main, 'After', 'след'), _defineProperty(_main, 'IsAfter', 'е след'), _defineProperty(_main, 'Before', 'преди'), _defineProperty(_main, 'IsBefore', 'е преди'), _defineProperty(_main, 'StartingWith', 'започва със'), _defineProperty(_main, 'IsStartingWith', 'започва със'), _defineProperty(_main, 'EndingWith', 'завършва на'), _defineProperty(_main, 'IsEndingWith', 'завършва на'), _defineProperty(_main, 'GreaterThan', 'е повече от'), _defineProperty(_main, 'IsGreaterThan', 'е повече от'), _defineProperty(_main, 'LessThan', 'е по-малко от'), _defineProperty(_main, 'IsLessThan', 'е по-малко от'), _defineProperty(_main, 'Contains', 'съдържа'), _defineProperty(_main, 'Containing', 'съдържа'), _defineProperty(_main, 'IsContaining', 'съдържа'), _defineProperty(_main, 'Like', 'е като'), _defineProperty(_main, 'IsLike', 'е като'), _defineProperty(_main, 'NotLike', 'не е като'), _defineProperty(_main, 'IsNotLike', 'не е като'), _defineProperty(_main, 'Null', 'е празно'), _defineProperty(_main, 'IsNull', 'е празно'), _defineProperty(_main, 'NotNull', 'не е празно'), _defineProperty(_main, 'IsNotNull', 'не е празно'), _defineProperty(_main, 'lByCatalogVersion', 'По версия на каталога'), _defineProperty(_main, 'Save', 'Запази'), _defineProperty(_main, 'Save & Close', 'Save & Close'), _defineProperty(_main, 'Delete', 'Изтрий'), _defineProperty(_main, 'Synchronize', 'Synchronize'), _defineProperty(_main, 'Refresh', 'Refresh'), _defineProperty(_main, 'Are you sure you want to delete it?', 'Сигурни ли сте, че искате да го изтриете?'), _defineProperty(_main, 'Nothing selected', 'Nothing selected'), _defineProperty(_main, 'Catalog Version', 'Catalog Version'), _defineProperty(_main, 'PK', 'PK'), _defineProperty(_main, 'Created by', 'Created by'), _defineProperty(_main, 'Created date', 'Created date'), _defineProperty(_main, 'Last modified by', 'Last modified by'), _defineProperty(_main, 'Last modified', 'Last modified'), _defineProperty(_main, 'createdBy', 'createdBy'), _defineProperty(_main, 'createdDate', 'createdDate'), _defineProperty(_main, 'lastModifiedBy', 'lastModifiedBy'), _defineProperty(_main, 'lastModifiedDate', 'lastModifiedDate'), _defineProperty(_main, 'First Page', 'First Page'), _defineProperty(_main, 'Previous Page', 'Previous Page'), _defineProperty(_main, 'Next Page', 'Next Page'), _defineProperty(_main, 'Last Page', 'Last Page'), _defineProperty(_main, 'Page', 'Страница'), _defineProperty(_main, 'of {0}', 'от {0}'), _defineProperty(_main, 'Displaying {0} - {1} of {2}', 'Показани {0} - {1} от {2}'), _defineProperty(_main, 'No data to display', 'Няма записи'), _defineProperty(_main, 'Page size: ', 'Размер на страница: '), _defineProperty(_main, 'name', 'Име'), _defineProperty(_main, 'Id', 'Id'), _defineProperty(_main, 'Value', 'Value'), _defineProperty(_main, 'Results', 'Резултати'), _defineProperty(_main, 'Code', 'Code'), _defineProperty(_main, 'PkEqualsAndCatalogVersion', 'PkEqualsAndCatalogVersion'), _defineProperty(_main, 'pkEqualsAndCatalogVersion', 'pkEqualsAndCatalogVersion'), _defineProperty(_main, 'ApprovalStatus', 'ApprovalStatus'), _defineProperty(_main, 'approvalStatus', 'approvalStatus'), _defineProperty(_main, 'Available', 'Available'), _defineProperty(_main, 'Reserved', 'Reserved'), _defineProperty(_main, 'In stock status', 'In stock status'), _defineProperty(_main, 'Net', 'Net'), _defineProperty(_main, 'Status', 'Status'), _defineProperty(_main, 'Delivery status', 'Delivery status'), _defineProperty(_main, 'Delivery cost', 'Delivery cost'), _defineProperty(_main, 'Payment cost', 'Payment cost'), _defineProperty(_main, 'Total price', 'Total price'), _defineProperty(_main, 'Subtotal', 'Subtotal'), _defineProperty(_main, 'date', 'Date'), _defineProperty(_main, 'description', 'Description'), _defineProperty(_main, 'Visible', 'Visible'), _defineProperty(_main, 'Mime-type', 'Mime-type'), _defineProperty(_main, 'External', 'External'), _defineProperty(_main, 'Active', 'Active'), _defineProperty(_main, 'Quantity', 'Quantity'), _defineProperty(_main, 'Entry number', 'Entry number'), _defineProperty(_main, 'Total price', 'Total price'), _defineProperty(_main, 'Text', 'Text'), _defineProperty(_main, 'Position', 'Position'), _defineProperty(_main, 'Cluster name', 'Cluster name'), _defineProperty(_main, 'Weight', 'Weight'), _defineProperty(_main, 'Display name', 'Display name'), _defineProperty(_main, 'First name', 'First name'), _defineProperty(_main, 'Last name', 'Last name'), _defineProperty(_main, 'Billing', 'Billing'), _defineProperty(_main, 'Shipping', 'Shipping'), _defineProperty(_main, 'email', 'Email'), _defineProperty(_main, 'language', 'Език'), _defineProperty(_main, 'LatitudeIsNotNullAndLongitudeIsNotNullAndLatitudeGreaterThanAndLatitudeLessThanAndLongitudeGreaterThanAndLongitude', 'LatitudeIsNotNullAndLongitudeIsNotNullAndLatitudeGreaterThanAndLatitudeLessThanAndLongitudeGreaterThanAndLongitude'), _defineProperty(_main, 'lByLastModifiedDate', 'lByLastModifiedDate'), _defineProperty(_main, 'Internation checkout', 'Internation checkout'), _defineProperty(_main, 'Google Analytics Key', 'Google Analytics Key'), _defineProperty(_main, 'Context Path', 'Context Path'), _defineProperty(_main, 'Product Url Pattern', 'Product Url Pattern'), _defineProperty(_main, 'Frontent Name', 'Frontent Name'), _defineProperty(_main, 'site_theme', 'site_theme'), _defineProperty(_main, 'Label', 'Label'), _defineProperty(_main, 'code', 'Code'), _defineProperty(_main, 'General', 'Общи'), _defineProperty(_main, 'Catalogs', 'Каталози'), _defineProperty(_main, 'Filters', 'Филтри'), _defineProperty(_main, 'System', 'System'), _defineProperty(_main, 'No records', 'No records'), _defineProperty(_main, 'Search for items to add', 'Search for items to add'), _defineProperty(_main, 'onlineDate', 'onlineDate'), _defineProperty(_main, 'Online from', 'Online from'), _defineProperty(_main, 'offlineDate', 'offlineDate'), _defineProperty(_main, 'Online to', 'Online to'), _defineProperty(_main, 'Approval Status', 'Approval Status'), _defineProperty(_main, 'variant_type', 'variant_type'), _defineProperty(_main, 'Variant type', 'Variant type'), _defineProperty(_main, 'Thumbnail', 'Thumbnail'), _defineProperty(_main, 'Picture', 'Picture'), _defineProperty(_main, 'Rating', 'Rating'), _defineProperty(_main, 'Free delivery', 'Free delivery'), _defineProperty(_main, 'Categories', 'Categories'), _defineProperty(_main, 'Variants', 'Variants'), _defineProperty(_main, 'Prices', 'Prices'), _defineProperty(_main, 'Inventories', 'Inventories'), _defineProperty(_main, 'References', 'References'), _defineProperty(_main, 'Supercategories', 'Supercategories'), _defineProperty(_main, 'Discounts', 'Discounts'), _defineProperty(_main, 'Taxes', 'Taxes'), _defineProperty(_main, 'Stock levels', 'Stock levels'), _defineProperty(_main, 'Product references', 'Product references'), _defineProperty(_main, 'Overselling', 'Overselling'), _defineProperty(_main, 'Treat negative as zero', 'Treat negative as zero'), _defineProperty(_main, 'inStockStatus', 'inStockStatus'), _defineProperty(_main, 'Gallery', 'Gallery'), _defineProperty(_main, 'Today', 'Today'), _defineProperty(_main, 'Site', 'Site'), _defineProperty(_main, 'Incl. delivery cost', 'Incl. delivery cost'), _defineProperty(_main, 'Incl. payment cost', 'Incl. payment cost'), _defineProperty(_main, 'Mode', 'Mode'), _defineProperty(_main, 'Cost', 'Cost'), _defineProperty(_main, 'payment_info', 'payment_info'), _defineProperty(_main, 'Info', 'Info'), _defineProperty(_main, 'Entries', 'Entries'), _defineProperty(_main, 'Delivery', 'Delivery'), _defineProperty(_main, 'Payment', 'Payment'), _defineProperty(_main, 'Transactions', 'Transactions'), _defineProperty(_main, 'OK', 'OK'), _defineProperty(_main, 'Yes', 'Да'), _defineProperty(_main, 'No', 'Не'), _defineProperty(_main, 'Cancel', 'Откажи'), _defineProperty(_main, 'True', 'True'), _defineProperty(_main, 'False', 'False'), _defineProperty(_main, 'N/A', 'N/A'), _defineProperty(_main, 'visible', 'visible'), _defineProperty(_main, 'styleClass', 'styleClass'), _defineProperty(_main, 'Style class', 'Style class'), _defineProperty(_main, 'Content Slots', 'Content Slots'), _defineProperty(_main, 'Alt text', 'Alt text'), _defineProperty(_main, 'Container', 'Container'), _defineProperty(_main, 'Format', 'Format'), _defineProperty(_main, 'Folder', 'Folder'), _defineProperty(_main, 'Watermark', 'Watermark'), _defineProperty(_main, 'Editor', 'Editor'), _defineProperty(_main, 'Height', 'Height'), _defineProperty(_main, 'Width', 'Width'), _defineProperty(_main, 'Parent', 'Parent'), _defineProperty(_main, 'Medias', 'Medias'), _defineProperty(_main, 'Server config', 'Server config'), _defineProperty(_main, 'search_config', 'search_config'), _defineProperty(_main, 'search_index_config', 'search_index_config'), _defineProperty(_main, 'Index config', 'Index config'), _defineProperty(_main, 'Index types', 'Index types'), _defineProperty(_main, 'Internationalization', 'Internationalization'), _defineProperty(_main, 'indexNamePrefix', 'indexNamePrefix'), _defineProperty(_main, 'Index name prefix', 'Index name prefix'), _defineProperty(_main, 'Languages', 'Languages'), _defineProperty(_main, 'Currencies', 'Currencies'), _defineProperty(_main, 'clusterName', 'clusterName'), _defineProperty(_main, 'Endpoint URLs', 'Endpoint URLs'), _defineProperty(_main, 'displayName', 'displayName'), _defineProperty(_main, 'originalID', 'originalID'), _defineProperty(_main, 'Original ID', 'Original ID'), _defineProperty(_main, 'firstName', 'firstName'), _defineProperty(_main, 'lastName', 'lastName'), _defineProperty(_main, 'Session Currency', 'Session Currency'), _defineProperty(_main, 'type', 'type'), _defineProperty(_main, 'Customer Type', 'Customer Type'), _defineProperty(_main, 'Session Language', 'Session Language'), _defineProperty(_main, 'Login disabled', 'Login disabled'), _defineProperty(_main, 'Default shipping address', 'Default shipping address'), _defineProperty(_main, 'Default payment address', 'Default payment address'), _defineProperty(_main, 'Default payment info', 'Default payment info'), _defineProperty(_main, 'Groups', 'Groups'), _defineProperty(_main, 'Addresses', 'Addresses'), _defineProperty(_main, 'Payment infos', 'Payment infos'), _defineProperty(_main, 'Social', 'Social'), _defineProperty(_main, 'Supergroups', 'Supergroups'), _defineProperty(_main, 'Connections', 'Connections'), _defineProperty(_main, 'Users', 'Users'), _defineProperty(_main, 'Subgroups', 'Subgroups'), _defineProperty(_main, 'firstname', 'firstname'), _defineProperty(_main, 'lastname', 'lastname'), _defineProperty(_main, 'company', 'company'), _defineProperty(_main, 'line1', 'line1'), _defineProperty(_main, 'Line 1', 'Line 1'), _defineProperty(_main, 'line2', 'line2'), _defineProperty(_main, 'Line 2', 'Line 2'), _defineProperty(_main, 'streetname', 'streetname'), _defineProperty(_main, 'Street', 'Street'), _defineProperty(_main, 'streetnumber', 'streetnumber'), _defineProperty(_main, 'Street nr.', 'Street nr.'), _defineProperty(_main, 'town', 'town'), _defineProperty(_main, 'postalcode', 'postalcode'), _defineProperty(_main, 'Postal code', 'Postal code'), _defineProperty(_main, 'phone1', 'phone1'), _defineProperty(_main, 'Phone', 'Phone'), _defineProperty(_main, 'Billing address', 'Billing address'), _defineProperty(_main, 'Shipping address', 'Shipping address'), _defineProperty(_main, 'Properties', 'Properties'), _defineProperty(_main, 'Regions', 'Regions'), _defineProperty(_main, 'Structure', 'Structure'), _defineProperty(_main, 'Sub-categories', 'Sub-categories'), _defineProperty(_main, 'Super-categories', 'Super-categories'), _defineProperty(_main, 'Root Categories', 'Root Categories'), _defineProperty(_main, 'Catalog versions', 'Catalog versions'), _defineProperty(_main, 'latitudeIsNotNullAndLongitudeIsNotNullAndLatitudeGreaterThanAndLatitudeLessThanAndLongitudeGreaterThanAndLongitude', 'latitudeIsNotNullAndLongitudeIsNotNullAndLatitudeGreaterThanAndLatitudeLessThanAndLongitudeGreaterThanAndLongitude'), _defineProperty(_main, 'Latitude', 'Latitude'), _defineProperty(_main, 'Longitude', 'Longitude'), _defineProperty(_main, 'Icon', 'Icon'), _defineProperty(_main, 'Schedule', 'Schedule'), _defineProperty(_main, 'storeContent', 'storeContent'), _defineProperty(_main, 'Content', 'Content'), _defineProperty(_main, 'Store image', 'Store image'), _defineProperty(_main, 'Store thumbnail', 'Store thumbnail'), _defineProperty(_main, 'Preview Image', 'Preview Image'), _defineProperty(_main, 'Slots', 'Slots'), _defineProperty(_main, 'Slots for page', 'Slots for page'), _defineProperty(_main, 'frontendTemplateName', 'frontendTemplateName'), _defineProperty(_main, 'Search config', 'Search config'), _defineProperty(_main, 'title.name', 'title.name'), _defineProperty(_main, 'catalog.name', 'catalog.name'), _defineProperty(_main, 'CMS Console', 'Контент конзола'), _defineProperty(_main, 'Configure', 'Конфигурирай'), _defineProperty(_main, 'Filter', 'Филтър'), _defineProperty(_main, 'First Page', 'Първа страница'), _defineProperty(_main, 'Next Page', 'Следваща Страница'), _defineProperty(_main, 'Last Page', 'Последна Страница'), _defineProperty(_main, 'Previous Page', 'Предишна страница'), _defineProperty(_main, 'Page', 'Страница'), _defineProperty(_main, 'of {0}', 'от {0}'), _defineProperty(_main, 'of 1', 'от 1'), _defineProperty(_main, 'Displaying {0} - {1} of {2}', 'Показва {0} - {1} of {2}'), _defineProperty(_main, 'No data to display', 'Няма данни за показване'), _defineProperty(_main, 'Refresh', 'Обнови'), _defineProperty(_main, 'Page Templates', 'Шаблони на Страница'), _defineProperty(_main, 'Slots For This Page', 'Слотове за тази страница'), _defineProperty(_main, 'Filter', 'Филтър'), _defineProperty(_main, 'Widgets', 'Джиджафки'), _defineProperty(_main, 'Emails', 'Имейли'), _defineProperty(_main, 'Pages', 'Страници'), _defineProperty(_main, 'No templates available', 'Няма шаблони'), _defineProperty(_main, 'category', 'Категория'), _defineProperty(_main, 'catalog', 'Каталог'), _defineProperty(_main, 'Experience', 'Платформа'), _defineProperty(_main, 'Desktop', 'Работен плот'), _defineProperty(_main, 'Tablet', 'Таблет'), _defineProperty(_main, 'Mobile', 'Мобилна'), _defineProperty(_main, 'Synchronize', 'Синхронизирай'), _defineProperty(_main, 'Catalog Version', 'Версия на каталог'), _defineProperty(_main, 'language', 'Език'), _defineProperty(_main, 'Site', 'Сайт'), _defineProperty(_main, 'Cancel', 'Откажи'), _defineProperty(_main, '&#160;', '&#160;'), _defineProperty(_main, 'Page: ', 'Страница: '), _defineProperty(_main, 'Slots', 'Слотове'), _defineProperty(_main, 'System', 'Система'), _defineProperty(_main, 'CSS Classes', 'CSS Класове'), _defineProperty(_main, 'Label', 'Етикет'), _defineProperty(_main, 'Template', 'Шаблон'), _defineProperty(_main, 'Save & Close', 'Запази & Затвори'), _defineProperty(_main, 'No pages available', 'Няма страници'), _defineProperty(_main, 'No slots available', 'Няма слотове'), _defineProperty(_main, 'No widgets available', 'Няма джиджавки'), _defineProperty(_main, 'No emails available', 'Няма имейли'), _defineProperty(_main, 'Bulgarian', 'Български'), _defineProperty(_main, 'English', 'Английски'), _defineProperty(_main, 'English (GB)', 'Английски (GB)'), _defineProperty(_main, 'English (US)', 'Английски (US)'), _defineProperty(_main, 'German', 'Немски'), _defineProperty(_main, 'French', 'Френски'), _defineProperty(_main, 'Spanish', 'Испански'), _main)
+	  }, _defineProperty(_main, 'payment_transaction', 'Плащане транзакции'), _defineProperty(_main, 'media_format', 'Медиа формат'), _defineProperty(_main, 'media_folder', 'Медиа папка'), _defineProperty(_main, 'media_container', 'Медиа контейнер'), _defineProperty(_main, 'media_watermark', 'Водензнак'), _defineProperty(_main, 'search_facet_config', 'Facet search config'), _defineProperty(_main, 'search_server_config', 'Search server config'), _defineProperty(_main, 'search_facet', 'Фасет'), _defineProperty(_main, 'search_keyword_destination', 'Кл. думи дестинация'), _defineProperty(_main, 'search_keyword_redirect', 'Кл. думи препрадки'), _defineProperty(_main, 'customer', 'Клиент'), _defineProperty(_main, 'employee', 'Служител'), _defineProperty(_main, 'usergroup', 'Групи'), _defineProperty(_main, 'address', 'Адрес'), _defineProperty(_main, 'title', 'Наименования'), _defineProperty(_main, 'locale', 'Език'), _defineProperty(_main, 'currency', 'Валута'), _defineProperty(_main, 'country', 'Държава'), _defineProperty(_main, 'region', 'Регион'), _defineProperty(_main, 'voucher', 'Ваучер'), _defineProperty(_main, 'voucher_invalidation', 'Използвани ваучери'), _defineProperty(_main, 'notification_settings', 'Настройки за нотификации'), _defineProperty(_main, 'customer_review', 'Ревю'), _defineProperty(_main, 'newsletter_subscriber', 'Нюзлетър абонати'), _defineProperty(_main, 'warehouse', 'Складове'), _defineProperty(_main, 'point_of_service', 'Магазини'), _defineProperty(_main, 'organization', 'Организация'), _defineProperty(_main, 'opening_schedule', 'Работно време'), _defineProperty(_main, 'storefinder_configuration', 'Конфигурация магазинлокатор'), _defineProperty(_main, 'abstract_page', 'Страница'), _defineProperty(_main, 'navigation_node', 'Навигационни единици'), _defineProperty(_main, 'blog', 'Блог'), _defineProperty(_main, 'blog_entry', 'Блог'), _defineProperty(_main, 'blog_category', 'Блог Категория'), _defineProperty(_main, 'bundle_selection', 'Подбор'), _defineProperty(_main, 'bundle_price', 'Цени'), _defineProperty(_main, 'bundle_template', 'Темплейти'), _defineProperty(_main, 'classification', 'Класификация'), _defineProperty(_main, 'classification_category', 'Класификационна категория'), _defineProperty(_main, 'classification_attribute', 'Класификационно поле'), _defineProperty(_main, 'classification_value', 'Класификационнa стойност'), _defineProperty(_main, 'classification_system', 'Класификационна система'), _defineProperty(_main, 'credit_account_balance', 'Кредитен баланс'), _defineProperty(_main, 'deeplink_url', 'Връзка'), _defineProperty(_main, 'deeplink_url_rule', 'Правило за връзка'), _defineProperty(_main, 'abstract_template', 'Макет'), _defineProperty(_main, 'cms_slot', 'Процеп'), _defineProperty(_main, 'site', 'Сайт'), _defineProperty(_main, 'widget', 'Джиджафки'), _defineProperty(_main, 'site_theme', 'Теми'), _defineProperty(_main, 'cronjob', 'Крон задачи'), _defineProperty(_main, 'report', 'Репорт'), _defineProperty(_main, 'report_restriction', 'Репортови Ограничения'), _defineProperty(_main, 'acl_entry', 'ACL Entry'), _defineProperty(_main, 'acl_object_identity', 'ACL Object Identity'), _defineProperty(_main, 'acl_class', 'ACL Class'), _defineProperty(_main, 'acl_mask', 'ACL Mask'), _defineProperty(_main, 'email_message', 'Имейл'), _defineProperty(_main, 'social_configuration', 'Социална'), _defineProperty(_main, 'storage_configuration', 'Файлове'), _defineProperty(_main, 'Currency', 'Валута'), _defineProperty(_main, 'Equals', 'е равно на'), _defineProperty(_main, 'After', 'след'), _defineProperty(_main, 'IsAfter', 'е след'), _defineProperty(_main, 'Before', 'преди'), _defineProperty(_main, 'IsBefore', 'е преди'), _defineProperty(_main, 'StartingWith', 'започва със'), _defineProperty(_main, 'IsStartingWith', 'започва със'), _defineProperty(_main, 'EndingWith', 'завършва на'), _defineProperty(_main, 'IsEndingWith', 'завършва на'), _defineProperty(_main, 'GreaterThan', 'е повече от'), _defineProperty(_main, 'IsGreaterThan', 'е повече от'), _defineProperty(_main, 'LessThan', 'е по-малко от'), _defineProperty(_main, 'IsLessThan', 'е по-малко от'), _defineProperty(_main, 'Contains', 'съдържа'), _defineProperty(_main, 'Containing', 'съдържа'), _defineProperty(_main, 'IsContaining', 'съдържа'), _defineProperty(_main, 'Like', 'е като'), _defineProperty(_main, 'IsLike', 'е като'), _defineProperty(_main, 'NotLike', 'не е като'), _defineProperty(_main, 'IsNotLike', 'не е като'), _defineProperty(_main, 'Null', 'е празно'), _defineProperty(_main, 'IsNull', 'е празно'), _defineProperty(_main, 'NotNull', 'не е празно'), _defineProperty(_main, 'IsNotNull', 'не е празно'), _defineProperty(_main, 'lByCatalogVersion', 'По версия на каталога'), _defineProperty(_main, 'Save', 'Запази'), _defineProperty(_main, 'Save & Close', 'Save & Close'), _defineProperty(_main, 'Delete', 'Изтрий'), _defineProperty(_main, 'Synchronize', 'Synchronize'), _defineProperty(_main, 'Refresh', 'Refresh'), _defineProperty(_main, 'Are you sure you want to delete it?', 'Сигурни ли сте, че искате да го изтриете?'), _defineProperty(_main, 'Nothing selected', 'Nothing selected'), _defineProperty(_main, 'Catalog Version', 'Catalog Version'), _defineProperty(_main, 'PK', 'PK'), _defineProperty(_main, 'Created by', 'Created by'), _defineProperty(_main, 'Created date', 'Created date'), _defineProperty(_main, 'Last modified by', 'Last modified by'), _defineProperty(_main, 'Last modified', 'Last modified'), _defineProperty(_main, 'createdBy', 'createdBy'), _defineProperty(_main, 'createdDate', 'createdDate'), _defineProperty(_main, 'lastModifiedBy', 'lastModifiedBy'), _defineProperty(_main, 'lastModifiedDate', 'lastModifiedDate'), _defineProperty(_main, 'First Page', 'First Page'), _defineProperty(_main, 'Previous Page', 'Previous Page'), _defineProperty(_main, 'Next Page', 'Next Page'), _defineProperty(_main, 'Last Page', 'Last Page'), _defineProperty(_main, 'Page', 'Страница'), _defineProperty(_main, 'of {0}', 'от {0}'), _defineProperty(_main, 'Displaying {0} - {1} of {2}', 'Показани {0} - {1} от {2}'), _defineProperty(_main, 'No data to display', 'Няма записи'), _defineProperty(_main, 'Page size: ', 'Размер на страница: '), _defineProperty(_main, 'name', 'Име'), _defineProperty(_main, 'Id', 'Id'), _defineProperty(_main, 'Value', 'Value'), _defineProperty(_main, 'Results', 'Резултати'), _defineProperty(_main, 'Code', 'Code'), _defineProperty(_main, 'PkEqualsAndCatalogVersion', 'PkEqualsAndCatalogVersion'), _defineProperty(_main, 'pkEqualsAndCatalogVersion', 'pkEqualsAndCatalogVersion'), _defineProperty(_main, 'ApprovalStatus', 'ApprovalStatus'), _defineProperty(_main, 'approvalStatus', 'approvalStatus'), _defineProperty(_main, 'Available', 'Available'), _defineProperty(_main, 'Reserved', 'Reserved'), _defineProperty(_main, 'In stock status', 'In stock status'), _defineProperty(_main, 'Net', 'Net'), _defineProperty(_main, 'Status', 'Status'), _defineProperty(_main, 'Delivery status', 'Delivery status'), _defineProperty(_main, 'Delivery cost', 'Delivery cost'), _defineProperty(_main, 'Payment cost', 'Payment cost'), _defineProperty(_main, 'Total price', 'Total price'), _defineProperty(_main, 'Subtotal', 'Subtotal'), _defineProperty(_main, 'date', 'Date'), _defineProperty(_main, 'description', 'Description'), _defineProperty(_main, 'Visible', 'Visible'), _defineProperty(_main, 'Mime-type', 'Mime-type'), _defineProperty(_main, 'External', 'External'), _defineProperty(_main, 'Active', 'Active'), _defineProperty(_main, 'Quantity', 'Quantity'), _defineProperty(_main, 'Entry number', 'Entry number'), _defineProperty(_main, 'Total price', 'Total price'), _defineProperty(_main, 'Text', 'Text'), _defineProperty(_main, 'Position', 'Position'), _defineProperty(_main, 'Cluster name', 'Cluster name'), _defineProperty(_main, 'Weight', 'Weight'), _defineProperty(_main, 'Display name', 'Display name'), _defineProperty(_main, 'First name', 'First name'), _defineProperty(_main, 'Last name', 'Last name'), _defineProperty(_main, 'Billing', 'Billing'), _defineProperty(_main, 'Shipping', 'Shipping'), _defineProperty(_main, 'email', 'Email'), _defineProperty(_main, 'language', 'Език'), _defineProperty(_main, 'LatitudeIsNotNullAndLongitudeIsNotNullAndLatitudeGreaterThanAndLatitudeLessThanAndLongitudeGreaterThanAndLongitude', 'LatitudeIsNotNullAndLongitudeIsNotNullAndLatitudeGreaterThanAndLatitudeLessThanAndLongitudeGreaterThanAndLongitude'), _defineProperty(_main, 'lByLastModifiedDate', 'lByLastModifiedDate'), _defineProperty(_main, 'Internation checkout', 'Internation checkout'), _defineProperty(_main, 'Google Analytics Key', 'Google Analytics Key'), _defineProperty(_main, 'Context Path', 'Context Path'), _defineProperty(_main, 'Product Url Pattern', 'Product Url Pattern'), _defineProperty(_main, 'Frontent Name', 'Frontent Name'), _defineProperty(_main, 'site_theme', 'site_theme'), _defineProperty(_main, 'Label', 'Label'), _defineProperty(_main, 'code', 'Code'), _defineProperty(_main, 'General', 'Общи'), _defineProperty(_main, 'Catalogs', 'Каталози'), _defineProperty(_main, 'Filters', 'Филтри'), _defineProperty(_main, 'System', 'System'), _defineProperty(_main, 'No records', 'No records'), _defineProperty(_main, 'Search for items to add', 'Search for items to add'), _defineProperty(_main, 'onlineDate', 'onlineDate'), _defineProperty(_main, 'Online from', 'Online from'), _defineProperty(_main, 'offlineDate', 'offlineDate'), _defineProperty(_main, 'Online to', 'Online to'), _defineProperty(_main, 'Approval Status', 'Approval Status'), _defineProperty(_main, 'variant_type', 'variant_type'), _defineProperty(_main, 'Variant type', 'Variant type'), _defineProperty(_main, 'Thumbnail', 'Thumbnail'), _defineProperty(_main, 'Picture', 'Picture'), _defineProperty(_main, 'Rating', 'Rating'), _defineProperty(_main, 'Free delivery', 'Free delivery'), _defineProperty(_main, 'Categories', 'Categories'), _defineProperty(_main, 'Variants', 'Variants'), _defineProperty(_main, 'Prices', 'Prices'), _defineProperty(_main, 'Inventories', 'Inventories'), _defineProperty(_main, 'References', 'References'), _defineProperty(_main, 'Supercategories', 'Supercategories'), _defineProperty(_main, 'Discounts', 'Discounts'), _defineProperty(_main, 'Taxes', 'Taxes'), _defineProperty(_main, 'Stock levels', 'Stock levels'), _defineProperty(_main, 'Product references', 'Product references'), _defineProperty(_main, 'Overselling', 'Overselling'), _defineProperty(_main, 'Treat negative as zero', 'Treat negative as zero'), _defineProperty(_main, 'inStockStatus', 'inStockStatus'), _defineProperty(_main, 'Gallery', 'Gallery'), _defineProperty(_main, 'Today', 'Today'), _defineProperty(_main, 'Site', 'Site'), _defineProperty(_main, 'Incl. delivery cost', 'Incl. delivery cost'), _defineProperty(_main, 'Incl. payment cost', 'Incl. payment cost'), _defineProperty(_main, 'Mode', 'Mode'), _defineProperty(_main, 'Cost', 'Cost'), _defineProperty(_main, 'payment_info', 'payment_info'), _defineProperty(_main, 'Info', 'Info'), _defineProperty(_main, 'Entries', 'Entries'), _defineProperty(_main, 'Delivery', 'Delivery'), _defineProperty(_main, 'Payment', 'Payment'), _defineProperty(_main, 'Transactions', 'Transactions'), _defineProperty(_main, 'OK', 'OK'), _defineProperty(_main, 'Yes', 'Да'), _defineProperty(_main, 'No', 'Не'), _defineProperty(_main, 'Cancel', 'Откажи'), _defineProperty(_main, 'True', 'True'), _defineProperty(_main, 'False', 'False'), _defineProperty(_main, 'N/A', 'N/A'), _defineProperty(_main, 'visible', 'visible'), _defineProperty(_main, 'styleClass', 'styleClass'), _defineProperty(_main, 'Style class', 'Style class'), _defineProperty(_main, 'Content Slots', 'Content Slots'), _defineProperty(_main, 'Alt text', 'Alt text'), _defineProperty(_main, 'Container', 'Container'), _defineProperty(_main, 'Format', 'Format'), _defineProperty(_main, 'Folder', 'Folder'), _defineProperty(_main, 'Watermark', 'Watermark'), _defineProperty(_main, 'Editor', 'Editor'), _defineProperty(_main, 'Height', 'Height'), _defineProperty(_main, 'Width', 'Width'), _defineProperty(_main, 'Parent', 'Parent'), _defineProperty(_main, 'Medias', 'Medias'), _defineProperty(_main, 'Server config', 'Server config'), _defineProperty(_main, 'search_config', 'search_config'), _defineProperty(_main, 'search_index_config', 'search_index_config'), _defineProperty(_main, 'Index config', 'Index config'), _defineProperty(_main, 'Index types', 'Index types'), _defineProperty(_main, 'Internationalization', 'Internationalization'), _defineProperty(_main, 'indexNamePrefix', 'indexNamePrefix'), _defineProperty(_main, 'Index name prefix', 'Index name prefix'), _defineProperty(_main, 'Languages', 'Languages'), _defineProperty(_main, 'Currencies', 'Currencies'), _defineProperty(_main, 'clusterName', 'clusterName'), _defineProperty(_main, 'Endpoint URLs', 'Endpoint URLs'), _defineProperty(_main, 'displayName', 'displayName'), _defineProperty(_main, 'originalID', 'originalID'), _defineProperty(_main, 'Original ID', 'Original ID'), _defineProperty(_main, 'firstName', 'firstName'), _defineProperty(_main, 'lastName', 'lastName'), _defineProperty(_main, 'Session Currency', 'Session Currency'), _defineProperty(_main, 'type', 'type'), _defineProperty(_main, 'Customer Type', 'Customer Type'), _defineProperty(_main, 'Session Language', 'Session Language'), _defineProperty(_main, 'Login disabled', 'Login disabled'), _defineProperty(_main, 'Default shipping address', 'Default shipping address'), _defineProperty(_main, 'Default payment address', 'Default payment address'), _defineProperty(_main, 'Default payment info', 'Default payment info'), _defineProperty(_main, 'Groups', 'Groups'), _defineProperty(_main, 'Addresses', 'Addresses'), _defineProperty(_main, 'Payment infos', 'Payment infos'), _defineProperty(_main, 'Social', 'Social'), _defineProperty(_main, 'Supergroups', 'Supergroups'), _defineProperty(_main, 'Connections', 'Connections'), _defineProperty(_main, 'Users', 'Users'), _defineProperty(_main, 'Subgroups', 'Subgroups'), _defineProperty(_main, 'firstname', 'firstname'), _defineProperty(_main, 'lastname', 'lastname'), _defineProperty(_main, 'company', 'company'), _defineProperty(_main, 'line1', 'line1'), _defineProperty(_main, 'Line 1', 'Line 1'), _defineProperty(_main, 'line2', 'line2'), _defineProperty(_main, 'Line 2', 'Line 2'), _defineProperty(_main, 'streetname', 'streetname'), _defineProperty(_main, 'Street', 'Street'), _defineProperty(_main, 'streetnumber', 'streetnumber'), _defineProperty(_main, 'Street nr.', 'Street nr.'), _defineProperty(_main, 'town', 'town'), _defineProperty(_main, 'postalcode', 'postalcode'), _defineProperty(_main, 'Postal code', 'Postal code'), _defineProperty(_main, 'phone1', 'phone1'), _defineProperty(_main, 'Phone', 'Phone'), _defineProperty(_main, 'Billing address', 'Billing address'), _defineProperty(_main, 'Shipping address', 'Shipping address'), _defineProperty(_main, 'Properties', 'Properties'), _defineProperty(_main, 'Regions', 'Regions'), _defineProperty(_main, 'Structure', 'Structure'), _defineProperty(_main, 'Sub-categories', 'Sub-categories'), _defineProperty(_main, 'Super-categories', 'Super-categories'), _defineProperty(_main, 'Root Categories', 'Root Categories'), _defineProperty(_main, 'Catalog versions', 'Catalog versions'), _defineProperty(_main, 'latitudeIsNotNullAndLongitudeIsNotNullAndLatitudeGreaterThanAndLatitudeLessThanAndLongitudeGreaterThanAndLongitude', 'latitudeIsNotNullAndLongitudeIsNotNullAndLatitudeGreaterThanAndLatitudeLessThanAndLongitudeGreaterThanAndLongitude'), _defineProperty(_main, 'Latitude', 'Latitude'), _defineProperty(_main, 'Longitude', 'Longitude'), _defineProperty(_main, 'Icon', 'Icon'), _defineProperty(_main, 'Schedule', 'Schedule'), _defineProperty(_main, 'storeContent', 'storeContent'), _defineProperty(_main, 'Content', 'Content'), _defineProperty(_main, 'Store image', 'Store image'), _defineProperty(_main, 'Store thumbnail', 'Store thumbnail'), _defineProperty(_main, 'Preview Image', 'Preview Image'), _defineProperty(_main, 'Slots', 'Slots'), _defineProperty(_main, 'Slots for page', 'Slots for page'), _defineProperty(_main, 'frontendTemplateName', 'frontendTemplateName'), _defineProperty(_main, 'Search config', 'Search config'), _defineProperty(_main, 'title.name', 'title.name'), _defineProperty(_main, 'catalog.name', 'catalog.name'), _defineProperty(_main, 'CMS Console', 'Контент конзола'), _defineProperty(_main, 'Configure', 'Конфигурирай'), _defineProperty(_main, 'Filter', 'Филтър'), _defineProperty(_main, 'First Page', 'Първа страница'), _defineProperty(_main, 'Next Page', 'Следваща Страница'), _defineProperty(_main, 'Last Page', 'Последна Страница'), _defineProperty(_main, 'Previous Page', 'Предишна страница'), _defineProperty(_main, 'Page', 'Страница'), _defineProperty(_main, 'of {0}', 'от {0}'), _defineProperty(_main, 'of 1', 'от 1'), _defineProperty(_main, 'Displaying {0} - {1} of {2}', 'Показва {0} - {1} of {2}'), _defineProperty(_main, 'No data to display', 'Няма данни за показване'), _defineProperty(_main, 'Refresh', 'Обнови'), _defineProperty(_main, 'Page Templates', 'Шаблони на Страница'), _defineProperty(_main, 'Slots For This Page', 'Слотове за тази страница'), _defineProperty(_main, 'Filter', 'Филтър'), _defineProperty(_main, 'Widgets', 'Джиджафки'), _defineProperty(_main, 'Emails', 'Имейли'), _defineProperty(_main, 'Pages', 'Страници'), _defineProperty(_main, 'No templates available', 'Няма шаблони'), _defineProperty(_main, 'category', 'Категория'), _defineProperty(_main, 'catalog', 'Каталог'), _defineProperty(_main, 'Experience', 'Платформа'), _defineProperty(_main, 'Desktop', 'Работен плот'), _defineProperty(_main, 'Tablet', 'Таблет'), _defineProperty(_main, 'Mobile', 'Мобилна'), _defineProperty(_main, 'Synchronize', 'Синхронизирай'), _defineProperty(_main, 'Catalog Version', 'Версия на каталог'), _defineProperty(_main, 'language', 'Език'), _defineProperty(_main, 'Site', 'Сайт'), _defineProperty(_main, 'Cancel', 'Откажи'), _defineProperty(_main, '&#160;', '&#160;'), _defineProperty(_main, 'Page: ', 'Страница: '), _defineProperty(_main, 'Slots', 'Слотове'), _defineProperty(_main, 'System', 'Система'), _defineProperty(_main, 'CSS Classes', 'CSS Класове'), _defineProperty(_main, 'Label', 'Етикет'), _defineProperty(_main, 'Template', 'Шаблон'), _defineProperty(_main, 'Save & Close', 'Запази & Затвори'), _defineProperty(_main, 'Close', 'Затвори'), _defineProperty(_main, 'No pages available', 'Няма страници'), _defineProperty(_main, 'No slots available', 'Няма слотове'), _defineProperty(_main, 'No widgets available', 'Няма джиджавки'), _defineProperty(_main, 'No emails available', 'Няма имейли'), _defineProperty(_main, 'Bulgarian', 'Български'), _defineProperty(_main, 'English', 'Английски'), _defineProperty(_main, 'English (GB)', 'Английски (GB)'), _defineProperty(_main, 'English (US)', 'Английски (US)'), _defineProperty(_main, 'German', 'Немски'), _defineProperty(_main, 'French', 'Френски'), _defineProperty(_main, 'Spanish', 'Испански'), _defineProperty(_main, 'Name', 'Име'), _main)
 
 	};
 

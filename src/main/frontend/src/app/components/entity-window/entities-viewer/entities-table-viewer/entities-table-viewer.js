@@ -83,6 +83,7 @@ export default class EntitiesTableViewer extends Component {
     if (['nemesisLocalizedRichtextField', 'nemesisLocalizedTextField'].indexOf(markupItem.type) > -1) {
       itemValue = item[markupItem.name][this.state.selectedLanguage] && item[markupItem.name][this.state.selectedLanguage].value;
     }
+    itemValue = isFinite(itemValue) ? itemValue + '' : itemValue;
     return (
       <TableRowColumn key={index}>{itemValue || ''}</TableRowColumn>
     )

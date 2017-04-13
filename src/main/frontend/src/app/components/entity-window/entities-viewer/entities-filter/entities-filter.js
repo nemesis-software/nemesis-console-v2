@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Translate from 'react-translate-component';
+
 import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -21,7 +23,7 @@ export default class EntitiesFilter extends Component {
         <Paper zDepth={1} style={{margin: '5px', padding: '5px'}}>
           <div style={this.getFilterSelectStyle()}>
             <SelectField
-              floatingLabelText="Filter"
+              floatingLabelText={<Translate component="span" content={'main.Filter'} fallback={'Filter'} />}
               value={this.state.selectedMenuIndex}
               onChange={this.handleFilterChange.bind(this)}
             >

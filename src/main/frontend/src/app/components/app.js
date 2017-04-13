@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { componentRequire } from '../utils/require-util'
+import Translate from 'react-translate-component';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import counterpart from 'counterpart';
@@ -50,7 +51,7 @@ export default class App extends Component {
               <div style={{display: 'inline-block', verticalAlign: 'top', margin: '5px 15px'}}>
                 <FlatButton
                   style={{color: 'white'}}
-                  label="Logout"
+                  label={<Translate component="span" content={'main.Logout'} fallback={'Logout'} />}
                   onTouchTap={this.handleLogoutButtonClick.bind(this)}
                 />
               </div>

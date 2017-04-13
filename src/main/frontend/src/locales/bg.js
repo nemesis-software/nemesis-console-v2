@@ -447,6 +447,7 @@ module.exports = {
     'Label': 'Етикет',
     'Template': 'Шаблон',
     'Save & Close': 'Запази & Затвори',
+    'Close': 'Затвори',
     'No pages available': 'Няма страници',
     'No slots available': 'Няма слотове',
     'No widgets available': 'Няма джиджавки',
@@ -457,7 +458,8 @@ module.exports = {
     'English (US)': 'Английски (US)',
     'German': 'Немски',
     'French': 'Френски',
-    'Spanish': 'Испански'
+    'Spanish': 'Испански',
+    'Name': 'Име'
   }
 
 };

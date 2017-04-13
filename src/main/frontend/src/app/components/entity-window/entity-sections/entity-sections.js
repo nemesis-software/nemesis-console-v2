@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Translate from 'react-translate-component';
+
 import {Tabs, Tab} from 'material-ui/Tabs';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
@@ -48,12 +50,12 @@ export default class EntitySections extends Component {
     return (
       <div key={this.state.key}>
         <Paper zDepth={1} style={{margin: '5px 0', padding: '5px'}}>
-          {this.getFunctionalButtons(this.props.entity).map((button, index) => <FlatButton label={button.label} onClick={button.onClickFunction} key={index}/>)}
+          {this.getFunctionalButtons(this.props.entity).map((button, index) => <FlatButton label={<Translate component="span" content={'main.' + button.label} fallback={button.label} />} onClick={button.onClickFunction} key={index}/>)}
         </Paper>
         <Tabs onChange={this.handleChange}
               value={this.state.sectionIndex}>
               {this.props.entity.data.sections.map((item, index) => {
-                return <Tab key={index} value={index} label={item.title} />
+                return <Tab key={index} value={index} label={<Translate component="span" content={'main.' + item.title} fallback={item.title} />} />
               })}
         </Tabs>
         <SwipeableViews
@@ -78,7 +80,7 @@ export default class EntitySections extends Component {
   getFunctionalButtons(entity) {
     let result = [
       {label: 'Save', onClickFunction: () => this.handleSaveButtonClick(false)},
-      {label: 'Save and close', onClickFunction: () => this.handleSaveButtonClick(true)}
+      {label: 'Save & Close', onClickFunction: () => this.handleSaveButtonClick(true)}
     ];
 
     if (entity.type === entityItemType) {
