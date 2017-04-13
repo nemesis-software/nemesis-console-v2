@@ -69850,6 +69850,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactTranslateComponent = __webpack_require__(395);
+
+	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
+
 	var _RaisedButton = __webpack_require__(372);
 
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
@@ -69916,8 +69920,8 @@
 	        _react2.default.createElement(
 	          'div',
 	          { style: { padding: '10px 0' } },
-	          _react2.default.createElement(_RaisedButton2.default, { style: { margin: '10px' }, label: 'Search', onClick: this.onSearchButtonClick.bind(this) }),
-	          _react2.default.createElement(_RaisedButton2.default, { label: 'Clear', onClick: this.onClearButtonClick.bind(this) })
+	          _react2.default.createElement(_RaisedButton2.default, { style: { margin: '10px' }, label: _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span', content: 'main.Search', fallback: 'Search' }), onClick: this.onSearchButtonClick.bind(this) }),
+	          _react2.default.createElement(_RaisedButton2.default, { label: _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span', content: 'main.Clear', fallback: 'Clear' }), onClick: this.onClearButtonClick.bind(this) })
 	        )
 	      );
 	    }
