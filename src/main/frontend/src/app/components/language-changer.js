@@ -18,7 +18,7 @@ export default class LanguageChanger extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{display: 'inline-block'}}>
         {this.props.label ? <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label> : false}
         <select defaultValue={this.props.selectedLanguage.value} className="form-control" onChange={this.handleChange.bind(this)} disabled={this.props.readOnly}>
           {this.state.availableLanguages.map(this.getOptionFields.bind(this))}

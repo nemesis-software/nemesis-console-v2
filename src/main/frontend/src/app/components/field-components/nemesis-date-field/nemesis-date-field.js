@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import DatePicker from 'material-ui/DatePicker';
+import React from 'react';
+import DatePicker from 'react-bootstrap-date-picker';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
 import moment from 'moment';
@@ -12,15 +12,23 @@ export default class NemesisDateField extends NemesisBaseField {
 
   render() {
     return (
-      <div className="entity-field-container">
+      <div className="entity-field-container" style={{display: 'inline-block', width:'256px'}}>
+        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
         <DatePicker style={this.props.style}
-                    value={this.state.value}
                     disabled={this.props.readOnly}
-                    errorText={this.state.errorMessage}
-                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                    onChange={this.onValueChange.bind(this)}/>
+                    value={this.getValue()}
+                    onChange={(v) => {console.log(v, typeof v, 'set');this.onValueChange(null, v)}}
+        />
       </div>
     )
+  }
+
+  getValue() {
+    if (this.state.value) {
+      return moment(this.state.value).format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+    }
+
+    return null;
   }
 
   getFormattedValue(value) {

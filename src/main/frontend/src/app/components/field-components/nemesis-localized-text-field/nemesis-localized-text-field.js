@@ -41,13 +41,21 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           availableLanguages={translationLanguages.languages}
           selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
         />
-        <TextField className="entity-field"
-                   style={this.props.style}
+        <div style={{width: '256px', display: 'inline-block'}}>
+            <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+            <input type="text"
+                   className="entity-field form-control"
                    value={this.getTextFieldValue(this.state.selectedLanguage)}
                    disabled={this.props.readOnly}
-                   errorText={this.state.errorMessage}
-                   floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                   onChange={(e, v) => this.onTextChange(e, v, this.state.selectedLanguage)}/>
+                   onChange={(e) => this.onValueChange(e, e.target.value, this.state.selectedLanguage)}/>
+        </div>
+        {/*<TextField className="entity-field"*/}
+                   {/*style={this.props.style}*/}
+                   {/*value={this.getTextFieldValue(this.state.selectedLanguage)}*/}
+                   {/*disabled={this.props.readOnly}*/}
+                   {/*errorText={this.state.errorMessage}*/}
+                   {/*floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}*/}
+                   {/*onChange={(e, v) => this.onTextChange(e, v, this.state.selectedLanguage)}/>*/}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
             <i className="material-icons entity-navigation-icon" onClick={this.handleTranslateIconClick.bind(this)}>translate</i>

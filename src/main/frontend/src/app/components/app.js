@@ -42,7 +42,7 @@ export default class App extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar style={{position: 'fixed'}} title="Nemesis Backend Console" iconElementRight={
+          <AppBar style={{position: 'fixed'}} title="Nemesis Console" iconElementRight={
             <div>
               <LanguageChanger
                 labelStyle={{color: 'white'}}

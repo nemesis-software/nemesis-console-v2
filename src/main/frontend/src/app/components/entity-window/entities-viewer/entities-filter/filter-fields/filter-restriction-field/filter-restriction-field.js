@@ -15,9 +15,13 @@ export default class FilterRestrictionField extends Component {
 
   render() {
     return (
-      <div style={this.props.style}>
+      <div style={{display: 'inline-block', width: '265px', ...this.props.style}}>
         <label>{this.props.label ? `${this.props.label} restriction` : 'Restriction'}</label>
-        <select defaultValue={this.props.defaultValue} className="form-control" onChange={this.handleChange.bind(this)} disabled={this.props.readOnly}>
+        <select ref={e => {
+          if (e && !this.props.defaultValue && !this.state.selectedRestrictionField) {
+            e.selectedIndex = -1;
+          }
+        }} defaultValue={this.props.defaultValue} className="form-control" onChange={this.handleChange.bind(this)} disabled={this.props.readOnly}>
           {this.props.restrictionFields.map((field, index) => <Translate component="option" key={index} value={field} content={'main.' + field} fallback={field} />)}
         </select>
       </div>
