@@ -102363,10 +102363,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _RaisedButton = __webpack_require__(299);
-
-	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-
 	var _nemesisBaseField = __webpack_require__(458);
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
@@ -102388,21 +102384,27 @@
 	    var _this = _possibleConstructorReturn(this, (NemesisTextField.__proto__ || Object.getPrototypeOf(NemesisTextField)).call(this, props));
 
 	    _this.state = _extends({}, _this.state, { file: '' });
+	    _this.inputItem = null;
 	    return _this;
 	  }
 
 	  _createClass(NemesisTextField, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          _RaisedButton2.default,
-	          {
-	            containerElement: 'label',
-	            label: 'Upload' },
-	          _react2.default.createElement('input', { onChange: this.handleImageChange.bind(this), style: { display: 'none' }, type: 'file' })
+	          'button',
+	          { className: 'btn btn-default', onClick: function onClick() {
+	              return _this2.inputItem.click();
+	            } },
+	          'Upload',
+	          _react2.default.createElement('input', { ref: function ref(e) {
+	              return _this2.inputItem = e;
+	            }, onChange: this.handleImageChange.bind(this), style: { display: 'none' }, type: 'file' })
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -102414,7 +102416,7 @@
 	  }, {
 	    key: 'handleImageChange',
 	    value: function handleImageChange(e) {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      e.preventDefault();
 
@@ -102422,7 +102424,7 @@
 	      var file = e.target.files[0];
 
 	      reader.onloadend = function () {
-	        _this2.setState(_extends({}, _this2.state, {
+	        _this3.setState(_extends({}, _this3.state, {
 	          isDirty: true,
 	          file: file,
 	          value: reader.result

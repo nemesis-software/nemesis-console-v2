@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import React from 'react';
 import NemesisBaseField from '../nemesis-base-field'
 
 export default class NemesisTextField extends NemesisBaseField {
   constructor(props) {
     super(props);
     this.state = {...this.state, file: ''};
+    this.inputItem = null;
   }
 
   render() {
     return (
       <div>
-        <RaisedButton
-          containerElement='label'
-          label='Upload'>
-          <input onChange={this.handleImageChange.bind(this)} style={{display: 'none'}} type="file" />
-        </RaisedButton>
+        <button className="btn btn-default" onClick={() => this.inputItem.click()}>
+          Upload
+          <input ref={e => this.inputItem = e} onChange={this.handleImageChange.bind(this)} style={{display: 'none'}} type="file" />
+        </button>
         <div>
           <img src={this.state.value} alt="No image" height="200" width="300"/>
         </div>
