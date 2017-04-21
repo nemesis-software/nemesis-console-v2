@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Translate from 'react-translate-component';
 
 const styles = {
   table: {
@@ -54,19 +53,18 @@ export default class EntitiesPager extends Component {
             </div>
           </div>
         </div>
-        <SelectField
-          style={{width: '100px', marginLeft: '15px'}}
-          value={this.props.page.size}
-          floatingLabelText="Page size"
-          onChange={this.handlePageSizeChange.bind(this)}>
-          {pageSizes.map((size, index) => <MenuItem key={index} value={size} primaryText={size} />)}
-        </SelectField>
+        <div style={{display: 'inline-block'}}>
+          <label><Translate content={'main.pageSize'} fallback={'Page Size'} /></label>
+          <select style={{width: '100px'}} className="form-control" onChange={this.handlePageSizeChange.bind(this)} disabled={this.props.readOnly}>
+            {pageSizes.map((size, index) =><option key={index} value={size}>{size}</option>)}
+          </select>
+        </div>
       </div>
     )
   }
 
-  handlePageSizeChange(event, index, value) {
-    this.props.onPagerChange(1, pageSizes[index]);
+  handlePageSizeChange(event) {
+    this.props.onPagerChange(1, pageSizes[event.target.selectedIndex]);
   }
 
   onFirstPageButtonClick() {

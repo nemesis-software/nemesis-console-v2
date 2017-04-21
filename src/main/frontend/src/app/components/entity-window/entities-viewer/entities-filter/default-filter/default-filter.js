@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Translate from 'react-translate-component';
 
-import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 
 import _ from 'lodash';
@@ -38,7 +37,10 @@ export default class DefaultFilter extends Component {
             </div>
           )
         })}
-        <div style={{padding: '10px 0'}} ><RaisedButton style={{margin: '10px'}} label={<Translate component="span" content={'main.Search'} fallback={'Search'} />} onClick={this.onSearchButtonClick.bind(this)} /><RaisedButton label={<Translate component="span" content={'main.Clear'} fallback={'Clear'} />} onClick={this.onClearButtonClick.bind(this)} /></div>
+        <div style={{padding: '10px 0'}} >
+          <button className="btn btn-default" style={{margin: '10px'}} onClick={this.onSearchButtonClick.bind(this)}><Translate component="span" content={'main.Search'} fallback={'Search'} /></button>
+          <button className="btn btn-default" onClick={this.onClearButtonClick.bind(this)}><Translate component="span" content={'main.Clear'} fallback={'Clear'} /></button>
+        </div>
       </div>
     )
   }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
+import Translate from 'react-translate-component';
+
 import Paper from 'material-ui/Paper';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 
 import { componentRequire } from '../../../../utils/require-util';
 let EntitiesTableViewer = componentRequire('app/components/entity-window/entities-viewer/entities-table-viewer/entities-table-viewer', 'entities-table-viewer');
@@ -11,30 +11,24 @@ export default class EntitiesResultViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {selectedMenuIndex: 0};
-
   }
 
   render() {
     return (
       <Paper zDepth={1} style={{margin: '5px', padding: '5px', marginTop: '20px'}}>
         <div style={this.getViewerSelectStyle()}>
-          <SelectField
-            floatingLabelText="Viewer"
-            value={this.state.selectedMenuIndex}
-            onChange={this.handleViewerChange.bind(this)}
-          >
-            {this.getViewers().map((item, index) => {
-              return  <MenuItem key={index} value={index} primaryText={item.viewerName} />
-            })}
-          </SelectField>
+          <label><Translate content={'main.viewer'} fallback={'Viewer'}/></label>
+          <select style={{width: '265px'}} className="form-control" onChange={this.handleViewerChange.bind(this)} disabled={this.props.readOnly}>
+            {this.getViewers().map((item, index) =><option key={index} value={index}>{item.viewerName}</option>)}
+          </select>
         </div>
         {this.getViewers().map(this.getViewerElement.bind(this))}
       </Paper>
     )
   }
 
-  handleViewerChange(event, index) {
-    this.setState({...this.state, selectedMenuIndex: index});
+  handleViewerChange(event) {
+    this.setState({...this.state, selectedMenuIndex: event.target.selectedIndex});
   }
 
   getViewerSelectStyle() {

@@ -50,7 +50,7 @@ export default class EntitySections extends Component {
     return (
       <div key={this.state.key}>
         <Paper zDepth={1} style={{margin: '5px 0', padding: '5px'}}>
-          {this.getFunctionalButtons(this.props.entity).map((button, index) => <FlatButton label={<Translate component="span" content={'main.' + button.label} fallback={button.label} />} onClick={button.onClickFunction} key={index}/>)}
+          {this.getFunctionalButtons(this.props.entity).map((button, index) => <button style={{margin: '0 5px'}} className="btn btn-default" onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></button>)}
         </Paper>
         <Tabs onChange={this.handleChange}
               value={this.state.sectionIndex}>

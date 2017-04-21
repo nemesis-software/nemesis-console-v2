@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import Translate from 'react-translate-component';
 
 export default class LanguageChanger extends Component {
@@ -12,21 +10,24 @@ export default class LanguageChanger extends Component {
     };
   }
 
-  handleChange(event, index, value) {
-    this.setState({...this.state, selectedLanguage: this.state.availableLanguages[index]});
-    this.props.onLanguageChange(value);
+  handleChange(event) {
+    let selectedLanguage = this.state.availableLanguages[event.target.selectedIndex];
+    this.setState({...this.state, selectedLanguage: selectedLanguage});
+    this.props.onLanguageChange(selectedLanguage.value);
   }
 
   render() {
     return (
-      <SelectField
-        disabled={this.props.readOnly}
-        labelStyle={this.props.labelStyle}
-        value={this.state.selectedLanguage.value}
-        floatingLabelText={this.props.label ? <Translate content={'main.' + this.props.label} fallback={this.props.label} /> : null}
-        onChange={this.handleChange.bind(this)}>
-        {this.state.availableLanguages.map((language, index) => <MenuItem key={index} value={language.value} primaryText={language.labelCode} />)}
-      </SelectField>
+      <div>
+        {this.props.label ? <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label> : false}
+        <select defaultValue={this.props.selectedLanguage.value} className="form-control" onChange={this.handleChange.bind(this)} disabled={this.props.readOnly}>
+          {this.state.availableLanguages.map(this.getOptionFields.bind(this))}
+        </select>
+      </div>
     );
+  }
+
+  getOptionFields(language, index) {
+    return <option key={index} value={language.value}>{language.labelCode}</option>;
   }
 }

@@ -9,6 +9,8 @@ import FlatButton from 'material-ui/FlatButton';
 
 import '../../styles/style.less';
 
+import 'bootstrap/dist/css/bootstrap.css';
+
 injectTapEventPlugin();
 
 const translationLanguages = {

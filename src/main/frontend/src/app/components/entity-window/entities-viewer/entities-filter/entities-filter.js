@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Translate from 'react-translate-component';
 
 import Paper from 'material-ui/Paper';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 
 import { componentRequire } from '../../../../utils/require-util';
 
@@ -22,15 +20,10 @@ export default class EntitiesFilter extends Component {
       <div>
         <Paper zDepth={1} style={{margin: '5px', padding: '5px'}}>
           <div style={this.getFilterSelectStyle()}>
-            <SelectField
-              floatingLabelText={<Translate component="span" content={'main.Filter'} fallback={'Filter'} />}
-              value={this.state.selectedMenuIndex}
-              onChange={this.handleFilterChange.bind(this)}
-            >
-              {this.getFilters().map((item, index) => {
-                return  <MenuItem key={index} value={index} primaryText={item.filterName} />
-              })}
-            </SelectField>
+            <label><Translate content={'main.Filter'} fallback={'Filter'}/></label>
+            <select style={{width: '265px'}} className="form-control" onChange={this.handleFilterChange.bind(this)} disabled={this.props.readOnly}>
+              {this.getFilters().map((item, index) =><option key={index} value={index}>{item.filterName}</option>)}
+            </select>
           </div>
           {this.getFilters().map(this.getFilterElement.bind(this))}
         </Paper>
@@ -38,8 +31,8 @@ export default class EntitiesFilter extends Component {
     )
   }
 
-  handleFilterChange(event, index) {
-    this.setState({...this.state, selectedMenuIndex: index});
+  handleFilterChange(event) {
+    this.setState({...this.state, selectedMenuIndex: event.target.selectedIndex});
   }
 
   componentWillReceiveProps(nextProps) {

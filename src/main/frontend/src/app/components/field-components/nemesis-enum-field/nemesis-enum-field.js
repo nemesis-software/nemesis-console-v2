@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 
 export default class NemesisEnumField extends NemesisBaseField {
   constructor(props) {
@@ -12,14 +10,10 @@ export default class NemesisEnumField extends NemesisBaseField {
   render() {
     return (
       <div className="entity-field-container">
-        <SelectField style={this.props.style}
-                     value={this.getFormattedValue(this.state.value) || ''}
-                     disabled={this.props.readOnly}
-                     errorText={this.state.errorMessage}
-                     floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                     onChange={this.onValueChange.bind(this)}>
-          {this.props.values.map((value, index) => <MenuItem key={index} value={value} primaryText={value} />)}
-        </SelectField>
+        <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label>
+        <select defaultValue={this.getFormattedValue(this.state.value)} className="form-control" onChange={this.onChange.bind(this)} disabled={this.props.readOnly}>
+          {this.props.values.map((value, index) =><Translate key={index} value={value} component="option" content={'main.' + value} fallback={value} />)}
+        </select>
       </div>
     )
   }
@@ -30,5 +24,9 @@ export default class NemesisEnumField extends NemesisBaseField {
 
   isEmptyValue() {
     return this.state.value < 0;
+  }
+
+  onChange(event) {
+    this.onValueChange(event, event.target.selectedIndex);
   }
 }
