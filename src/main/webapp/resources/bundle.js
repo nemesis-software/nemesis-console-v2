@@ -102495,17 +102495,19 @@
 	  _createClass(NemesisNumberField, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'entity-field-container' },
-	        _react2.default.createElement(_TextField2.default, { className: 'entity-field',
-	          style: this.props.style,
-	          type: 'number', step: this.props.step || '1',
+	        _react2.default.createElement(_reactTranslateComponent2.default, { component: 'label', content: 'main.' + this.props.label, fallback: this.props.label }),
+	        _react2.default.createElement('input', { type: 'number', step: this.props.step || '1',
+	          style: { width: '256px' },
+	          className: 'entity-field form-control',
 	          value: this.state.value || '',
-	          disabled: this.props.readOnly,
-	          errorText: this.state.errorMessage,
-	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	          onChange: this.onValueChange.bind(this) })
+	          disabled: this.props.readOnly, onChange: function onChange(e) {
+	            return _this2.onValueChange(e, e.target.value);
+	          } })
 	      );
 	    }
 	  }]);

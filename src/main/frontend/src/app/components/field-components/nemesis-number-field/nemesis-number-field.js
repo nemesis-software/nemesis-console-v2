@@ -11,14 +11,12 @@ export default class NemesisNumberField extends NemesisBaseField {
   render() {
     return (
       <div className="entity-field-container">
-        <TextField className="entity-field"
-                   style={this.props.style}
-                   type="number" step={this.props.step || '1'}
-                   value={this.state.value || ''}
-                   disabled={this.props.readOnly}
-                   errorText={this.state.errorMessage}
-                   floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                   onChange={this.onValueChange.bind(this)}/>
+        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+        <input type="number" step={this.props.step || '1'}
+               style={{width: '256px'}}
+               className="entity-field form-control"
+               value={this.state.value || ''}
+               disabled={this.props.readOnly} onChange={(e) => this.onValueChange(e, e.target.value)}/>
       </div>
     )
   }
