@@ -102463,10 +102463,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TextField = __webpack_require__(464);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
 	var _reactTranslateComponent = __webpack_require__(184);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
@@ -102533,10 +102529,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TextField = __webpack_require__(464);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
 	var _reactTranslateComponent = __webpack_require__(184);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
@@ -102565,17 +102557,19 @@
 	  _createClass(NemesisPasswordField, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'entity-field-container' },
-	        _react2.default.createElement(_TextField2.default, { className: 'entity-field',
-	          style: this.props.style,
-	          type: 'password',
+	        _react2.default.createElement(_reactTranslateComponent2.default, { component: 'label', content: 'main.' + this.props.label, fallback: this.props.label }),
+	        _react2.default.createElement('input', { type: 'password',
+	          style: { width: '256px' },
+	          className: 'entity-field form-control',
 	          value: this.state.value || '',
-	          errorText: this.state.errorMessage,
-	          disabled: this.props.readOnly,
-	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	          onChange: this.onValueChange.bind(this) })
+	          disabled: this.props.readOnly, onChange: function onChange(e) {
+	            return _this2.onValueChange(e, e.target.value);
+	          } })
 	      );
 	    }
 	  }]);

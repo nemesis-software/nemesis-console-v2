@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+import React  from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
 
