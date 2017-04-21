@@ -69218,8 +69218,6 @@
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
 
-	var _RadioButton = __webpack_require__(468);
-
 	var _nemesisBaseField = __webpack_require__(492);
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
@@ -69263,33 +69261,31 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'entity-field-container', style: { paddingTop: '44px' } },
-	        _react2.default.createElement(_reactTranslateComponent2.default, { component: 'div', style: _extends({}, styles.container, styles.label), content: 'main.' + this.props.label, fallback: this.props.label }),
+	        _react2.default.createElement(_reactTranslateComponent2.default, { style: { paddingRight: '10px' }, component: 'label', content: 'main.' + this.props.label, fallback: this.props.label }),
 	        _react2.default.createElement(
-	          _RadioButton.RadioButtonGroup,
-	          { name: 'boolean', labelPosition: 'right', style: styles.container,
-	            valueSelected: this.state.value,
-	            onChange: this.onValueChange.bind(this)
-	          },
-	          _react2.default.createElement(_RadioButton.RadioButton, {
-	            style: styles.container,
-	            value: 'true',
-	            label: 'True',
-	            disabled: this.props.readOnly
-	          }),
-	          _react2.default.createElement(_RadioButton.RadioButton, {
-	            style: styles.container,
-	            value: 'false',
-	            label: 'False',
-	            disabled: this.props.readOnly
-	          }),
-	          _react2.default.createElement(_RadioButton.RadioButton, {
-	            style: this.getNotAvailableButtonStyle(),
-	            value: 'null',
-	            label: 'N/A',
-	            disabled: this.props.readOnly
-	          })
+	          'label',
+	          { className: 'radio-inline' },
+	          _react2.default.createElement('input', { type: 'radio', value: 'true', defaultChecked: 'true' === this.state.value, onChange: this.handleRadioChange.bind(this), disabled: this.props.readOnly, name: this.props.label }),
+	          'True'
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          { className: 'radio-inline' },
+	          _react2.default.createElement('input', { type: 'radio', value: 'false', defaultChecked: 'false' === this.state.value, onChange: this.handleRadioChange.bind(this), disabled: this.props.readOnly, name: this.props.label }),
+	          'False'
+	        ),
+	        _react2.default.createElement(
+	          'label',
+	          { style: this.getNotAvailableButtonStyle(), className: 'radio-inline' },
+	          _react2.default.createElement('input', { type: 'radio', defaultChecked: 'null' === this.state.value, onChange: this.handleRadioChange.bind(this), disabled: this.props.readOnly, value: 'null', name: this.props.label }),
+	          'N/A'
 	        )
 	      );
+	    }
+	  }, {
+	    key: 'handleRadioChange',
+	    value: function handleRadioChange(e) {
+	      this.onValueChange(e, e.target.value);
 	    }
 	  }, {
 	    key: 'setFormattedValue',
