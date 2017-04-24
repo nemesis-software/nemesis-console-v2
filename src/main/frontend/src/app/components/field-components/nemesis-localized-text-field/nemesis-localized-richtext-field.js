@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisLocalizedTextField from './nemesis-localized-text-field'
 
@@ -11,14 +10,12 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
   getDialogInputField(language, index) {
     return (
       <div key={index}>
-        <TextField style={{width: '100%'}}
-                   multiLine={true}
-                   rows={4}
-                   rowsMax={4}
-                   value={this.getTextFieldValue(language.value)}
-                   disabled={this.props.readOnly}
-                   floatingLabelText={language.labelCode}
-                   onChange={(e, v) => this.onTextChange(e, v, language.value)}/>
+        <Translate component="label" content={'main.' + language.labelCode} fallback={language.labelCode} />
+        <textarea className="entity-field form-control"
+                  rows="4"
+                  value={this.getTextFieldValue(language.value)}
+                  disabled={this.props.readOnly}
+                  onChange={(e) => this.onTextChange(e, e.target.value, language.value)}/>
       </div>
     )
   }
