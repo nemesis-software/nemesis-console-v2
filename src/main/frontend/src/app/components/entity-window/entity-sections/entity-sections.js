@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Translate from 'react-translate-component';
 
-import {Tabs, Tab} from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import SwipeableViews from 'react-swipeable-views';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -51,12 +50,11 @@ export default class EntitySections extends Component {
         <Paper zDepth={1} style={{margin: '5px 0', padding: '5px'}}>
           {this.getFunctionalButtons(this.props.entity).map((button, index) => <button style={{margin: '0 5px'}} className="btn btn-default" onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></button>)}
         </Paper>
-        <Tabs onChange={this.handleChange}
-              value={this.state.sectionIndex}>
-              {this.props.entity.data.sections.map((item, index) => {
-                return <Tab key={index} value={index} label={<Translate component="span" content={'main.' + item.title} fallback={item.title} />} />
-              })}
-        </Tabs>
+        <ul className="nav nav-tabs">
+          {this.props.entity.data.sections.map((item, index) => {
+            return <li className={this.state.sectionIndex === index ? 'active' : ''} onClick={() => this.handleChange(index)} key={index}><Translate component="a" content={'main.' + item.title} fallback={item.title} /></li>
+          })}
+        </ul>
         <SwipeableViews
           index={this.state.sectionIndex}
           onChangeIndex={this.handleChange}
