@@ -1,9 +1,10 @@
 import React from 'react';
+import Select from 'react-select';
 import NemesisBaseCollectionField from '../nemesis-base-collection-field';
-import AutoComplete from 'material-ui/AutoComplete';
 import ApiCall from '../../../../services/api-call';
 import _ from 'lodash';
 import Translate from 'react-translate-component';
+import 'react-select/dist/react-select.css';
 
 export default class NemesisEntityCollectionField extends NemesisBaseCollectionField {
   constructor(props) {
@@ -13,30 +14,22 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   getInputField() {
     return (
-      <AutoComplete style={this.props.style}
-                    dataSource={this.state.dataSource}
-                    filter={(searchText, key) => true}
-                    onFocus={this.onAutocompleteFocus.bind(this)}
-                    onUpdateInput={_.debounce(this.onTextFieldChange.bind(this), 250)}
-                    openOnFocus={true}
-                    errorText={this.state.errorMessage}
-                    disabled={this.props.readOnly}
-                    onNewRequest={this.onItemSelect.bind(this)}
-                    listStyle={{width: 'auto'}}
-                    menuStyle={{width: 'auto', maxHeight: '300px'}}
-                    maxSearchResults={10}
-                    searchText={this.state.searchText}
-                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}/>
+      <div style={{width: '256px', display: 'inline-block'}}>
+        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
+        <Select.Async style={{width: '100%'}}
+                      cache={false}
+                      onChange={this.onItemSelect.bind(this)}
+                      loadOptions={this.filterEntityData.bind(this)}/>
+      </div>
     )
   }
 
   filterEntityData(inputText) {
     let inputTextActual = inputText || '';
-    ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, code: inputTextActual, projection: 'search'}).then(result => {
+    return ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, code: inputTextActual, projection: 'search'}).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-      let mappedData = data.map(this.mapDataSource.bind(this));
-      this.setState({...this.state, dataSource: mappedData});
+      return {options: data.map(this.mapDataSource.bind(this))};
     })
   }
 
@@ -50,20 +43,11 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
     let urlSuffix = '/search/findByCodeIsStartingWithIgnoreCase/';
     return `${this.props.entityId}${urlSuffix}`;
   }
-
-  onAutocompleteFocus() {
-    this.filterEntityData(this.state.searchText);
-  }
-
-  onTextFieldChange(value) {
-    this.filterEntityData(value);
-    this.setState({...this.state, searchText: value});
-  }
-
+  
   mapDataSource(item) {
     return {
       value: item,
-      text: this.getAutocompleteRenderingValue(item)
+      label: this.getAutocompleteRenderingValue(item)
     }
   }
 
