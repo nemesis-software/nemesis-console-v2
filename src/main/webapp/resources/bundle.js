@@ -60700,11 +60700,15 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        visualizationContent,
+	        { className: 'chip-item' },
+	        _react2.default.createElement(
+	          'span',
+	          { style: { verticalAlign: 'top' } },
+	          visualizationContent
+	        ),
 	        _react2.default.createElement(
 	          'i',
-	          { className: 'material-icons collection-item-icon', onClick: function onClick() {
+	          { style: { verticalAlign: 'top' }, className: 'material-icons', onClick: function onClick() {
 	              return _this3.props.onEntityItemClick(item, _this3.props.entityId, item._links.self.href);
 	            } },
 	          'launch'
@@ -60737,10 +60741,6 @@
 	var _nemesisBaseField = __webpack_require__(464);
 
 	var _nemesisBaseField2 = _interopRequireDefault(_nemesisBaseField);
-
-	var _Chip = __webpack_require__(465);
-
-	var _Chip2 = _interopRequireDefault(_Chip);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60788,26 +60788,29 @@
 	  }, {
 	    key: 'getItemRenderingValue',
 	    value: function getItemRenderingValue(item) {
-	      return item;
+	      return _react2.default.createElement(
+	        'span',
+	        { className: 'chip-item' },
+	        item
+	      );
 	    }
 	  }, {
 	    key: 'getChipRenderer',
 	    value: function getChipRenderer(item, index) {
 	      var _this2 = this;
 
-	      var config = {
-	        key: index,
-	        children: this.getItemRenderingValue(item),
-	        className: 'collection-item'
-	      };
-
-	      if (!this.props.readOnly) {
-	        config.onRequestDelete = function () {
-	          return _this2.onDeleteRequest(index);
-	        };
-	      }
-
-	      return _react2.default.createElement(_Chip2.default, config);
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'chip', key: index },
+	        this.getItemRenderingValue(item),
+	        !this.props.readOnly ? _react2.default.createElement(
+	          'i',
+	          { className: 'material-icons chip-item', onClick: function onClick() {
+	              return _this2.onDeleteRequest(index);
+	            } },
+	          'close'
+	        ) : false
+	      );
 	    }
 	  }, {
 	    key: 'getItemsRender',
@@ -60973,404 +60976,9 @@
 	};
 
 /***/ },
-/* 465 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _Chip = __webpack_require__(466);
-
-	var _Chip2 = _interopRequireDefault(_Chip);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _Chip2.default;
-
-/***/ },
-/* 466 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends2 = __webpack_require__(207);
-
-	var _extends3 = _interopRequireDefault(_extends2);
-
-	var _objectWithoutProperties2 = __webpack_require__(245);
-
-	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-	var _getPrototypeOf = __webpack_require__(246);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(251);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(252);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(256);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(291);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	var _simpleAssign = __webpack_require__(299);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _keycode = __webpack_require__(311);
-
-	var _keycode2 = _interopRequireDefault(_keycode);
-
-	var _colorManipulator = __webpack_require__(305);
-
-	var _EnhancedButton = __webpack_require__(309);
-
-	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
-
-	var _cancel = __webpack_require__(467);
-
-	var _cancel2 = _interopRequireDefault(_cancel);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getStyles(props, context, state) {
-	  var chip = context.muiTheme.chip;
-
-
-	  var backgroundColor = props.backgroundColor || chip.backgroundColor;
-	  var focusColor = (0, _colorManipulator.emphasize)(backgroundColor, 0.08);
-	  var pressedColor = (0, _colorManipulator.emphasize)(backgroundColor, 0.12);
-
-	  return {
-	    avatar: {
-	      marginRight: -4
-	    },
-	    deleteIcon: {
-	      color: state.deleteHovered ? (0, _colorManipulator.fade)(chip.deleteIconColor, 0.4) : chip.deleteIconColor,
-	      cursor: 'pointer',
-	      margin: '4px 4px 0px -8px'
-	    },
-	    label: {
-	      color: props.labelColor || chip.textColor,
-	      fontSize: chip.fontSize,
-	      fontWeight: chip.fontWeight,
-	      lineHeight: '32px',
-	      paddingLeft: 12,
-	      paddingRight: 12,
-	      userSelect: 'none',
-	      whiteSpace: 'nowrap'
-	    },
-	    root: {
-	      backgroundColor: state.clicked ? pressedColor : state.focused || state.hovered ? focusColor : backgroundColor,
-	      borderRadius: 16,
-	      boxShadow: state.clicked ? chip.shadow : null,
-	      cursor: props.onTouchTap ? 'pointer' : 'default',
-	      display: 'flex',
-	      whiteSpace: 'nowrap',
-	      width: 'fit-content'
-	    }
-	  };
-	}
-
-	var Chip = function (_Component) {
-	  (0, _inherits3.default)(Chip, _Component);
-
-	  function Chip() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
-	    (0, _classCallCheck3.default)(this, Chip);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Chip.__proto__ || (0, _getPrototypeOf2.default)(Chip)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-	      clicked: false,
-	      deleteHovered: false,
-	      focused: false,
-	      hovered: false
-	    }, _this.handleBlur = function (event) {
-	      _this.setState({ clicked: false, focused: false });
-	      _this.props.onBlur(event);
-	    }, _this.handleFocus = function (event) {
-	      if (_this.props.onTouchTap || _this.props.onRequestDelete) {
-	        _this.setState({ focused: true });
-	      }
-	      _this.props.onFocus(event);
-	    }, _this.handleKeyboardFocus = function (event, keyboardFocused) {
-	      if (keyboardFocused) {
-	        _this.handleFocus();
-	        _this.props.onFocus(event);
-	      } else {
-	        _this.handleBlur();
-	      }
-
-	      _this.props.onKeyboardFocus(event, keyboardFocused);
-	    }, _this.handleKeyDown = function (event) {
-	      if ((0, _keycode2.default)(event) === 'backspace') {
-	        event.preventDefault();
-	        if (_this.props.onRequestDelete) {
-	          _this.props.onRequestDelete(event);
-	        }
-	      }
-	      _this.props.onKeyDown(event);
-	    }, _this.handleMouseDown = function (event) {
-	      // Only listen to left clicks
-	      if (event.button === 0) {
-	        event.stopPropagation();
-	        if (_this.props.onTouchTap) {
-	          _this.setState({ clicked: true });
-	        }
-	      }
-	      _this.props.onMouseDown(event);
-	    }, _this.handleMouseEnter = function (event) {
-	      if (_this.props.onTouchTap) {
-	        _this.setState({ hovered: true });
-	      }
-	      _this.props.onMouseEnter(event);
-	    }, _this.handleMouseEnterDeleteIcon = function () {
-	      _this.setState({ deleteHovered: true });
-	    }, _this.handleMouseLeave = function (event) {
-	      _this.setState({
-	        clicked: false,
-	        hovered: false
-	      });
-	      _this.props.onMouseLeave(event);
-	    }, _this.handleMouseLeaveDeleteIcon = function () {
-	      _this.setState({ deleteHovered: false });
-	    }, _this.handleMouseUp = function (event) {
-	      _this.setState({ clicked: false });
-	      _this.props.onMouseUp(event);
-	    }, _this.handleTouchTapDeleteIcon = function (event) {
-	      // Stop the event from bubbling up to the `Chip`
-	      event.stopPropagation();
-	      _this.props.onRequestDelete(event);
-	    }, _this.handleTouchEnd = function (event) {
-	      _this.setState({ clicked: false });
-	      _this.props.onTouchEnd(event);
-	    }, _this.handleTouchStart = function (event) {
-	      event.stopPropagation();
-	      if (_this.props.onTouchTap) {
-	        _this.setState({ clicked: true });
-	      }
-	      _this.props.onTouchStart(event);
-	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-	  }
-
-	  (0, _createClass3.default)(Chip, [{
-	    key: 'render',
-	    value: function render() {
-	      var buttonEventHandlers = {
-	        onBlur: this.handleBlur,
-	        onFocus: this.handleFocus,
-	        onKeyDown: this.handleKeyDown,
-	        onMouseDown: this.handleMouseDown,
-	        onMouseEnter: this.handleMouseEnter,
-	        onMouseLeave: this.handleMouseLeave,
-	        onMouseUp: this.handleMouseUp,
-	        onTouchEnd: this.handleTouchEnd,
-	        onTouchStart: this.handleTouchStart,
-	        onKeyboardFocus: this.handleKeyboardFocus
-	      };
-
-	      var prepareStyles = this.context.muiTheme.prepareStyles;
-
-	      var styles = getStyles(this.props, this.context, this.state);
-
-	      var _props = this.props,
-	          childrenProp = _props.children,
-	          style = _props.style,
-	          className = _props.className,
-	          labelStyle = _props.labelStyle,
-	          labelColor = _props.labelColor,
-	          backgroundColor = _props.backgroundColor,
-	          onRequestDelete = _props.onRequestDelete,
-	          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'style', 'className', 'labelStyle', 'labelColor', 'backgroundColor', 'onRequestDelete']);
-
-
-	      var deletable = this.props.onRequestDelete;
-	      var avatar = null;
-
-	      var deleteIcon = deletable ? _react2.default.createElement(_cancel2.default, {
-	        color: styles.deleteIcon.color,
-	        style: styles.deleteIcon,
-	        onTouchTap: this.handleTouchTapDeleteIcon,
-	        onMouseEnter: this.handleMouseEnterDeleteIcon,
-	        onMouseLeave: this.handleMouseLeaveDeleteIcon
-	      }) : null;
-
-	      var children = childrenProp;
-	      var childCount = _react2.default.Children.count(children);
-
-	      // If the first child is an avatar, extract it and style it
-	      if (childCount > 1) {
-	        children = _react2.default.Children.toArray(children);
-
-	        if (_react2.default.isValidElement(children[0]) && children[0].type.muiName === 'Avatar') {
-	          avatar = children.shift();
-
-	          avatar = _react2.default.cloneElement(avatar, {
-	            style: (0, _simpleAssign2.default)(styles.avatar, avatar.props.style),
-	            size: 32
-	          });
-	        }
-	      }
-
-	      return _react2.default.createElement(
-	        _EnhancedButton2.default,
-	        (0, _extends3.default)({}, other, buttonEventHandlers, {
-	          className: className,
-	          containerElement: 'div' // Firefox doesn't support nested buttons
-	          , disableTouchRipple: true,
-	          disableFocusRipple: true,
-	          style: (0, _simpleAssign2.default)(styles.root, style)
-	        }),
-	        avatar,
-	        _react2.default.createElement(
-	          'span',
-	          { style: prepareStyles((0, _simpleAssign2.default)(styles.label, labelStyle)) },
-	          children
-	        ),
-	        deleteIcon
-	      );
-	    }
-	  }]);
-	  return Chip;
-	}(_react.Component);
-
-	Chip.defaultProps = {
-	  onBlur: function onBlur() {},
-	  onFocus: function onFocus() {},
-	  onKeyDown: function onKeyDown() {},
-	  onKeyboardFocus: function onKeyboardFocus() {},
-	  onMouseDown: function onMouseDown() {},
-	  onMouseEnter: function onMouseEnter() {},
-	  onMouseLeave: function onMouseLeave() {},
-	  onMouseUp: function onMouseUp() {},
-	  onTouchEnd: function onTouchEnd() {},
-	  onTouchStart: function onTouchStart() {}
-	};
-	Chip.contextTypes = { muiTheme: _react.PropTypes.object.isRequired };
-	process.env.NODE_ENV !== "production" ? Chip.propTypes = {
-	  /**
-	   * Override the background color of the chip.
-	   */
-	  backgroundColor: _react.PropTypes.string,
-	  /**
-	   * Used to render elements inside the Chip.
-	   */
-	  children: _react.PropTypes.node,
-	  /**
-	   * CSS `className` of the root element.
-	   */
-	  className: _react.PropTypes.node,
-	  /**
-	   * Override the label color.
-	   */
-	  labelColor: _react.PropTypes.string,
-	  /**
-	   * Override the inline-styles of the label.
-	   */
-	  labelStyle: _react.PropTypes.object,
-	  /** @ignore */
-	  onBlur: _react.PropTypes.func,
-	  /** @ignore */
-	  onFocus: _react.PropTypes.func,
-	  /** @ignore */
-	  onKeyDown: _react.PropTypes.func,
-	  /** @ignore */
-	  onKeyboardFocus: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseDown: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseEnter: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseLeave: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseUp: _react.PropTypes.func,
-	  /**
-	   * Callback function fired when the delete icon is clicked. If set, the delete icon will be shown.
-	   * @param {object} event `touchTap` event targeting the element.
-	   */
-	  onRequestDelete: _react.PropTypes.func,
-	  /** @ignore */
-	  onTouchEnd: _react.PropTypes.func,
-	  /** @ignore */
-	  onTouchStart: _react.PropTypes.func,
-	  /**
-	   * Callback function fired when the `Chip` element is touch-tapped.
-	   *
-	   * @param {object} event TouchTap event targeting the element.
-	   */
-	  onTouchTap: _react.PropTypes.func,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object
-	} : void 0;
-	exports.default = Chip;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 467 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _pure = __webpack_require__(432);
-
-	var _pure2 = _interopRequireDefault(_pure);
-
-	var _SvgIcon = __webpack_require__(441);
-
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var NavigationCancel = function NavigationCancel(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' })
-	  );
-	};
-	NavigationCancel = (0, _pure2.default)(NavigationCancel);
-	NavigationCancel.displayName = 'NavigationCancel';
-	NavigationCancel.muiName = 'SvgIcon';
-
-	exports.default = NavigationCancel;
-
-/***/ },
+/* 465 */,
+/* 466 */,
+/* 467 */,
 /* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -103571,7 +103179,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\n  font-family: Roboto, sans-serif;\n}\n.filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-navigation .navigation-item-container .entity-navigation-item.selected {\n  color: #dcff41;\n  font-weight: bold;\n}\n.selected-navigation-menu-item {\n  color: #00bcd4;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 20px;\n}\n.collection-container .collection-item {\n  margin: 5px!important;\n}\n.collection-container .collection-item .collection-item-icon {\n  vertical-align: middle;\n  margin-left: 5px;\n  cursor: pointer;\n}\n.navigation-tree {\n  position: fixed;\n  width: 300px;\n  left: 0;\n  top: 68px;\n  height: calc(100vh - 68px);\n  overflow-y: scroll;\n  background: #00bcd4;\n  color: white;\n}\n", ""]);
+	exports.push([module.id, "* {\n  font-family: Roboto, sans-serif;\n}\n.filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-navigation .navigation-item-container .entity-navigation-item.selected {\n  color: #dcff41;\n  font-weight: bold;\n}\n.selected-navigation-menu-item {\n  color: #00bcd4;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 20px;\n}\n.collection-container .chip {\n  display: table;\n  padding: 10px 15px;\n  font-size: 14px;\n  border-radius: 25px;\n  background-color: #f1f1f1;\n}\n.collection-container .chip .chip-item {\n  display: table-cell;\n  vertical-align: top;\n}\n.collection-container .chip .material-icons {\n  cursor: pointer;\n  font-size: 20px;\n  padding-left: 10px;\n  color: #888;\n  font-weight: bold;\n}\n.collection-container .chip .material-icons:hover {\n  color: #000;\n}\n.navigation-tree {\n  position: fixed;\n  width: 300px;\n  left: 0;\n  top: 68px;\n  height: calc(100vh - 68px);\n  overflow-y: scroll;\n  background: #00bcd4;\n  color: white;\n}\n", ""]);
 
 	// exports
 

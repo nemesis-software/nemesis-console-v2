@@ -60,13 +60,28 @@
   flex-wrap: wrap;
   margin-top: 20px;
 
-  .collection-item {
-    margin: 5px!important;
+  .chip {
+    display: table;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
 
-    .collection-item-icon {
-      vertical-align: middle;
-      margin-left: 5px;
+    .chip-item {
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    .material-icons {
       cursor: pointer;
+      font-size: 20px;
+      padding-left: 10px;
+      color: #888;
+      font-weight: bold;
+
+      &:hover {
+        color: #000;
+      }
     }
   }
 }
@@ -81,4 +96,6 @@
   background: @default-color;
   color: white;
 }
+
+
 

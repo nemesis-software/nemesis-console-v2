@@ -85,6 +85,9 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
       visualizationContent = `${item.code}:${item.position}`;
     }
 
-    return <div>{visualizationContent}<i className="material-icons collection-item-icon" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i></div>
+    return (<div className="chip-item">
+      <span style={{verticalAlign: 'top'}}>{visualizationContent}</span>
+      <i style={{verticalAlign: 'top'}} className="material-icons" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i>
+    </div>)
   }
 }

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NemesisBaseField from '../nemesis-base-field'
-import Chip from 'material-ui/Chip';
 
 export default class NemesisBaseCollectionField extends NemesisBaseField {
   constructor(props) {
@@ -27,21 +26,17 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
   }
 
   getItemRenderingValue(item) {
-    return item;
+    return <span className="chip-item">{item}</span>;
   }
 
   getChipRenderer(item, index) {
-    let config = {
-      key: index,
-      children: this.getItemRenderingValue(item),
-      className: 'collection-item'
-    };
+    return (
+      <div className="chip" key={index}>
+        {this.getItemRenderingValue(item)}
+        {!this.props.readOnly ? <i className="material-icons chip-item" onClick={() => this.onDeleteRequest(index)}>close</i> : false}
+      </div>
+    );
 
-    if (!this.props.readOnly) {
-      config.onRequestDelete = () => this.onDeleteRequest(index);
-    }
-
-    return React.createElement(Chip, config)
   }
 
   getItemsRender() {
