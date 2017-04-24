@@ -22,13 +22,14 @@ export default class NemesisRichTextField extends NemesisBaseField {
     ];
     return (
       <div className="entity-field-container">
-        <TextField className="entity-field"
-                   style={this.props.style}
-                   value={this.state.value || ''}
-                   disabled={this.props.readOnly}
-                   errorText={this.state.errorMessage}
-                   floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                   onChange={this.onValueChange.bind(this)}/>
+        <div style={{width: '256px', display: 'inline-block'}}>
+          <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+          <input type="text"
+                 className="entity-field form-control"
+                 value={this.state.value || ''}
+                 disabled={this.props.readOnly}
+                 onChange={(e) => this.onValueChange(e, e.target.value)} />
+        </div>
         <i className="material-icons entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}>fullscreen</i>
         <Dialog
           title="Edit richtext"
@@ -37,15 +38,13 @@ export default class NemesisRichTextField extends NemesisBaseField {
           open={this.state.openFullScreenDialog}
           autoScrollBodyContent={true}
         >
-          <TextField style={{width: '100%'}}
-                     value={this.state.value || ''}
-                     disabled={this.props.readOnly}
-                     multiLine={true}
-                     rows={6}
-                     rowsMax={6}
-                     floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                     onChange={this.onValueChange.bind(this)}/>
-          <div dangerouslySetInnerHTML={{__html: this.state.value || ''}}></div>
+          <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+          <textarea className="entity-field form-control"
+                    rows="6"
+                    value={this.state.value || ''}
+                    disabled={this.props.readOnly}
+                    onChange={(e) => this.onValueChange(e, e.target.value)}/>
+          <div dangerouslySetInnerHTML={{__html: this.state.value || ''}} />
         </Dialog>
       </div>
     )
