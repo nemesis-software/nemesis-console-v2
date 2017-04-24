@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Translate from 'react-translate-component';
 import TouchRipple from 'material-ui/internal/TouchRipple';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Modal from 'react-bootstrap/lib/Modal';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 const alignStyle = {
@@ -20,19 +19,6 @@ export default class TreeItem extends Component {
   }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose.bind(this)}
-      />,
-      <FlatButton
-        label="Create"
-        primary={true}
-        onTouchTap={this.handleSelectCreateEntity.bind(this)}
-      />,
-    ];
-
     return (
       <div style={this.getContainerStyles(this.props.nestingLevel)}>
         <div onClick={this.handleItemClick.bind(this)} style={this.getItemStyles(this.props.nestingLevel)}>
@@ -50,27 +36,32 @@ export default class TreeItem extends Component {
           </TouchRipple>
         </div>
         {this.props.nestedItems.map(this.renderChildren.bind(this))}
-        {this.state.openModalCreation ? <Dialog
-            title="Create Entity"
-            actions={actions}
-            modal={true}
-            open={this.state.openModalCreation}
-          >
-            <div>Please select entity type</div>
-            <RadioButtonGroup name="Choosed Item"
-                              valueSelected={this.selectedCreatingItem}
-                              onChange={(e, v) => this.selectedCreatingItem = v}
-            >
-              {this.getEntityCategories(this.state.creationEntity, 0).map((item, index) =>{
-                return <RadioButton
-                  style={this.getRadioButtonStyle(item)}
-                  key={index}
-                  value={item.entityId}
-                  label={item.text}
-                />
-              })}
-            </RadioButtonGroup>
-          </Dialog> : false}
+        {this.state.openModalCreation ?
+          <Modal show={this.state.openModalCreation} onHide={this.handleClose.bind(this)}>
+            <Modal.Header>
+              <Modal.Title>Create Entity</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div>Please select entity type</div>
+              <RadioButtonGroup name="Choosed Item"
+                                valueSelected={this.selectedCreatingItem}
+                                onChange={(e, v) => this.selectedCreatingItem = v}
+              >
+                {this.getEntityCategories(this.state.creationEntity, 0).map((item, index) =>{
+                  return <RadioButton
+                    style={this.getRadioButtonStyle(item)}
+                    key={index}
+                    value={item.entityId}
+                    label={item.text}
+                  />
+                })}
+              </RadioButtonGroup>
+            </Modal.Body>
+            <Modal.Footer>
+              <button className="btn btn-info" onClick={this.handleClose.bind(this)}>Cancel</button>
+              <button className="btn btn-primary" onClick={this.handleSelectCreateEntity.bind(this)}>Create</button>
+            </Modal.Footer>
+          </Modal> : false}
       </div>
     )
   };

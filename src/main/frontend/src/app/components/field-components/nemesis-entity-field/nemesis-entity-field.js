@@ -4,8 +4,7 @@ import Translate from 'react-translate-component';
 import ApiCall from '../../../services/api-call';
 import _ from 'lodash';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Modal from 'react-bootstrap/lib/Modal';
 import NemesisBaseField from '../nemesis-base-field'
 import 'react-select/dist/react-select.css';
 
@@ -101,21 +100,18 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   getErrorDialog() {
-    const actions = [
-      <FlatButton
-        label="ok"
-        onTouchTap={this.handleCloseErrorDialog.bind(this)}
-      />,
-    ];
     return (
-      <Dialog
-        title="Something went wrong!"
-        actions={actions}
-        modal={true}
-        open={this.state.openErrorDialog}
-      >
-        <div style={{color: 'red'}}>{this.state.errorMessage}</div>
-      </Dialog>
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Something went wrong!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-default" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 

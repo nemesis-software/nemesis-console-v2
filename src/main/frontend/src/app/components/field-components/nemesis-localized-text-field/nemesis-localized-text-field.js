@@ -3,8 +3,7 @@ import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
 import LanguageChanger from '../../language-changer';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Modal from 'react-bootstrap/lib/Modal';
 
 const translationLanguages = {
   languages: [
@@ -22,14 +21,6 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Done"
-        primary={true}
-        onTouchTap={this.handleTranslateDialogClose.bind(this)}
-      />
-    ];
-
     return (
       <div className="entity-field-container">
         <LanguageChanger
@@ -55,14 +46,17 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           false}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
-            <Dialog
-              title="Translate field"
-              actions={actions}
-              modal={true}
-              open={this.state.openTranslateDialog}
-            >
+          <Modal show={this.state.openTranslateDialog} onHide={this.handleTranslateDialogClose.bind(this)}>
+            <Modal.Header>
+              <Modal.Title>Translate field</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
               {translationLanguages.languages.map(this.getDialogInputField.bind(this))}
-            </Dialog>
+            </Modal.Body>
+            <Modal.Footer>
+              <button className="btn btn-default" onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
+            </Modal.Footer>
+          </Modal>
           ) :
           false}
       </div>

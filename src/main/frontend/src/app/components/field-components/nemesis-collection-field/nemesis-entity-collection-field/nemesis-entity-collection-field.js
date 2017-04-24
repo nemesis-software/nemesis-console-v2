@@ -9,7 +9,6 @@ import 'react-select/dist/react-select.css';
 export default class NemesisEntityCollectionField extends NemesisBaseCollectionField {
   constructor(props) {
     super(props);
-    this.state = {...this.state, searchText: '', dataSource: []};
   }
 
   getInputField() {
@@ -36,14 +35,14 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   onItemSelect(item) {
     let valueActual = this.state.value || [];
     valueActual.push(item.value);
-    this.setState({...this.state, isDirty: true, value: valueActual, searchText: ''});
+    this.setState({...this.state, isDirty: true, value: valueActual});
   }
 
   getSearchUrl() {
     let urlSuffix = '/search/findByCodeIsStartingWithIgnoreCase/';
     return `${this.props.entityId}${urlSuffix}`;
   }
-  
+
   mapDataSource(item) {
     return {
       value: item,

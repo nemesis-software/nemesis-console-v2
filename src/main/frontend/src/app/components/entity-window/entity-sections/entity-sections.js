@@ -3,10 +3,9 @@ import React, { Component } from 'react';
 import Translate from 'react-translate-component';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
 import SwipeableViews from 'react-swipeable-views';
+import Modal from 'react-bootstrap/lib/Modal';
 
 import _ from 'lodash';
 
@@ -128,46 +127,35 @@ export default class EntitySections extends Component {
   }
 
   getDeleteConfirmationDialog() {
-    const actions = [
-      <FlatButton
-        label="No"
-        primary={true}
-        onTouchTap={this.handleCloseDeleteConfirmation.bind(this)}
-      />,
-      <FlatButton
-        label="Yes"
-        primary={true}
-        onTouchTap={this.handleConfirmationDeleteButtonClick.bind(this)}
-      />,
-    ];
     return (
-      <Dialog
-        title="Delete Entity"
-        actions={actions}
-        modal={true}
-        open={this.state.openDeleteConfirmation}
-      >
+    <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseErrorDialog.bind(this)}>
+      <Modal.Header>
+        <Modal.Title>Delete Entity</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
         <div>Are you sure you want to delete it?</div>
-      </Dialog>
+      </Modal.Body>
+      <Modal.Footer>
+        <button className="btn btn-info" onClick={this.handleCloseDeleteConfirmation.bind(this)}>No</button>
+        <button className="btn btn-primary" onClick={this.handleConfirmationDeleteButtonClick.bind(this)}>Yes</button>
+      </Modal.Footer>
+    </Modal>
     );
   }
 
   getErrorDialog() {
-    const actions = [
-      <FlatButton
-        label="ok"
-        onTouchTap={this.handleCloseErrorDialog.bind(this)}
-      />,
-    ];
     return (
-      <Dialog
-        title="Something went wrong!"
-        actions={actions}
-        modal={true}
-        open={this.state.openErrorDialog}
-      >
-        <div style={{color: 'red'}}>{this.state.errorMessage}</div>
-      </Dialog>
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Something went wrong!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-default" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 
