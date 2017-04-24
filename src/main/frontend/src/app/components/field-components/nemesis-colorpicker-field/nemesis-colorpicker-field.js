@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
 import { ChromePicker } from 'react-color';
@@ -23,13 +22,14 @@ export default class NemesisColorpickerField extends NemesisBaseField {
 
     return (
     <div className="entity-field-container">
-      <TextField className="entity-field" style={this.props.style}
-                 value={this.state.value || ''}
-                 disabled={this.props.readOnly}
-                 errorText={this.state.errorMessage}
-                 onChange={this.onValueChange.bind(this)}
-                 floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                 />
+      <div style={{width: '256px', display: 'inline-block'}}>
+        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+        <input type="text"
+               className="entity-field form-control"
+               value={this.state.value || ''}
+               disabled={this.props.readOnly}
+               onChange={(e) => this.onValueChange(e, e.target.value)} />
+      </div>
       <i className="material-icons entity-navigation-icon" onClick={this.handleClick.bind(this)}>color_lens</i>
       <Dialog
         title="Select Color"

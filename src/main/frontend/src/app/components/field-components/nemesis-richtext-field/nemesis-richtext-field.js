@@ -1,5 +1,4 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
 import FlatButton from 'material-ui/FlatButton';
