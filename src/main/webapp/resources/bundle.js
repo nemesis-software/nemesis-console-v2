@@ -69694,10 +69694,6 @@
 
 	var _nemesisBaseCollectionField2 = _interopRequireDefault(_nemesisBaseCollectionField);
 
-	var _TextField = __webpack_require__(470);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
 	var _reactTranslateComponent = __webpack_require__(188);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
@@ -69722,11 +69718,15 @@
 	  _createClass(NemesisSimpleCollectionField, [{
 	    key: 'getInputField',
 	    value: function getInputField() {
-	      return _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	        disabled: this.props.readOnly,
-	        errorText: this.state.errorMessage,
-	        floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	        onKeyPress: this.onInputKeyPress.bind(this) });
+	      return _react2.default.createElement(
+	        'div',
+	        { style: { width: '256px', display: 'inline-block' } },
+	        _react2.default.createElement(_reactTranslateComponent2.default, { component: 'label', content: 'main.' + this.props.label, fallback: this.props.label }),
+	        _react2.default.createElement('input', { type: 'text',
+	          className: 'entity-field form-control',
+	          disabled: this.props.readOnly,
+	          onKeyPress: this.onInputKeyPress.bind(this) })
+	      );
 	    }
 	  }, {
 	    key: 'onInputKeyPress',
@@ -69734,6 +69734,7 @@
 	      if (e.key === 'Enter') {
 	        var valueActual = this.state.value || [];
 	        valueActual.push(e.target.value);
+	        e.target.value = null;
 	        this.setState(_extends({}, this.state, { isDirty: true, value: valueActual }));
 	      }
 	    }

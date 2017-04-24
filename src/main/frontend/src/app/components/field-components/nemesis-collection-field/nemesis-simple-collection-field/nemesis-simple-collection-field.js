@@ -1,6 +1,5 @@
 import React from 'react';
 import NemesisBaseCollectionField from '../nemesis-base-collection-field';
-import TextField from 'material-ui/TextField';
 import Translate from 'react-translate-component';
 
 export default class NemesisSimpleCollectionField extends NemesisBaseCollectionField {
@@ -10,11 +9,13 @@ export default class NemesisSimpleCollectionField extends NemesisBaseCollectionF
 
   getInputField() {
     return (
-      <TextField style={this.props.style}
-                 disabled={this.props.readOnly}
-                 errorText={this.state.errorMessage}
-                 floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                 onKeyPress={this.onInputKeyPress.bind(this)}/>
+      <div style={{width: '256px', display: 'inline-block'}}>
+        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+        <input type="text"
+               className="entity-field form-control"
+               disabled={this.props.readOnly}
+               onKeyPress={this.onInputKeyPress.bind(this)} />
+      </div>
     )
   }
 
@@ -22,6 +23,7 @@ export default class NemesisSimpleCollectionField extends NemesisBaseCollectionF
     if (e.key === 'Enter') {
       let valueActual = this.state.value || [];
       valueActual.push(e.target.value);
+      e.target.value = null;
       this.setState({...this.state, isDirty: true, value: valueActual});
     }
   }
