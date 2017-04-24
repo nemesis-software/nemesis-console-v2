@@ -103118,10 +103118,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TextField = __webpack_require__(470);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
 	var _reactTranslateComponent = __webpack_require__(188);
 
 	var _reactTranslateComponent2 = _interopRequireDefault(_reactTranslateComponent);
@@ -103170,6 +103166,8 @@
 	  _createClass(NemesisTextAreaField, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var actions = [_react2.default.createElement(_FlatButton2.default, {
 	        label: 'Done',
 	        primary: true,
@@ -103177,15 +103175,22 @@
 	      })];
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        _react2.default.createElement(_TextField2.default, { style: this.props.style,
-	          value: this.state.value || '',
-	          disabled: this.props.readOnly,
-	          floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	          onChange: this.onValueChange.bind(this) }),
+	        { className: 'entity-field-container' },
+	        _react2.default.createElement(
+	          'div',
+	          { style: { width: '256px', display: 'inline-block' } },
+	          _react2.default.createElement(_reactTranslateComponent2.default, { component: 'label', content: 'main.' + this.props.label, fallback: this.props.label }),
+	          _react2.default.createElement('input', { type: 'text',
+	            className: 'entity-field form-control',
+	            value: this.state.value || '',
+	            disabled: this.props.readOnly,
+	            onChange: function onChange(e) {
+	              return _this2.onValueChange(e, e.target.value);
+	            } })
+	        ),
 	        _react2.default.createElement(
 	          'i',
-	          { className: 'material-icons', onClick: this.handleFullscreenClick.bind(this) },
+	          { className: 'material-icons entity-navigation-icon', onClick: this.handleFullscreenClick.bind(this) },
 	          'fullscreen'
 	        ),
 	        _react2.default.createElement(
@@ -103196,14 +103201,14 @@
 	            modal: true,
 	            open: this.state.openFullScreenDialog
 	          },
-	          _react2.default.createElement(_TextField2.default, { style: { width: '100%' },
+	          _react2.default.createElement(_reactTranslateComponent2.default, { component: 'label', content: 'main.' + this.props.label, fallback: this.props.label }),
+	          _react2.default.createElement('textarea', { className: 'entity-field form-control',
+	            rows: '10',
 	            value: this.state.value || '',
 	            disabled: this.props.readOnly,
-	            multiLine: true,
-	            rows: 10,
-	            rowsMax: 10,
-	            floatingLabelText: _react2.default.createElement(_reactTranslateComponent2.default, { content: 'main.' + this.props.label, fallback: this.props.label }),
-	            onChange: this.onValueChange.bind(this) })
+	            onChange: function onChange(e) {
+	              return _this2.onValueChange(e, e.target.value);
+	            } })
 	        )
 	      );
 	    }
