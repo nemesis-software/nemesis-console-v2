@@ -30,21 +30,21 @@ export default class MainView extends Component {
     }).then(this.parseUrlEntity.bind(this))
   }
 
-  componentWillReceiveProps(nextProps) {
+  openNewEntity(entity) {
     let selectedEntity = {};
-    if (nextProps.selectedEntity.isNew) {
+    if (entity.isNew) {
       selectedEntity = {
-        entityId: nextProps.selectedEntity.entityId,
-        data: this.state.entityMarkupData[nextProps.selectedEntity.entityName],
+        entityId: entity.entityId,
+        data: this.state.entityMarkupData[entity.entityName],
         type: entityCreateType,
         itemId: this.createWindowIncrementor,
-        entityName: nextProps.selectedEntity.entityName
+        entityName: entity.entityName
       };
       this.createWindowIncrementor++;
     } else {
       selectedEntity = {
-        entityId: nextProps.selectedEntity.entityId,
-        data: this.state.markupData[nextProps.selectedEntity.entityId],
+        entityId: entity.entityId,
+        data: this.state.markupData[entity.entityId],
         type: entitySearchType,
         itemId: null
       };
@@ -154,7 +154,7 @@ export default class MainView extends Component {
 
   render() {
     return (
-      <div style={styles}>
+      <div>
         <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)} entities={this.state.openedEntities} />
         {this.renderOpenedEntities()}
         <Snackbar

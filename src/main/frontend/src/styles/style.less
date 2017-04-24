@@ -96,6 +96,12 @@
   overflow-y: scroll;
   background: @default-color;
   color: white;
+  transition: left .5s ease-in;
+
+  &.hidden-tree {
+    left: -300px;
+    transition: left .5s ease-out;
+  }
 }
 
 .input-group {
@@ -106,6 +112,24 @@
 
 .modal {
   z-index: 1000000!important;
+}
+
+.main-view-wrapper {
+  padding-top: 70px;
+  padding-left: 300px;
+  transition: padding-left  .5s ease-in;
+
+  &.full-view {
+    padding-left: 0;
+    transition: padding-left .5s ease-out;
+  }
+}
+
+.sidebar-icon {
+  float: left;
+  color: white;
+  padding: 13px 8px;
+  cursor: pointer;
 }
 
 

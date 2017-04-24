@@ -21530,10 +21530,6 @@
 
 	var _counterpart2 = _interopRequireDefault(_counterpart);
 
-	var _AppBar = __webpack_require__(1000);
-
-	var _AppBar2 = _interopRequireDefault(_AppBar);
-
 	var _FlatButton = __webpack_require__(358);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
@@ -21576,49 +21572,86 @@
 
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-	    _this.state = { selectedEntity: null };
+	    _this.mainViewRef = null;
+	    _this.state = { isNavigationTreeOpened: true };
 	    return _this;
 	  }
 
 	  _createClass(App, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        _MuiThemeProvider2.default,
 	        null,
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement(_AppBar2.default, { style: { position: 'fixed' }, title: 'Nemesis Console', iconElementRight: _react2.default.createElement(
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar navbar-fixed-top', style: { background: '#00bcd4' } },
+	            _react2.default.createElement(
+	              'i',
+	              { className: 'material-icons sidebar-icon', onClick: function onClick() {
+	                  return _this2.setState({ isNavigationTreeOpened: !_this2.state.isNavigationTreeOpened });
+	                } },
+	              'menu'
+	            ),
+	            _react2.default.createElement(
 	              'div',
-	              null,
-	              _react2.default.createElement(LanguageChanger, {
-	                labelStyle: { color: 'white' },
-	                onLanguageChange: function onLanguageChange(language) {
-	                  return _counterpart2.default.setLocale(language);
-	                },
-	                availableLanguages: translationLanguages.languages,
-	                selectedLanguage: translationLanguages.defaultLanguage
-	              }),
+	              { className: 'navbar-header' },
 	              _react2.default.createElement(
-	                'div',
-	                { style: { display: 'inline-block', verticalAlign: 'top', margin: '5px 15px' } },
+	                'a',
+	                { className: 'navbar-brand' },
+	                'Nemesis Console'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'nav navbar-nav navbar-right' },
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(LanguageChanger, {
+	                  labelStyle: { color: 'white' },
+	                  onLanguageChange: function onLanguageChange(language) {
+	                    return _counterpart2.default.setLocale(language);
+	                  },
+	                  availableLanguages: translationLanguages.languages,
+	                  selectedLanguage: translationLanguages.defaultLanguage
+	                })
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
 	                _react2.default.createElement(_FlatButton2.default, {
 	                  style: { color: 'white' },
 	                  label: _react2.default.createElement(_reactTranslateComponent2.default, { component: 'span', content: 'main.Logout', fallback: 'Logout' }),
 	                  onTouchTap: this.handleLogoutButtonClick.bind(this)
 	                })
 	              )
-	            ), iconStyleLeft: { display: 'none' } }),
-	          _react2.default.createElement(NavigationTree, { onEntityClick: this.onEntityClick.bind(this) }),
-	          _react2.default.createElement(MainView, { selectedEntity: this.state.selectedEntity })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: this.state.isNavigationTreeOpened ? 'navigation-tree' : 'navigation-tree hidden-tree' },
+	            _react2.default.createElement(NavigationTree, { onEntityClick: this.onEntityClick.bind(this) })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: this.state.isNavigationTreeOpened ? 'main-view-wrapper' : 'main-view-wrapper full-view' },
+	            _react2.default.createElement(MainView, { ref: function ref(el) {
+	                console.log(el);_this2.mainViewRef = el;
+	              } })
+	          )
 	        )
 	      );
 	    }
 	  }, {
 	    key: 'onEntityClick',
 	    value: function onEntityClick(entity) {
-	      this.setState({ selectedEntity: entity });
+	      this.mainViewRef.openNewEntity(entity);
 	    }
 	  }, {
 	    key: 'handleLogoutButtonClick',
@@ -52518,20 +52551,20 @@
 	  }
 
 	  _createClass(CustomMainView, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (nextProps.selectedEntity.entityId === 'Nemesis') {
+	    key: 'openNewEntity',
+	    value: function openNewEntity(entity) {
+	      if (entity.entityId === 'Nemesis') {
 	        var selectedEntity = {
 	          type: 'iframe',
 	          url: 'http://nemesis.io',
-	          entityCode: nextProps.selectedEntity.entityId,
+	          entityCode: entity.entityId,
 	          entityId: 'iframe',
 	          itemId: null
 	        };
 	        this.setSelectedItemInState(selectedEntity);
 	        return;
 	      }
-	      _get(CustomMainView.prototype.__proto__ || Object.getPrototypeOf(CustomMainView.prototype), 'componentWillReceiveProps', this).call(this, nextProps);
+	      _get(CustomMainView.prototype.__proto__ || Object.getPrototypeOf(CustomMainView.prototype), 'openNewEntity', this).call(this, entity);
 	    }
 	  }]);
 
@@ -52614,22 +52647,22 @@
 	      }).then(this.parseUrlEntity.bind(this));
 	    }
 	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
+	    key: 'openNewEntity',
+	    value: function openNewEntity(entity) {
 	      var selectedEntity = {};
-	      if (nextProps.selectedEntity.isNew) {
+	      if (entity.isNew) {
 	        selectedEntity = {
-	          entityId: nextProps.selectedEntity.entityId,
-	          data: this.state.entityMarkupData[nextProps.selectedEntity.entityName],
+	          entityId: entity.entityId,
+	          data: this.state.entityMarkupData[entity.entityName],
 	          type: _entityTypes.entityCreateType,
 	          itemId: this.createWindowIncrementor,
-	          entityName: nextProps.selectedEntity.entityName
+	          entityName: entity.entityName
 	        };
 	        this.createWindowIncrementor++;
 	      } else {
 	        selectedEntity = {
-	          entityId: nextProps.selectedEntity.entityId,
-	          data: this.state.markupData[nextProps.selectedEntity.entityId],
+	          entityId: entity.entityId,
+	          data: this.state.markupData[entity.entityId],
 	          type: _entityTypes.entitySearchType,
 	          itemId: null
 	        };
@@ -52748,7 +52781,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { style: styles },
+	        null,
 	        _react2.default.createElement(EntitiesNavigation, { onNavigationItemClick: this.onNavigationItemClick.bind(this), onEntityWindowClose: this.onEntityWindowClose.bind(this), entities: this.state.openedEntities }),
 	        this.renderOpenedEntities(),
 	        _react2.default.createElement(_Snackbar2.default, {
@@ -53752,7 +53785,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'navigation-tree' },
+	        null,
 	        _react2.default.createElement(NavigationFilter, { onFilterChange: this.onFilterChange.bind(this), data: this.state.treeData }),
 	        this.state.filteredData.map(function (item, index) {
 	          return _react2.default.createElement(
@@ -62556,589 +62589,10 @@
 /* 491 */,
 /* 492 */,
 /* 493 */,
-/* 494 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _IconButton = __webpack_require__(495);
-
-	var _IconButton2 = _interopRequireDefault(_IconButton);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _IconButton2.default;
-
-/***/ },
-/* 495 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends2 = __webpack_require__(203);
-
-	var _extends3 = _interopRequireDefault(_extends2);
-
-	var _objectWithoutProperties2 = __webpack_require__(241);
-
-	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-	var _getPrototypeOf = __webpack_require__(242);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(247);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(248);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(252);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(287);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	var _simpleAssign = __webpack_require__(295);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _transitions = __webpack_require__(297);
-
-	var _transitions2 = _interopRequireDefault(_transitions);
-
-	var _propTypes = __webpack_require__(296);
-
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-
-	var _EnhancedButton = __webpack_require__(305);
-
-	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
-
-	var _FontIcon = __webpack_require__(496);
-
-	var _FontIcon2 = _interopRequireDefault(_FontIcon);
-
-	var _Tooltip = __webpack_require__(454);
-
-	var _Tooltip2 = _interopRequireDefault(_Tooltip);
-
-	var _childUtils = __webpack_require__(302);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getStyles(props, context) {
-	  var baseTheme = context.muiTheme.baseTheme;
-
-
-	  return {
-	    root: {
-	      position: 'relative',
-	      boxSizing: 'border-box',
-	      overflow: 'visible',
-	      transition: _transitions2.default.easeOut(),
-	      padding: baseTheme.spacing.iconSize / 2,
-	      width: baseTheme.spacing.iconSize * 2,
-	      height: baseTheme.spacing.iconSize * 2,
-	      fontSize: 0
-	    },
-	    tooltip: {
-	      boxSizing: 'border-box'
-	    },
-	    overlay: {
-	      position: 'relative',
-	      top: 0,
-	      width: '100%',
-	      height: '100%',
-	      background: baseTheme.palette.disabledColor
-	    },
-	    disabled: {
-	      color: baseTheme.palette.disabledColor,
-	      fill: baseTheme.palette.disabledColor,
-	      cursor: 'not-allowed'
-	    }
-	  };
-	}
-
-	var IconButton = function (_Component) {
-	  (0, _inherits3.default)(IconButton, _Component);
-
-	  function IconButton() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
-	    (0, _classCallCheck3.default)(this, IconButton);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = IconButton.__proto__ || (0, _getPrototypeOf2.default)(IconButton)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-	      hovered: false,
-	      isKeyboardFocused: false,
-	      // Not to be confonded with the touch property.
-	      // This state is to determined if it's a mobile device.
-	      touch: false,
-	      tooltipShown: false
-	    }, _this.handleBlur = function (event) {
-	      _this.hideTooltip();
-	      if (_this.props.onBlur) {
-	        _this.props.onBlur(event);
-	      }
-	    }, _this.handleFocus = function (event) {
-	      _this.showTooltip();
-	      if (_this.props.onFocus) {
-	        _this.props.onFocus(event);
-	      }
-	    }, _this.handleMouseLeave = function (event) {
-	      if (!_this.button.isKeyboardFocused()) {
-	        _this.hideTooltip();
-	      }
-	      _this.setState({ hovered: false });
-	      if (_this.props.onMouseLeave) {
-	        _this.props.onMouseLeave(event);
-	      }
-	    }, _this.handleMouseOut = function (event) {
-	      if (_this.props.disabled) _this.hideTooltip();
-	      if (_this.props.onMouseOut) _this.props.onMouseOut(event);
-	    }, _this.handleMouseEnter = function (event) {
-	      _this.showTooltip();
-
-	      // Cancel hover styles for touch devices
-	      if (!_this.state.touch) {
-	        _this.setState({ hovered: true });
-	      }
-	      if (_this.props.onMouseEnter) {
-	        _this.props.onMouseEnter(event);
-	      }
-	    }, _this.handleTouchStart = function (event) {
-	      _this.setState({ touch: true });
-	      _this.props.onTouchStart(event);
-	    }, _this.handleKeyboardFocus = function (event, isKeyboardFocused) {
-	      var _this$props = _this.props,
-	          disabled = _this$props.disabled,
-	          onFocus = _this$props.onFocus,
-	          onBlur = _this$props.onBlur,
-	          onKeyboardFocus = _this$props.onKeyboardFocus;
-
-	      if (isKeyboardFocused && !disabled) {
-	        _this.showTooltip();
-	        if (onFocus) {
-	          onFocus(event);
-	        }
-	      } else {
-	        _this.hideTooltip();
-	        if (onBlur) {
-	          onBlur(event);
-	        }
-	      }
-
-	      _this.setState({ isKeyboardFocused: isKeyboardFocused });
-	      if (onKeyboardFocus) {
-	        onKeyboardFocus(event, isKeyboardFocused);
-	      }
-	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-	  }
-
-	  (0, _createClass3.default)(IconButton, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (nextProps.disabled) {
-	        this.setState({ hovered: false });
-	      }
-	    }
-	  }, {
-	    key: 'setKeyboardFocus',
-	    value: function setKeyboardFocus() {
-	      this.button.setKeyboardFocus();
-	    }
-	  }, {
-	    key: 'showTooltip',
-	    value: function showTooltip() {
-	      if (this.props.tooltip) {
-	        this.setState({ tooltipShown: true });
-	      }
-	    }
-	  }, {
-	    key: 'hideTooltip',
-	    value: function hideTooltip() {
-	      if (this.props.tooltip) this.setState({ tooltipShown: false });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var _props = this.props,
-	          disabled = _props.disabled,
-	          hoveredStyle = _props.hoveredStyle,
-	          disableTouchRipple = _props.disableTouchRipple,
-	          children = _props.children,
-	          iconClassName = _props.iconClassName,
-	          style = _props.style,
-	          tooltip = _props.tooltip,
-	          tooltipPositionProp = _props.tooltipPosition,
-	          tooltipStyles = _props.tooltipStyles,
-	          touch = _props.touch,
-	          iconStyle = _props.iconStyle,
-	          other = (0, _objectWithoutProperties3.default)(_props, ['disabled', 'hoveredStyle', 'disableTouchRipple', 'children', 'iconClassName', 'style', 'tooltip', 'tooltipPosition', 'tooltipStyles', 'touch', 'iconStyle']);
-
-	      var fonticon = void 0;
-
-	      var styles = getStyles(this.props, this.context);
-	      var tooltipPosition = tooltipPositionProp.split('-');
-
-	      var hovered = (this.state.hovered || this.state.isKeyboardFocused) && !disabled;
-
-	      var mergedRootStyles = (0, _simpleAssign2.default)(styles.root, hovered ? hoveredStyle : {}, style);
-
-	      var tooltipElement = tooltip ? _react2.default.createElement(_Tooltip2.default, {
-	        label: tooltip,
-	        show: this.state.tooltipShown,
-	        touch: touch,
-	        style: (0, _simpleAssign2.default)(styles.tooltip, tooltipStyles),
-	        verticalPosition: tooltipPosition[0],
-	        horizontalPosition: tooltipPosition[1]
-	      }) : null;
-
-	      if (iconClassName) {
-	        var iconHoverColor = iconStyle.iconHoverColor,
-	            iconStyleFontIcon = (0, _objectWithoutProperties3.default)(iconStyle, ['iconHoverColor']);
-
-
-	        fonticon = _react2.default.createElement(
-	          _FontIcon2.default,
-	          {
-	            className: iconClassName,
-	            hoverColor: disabled ? null : iconHoverColor,
-	            style: (0, _simpleAssign2.default)({}, disabled && styles.disabled, iconStyleFontIcon),
-	            color: this.context.muiTheme.baseTheme.palette.textColor
-	          },
-	          children
-	        );
-	      }
-
-	      var childrenStyle = disabled ? (0, _simpleAssign2.default)({}, iconStyle, styles.disabled) : iconStyle;
-
-	      return _react2.default.createElement(
-	        _EnhancedButton2.default,
-	        (0, _extends3.default)({
-	          ref: function ref(_ref2) {
-	            return _this2.button = _ref2;
-	          }
-	        }, other, {
-	          centerRipple: true,
-	          disabled: disabled,
-	          onTouchStart: this.handleTouchStart,
-	          style: mergedRootStyles,
-	          disableTouchRipple: disableTouchRipple,
-	          onBlur: this.handleBlur,
-	          onFocus: this.handleFocus,
-	          onMouseLeave: this.handleMouseLeave,
-	          onMouseEnter: this.handleMouseEnter,
-	          onMouseOut: this.handleMouseOut,
-	          onKeyboardFocus: this.handleKeyboardFocus
-	        }),
-	        tooltipElement,
-	        fonticon,
-	        (0, _childUtils.extendChildren)(children, {
-	          style: childrenStyle
-	        })
-	      );
-	    }
-	  }]);
-	  return IconButton;
-	}(_react.Component);
-
-	IconButton.muiName = 'IconButton';
-	IconButton.defaultProps = {
-	  disabled: false,
-	  disableTouchRipple: false,
-	  iconStyle: {},
-	  tooltipPosition: 'bottom-center',
-	  touch: false
-	};
-	IconButton.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	process.env.NODE_ENV !== "production" ? IconButton.propTypes = {
-	  /**
-	   * Can be used to pass a `FontIcon` element as the icon for the button.
-	   */
-	  children: _react.PropTypes.node,
-	  /**
-	   * The CSS class name of the root element.
-	   */
-	  className: _react.PropTypes.string,
-	  /**
-	   * If true, the element's ripple effect will be disabled.
-	   */
-	  disableTouchRipple: _react.PropTypes.bool,
-	  /**
-	   * If true, the element will be disabled.
-	   */
-	  disabled: _react.PropTypes.bool,
-	  /**
-	   * Override the inline-styles of the root element when the component is hovered.
-	   */
-	  hoveredStyle: _react.PropTypes.object,
-	  /**
-	   * The URL to link to when the button is clicked.
-	   */
-	  href: _react.PropTypes.string,
-	  /**
-	   * The CSS class name of the icon. Used for setting the icon with a stylesheet.
-	   */
-	  iconClassName: _react.PropTypes.string,
-	  /**
-	   * Override the inline-styles of the icon element.
-	   * Note: you can specify iconHoverColor as a String inside this object.
-	   */
-	  iconStyle: _react.PropTypes.object,
-	  /** @ignore */
-	  onBlur: _react.PropTypes.func,
-	  /** @ignore */
-	  onFocus: _react.PropTypes.func,
-	  /**
-	   * Callback function fired when the element is focused or blurred by the keyboard.
-	   *
-	   * @param {object} event `focus` or `blur` event targeting the element.
-	   * @param {boolean} keyboardFocused Indicates whether the element is focused.
-	   */
-	  onKeyboardFocus: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseEnter: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseLeave: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseOut: _react.PropTypes.func,
-	  /** @ignore */
-	  onTouchStart: _react.PropTypes.func,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object,
-	  /**
-	   * The text to supply to the element's tooltip.
-	   */
-	  tooltip: _react.PropTypes.node,
-	  /**
-	   * The vertical and horizontal positions, respectively, of the element's tooltip.
-	   * Possible values are: "bottom-center", "top-center", "bottom-right", "top-right",
-	   * "bottom-left", and "top-left".
-	   */
-	  tooltipPosition: _propTypes2.default.cornersAndCenter,
-	  /**
-	   * Override the inline-styles of the tooltip element.
-	   */
-	  tooltipStyles: _react.PropTypes.object,
-	  /**
-	   * If true, increase the tooltip element's size. Useful for increasing tooltip
-	   * readability on mobile devices.
-	   */
-	  touch: _react.PropTypes.bool
-	} : void 0;
-	exports.default = IconButton;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 496 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _FontIcon = __webpack_require__(497);
-
-	var _FontIcon2 = _interopRequireDefault(_FontIcon);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _FontIcon2.default;
-
-/***/ },
-/* 497 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends2 = __webpack_require__(203);
-
-	var _extends3 = _interopRequireDefault(_extends2);
-
-	var _objectWithoutProperties2 = __webpack_require__(241);
-
-	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-	var _getPrototypeOf = __webpack_require__(242);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(247);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(248);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(252);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(287);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	var _simpleAssign = __webpack_require__(295);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _transitions = __webpack_require__(297);
-
-	var _transitions2 = _interopRequireDefault(_transitions);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getStyles(props, context, state) {
-	  var color = props.color,
-	      hoverColor = props.hoverColor;
-	  var baseTheme = context.muiTheme.baseTheme;
-
-	  var offColor = color || baseTheme.palette.textColor;
-	  var onColor = hoverColor || offColor;
-
-	  return {
-	    root: {
-	      color: state.hovered ? onColor : offColor,
-	      position: 'relative',
-	      fontSize: baseTheme.spacing.iconSize,
-	      display: 'inline-block',
-	      userSelect: 'none',
-	      transition: _transitions2.default.easeOut()
-	    }
-	  };
-	}
-
-	var FontIcon = function (_Component) {
-	  (0, _inherits3.default)(FontIcon, _Component);
-
-	  function FontIcon() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
-	    (0, _classCallCheck3.default)(this, FontIcon);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = FontIcon.__proto__ || (0, _getPrototypeOf2.default)(FontIcon)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-	      hovered: false
-	    }, _this.handleMouseLeave = function (event) {
-	      // hover is needed only when a hoverColor is defined
-	      if (_this.props.hoverColor !== undefined) {
-	        _this.setState({ hovered: false });
-	      }
-	      if (_this.props.onMouseLeave) {
-	        _this.props.onMouseLeave(event);
-	      }
-	    }, _this.handleMouseEnter = function (event) {
-	      // hover is needed only when a hoverColor is defined
-	      if (_this.props.hoverColor !== undefined) {
-	        _this.setState({ hovered: true });
-	      }
-	      if (_this.props.onMouseEnter) {
-	        _this.props.onMouseEnter(event);
-	      }
-	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-	  }
-
-	  (0, _createClass3.default)(FontIcon, [{
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props,
-	          hoverColor = _props.hoverColor,
-	          onMouseLeave = _props.onMouseLeave,
-	          onMouseEnter = _props.onMouseEnter,
-	          style = _props.style,
-	          other = (0, _objectWithoutProperties3.default)(_props, ['hoverColor', 'onMouseLeave', 'onMouseEnter', 'style']);
-	      var prepareStyles = this.context.muiTheme.prepareStyles;
-
-	      var styles = getStyles(this.props, this.context, this.state);
-
-	      return _react2.default.createElement('span', (0, _extends3.default)({}, other, {
-	        onMouseLeave: this.handleMouseLeave,
-	        onMouseEnter: this.handleMouseEnter,
-	        style: prepareStyles((0, _simpleAssign2.default)(styles.root, style))
-	      }));
-	    }
-	  }]);
-	  return FontIcon;
-	}(_react.Component);
-
-	FontIcon.muiName = 'FontIcon';
-	FontIcon.defaultProps = {
-	  onMouseEnter: function onMouseEnter() {},
-	  onMouseLeave: function onMouseLeave() {}
-	};
-	FontIcon.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	process.env.NODE_ENV !== "production" ? FontIcon.propTypes = {
-	  /**
-	   * This is the font color of the font icon. If not specified,
-	   * this component will default to muiTheme.palette.textColor.
-	   */
-	  color: _react.PropTypes.string,
-	  /**
-	   * This is the icon color when the mouse hovers over the icon.
-	   */
-	  hoverColor: _react.PropTypes.string,
-	  /** @ignore */
-	  onMouseEnter: _react.PropTypes.func,
-	  /** @ignore */
-	  onMouseLeave: _react.PropTypes.func,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object
-	} : void 0;
-	exports.default = FontIcon;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
+/* 494 */,
+/* 495 */,
+/* 496 */,
+/* 497 */,
 /* 498 */,
 /* 499 */,
 /* 500 */,
@@ -99090,7 +98544,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\n  font-family: Roboto, sans-serif;\n}\n.filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-navigation .navigation-item-container .entity-navigation-item.selected {\n  color: #dcff41;\n  font-weight: bold;\n}\n.selected-navigation-menu-item {\n  color: #00bcd4;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 20px;\n}\n.collection-container .chip {\n  display: table;\n  padding: 10px 15px;\n  font-size: 14px;\n  border-radius: 25px;\n  background-color: #f1f1f1;\n  margin: 3px;\n}\n.collection-container .chip .chip-item {\n  display: table-cell;\n  vertical-align: top;\n}\n.collection-container .chip .material-icons {\n  cursor: pointer;\n  font-size: 20px;\n  padding-left: 10px;\n  color: #888;\n  font-weight: bold;\n}\n.collection-container .chip .material-icons:hover {\n  color: #000;\n}\n.navigation-tree {\n  position: fixed;\n  width: 300px;\n  left: 0;\n  top: 68px;\n  height: calc(100vh - 68px);\n  overflow-y: scroll;\n  background: #00bcd4;\n  color: white;\n}\n.input-group .form-control {\n  z-index: unset!important;\n}\n.modal {\n  z-index: 1000000!important;\n}\n", ""]);
+	exports.push([module.id, "* {\n  font-family: Roboto, sans-serif;\n}\n.filter-item-container {\n  padding-bottom: 5px;\n}\n.filter-item-container.boolean-field-container {\n  padding-top: 44px;\n}\n.entity-navigation {\n  background-color: #00bcd4;\n  display: flex;\n  flex-wrap: nowrap !important;\n  overflow-x: auto;\n  height: 50px;\n  margin: 0 0 2px 0 !important;\n  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;\n}\n.entity-navigation .navigation-item-container {\n  background-color: #00bcd4;\n  color: white;\n}\n.entity-navigation .navigation-item-container .entity-navigation-item.selected {\n  color: #dcff41;\n  font-weight: bold;\n}\n.selected-navigation-menu-item {\n  color: #00bcd4;\n}\n.entity-field-container {\n  display: inline-block;\n  margin-right: 20px;\n  vertical-align: top;\n}\n.entity-field-container .entity-field {\n  vertical-align: top;\n}\n.entity-field-container .entity-navigation-icon {\n  vertical-align: top;\n  padding: 30px 10px;\n  cursor: pointer;\n}\n.collection-container {\n  display: flex;\n  flex-wrap: wrap;\n  margin-top: 20px;\n}\n.collection-container .chip {\n  display: table;\n  padding: 10px 15px;\n  font-size: 14px;\n  border-radius: 25px;\n  background-color: #f1f1f1;\n  margin: 3px;\n}\n.collection-container .chip .chip-item {\n  display: table-cell;\n  vertical-align: top;\n}\n.collection-container .chip .material-icons {\n  cursor: pointer;\n  font-size: 20px;\n  padding-left: 10px;\n  color: #888;\n  font-weight: bold;\n}\n.collection-container .chip .material-icons:hover {\n  color: #000;\n}\n.navigation-tree {\n  position: fixed;\n  width: 300px;\n  left: 0;\n  top: 68px;\n  height: calc(100vh - 68px);\n  overflow-y: scroll;\n  background: #00bcd4;\n  color: white;\n  transition: left 0.5s ease-in;\n}\n.navigation-tree.hidden-tree {\n  left: -300px;\n  transition: left 0.5s ease-out;\n}\n.input-group .form-control {\n  z-index: unset!important;\n}\n.modal {\n  z-index: 1000000!important;\n}\n.main-view-wrapper {\n  padding-top: 70px;\n  padding-left: 300px;\n  transition: padding-left 0.5s ease-in;\n}\n.main-view-wrapper.full-view {\n  padding-left: 0;\n  transition: padding-left 0.5s ease-out;\n}\n.sidebar-icon {\n  float: left;\n  color: white;\n  padding: 13px 8px;\n  cursor: pointer;\n}\n", ""]);
 
 	// exports
 
@@ -104939,448 +104393,9 @@
 	module.exports = keyOf;
 
 /***/ },
-/* 1000 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _AppBar = __webpack_require__(1001);
-
-	var _AppBar2 = _interopRequireDefault(_AppBar);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _AppBar2.default;
-
-/***/ },
-/* 1001 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends2 = __webpack_require__(203);
-
-	var _extends3 = _interopRequireDefault(_extends2);
-
-	var _keys = __webpack_require__(989);
-
-	var _keys2 = _interopRequireDefault(_keys);
-
-	var _objectWithoutProperties2 = __webpack_require__(241);
-
-	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-	var _getPrototypeOf = __webpack_require__(242);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(247);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(248);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(252);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(287);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	exports.getStyles = getStyles;
-
-	var _simpleAssign = __webpack_require__(295);
-
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _IconButton = __webpack_require__(494);
-
-	var _IconButton2 = _interopRequireDefault(_IconButton);
-
-	var _menu = __webpack_require__(1002);
-
-	var _menu2 = _interopRequireDefault(_menu);
-
-	var _Paper = __webpack_require__(201);
-
-	var _Paper2 = _interopRequireDefault(_Paper);
-
-	var _propTypes = __webpack_require__(296);
-
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-
-	var _warning = __webpack_require__(355);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getStyles(props, context) {
-	  var _context$muiTheme = context.muiTheme,
-	      appBar = _context$muiTheme.appBar,
-	      iconButtonSize = _context$muiTheme.button.iconButtonSize,
-	      zIndex = _context$muiTheme.zIndex;
-
-
-	  var flatButtonSize = 36;
-
-	  var styles = {
-	    root: {
-	      position: 'relative',
-	      zIndex: zIndex.appBar,
-	      width: '100%',
-	      display: 'flex',
-	      backgroundColor: appBar.color,
-	      paddingLeft: appBar.padding,
-	      paddingRight: appBar.padding
-	    },
-	    title: {
-	      whiteSpace: 'nowrap',
-	      overflow: 'hidden',
-	      textOverflow: 'ellipsis',
-	      margin: 0,
-	      paddingTop: 0,
-	      letterSpacing: 0,
-	      fontSize: 24,
-	      fontWeight: appBar.titleFontWeight,
-	      color: appBar.textColor,
-	      height: appBar.height,
-	      lineHeight: appBar.height + 'px'
-	    },
-	    mainElement: {
-	      boxFlex: 1,
-	      flex: '1'
-	    },
-	    iconButtonStyle: {
-	      marginTop: (appBar.height - iconButtonSize) / 2,
-	      marginRight: 8,
-	      marginLeft: -16
-	    },
-	    iconButtonIconStyle: {
-	      fill: appBar.textColor,
-	      color: appBar.textColor
-	    },
-	    flatButton: {
-	      color: appBar.textColor,
-	      marginTop: (iconButtonSize - flatButtonSize) / 2 + 1
-	    }
-	  };
-
-	  return styles;
-	}
-
-	var AppBar = function (_Component) {
-	  (0, _inherits3.default)(AppBar, _Component);
-
-	  function AppBar() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
-	    (0, _classCallCheck3.default)(this, AppBar);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = AppBar.__proto__ || (0, _getPrototypeOf2.default)(AppBar)).call.apply(_ref, [this].concat(args))), _this), _this.handleTouchTapLeftIconButton = function (event) {
-	      if (_this.props.onLeftIconButtonTouchTap) {
-	        _this.props.onLeftIconButtonTouchTap(event);
-	      }
-	    }, _this.handleTouchTapRightIconButton = function (event) {
-	      if (_this.props.onRightIconButtonTouchTap) {
-	        _this.props.onRightIconButtonTouchTap(event);
-	      }
-	    }, _this.handleTitleTouchTap = function (event) {
-	      if (_this.props.onTitleTouchTap) {
-	        _this.props.onTitleTouchTap(event);
-	      }
-	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-	  }
-
-	  (0, _createClass3.default)(AppBar, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      process.env.NODE_ENV !== "production" ? (0, _warning2.default)(!this.props.iconElementLeft || !this.props.iconClassNameLeft, 'Material-UI: Properties iconElementLeft\n      and iconClassNameLeft cannot be simultaneously defined. Please use one or the other.') : void 0;
-
-	      process.env.NODE_ENV !== "production" ? (0, _warning2.default)(!this.props.iconElementRight || !this.props.iconClassNameRight, 'Material-UI: Properties iconElementRight\n      and iconClassNameRight cannot be simultaneously defined. Please use one or the other.') : void 0;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props,
-	          title = _props.title,
-	          titleStyle = _props.titleStyle,
-	          iconStyleLeft = _props.iconStyleLeft,
-	          iconStyleRight = _props.iconStyleRight,
-	          onTitleTouchTap = _props.onTitleTouchTap,
-	          showMenuIconButton = _props.showMenuIconButton,
-	          iconElementLeft = _props.iconElementLeft,
-	          iconElementRight = _props.iconElementRight,
-	          iconClassNameLeft = _props.iconClassNameLeft,
-	          iconClassNameRight = _props.iconClassNameRight,
-	          onLeftIconButtonTouchTap = _props.onLeftIconButtonTouchTap,
-	          onRightIconButtonTouchTap = _props.onRightIconButtonTouchTap,
-	          className = _props.className,
-	          style = _props.style,
-	          zDepth = _props.zDepth,
-	          children = _props.children,
-	          other = (0, _objectWithoutProperties3.default)(_props, ['title', 'titleStyle', 'iconStyleLeft', 'iconStyleRight', 'onTitleTouchTap', 'showMenuIconButton', 'iconElementLeft', 'iconElementRight', 'iconClassNameLeft', 'iconClassNameRight', 'onLeftIconButtonTouchTap', 'onRightIconButtonTouchTap', 'className', 'style', 'zDepth', 'children']);
-	      var prepareStyles = this.context.muiTheme.prepareStyles;
-
-	      var styles = getStyles(this.props, this.context);
-
-	      var menuElementLeft = void 0;
-	      var menuElementRight = void 0;
-
-	      // If the title is a string, wrap in an h1 tag.
-	      // If not, wrap in a div tag.
-	      var titleComponent = typeof title === 'string' || title instanceof String ? 'h1' : 'div';
-
-	      var titleElement = _react2.default.createElement(titleComponent, {
-	        onTouchTap: this.handleTitleTouchTap,
-	        style: prepareStyles((0, _simpleAssign2.default)(styles.title, styles.mainElement, titleStyle))
-	      }, title);
-
-	      var iconLeftStyle = (0, _simpleAssign2.default)({}, styles.iconButtonStyle, iconStyleLeft);
-
-	      if (showMenuIconButton) {
-	        if (iconElementLeft) {
-	          var iconElementLeftProps = {};
-
-	          if (iconElementLeft.type.muiName === 'IconButton') {
-	            var iconElemLeftChildren = iconElementLeft.props.children;
-	            var iconButtonIconStyle = !(iconElemLeftChildren && iconElemLeftChildren.props && iconElemLeftChildren.props.color) ? styles.iconButtonIconStyle : null;
-
-	            iconElementLeftProps.iconStyle = (0, _simpleAssign2.default)({}, iconButtonIconStyle, iconElementLeft.props.iconStyle);
-	          }
-
-	          if (!iconElementLeft.props.onTouchTap && this.props.onLeftIconButtonTouchTap) {
-	            iconElementLeftProps.onTouchTap = this.handleTouchTapLeftIconButton;
-	          }
-
-	          menuElementLeft = _react2.default.createElement(
-	            'div',
-	            { style: prepareStyles(iconLeftStyle) },
-	            (0, _keys2.default)(iconElementLeftProps).length > 0 ? (0, _react.cloneElement)(iconElementLeft, iconElementLeftProps) : iconElementLeft
-	          );
-	        } else {
-	          menuElementLeft = _react2.default.createElement(
-	            _IconButton2.default,
-	            {
-	              style: iconLeftStyle,
-	              iconStyle: styles.iconButtonIconStyle,
-	              iconClassName: iconClassNameLeft,
-	              onTouchTap: this.handleTouchTapLeftIconButton
-	            },
-	            iconClassNameLeft ? '' : _react2.default.createElement(_menu2.default, { style: (0, _simpleAssign2.default)({}, styles.iconButtonIconStyle) })
-	          );
-	        }
-	      }
-
-	      var iconRightStyle = (0, _simpleAssign2.default)({}, styles.iconButtonStyle, {
-	        marginRight: -16,
-	        marginLeft: 'auto'
-	      }, iconStyleRight);
-
-	      if (iconElementRight) {
-	        var iconElementRightProps = {};
-
-	        switch (iconElementRight.type.muiName) {
-	          case 'IconMenu':
-	          case 'IconButton':
-	            var iconElemRightChildren = iconElementRight.props.children;
-	            var _iconButtonIconStyle = !(iconElemRightChildren && iconElemRightChildren.props && iconElemRightChildren.props.color) ? styles.iconButtonIconStyle : null;
-
-	            iconElementRightProps.iconStyle = (0, _simpleAssign2.default)({}, _iconButtonIconStyle, iconElementRight.props.iconStyle);
-	            break;
-
-	          case 'FlatButton':
-	            iconElementRightProps.style = (0, _simpleAssign2.default)({}, styles.flatButton, iconElementRight.props.style);
-	            break;
-
-	          default:
-	        }
-
-	        if (!iconElementRight.props.onTouchTap && this.props.onRightIconButtonTouchTap) {
-	          iconElementRightProps.onTouchTap = this.handleTouchTapRightIconButton;
-	        }
-
-	        menuElementRight = _react2.default.createElement(
-	          'div',
-	          { style: prepareStyles(iconRightStyle) },
-	          (0, _keys2.default)(iconElementRightProps).length > 0 ? (0, _react.cloneElement)(iconElementRight, iconElementRightProps) : iconElementRight
-	        );
-	      } else if (iconClassNameRight) {
-	        menuElementRight = _react2.default.createElement(_IconButton2.default, {
-	          style: iconRightStyle,
-	          iconStyle: styles.iconButtonIconStyle,
-	          iconClassName: iconClassNameRight,
-	          onTouchTap: this.handleTouchTapRightIconButton
-	        });
-	      }
-
-	      return _react2.default.createElement(
-	        _Paper2.default,
-	        (0, _extends3.default)({}, other, {
-	          rounded: false,
-	          className: className,
-	          style: (0, _simpleAssign2.default)({}, styles.root, style),
-	          zDepth: zDepth
-	        }),
-	        menuElementLeft,
-	        titleElement,
-	        menuElementRight,
-	        children
-	      );
-	    }
-	  }]);
-	  return AppBar;
-	}(_react.Component);
-
-	AppBar.muiName = 'AppBar';
-	AppBar.defaultProps = {
-	  showMenuIconButton: true,
-	  title: '',
-	  zDepth: 1
-	};
-	AppBar.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	process.env.NODE_ENV !== "production" ? AppBar.propTypes = {
-	  /**
-	   * Can be used to render a tab inside an app bar for instance.
-	   */
-	  children: _react.PropTypes.node,
-	  /**
-	   * Applied to the app bar's root element.
-	   */
-	  className: _react.PropTypes.string,
-	  /**
-	   * The classname of the icon on the left of the app bar.
-	   * If you are using a stylesheet for your icons, enter the class name for the icon to be used here.
-	   */
-	  iconClassNameLeft: _react.PropTypes.string,
-	  /**
-	   * Similiar to the iconClassNameLeft prop except that
-	   * it applies to the icon displayed on the right of the app bar.
-	   */
-	  iconClassNameRight: _react.PropTypes.string,
-	  /**
-	   * The custom element to be displayed on the left side of the
-	   * app bar such as an SvgIcon.
-	   */
-	  iconElementLeft: _react.PropTypes.element,
-	  /**
-	   * Similiar to the iconElementLeft prop except that this element is displayed on the right of the app bar.
-	   */
-	  iconElementRight: _react.PropTypes.element,
-	  /**
-	   * Override the inline-styles of the element displayed on the left side of the app bar.
-	   */
-	  iconStyleLeft: _react.PropTypes.object,
-	  /**
-	   * Override the inline-styles of the element displayed on the right side of the app bar.
-	   */
-	  iconStyleRight: _react.PropTypes.object,
-	  /**
-	   * Callback function for when the left icon is selected via a touch tap.
-	   *
-	   * @param {object} event TouchTap event targeting the left `IconButton`.
-	   */
-	  onLeftIconButtonTouchTap: _react.PropTypes.func,
-	  /**
-	   * Callback function for when the right icon is selected via a touch tap.
-	   *
-	   * @param {object} event TouchTap event targeting the right `IconButton`.
-	   */
-	  onRightIconButtonTouchTap: _react.PropTypes.func,
-	  /**
-	   * Callback function for when the title text is selected via a touch tap.
-	   *
-	   * @param {object} event TouchTap event targeting the `title` node.
-	   */
-	  onTitleTouchTap: _react.PropTypes.func,
-	  /**
-	   * Determines whether or not to display the Menu icon next to the title.
-	   * Setting this prop to false will hide the icon.
-	   */
-	  showMenuIconButton: _react.PropTypes.bool,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object,
-	  /**
-	   * The title to display on the app bar.
-	   */
-	  title: _react.PropTypes.node,
-	  /**
-	   * Override the inline-styles of the app bar's title element.
-	   */
-	  titleStyle: _react.PropTypes.object,
-	  /**
-	   * The zDepth of the component.
-	   * The shadow of the app bar is also dependent on this property.
-	   */
-	  zDepth: _propTypes2.default.zDepth
-	} : void 0;
-	exports.default = AppBar;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 1002 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _pure = __webpack_require__(426);
-
-	var _pure2 = _interopRequireDefault(_pure);
-
-	var _SvgIcon = __webpack_require__(435);
-
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var NavigationMenu = function NavigationMenu(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z' })
-	  );
-	};
-	NavigationMenu = (0, _pure2.default)(NavigationMenu);
-	NavigationMenu.displayName = 'NavigationMenu';
-	NavigationMenu.muiName = 'SvgIcon';
-
-	exports.default = NavigationMenu;
-
-/***/ },
+/* 1000 */,
+/* 1001 */,
+/* 1002 */,
 /* 1003 */
 /***/ function(module, exports, __webpack_require__) {
 
