@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Translate from 'react-translate-component';
-import TouchRipple from 'material-ui/internal/TouchRipple';
 import Modal from 'react-bootstrap/lib/Modal';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 

@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
-import TextField from 'material-ui/TextField';
-import Translate from 'react-translate-component';
 import counterpart from 'counterpart';
 
 export default class NavigationFilter extends Component {
@@ -19,12 +16,6 @@ export default class NavigationFilter extends Component {
              onChange={this.filterNavigationContent.bind(this)}/>
       <span className="input-group-addon"><i className="material-icons">search</i></span>
     </div>
-      // <TextField
-      //   floatingLabelStyle={{color: 'white'}}
-      //   inputStyle={{color: 'white'}}
-      //   underlineFocusStyle={{borderColor: 'white'}}
-      //   floatingLabelText={<Translate content={'main.Filter...'} fallback="Filter..." />}
-      //   onChange={_.debounce(this.filterNavigationContent.bind(this), 250)}/>
     )
   }
 
