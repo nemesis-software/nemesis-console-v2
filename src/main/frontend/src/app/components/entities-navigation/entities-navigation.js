@@ -20,7 +20,7 @@ export default class EntitiesNavigation extends Component {
 
   render() {
     return (
-      <Nav bsStyle="pills" className="nav nav-pills">
+      <Nav bsStyle="pills" className="nav nav-pills entity-navigation">
         {_.map(this.state.groupedEntities, (value, key) =>
           <EntitiesNavigationItem key={key} entityId={key}
                                   entities={value.reverse()}

@@ -1,5 +1,8 @@
 @default-color: #00bcd4;
 @yellow-color: #dcff41;
+@dark-blue: #2E657F;
+@light-blue: #357492;
+@light-grey: #EFF7F9;
 
 * {
   font-family: Roboto, sans-serif;
@@ -14,17 +17,14 @@
 }
 
 .entity-navigation {
-  background-color: @default-color;
-  display: flex;
-  flex-wrap: nowrap !important;
-  overflow-x: auto;
-  height: 50px;
+  background-color: @light-blue;
   margin: 0 0 2px 0 !important;
+  padding: 2px;
   box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
 
   .navigation-item-container {
     background-color: @default-color;
-    color: white;
+    color: @light-grey;
 
     .entity-navigation-item {
       &.selected {
@@ -91,12 +91,36 @@
   position: fixed;
   width: 300px;
   left: 0;
-  top: 68px;
-  height: ~"calc(100vh - 68px)";
+  top: 60px;
+  height: ~"calc(100vh - 60px)";
   overflow-y: scroll;
-  background: @default-color;
-  color: white;
+  background: @light-blue;
+  color: @light-grey;
   transition: left .5s ease-in;
+
+  .navigation-filter {
+    margin: 10px 5px 0 5px;
+
+    .material-icons {
+      font-size: 16px;
+    }
+  }
+
+  .nav-tree-item {
+    &:hover {
+      background: lighten(@light-blue, 5%);
+    }
+
+    .tree-item-icon {
+      vertical-align: middle;
+      transition: all 0.5s;
+
+      &.reverse-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
 
   &.hidden-tree {
     left: -300px;
@@ -115,7 +139,7 @@
 }
 
 .main-view-wrapper {
-  padding-top: 70px;
+  padding-top: 60px;
   padding-left: 300px;
   transition: padding-left  .5s ease-in;
 
@@ -125,11 +149,54 @@
   }
 }
 
-.sidebar-icon {
-  float: left;
-  color: white;
-  padding: 13px 8px;
-  cursor: pointer;
+.nemesis-navbar {
+  position: fixed;
+  height: 60px;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  background: @dark-blue;
+  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+
+  .nemesis-navbar-header {
+    display: inline-block;
+    float: left;
+    color: @light-grey;
+    font-size: 25px;
+    padding: 13px 10px;
+  }
+
+  .sidebar-icon {
+    float: left;
+    color: @light-grey;
+    font-size: 28px;
+    padding: 17px 10px;
+    cursor: pointer;
+  }
+
+  .nemesis-navbar-right {
+    float: right;
+    padding: 12px;
+  }
+
+  .logout-button {
+    cursor: pointer;
+    display: inline-block;
+    color: @light-grey;
+    margin: 0 10px;
+
+    span {
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      vertical-align: top;
+    }
+
+    .material-icons {
+      vertical-align: top;
+      font-size: 20px;
+    }
+  }
 }
 
 

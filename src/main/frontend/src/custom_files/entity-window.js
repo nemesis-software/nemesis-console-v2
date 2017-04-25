@@ -1,5 +1,6 @@
 import React from 'react';
 import EntityWindow from '../app/components/entity-window/entity-window';
+import AdminDashboard from '../custom_files/custom-windows/admin-dashboard'
 
 export default class CustomEntityWindow extends EntityWindow {
   constructor(props) {
@@ -9,9 +10,8 @@ export default class CustomEntityWindow extends EntityWindow {
   renderEntityByType(entity) {
 
     switch (entity.type) {
-      case 'iframe': {
-        //TODO: make a custom react component and prevent window update to can keep state on the iframe
-        return <iframe style={{width: '98%', height: '98%'}} src={entity.url}></iframe>
+      case 'dashboard': {
+        return <AdminDashboard/>
       }
       default: {
         return super.renderEntityByType(entity);

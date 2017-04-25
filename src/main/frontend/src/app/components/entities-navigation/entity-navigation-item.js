@@ -31,7 +31,7 @@ export default class EntitiesNavigationItem extends Component {
     return (
       <NavDropdown id={this.props.entityId} className={'' + (_.some(this.props.entities, {isVisible: true}) ? ' active' : '')} title={<Translate content={'main.' + this.props.entityId} fallback={this.props.entityId}/>}>
         {this.getFilteredSubEntities().map((subEntity, index) => {
-          return <MenuItem onClick={(event) => this.onNestedItemTouchTab(event, subEntity)} key={index}><a>{this.getMenuItemContentByEntityType(subEntity)}</a></MenuItem>;
+          return <MenuItem onClick={(event) => this.onNestedItemTouchTab(event, subEntity)} key={index}>{this.getMenuItemContentByEntityType(subEntity)}</MenuItem>;
         })}
       </NavDropdown>
     )

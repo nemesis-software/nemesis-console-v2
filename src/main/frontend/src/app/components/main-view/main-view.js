@@ -11,11 +11,6 @@ import { componentRequire } from '../../utils/require-util';
 let EntitiesNavigation = componentRequire('app/components/entities-navigation/entities-navigation', 'entities-navigation');
 let EntityWindow = componentRequire('app/components/entity-window/entity-window', 'entity-window');
 
-const styles = {
-  paddingLeft: '300px',
-  paddingTop: '68px',
-};
-
 export default class MainView extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +20,7 @@ export default class MainView extends Component {
   }
 
   componentWillMount() {
-    Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
+    return Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
       this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data});
     }).then(this.parseUrlEntity.bind(this))
   }
@@ -212,7 +207,7 @@ export default class MainView extends Component {
 
   parseUrlEntity() {
     if (!window.location.hash.indexOf('type=') < 0) {
-      return;
+      return Promise.reject();
     }
 
     let locationHash = window.location.hash.slice(1);
@@ -229,9 +224,10 @@ export default class MainView extends Component {
     } else if (urlEntity.type === entitySearchType) {
       urlEntity.data = this.state.markupData[urlEntity.entityId]
     } else {
-      return;
+      return Promise.reject();
     }
 
     this.setSelectedItemInState(urlEntity);
+    return Promise.resolve();
   }
 }

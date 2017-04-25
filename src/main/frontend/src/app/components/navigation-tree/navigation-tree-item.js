@@ -21,19 +21,17 @@ export default class TreeItem extends Component {
   render() {
     return (
       <div style={this.getContainerStyles(this.props.nestingLevel)}>
-        <div onClick={this.handleItemClick.bind(this)} style={this.getItemStyles(this.props.nestingLevel)}>
-          <TouchRipple>
-            {
-              this.props.nestedItems && this.props.nestedItems.length > 0 ?
-                <i className="material-icons" style={alignStyle}>{this.state.isChildrenVisible ? this.getOpenedItemIcon() : this.getClosedItemIcon()}</i> :
-                false
-            }
+        <div className="nav-tree-item" onClick={this.handleItemClick.bind(this)} style={this.getItemStyles(this.props.nestingLevel)}>
             <Translate component="span"
                        style={alignStyle}
                        content={'main.' + this.props.item.text}
                        fallback={this.props.item.text}/>
-            { !this.props.nestedItems || this.props.nestedItems.length === 0 ? <i style={{verticalAlign: 'middle', marginLeft: '15px'}} className="material-icons add-icon">add</i> : false}
-          </TouchRipple>
+            {
+              this.props.nestedItems && this.props.nestedItems.length > 0 && (this.props.isVisible || this.props.nestingLevel === 0) ?
+                <i className={this.state.isChildrenVisible ? 'material-icons tree-item-icon reverse-icon' : 'material-icons tree-item-icon'}>arrow_drop_down</i> :
+                false
+            }
+            { (!this.props.nestedItems || this.props.nestedItems.length === 0) && this.props.isVisible ? <i style={{verticalAlign: 'middle', marginLeft: '15px', fontSize: '21px'}} className="material-icons add-icon">add</i> : false}
         </div>
         {this.props.nestedItems.map(this.renderChildren.bind(this))}
         {this.state.openModalCreation ?
@@ -67,21 +65,12 @@ export default class TreeItem extends Component {
   };
 
   getContainerStyles(nestingLevel) {
-    let styles = { };
-
+    let styles = {transition: 'font-size .25s, margin .25s, padding .25s,opacity .25s'};
     if (nestingLevel > 0 && !this.props.isVisible) {
-      styles.display = 'none';
+      styles = { fontSize: '0', margin: '0', padding: '0', opacity: '0', transition: 'font-size .5s .25s,margin .5s .25s,padding .5s .25s, opacity .5s .25s' }
     }
 
     return styles;
-  }
-
-  getClosedItemIcon() {
-    return 'chevron_right';
-  }
-
-  getOpenedItemIcon() {
-    return 'expand_more';
   }
 
   renderChildren(nestedItem, index) {
@@ -115,17 +104,20 @@ export default class TreeItem extends Component {
 
   getItemStyles(nestingLevel) {
     let additionPadding = this.props.nestedItems && (this.props.nestedItems.length > 0) ? 0 : 24;
-    let paddingLeft = (nestingLevel * 20) + additionPadding;
-
-    return {
+    let paddingLeft = (nestingLevel * 10);
+    let paddingTopBottom = this.props.isVisible || this.props.nestingLevel === 0 ? '5px' : 0;
+    let paddingLeftActual = (20 + paddingLeft) + 'px';
+    let style = {
       position: 'relative',
       textAlign: 'left',
       width: '100%',
-      padding: '5px 0',
-      fontSize: '17px',
-      paddingLeft: paddingLeft + 'px',
-      cursor: 'pointer'
+      padding: `${paddingTopBottom} 10px ${paddingTopBottom} ${paddingLeftActual}`,
+      cursor: 'pointer',
+      transition: 'padding .25s'
     };
+    console.log(style);
+    return style;
+
   }
 
   handleSelectCreateEntity() {

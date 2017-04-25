@@ -11,18 +11,26 @@ export default class NavigationFilter extends Component {
 
   render() {
     return (
-      <TextField
-        floatingLabelStyle={{color: 'white'}}
-        inputStyle={{color: 'white'}}
-        underlineFocusStyle={{borderColor: 'white'}}
-        floatingLabelText={<Translate content={'main.Filter...'} fallback="Filter..." />}
-        onChange={_.debounce(this.filterNavigationContent.bind(this), 250)}/>
+    <div className="navigation-filter input-group">
+      <input type="text"
+             placeholder={counterpart.translate('main.Filter...', {fallback: 'Filter'})}
+             className="navigation-filter-input form-control"
+             disabled={this.props.readOnly}
+             onChange={this.filterNavigationContent.bind(this)}/>
+      <span className="input-group-addon"><i className="material-icons">search</i></span>
+    </div>
+      // <TextField
+      //   floatingLabelStyle={{color: 'white'}}
+      //   inputStyle={{color: 'white'}}
+      //   underlineFocusStyle={{borderColor: 'white'}}
+      //   floatingLabelText={<Translate content={'main.Filter...'} fallback="Filter..." />}
+      //   onChange={_.debounce(this.filterNavigationContent.bind(this), 250)}/>
     )
   }
 
 
-  filterNavigationContent(event, value) {
-    let filteredTreeItems = this.filterChildren(this.props.data, value);
+  filterNavigationContent(event) {
+    let filteredTreeItems = this.filterChildren(this.props.data, event.target.value);
     this.props.onFilterChange(filteredTreeItems);
   }
 

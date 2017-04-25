@@ -42,26 +42,20 @@ export default class App extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <div className="navbar navbar-fixed-top" style={{background: '#00bcd4'}}>
+          <div className="nemesis-navbar">
             <i className="material-icons sidebar-icon" onClick={() => this.setState({isNavigationTreeOpened: !this.state.isNavigationTreeOpened})}>menu</i>
-            <div className="navbar-header"><a className="navbar-brand">Nemesis Console</a></div>
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <LanguageChanger
-                  labelStyle={{color: 'white'}}
-                  onLanguageChange={language => counterpart.setLocale(language)}
-                  availableLanguages={translationLanguages.languages}
-                  selectedLanguage={translationLanguages.defaultLanguage}
-                />
-              </li>
-              <li>
-                <FlatButton
-                  style={{color: 'white'}}
-                  label={<Translate component="span" content={'main.Logout'} fallback={'Logout'} />}
-                  onTouchTap={this.handleLogoutButtonClick.bind(this)}
-                />
-              </li>
-            </ul>
+            <div className="nemesis-navbar-header">Nemesis Console</div>
+            <div className="nemesis-navbar-right">
+              <LanguageChanger
+                labelStyle={{color: 'white'}}
+                onLanguageChange={language => counterpart.setLocale(language)}
+                availableLanguages={translationLanguages.languages}
+                selectedLanguage={translationLanguages.defaultLanguage}
+              />
+              <div className="logout-button" onClick={this.handleLogoutButtonClick.bind(this)}>
+                <Translate component="span" content={'main.Logout'} fallback={'Logout'} /> <i className="material-icons">exit_to_app</i>
+              </div>
+            </div>
           </div>
           <div className={this.state.isNavigationTreeOpened ? 'navigation-tree' : 'navigation-tree hidden-tree'}>
             <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
