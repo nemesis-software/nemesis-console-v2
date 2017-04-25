@@ -57497,7 +57497,7 @@
 	            'add'
 	          ) : false
 	        ),
-	        this.props.nestedItems.map(this.renderChildren.bind(this)),
+	        this.props.isVisible || this.props.nestingLevel === 0 ? this.props.nestedItems.map(this.renderChildren.bind(this)) : false,
 	        this.state.openModalCreation ? _react2.default.createElement(
 	          _Modal2.default,
 	          { show: this.state.openModalCreation, onHide: this.handleClose.bind(this) },

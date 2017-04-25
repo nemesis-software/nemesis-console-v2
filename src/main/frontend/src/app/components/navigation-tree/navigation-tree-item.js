@@ -32,7 +32,7 @@ export default class TreeItem extends Component {
             }
             { (!this.props.nestedItems || this.props.nestedItems.length === 0) && this.props.isVisible ? <i style={{verticalAlign: 'middle', marginLeft: '15px', fontSize: '21px'}} className="material-icons add-icon">add</i> : false}
         </div>
-        {this.props.nestedItems.map(this.renderChildren.bind(this))}
+        {this.props.isVisible || this.props.nestingLevel === 0 ? this.props.nestedItems.map(this.renderChildren.bind(this)) : false}
         {this.state.openModalCreation ?
           <Modal show={this.state.openModalCreation} onHide={this.handleClose.bind(this)}>
             <Modal.Header>
