@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { componentRequire } from '../utils/require-util'
 import Translate from 'react-translate-component';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import counterpart from 'counterpart';
 
-import '../../styles/style.less';
+import 'react-select/dist/react-select.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
-injectTapEventPlugin();
+import '../../styles/style.less';
 
 const translationLanguages = {
  languages: [
@@ -39,7 +37,6 @@ export default class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
         <div>
           <div className="nemesis-navbar">
             <i className="material-icons sidebar-icon" onClick={() => this.setState({isNavigationTreeOpened: !this.state.isNavigationTreeOpened})}>menu</i>
@@ -62,7 +59,6 @@ export default class App extends Component {
             <MainView ref={el => {console.log(el);this.mainViewRef = el}}/>
           </div>
         </div>
-      </MuiThemeProvider>
     );
   }
 

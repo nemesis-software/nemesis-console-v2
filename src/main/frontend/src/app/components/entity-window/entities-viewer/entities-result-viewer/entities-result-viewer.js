@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import Translate from 'react-translate-component';
 
-import Paper from 'material-ui/Paper';
-
 import { componentRequire } from '../../../../utils/require-util';
 let EntitiesTableViewer = componentRequire('app/components/entity-window/entities-viewer/entities-table-viewer/entities-table-viewer', 'entities-table-viewer');
 
@@ -15,7 +13,7 @@ export default class EntitiesResultViewer extends Component {
 
   render() {
     return (
-      <Paper zDepth={1} style={{margin: '5px', padding: '5px', marginTop: '20px'}}>
+      <div className="paper-box" style={{margin: '5px', padding: '5px', marginTop: '20px'}}>
         <div style={this.getViewerSelectStyle()}>
           <label><Translate content={'main.viewer'} fallback={'Viewer'}/></label>
           <select style={{width: '265px'}} className="form-control" onChange={this.handleViewerChange.bind(this)} disabled={this.props.readOnly}>
@@ -23,7 +21,7 @@ export default class EntitiesResultViewer extends Component {
           </select>
         </div>
         {this.getViewers().map(this.getViewerElement.bind(this))}
-      </Paper>
+      </div>
     )
   }
 

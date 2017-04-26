@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import Translate from 'react-translate-component';
 
-import Paper from 'material-ui/Paper';
-
 import { componentRequire } from '../../../../utils/require-util';
 
 let DefaultFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/default-filter/default-filter', 'default-filter');
@@ -18,7 +16,7 @@ export default class EntitiesFilter extends Component {
   render() {
     return (
       <div>
-        <Paper zDepth={1} style={{margin: '5px', padding: '5px'}}>
+        <div className="paper-box" style={{margin: '5px', padding: '5px'}}>
           <div style={this.getFilterSelectStyle()}>
             <label><Translate content={'main.Filter'} fallback={'Filter'}/></label>
             <select style={{width: '265px'}} className="form-control" onChange={this.handleFilterChange.bind(this)} disabled={this.props.readOnly}>
@@ -26,7 +24,7 @@ export default class EntitiesFilter extends Component {
             </select>
           </div>
           {this.getFilters().map(this.getFilterElement.bind(this))}
-        </Paper>
+        </div>
       </div>
     )
   }

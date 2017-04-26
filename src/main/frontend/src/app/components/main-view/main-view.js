@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Snackbar from 'material-ui/Snackbar';
+import NotificationSystem from 'react-notification-system';
 
 import _ from 'lodash';
 
@@ -17,12 +17,17 @@ export default class MainView extends Component {
     this.state = {markupData: [], entityMarkupData: [], selectedEntity: null, openedEntities: [], snackbarOpen: false, snackbarMessage: ''};
     this.searchEntityWindowReferences = [];
     this.createWindowIncrementor = 1;
+    this.notificationSystem = null;
   }
 
   componentWillMount() {
     return Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
       this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data});
     }).then(this.parseUrlEntity.bind(this))
+  }
+
+  componentDidMount() {
+    this.notificationSystem = this.refs.notificationSystem;
   }
 
   openNewEntity(entity) {
@@ -152,11 +157,7 @@ export default class MainView extends Component {
       <div>
         <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)} entities={this.state.openedEntities} />
         {this.renderOpenedEntities()}
-        <Snackbar
-          open={this.state.snackbarOpen}
-          message={this.state.snackbarMessage}
-          autoHideDuration={3000}
-          onRequestClose={this.handleSnackbarRequestClose.bind(this)}
+        <NotificationSystem ref="notificationSystem" />
         />
       </div>
     )
@@ -182,19 +183,12 @@ export default class MainView extends Component {
   }
 
   openNotificationSnackbar(message) {
-    this.setState({
-      ...this.state,
-      snackbarOpen: true,
-      snackbarMessage: message
+    this.notificationSystem.addNotification({
+      message: message,
+      level: 'success',
+      position: 'tc'
     });
   }
-
-  handleSnackbarRequestClose() {
-    this.setState({
-      ...this.state,
-      snackbarOpen: false,
-    });
-  };
 
   addHashUrlForSelectedEntity(entity) {
     if (!entity || entity.type === entityCreateType) {

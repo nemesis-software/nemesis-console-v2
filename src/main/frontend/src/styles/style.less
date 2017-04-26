@@ -93,7 +93,7 @@
   left: 0;
   top: 60px;
   height: ~"calc(100vh - 60px)";
-  overflow-y: scroll;
+  overflow-y: auto;
   background: @light-blue;
   color: @light-grey;
   transition: left .5s ease-in;
@@ -121,7 +121,6 @@
     }
   }
 
-
   &.hidden-tree {
     left: -300px;
     transition: left .5s ease-out;
@@ -130,18 +129,18 @@
 
 .input-group {
   .form-control {
-    z-index: unset!important;
+    z-index: unset !important;
   }
 }
 
 .modal {
-  z-index: 1000000!important;
+  z-index: 1000000 !important;
 }
 
 .main-view-wrapper {
   padding-top: 60px;
   padding-left: 300px;
-  transition: padding-left  .5s ease-in;
+  transition: padding-left .5s ease-in;
 
   &.full-view {
     padding-left: 0;
@@ -220,14 +219,14 @@
   outline: none;
   z-index: 1000;
   border-radius: 50%;
-  margin-left: -5px!important;
+  margin-left: -5px !important;
 
   &:hover {
     background: #9faab7;
   }
 
   &:focus {
-    outline: none!important;
+    outline: none !important;
   }
 
   &:checked {
@@ -244,6 +243,22 @@
       line-height: 20px;
     }
   }
+}
+
+.paper-box {
+  box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+  background: white;
+
+  &.with-hover:hover {
+    box-shadow: rgba(0, 0, 0, 0.188235) 0 10px 30px, rgba(0, 0, 0, 0.227451) 0 6px 10px;
+  }
+}
+
+.line {
+  margin: 5px 0;
+  height: 1px;
+  border: none;
+  background-color: rgb(224, 224, 224);
 }
 
 

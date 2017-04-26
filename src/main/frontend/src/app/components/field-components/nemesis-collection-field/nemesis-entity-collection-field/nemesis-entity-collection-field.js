@@ -4,7 +4,6 @@ import NemesisBaseCollectionField from '../nemesis-base-collection-field';
 import ApiCall from '../../../../services/api-call';
 import _ from 'lodash';
 import Translate from 'react-translate-component';
-import 'react-select/dist/react-select.css';
 
 export default class NemesisEntityCollectionField extends NemesisBaseCollectionField {
   constructor(props) {

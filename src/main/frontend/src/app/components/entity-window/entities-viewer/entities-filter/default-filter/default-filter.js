@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import Translate from 'react-translate-component';
 
-import Divider from 'material-ui/Divider';
-
 import _ from 'lodash';
 
 import { componentRequire } from '../../../../../utils/require-util';
@@ -33,7 +31,7 @@ export default class DefaultFilter extends Component {
           return (
             <div key={index}>
               {this.getFilterItemRender(filterItem)}
-              <Divider />
+              <hr className="line" />
             </div>
           )
         })}

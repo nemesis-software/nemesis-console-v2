@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Paper from 'material-ui/Paper';
-
 import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../../../types/nemesis-types';
 import { componentRequire } from '../../../../utils/require-util';
 
@@ -31,9 +29,9 @@ export default class EntitySection extends Component {
       <div style={{paddingBottom: '200px'}}>
         {this.props.section.items.map((item, index) => {
           return (
-            <Paper key={index} zDepth={1} style={this.getPaperStyles(item)}>
+            <div className="paper-box with-hover" key={index} style={this.getPaperStyles(item)}>
               {this.getSectionItemRenderer(item, index)}
-            </Paper>
+            </div>
           )
         })}
       </div>
