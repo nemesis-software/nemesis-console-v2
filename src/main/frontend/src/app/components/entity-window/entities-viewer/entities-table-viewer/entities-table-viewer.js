@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-
 import Translate from 'react-translate-component';
 import _ from 'lodash';
 
@@ -36,10 +34,10 @@ export default class EntitiesTableViewer extends Component {
   render() {
     return (
       <div style={this.props.style}>
-        <Table selectable={true} onRowSelection={this.onRowSelected.bind(this)}>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow>
-              <TableHeaderColumn colSpan={this.state.entitiesMarkup.length}>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th colSpan={this.state.entitiesMarkup.length}>
                 <LanguageChanger
                   label="language"
                   onLanguageChange={this.onLanguageChange.bind(this)}
@@ -47,33 +45,69 @@ export default class EntitiesTableViewer extends Component {
                   selectedLanguage={translationLanguages.defaultLanguage}
                 />
                 <EntitiesPager onPagerChange={this.props.onPagerChange}  page={this.props.page}/>
-              </TableHeaderColumn>
-            </TableRow>
-            <TableRow>
+              </th>
+            </tr>
+            <tr>
               {
                 this.state.entitiesMarkup.map((markupItem, index) => {
                   return (
-                  <TableHeaderColumn key={index}>
-                    <Translate component="span" content={'main.' + markupItem.text} fallback={markupItem.text}/>
-                  </TableHeaderColumn>)
-                })
+                      <Translate key={index} component="th" content={'main.' + markupItem.text} fallback={markupItem.text}/>
+                )})
               }
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false} showRowHover={true}>
-            {
-              this.props.entities.map((item, index) => {
-                return (
-                  <TableRow key={index}>
-                    {
-                      this.state.entitiesMarkup.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
-                    }
-                  </TableRow>
-                )
-              })
-            }
-          </TableBody>
-        </Table>
+            </tr>
+          </thead>
+          <tbody>
+          {
+            this.props.entities.map((item, index) => {
+              return (
+                <tr style={{cursor: 'pointer'}} onClick={() => this.props.onEntityItemClick(item)} key={index}>
+                  {
+                    this.state.entitiesMarkup.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
+                  }
+                </tr>
+              )
+            })
+          }
+          </tbody>
+        </table>
+        {/*<Table selectable={true} onRowSelection={this.onRowSelected.bind(this)}>*/}
+          {/*<TableHeader displaySelectAll={false} adjustForCheckbox={false}>*/}
+            {/*<TableRow>*/}
+              {/*<TableHeaderColumn >*/}
+                {/*<LanguageChanger*/}
+                  {/*label="language"*/}
+                  {/*onLanguageChange={this.onLanguageChange.bind(this)}*/}
+                  {/*availableLanguages={translationLanguages.languages}*/}
+                  {/*selectedLanguage={translationLanguages.defaultLanguage}*/}
+                {/*/>*/}
+                {/*<EntitiesPager onPagerChange={this.props.onPagerChange}  page={this.props.page}/>*/}
+              {/*</TableHeaderColumn>*/}
+            {/*</TableRow>*/}
+            {/*<TableRow>*/}
+              {/*{*/}
+                {/*this.state.entitiesMarkup.map((markupItem, index) => {*/}
+                  {/*return (*/}
+                  {/*<TableHeaderColumn key={index}>*/}
+                    {/*<Translate component="span" content={'main.' + markupItem.text} fallback={markupItem.text}/>*/}
+                  {/*</TableHeaderColumn>)*/}
+                {/*})*/}
+              {/*}*/}
+            {/*</TableRow>*/}
+          {/*</TableHeader>*/}
+          {/*<TableBody displayRowCheckbox={false} showRowHover={true}>*/}
+            {/*{*/}
+              {/*this.props.entities.map((item, index) => {*/}
+                {/*return (*/}
+                  {/*<TableRow key={index}>*/}
+                    {/*{*/}
+                      {/*this.state.entitiesMarkup.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))*/}
+                    {/*}*/}
+                  {/*</TableRow>*/}
+                {/*)*/}
+              {/*})*/}
+            {/*}*/}
+          {/*</TableBody>*/}
+        {/*</Table>*/}
       </div>
     )
   }
@@ -84,19 +118,20 @@ export default class EntitiesTableViewer extends Component {
       itemValue = item[markupItem.name][this.state.selectedLanguage] && item[markupItem.name][this.state.selectedLanguage].value;
     }
     itemValue = isFinite(itemValue) ? itemValue + '' : itemValue;
+
+    let style = {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    };
+
     return (
-      <TableRowColumn key={index}>{itemValue || ''}</TableRowColumn>
+      <td style={style} key={index}>{itemValue || ''}</td>
     )
   }
 
   onLanguageChange(language) {
     this.setState({...this.state, selectedLanguage: language});
-  }
-
-  onRowSelected(event) {
-    let item = this.props.entities[event[0]];
-    if (item) {
-      this.props.onEntityItemClick(item);
-    }
   }
 }

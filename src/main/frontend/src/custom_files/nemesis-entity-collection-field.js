@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-
 import NemesisEntityCollectionField from '../app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field';
 
 export default class CustomEntityCollectionField extends NemesisEntityCollectionField {
@@ -17,28 +15,28 @@ export default class CustomEntityCollectionField extends NemesisEntityCollection
       } else {
         return (
           <div>
-            <Table selectable={false}>
-              <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                <TableRow>
-                  <TableHeaderColumn>Code</TableHeaderColumn>
-                  <TableHeaderColumn>Position</TableHeaderColumn>
-                  <TableHeaderColumn>Remove</TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false} showRowHover={true}>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Position</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
                 {
                   this.props.value.map((item, index) => {
                     return (
-                      <TableRow key={index}>
-                        <TableRowColumn>{item.code} <i className="material-icons" style={{cursor: 'pointer'}} onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i></TableRowColumn>
-                        <TableRowColumn>{item.position}</TableRowColumn>
-                        <TableRowColumn><span style={{color: 'red', cursor: 'pointer'}} onClick={() => this.onDeleteRequest(index)}>Remove</span></TableRowColumn>
-                      </TableRow>
+                      <tr key={index}>
+                        <td>{item.code} <i className="material-icons" style={{cursor: 'pointer'}} onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i></td>
+                        <td>{item.position}</td>
+                        <td><span style={{color: 'red', cursor: 'pointer'}} onClick={() => this.onDeleteRequest(index)}>Remove</span></td>
+                      </tr>
                     )
                   })
                 }
-              </TableBody>
-            </Table>
+              </tbody>
+            </table>
           </div>
         )
       }

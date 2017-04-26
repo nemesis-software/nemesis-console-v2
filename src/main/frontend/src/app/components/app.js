@@ -4,7 +4,6 @@ import Translate from 'react-translate-component';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import counterpart from 'counterpart';
-import FlatButton from 'material-ui/FlatButton';
 
 import '../../styles/style.less';
 
@@ -47,13 +46,12 @@ export default class App extends Component {
             <div className="nemesis-navbar-header">Nemesis Console</div>
             <div className="nemesis-navbar-right">
               <LanguageChanger
-                labelStyle={{color: 'white'}}
                 onLanguageChange={language => counterpart.setLocale(language)}
                 availableLanguages={translationLanguages.languages}
                 selectedLanguage={translationLanguages.defaultLanguage}
               />
               <div className="logout-button" onClick={this.handleLogoutButtonClick.bind(this)}>
-                <Translate component="span" content={'main.Logout'} fallback={'Logout'} /> <i className="material-icons">exit_to_app</i>
+                <i className="material-icons">exit_to_app</i> <Translate component="span" content={'main.Logout'} fallback={'Log out'} />
               </div>
             </div>
           </div>

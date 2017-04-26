@@ -34,7 +34,7 @@ export default class EntitiesPager extends Component {
   render() {
     return (
       <div style={styles.container}>
-        <div style={{display: 'inline-block'}}>
+        <div style={{display: 'inline-block', verticalAlign: 'bottom', marginRight: '10px'}}>
           <div style={styles.table}>
             <div style={styles.tableCell}>
               <i style={styles.navButton} className="material-icons" onClick={this.onFirstPageButtonClick.bind(this)}>first_page</i>
@@ -42,7 +42,7 @@ export default class EntitiesPager extends Component {
             <div style={styles.tableCell}>
               <i style={styles.navButton} className="material-icons" onClick={this.onPrevPageButtonClick.bind(this)}>chevron_left</i>
             </div>
-            <div style={{...styles.tableCell, fontSize: '24px'}}>
+            <div style={{...styles.tableCell, fontSize: '20px', fontWeight: 'normal', paddingBottom: '5px'}}>
               {this.props.page.number + 1} of {Math.max(this.props.page.totalPages, 1)}
             </div>
             <div style={styles.tableCell}>

@@ -102,11 +102,10 @@ export default class TreeItem extends Component {
 
 
   getItemStyles(nestingLevel) {
-    let additionPadding = this.props.nestedItems && (this.props.nestedItems.length > 0) ? 0 : 24;
     let paddingLeft = (nestingLevel * 10);
     let paddingTopBottom = this.props.isVisible || this.props.nestingLevel === 0 ? '5px' : 0;
     let paddingLeftActual = (20 + paddingLeft) + 'px';
-    let style = {
+    return {
       position: 'relative',
       textAlign: 'left',
       width: '100%',
@@ -114,9 +113,6 @@ export default class TreeItem extends Component {
       cursor: 'pointer',
       transition: 'padding .25s'
     };
-    console.log(style);
-    return style;
-
   }
 
   handleSelectCreateEntity() {
