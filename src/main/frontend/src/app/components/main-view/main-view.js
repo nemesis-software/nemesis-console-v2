@@ -158,7 +158,6 @@ export default class MainView extends Component {
         <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)} entities={this.state.openedEntities} />
         {this.renderOpenedEntities()}
         <NotificationSystem ref="notificationSystem" />
-        />
       </div>
     )
   }
