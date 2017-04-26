@@ -28,7 +28,7 @@ export default class EntitySection extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{paddingBottom: '200px'}}>
         {this.props.section.items.map((item, index) => {
           return (
             <Paper key={index} zDepth={1} style={this.getPaperStyles(item)}>

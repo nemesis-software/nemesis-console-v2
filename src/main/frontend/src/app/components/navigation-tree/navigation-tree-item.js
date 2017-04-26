@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Translate from 'react-translate-component';
 import Modal from 'react-bootstrap/lib/Modal';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 const alignStyle = {
   verticalAlign: 'middle'
@@ -40,19 +39,16 @@ export default class TreeItem extends Component {
             </Modal.Header>
             <Modal.Body>
               <div>Please select entity type</div>
-              <RadioButtonGroup name="Choosed Item"
-                                valueSelected={this.selectedCreatingItem}
-                                onChange={(e, v) => this.selectedCreatingItem = v}
-              >
-                {this.getEntityCategories(this.state.creationEntity, 0).map((item, index) =>{
-                  return <RadioButton
-                    style={this.getRadioButtonStyle(item)}
-                    key={index}
-                    value={item.entityId}
-                    label={item.text}
-                  />
+                {this.getEntityCategories(this.state.creationEntity, 0).map((item, index) => {
+                  return (
+                    <div style={this.getRadioButtonStyle(item)} key={index}>
+                      <label className="radio-inline">
+                        <input className="nemesis-radio-button" type="radio" value={item.entityId} defaultChecked={index === 0} onChange={this.handleRadioChange.bind(this)} name={'new-entity'}/>
+                        {item.text}
+                      </label>
+                    </div>
+                  )
                 })}
-              </RadioButtonGroup>
             </Modal.Body>
             <Modal.Footer>
               <button className="btn btn-info" onClick={this.handleClose.bind(this)}>Cancel</button>
@@ -70,6 +66,10 @@ export default class TreeItem extends Component {
     }
 
     return styles;
+  }
+
+  handleRadioChange(e) {
+    this.selectedCreatingItem = e.target.value;
   }
 
   renderChildren(nestedItem, index) {
