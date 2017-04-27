@@ -26,7 +26,7 @@ export default class EntitySection extends Component {
   }
   render() {
     return (
-      <div style={{paddingBottom: '200px'}}>
+      <div style={{paddingBottom: '200px', background: 'white'}}>
         {this.props.section.items.map((item, index) => {
           return (
             <div className="paper-box with-hover" key={index} style={this.getPaperStyles(item)}>
