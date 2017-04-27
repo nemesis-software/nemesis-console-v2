@@ -96,8 +96,6 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   handleRequestError(err) {
-    let errorMsg = (err && err.response && err.response.data && err.response.data.message) || err.message || err;
-    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true})
   }
 
   getErrorDialog() {
