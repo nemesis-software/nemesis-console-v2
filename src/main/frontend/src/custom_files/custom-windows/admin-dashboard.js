@@ -10,7 +10,9 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip
+  Tooltip,
+  BarChart,
+  Bar
 } from 'recharts';
 
 const style = {
@@ -26,7 +28,7 @@ const radialBardata = [
   {name: '35-39', uv:8.22, pv: 9800, fill: '#82ca9d'},
   {name: '40-49', uv:8.63, pv: 3908, fill: '#a4de6c'},
   {name: '50+', uv:2.63, pv: 4800, fill: '#d0ed57'},
-  {name: 'unknow', uv:6.67, pv: 4800, fill: '#ffc658'}
+  {name: 'unknown', uv:6.67, pv: 4800, fill: '#ffc658'}
 ];
 
 const areaChartData = [
@@ -57,11 +59,19 @@ const data02 = [{name: 'Red', value: 100, fill: '#e52c0a'},
   {name: 'Blue', value: 80, fill: '#83a6ed'},
 ];
 
+const barData = [
+  {name: '1st week', Paid: 4000, Canceled: 2400, amt: 2400},
+  {name: '2nd week', Paid: 3000, Canceled: 1398, amt: 2210},
+  {name: '3rd week', Paid: 2000, Canceled: 9800, amt: 2290},
+  {name: '4rd week', Paid: 2780, Canceled: 3908, amt: 2000},
+];
+
 export default class AdminDashboard extends Component {
   constructor(props) {
     super(props);
-  }
 
+    this.state = {areaChartData: areaChartData};
+  }
 
   render() {
     return (
@@ -118,15 +128,29 @@ export default class AdminDashboard extends Component {
           </div>
 
           <div className="small-chart-container">
-            <PieChart width={800} height={250}>
-              <Pie data={data01} cx={200} cy={100} outerRadius={60} fill="#8884d8"/>
-              <Pie data={data02} cx={200} cy={100} innerRadius={70} outerRadius={90} fill="#82ca9d" label/>
-              <Legend iconSize={10} width={120} height={140} layout='vertical' verticalAlign='top'/>
+            <BarChart width={500} height={200} data={barData}
+                      margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+              <XAxis dataKey="name"/>
+              <YAxis yAxisId="left" orientation="left" stroke="#8884d8"/>
+              <YAxis yAxisId="right" orientation="right" stroke="#82ca9d"/>
+              <CartesianGrid strokeDasharray="3 3"/>
+              <Tooltip/>
+              <Legend />
+              <Bar yAxisId="left" dataKey="Paid" fill="#8884d8" />
+              <Bar yAxisId="right" dataKey="Canceled" fill="#82ca9d" />
+            </BarChart>
+          </div>
+          <div className="small-chart-container">
+            <PieChart width={400} height={250}>
+              <Pie data={data01} cx={150} cy={100} outerRadius={60} fill="#8884d8"/>
+              <Pie data={data02} cx={150} cy={100} innerRadius={70} outerRadius={90} fill="#82ca9d" label/>
+              <Legend iconSize={10} width={120} height={140} layout='vertical' horizontalAligh='left' verticalAlign='top' wrapperStyle={style}/>
             </PieChart>
           </div>
         </div>
         <div className="big-chart-container">
-          <AreaChart width={1000} height={300} data={areaChartData}
+          <AreaChart width={1000} height={300} data={this.state.areaChartData}
+                     style={{margin: 'auto'}}
                      margin={{top: 10, right: 30, left: 0, bottom: 0}}>
             <XAxis dataKey="name"/>
             <YAxis/>

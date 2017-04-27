@@ -29,7 +29,7 @@ export default class EntitiesNavigationItem extends Component {
 
   render() {
     return (
-      <NavDropdown id={this.props.entityId} className={'' + (_.some(this.props.entities, {isVisible: true}) ? ' active' : '')} title={<Translate content={'main.' + this.props.entityId} fallback={this.props.entityId}/>}>
+      <NavDropdown id={this.props.entityId} className={'entity-nav-dropdown' + (_.some(this.props.entities, {isVisible: true}) ? ' selected' : '')} title={<Translate content={'main.' + this.props.entityId} fallback={this.props.entityId}/>}>
         {this.getFilteredSubEntities().map((subEntity, index) => {
           return <MenuItem onClick={(event) => this.onNestedItemTouchTab(event, subEntity)} key={index}>{this.getMenuItemContentByEntityType(subEntity)}</MenuItem>;
         })}
@@ -52,7 +52,7 @@ export default class EntitiesNavigationItem extends Component {
       text = entity.itemId + ' - Create Entity';
     }
 
-    return <div><span className={entity.isVisible ? 'selected-navigation-menu-item' : ''}>{text}</span><i style={{marginLeft: '15px', verticalAlign: 'middle'}} className="material-icons close-icon">close</i></div>
+    return <div><span className={entity.isVisible ? 'selected-navigation-menu-item' : ''}>{text}</span><i className="material-icons close-icon">close</i></div>
   }
 
   getFilteredSubEntities() {
