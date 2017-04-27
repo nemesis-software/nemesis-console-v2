@@ -21,6 +21,7 @@ export default class NemesisEntityField extends NemesisBaseField {
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
         <Select.Async style={{width: '100%'}}
                       cache={false}
+                      disabled={this.props.readOnly}
                       value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
                       onChange={(item) => this.onValueChange(item && item.value)}
                       loadOptions={this.filterEntityData.bind(this)}/>

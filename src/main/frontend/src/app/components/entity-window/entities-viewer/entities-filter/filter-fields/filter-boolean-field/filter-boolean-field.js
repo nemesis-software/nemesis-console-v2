@@ -24,7 +24,7 @@ export default class FilterBooleanField extends Component {
 
   render() {
     return (
-      <div className="filter-item-container boolean-field-container">
+      <div className="filter-item-container">
         <NemesisBooleanField readOnly={this.props.readOnly} value={this.state.booleanField} style={styles.container} onValueChange={this.onBooleanFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )

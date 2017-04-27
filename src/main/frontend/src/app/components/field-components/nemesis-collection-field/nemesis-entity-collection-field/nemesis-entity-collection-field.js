@@ -16,6 +16,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
         <Select.Async style={{width: '100%'}}
                       cache={false}
+                      disabled={this.props.readOnly}
                       onChange={this.onItemSelect.bind(this)}
                       loadOptions={this.filterEntityData.bind(this)}/>
       </div>
