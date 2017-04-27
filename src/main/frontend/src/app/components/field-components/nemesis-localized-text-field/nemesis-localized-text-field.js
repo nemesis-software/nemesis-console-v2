@@ -37,7 +37,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
                    className="entity-field form-control"
                    value={this.getTextFieldValue(this.state.selectedLanguage)}
                    disabled={this.props.readOnly}
-                   onChange={(e) => this.onValueChange(e, e.target.value, this.state.selectedLanguage)}/>
+                   onChange={(e) => this.onTextChange(e, e.target.value, this.state.selectedLanguage)}/>
         </div>
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (

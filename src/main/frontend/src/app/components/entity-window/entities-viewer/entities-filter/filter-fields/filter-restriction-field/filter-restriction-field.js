@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Translate from 'react-translate-component';
+import Select from 'react-select';
 
 export default class FilterRestrictionField extends Component {
   constructor(props) {
@@ -7,8 +8,8 @@ export default class FilterRestrictionField extends Component {
     this.state = {selectedRestrictionField: props.defaultValue || null};
   }
 
-  handleChange(event) {
-    let restrictionField = this.props.restrictionFields[event.target.selectedIndex];
+  handleChange(item) {
+    let restrictionField = item && item.value;
     this.props.onRestrictionFieldChange(restrictionField);
     this.setState({selectedRestrictionField: restrictionField});
   }
@@ -17,14 +18,18 @@ export default class FilterRestrictionField extends Component {
     return (
       <div style={{display: 'inline-block', width: '265px', ...this.props.style}}>
         <label>{this.props.label ? `${this.props.label} restriction` : 'Restriction'}</label>
-        <select ref={e => {
-          if (e && !this.props.defaultValue && !this.state.selectedRestrictionField) {
-            e.selectedIndex = -1;
-          }
-        }} defaultValue={this.props.defaultValue} className="form-control" onChange={this.handleChange.bind(this)} disabled={this.props.readOnly}>
-          {this.props.restrictionFields.map((field, index) => <Translate component="option" key={index} value={field} content={'main.' + field} fallback={field} />)}
-        </select>
+        <Select style={{width: '100%'}}
+                disabled={this.props.readOnly}
+                value={{value: this.state.selectedRestrictionField, label: this.state.selectedRestrictionField }}
+                onChange={(item) => this.handleChange(item)}
+                options={this.getOptions()}/>
       </div>
     )
+  }
+
+  getOptions() {
+    return this.props.restrictionFields.map((field, index) => {
+      return {value: field, label: <Translate component="span" key={index} value={field} content={'main.' + field} fallback={field} />}
+    });
   }
 }
