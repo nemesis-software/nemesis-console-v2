@@ -29,7 +29,7 @@ export default class TreeItem extends Component {
                 <i className={this.state.isChildrenVisible ? 'material-icons tree-item-icon reverse-icon' : 'material-icons tree-item-icon'}>arrow_drop_down</i> :
                 false
             }
-            { (!this.props.nestedItems || this.props.nestedItems.length === 0) && this.props.isVisible ? <i style={{verticalAlign: 'middle', marginLeft: '15px', fontSize: '21px'}} className="material-icons add-icon">add</i> : false}
+            { (!this.props.nestedItems || this.props.nestedItems.length === 0) && this.props.isVisible ? <i className="material-icons add-icon">add</i> : false}
         </div>
         {this.props.isVisible || this.props.nestingLevel === 0 ? this.props.nestedItems.map(this.renderChildren.bind(this)) : false}
         {this.state.openModalCreation ?
