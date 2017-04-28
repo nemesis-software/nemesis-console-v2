@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Translate from 'react-translate-component';
 
+import Select from 'react-select';
+
 const styles = {
   table: {
     display: 'table'
@@ -29,6 +31,7 @@ const pageSizes = [20, 50, 100, 1000];
 export default class EntitiesPager extends Component {
   constructor(props) {
     super(props);
+    this.state = {pageSize: pageSizes[0]};
   }
 
   render() {
@@ -55,16 +58,22 @@ export default class EntitiesPager extends Component {
         </div>
         <div style={{display: 'inline-block'}}>
           <label><Translate content={'main.pageSize'} fallback={'Page Size'} /></label>
-          <select style={{width: '100px'}} className="form-control" onChange={this.handlePageSizeChange.bind(this)} disabled={this.props.readOnly}>
-            {pageSizes.map((size, index) =><option key={index} value={size}>{size}</option>)}
-          </select>
+          <Select style={{width: '100%'}}
+                  clearable={false}
+                  disabled={this.props.readOnly}
+                  value={{value: this.state.pageSize, label: this.state.pageSize}}
+                  onChange={(item) => this.handlePageSizeChange(item)}
+                  options={pageSizes.map(size => {
+                    return {value: size, label: size}
+                  })}/>
         </div>
       </div>
     )
   }
 
-  handlePageSizeChange(event) {
-    this.props.onPagerChange(1, pageSizes[event.target.selectedIndex]);
+  handlePageSizeChange(item) {
+    this.setState({pageSize: item.value});
+    this.props.onPagerChange(1, item.value);
   }
 
   onFirstPageButtonClick() {

@@ -122,7 +122,7 @@ export default class EntitySection extends Component {
   }
 
   getPaperStyles(item) {
-    let style = {margin: '5px', padding: '5px', display: 'inline-block', minHeight: '95px'};;
+    let style = {margin: '5px', padding: '5px', display: 'inline-block', minHeight: '95px'};
     if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisMediaField, nemesisFieldTypes.nemesisSimpleCollectionField].indexOf(item.xtype) > -1) {
       style.width = 'calc(100% - 10px)';
     }

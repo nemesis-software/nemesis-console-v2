@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 import Modal from 'react-bootstrap/lib/Modal';
 import NemesisBaseField from '../nemesis-base-field'
-import 'react-select/dist/react-select.css';
 
 export default class NemesisEntityField extends NemesisBaseField {
   constructor(props) {
