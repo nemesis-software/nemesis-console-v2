@@ -17,12 +17,13 @@ export default class NemesisTextAreaField extends NemesisBaseField {
         <div style={{width: '256px', display: 'inline-block'}}>
           <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
           <input type="text"
-                 className="entity-field form-control"
+                 className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
                  value={this.state.value || ''}
                  disabled={this.props.readOnly}
                  onChange={(e) => this.onValueChange(e, e.target.value)} />
         </div>
         <i className="material-icons entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}>fullscreen</i>
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)}>
           <Modal.Header>
             <Modal.Title>Edit richtext</Modal.Title>

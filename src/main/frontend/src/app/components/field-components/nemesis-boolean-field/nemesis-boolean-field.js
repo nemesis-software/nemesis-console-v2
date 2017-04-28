@@ -40,6 +40,7 @@ export default class NemesisBooleanField extends NemesisBaseField {
             N/A
           </label>
         </div>
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       </div>
     )
   }

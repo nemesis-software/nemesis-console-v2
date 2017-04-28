@@ -12,15 +12,25 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   getInputField() {
     return (
-      <div style={{width: '256px', display: 'inline-block'}}>
+      <div style={{width: '256px', display: 'inline-block'}} className="entity-field-container">
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
-        <Select.Async style={{width: '100%'}}
+        <Select.Async style={this.getSelectStyle()}
                       cache={false}
                       disabled={this.props.readOnly}
                       onChange={this.onItemSelect.bind(this)}
                       loadOptions={this.filterEntityData.bind(this)}/>
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       </div>
     )
+  }
+
+  getSelectStyle() {
+    let style = {width: '100%'};
+    if (this.state.errorMessage) {
+      style.borderColor = '#F24F4B';
+    }
+
+    return style;
   }
 
   filterEntityData(inputText) {

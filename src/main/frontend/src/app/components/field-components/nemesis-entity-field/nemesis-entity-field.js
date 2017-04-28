@@ -18,17 +18,28 @@ export default class NemesisEntityField extends NemesisBaseField {
     <div className="entity-field-container">
       <div style={{width: '256px', display: 'inline-block'}}>
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
-        <Select.Async style={{width: '100%'}}
+        <Select.Async style={this.getSelectStyle()}
                       cache={false}
+                      className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
                       disabled={this.props.readOnly}
                       value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
                       onChange={(item) => this.onValueChange(item && item.value)}
                       loadOptions={this.filterEntityData.bind(this)}/>
       </div>
       {this.props.type === nemesisFieldUsageTypes.edit ? <i className="material-icons entity-navigation-icon" onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
+      {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       {this.getErrorDialog()}
     </div>
     )
+  }
+
+  getSelectStyle() {
+    let style = {width: '100%'};
+    if (this.state.errorMessage) {
+      style.borderColor = '#F24F4B';
+    }
+
+    return style;
   }
 
   componentWillReceiveProps(nextProps) {

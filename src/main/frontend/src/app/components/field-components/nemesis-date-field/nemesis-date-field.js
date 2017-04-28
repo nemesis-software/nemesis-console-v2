@@ -15,10 +15,12 @@ export default class NemesisDateField extends NemesisBaseField {
       <div className="entity-field-container" style={{display: 'inline-block', width:'256px'}}>
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
         <DatePicker style={this.props.style}
+                    className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
                     disabled={this.props.readOnly}
                     value={this.getValue()}
-                    onChange={(v) => {console.log(v, typeof v, 'set');this.onValueChange(null, v)}}
+                    onChange={(v) => {this.onValueChange(null, v)}}
         />
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       </div>
     )
   }

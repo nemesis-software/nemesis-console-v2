@@ -57,7 +57,7 @@ export default class App extends Component {
             <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
           </div>
           <div className={this.state.isNavigationTreeOpened ? 'main-view-wrapper' : 'main-view-wrapper full-view'}>
-            <MainView ref={el => {console.log(el);this.mainViewRef = el}}/>
+            <MainView ref={el => {this.mainViewRef = el}}/>
           </div>
         </div>
     );

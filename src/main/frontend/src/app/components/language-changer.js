@@ -14,7 +14,6 @@ export default class LanguageChanger extends Component {
   }
 
   handleChange(selectedLanguage) {
-    console.log(selectedLanguage);
     this.setState({...this.state, selectedLanguage: selectedLanguage.value});
     this.props.onLanguageChange(selectedLanguage.value.value);
   }

@@ -34,7 +34,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
         <div style={{width: '256px', display: 'inline-block'}}>
             <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
             <input type="text"
-                   className="entity-field form-control"
+                   className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
                    value={this.getTextFieldValue(this.state.selectedLanguage)}
                    disabled={this.props.readOnly}
                    onChange={(e) => this.onTextChange(e, e.target.value, this.state.selectedLanguage)}/>
@@ -44,6 +44,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
             <i className="material-icons entity-navigation-icon" onClick={this.handleTranslateIconClick.bind(this)}>translate</i>
           ) :
           false}
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
           <Modal show={this.state.openTranslateDialog} onHide={this.handleTranslateDialogClose.bind(this)}>

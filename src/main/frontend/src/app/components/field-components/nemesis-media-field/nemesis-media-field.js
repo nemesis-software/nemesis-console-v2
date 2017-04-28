@@ -10,7 +10,7 @@ export default class NemesisTextField extends NemesisBaseField {
 
   render() {
     return (
-      <div>
+      <div className="entity-field-container">
         <button className="btn btn-default" onClick={() => this.inputItem.click()}>
           Upload
           <input ref={e => this.inputItem = e} onChange={this.handleImageChange.bind(this)} style={{display: 'none'}} type="file" />
@@ -18,6 +18,7 @@ export default class NemesisTextField extends NemesisBaseField {
         <div>
           <img src={this.state.value} alt="No image" height="200" width="300"/>
         </div>
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       </div>
     )
   }

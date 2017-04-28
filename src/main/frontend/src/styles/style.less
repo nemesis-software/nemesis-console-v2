@@ -1,6 +1,7 @@
 @dark-blue: #2E657F;
 @light-blue: #357492;
 @light-grey: #EFF7F9;
+@red-color: #F24F4B;
 
 * {
   font-family: Roboto, sans-serif;
@@ -75,11 +76,23 @@
 
   .entity-field {
     vertical-align: top;
+
+    &.has-error {
+      border-color: @red-color;
+
+      .Select-control {
+
+      }
+    }
+  }
+
+  .error-container {
+    color: @red-color;
   }
 
   .entity-navigation-icon {
     vertical-align: top;
-    padding: 30px 10px;
+    padding: 30px 10px 0;
     cursor: pointer;
   }
 }
@@ -298,7 +311,7 @@
   background-color: rgb(224, 224, 224);
 }
 
-.form-control {
+.form-control:not(textarea) {
   height: 36px!important;
 }
 
