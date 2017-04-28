@@ -9,7 +9,7 @@ let NavigationFilter = componentRequire('app/components/navigation-tree/navigati
 export default class NavigationTree extends Component {
   constructor(props) {
     super(props);
-    this.state = {treeData: [], filteredData: []};
+    this.state = {treeData: [], filteredData: [], loadingData: true};
     this.selectedCreatingItem = null;
   }
 
@@ -19,8 +19,13 @@ export default class NavigationTree extends Component {
 
   render() {
     return (
-      <div className="navigation-tree">
+      <div>
         <NavigationFilter onFilterChange={this.onFilterChange.bind(this)} data={this.state.treeData} />
+        {this.state.loadingData ? <div>
+          <div style={{textAlign: 'center'}}>Loading...</div>
+          <div style={{textAlign: 'center'}}><i className="material-icons loading-icon" style={{fontSize: '30px', padding: '10px'}}>cached</i></div>
+
+        </div> : false}
         {this.state.filteredData.map((item, index) => <TreeItem onEntityClick={this.props.onEntityClick}
                                                                 initiallyOpen={this.state.filteredData.length !== this.state.treeData.length}
                                                                 key={index}
@@ -46,7 +51,13 @@ export default class NavigationTree extends Component {
   }
 
   getNavigationData() {
-    return ApiCall.get('backend/navigation');
+    return ApiCall.get('backend/navigation').then(result => {
+      this.setState({...this.state, loadingData: false});
+      return result;
+    }, err => {
+      this.setState({...this.state, loadingData: false});
+      return err;
+    });
   }
 
   populateNavigationData() {

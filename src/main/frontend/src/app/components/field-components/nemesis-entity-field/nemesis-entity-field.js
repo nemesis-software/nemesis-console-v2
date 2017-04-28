@@ -1,41 +1,45 @@
-import React, { Component } from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
+import React from 'react';
+import Select from 'react-select';
 import Translate from 'react-translate-component';
 import ApiCall from '../../../services/api-call';
 import _ from 'lodash';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Modal from 'react-bootstrap/lib/Modal';
 import NemesisBaseField from '../nemesis-base-field'
 
 export default class NemesisEntityField extends NemesisBaseField {
   constructor(props) {
     super(props);
-    this.state = {...this.state, searchText: this.getItemText(this.state.value), dataSource: [], openErrorDialog: false, errorMessage: null };
+    this.state = {...this.state, openErrorDialog: false, errorMessage: null };
   }
 
   render() {
     return (
     <div className="entity-field-container">
-      <AutoComplete className="entity-field"
-                    style={this.props.style}
-                    dataSource={this.state.dataSource}
-                    filter={(searchText, key) => true}
-                    onFocus={this.onAutocompleteFocus.bind(this)}
-                    onBlur={this.onAutocompleteBlur.bind(this)}
-                    onUpdateInput={_.debounce(this.onTextFieldChange.bind(this), 250)}
-                    openOnFocus={true}
-                    disabled={this.props.readOnly}
-                    onNewRequest={(item) => this.onValueChange(item.value)}
-                    listStyle={{width: 'auto'}}
-                    menuStyle={{width: 'auto', maxHeight: '300px'}}
-                    maxSearchResults={10}
-                    searchText={this.state.searchText}
-                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}/>
+      <div style={{width: '256px', display: 'inline-block'}}>
+        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
+        <Select.Async style={this.getSelectStyle()}
+                      cache={false}
+                      className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
+                      disabled={this.props.readOnly}
+                      value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
+                      onChange={(item) => this.onValueChange(item && item.value)}
+                      loadOptions={this.filterEntityData.bind(this)}/>
+      </div>
       {this.props.type === nemesisFieldUsageTypes.edit ? <i className="material-icons entity-navigation-icon" onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
+      {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       {this.getErrorDialog()}
     </div>
     )
+  }
+
+  getSelectStyle() {
+    let style = {width: '100%'};
+    if (this.state.errorMessage) {
+      style.borderColor = '#F24F4B';
+    }
+
+    return style;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,38 +47,23 @@ export default class NemesisEntityField extends NemesisBaseField {
       if (!nextProps.value) {
         return;
       }
-      this.setState({...this.state, isDirty: false, value: this.setFormattedValue(nextProps.value), searchText: this.getItemText(nextProps.value)})
+      this.setState({...this.state, isDirty: false, value: this.setFormattedValue(nextProps.value)})
     }
   }
 
-  onAutocompleteFocus() {
-    this.setState({...this.state, searchText: ''});
-    this.filterEntityData('');
-  }
-
-  onAutocompleteBlur() {
-    this.setState({...this.state, searchText: this.getItemText(this.state.value)});
-  }
-
   onValueChange(value) {
-    this.setState({...this.state, isDirty: true, value: value, searchText: this.getItemText(value)});
+    this.setState({...this.state, isDirty: true, value: value});
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));
     }
   }
 
-  onTextFieldChange(value) {
-    this.filterEntityData(value);
-    this.setState({...this.state, searchText: value});
-  }
-
   filterEntityData(inputText) {
     let inputTextActual = inputText || '';
-    ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, catalogCode: inputTextActual, code: inputTextActual, projection: 'search'}).then(result => {
+    return ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, catalogCode: inputTextActual, code: inputTextActual, projection: 'search'}).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-      let mappedData = data.map(this.mapDataSource.bind(this));
-      this.setState({...this.state, dataSource: mappedData});
+      return  {options: data.map(this.mapDataSource.bind(this))};
     }, this.handleRequestError.bind(this))
   }
 
@@ -90,7 +79,7 @@ export default class NemesisEntityField extends NemesisBaseField {
   mapDataSource(item) {
     return {
       value: item,
-      text: this.getItemText(item)
+      label: this.getItemText(item)
     }
   }
 
@@ -117,30 +106,33 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   handleRequestError(err) {
-    let errorMsg = (err && err.response && err.response.data && err.response.data.message) || err.message || err;
-    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true})
   }
 
   getErrorDialog() {
-    const actions = [
-      <FlatButton
-        label="ok"
-        onTouchTap={this.handleCloseErrorDialog.bind(this)}
-      />,
-    ];
     return (
-      <Dialog
-        title="Something went wrong!"
-        actions={actions}
-        modal={true}
-        open={this.state.openErrorDialog}
-      >
-        <div style={{color: 'red'}}>{this.state.errorMessage}</div>
-      </Dialog>
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Something went wrong!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-default" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 
   handleCloseErrorDialog() {
     this.setState({...this.state, openErrorDialog: false});
+  }
+
+  getChangeValue() {
+    if (this.state.isDirty) {
+      return {name: this.props.name, value: this.state.value && this.state.value.id};
+    }
+
+    return null;
   }
 }

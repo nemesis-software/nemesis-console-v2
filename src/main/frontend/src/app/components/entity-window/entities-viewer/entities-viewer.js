@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Translate from 'react-translate-component';
 import _ from 'lodash';
 
 import ApiCall from '../../../services/api-call';
@@ -17,7 +16,7 @@ const pagerData = {
 export default class EntitiesViewer extends Component {
   constructor(props) {
     super(props);
-    this.state = {searchData: [], page: {}, filter: null};
+    this.state = {searchData: [], page: {}, filter: null, isDataLoading: false};
   }
 
   componentWillMount() {
@@ -26,7 +25,10 @@ export default class EntitiesViewer extends Component {
 
   render() {
     return (
-      <div>
+      <div className={'entities-viewer' + (this.state.isDataLoading ? ' on-loading' : '')}>
+        {this.state.isDataLoading ? <div className="loading-screen">
+          <i className="material-icons loading-icon">cached</i>
+        </div> : false}
         <EntitiesFilter entity={this.props.entity} filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
         <EntitiesResultViewer entities={this.state.searchData}
                               entity={this.props.entity}
@@ -44,8 +46,9 @@ export default class EntitiesViewer extends Component {
   }
 
   getEntitiesData(entity, page, pageSize, filter) {
+    this.setState({...this.state, isDataLoading: true});
     ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, projection: 'search'}).then(result => {
-      this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page});
+      this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
     });
   }
 

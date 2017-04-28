@@ -1,6 +1,5 @@
 import React from 'react';
 
-import RaisedButton from 'material-ui/RaisedButton';
 
 import FilterNumberField from '../../app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-number-field/filter-number-field'
 import { searchRestrictionTypes } from '../../app/types/nemesis-types';
@@ -15,7 +14,7 @@ export default class CustomFilter extends BaseCustomFilter {
     return (
       <div style={this.props.style}>
         <FilterNumberField readOnly={true} defaultRestriction={searchRestrictionTypes.equals} defaultValue={2} onFilterChange={this.onFilterChange.bind(this)} filterItem={{name: 'id', fieldLabel: 'Id'}} />
-        <div style={{padding: '10px 0'}} ><RaisedButton style={{margin: '10px'}} label="Search" onClick={this.onSearchButtonClick.bind(this)} /></div>
+        <div style={{padding: '10px 0'}} ><button className="btn btn-default" onClick={this.onSearchButtonClick.bind(this)}>Search</button></div>
       </div>
     )
   }

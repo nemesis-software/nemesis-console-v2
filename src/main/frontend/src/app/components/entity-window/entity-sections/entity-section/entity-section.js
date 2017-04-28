@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Paper from 'material-ui/Paper';
-
 import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../../../types/nemesis-types';
 import { componentRequire } from '../../../../utils/require-util';
 
@@ -28,12 +26,12 @@ export default class EntitySection extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{minHeight: 'calc(100vh - 225px)', background: 'white'}}>
         {this.props.section.items.map((item, index) => {
           return (
-            <Paper key={index} zDepth={1} style={this.getPaperStyles(item)}>
+            <div className="paper-box with-hover" key={index} style={this.getPaperStyles(item)}>
               {this.getSectionItemRenderer(item, index)}
-            </Paper>
+            </div>
           )
         })}
       </div>
@@ -124,10 +122,10 @@ export default class EntitySection extends Component {
   }
 
   getPaperStyles(item) {
-    let displayType = 'inline-block';
+    let style = {margin: '5px', padding: '5px', display: 'inline-block', minHeight: '95px'};
     if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisMediaField, nemesisFieldTypes.nemesisSimpleCollectionField].indexOf(item.xtype) > -1) {
-      displayType = 'block';
+      style.width = 'calc(100% - 10px)';
     }
-    return {margin: '5px', padding: '5px', display: displayType, minHeight: '95px'};
+    return style;
   }
 }

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import _ from 'lodash';
 
-import Paper from 'material-ui/Paper';
-
 import EntitiesPager from '../../app/components/entity-window/entities-viewer/entities-pager/entities-pager'
 
 
@@ -31,11 +29,11 @@ export default class CardViewer extends Component {
           this.props.entities.map((item, index) => {
             return (
               <div key={index} onClick={() => this.props.onEntityItemClick(item)} style={{width: 'calc(50% - 10px)', cursor: 'pointer', display: 'inline-block', padding: '5px'}}>
-                <Paper  zDepth={1} >
+                <div className="paper-box">
                   {
                     this.state.entitiesMarkup.map((markupItem, index) => this.getRowItem(item, markupItem, index))
                   }
-                </Paper>
+                </div>
               </div>
             )
           })

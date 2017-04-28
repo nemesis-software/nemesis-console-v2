@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
 import { ChromePicker } from 'react-color';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Modal from 'react-bootstrap/lib/Modal';
 
 export default class NemesisColorpickerField extends NemesisBaseField {
   constructor(props) {
@@ -13,33 +11,30 @@ export default class NemesisColorpickerField extends NemesisBaseField {
   }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Done"
-        primary={true}
-        onTouchTap={this.handleClose.bind(this)}
-      />
-    ];
 
     return (
     <div className="entity-field-container">
-      <TextField className="entity-field" style={this.props.style}
-                 value={this.state.value || ''}
-                 disabled={this.props.readOnly}
-                 errorText={this.state.errorMessage}
-                 onChange={this.onValueChange.bind(this)}
-                 floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                 />
+      <div style={{width: '256px', display: 'inline-block'}}>
+        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+        <input type="text"
+               className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
+               value={this.state.value || ''}
+               disabled={this.props.readOnly}
+               onChange={(e) => this.onValueChange(e, e.target.value)} />
+      </div>
       <i className="material-icons entity-navigation-icon" onClick={this.handleClick.bind(this)}>color_lens</i>
-      <Dialog
-        title="Select Color"
-        actions={actions}
-        modal={true}
-        contentStyle={{width: '350px'}}
-        open={this.state.displayColorPicker}
-      >
-        <ChromePicker color={this.state.value} disableAlpha={true} onChange={(color, event) => this.onValueChange(event, color.hex)}/>
-      </Dialog>
+      {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+      <Modal bsSize="small" show={this.state.displayColorPicker} onHide={this.handleClose.bind(this)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Select color</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ChromePicker color={this.state.value} disableAlpha={true} onChange={(color, event) => this.onValueChange(event, color.hex)}/>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-default" onClick={this.handleClose.bind(this)}>Done</button>
+        </Modal.Footer>
+      </Modal>
     </div>
 
     )

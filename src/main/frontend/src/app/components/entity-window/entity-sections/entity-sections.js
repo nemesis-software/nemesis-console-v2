@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 
 import Translate from 'react-translate-component';
 
-import {Tabs, Tab} from 'material-ui/Tabs';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
-import Paper from 'material-ui/Paper';
 import SwipeableViews from 'react-swipeable-views';
+import Modal from 'react-bootstrap/lib/Modal';
 
 import _ from 'lodash';
 
@@ -49,15 +46,14 @@ export default class EntitySections extends Component {
   render() {
     return (
       <div key={this.state.key}>
-        <Paper zDepth={1} style={{margin: '5px 0', padding: '5px'}}>
-          {this.getFunctionalButtons(this.props.entity).map((button, index) => <FlatButton label={<Translate component="span" content={'main.' + button.label} fallback={button.label} />} onClick={button.onClickFunction} key={index}/>)}
-        </Paper>
-        <Tabs onChange={this.handleChange}
-              value={this.state.sectionIndex}>
-              {this.props.entity.data.sections.map((item, index) => {
-                return <Tab key={index} value={index} label={<Translate component="span" content={'main.' + item.title} fallback={item.title} />} />
-              })}
-        </Tabs>
+        <div className="paper-box" style={{margin: '5px 0', padding: '5px'}}>
+          {this.getFunctionalButtons(this.props.entity).map((button, index) => <button style={{margin: '0 5px'}} className="btn btn-default" onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></button>)}
+        </div>
+        <ul className="nav nav-tabs">
+          {this.props.entity.data.sections.map((item, index) => {
+            return <li className={this.state.sectionIndex === index ? 'active' : ''} onClick={() => this.handleChange(index)} key={index}><Translate component="a" content={'main.' + item.title} fallback={item.title} /></li>
+          })}
+        </ul>
         <SwipeableViews
           index={this.state.sectionIndex}
           onChangeIndex={this.handleChange}
@@ -128,46 +124,35 @@ export default class EntitySections extends Component {
   }
 
   getDeleteConfirmationDialog() {
-    const actions = [
-      <FlatButton
-        label="No"
-        primary={true}
-        onTouchTap={this.handleCloseDeleteConfirmation.bind(this)}
-      />,
-      <FlatButton
-        label="Yes"
-        primary={true}
-        onTouchTap={this.handleConfirmationDeleteButtonClick.bind(this)}
-      />,
-    ];
     return (
-      <Dialog
-        title="Delete Entity"
-        actions={actions}
-        modal={true}
-        open={this.state.openDeleteConfirmation}
-      >
+    <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseErrorDialog.bind(this)}>
+      <Modal.Header>
+        <Modal.Title>Delete Entity</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
         <div>Are you sure you want to delete it?</div>
-      </Dialog>
+      </Modal.Body>
+      <Modal.Footer>
+        <button className="btn btn-info" onClick={this.handleCloseDeleteConfirmation.bind(this)}>No</button>
+        <button className="btn btn-primary" onClick={this.handleConfirmationDeleteButtonClick.bind(this)}>Yes</button>
+      </Modal.Footer>
+    </Modal>
     );
   }
 
   getErrorDialog() {
-    const actions = [
-      <FlatButton
-        label="ok"
-        onTouchTap={this.handleCloseErrorDialog.bind(this)}
-      />,
-    ];
     return (
-      <Dialog
-        title="Something went wrong!"
-        actions={actions}
-        modal={true}
-        open={this.state.openErrorDialog}
-      >
-        <div style={{color: 'red'}}>{this.state.errorMessage}</div>
-      </Dialog>
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Something went wrong!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-default" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 

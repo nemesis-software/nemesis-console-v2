@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {GridList, GridTile} from 'material-ui/GridList';
+import Nav from 'react-bootstrap/lib/Nav';
 
 import _ from 'lodash';
 
@@ -20,16 +20,14 @@ export default class EntitiesNavigation extends Component {
 
   render() {
     return (
-      <GridList className="entity-navigation" cellHeight="auto" cols={2.2}>
+      <Nav bsStyle="pills" className="nav nav-pills entity-navigation">
         {_.map(this.state.groupedEntities, (value, key) =>
-          <GridTile className="navigation-item-container" style={{width: 'auto'}} containerElement="span" key={key}>
-            <EntitiesNavigationItem entityId={key}
-                                    entities={value.reverse()}
-                                    onEntityWindowClose={this.props.onEntityWindowClose}
-                                    onNavigationItemClick={this.props.onNavigationItemClick}/>
-          </GridTile>
+          <EntitiesNavigationItem key={key} entityId={key}
+                                  entities={value.reverse()}
+                                  onEntityWindowClose={this.props.onEntityWindowClose}
+                                  onNavigationItemClick={this.props.onNavigationItemClick}/>
         )}
-      </GridList>
+      </Nav>
     )
   }
 

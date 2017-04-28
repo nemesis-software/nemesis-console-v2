@@ -1,32 +1,38 @@
 import React, { Component } from 'react';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+
 import Translate from 'react-translate-component';
+
+import Select from 'react-select';
 
 export default class LanguageChanger extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedLanguage: this.props.selectedLanguage,
+      selectedLanguage: this.props.selectedLanguage || this.props.availableLanguages[0],
       availableLanguages: this.props.availableLanguages
     };
   }
 
-  handleChange(event, index, value) {
-    this.setState({...this.state, selectedLanguage: this.state.availableLanguages[index]});
-    this.props.onLanguageChange(value);
+  handleChange(selectedLanguage) {
+    this.setState({...this.state, selectedLanguage: selectedLanguage.value});
+    this.props.onLanguageChange(selectedLanguage.value.value);
   }
 
   render() {
     return (
-      <SelectField
-        disabled={this.props.readOnly}
-        labelStyle={this.props.labelStyle}
-        value={this.state.selectedLanguage.value}
-        floatingLabelText={this.props.label ? <Translate content={'main.' + this.props.label} fallback={this.props.label} /> : null}
-        onChange={this.handleChange.bind(this)}>
-        {this.state.availableLanguages.map((language, index) => <MenuItem key={index} value={language.value} primaryText={language.labelCode} />)}
-      </SelectField>
+      <div style={{display: 'inline-block', width: '256px', verticalAlign: 'top', ...this.props.style}}>
+        {this.props.label ? <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label> : false}
+        <Select style={{width: '100%'}}
+                clearable={false}
+                disabled={this.props.readOnly}
+                value={{value: this.state.selectedLanguage, label: this.state.selectedLanguage.labelCode }}
+                onChange={(item) => this.handleChange(item)}
+                options={this.state.availableLanguages.map(this.getOptionFields.bind(this))}/>
+      </div>
     );
+  }
+
+  getOptionFields(language) {
+    return {value: language, label: language.labelCode};
   }
 }

@@ -5,4 +5,4 @@ import App from './app/components/app';
 
 ReactDOM.render(
     <App />
-  , document.querySelector('.container'));
+  , document.querySelector('.app-container'));

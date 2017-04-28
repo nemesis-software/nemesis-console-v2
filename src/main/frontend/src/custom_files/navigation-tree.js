@@ -10,9 +10,9 @@ export default class CustomTreeItem extends NavigationTree {
     this.getNavigationData().then(result => {
       let data = result.data;
       data.unshift({
-        id: 'iframe',
-        text: 'Custom IFrame',
-        children: [{id: 'Nemesis', text:'Nemesis frame', leaf: true}]
+        id: 'AdminDashboard',
+        text: 'Admin',
+        children: [{id: 'AdminDashboard', text:'Admin dashboard', leaf: true}]
       });
       this.setState({...this.state, treeData: data, filteredData: data});
     });

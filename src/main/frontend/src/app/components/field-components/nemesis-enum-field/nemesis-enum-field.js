@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+
+import Select from 'react-select';
 
 export default class NemesisEnumField extends NemesisBaseField {
   constructor(props) {
@@ -12,16 +12,29 @@ export default class NemesisEnumField extends NemesisBaseField {
   render() {
     return (
       <div className="entity-field-container">
-        <SelectField style={this.props.style}
-                     value={this.getFormattedValue(this.state.value) || ''}
-                     disabled={this.props.readOnly}
-                     errorText={this.state.errorMessage}
-                     floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                     onChange={this.onValueChange.bind(this)}>
-          {this.props.values.map((value, index) => <MenuItem key={index} value={value} primaryText={value} />)}
-        </SelectField>
+        <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label>
+        <Select style={this.getSelectStyle()}
+                clearable={false}
+                disabled={this.props.readOnly}
+                value={this.state.value !== -1 ? {value: this.state.value, label: <Translate content={'main.' + this.props.values[this.state.value]} fallback={this.props.values[this.state.value]} />} : null} //
+                onChange={(item) => this.onChange(item)}
+                options={this.props.values.map(this.getOptions.bind(this))}/>
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       </div>
     )
+  }
+
+  getSelectStyle() {
+    let style = {width: '256px'};
+    if (this.state.errorMessage) {
+      style.borderColor = '#F24F4B';
+    }
+
+    return style;
+  }
+
+  getOptions(value, index) {
+    return {value: index, label: <Translate content={'main.' + value} fallback={value} />}
   }
 
   getFormattedValue(value) {
@@ -30,5 +43,9 @@ export default class NemesisEnumField extends NemesisBaseField {
 
   isEmptyValue() {
     return this.state.value < 0;
+  }
+
+  onChange(item) {
+    this.onValueChange(event, item && item.value);
   }
 }

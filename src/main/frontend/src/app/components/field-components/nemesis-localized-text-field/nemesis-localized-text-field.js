@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
 import LanguageChanger from '../../language-changer';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Modal from 'react-bootstrap/lib/Modal';
 
 const translationLanguages = {
   languages: [
@@ -23,14 +21,6 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Done"
-        primary={true}
-        onTouchTap={this.handleTranslateDialogClose.bind(this)}
-      />
-    ];
-
     return (
       <div className="entity-field-container">
         <LanguageChanger
@@ -41,28 +31,33 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           availableLanguages={translationLanguages.languages}
           selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
         />
-        <TextField className="entity-field"
-                   style={this.props.style}
+        <div style={{width: '256px', display: 'inline-block'}}>
+            <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+            <input type="text"
+                   className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
                    value={this.getTextFieldValue(this.state.selectedLanguage)}
                    disabled={this.props.readOnly}
-                   errorText={this.state.errorMessage}
-                   floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                   onChange={(e, v) => this.onTextChange(e, v, this.state.selectedLanguage)}/>
+                   onChange={(e) => this.onTextChange(e, e.target.value, this.state.selectedLanguage)}/>
+        </div>
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
             <i className="material-icons entity-navigation-icon" onClick={this.handleTranslateIconClick.bind(this)}>translate</i>
           ) :
           false}
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
-            <Dialog
-              title="Translate field"
-              actions={actions}
-              modal={true}
-              open={this.state.openTranslateDialog}
-            >
+          <Modal show={this.state.openTranslateDialog} onHide={this.handleTranslateDialogClose.bind(this)}>
+            <Modal.Header>
+              <Modal.Title>Translate field</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
               {translationLanguages.languages.map(this.getDialogInputField.bind(this))}
-            </Dialog>
+            </Modal.Body>
+            <Modal.Footer>
+              <button className="btn btn-default" onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
+            </Modal.Footer>
+          </Modal>
           ) :
           false}
       </div>
@@ -72,11 +67,12 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   getDialogInputField(language, index) {
     return (
       <div key={index}>
-        <TextField style={{width: '100%'}}
-                   value={this.getTextFieldValue(language.value)}
-                   disabled={this.props.readOnly}
-                   floatingLabelText={language.labelCode}
-                   onChange={(e, v) => this.onTextChange(e, v, language.value)}/>
+        <Translate component="label" content={'main.' + language.labelCode} fallback={language.labelCode} />
+        <input type="text"
+               className="entity-field form-control"
+               value={this.getTextFieldValue(language.value)}
+               disabled={this.props.readOnly}
+               onChange={(e) => this.onTextChange(e, e.target.value, language.value)}/>
       </div>
     )
   }

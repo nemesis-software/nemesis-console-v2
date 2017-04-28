@@ -13,7 +13,6 @@ export default class CustomFilters extends EntitiesFilters {
 
   getFilters() {
     let filters = super.getFilters();
-    console.log(this.props);
     if (this.props.entity.entityId === 'category') {
       filters.push({filterName: 'Custom filter', filterClass: CustomFilter});
     }

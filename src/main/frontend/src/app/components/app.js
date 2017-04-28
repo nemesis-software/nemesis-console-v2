@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { componentRequire } from '../utils/require-util'
 import Translate from 'react-translate-component';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import counterpart from 'counterpart';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
+
+import 'react-select/dist/react-select.css';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 import '../../styles/style.less';
-
-injectTapEventPlugin();
 
 const translationLanguages = {
  languages: [
@@ -33,39 +31,40 @@ let LanguageChanger = componentRequire('app/components/language-changer', 'langu
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {selectedEntity: null};
+    this.mainViewRef = null;
+    this.state = {isNavigationTreeOpened: true};
   }
 
   render() {
     return (
-      <MuiThemeProvider>
         <div>
-          <AppBar style={{position: 'fixed'}} title="Nemesis Backend Console" iconElementRight={
-            <div>
+          <div className="nemesis-navbar">
+            <i className="material-icons sidebar-icon" onClick={() => this.setState({isNavigationTreeOpened: !this.state.isNavigationTreeOpened})}>menu</i>
+            <div className="nemesis-navbar-header">Nemesis Console</div>
+            <div className="nemesis-navbar-right">
               <LanguageChanger
-                labelStyle={{color: 'white'}}
+                style={{width: '150px'}}
                 onLanguageChange={language => counterpart.setLocale(language)}
                 availableLanguages={translationLanguages.languages}
                 selectedLanguage={translationLanguages.defaultLanguage}
               />
-              <div style={{display: 'inline-block', verticalAlign: 'top', margin: '5px 15px'}}>
-                <FlatButton
-                  style={{color: 'white'}}
-                  label={<Translate component="span" content={'main.Logout'} fallback={'Logout'} />}
-                  onTouchTap={this.handleLogoutButtonClick.bind(this)}
-                />
+              <div className="logout-button" onClick={this.handleLogoutButtonClick.bind(this)}>
+                <i className="material-icons">exit_to_app</i> <Translate component="span" content={'main.Logout'} fallback={'Log out'} />
               </div>
             </div>
-          } iconStyleLeft={{display: 'none'}}/>
-          <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
-          <MainView selectedEntity={this.state.selectedEntity}/>
+          </div>
+          <div className={this.state.isNavigationTreeOpened ? 'navigation-tree' : 'navigation-tree hidden-tree'}>
+            <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
+          </div>
+          <div className={this.state.isNavigationTreeOpened ? 'main-view-wrapper' : 'main-view-wrapper full-view'}>
+            <MainView ref={el => {this.mainViewRef = el}}/>
+          </div>
         </div>
-      </MuiThemeProvider>
     );
   }
 
   onEntityClick(entity) {
-    this.setState({selectedEntity: entity});
+    this.mainViewRef.openNewEntity(entity)
   }
 
   handleLogoutButtonClick() {

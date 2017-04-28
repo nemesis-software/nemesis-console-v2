@@ -1,9 +1,7 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
+import Modal from 'react-bootstrap/lib/Modal';
 
 export default class NemesisRichTextField extends NemesisBaseField {
   constructor(props) {
@@ -13,40 +11,35 @@ export default class NemesisRichTextField extends NemesisBaseField {
   }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Done"
-        primary={true}
-        onTouchTap={this.handleDialogClose.bind(this)}
-      />
-    ];
     return (
       <div className="entity-field-container">
-        <TextField className="entity-field"
-                   style={this.props.style}
-                   value={this.state.value || ''}
-                   disabled={this.props.readOnly}
-                   errorText={this.state.errorMessage}
-                   floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                   onChange={this.onValueChange.bind(this)}/>
+        <div style={{width: '256px', display: 'inline-block'}}>
+          <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+          <input type="text"
+                 className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
+                 value={this.state.value || ''}
+                 disabled={this.props.readOnly}
+                 onChange={(e) => this.onValueChange(e, e.target.value)} />
+        </div>
         <i className="material-icons entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}>fullscreen</i>
-        <Dialog
-          title="Edit richtext"
-          actions={actions}
-          modal={true}
-          open={this.state.openFullScreenDialog}
-          autoScrollBodyContent={true}
-        >
-          <TextField style={{width: '100%'}}
-                     value={this.state.value || ''}
-                     disabled={this.props.readOnly}
-                     multiLine={true}
-                     rows={6}
-                     rowsMax={6}
-                     floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                     onChange={this.onValueChange.bind(this)}/>
-          <div dangerouslySetInnerHTML={{__html: this.state.value || ''}}></div>
-        </Dialog>
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+        <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)}>
+          <Modal.Header>
+            <Modal.Title>Edit richtext</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+            <textarea className="entity-field form-control"
+                      rows="6"
+                      value={this.state.value || ''}
+                      disabled={this.props.readOnly}
+                      onChange={(e) => this.onValueChange(e, e.target.value)}/>
+            <div dangerouslySetInnerHTML={{__html: this.state.value || ''}} />
+          </Modal.Body>
+          <Modal.Footer>
+            <button className="btn btn-default" onClick={this.handleDialogClose.bind(this)}>Done</button>
+          </Modal.Footer>
+        </Modal>
       </div>
     )
   }

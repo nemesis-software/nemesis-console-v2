@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="resources/styles.css" type="text/css">
 </head>
 <body>
-    <div class="container"></div>
+    <div class="app-container"></div>
 </body>
 <div id="website-base-url" style="display:none" url="${websiteBaseUrl}"></div>
 <div id="rest-base-url" style="display:none" url="${restBaseUrl}" locale="${currentLocale}"></div>

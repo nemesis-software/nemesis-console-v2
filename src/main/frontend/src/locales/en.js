@@ -4,7 +4,7 @@ module.exports = {
   },
   main: {
     //Backend Conslole Translations
-    'Logout': 'Logout',
+    'Logout': 'Log out',
     'Backend Console': 'Backend Console',
     'Search': 'Search',
     'Clear': 'Clear',

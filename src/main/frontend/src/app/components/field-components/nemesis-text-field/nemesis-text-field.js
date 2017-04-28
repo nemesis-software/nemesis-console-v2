@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import TextField from 'material-ui/TextField';
+import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
 
@@ -11,13 +10,13 @@ export default class NemesisTextField extends NemesisBaseField {
   render() {
     return (
       <div className="entity-field-container">
-        <TextField className="entity-field"
-                   style={this.props.style}
-                   value={this.state.value || ''}
-                   disabled={this.props.readOnly}
-                   errorText={this.state.errorMessage}
-                   floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}
-                   onChange={this.onValueChange.bind(this)}/>
+        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+        <input type="text"
+               style={{width: '256px'}}
+               className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
+               value={this.state.value || ''}
+               disabled={this.props.readOnly} onChange={(e) => this.onValueChange(e, e.target.value)}/>
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       </div>
     )
   }

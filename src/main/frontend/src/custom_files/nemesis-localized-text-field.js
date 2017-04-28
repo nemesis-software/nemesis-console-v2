@@ -15,7 +15,7 @@ export default class CustomValidationLocalizedText extends NemesisLocalizedTextF
   }
 
   customValidationForCategory() {
-    if ((!this.state.value['en'] || _.isEmpty(this.state.value['en'].value)) || (!this.state.value['bg_BG'] || _.isEmpty(this.state.value['bg_BG'].value))) {
+    if (!this.state.value || (!this.state.value['en'] || _.isEmpty(this.state.value['en'].value)) || (!this.state.value['bg_BG'] || _.isEmpty(this.state.value['bg_BG'].value))) {
       this.setState({...this.state, errorMessage: this.getErrorMessage()});
       return false;
     }

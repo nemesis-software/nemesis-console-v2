@@ -6,18 +6,29 @@ export default class CustomMainView extends MainView {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedEntity.entityId === 'Nemesis') {
+  componentWillMount() {
+    let selectedEntity = {
+      type: 'dashboard',
+      entityCode: 'AdminDashboard',
+      entityId: 'dashboard',
+      itemId: null
+    };
+    super.componentWillMount().then(null, () => {
+      this.setSelectedItemInState(selectedEntity);
+    });
+  }
+
+  openNewEntity(entity) {
+    if (entity.entityId === 'AdminDashboard') {
       let selectedEntity = {
-        type: 'iframe',
-        url: 'http://nemesis.io',
-        entityCode: nextProps.selectedEntity.entityId,
-        entityId: 'iframe',
+        type: 'dashboard',
+        entityCode: entity.entityId,
+        entityId: 'dashboard',
         itemId: null
       };
       this.setSelectedItemInState(selectedEntity);
       return;
     }
-    super.componentWillReceiveProps(nextProps);
+    super.openNewEntity(entity);
   }
 }

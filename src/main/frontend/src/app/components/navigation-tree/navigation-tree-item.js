@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import Translate from 'react-translate-component';
-import TouchRipple from 'material-ui/internal/TouchRipple';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import Modal from 'react-bootstrap/lib/Modal';
 
 const alignStyle = {
   verticalAlign: 'middle'
@@ -20,77 +17,59 @@ export default class TreeItem extends Component {
   }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleClose.bind(this)}
-      />,
-      <FlatButton
-        label="Create"
-        primary={true}
-        onTouchTap={this.handleSelectCreateEntity.bind(this)}
-      />,
-    ];
-
     return (
       <div style={this.getContainerStyles(this.props.nestingLevel)}>
-        <div onClick={this.handleItemClick.bind(this)} style={this.getItemStyles(this.props.nestingLevel)}>
-          <TouchRipple>
-            {
-              this.props.nestedItems && this.props.nestedItems.length > 0 ?
-                <i className="material-icons" style={alignStyle}>{this.state.isChildrenVisible ? this.getOpenedItemIcon() : this.getClosedItemIcon()}</i> :
-                false
-            }
+        <div className="nav-tree-item" onClick={this.handleItemClick.bind(this)} style={this.getItemStyles(this.props.nestingLevel)}>
             <Translate component="span"
                        style={alignStyle}
                        content={'main.' + this.props.item.text}
                        fallback={this.props.item.text}/>
-            { !this.props.nestedItems || this.props.nestedItems.length === 0 ? <i style={{verticalAlign: 'middle', marginLeft: '15px'}} className="material-icons add-icon">add</i> : false}
-          </TouchRipple>
+            {
+              this.props.nestedItems && this.props.nestedItems.length > 0 && (this.props.isVisible || this.props.nestingLevel === 0) ?
+                <i className={this.state.isChildrenVisible ? 'material-icons tree-item-icon reverse-icon' : 'material-icons tree-item-icon'}>arrow_drop_down</i> :
+                false
+            }
+            { (!this.props.nestedItems || this.props.nestedItems.length === 0) && this.props.isVisible ? <i className="material-icons add-icon">add</i> : false}
         </div>
-        {this.props.nestedItems.map(this.renderChildren.bind(this))}
-        {this.state.openModalCreation ? <Dialog
-            title="Create Entity"
-            actions={actions}
-            modal={true}
-            open={this.state.openModalCreation}
-          >
-            <div>Please select entity type</div>
-            <RadioButtonGroup name="Choosed Item"
-                              valueSelected={this.selectedCreatingItem}
-                              onChange={(e, v) => this.selectedCreatingItem = v}
-            >
-              {this.getEntityCategories(this.state.creationEntity, 0).map((item, index) =>{
-                return <RadioButton
-                  style={this.getRadioButtonStyle(item)}
-                  key={index}
-                  value={item.entityId}
-                  label={item.text}
-                />
-              })}
-            </RadioButtonGroup>
-          </Dialog> : false}
+        {this.props.isVisible || this.props.nestingLevel === 0 ? this.props.nestedItems.map(this.renderChildren.bind(this)) : false}
+        {this.state.openModalCreation ?
+          <Modal show={this.state.openModalCreation} onHide={this.handleClose.bind(this)}>
+            <Modal.Header>
+              <Modal.Title>Create Entity</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div>Please select entity type</div>
+                {this.getEntityCategories(this.state.creationEntity, 0).map((item, index) => {
+                  return (
+                    <div style={this.getRadioButtonStyle(item)} key={index}>
+                      <label className="radio-inline">
+                        <input className="nemesis-radio-button" type="radio" value={item.entityId} defaultChecked={index === 0} onChange={this.handleRadioChange.bind(this)} name={'new-entity'}/>
+                        {item.text}
+                      </label>
+                    </div>
+                  )
+                })}
+            </Modal.Body>
+            <Modal.Footer>
+              <button className="btn btn-info" onClick={this.handleClose.bind(this)}>Cancel</button>
+              <button className="btn btn-primary" onClick={this.handleSelectCreateEntity.bind(this)}>Create</button>
+            </Modal.Footer>
+          </Modal> : false}
       </div>
     )
   };
 
   getContainerStyles(nestingLevel) {
-    let styles = { };
-
+    let styles = {transition: 'font-size .25s, margin .25s, padding .25s,opacity .25s'};
     if (nestingLevel > 0 && !this.props.isVisible) {
-      styles.display = 'none';
+      styles = { fontSize: '0', margin: '0', padding: '0', opacity: '0', transition: 'font-size .5s .25s,margin .5s .25s,padding .5s .25s, opacity .5s .25s' }
     }
 
     return styles;
   }
 
-  getClosedItemIcon() {
-    return 'chevron_right';
-  }
-
-  getOpenedItemIcon() {
-    return 'expand_more';
+  handleRadioChange(e) {
+    this.selectedCreatingItem = e.target.value;
   }
 
   renderChildren(nestedItem, index) {
@@ -123,17 +102,16 @@ export default class TreeItem extends Component {
 
 
   getItemStyles(nestingLevel) {
-    let additionPadding = this.props.nestedItems && (this.props.nestedItems.length > 0) ? 0 : 24;
-    let paddingLeft = (nestingLevel * 20) + additionPadding;
-
+    let paddingLeft = (nestingLevel * 10);
+    let paddingTopBottom = this.props.isVisible || this.props.nestingLevel === 0 ? '5px' : 0;
+    let paddingLeftActual = (20 + paddingLeft) + 'px';
     return {
       position: 'relative',
       textAlign: 'left',
       width: '100%',
-      padding: '5px 0',
-      fontSize: '17px',
-      paddingLeft: paddingLeft + 'px',
-      cursor: 'pointer'
+      padding: `${paddingTopBottom} 10px ${paddingTopBottom} ${paddingLeftActual}`,
+      cursor: 'pointer',
+      transition: 'padding .25s'
     };
   }
 

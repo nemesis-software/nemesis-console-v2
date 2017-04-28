@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 
 import Translate from 'react-translate-component';
 
-import Paper from 'material-ui/Paper';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Select from 'react-select';
 
 import { componentRequire } from '../../../../utils/require-util';
 
@@ -20,26 +18,26 @@ export default class EntitiesFilter extends Component {
   render() {
     return (
       <div>
-        <Paper zDepth={1} style={{margin: '5px', padding: '5px'}}>
+        <div className="paper-box" style={{margin: '5px', padding: '5px'}}>
           <div style={this.getFilterSelectStyle()}>
-            <SelectField
-              floatingLabelText={<Translate component="span" content={'main.Filter'} fallback={'Filter'} />}
-              value={this.state.selectedMenuIndex}
-              onChange={this.handleFilterChange.bind(this)}
-            >
-              {this.getFilters().map((item, index) => {
-                return  <MenuItem key={index} value={index} primaryText={item.filterName} />
-              })}
-            </SelectField>
+            <label><Translate content={'main.Filter'} fallback={'Filter'}/></label>
+            <Select style={{width: '265px'}}
+                    clearable={false}
+                    disabled={this.props.readOnly}
+                    value={{value: this.state.selectedMenuIndex, label: this.getFilters()[this.state.selectedMenuIndex].filterName}}
+                    onChange={this.handleFilterChange.bind(this)}
+                    options={this.getFilters().map((item, index) => {
+                      return {value: index, label: item.filterName}
+                    })}/>
           </div>
           {this.getFilters().map(this.getFilterElement.bind(this))}
-        </Paper>
+        </div>
       </div>
     )
   }
 
-  handleFilterChange(event, index) {
-    this.setState({...this.state, selectedMenuIndex: index});
+  handleFilterChange(item) {
+    this.setState({...this.state, selectedMenuIndex: item.value});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,7 +49,7 @@ export default class EntitiesFilter extends Component {
   }
 
   getFilterSelectStyle() {
-    let style = {};
+    let style = {display:'inline-block', marginBottom: '20px'};
     if (this.getFilters().length <= 1) {
       style = {display: 'none'};
     }

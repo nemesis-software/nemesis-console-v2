@@ -1,6 +1,6 @@
 import React from 'react';
+import Select from 'react-select';
 import NemesisBaseCollectionField from '../nemesis-base-collection-field';
-import AutoComplete from 'material-ui/AutoComplete';
 import ApiCall from '../../../../services/api-call';
 import _ from 'lodash';
 import Translate from 'react-translate-component';
@@ -8,42 +8,44 @@ import Translate from 'react-translate-component';
 export default class NemesisEntityCollectionField extends NemesisBaseCollectionField {
   constructor(props) {
     super(props);
-    this.state = {...this.state, searchText: '', dataSource: []};
   }
 
   getInputField() {
     return (
-      <AutoComplete style={this.props.style}
-                    dataSource={this.state.dataSource}
-                    filter={(searchText, key) => true}
-                    onFocus={this.onAutocompleteFocus.bind(this)}
-                    onUpdateInput={_.debounce(this.onTextFieldChange.bind(this), 250)}
-                    openOnFocus={true}
-                    errorText={this.state.errorMessage}
-                    disabled={this.props.readOnly}
-                    onNewRequest={this.onItemSelect.bind(this)}
-                    listStyle={{width: 'auto'}}
-                    menuStyle={{width: 'auto', maxHeight: '300px'}}
-                    maxSearchResults={10}
-                    searchText={this.state.searchText}
-                    floatingLabelText={<Translate content={'main.' + this.props.label} fallback={this.props.label} />}/>
+      <div style={{width: '256px', display: 'inline-block'}} className="entity-field-container">
+        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
+        <Select.Async style={this.getSelectStyle()}
+                      cache={false}
+                      disabled={this.props.readOnly}
+                      onChange={this.onItemSelect.bind(this)}
+                      loadOptions={this.filterEntityData.bind(this)}/>
+        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+      </div>
     )
+  }
+
+  getSelectStyle() {
+    let style = {width: '100%'};
+    if (this.state.errorMessage) {
+      style.borderColor = '#F24F4B';
+    }
+
+    return style;
   }
 
   filterEntityData(inputText) {
     let inputTextActual = inputText || '';
-    ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, code: inputTextActual, projection: 'search'}).then(result => {
+    return ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, code: inputTextActual, projection: 'search'}).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-      let mappedData = data.map(this.mapDataSource.bind(this));
-      this.setState({...this.state, dataSource: mappedData});
+      return {options: data.map(this.mapDataSource.bind(this))};
     })
   }
 
   onItemSelect(item) {
     let valueActual = this.state.value || [];
     valueActual.push(item.value);
-    this.setState({...this.state, isDirty: true, value: valueActual, searchText: ''});
+    this.setState({...this.state, isDirty: true, value: valueActual});
   }
 
   getSearchUrl() {
@@ -51,19 +53,10 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
     return `${this.props.entityId}${urlSuffix}`;
   }
 
-  onAutocompleteFocus() {
-    this.filterEntityData(this.state.searchText);
-  }
-
-  onTextFieldChange(value) {
-    this.filterEntityData(value);
-    this.setState({...this.state, searchText: value});
-  }
-
   mapDataSource(item) {
     return {
       value: item,
-      text: this.getAutocompleteRenderingValue(item)
+      label: this.getAutocompleteRenderingValue(item)
     }
   }
 
@@ -85,6 +78,9 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
       visualizationContent = `${item.code}:${item.position}`;
     }
 
-    return <div>{visualizationContent}<i className="material-icons collection-item-icon" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i></div>
+    return (<div className="chip-item">
+      <span style={{verticalAlign: 'top'}}>{visualizationContent}</span>
+      <i style={{verticalAlign: 'top'}} className="material-icons" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i>
+    </div>)
   }
 }
