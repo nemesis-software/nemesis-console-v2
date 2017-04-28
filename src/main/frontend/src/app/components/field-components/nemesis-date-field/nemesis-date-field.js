@@ -34,6 +34,9 @@ export default class NemesisDateField extends NemesisBaseField {
   }
 
   getFormattedValue(value) {
+    if (!value) {
+      return null;
+    }
     return moment(value).set({hour:0,minute:0,second:0,millisecond:0}).format(this.getDateFormat());
   }
 
