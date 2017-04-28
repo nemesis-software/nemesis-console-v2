@@ -122,10 +122,10 @@ export default class EntitySection extends Component {
   }
 
   getPaperStyles(item) {
-    let displayType = 'inline-block';
+    let style = {margin: '5px', padding: '5px', display: 'inline-block', minHeight: '95px'};;
     if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisMediaField, nemesisFieldTypes.nemesisSimpleCollectionField].indexOf(item.xtype) > -1) {
-      displayType = 'block';
+      style.width = 'calc(100% - 10px)';
     }
-    return {margin: '5px', padding: '5px', display: displayType, minHeight: '95px'};
+    return style;
   }
 }
