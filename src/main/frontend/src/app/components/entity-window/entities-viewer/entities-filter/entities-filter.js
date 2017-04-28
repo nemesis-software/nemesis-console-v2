@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Translate from 'react-translate-component';
 
+import Select from 'react-select';
+
 import { componentRequire } from '../../../../utils/require-util';
 
 let DefaultFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/default-filter/default-filter', 'default-filter');
@@ -19,9 +21,14 @@ export default class EntitiesFilter extends Component {
         <div className="paper-box" style={{margin: '5px', padding: '5px'}}>
           <div style={this.getFilterSelectStyle()}>
             <label><Translate content={'main.Filter'} fallback={'Filter'}/></label>
-            <select style={{width: '265px'}} className="form-control" onChange={this.handleFilterChange.bind(this)} disabled={this.props.readOnly}>
-              {this.getFilters().map((item, index) =><option key={index} value={index}>{item.filterName}</option>)}
-            </select>
+            <Select style={{width: '265px'}}
+                    clearable={false}
+                    disabled={this.props.readOnly}
+                    value={{value: this.state.selectedMenuIndex, label: this.getFilters()[this.state.selectedMenuIndex].filterName}}
+                    onChange={this.handleFilterChange.bind(this)}
+                    options={this.getFilters().map((item, index) => {
+                      return {value: index, label: item.filterName}
+                    })}/>
           </div>
           {this.getFilters().map(this.getFilterElement.bind(this))}
         </div>
@@ -29,8 +36,8 @@ export default class EntitiesFilter extends Component {
     )
   }
 
-  handleFilterChange(event) {
-    this.setState({...this.state, selectedMenuIndex: event.target.selectedIndex});
+  handleFilterChange(item) {
+    this.setState({...this.state, selectedMenuIndex: item.value});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,7 +49,7 @@ export default class EntitiesFilter extends Component {
   }
 
   getFilterSelectStyle() {
-    let style = {};
+    let style = {display:'inline-block', marginBottom: '20px'};
     if (this.getFilters().length <= 1) {
       style = {display: 'none'};
     }
