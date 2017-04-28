@@ -197,6 +197,33 @@
     padding-left: 0;
     transition: padding-left .5s ease-out;
   }
+
+  .entities-viewer {
+    position: relative;
+
+    &.on-loading {
+      height: ~"calc(100vh - 116px)";
+      overflow: hidden;
+    }
+
+    .loading-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.1);
+      z-index: 100000;
+
+      .loading-icon {
+        font-size: 50px;
+        position: absolute;
+        top: ~"calc(50% - 35px)";
+        left: ~"calc(50% - 35px)";
+        color: @dark-blue;
+      }
+    }
+  }
 }
 
 .nemesis-navbar {
