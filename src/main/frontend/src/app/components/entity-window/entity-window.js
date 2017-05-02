@@ -15,9 +15,10 @@ export default class EntitiesWindow extends Component {
     let styles = {
       minHeight: 'calc(100vh - 106px)',
       overflowY: 'auto',
-      padding: '5px',
-      backgroundColor: 'whitesmoke'
+      padding: '44px 5px 5px',
+      backgroundColor: 'whitesmoke',
     };
+
     if (!this.props.entity.isVisible) {
       styles.display = 'none';
     }

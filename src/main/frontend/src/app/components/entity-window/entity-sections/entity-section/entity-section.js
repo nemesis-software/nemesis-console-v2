@@ -26,7 +26,7 @@ export default class EntitySection extends Component {
   }
   render() {
     return (
-      <div style={{minHeight: 'calc(100vh - 225px)', background: 'white'}}>
+      <div style={{minHeight: 'calc(100vh - 205px)', background: 'white'}}>
         {this.props.section.items.map((item, index) => {
           return (
             <div className="paper-box with-hover" key={index} style={this.getPaperStyles(item)}>
