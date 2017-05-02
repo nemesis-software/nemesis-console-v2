@@ -117,7 +117,9 @@ export default class EntitiesTableViewer extends Component {
     if (['nemesisLocalizedRichtextField', 'nemesisLocalizedTextField'].indexOf(markupItem.type) > -1) {
       itemValue = item[markupItem.name][this.state.selectedLanguage] && item[markupItem.name][this.state.selectedLanguage].value;
     }
-    itemValue = isFinite(itemValue) ? itemValue + '' : itemValue;
+    itemValue = isFinite(itemValue) && itemValue !== null ? itemValue + '' : itemValue;
+    itemValue = (typeof itemValue === 'object' && itemValue !== null) ? JSON.stringify(itemValue) : itemValue;
+
 
     let style = {
       maxWidth: '100px',
