@@ -81,7 +81,7 @@ export default class EntitiesPager extends Component {
       return;
     }
 
-    this.props.onPagerChange(1, 20);
+    this.props.onPagerChange(1, this.state.pageSize);
   }
 
   onPrevPageButtonClick() {
@@ -89,7 +89,7 @@ export default class EntitiesPager extends Component {
       return;
     }
 
-    this.props.onPagerChange(this.props.page.number, 20);
+    this.props.onPagerChange(this.props.page.number, this.state.pageSize);
   }
 
   onNextPageButtonClick() {
@@ -97,7 +97,7 @@ export default class EntitiesPager extends Component {
       return;
     }
 
-    this.props.onPagerChange(this.props.page.number + 2, 20);
+    this.props.onPagerChange(this.props.page.number + 2, this.state.pageSize);
   }
 
   onLastPageButtonClick() {
@@ -105,6 +105,6 @@ export default class EntitiesPager extends Component {
       return;
     }
 
-    this.props.onPagerChange(this.props.page.totalPages, 20);
+    this.props.onPagerChange(this.props.page.totalPages, this.state.pageSize);
   }
 }
