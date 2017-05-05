@@ -11,7 +11,8 @@
   ~ license agreement you entered into with nemesis.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -22,7 +23,6 @@
 
     <groupId>com.nemesis.platform.console</groupId>
     <artifactId>nemesis-console-v2</artifactId>
-    <version>1.0.0</version>
     <packaging>war</packaging>
 
     <name>New Web Consoles</name>
@@ -58,7 +58,7 @@
             </releases>
         </repository>
     </repositories>
-    
+
     <!-- The following we need only because if NEMESIS release of asciidoctor.-->
     <pluginRepositories>
         <pluginRepository>
