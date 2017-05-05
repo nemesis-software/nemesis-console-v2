@@ -25,7 +25,8 @@
     <artifactId>nemesis-console-v2</artifactId>
     <packaging>war</packaging>
 
-    <name>New Web Consoles</name>
+    <name>Nemesis Consoles</name>
+    <description>an overview of the Backend Nemesis Console</description>
 
     <properties>
         <maven.rat.plugin.skip>true</maven.rat.plugin.skip>
