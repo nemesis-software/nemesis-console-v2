@@ -55,6 +55,7 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/**").hasRole("EMPLOYEEGROUP")
                 .and()
+            .headers().disable()
             .formLogin()
                 .loginProcessingUrl("/j_spring_security_check")
                 .loginPage("/login").permitAll()
