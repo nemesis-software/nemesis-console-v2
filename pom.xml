@@ -30,9 +30,9 @@
 
     <properties>
         <maven.rat.plugin.skip>true</maven.rat.plugin.skip>
-        <frontend-plugin.version>1.3</frontend-plugin.version>
-        <node.version>v6.9.1</node.version>
-        <yarn.version>v0.16.1</yarn.version>
+        <frontend-plugin.version>1.4</frontend-plugin.version>
+        <node.version>v7.10.0</node.version>
+        <yarn.version>v0.24.0</yarn.version>
     </properties>
 
     <repositories>
