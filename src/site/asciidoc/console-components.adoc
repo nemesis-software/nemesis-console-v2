@@ -1,0 +1,163 @@
+= Console Components
+:toc:
+:toc level: 4
+
+== *Components overview*
+
+The Nemesis Backend Console consists of several components, each of them extending the React abstract base link:https://facebook.github.io/react/docs/react-component.html[Component] class. The main components are `entities-navigation`, `entity-window`, `main-view` and `navigation-tree`. Let's have a closer view at each of them.
+
+
+== *Entities-navigation components*
+
+=== _entities-navigation_
+
+The `entities-navigation` component is the area where each of the `entity-navigation-item`-s is shown. It is billed as react-bootstrap link:https://react-bootstrap.github.io/components.html#navs[Nav] element with `pills` style.
+
+[.center.text-center]
+.entities-navigation
+image::entities-navigation.png[Nemesis Backend Console Entities Navigation Component]
+
+Regardless of the order you choose an entity, by default they will be ordered alphabetically. The order is done based on the type of the entity. This is handled in the `getGroupedEntities()` function.
+
+=== _entity-navigation-item_
+
+The `entity-navigation-item` component handles the logic of appearance for each entity you choose from the side navigation.
+
+[.center.text-center]
+.entity-navigation-item
+image::entity-navigation-item.png[Nemesis Backend Console Entity Navigation Item Component]
+
+When you open the `Sitemap Page`, for example, as shown on the picture above, you have the following options/information displayed:
+
+<1> shows the entity is of `entitySearchType`. When you click `Entity search`, the is entity is displayed in the main window.
+
+
+<2> shows the entity is of `entityCreateType`. When you click the `+` sign in the navigation panel, you add a window for a new entity. The pop-up let's you choose the type and the sub-type you want to create (try to create a new `widget`, for example). By default, it receives the `[order of the entity to be created] - Create Entity` code. Click on it to modify and save the changes you've made.
+
+<3> shows the code (custom one, you enter it) and the id (auto-generated) for the entity instance
+
+== *Main view component*
+
+Called RESTs:
+
+    * `markup/search/all`
+
+    * `markup/entity/all`
+
+The `main-view`component, as you may see from the picture below, functions as a wrapper of the information for the item  you choose. By default, when you start the console, the custom admin dashboard  is opened (we'll talk later about it).
+
+[.center.text-center]
+.main-view
+image::main-view.png[Nemesis Backend Console Main View Component]
+
+== *Navigation tree components*
+
+Called REST: `/backend/navigation`
+
+=== _navigation-filter_
+
+The `navigation-filter` component handles the user's input and lets the filtered on the given criteria entities to be displayed only. Your input is dependent on the language of the console. If it is in English, for example, a filtration condition in a different language will not match.
+
+[.center.text-center]
+.navigation-filter
+image::navigation-filter.png[Nemesis Backend Console Navigation Filter Component]
+
+=== _navigation-tree_
+
+The `navigation-tree` component holds the `navigation-filter` component and a collection of the `navigation-tree-item` components.
+
+[.center.text-center]
+.navigation-tree
+image::navigation-tree.png[Nemesis Backend Console Navigation Tree Component]
+
+
+=== _navigation-tree-item_
+
+The `navigation-tree` consists of different items. Each item may contain different sub-items from the same type. The inner level navigation item only is the one that can be opened/ created an instance of.
+
+[.center.text-center]
+.navigation-tree-item
+image::navigation-tree-item.png[Nemesis Backend Console Navigation Tree Item Component]
+
+As shown on the picture, we have a 3-level-structure of a navigation item. `Commerce` is a `navigation-tree-item`, containing instances of `Catalog`, `Order`, `Price`, `Location` and `Leasing`. They are `navigation-tree-item`-s again. Each of these, on an inner level, has its editable instances. The `Manufacturer` is also a `navigation-tree-item`.
+
+== *Entity window* components
+
+There are 2 main components that build the Console's entity window - the viewer panel for all entities - `entities-viewer` and the sections, applicable to the chosen entity - `entity-sections`.
+
+You may customize the `entity-window` and add other components here as well.
+
+=== *Entities viewer*
+
+The `entities-viewer` consists of  -
+
+    * filters and
+    * results' view
+
+[.center.text-center]
+.entities-viewer
+image::entities-viewer.png[Nemesis Backend Console Entities Viewer Window]
+
+==== Filters
+
+The filtration is done based on the criteria entered. If there is no customization, the returned JSON from the API call is cisualized as shown on the picture.
+
+[.center.text-center]
+.filters
+image::filters.png[Nemesis Backend Console Filters Window]
+
+A custom filter may pre-populate filtration conditions (check the `Custom` filter in the `Category` entity).
+
+==== Result viewer
+
+The `entities-result-viewer` component handles the results of your entity search:
+
+[.center.text-center]
+.entities-result-viewer
+image::entities-result-viewer.png[Nemesis Backend Console Entities Result Viewer Component]
+
+
+===== Table viewer
+
+
+The visualization of the results, in case there is no customization, is displayed in a table. The respective component is `entities-table-viewer` :
+
+[.center.text-center]
+.entities-table-viewer
+image::entities-table-viewer.png[Nemesis Backend Console Entities Table Viewer Component]
+
+
+
+===== Pager
+
+You control the size of the displayed results via the pager's value:. The respective component is `entities-pager`:
+
+[.center.text-center]
+.entities-pager
+image::entities-pager.png[Nemesis Backend Console Entities Pager Component]
+
+
+
+=== *Entity sections*
+
+** _entity-section_
+
+The `entity-section` visualizes the information, relevant for the exact entity, filtered on a condition. Each of the tabs opens a new `entity-section`:
+
+[.center.text-center]
+.entity-section
+image::entity-section.png[Nemesis Backend Console Entity Section Component]
+
+** _entity-sections_
+
+All sections, related to the entity, are united as `entity-sections` component.
+
+
+[.center.text-center]
+.entity-sections
+image::entity-sections.png[Nemesis Backend Console Entity Sections Component]
+
+
+
+
+
