@@ -58,6 +58,63 @@
             </releases>
         </repository>
     </repositories>
+    
+    <!-- The following we need only because if NEMESIS release of asciidoctor.-->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nemesis-repository-plugins</id>
+            <name>nemesis-plugin-snapshots</name>
+            <url>https://repository.nemesis.io/artifactory/plugins-snapshot/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>nemesis-repository-snapshots</id>
+            <name>nemesis-repository-snapshots</name>
+            <url>https://repository.nemesis.io/artifactory/libs-snapshot/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>nemesis-repository-releases</id>
+            <name>nemesis-repository-release</name>
+            <url>https://repository.nemesis.io/artifactory/libs-release/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-snapshot</id>
+            <url>http://repo.spring.io/libs-snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
