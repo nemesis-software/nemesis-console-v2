@@ -1,0 +1,47 @@
+= Overview
+
+The Nemesis Backend Console is connected with the Nemesis Platform over your store's REST. It is used to perform CRUD operations on the database entities.
+
+== Start the console
+
+To start the console, first you need to know the address of the nemesis platform instance that you want to administer. Usually it's `localhost`, but it could be also installed on some other server. Once you know the address, you can go on and change the properties in the `appplication.properties` file to point to address where the nemesis platform instance is installed:
+
+[source, properties]
+.application.properties
+----
+include::{resources-code}/application.properties[]
+----
+
+The next step is to  start the server:
+
+[source, bash]
+----
+mvn spring-boot:run
+----
+
+
+== Login
+Once the server is started you can navigate you browser to `http://localhost:8080/backend` and the login screen will be presented to you.
+
+[.center.text-center]
+.Nemesis Backend Console Login Screen
+image::login.png[Nemesis Backend Console Login Screen]
+
+The username/password are configured in the Nemesis Platform Instance towards which you are connected, the default being `admin/nimda`.
+
+== Technologies used
+
+The Nemesis Backend Console is written with link:http://es6-features.org[ECMAScript 6], over the link:	https://facebook.github.io/react/[React] library. As a front-end framework is used link:http://getbootstrap.com/
+[Bootstrap], along with the link:https://react-bootstrap.github.io/introduction.html[React-Bootstrap] components.
+
+
+== How to customize the console
+
+The Nemesis Backend Console is built in such a way that it provides easy customization. You may completely alter the visualization of the components, as well as to add extra features to the separate screens. A set of customizations have already been done for you. All of the custom files are located in the `custom_files` directory. When customizing, you must follow the same convention.
+
+IMPORTANT: The files that are located in the `app` directory must NOT be modified. They will be updated on each console's update.
+
+Read more about:
+
+The Nemesis Backend link:console-components.html[components]
+
