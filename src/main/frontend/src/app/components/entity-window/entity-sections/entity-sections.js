@@ -99,13 +99,13 @@ export default class EntitySections extends Component {
     return ApiCall.get(restUrl).then(result => {
       this.setState({...this.state, entityData: result.data});
       Promise.all(
-        relatedEntities.map(item => ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
+        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
         //TODO: Patch for return 404 for empty relation - https://github.com/nemesis-software/nemesis-platform/issues/293
           .then(result => {
             return Promise.resolve(result);
           }, err => {
             return Promise.resolve({data: null});
-          }))
+          }) : Promise.resolve({data: null}))
       ).then(result => {
         let relatedEntitiesResult = {};
         relatedEntities.forEach((item, index) => {
