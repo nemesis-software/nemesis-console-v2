@@ -33,12 +33,17 @@ export default class App extends Component {
     super(props);
     this.mainViewRef = null;
     this.state = {isNavigationTreeOpened: true};
+    this.isOpenInFrame = false;
+  }
+
+  componentWillMount() {
+    this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
   }
 
   render() {
     return (
         <div>
-          <div className="nemesis-navbar">
+          {!this.isOpenInFrame ? <div className="nemesis-navbar">
             <i className="material-icons sidebar-icon" onClick={() => this.setState({isNavigationTreeOpened: !this.state.isNavigationTreeOpened})}>menu</i>
             <div className="nemesis-navbar-header">Nemesis Console</div>
             <div className="nemesis-navbar-right">
@@ -52,11 +57,11 @@ export default class App extends Component {
                 <i className="material-icons">exit_to_app</i> <Translate component="span" content={'main.Logout'} fallback={'Log out'} />
               </div>
             </div>
-          </div>
-          <div className={this.state.isNavigationTreeOpened ? 'navigation-tree' : 'navigation-tree hidden-tree'}>
+          </div> : false }
+          {!this.isOpenInFrame ? <div className={this.state.isNavigationTreeOpened ? 'navigation-tree' : 'navigation-tree hidden-tree'}>
             <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
-          </div>
-          <div className={this.state.isNavigationTreeOpened ? 'main-view-wrapper' : 'main-view-wrapper full-view'}>
+          </div> : false }
+          <div className={this.getMainViewClasses()}>
             <MainView ref={el => {this.mainViewRef = el}}/>
           </div>
         </div>
@@ -65,6 +70,20 @@ export default class App extends Component {
 
   onEntityClick(entity) {
     this.mainViewRef.openNewEntity(entity)
+  }
+
+  getMainViewClasses() {
+    let mainClass = 'main-view-wrapper';
+
+    if (this.isOpenInFrame) {
+      return mainClass + ' iframe-view';
+    }
+
+    if (!this.state.isNavigationTreeOpened) {
+      return mainClass + ' full-view';
+    }
+
+    return mainClass;
   }
 
   handleLogoutButtonClick() {
