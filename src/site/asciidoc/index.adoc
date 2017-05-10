@@ -34,8 +34,7 @@ The username/password are configured in the Nemesis Platform Instance towards wh
 
 == Technologies used
 
-The Nemesis Backend Console is written with link:http://es6-features.org[ECMAScript 6], over the link:	https://facebook.github.io/react/[React] library. As a front-end framework is used link:http://getbootstrap.com/
-[Bootstrap], along with the link:https://react-bootstrap.github.io/introduction.html[React-Bootstrap] components.
+The Nemesis Backend Console is written with link:http://es6-features.org[ECMAScript 6], over the link:	https://facebook.github.io/react/[React] library. As a front-end framework is used link:http://getbootstrap.com/[Bootstrap], along with the link:https://react-bootstrap.github.io/introduction.html[React-Bootstrap] components.
 
 
 == How to customize the console
