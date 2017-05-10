@@ -1,0 +1,195 @@
+= How to customize the backend console
+
+All of your custom files must be in the `custom_files` directory. For demo purposes, there are several sample customizations already implemented.
+
+IMPORTANT: Your custom files need to follow the naming convention of the files in the `app` - directory. For example - if you want to add customization to the `main-view` component, your custom file must be with the same name - `main-view.js`, located in the `custom_files` directory.
+
+Go through the article below, as well as through the respective files, to start implementing your changes with ease.
+
+== How to add a custom window
+
+* In your custom `main-view.js` file, extend the `main-view` component from the `../app/components/main-view/` directory.
+
+* In your custom `entity-window.js` file extend the `entity-window` component from the `'../app/components/entity-window/` directory.
+
+* Add the visualization you want to appear in your custom window.
+The custom window, created for demo purposes, is the Admin dashboard. It is located at `../custom_files/custom-windows/`. The `admin-dashboard` component is imported in the custom `entity-window.js`.
+
+[.center.text-center]
+.admin-dashboard
+image::admin-dashboard.png[Nemesis Backend Console Admin dashboard]
+
+* In your custom `navigation-tree.js` file, extend the `navigation-tree` component from the `../app/components/navigation-tree/` directory. As shown below, within the `populateNavigationData()` function you specify the texts you want to be visualized in the navigation tree:
+
+[source, javascript]
+----
+populateNavigationData() {
+    this.getNavigationData().then(result => {
+      let data = result.data;
+      data.unshift({
+        id: 'AdminDashboard',
+        text: 'Admin',
+        children: [{id: 'AdminDashboard', text:'Admin dashboard', leaf: true}]
+      });
+      this.setState({...this.state, treeData: data, filteredData: data});
+    });
+----
+
+[.center.text-center]
+.custom navigation-tree
+image::custom-navigation-tree.png[Nemesis Backend Console Custom Navigation Tree items]
+
+
+== How to add a filter
+
+* In your custom `entities-filter.js` file extend the `entities-filter` component from the `../app/components/entity-window/entities-viewer/entities-filter/` directory. All of the filters you define need to be imported in your custom `entities-filter.js` as well. There are 4 filters, created for demo purposes - custom filter, batch filter, product filter and transaction filter. All of them are in the `../custom_files/filters/` directory.  Here is added the logic for filtration - when exactly your custom filter to be applied:
+
+
+[source, javascript]
+----
+getFilters() {
+    let filters = super.getFilters();
+    if (this.props.entity.entityId === 'category') {
+      filters.push({filterName: 'Custom filter', filterClass: CustomFilter});
+    }
+
+    if (this.props.entity.entityId === 'batch_step_execution') {
+      filters.push({filterName: 'Batch filter', filterClass: BatchFilter});
+    }
+
+    if (this.props.entity.entityId === 'payment_transaction') {
+      filters.push({filterName: 'Transaction filter', filterClass: TransactionFilter});
+    }
+
+    if (this.props.entity.entityId === 'product') {
+      filters.push({filterName: 'Active product filter', filterClass: ProductFilter});
+    }
+
+    return filters;
+  }
+----
+
+In the above example the filtering condition is the `entityId`.
+
+* Create your custom filters. The filters, created for demo purposes:
+
+** Active product filter
+
+[.center.text-center]
+.active-product-filter
+image::active-product-filter.png[Nemesis Backend Console Active product filter]
+
+** Batch filter
+
+[.center.text-center]
+.batch-filter
+image::batch-filter.png[Nemesis Backend Console Batch filter]
+
+
+** Transaction filter
+
+[.center.text-center]
+.transaction-filter
+image::transaction-filter.png[Nemesis Backend Console Transaction filter]
+
+** Category filter
+
+[.center.text-center]
+.new-custom-filter
+image::category-filter.png[Nemesis Backend Console Category filter]
+
+
+
+
+== How to add a custom viewer
+
+* In your custom `entities-result-viewer.js` file extend the `entities-result-viewer` component from the `../app/components/entity-window/entities-viewer/entities-result-viewer/` directory. Your custom viewer component (`card-viewer.js` in the example) needs to be imported in the custom `entities-result-viewer.js`. Here is added the logic for filtration - when exactly your custom viewer to be applied:
+
+[source, javascript]
+----
+export default class CustomViewers extends EntitiesResultViewer {
+  constructor(props) {
+    super(props);
+  }
+
+  getViewers() {
+    let viewers = super.getViewers();
+    if (this.props.entity.entityId === 'category') {
+      viewers.push({viewerName: 'Card Viewer', viewerClass: CardViewer});
+    }
+
+    return viewers;
+  }
+}
+----
+
+In the above example the filtering condition is the `entityId`.
+
+* Create your custom viewer. The custom viewer, created for demo purposes, is the `card-viewer.js`. It is in the `../custom_files/viewers/` directory.
+
+[.center.text-center]
+.card-viewer
+image::card-viewer.png[Nemesis Backend Console Card Viewer]
+
+== How to add custom validation
+
+In your custom `nemesis-localized-text-field.js` extend the `nemesis-localized-text-field` component from the `../app/components/field-components/nemesis-localized-text-field/` directory. Then add your custom validation logic.
+
+[.center.text-center]
+.nemesis-localized-text-field
+image::custom-validation.png[Nemesis Backend Console Custom Validation]
+
+In the above example, the custom validation is applied to the category's `Name` field and the custom error message is displayed when the validating condition is not met.
+
+== How to add a new button to the `entity-sections` component
+
+In your custom `entity-sections.js` file extend the `entity-sections` component from the `../app/components/entity-window/entity-sections/` directory and add your custom logic.
+
+[.center.text-center]
+.entity-sections
+image::custom-button.png[Nemesis Backend Console Custom Button]
+
+== How to change the visualization of a field-component
+
+The information, displayed on a field-component's selection may also be customized. The demo example shows you how to alter the visualization of a `nemesis-entity-collection-field`. You may use similar approach for applying different customizations to the defined in the `field-components` directory components.
+
+In your custom `nemesis-entity-collection-field.js` file extend the `nemesis-entity-collection-field` component from the `../app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/` directory and add your custom logic. In our example, the default chip view for the slots' visualization is overridden, so that the slots' information is displayed in a 3-column-table:
+
+[source,javascript]
+----
+getItemsRender() {
+
+    if (this.props.entityId === 'cms_slot') {
+      if (!this.state.value || this.state.value.length === 0) {
+        return <div>No Records</div>
+      } else {
+        return (
+          <div>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Position</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+          // data-population logic
+                }
+              </tbody>
+            </table>
+          </div>
+        )
+      }
+    } else {
+      return super.getItemsRender();
+    }
+  }
+}
+
+----
+
+[.center.text-center]
+.nemesis-entity-collection-field
+image::nemesis-entity-collection-field.png[Nemesis Backend Console Entity Collection Field]
