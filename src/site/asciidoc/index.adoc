@@ -9,6 +9,7 @@ To start the console, first you need to know the address of the nemesis platform
 [source, properties]
 .application.properties
 ----
+server.port=8443
 server.contextPath=/backend
 console.restBaseUrl=https://localhost:8112/storefront/rest/
 console.websiteBaseUrl=https://localhost:8112/storefront/
