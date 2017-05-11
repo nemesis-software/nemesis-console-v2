@@ -1,4 +1,5 @@
-= How to customize the backend console
+= *How to customize the backend console*
+:toc:
 
 All of your custom files must be in the `custom_files` directory. For demo purposes, there are several sample customizations already implemented.
 
@@ -6,7 +7,7 @@ IMPORTANT: Your custom files need to follow the naming convention of the files i
 
 Go through the article below, as well as through the respective files, to start implementing your changes with ease.
 
-== How to add a custom window
+== *How to add a custom window*
 
 * In your custom `main-view.js` file, extend the `main-view` component from the `../app/components/main-view/` directory.
 
@@ -40,7 +41,7 @@ populateNavigationData() {
 image::custom-navigation-tree.png[Nemesis Backend Console Custom Navigation Tree items]
 
 
-== How to add a filter
+== *How to add a filter*
 
 * In your custom `entities-filter.js` file extend the `entities-filter` component from the `../app/components/entity-window/entities-viewer/entities-filter/` directory. All of the filters you define need to be imported in your custom `entities-filter.js` as well. There are 4 filters, created for demo purposes - custom filter, batch filter, product filter and transaction filter. All of them are in the `../custom_files/filters/` directory.  Here is added the logic for filtration - when exactly your custom filter to be applied:
 
@@ -101,7 +102,7 @@ image::category-filter.png[Nemesis Backend Console Category filter]
 
 
 
-== How to add a custom viewer
+== *How to add a custom viewer*
 
 * In your custom `entities-result-viewer.js` file extend the `entities-result-viewer` component from the `../app/components/entity-window/entities-viewer/entities-result-viewer/` directory. Your custom viewer component (`card-viewer.js` in the example) needs to be imported in the custom `entities-result-viewer.js`. Here is added the logic for filtration - when exactly your custom viewer to be applied:
 
@@ -131,7 +132,7 @@ In the above example the filtering condition is the `entityId`.
 .card-viewer
 image::card-viewer.png[Nemesis Backend Console Card Viewer]
 
-== How to add custom validation
+== *How to add custom validation*
 
 In your custom `nemesis-localized-text-field.js` extend the `nemesis-localized-text-field` component from the `../app/components/field-components/nemesis-localized-text-field/` directory. Then add your custom validation logic.
 
@@ -141,7 +142,7 @@ image::custom-validation.png[Nemesis Backend Console Custom Validation]
 
 In the above example, the custom validation is applied to the category's `Name` field and the custom error message is displayed when the validating condition is not met.
 
-== How to add a new button to the `entity-sections` component
+== *How to add a new button to the `entity-sections` component*
 
 In your custom `entity-sections.js` file extend the `entity-sections` component from the `../app/components/entity-window/entity-sections/` directory and add your custom logic.
 
@@ -149,7 +150,7 @@ In your custom `entity-sections.js` file extend the `entity-sections` component 
 .entity-sections
 image::custom-button.png[Nemesis Backend Console Custom Button]
 
-== How to change the visualization of a field-component
+== *How to change the visualization of a field-component*
 
 The information, displayed on a field-component's selection may also be customized. The demo example shows you how to alter the visualization of a `nemesis-entity-collection-field`. You may use similar approach for applying different customizations to the defined in the `field-components` directory components.
 
