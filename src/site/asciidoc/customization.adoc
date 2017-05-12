@@ -144,7 +144,33 @@ In the above example, the custom validation is applied to the category's `Name` 
 
 == *How to add a new button to the `entity-sections` component*
 
-In your custom `entity-sections.js` file extend the `entity-sections` component from the `../app/components/entity-window/entity-sections/` directory and add your custom logic.
+In your custom `entity-sections.js` file extend the `entity-sections` component from the `../app/components/entity-window/entity-sections/` directory and add your custom logic:
+
+[source, javascript]
+----
+export default class CustomEntitySections extends EntitySections {
+  constructor(props) {
+    super(props);
+  }
+
+  getFunctionalButtons(entity) {
+    //get base array of buttons
+    let buttons = super.getFunctionalButtons(entity);
+
+    // if entity name is "category" add custom button
+    if (entity.entityName === 'category') {
+      buttons.push({label: 'Open google', onClickFunction: () => this.handleOpenGoogleButton()})
+    }
+
+    return buttons;
+  }
+
+  //custom function for new button
+  handleOpenGoogleButton() {
+    window.open('http://google.com');
+  }
+}
+----
 
 [.center.text-center]
 .entity-sections
