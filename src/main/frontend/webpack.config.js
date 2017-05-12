@@ -6,7 +6,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, '../webapp/resources'),
-    publicPath: '/',
+    publicPath: 'resources/',
     filename: 'bundle.js'
   },
   module: {

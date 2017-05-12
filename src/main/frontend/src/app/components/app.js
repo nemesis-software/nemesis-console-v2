@@ -7,7 +7,11 @@ import 'react-select/dist/react-select.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
+import 'font-awesome/css/font-awesome.css';
+
 import '../../styles/style.less';
+
+import LiveEditNavigation from './live-edit-navigation';
 
 const translationLanguages = {
  languages: [
@@ -47,6 +51,7 @@ export default class App extends Component {
             <i className="material-icons sidebar-icon" onClick={() => this.setState({isNavigationTreeOpened: !this.state.isNavigationTreeOpened})}>menu</i>
             <div className="nemesis-navbar-header">Nemesis Console</div>
             <div className="nemesis-navbar-right">
+              <LiveEditNavigation/>
               <LanguageChanger
                 style={{width: '150px'}}
                 onLanguageChange={language => counterpart.setLocale(language)}
