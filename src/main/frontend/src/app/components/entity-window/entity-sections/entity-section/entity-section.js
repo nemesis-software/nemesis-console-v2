@@ -46,7 +46,7 @@ export default class EntitySection extends Component {
     this.fieldsReferences = [];
   }
 
-  getSectionItemRenderer(item) {
+  getSectionItemRenderer(item, index) {
     let reactElement;
     let itemName = item.name.replace('entity-', '');
     let elementConfig ={
