@@ -32,7 +32,14 @@ export default class MainView extends Component {
 
   openNewEntity(entity) {
     let selectedEntity = {};
-    if (entity.isNew) {
+    if (entity.entityId === 'adminPanel') {
+      selectedEntity = {
+        type: 'adminPanel',
+        entityCode: entity.entityId,
+        entityId: 'adminPanel',
+        itemId: null
+      };
+    } else if (entity.isNew) {
       selectedEntity = {
         entityId: entity.entityId,
         data: this.state.entityMarkupData[entity.entityName],
@@ -216,6 +223,8 @@ export default class MainView extends Component {
       urlEntity.data = this.state.entityMarkupData[urlEntity.entityName]
     } else if (urlEntity.type === entitySearchType) {
       urlEntity.data = this.state.markupData[urlEntity.entityId]
+    } else if (urlEntity.type === 'adminPanel') {
+      urlEntity.data = null;
     } else {
       return Promise.reject();
     }

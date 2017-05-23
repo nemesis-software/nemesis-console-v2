@@ -8,7 +8,6 @@ export default class CustomEntityWindow extends EntityWindow {
   }
 
   renderEntityByType(entity) {
-
     switch (entity.type) {
       case 'dashboard': {
         return <AdminDashboard/>

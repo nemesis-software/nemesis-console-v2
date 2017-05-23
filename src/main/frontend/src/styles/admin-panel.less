@@ -1,0 +1,73 @@
+.nemesis-admin-panel {
+  .admin-action {
+    width: 160px;
+    padding: 5px;
+
+    .admin-action-header {
+      text-align: center;
+      font-size: 20px;
+      position: relative;
+
+      .admin-action-header-icon {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+      }
+    }
+
+    .admin-action-btn {
+      display: block;
+      width: 100%;
+      margin: 3px 0;
+      position: relative;
+
+      .admin-action-btn-icon {
+        position: absolute;
+        left: 5px;
+        top: 8px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .admin-health {
+    width: 160px;
+    padding: 5px;
+    margin: 5px 0;
+
+    .admin-health-item {
+      position: relative;
+      text-transform: uppercase;
+      padding: 5px;
+
+      .health-status-dot {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        right: 5px;
+        top: 8px;
+
+        &.online {
+          background: #16C445;
+        }
+
+        &.offline {
+          background: #F24F4B;
+        }
+      }
+    }
+  }
+}
+
+@keyframes blink {
+  50% { opacity: 0.5; }
+}
+@-webkit-keyframes blink {
+  50% { opacity: 0.5; }
+}
+.blink {
+  animation: blink 1.5s step-start 0s infinite;
+  -webkit-animation: blink 1.5s step-start 0s infinite;
+}

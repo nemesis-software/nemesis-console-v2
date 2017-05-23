@@ -19,5 +19,6 @@
 
 <div id="token" style="display:none" value="<sec:authentication property='principal.token' htmlEscape="false" />"></div>
 <div id="expiryTime" style="display:none" value="<sec:authentication property='principal.expiryTime' />"></div>
+<div id="authorities" style="display:none" value="<sec:authentication property='principal.authorities' />"></div>
 <script src="resources/bundle.js"></script>
 </html>
