@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import ApiCall from '../../services/api-call';
-import axios from 'axios';
 import AdminActions from './admin-actions';
 import AdminHealth from './admin-health';
 import AdminInfo from './admin-info';
 import '../../../styles/admin-panel.less';
-import AdminImport from "./admin-import";
+import AdminImport from './admin-import';
+import AdminMemoryUsage from './admin-memory-usage';
+import AdminSpringBeans from './admin-spring-beans';
 
 export default class AdminPanel extends Component {
   constructor(props) {
@@ -13,28 +13,17 @@ export default class AdminPanel extends Component {
   }
 
   componentWillMount() {
-    // axios({
-    //   url: 'stomp/info',
-    //   method: 'GET',
-    //   baseURL: 'https://localhost:8112/storefront/platform/',
-    //   headers: ApiCall.getHeaders(),
-    // }).then(console.log);
-    //
-    // axios({
-    //   url: 'health',
-    //   method: 'GET',
-    //   baseURL: 'https://localhost:8112/storefront/platform/',
-    //   headers: ApiCall.getHeaders(),
-    // }).then(console.log);
   }
 
   render() {
     return (
       <div className="nemesis-admin-panel">
+        <AdminSpringBeans />
         <AdminActions />
         <AdminHealth />
         <AdminInfo />
         <AdminImport />
+        {/*<AdminMemoryUsage />*/}
       </div>
     );
   }
