@@ -1,6 +1,7 @@
 import React from 'react';
 import Translate from 'react-translate-component';
-import NemesisLocalizedTextField from './nemesis-localized-text-field'
+import NemesisLocalizedTextField from './nemesis-localized-text-field';
+import HtmlEditor from '../../../custom-components/html-editor';
 
 export default class NemesisTextField extends NemesisLocalizedTextField {
   constructor(props) {
@@ -11,11 +12,7 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
     return (
       <div key={index}>
         <Translate component="label" content={'main.' + language.labelCode} fallback={language.labelCode} />
-        <textarea className="entity-field form-control"
-                  rows="4"
-                  value={this.getTextFieldValue(language.value)}
-                  disabled={this.props.readOnly}
-                  onChange={(e) => this.onTextChange(e, e.target.value, language.value)}/>
+        <HtmlEditor htmlContent={this.getTextFieldValue(language.value)} onChange={(value) => this.onTextChange(null, value, language.value)} />
       </div>
     )
   }
