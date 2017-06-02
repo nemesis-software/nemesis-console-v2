@@ -68,7 +68,7 @@ export default class LanguageChanger extends Component {
                                               style={{width: '100%', height: '250px', overflow: 'auto', resize: 'none'}}
                                               onChange={e => this.handleContentInput(e.target.value)} /> :
           <div className="form-control"
-               style={{width: '100%', height: '250px', overflow: 'auto'}}
+               style={{width: '100%', height: '250px', overflow: 'auto', padding: '10px 25px'}}
                dangerouslySetInnerHTML={{__html : this.state.content}}
                ref={el => this.editableDiv = el}
                contentEditable={true}
