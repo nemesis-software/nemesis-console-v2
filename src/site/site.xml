@@ -24,7 +24,12 @@
         <title>The Official Documentation</title>
         <href>https://docs.nemesis.io/</href>
     </bannerRight>
-
+	<body>
+		<breadcrumbs>
+			<item name="Home" href="../"/>
+			<item name="Console" href="../console/"/>
+		</breadcrumbs>
+	</body>
     <skin>
         <groupId>com.nemesis.tools</groupId>
         <artifactId>nemesis-maven-skin</artifactId>
