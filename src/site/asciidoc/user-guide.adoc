@@ -1,0 +1,257 @@
+= Nemesis Backend Console - user guide
+:toc:
+
+
+This guide shows you how to use the Nemesis Backend console. At the end you will understand how to create, edit and delete an entity, as well as what the `SYNCHRONIZE` and `REFRESH` buttons are for. If this is your first time to work with the console, check our Overview article link:https://docs.nemesis.io/current-snapshot/nemesis-console-v2/index.html[here]). Once logged, you are ready to start the tutorial below:
+
+IMPORTANT: The Nemesis Backend console is data-driven. The results you will see in your navigation depend on the structure of your site. The examples in this tutorial are based on the Nemesis SampleStore (how to start the demo store, learn link:https://docs.nemesis.io/current-snapshot/samplestore/getting-started.html[here]
+
+== How to create a new entity
+
+=== Step 1: Filter
+
+In the *Navigation filter* start typing the type of entity you want to create. We are going to create a `widget`, so this is how the search-filtration looks like:
+
+[.center.text-center]
+.navigation-filter
+image::navigation-filter-guide.png[Nemesis Backend Console Navigation Filter]
+
+=== Step 2: Open the pop-up window to enter the information for your new entity
+
+Click the "+"-sign next to the entity you want to create a new instance of:
+
+[.center.text-center]
+.plus
+image::plus-sign.png[Nemesis Backend Console Plus-sign]
+
+A pop-up window appears to ask you for the exact subtype of the chosen entity you want to create:
+
+[.center.text-center]
+.pop-up window
+image::pop-up-window.png[Nemesis Backend Console Pop-up window]
+
+After you choose the sub-type and press the `CREATE` button, a new window opens. Here you need to enter the information for your new entity. Below is a sample page-information for the `Footer widget`:
+
+[.center.text-center]
+.footer widget
+image::footer-widget.png[Nemesis Backend Console Footer widget]
+
+=== Step 3: Save the entity
+
+Once you fill in the information you intended to, press the `SAVE` button.
+
+If you press the `SAVE` button, without filling-in all of the required fields, a message, as shown, below appears and prevents you from saving the data you have entered:
+
+[.center.text-center]
+.required field
+image::required-field.png[Nemesis Backend Console Required fields]
+
+When you fill in all of the required fields and press the `SAVE` button, a pop-up message appears to indicate the information is saved correctly:
+
+[.center.text-center]
+.saved successfully message
+image::saved-successfully.png[Saved successfully widget]
+
+As you notice, at this stage, you have 3 buttons available - `SAVE`, `SAVE & CLOSE` and `CLOSE`.
+
+[.center.text-center]
+.buttons when you create an entity
+image::initial-btns.png[Nemesis Backend Console Initial buttons]
+
+* the `SAVE` button *saves* the information for your new entity
+
+* the `SAVE & CLOSE` button *saves* the information you have entered and *closes* the window
+
+* the `CLOSE` button *closes* the window without saving any of the information you have entered
+
+=== Step 4: Check the entity you have created
+
+After you fill in the information for your entity
+
+[.center.text-center]
+.fill in the fields for the newly created entity
+image::new-entity-info.png[Filled in information]
+
+and save it.
+
+[.center.text-center]
+.save the entity
+image::saved-entry.png[save the entity]
+
+Then navigate to the `Entity search`
+
+[.center.text-center]
+.click on the `Entity search`
+image::entity-search.png[Entity search]
+
+and check your new entity.
+
+[.center.text-center]
+.check the new entity
+image::new-entity.png[New entity]
+
+== How to edit an entity
+
+=== Step 1: Filter
+
+In the *Navigation filter* start typing the type of entity you want to edit. We are going to edit an instance of the `Product` entity:
+
+[.center.text-center]
+.filtered Product entity
+image::filtered-product.png[Filtered Product entity]
+
+=== Step 2: Edit the instance of the entity
+
+After you choose the entity to edit, click on it (not on the `+`-sign as you will enter the create-mode in that way).
+
+The window that opens consists of 2 parts - the search fields (which we'll discuss later) and the created entity instances so far. Open the instance you want to edit and add the necessary changes. In the example below we'll edit the entity instance with code `andie-snow-jacket`:
+
+[.center.text-center]
+.the instance of the entity to edit
+image::entity-instance.png[The instance of the entity to edit]
+
+What we want to change is the approval status to `UNAPPROVED`:
+
+[.center.text-center]
+.edit the entity
+image::change-status.png[Edit the entity]
+
+=== Step 3: Save
+
+After you finish adding the information, click the `SAVE` or `SAVE & CLOSE` button. If everything correctly entered, you need to see the `Entity successfully saved` message.
+
+== How to delete an entity
+
+If you are creating a new entity, after you click the 'SAVE' button you will see that 2 more buttons appear, one of them - the `DELETE` button:
+
+[.center.text-center]
+.buttons after you save the entity
+image::after-save-btns.png[Nemesis Backend Console After Save Buttons]
+
+Click the `DELETE` button and you will see a pop-up window, asking you for confirmation:
+
+[.center.text-center]
+.deletion confirmation window
+image::delete-pop-up.png[Deletion pop-up window]
+
+If you want to edit an already existing entity, not the one tht you have just created, just navigate to the one, open it, and click the `DELETE` button again.
+
+=== How to translate the information in a field
+
+All of the fields with the option to be translated, are marked with this image next to them:
+
+[.center.text-center]
+.translatable field
+image::translatable-icon.png[Translatable field]
+
+When you click it, a pop-up window shows you the information entered so far for the entity instance. When you finish entering the translated text in the respectie language, click `DONE`:
+
+[.center.text-center]
+.translatable pop-up window
+image::translatable-pop-up.png[Translatable pop-up window]
+
+Do not forget to press the `SAVE` button as a last step.
+
+
+== When to use the REFRESH button
+
+What the `REFRESH` button does is to retrieve again all of the entity's fields from the database.
+
+Let's look at some sample scenarios:
+
+* You need to add a new `variant` to an already existing product.
+
+** Step 1: Choose the product
+
+Have a look at the created product entities and choose the one you want to add a new variant to. Let's try with the first product with code `andie-snow-jacket`. The catalog this product belows to is `samplestoreB2BProductCatalog:Online`:
+
+[.center.text-center]
+.choose the product
+image::chosen-product.png[Choose the product]
+
+The `Variants` section shows which the associated with the product variants are.
+
+[.center.text-center]
+.product variants
+image::variants.png[Variants]
+
+** Step 2: Create a new product variant
+
+Create a new `VariantProductEntity` with code `new-blue-jacket` and catalog `samplestoreB2BProductCatalog:Online`.
+
+[.center.text-center]
+.variantProductEntity
+image::variant-product-entity.png[VariantProductEntity]
+
+In the `Variants` section choose the base product you want this one to be a variant of. In our example - `andie-snow-jacket - samplestoreB2BProductCatalog:Online`
+
+[.center.text-center]
+.base product
+image::base-product.png[Base Product]
+
+Save the product variant you have just created.
+
+** Step 3: Refresh the product
+
+Go to the variants section of the `andie-snow-jacket` product. Click the `REFRESH` button. You will see the variant you have just added:
+
+[.center.text-center]
+.new product variant added
+image::base-product.png[Base Product]
+
+* You want to remove a particular variant of a product:
+
+** Step 1: Open the variant
+
+** Step 2: Delete it and save the changes
+
+** Step 3: Open the variants section of the product, click `REFRESH` and see that the variant is not there anymore.
+
+* Another case when you need the `REFRESH` button is when you start making some changes to the entity's information, then decide to check the original record from the database.
+
+For example, you decide to write a new description of a product. You navigate to the translatable `DESCRIPTION` field and enter the new text. Then decide to change it to the one in the database. Click the `REFRESH` to have the data retrieved and your local changes overridden.
+
+
+== When to use the SYNCHRONIZE button
+
+The `SYNCHRONIZE` button is available for some entities only (`widget` or `product`, for instance). The button appears in two cases:
+
+* if you start editing an already created entity
+
+* after you `SAVE` the new entity that you have created
+
+What it does is to synchronize your catalogs, so that the changes you make in your stage catalog get transferred to the live one.
+
+
+== How to use the search section
+
+To find a particular record faster, take advantage of the search options that let you filter the results. When open an entity, the first half of the window is where the `FILTER` is located. Based on the type of entity, you have different filtration options. You may search, for example:
+
+* by CODE - either by the exact code, or to restrict it
+
+[.center.text-center]
+.filter by code
+image::code-filter.png[Filter by code]
+
+* by NAME and LANGUAGE - either by the exact name, or to restrict it
+
+[.center.text-center]
+.filter by name
+image::name-filter.png[Filter by name]
+
+* whether it's `ACTIVE` or not
+
+* by the `CATALOG`
+
+* by the time it was last modified or published, etc.
+
+
+
+
+
+
+
+
+
+
+

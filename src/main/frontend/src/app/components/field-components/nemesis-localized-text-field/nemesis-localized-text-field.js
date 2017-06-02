@@ -47,7 +47,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
-          <Modal show={this.state.openTranslateDialog} onHide={this.handleTranslateDialogClose.bind(this)}>
+          <Modal show={this.state.openTranslateDialog} onHide={this.handleTranslateDialogClose.bind(this)} backdrop="static">
             <Modal.Header>
               <Modal.Title>Translate field</Modal.Title>
             </Modal.Header>
