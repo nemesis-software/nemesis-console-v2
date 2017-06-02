@@ -18,7 +18,7 @@
     <parent>
         <groupId>com.nemesis</groupId>
         <artifactId>bom</artifactId>
-        <version>1.5.1.BUILD-SNAPSHOT</version>
+        <version>1.5.2.BUILD-SNAPSHOT</version>
     </parent>
 
     <groupId>com.nemesis.platform.console</groupId>
@@ -29,6 +29,7 @@
     <description>an overview of the Backend Nemesis Console</description>
 
     <properties>
+        <project.directory>console</project.directory>
         <maven.rat.plugin.skip>true</maven.rat.plugin.skip>
         <frontend-plugin.version>1.4</frontend-plugin.version>
         <node.version>v7.10.0</node.version>
