@@ -29,6 +29,11 @@
 			<item name="Home" href="../"/>
 			<item name="Console" href="../console/"/>
 		</breadcrumbs>
+        <menu name="Guides">
+            <item name="The backend console components" href="console-components.html" />
+            <item name="How to customize the console" href="customization.html" />
+            <item name="User guide" href="user-guide.html" />
+        </menu>
 	</body>
     <skin>
         <groupId>com.nemesis.tools</groupId>
