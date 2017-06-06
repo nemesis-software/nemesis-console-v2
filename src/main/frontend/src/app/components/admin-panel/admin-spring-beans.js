@@ -1,16 +1,25 @@
 import React, {Component} from 'react';
 import PlatformApiCall from '../../services/platform-api-call';
+import _ from 'lodash';
+import counterpart from 'counterpart';
+
+import EntitiesPager from '../entity-window/entities-viewer/entities-pager/entities-pager';
 
 export default class AdminSpringBeans extends Component {
   constructor(props) {
     super(props);
-    this.state = {context: '', beans: []};
+    this.state = {context: '', beans: [], filteredBeans: [], page: {}};
   }
 
   componentWillMount() {
     PlatformApiCall.get('beans').then(result => {
-      console.log(result);
-      this.setState({context: result.data[0].context, beans: result.data[0].beans})
+      let beans = result.data[0].beans;
+      this.setState({
+        context: result.data[0].context,
+        beans: beans,
+        filteredBeans: beans,
+        page: this.buildPageObject(beans.length, 20, 0)
+      });
     })
   }
 
@@ -18,20 +27,28 @@ export default class AdminSpringBeans extends Component {
     return (
       <div className="paper-box">
         Beans {this.state.context}
+        <EntitiesPager onPagerChange={this.onPagerChange.bind(this)}  page={this.state.page} />
+        <div className="input-group">
+          <input type="text"
+                 placeholder={counterpart.translate('main.Filter...', {fallback: 'Filter'})}
+                 className="form-control"
+                 onChange={this.onFilterChange.bind(this)}/>
+          <span className="input-group-addon"><i className="fa fa-search" /></span>
+        </div>
         <div>
           <table style={{width: '100%', tableLayout: 'fixed'}} className="table table-striped">
             <thead>
-            <tr>
-              <th>Bean</th>
-              <th>Scope</th>
-              <th>Type</th>
-              <th>Resource</th>
-              <th>Dependencies</th>
-            </tr>
+              <tr>
+                <th>Bean</th>
+                <th>Scope</th>
+                <th>Type</th>
+                <th>Resource</th>
+                <th>Dependencies</th>
+              </tr>
             </thead>
             <tbody>
             {
-              this.state.beans.map((item, index) => {
+              this.getBeansForPage().map((item, index) => {
                 return (
                   <tr key={index}>
                     <td style={{wordWrap: 'break-word'}}>{item.bean}</td>
@@ -50,4 +67,40 @@ export default class AdminSpringBeans extends Component {
     );
   }
 
+  buildPageObject(totalElements, pageSize, pageNumber) {
+    let totalPages = Math.floor(totalElements / pageSize);
+    if (totalElements % pageSize > 0) {
+      totalPages++;
+    }
+
+    let result = {
+      number: pageNumber,
+      size: pageSize,
+      totalElements: totalElements,
+      totalPages: totalPages
+    };
+
+    return result;
+  }
+
+  onPagerChange(page, pageSize) {
+    let pageObject = this.buildPageObject(this.state.beans.length, pageSize, page - 1);
+    this.setState({...this.state, page: pageObject});
+  }
+
+  onFilterChange(ev) {
+    let searchValue = ev.target.value;
+    let filteredBeans = this.state.beans;
+    if (searchValue) {
+      filteredBeans = filteredBeans.filter(bean => bean.bean.toLowerCase().indexOf(searchValue.toLowerCase()) > -1)
+    }
+
+    let pageObject = this.buildPageObject(filteredBeans.length, this.state.page.size, this.state.page.number);
+    this.setState({...this.state, filteredBeans: filteredBeans, page: pageObject});
+  }
+
+  getBeansForPage() {
+    let skippedPages = this.state.page.number * this.state.page.size;
+    return _.slice(this.state.filteredBeans, skippedPages, skippedPages + this.state.page.size);
+  }
 }

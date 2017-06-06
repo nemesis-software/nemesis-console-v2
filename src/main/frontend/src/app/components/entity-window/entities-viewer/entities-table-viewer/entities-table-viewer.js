@@ -70,44 +70,6 @@ export default class EntitiesTableViewer extends Component {
           }
           </tbody>
         </table>
-        {/*<Table selectable={true} onRowSelection={this.onRowSelected.bind(this)}>*/}
-          {/*<TableHeader displaySelectAll={false} adjustForCheckbox={false}>*/}
-            {/*<TableRow>*/}
-              {/*<TableHeaderColumn >*/}
-                {/*<LanguageChanger*/}
-                  {/*label="language"*/}
-                  {/*onLanguageChange={this.onLanguageChange.bind(this)}*/}
-                  {/*availableLanguages={translationLanguages.languages}*/}
-                  {/*selectedLanguage={translationLanguages.defaultLanguage}*/}
-                {/*/>*/}
-                {/*<EntitiesPager onPagerChange={this.props.onPagerChange}  page={this.props.page}/>*/}
-              {/*</TableHeaderColumn>*/}
-            {/*</TableRow>*/}
-            {/*<TableRow>*/}
-              {/*{*/}
-                {/*this.state.entitiesMarkup.map((markupItem, index) => {*/}
-                  {/*return (*/}
-                  {/*<TableHeaderColumn key={index}>*/}
-                    {/*<Translate component="span" content={'main.' + markupItem.text} fallback={markupItem.text}/>*/}
-                  {/*</TableHeaderColumn>)*/}
-                {/*})*/}
-              {/*}*/}
-            {/*</TableRow>*/}
-          {/*</TableHeader>*/}
-          {/*<TableBody displayRowCheckbox={false} showRowHover={true}>*/}
-            {/*{*/}
-              {/*this.props.entities.map((item, index) => {*/}
-                {/*return (*/}
-                  {/*<TableRow key={index}>*/}
-                    {/*{*/}
-                      {/*this.state.entitiesMarkup.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))*/}
-                    {/*}*/}
-                  {/*</TableRow>*/}
-                {/*)*/}
-              {/*})*/}
-            {/*}*/}
-          {/*</TableBody>*/}
-        {/*</Table>*/}
       </div>
     )
   }
