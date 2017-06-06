@@ -84,7 +84,7 @@ export default class AdminSpringBeans extends Component {
   }
 
   onPagerChange(page, pageSize) {
-    let pageObject = this.buildPageObject(this.state.beans.length, pageSize, page - 1);
+    let pageObject = this.buildPageObject(this.state.filteredBeans.length, pageSize, page - 1);
     this.setState({...this.state, page: pageObject});
   }
 
