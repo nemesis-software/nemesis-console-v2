@@ -1,4 +1,88 @@
+@light-blue: #357492;
+
 .nemesis-admin-panel {
+  .admin-system-properties {
+    .admin-system-properties-expandable {
+      margin: 5px 0;
+
+      &.expanded {
+        border: 1px solid #357492;
+        border-radius: 5px;
+
+        .properties-header {
+          border-radius: 0;
+        }
+      }
+
+      .properties-header {
+        background: @light-blue;
+        color: white;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .admin-threads {
+    .admin-thread {
+      margin: 5px 0;
+
+      &.expanded {
+        border: 1px solid #357492;
+        border-radius: 5px;
+
+        .admin-thread-main {
+          border-radius: 0;
+        }
+      }
+
+      .admin-thread-details {
+        .admin-thread-stack-trace {
+          border: 1px solid #ccc;
+          padding: 6px 12px;
+          border-radius: 4px;
+          width: ~"calc(100% - 20px)";
+          margin: 10px;
+        }
+      }
+
+      .admin-thread-main {
+        background: @light-blue;
+        color: white;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+
+        .display-table-cell {
+          vertical-align: middle;
+        }
+
+        .admin-thread-id {
+          color: #CDCDCD;
+          padding: 0 5px;
+        }
+
+        .admin-thread-name {
+          width: 100%;
+        }
+
+        .admin-thread-state {
+          padding: 2px 5px;
+          border-radius: 2px;
+
+          &.runnable {
+            background: #08a20f;
+          }
+
+          &.waiting {
+            background: #F89406;
+          }
+        }
+      }
+    }
+  }
+
   .admin-action {
     width: 160px;
     padding: 5px;

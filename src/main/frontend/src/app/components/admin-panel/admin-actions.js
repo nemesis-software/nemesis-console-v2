@@ -21,11 +21,11 @@ export default class AdminActions extends Component {
   render() {
     return (
       <div className="admin-action paper-box">
-        <div className="admin-action-header"><i className="fa fa-crosshairs admin-action-header-icon" aria-hidden="true"></i>Actions</div>
-        <button className="btn btn-default admin-action-btn"><i className="fa fa-refresh admin-action-btn-icon" aria-hidden="true"></i> Update</button>
-        <button className="btn btn-default admin-action-btn"><i className="fa fa-bolt admin-action-btn-icon" aria-hidden="true"></i>Thread Dump</button>
-        <button className="btn btn-default admin-action-btn"><i className="fa fa-hdd-o admin-action-btn-icon" aria-hidden="true"></i> Clear Cache</button>
-        <button className="btn btn-default admin-action-btn"><i className="fa fa-info-circle admin-action-btn-icon" aria-hidden="true"></i>Initialize</button>
+        <div className="admin-action-header"><i className="fa fa-crosshairs admin-action-header-icon"></i>Actions</div>
+        <button className="btn btn-default admin-action-btn"><i className="fa fa-refresh admin-action-btn-icon"></i> Update</button>
+        <button className="btn btn-default admin-action-btn"><i className="fa fa-bolt admin-action-btn-icon"></i>Thread Dump</button>
+        <button className="btn btn-default admin-action-btn"><i className="fa fa-hdd-o admin-action-btn-icon"></i> Clear Cache</button>
+        <button className="btn btn-default admin-action-btn"><i className="fa fa-info-circle admin-action-btn-icon"></i>Initialize</button>
       </div>
     );
   }

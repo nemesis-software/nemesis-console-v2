@@ -7,7 +7,8 @@ import AdminImport from './admin-import';
 import AdminMemoryUsage from './admin-memory-usage';
 import AdminSpringBeans from './admin-spring-beans';
 import AdminIdAnalyzer from './admin-id-analyzer';
-import AdminSystemProperties from './admin-system-properties';
+import AdminSystemProperties from './admin-system-properties/admin-system-properties';
+import AdminThreads from './admin-threads/admin-threads'
 
 export default class AdminPanel extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class AdminPanel extends Component {
   render() {
     return (
       <div className="nemesis-admin-panel">
+        {/*<AdminThreads />*/}
         <AdminSystemProperties />
         {/*<AdminIdAnalyzer/>*/}
         {/*<AdminSpringBeans />*/}
