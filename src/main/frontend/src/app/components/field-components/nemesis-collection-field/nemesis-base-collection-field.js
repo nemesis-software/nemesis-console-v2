@@ -32,8 +32,10 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
   getChipRenderer(item, index) {
     return (
       <div className="chip" key={index}>
+        <i className="fa fa-chevron-left reorder-icon reorder-back-icon" onClick={() => this.onChipReorderBack(index)} />
         {this.getItemRenderingValue(item)}
         {!this.props.readOnly ? <i className="material-icons chip-item" onClick={() => this.onDeleteRequest(index)}>close</i> : false}
+        <i className="fa fa-chevron-right reorder-icon reorder-front-icon" onClick={() => this.onChipReorderFront(index)}/>
       </div>
     );
 
@@ -49,5 +51,28 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
         </div>
       )
     }
+  }
+
+  onChipReorderBack(itemIndex) {
+    if (itemIndex === 0) {
+      return;
+    }
+    let items = this.state.value;
+    let previusItem = items[itemIndex - 1];
+    items[itemIndex - 1] = items[itemIndex];
+    items[itemIndex] = previusItem;
+    this.onValueChange(null, items);
+  }
+
+  onChipReorderFront(itemIndex) {
+    if (itemIndex === this.state.value.length - 1) {
+      return;
+    }
+
+    let items = this.state.value;
+    let nextItem = items[itemIndex + 1];
+    items[itemIndex + 1] = items[itemIndex];
+    items[itemIndex] = nextItem;
+    this.onValueChange(null, items);
   }
 }

@@ -120,6 +120,36 @@
     border-radius: 25px;
     background-color: #f1f1f1;
     margin: 3px;
+    position: relative;
+
+    .reorder-icon {
+      display: none;
+      position: absolute;
+      font-size: 16px;
+      top: 12px;
+      cursor: pointer;
+      color: #888;
+
+      &:hover {
+        color: #000;
+      }
+
+      &.reorder-back-icon {
+        left: 7px;
+      }
+
+      &.reorder-front-icon {
+        right: 7px;
+      }
+    }
+
+    &:hover {
+      padding: 10px 25px;
+
+      .reorder-icon {
+        display: block;
+      }
+    }
 
     .chip-item {
       display: table-cell;
