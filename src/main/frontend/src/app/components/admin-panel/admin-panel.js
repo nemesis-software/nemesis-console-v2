@@ -21,8 +21,8 @@ export default class AdminPanel extends Component {
   render() {
     return (
       <div className="nemesis-admin-panel">
-        {/*<AdminThreads />*/}
-        <AdminSystemProperties />
+        <AdminThreads />
+        {/*<AdminSystemProperties />*/}
         {/*<AdminIdAnalyzer/>*/}
         {/*<AdminSpringBeans />*/}
         {/*<AdminActions />*/}

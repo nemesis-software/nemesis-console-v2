@@ -19,8 +19,8 @@ export default class AdminSystemPropertiesExpandable extends Component {
             {this.getSystemProperties().map((item, index) => {
               return (
                 <tr key={index}>
-                  <td >{item.key}</td>
-                  <td >{item.value}</td>
+                  <td style={{wordWrap: 'break-word'}}>{item.key}</td>
+                  <td style={{wordWrap: 'break-word'}}>{item.value}</td>
                 </tr>
               );
             })}
