@@ -20,7 +20,6 @@ export default class AdminSystemProperties extends Component {
   render() {
     return (
       <div className="admin-system-properties">
-        System Properties
         <div className="input-group">
           <input type="text"
                  placeholder={counterpart.translate('main.Filter...', {fallback: 'Filter'})}

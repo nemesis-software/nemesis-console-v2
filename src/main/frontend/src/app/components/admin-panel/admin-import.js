@@ -24,7 +24,7 @@ export default class AdminImport extends Component {
           <button className="btn btn-default" onClick={this.uploadFile.bind(this)}>Send as file</button>
           <button className="btn btn-default" onClick={this.uploadAsText.bind(this)}>Send as text</button>
         </div>
-        <textarea name="csv-content" onChange={e => this.setState({...this.state, value: e.target.value})} cols="30" rows="10" value={this.state.value} />
+        <textarea style={{width: '100%', resize: 'vertical'}} name="csv-content" onChange={e => this.setState({...this.state, value: e.target.value})} cols="30" rows="30" value={this.state.value} />
       </div>
     );
   }

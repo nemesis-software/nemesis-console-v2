@@ -10,15 +10,13 @@ export default class AdminThreads extends Component {
 
   componentWillMount() {
     PlatformApiCall.get('dump').then(result => {
-      console.log(result.data);
       this.setState({data: result.data})
     });
   }
 
   render() {
     return (
-      <div className="container admin-threads">
-        Admin Threads
+      <div className="admin-threads">
         {this.state.data.map((item, index) => <AdminThread thread={item} key={index}/>)}
       </div>
     );
