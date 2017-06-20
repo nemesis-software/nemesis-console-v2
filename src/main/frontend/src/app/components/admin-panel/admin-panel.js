@@ -10,6 +10,7 @@ import AdminIdAnalyzer from './admin-id-analyzer';
 import AdminSystemProperties from './admin-system-properties/admin-system-properties';
 import AdminThreads from './admin-threads/admin-threads'
 import AdminDetails from './admin-details/admin-details';
+import AdminLoggers from './admin-loggers/admin-loggers';
 import SwipeableViews from 'react-swipeable-views';
 
 export default class AdminPanel extends Component {
@@ -26,9 +27,10 @@ export default class AdminPanel extends Component {
           <li className={this.state.sectionIndex === 0 ? 'active' : ''} onClick={() => this.handleChange(0)}><i className="fa fa-info"/>Details</li>
           <li className={this.state.sectionIndex === 1 ? 'active' : ''} onClick={() => this.handleChange(1)}><i className="fa fa-server"/>Environment</li>
           <li className={this.state.sectionIndex === 2 ? 'active' : ''} onClick={() => this.handleChange(2)}><i className="fa fa-list"/>Threads</li>
-          <li className={this.state.sectionIndex === 3 ? 'active' : ''} onClick={() => this.handleChange(3)}><i className="fa fa-cog"/>Beans</li>
-          <li className={this.state.sectionIndex === 4 ? 'active' : ''} onClick={() => this.handleChange(4)}><i className="fa fa-file"/>Import</li>
-          <li className={this.state.sectionIndex === 5 ? 'active' : ''} onClick={() => this.handleChange(5)}><i className="fa fa-code"/>ID Analyze</li>
+          <li className={this.state.sectionIndex === 3 ? 'active' : ''} onClick={() => this.handleChange(3)}><i className="fa fa-sliders"/>Loggers</li>
+          <li className={this.state.sectionIndex === 4 ? 'active' : ''} onClick={() => this.handleChange(4)}><i className="fa fa-cog"/>Beans</li>
+          <li className={this.state.sectionIndex === 5 ? 'active' : ''} onClick={() => this.handleChange(5)}><i className="fa fa-file"/>Import</li>
+          <li className={this.state.sectionIndex === 6 ? 'active' : ''} onClick={() => this.handleChange(6)}><i className="fa fa-code"/>ID Analyze</li>
         </ul>
         <SwipeableViews
           index={this.state.sectionIndex}
@@ -37,6 +39,7 @@ export default class AdminPanel extends Component {
           <AdminDetails />
           <AdminSystemProperties />
           <AdminThreads />
+          <AdminLoggers />
           <AdminSpringBeans />
           <AdminImport />
           <AdminIdAnalyzer />

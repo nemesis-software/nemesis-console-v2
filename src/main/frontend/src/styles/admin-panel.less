@@ -28,6 +28,51 @@
     }
   }
 
+  .admin-loggers {
+    .display-table-cell {
+      border-bottom: 1px solid lightgrey;
+      padding: 5px 0;
+      width: 50%;
+      white-space: normal;
+      word-break: break-all;
+      vertical-align: middle;
+    }
+
+    .btn {
+      &.current-level {
+        color: white;
+        &.info {
+          background-color: #4e8e12;
+        }
+
+        &.warn {
+          background-color: #9B730C;
+        }
+
+        &.debug {
+          background-color: #0D7E84;
+        }
+
+        &.trace {
+          background-color: #C40CFF;
+        }
+
+        &.error {
+         background-color: #FD0F00;
+        }
+
+        &.fatal {
+          background-color: #FD0F00;
+        }
+
+        &.off {
+          background-color: #272727;
+        }
+      }
+
+    }
+  }
+
   .admin-expandable {
     margin: 5px 0;
 
