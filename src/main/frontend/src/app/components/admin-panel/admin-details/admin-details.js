@@ -15,7 +15,6 @@ export default class AdminDetails extends Component {
 
   componentWillMount() {
     PlatformApiCall.get('metrics').then(result => {
-      console.log(result.data);
       this.setState({data: result.data})
     });
   }

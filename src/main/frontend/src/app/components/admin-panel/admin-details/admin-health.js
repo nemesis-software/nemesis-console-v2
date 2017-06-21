@@ -11,7 +11,6 @@ export default class AdminHealth extends AdminExpandable {
 
   componentWillMount() {
     PlatformApiCall.get('health').then(result => {
-      console.log(result.data);
       this.setState({...this.state, data: this.parseHealthData(result.data)})
     });
   }

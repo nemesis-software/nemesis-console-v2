@@ -36,7 +36,6 @@ export default class AdminImport extends Component {
     let file = e.target.files[0];
 
     reader.onloadend = () => {
-      console.log(reader.result);
       this.setState({
         ...this.state,
         file: file,

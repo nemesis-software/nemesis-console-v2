@@ -13,7 +13,6 @@ export default class AdminSystemProperties extends Component {
   componentWillMount() {
     PlatformApiCall.get('env').then(result => {
       this.setState({properties: result.data, filteredProperties: result.data});
-      console.log(result.data);
     })
   }
 
