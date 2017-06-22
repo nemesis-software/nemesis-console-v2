@@ -60,7 +60,7 @@ export default class NemesisEntityField extends NemesisBaseField {
 
   filterEntityData(inputText) {
     let inputTextActual = inputText || '';
-    return ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, catalogCode: inputTextActual, code: inputTextActual, projection: 'search'}).then(result => {
+    return ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, catalogCode: `%${inputTextActual}%`, code: `%${inputTextActual}%`, projection: 'search'}).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
       return  {options: data.map(this.mapDataSource.bind(this))};
@@ -68,9 +68,10 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   getSearchUrl() {
-    let urlSuffix = '/search/findByCodeIsStartingWithIgnoreCase/';
+
+    let urlSuffix = '/search/findByCodeLike/';
     if (this.props.entityId === 'catalog_version') {
-      urlSuffix = '/search/findByCodeIsStartingWithIgnoreCaseOrCatalogCodeIsStartingWithIgnoreCase/';
+      urlSuffix = '/search/findByCodeLikeOrCatalogCodeLike/';
     }
 
     return `${this.props.entityId}${urlSuffix}`;

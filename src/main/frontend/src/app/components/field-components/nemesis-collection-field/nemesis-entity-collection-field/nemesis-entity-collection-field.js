@@ -35,7 +35,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   filterEntityData(inputText) {
     let inputTextActual = inputText || '';
-    return ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, code: inputTextActual, projection: 'search'}).then(result => {
+    return ApiCall.get(this.getSearchUrl(), {page: 1, size: 10, code: `%${inputTextActual}%`, projection: 'search'}).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
       return {options: data.map(this.mapDataSource.bind(this))};
@@ -49,7 +49,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getSearchUrl() {
-    let urlSuffix = '/search/findByCodeIsStartingWithIgnoreCase/';
+    let urlSuffix = '/search/findByCodeLike/';
     return `${this.props.entityId}${urlSuffix}`;
   }
 
