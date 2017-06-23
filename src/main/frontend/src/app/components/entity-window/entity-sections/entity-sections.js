@@ -21,7 +21,7 @@ export default class EntitySections extends Component {
     super(props);
     this.sectionsReferences = [];
 
-    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false, openErrorDialog: false, errorMessage: null };
+    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false, openErrorDialog: false, errorMessage: null, isDataLoading: false };
   }
 
   componentWillMount() {
@@ -45,7 +45,10 @@ export default class EntitySections extends Component {
 
   render() {
     return (
-      <div key={this.state.key}>
+      <div key={this.state.key} className={'entity-sections' + (this.state.isDataLoading ? ' on-loading' : '')}>
+        {this.state.isDataLoading ? <div className="loading-screen">
+          <i className="material-icons loading-icon">cached</i>
+        </div> : false}
         <div className="paper-box" style={{margin: '5px 0', padding: '5px'}}>
           {this.getFunctionalButtons(this.props.entity).map((button, index) => <button style={{margin: '0 5px'}} className="btn btn-default" onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></button>)}
         </div>
@@ -94,13 +97,13 @@ export default class EntitySections extends Component {
   }
 
   getDataEntity(entity) {
+    this.setState({...this.state, isDataLoading: true});
     let relatedEntities = this.getEntityRelatedEntities(entity);
     let restUrl = entity.entityUrl || (entity.entityName + '/' + entity.itemId);
     return ApiCall.get(restUrl).then(result => {
       this.setState({...this.state, entityData: result.data});
       Promise.all(
         relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
-        //TODO: Patch for return 404 for empty relation - https://github.com/nemesis-software/nemesis-platform/issues/293
           .then(result => {
             return Promise.resolve(result);
           }, err => {
@@ -118,7 +121,7 @@ export default class EntitySections extends Component {
 
           relatedEntitiesResult[item.name] = data;
         });
-        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now()})
+        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now(), isDataLoading: false})
       })
     });
   }
@@ -209,8 +212,10 @@ export default class EntitySections extends Component {
 
   handleSynchronizeButtonClick() {
     let entity = this.props.entity;
+    this.setState({...this.state, isDataLoading: true});
     ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
       this.props.openNotificationSnackbar('Entity successfully synchronized');
+      this.setState({...this.state, isDataLoading: false});
     }, this.handleRequestError.bind(this))
   }
 
@@ -218,6 +223,8 @@ export default class EntitySections extends Component {
     if (!this.isRequiredFieldValid()) {
       return;
     }
+
+    this.setState({...this.state, isDataLoading: true});
 
     let entity = this.props.entity;
     let dirtyEntityProps = this.getDirtyEntityProps();
@@ -246,6 +253,7 @@ export default class EntitySections extends Component {
         } else if (resultObject.code) {
           this.props.updateNavigationCode(this.props.entity, resultObject.code);
         }
+        this.setState({...this.state, isDataLoading: false});
       });
     }, this.handleRequestError.bind(this));
   }
@@ -299,7 +307,7 @@ export default class EntitySections extends Component {
 
   handleRequestError(err) {
     let errorMsg = (err && err.response && err.response.data && err.response.data.message) || err.message || err;
-    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true})
+    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true, isDataLoading: false})
   }
 
   handleCloseDeleteConfirmation() {
