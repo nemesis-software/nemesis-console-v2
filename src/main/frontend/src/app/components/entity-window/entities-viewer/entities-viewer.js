@@ -5,6 +5,8 @@ import _ from 'lodash';
 import ApiCall from '../../../services/api-call';
 import { componentRequire } from '../../../utils/require-util';
 
+import Modal from 'react-bootstrap/lib/Modal';
+
 let EntitiesResultViewer = componentRequire('app/components/entity-window/entities-viewer/entities-result-viewer/entities-result-viewer', 'entities-result-viewer');
 let EntitiesFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/entities-filter', 'entities-filter');
 
@@ -16,7 +18,7 @@ const pagerData = {
 export default class EntitiesViewer extends Component {
   constructor(props) {
     super(props);
-    this.state = {searchData: [], page: {}, filter: null, isDataLoading: false};
+    this.state = {searchData: [], page: {}, filter: null, isDataLoading: false, openErrorDialog: false, errorMessage: null};
   }
 
   componentWillMount() {
@@ -36,6 +38,7 @@ export default class EntitiesViewer extends Component {
                               onPagerChange={this.onPagerChange.bind(this)}
                               page={this.state.page}
                               onEntityItemClick={this.onEntityItemClick.bind(this)}/>
+        {this.getErrorDialog()}
       </div>
     )
   }
@@ -50,7 +53,7 @@ export default class EntitiesViewer extends Component {
     this.setState({...this.state, isDataLoading: true});
     ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, projection: 'search'}).then(result => {
       this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
-    });
+    }, this.handleRequestError.bind(this));
   }
 
   mapCollectionData(data) {
@@ -69,5 +72,30 @@ export default class EntitiesViewer extends Component {
 
   onPagerChange(page, pageSize) {
     this.getEntitiesData(this.props.entity, page, pageSize, this.state.filter);
+  }
+
+  handleRequestError(err) {
+    let errorMsg = (err && err.response && err.response.data && err.response.data.message) || err.message || err;
+    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true, isDataLoading: false})
+  }
+
+  getErrorDialog() {
+    return (
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Something went wrong!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-default" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  handleCloseErrorDialog() {
+    this.setState({...this.state, openErrorDialog: false});
   }
 }
