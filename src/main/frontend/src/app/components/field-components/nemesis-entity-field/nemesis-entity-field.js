@@ -26,7 +26,7 @@ export default class NemesisEntityField extends NemesisBaseField {
                       onChange={(item) => this.onValueChange(item && item.value)}
                       loadOptions={this.filterEntityData.bind(this)}/>
       </div>
-      {this.props.type === nemesisFieldUsageTypes.edit ? <i className="material-icons entity-navigation-icon" onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
+      {this.props.type === nemesisFieldUsageTypes.edit ? <i className={'material-icons entity-navigation-icon' + (!this.state.value ? ' disabled' : '')} onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
       {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       {this.getErrorDialog()}
     </div>
