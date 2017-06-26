@@ -16,4 +16,8 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
       </div>
     )
   }
+
+  getOpenDialogIconClass() {
+    return 'fa fa-code entity-navigation-icon';
+  }
 }

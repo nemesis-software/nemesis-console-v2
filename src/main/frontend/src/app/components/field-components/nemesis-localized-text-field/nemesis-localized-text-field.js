@@ -41,7 +41,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
         </div>
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
-            <i className="material-icons entity-navigation-icon" onClick={this.handleTranslateIconClick.bind(this)}>translate</i>
+            <i className={this.getOpenDialogIconClass()} onClick={this.handleTranslateIconClick.bind(this)}/>
           ) :
           false}
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
@@ -120,5 +120,9 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   handleTranslateDialogClose = () => {
     this.setState({...this.state, openTranslateDialog: false });
   };
+
+  getOpenDialogIconClass() {
+    return 'fa fa-globe entity-navigation-icon entity-navigation-icon';
+  }
 
 }

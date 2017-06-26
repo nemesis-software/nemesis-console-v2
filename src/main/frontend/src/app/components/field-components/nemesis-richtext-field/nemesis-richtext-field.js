@@ -22,7 +22,7 @@ export default class NemesisRichTextField extends NemesisBaseField {
                  disabled={this.props.readOnly}
                  onChange={(e) => this.onValueChange(e, e.target.value)} />
         </div>
-        <i className="material-icons entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}>fullscreen</i>
+        <i className="fa fa-code entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}/>
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)} backdrop="static">
           <Modal.Header>
