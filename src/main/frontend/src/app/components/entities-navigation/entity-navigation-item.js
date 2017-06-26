@@ -49,7 +49,7 @@ export default class EntitiesNavigationItem extends Component {
     }
 
     if (type === entityCreateType) {
-      text = entity.itemId + ' - Create Entity';
+      text = `${entity.itemId} - ${entity.entityName} - Create Entity`;
     }
 
     return <div><span className={entity.isVisible ? 'selected-navigation-menu-item' : ''}>{text}</span><i className="material-icons close-icon">close</i></div>
