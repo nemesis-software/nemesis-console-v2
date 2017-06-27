@@ -14,11 +14,6 @@ const restrictionFields = [
   searchRestrictionTypes.equals
 ];
 
-const styles = {
-  verticalAlign: 'top',
-  marginRight: '10px'
-};
-
 export default class FilterEntityField extends Component {
   constructor(props) {
     super(props);
@@ -34,8 +29,8 @@ export default class FilterEntityField extends Component {
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisEntityField readOnly={this.props.readOnly} value={this.state.selectedEntity} entityId={this.props.filterItem.entityId} style={this.getTextFieldStyles()} onValueChange={this.onSelectedMenuItem.bind(this)} label={this.props.filterItem.fieldLabel}/>
+        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
+        {this.isEntityFieldVisible() ? <NemesisEntityField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.selectedEntity} entityId={this.props.filterItem.entityId} onValueChange={this.onSelectedMenuItem.bind(this)} label={this.props.filterItem.fieldLabel}/> : false}
       </div>
     )
   }
@@ -59,12 +54,7 @@ export default class FilterEntityField extends Component {
     this.updateParentFilter(item, this.state.restrictionField);
   }
 
-  getTextFieldStyles() {
-    let result = {...styles};
-    if ([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-      result.display = 'none';
-    }
-
-    return result;
+  isEntityFieldVisible() {
+    return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
   }
 }

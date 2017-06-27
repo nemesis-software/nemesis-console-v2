@@ -16,11 +16,6 @@ const restrictionFields = [
   searchRestrictionTypes.equals
 ];
 
-const styles = {
-  verticalAlign: 'top',
-  marginRight: '10px'
-};
-
 export default class FilterNumberField extends Component {
   constructor(props) {
     super(props);
@@ -30,8 +25,8 @@ export default class FilterNumberField extends Component {
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisNumberField readOnly={this.props.readOnly} value={this.state.numberField} step={this.props.filterItem.xtype === nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1'} style={this.getNumberFieldStyles()} onValueChange={_.debounce(this.onNumberFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/>
+        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
+        {this.isNumberFieldVisible() ? <NemesisNumberField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.numberField} step={this.props.filterItem.xtype === nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1'} onValueChange={_.debounce(this.onNumberFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/> : false}
       </div>
     )
   }
@@ -61,12 +56,7 @@ export default class FilterNumberField extends Component {
     });
   }
 
-  getNumberFieldStyles() {
-    let result = {...styles};
-    if ([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-      result.display = 'none';
-    }
-
-    return result;
+  isNumberFieldVisible() {
+    return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
   }
 }

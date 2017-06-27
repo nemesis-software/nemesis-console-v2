@@ -17,11 +17,6 @@ const restrictionFields = [
   searchRestrictionTypes.equals
 ];
 
-const styles = {
-  verticalAlign: 'top',
-  marginRight: '10px'
-};
-
 export default class FilterLocalizedTextField extends Component {
   constructor(props) {
     super(props);
@@ -31,13 +26,13 @@ export default class FilterLocalizedTextField extends Component {
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisLocalizedTextField defaultLanguage={this.props.defaultLanguage} readOnly={this.props.readOnly} value={this.getFormatedValue()} style={this.getLocalizedFieldStyles()} onValueChange={this.onLocalizedFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
+        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
+        {this.isLocalizedFieldVisible() ? <NemesisLocalizedTextField defaultLanguage={this.props.defaultLanguage} readOnly={this.props.readOnly || !this.state.restrictionField} value={this.getFormattedValue()} onValueChange={this.onLocalizedFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/> : false}
       </div>
     )
   }
 
-   getFormatedValue() {
+   getFormattedValue() {
      let result = {};
      result[this.state.value.language] = result[this.state.value.language] || {};
      result[this.state.value.language].value = this.state.value.value;
@@ -69,12 +64,7 @@ export default class FilterLocalizedTextField extends Component {
     });
   }
 
-  getLocalizedFieldStyles() {
-    let result = {...styles};
-    if ([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-      result.display = 'none';
-    }
-
-    return result;
+  isLocalizedFieldVisible() {
+    return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
   }
 }

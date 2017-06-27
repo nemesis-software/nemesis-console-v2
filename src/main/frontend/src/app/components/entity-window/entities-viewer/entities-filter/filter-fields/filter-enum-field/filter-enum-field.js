@@ -5,11 +5,6 @@ import { componentRequire } from '../../../../../../utils/require-util';
 
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 
-const styles = {
-  verticalAlign: 'top',
-  marginRight: '10px'
-};
-
 export default class FilterEnumField extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +20,7 @@ export default class FilterEnumField extends Component {
   render() {
     return (
       <div className="filter-item-container">
-        <NemesisEnumField readOnly={this.props.readOnly} style={styles} value={this.props.filterItem.values.indexOf(this.state.enumField)} values={this.props.filterItem.values} onValueChange={this.onEnumFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
+        <NemesisEnumField readOnly={this.props.readOnly} value={this.props.filterItem.values.indexOf(this.state.enumField)} values={this.props.filterItem.values} onValueChange={this.onEnumFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/>
       </div>
     )
   }

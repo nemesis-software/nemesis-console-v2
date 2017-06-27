@@ -34,6 +34,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
         <div style={{width: '256px', display: 'inline-block'}}>
             <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
             <input type="text"
+                   style={{height: '36px'}}
                    className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
                    value={this.getTextFieldValue(this.state.selectedLanguage)}
                    disabled={this.props.readOnly}

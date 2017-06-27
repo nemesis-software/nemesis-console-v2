@@ -16,7 +16,7 @@ export default class FilterRestrictionField extends Component {
 
   render() {
     return (
-      <div style={{display: 'inline-block', width: '265px', ...this.props.style}}>
+      <div className="filter-restriction-field" style={this.props.style}>
         <label>{this.props.label ? `${this.props.label} restriction` : 'Restriction'}</label>
         <Select style={{width: '100%'}}
                 disabled={this.props.readOnly}

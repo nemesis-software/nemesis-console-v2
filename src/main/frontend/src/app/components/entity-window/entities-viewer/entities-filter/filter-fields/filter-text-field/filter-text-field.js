@@ -17,11 +17,6 @@ const restrictionFields = [
   searchRestrictionTypes.equals
 ];
 
-const styles = {
-  verticalAlign: 'top',
-  marginRight: '10px'
-};
-
 export default class FilterTextField extends Component {
   constructor(props) {
     super(props);
@@ -37,8 +32,8 @@ export default class FilterTextField extends Component {
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} style={styles} restrictionFields={restrictionFields}/>
-        <NemesisTextField readOnly={this.props.readOnly} value={this.state.textField} style={this.getTextFieldStyles()} onValueChange={_.debounce(this.onTextFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/>
+        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
+        {this.isTextFieldVisible() ? <NemesisTextField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.textField} onValueChange={_.debounce(this.onTextFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/> : false}
       </div>
     )
   }
@@ -62,12 +57,7 @@ export default class FilterTextField extends Component {
     });
   }
 
-  getTextFieldStyles() {
-    let result = {...styles};
-    if ([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1) {
-      result.display = 'none';
-    }
-
-    return result;
+  isTextFieldVisible() {
+    return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
   }
 }
