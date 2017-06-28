@@ -6,3 +6,4 @@
 .project
 node_modules
 .settings/
+src/main/webapp/resources/*
