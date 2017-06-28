@@ -27,18 +27,21 @@ export default class DefaultFilter extends Component {
   render() {
     return (
       <div style={this.props.style} key={this.state.key}>
-        {this.props.filterMarkup.map((filterItem, index) => {
-          return (
-            <div key={index}>
-              {this.getFilterItemRender(filterItem)}
-              <hr className="line" />
-            </div>
-          )
-        })}
-        <div style={{padding: '10px 0'}} >
-          <button className="btn btn-default" style={{margin: '10px'}} onClick={this.onSearchButtonClick.bind(this)}><Translate component="span" content={'main.Search'} fallback={'Search'} /></button>
-          <button className="btn btn-default" onClick={this.onClearButtonClick.bind(this)}><Translate component="span" content={'main.Clear'} fallback={'Clear'} /></button>
-        </div>
+        <form onSubmit={e => e.preventDefault()}>
+          {this.props.filterMarkup.map((filterItem, index) => {
+            return (
+              <div key={index}>
+                {this.getFilterItemRender(filterItem)}
+                <hr className="line" />
+              </div>
+            )
+          })}
+          <div style={{padding: '10px 0'}} >
+            <button className="btn btn-default" style={{margin: '10px'}} onClick={this.onSearchButtonClick.bind(this)}><Translate component="span" content={'main.Search'} fallback={'Search'} /></button>
+            <button type="button" className="btn btn-default" onClick={this.onClearButtonClick.bind(this)}><Translate component="span" content={'main.Clear'} fallback={'Clear'} /></button>
+          </div>
+        </form>
+
       </div>
     )
   }
@@ -63,7 +66,6 @@ export default class DefaultFilter extends Component {
     })
   }
 
-
   onFilterChange(filterObject) {
     let filterIndex = _.findIndex(this.state.appliedFilters, {id: filterObject.id});
     let appliedFilters = this.state.appliedFilters;
@@ -85,5 +87,15 @@ export default class DefaultFilter extends Component {
   onClearButtonClick() {
     this.setState({appliedFilters: [], key: keyPrefix + Date.now()});
     this.props.onFilterApply();
+  }
+
+  // $(document).keypress(function(e) {
+  //   if(e.which == 13) {
+  //     // enter pressed
+  //   }
+  // });
+
+  componentWillUnmount() {
+    console.log('unmount');
   }
 }
