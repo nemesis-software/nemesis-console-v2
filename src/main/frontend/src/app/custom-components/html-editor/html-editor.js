@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import Dropdown from 'react-bootstrap/lib/Dropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
+import InsertLinkButton from './insert-link-button';
+import InsertImageButton from './insert-image-button';
+
 const buttonGroupStyle = {
   marginRight: '3px',
   display: 'inline-block'
@@ -22,28 +25,29 @@ export default class LanguageChanger extends Component {
           <div style={buttonGroupStyle}>
             <Dropdown id="html-headers" disabled={this.state.previewAsText}>
               <Dropdown.Toggle>
-                Headers
+                Formatting
               </Dropdown.Toggle>
               <Dropdown.Menu className="super-colors">
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H1')}>Header 1</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H2')}>Header 2</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H3')}>Header 3</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H4')}>Header 4</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H5')}>Header 5</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H6')}>Header 6</MenuItem>
+                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'P')}>Paragraph</MenuItem>
+                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H1')}>Heading 1</MenuItem>
+                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H2')}>Heading 2</MenuItem>
+                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H3')}>Heading 3</MenuItem>
+                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H4')}>Heading 4</MenuItem>
+                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H5')}>Heading 5</MenuItem>
+                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H6')}>Heading 6</MenuItem>
               </Dropdown.Menu>
             </Dropdown>
           </div>
           <div style={buttonGroupStyle}>
-            <button className="btn btn-default" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'bold')}><i className="fa fa-bold"/></button>
-            <button className="btn btn-default" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'italic')}><i className="fa fa-italic"/></button>
-            <button className="btn btn-default" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'underline')}><i className="fa fa-underline"/></button>
-            <button className="btn btn-default" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'strikeThrough')}><i className="fa fa-strikethrough"/></button>
-            <button className="btn btn-default" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'formatBlock', 'BLOCKQUOTE')}><i className="fa fa-quote-right"/></button>
+            <button className="btn btn-default" title="Bold" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'bold')}><i className="fa fa-bold"/></button>
+            <button className="btn btn-default" title="Italic" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'italic')}><i className="fa fa-italic"/></button>
+            <button className="btn btn-default" title="Underline" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'underline')}><i className="fa fa-underline"/></button>
+            <button className="btn btn-default" title="Strike Through" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'strikeThrough')}><i className="fa fa-strikethrough"/></button>
+            <button className="btn btn-default" title="Quote" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'formatBlock', 'BLOCKQUOTE')}><i className="fa fa-quote-right"/></button>
           </div>
           <div style={buttonGroupStyle}>
-            <button className="btn btn-default" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'insertOrderedList')}><i className="fa fa-list-ol"/></button>
-            <button className="btn btn-default" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'insertUnorderedList')}><i className="fa fa-list-ul"/></button>
+            <button className="btn btn-default" title="Ordered List" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'insertOrderedList')}><i className="fa fa-list-ol"/></button>
+            <button className="btn btn-default" title="Unordered List" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'insertUnorderedList')}><i className="fa fa-list-ul"/></button>
             <Dropdown id="html-align" disabled={this.state.previewAsText}>
               <Dropdown.Toggle>
                 Align
@@ -57,10 +61,14 @@ export default class LanguageChanger extends Component {
             </Dropdown>
           </div>
           <div style={buttonGroupStyle}>
-            <button className="btn btn-default" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'removeFormat')}><i className="fa fa-eraser"/></button>
+            <InsertLinkButton/>
+            <InsertImageButton />
           </div>
           <div style={buttonGroupStyle}>
-            <button className="btn btn-default" onClick={() => this.setState({...this.state, previewAsText: !this.state.previewAsText})}><i className="fa fa-code"/></button>
+            <button className="btn btn-default" title="Remove Format" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'removeFormat')}><i className="fa fa-eraser"/></button>
+          </div>
+          <div style={buttonGroupStyle}>
+            <button className="btn btn-default" title={this.state.previewAsText? 'Text' : 'HTML'} onClick={() => this.setState({...this.state, previewAsText: !this.state.previewAsText})}><i className="fa fa-code"/></button>
           </div>
         </div>
         {this.state.previewAsText ? <textarea className="form-control"

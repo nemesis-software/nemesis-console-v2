@@ -1,7 +1,7 @@
 import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisLocalizedTextField from './nemesis-localized-text-field';
-import HtmlEditor from '../../../custom-components/html-editor';
+import HtmlEditor from '../../../custom-components/html-editor/html-editor';
 
 export default class NemesisTextField extends NemesisLocalizedTextField {
   constructor(props) {

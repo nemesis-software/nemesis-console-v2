@@ -88,14 +88,4 @@ export default class DefaultFilter extends Component {
     this.setState({appliedFilters: [], key: keyPrefix + Date.now()});
     this.props.onFilterApply();
   }
-
-  // $(document).keypress(function(e) {
-  //   if(e.which == 13) {
-  //     // enter pressed
-  //   }
-  // });
-
-  componentWillUnmount() {
-    console.log('unmount');
-  }
 }
