@@ -18,7 +18,7 @@ export default class InsertLinkButton extends AbstractInsertButton {
         <label>Height (optional)</label>
         <input className="form-control" value={this.state.height} onChange={e => this.setState({...this.state, height: e.target.value})} placeholder="Height"/>
         <div style={{textAlign: 'center'}}>
-          <button style={{margin: '5px 0'}} className="btn btn-default" onClick={this.insertContent.bind(this)}>Add link</button>
+          <button style={{margin: '5px 0'}} className="btn btn-default" onClick={this.insertContent.bind(this)}>Add Image</button>
         </div>
       </div>
     );
