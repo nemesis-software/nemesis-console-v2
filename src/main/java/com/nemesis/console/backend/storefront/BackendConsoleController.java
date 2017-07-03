@@ -38,7 +38,7 @@ public class BackendConsoleController {
         return "index";
     }
 
-    @RequestMapping(value = { "/login" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/login" }, method = { RequestMethod.GET, RequestMethod.POST })
     public String login() {
         return "login";
     }
