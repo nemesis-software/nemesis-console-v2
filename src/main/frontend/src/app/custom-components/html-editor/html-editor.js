@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from "react";
 
-import Dropdown from 'react-bootstrap/lib/Dropdown';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
+import Dropdown from "react-bootstrap/lib/Dropdown";
+import MenuItem from "react-bootstrap/lib/MenuItem";
 
-import InsertLinkButton from './insert-link-button';
-import InsertImageButton from './insert-image-button';
+import Translate from "react-translate-component";
+
+import InsertLinkButton from "./insert-link-button";
+import InsertImageButton from "./insert-image-button";
+
 
 const buttonGroupStyle = {
   marginRight: '3px',
@@ -25,7 +28,7 @@ export default class LanguageChanger extends Component {
           <div style={buttonGroupStyle}>
             <Dropdown id="html-headers" disabled={this.state.previewAsText}>
               <Dropdown.Toggle>
-                Formatting
+                <Translate content={'main.format'} fallback="Format"/>
               </Dropdown.Toggle>
               <Dropdown.Menu className="super-colors">
                 <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'P')}>Paragraph</MenuItem>
@@ -50,7 +53,7 @@ export default class LanguageChanger extends Component {
             <button className="btn btn-default" title="Unordered List" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'insertUnorderedList')}><i className="fa fa-list-ul"/></button>
             <Dropdown id="html-align" disabled={this.state.previewAsText}>
               <Dropdown.Toggle>
-                Align
+                <Translate content={'main.align'} fallback="Align"/>
               </Dropdown.Toggle>
               <Dropdown.Menu className="super-colors">
                 <MenuItem onClick={this.execCommand.bind(this, 'justifyLeft')}>Left</MenuItem>

@@ -168,6 +168,8 @@ module.exports = {
     email_message: 'Email',
     social_configuration: 'Social',
     storage_configuration: 'Storage',
+    format: 'Format',
+    align: 'Align',
     'Equals': 'is equal',
     'After': 'is after',
     'IsAfter': 'is after',

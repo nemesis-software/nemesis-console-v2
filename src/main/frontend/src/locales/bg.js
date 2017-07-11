@@ -165,6 +165,8 @@ module.exports = {
     email_message: 'Имейл',
     social_configuration: 'Социална',
     storage_configuration: 'Файлове',
+    format: 'Форматирай',
+    align: 'Подравни',
     'Currency': 'Валута',
     'Equals': 'е равно на',
     'After': 'след',
