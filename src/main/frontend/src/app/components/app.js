@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import 'font-awesome/css/font-awesome.css';
 
+import 'react-datetime/css/react-datetime.css';
+
 import '../../styles/style.less';
 
 import LiveEditNavigation from './live-edit-navigation';
