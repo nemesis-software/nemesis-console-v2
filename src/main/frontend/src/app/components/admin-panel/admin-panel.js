@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
-import AdminActions from './admin-actions';
-import AdminHealth from './admin-details/admin-health';
-import AdminInfo from './admin-details/admin-info';
 import '../../../styles/admin-panel.less';
 import AdminImport from './admin-import';
-import AdminMemoryUsage from './admin-memory-usage';
 import AdminSpringBeans from './admin-spring-beans';
 import AdminIdAnalyzer from './admin-id-analyzer';
 import AdminSystemProperties from './admin-system-properties/admin-system-properties';
 import AdminThreads from './admin-threads/admin-threads'
 import AdminDetails from './admin-details/admin-details';
 import AdminLoggers from './admin-loggers/admin-loggers';
+import AdminInsertScript from './admin-insert-script';
 import SwipeableViews from 'react-swipeable-views';
 
 export default class AdminPanel extends Component {
@@ -31,6 +28,7 @@ export default class AdminPanel extends Component {
           <li className={this.state.sectionIndex === 4 ? 'active' : ''} onClick={() => this.handleChange(4)}><i className="fa fa-cog"/>Beans</li>
           <li className={this.state.sectionIndex === 5 ? 'active' : ''} onClick={() => this.handleChange(5)}><i className="fa fa-file"/>Import</li>
           <li className={this.state.sectionIndex === 6 ? 'active' : ''} onClick={() => this.handleChange(6)}><i className="fa fa-code"/>ID Analyze</li>
+          <li className={this.state.sectionIndex === 7 ? 'active' : ''} onClick={() => this.handleChange(7)}><i className="fa fa-terminal"/>Insert Script</li>
         </ul>
         <SwipeableViews
           index={this.state.sectionIndex}
@@ -43,6 +41,7 @@ export default class AdminPanel extends Component {
           <AdminSpringBeans />
           <AdminImport />
           <AdminIdAnalyzer />
+          <AdminInsertScript />
         </SwipeableViews>
       </div>
     );

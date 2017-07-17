@@ -1,0 +1,47 @@
+import React, {Component} from 'react';
+import PlatformApiCall from '../../services/platform-api-call';
+import CodeMirror from 'react-codemirror';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/groovy/groovy';
+
+const codeMirrorOptions = {
+  lineNumbers: true,
+  mode: 'groovy'
+};
+
+export default class AdminInsertScript extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {value: ''};
+  }
+
+  componentWillMount() {
+
+  }
+
+  render() {
+    return (
+      <div>
+        <div>
+          <button className="btn btn-default" onClick={this.insertScript.bind(this)}>Insert Script</button>
+        </div>
+        <CodeMirror onChange={code => this.setState({...this.state, value: code})} value={this.state.value}  options={codeMirrorOptions}/>
+      </div>
+    );
+  }
+
+  insertScript() {
+    if (!this.state.value) {
+      return;
+    }
+
+    return PlatformApiCall.post('script', {script: this.state.value}).then(
+      () => {
+        console.log('executed script');
+      },
+      (err) => {
+        console.log(err);
+      });
+  }
+}
