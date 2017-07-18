@@ -181,6 +181,11 @@ export default class EntitySections extends Component {
 
   mapCollectionData(data) {
     let result = [];
+
+    if (!data) {
+      return result;
+    }
+
     _.forIn(data._embedded, (value) => result = result.concat(value));
     return result;
   }
