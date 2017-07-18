@@ -5,7 +5,7 @@ import moment from 'moment';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 import ReactDatetime from 'react-datetime';
 
-export default class NemesisDateField extends NemesisBaseField {
+export default class NemesisDateTimeField extends NemesisBaseField {
   constructor(props) {
     super(props);
   }
@@ -14,15 +14,20 @@ export default class NemesisDateField extends NemesisBaseField {
     return (
       <div className="entity-field-container" style={{display: 'inline-block', width:'256px'}}>
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
-        <ReactDatetime style={this.props.style}
-                    className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
-                    inputProps={{disabled: this.props.readOnly}}
-                    value={this.state.value}
-                    onChange={(v) => {this.onValueChange(null, v)}}
+        <ReactDatetime timeFormat={this.isTimeEditable()}
+                       style={this.props.style}
+                       className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
+                       inputProps={{disabled: this.props.readOnly}}
+                       value={this.state.value}
+                       onChange={(v) => {this.onValueChange(null, v)}}
         />
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       </div>
     )
+  }
+
+  isTimeEditable() {
+    return true;
   }
 
   getFormattedValue(value) {

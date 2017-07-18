@@ -2,6 +2,7 @@ export const nemesisFieldTypes = {
   nemesisBooleanField: 'nemesisBooleanField',
   nemesisCollectionField: 'nemesisCollectionField',
   nemesisDateField: 'nemesisDateField',
+  nemesisDateTimeField: 'nemesisDateTimeField',
   nemesisEntityField: 'nemesisEntityField',
   nemesisEnumField: 'nemesisEnumField',
   nemesisLocalizedTextField: 'nemesisLocalizedTextField',

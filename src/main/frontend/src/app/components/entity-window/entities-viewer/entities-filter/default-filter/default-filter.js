@@ -8,7 +8,7 @@ import { componentRequire } from '../../../../../utils/require-util';
 import { nemesisFieldTypes } from '../../../../../types/nemesis-types';
 
 let FilterTextField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-text-field/filter-text-field', 'filter-text-field');
-let FilterDateField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-date-field/filter-date-field', 'filter-date-field');
+let FilterDateTimeField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-date-time-field/filter-date-time-field', 'filter-date-time-field');
 let FilterLocalizedTextField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-localized-text-field/filter-localized-text-field', '');
 let FilterBooleanField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-boolean-field/filter-boolean-field', 'filter-boolean-field');
 let FilterNumberField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-number-field/filter-number-field', 'filter-number-field');
@@ -50,7 +50,7 @@ export default class DefaultFilter extends Component {
     let reactElement;
     switch (filterItem.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = FilterTextField; break;
-      case nemesisFieldTypes.nemesisDateField: reactElement = FilterDateField; break;
+      case nemesisFieldTypes.nemesisDateTimeField: reactElement = FilterDateTimeField; break;
       case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = FilterLocalizedTextField; break;
       case nemesisFieldTypes.nemesisBooleanField: reactElement = FilterBooleanField; break;
       case nemesisFieldTypes.nemesisEnumField: reactElement = FilterEnumField; break;

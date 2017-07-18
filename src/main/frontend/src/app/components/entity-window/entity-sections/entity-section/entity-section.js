@@ -6,7 +6,8 @@ import { componentRequire } from '../../../../utils/require-util';
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
 let NemesisTextareaField = componentRequire('app/components/field-components/nemesis-textarea-field/nemesis-textarea-field', 'nemesis-textarea-field');
 let NemesisPasswordField = componentRequire('app/components/field-components/nemesis-password-field/nemesis-password-field', 'nemesis-password-field');
-let NemesisDateField = componentRequire('app/components/field-components/nemesis-date-field/nemesis-date-field', 'nemesis-date-field');
+let NemesisDateField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-field', 'nemesis-date-field');
+let NemesisDateTimeField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-time-field', 'nemesis-date-time-field');
 let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 let NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
@@ -66,6 +67,7 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisHtmlEditor: reactElement = NemesisRichTextField; break;
       case nemesisFieldTypes.nemesisPasswordField: reactElement = NemesisPasswordField; break;
       case nemesisFieldTypes.nemesisDateField: reactElement = NemesisDateField; break;
+      case nemesisFieldTypes.nemesisDateTimeField: reactElement = NemesisDateTimeField; break;
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;

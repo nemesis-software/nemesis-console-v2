@@ -3,7 +3,7 @@ import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
 import { componentRequire } from '../../../../../../utils/require-util';
 
 let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
-let NemesisDateField = componentRequire('app/components/field-components/nemesis-date-field/nemesis-date-field', 'nemesis-date-field');
+let NemesisDateTimeField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-time-field', 'nemesis-date-time-field');
 
 const restrictionFields = [
   searchRestrictionTypes.before,
@@ -12,7 +12,7 @@ const restrictionFields = [
   searchRestrictionTypes.isNull
 ];
 
-export default class FilterDateField extends Component {
+export default class FilterDateTimeField extends Component {
   constructor(props) {
     super(props);
     this.state = {restrictionField: props.defaultRestriction || null, dateField: props.defaultValue || null};
@@ -28,7 +28,7 @@ export default class FilterDateField extends Component {
     return (
       <div className="filter-item-container">
         <FilterRestrictionFields  readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
-        {this.isDateFieldVisible() ? <NemesisDateField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.dateField} onValueChange={this.onDateFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/> : false}
+        {this.isDateFieldVisible() ? <NemesisDateTimeField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.dateField} onValueChange={this.onDateFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/> : false}
       </div>
     )
   }

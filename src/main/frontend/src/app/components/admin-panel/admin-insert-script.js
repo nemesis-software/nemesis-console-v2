@@ -15,11 +15,7 @@ export default class AdminInsertScript extends Component {
 
     this.state = {value: ''};
   }
-
-  componentWillMount() {
-
-  }
-
+  
   render() {
     return (
       <div>
