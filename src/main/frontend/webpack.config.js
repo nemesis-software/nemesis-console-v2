@@ -10,39 +10,91 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-1']
         }
       },
-      { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.less$/, loader: "style!css!less" },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'less-loader'
+        ]
+      },
       {
         test: /\.png$/,
-        loader: "url-loader?limit=100000"
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 100000
+            }
+          }
+        ]
       },
       {
         test: /\.jpg$/,
-        loader: "file-loader"
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ]
       },
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/font-woff'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 100000,
+              mimetype: 'application/font-woff'
+            }
+          }
+        ]
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/octet-stream'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 100000,
+              mimetype: 'application/octet-stream'
+            }
+          }
+        ]
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file'
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ]
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=image/svg+xml'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 100000,
+              mimetype: 'image/svg+xml'
+            }
+          }
+        ]
       }
     ]
   },
@@ -52,7 +104,7 @@ module.exports = {
       customFiles: __dirname + '/src/custom_files',
       localesDir: __dirname + '/src/locales'
     },
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
   devServer: {
     historyApiFallback: true,

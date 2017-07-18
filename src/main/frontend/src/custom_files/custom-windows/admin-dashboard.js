@@ -142,8 +142,8 @@ export default class AdminDashboard extends Component {
           </div>
           <div className="small-chart-container">
             <PieChart width={400} height={250}>
-              <Pie data={data01} cx={150} cy={100} outerRadius={60} fill="#8884d8"/>
-              <Pie data={data02} cx={150} cy={100} innerRadius={70} outerRadius={90} fill="#82ca9d" label/>
+              <Pie dataKey="value" data={data01} cx={150} cy={100} outerRadius={60} fill="#8884d8"/>
+              <Pie dataKey="value" data={data02} cx={150} cy={100} innerRadius={70} outerRadius={90} fill="#82ca9d" label/>
               <Legend iconSize={10} width={120} height={140} layout='vertical' horizontalAligh='left' verticalAlign='top' wrapperStyle={style}/>
             </PieChart>
           </div>

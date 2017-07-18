@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 export default class NemesisBaseField extends Component {
   constructor(props) {
@@ -72,12 +73,12 @@ export default class NemesisBaseField extends Component {
 }
 
 NemesisBaseField.propTypes = {
-  label: React.PropTypes.string.isRequired,
-  onValueChange: React.PropTypes.func,
-  style: React.PropTypes.object,
-  value: React.PropTypes.any,
-  readOnly: React.PropTypes.bool,
-  required: React.PropTypes.bool,
-  name: React.PropTypes.string,
-  type: React.PropTypes.string
+  label: PropTypes.string.isRequired,
+  onValueChange: PropTypes.func,
+  style: PropTypes.object,
+  value: PropTypes.any,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
+  name: PropTypes.string,
+  type: PropTypes.string
 };
