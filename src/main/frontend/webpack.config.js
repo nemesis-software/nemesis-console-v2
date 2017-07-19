@@ -12,7 +12,7 @@ module.exports = {
   module: {
     rules: [
       {
-        exclude: /node_modules/,
+        exclude: path.join(__dirname, 'node_modules'),
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-1']
@@ -100,14 +100,10 @@ module.exports = {
   },
   resolve: {
     alias: {
-      source: __dirname+ '/src',
-      customFiles: __dirname + '/src/custom_files',
-      localesDir: __dirname + '/src/locales'
+      source: path.join(__dirname, 'src'),
+      customFiles: path.join(__dirname, 'src/custom_files'),
+      localesDir: path.join(__dirname, 'src/locales')
     },
     extensions: ['.js', '.jsx']
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './'
   }
 };

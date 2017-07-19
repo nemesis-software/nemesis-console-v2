@@ -34,6 +34,15 @@
         <node.version>v7.10.0</node.version>
         <yarn.version>v0.24.0</yarn.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <webpack.build.parameter>--config webpack.prod.js</webpack.build.parameter>
+            </properties>
+        </profile>
+    </profiles>
     <scm>
         <connection>scm:git:git@github.com:nemesis-software/nemesis-console-v2.git</connection>
         <developerConnection>scm:git:git@github.com:nemesis-software/nemesis-console-v2.git</developerConnection>
@@ -309,7 +318,11 @@
                         <goals>
                             <goal>webpack</goal>
                         </goals>
+                        <configuration>
+                            <arguments>${webpack.build.parameter}</arguments>
+                        </configuration>
                     </execution>
+
                 </executions>
             </plugin>
         </plugins>
