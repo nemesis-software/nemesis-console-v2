@@ -29,6 +29,7 @@
 			<item name="Home" href="../"/>
 			<item name="Console" href="../console/"/>
 		</breadcrumbs>
+		<menu ref="parent" inherit="top"/>
         <menu name="Guides">
             <item name="The backend console components" href="console-components.html" />
             <item name="How to customize the console" href="customization.html" />
