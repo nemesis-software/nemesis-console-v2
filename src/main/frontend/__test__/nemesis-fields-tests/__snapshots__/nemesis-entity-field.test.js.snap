@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test nemesis entity field search url url for catalog version should search for by code and catalog code 1`] = `"catalog_version/search/findByCodeLikeOrCatalogCodeLike/"`;
+
+exports[`test nemesis entity field search url url for different from catalog version should search only by code 1`] = `"testID/search/findByCodeLike/"`;

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test filter build for null and not null restrictions should allowed empty value for "is not null" filter 1`] = `"some not null field ne null"`;
+
+exports[`test filter build for null and not null restrictions should allowed empty value for "is null" filter 1`] = `"some null field eq null"`;

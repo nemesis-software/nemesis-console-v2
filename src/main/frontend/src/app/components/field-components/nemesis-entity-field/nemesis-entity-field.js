@@ -68,7 +68,6 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   getSearchUrl() {
-
     let urlSuffix = '/search/findByCodeLike/';
     if (this.props.entityId === 'catalog_version') {
       urlSuffix = '/search/findByCodeLikeOrCatalogCodeLike/';
@@ -91,9 +90,9 @@ export default class NemesisEntityField extends NemesisBaseField {
     let text = item.code;
     if (this.props.entityId === 'catalog_version') {
       text = item.catalogVersion || item.code;
-    } else if (this.props.entityId === 'cms_slot'){
+    } else if (this.props.entityId === 'cms_slot') {
       text = `${item.code} - ${item.position}`
-    } else if (item.catalogVersion){
+    } else if (item.catalogVersion) {
       text = `${item.code} - ${item.catalogVersion}`
     }
 
