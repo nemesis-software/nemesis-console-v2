@@ -47,7 +47,7 @@ export default class EntitiesWindow extends Component {
         return <EntitiesViewer ref={this.setEntitiesViewerInstance.bind(this)} entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>
       }
       case 'adminPanel': {
-        return <AdminPanel/>
+        return <AdminPanel openNotificationSnackbar={this.props.openNotificationSnackbar} />
       }
       default: {
         return <div>INVALID ENTITY TYPE!!!</div>

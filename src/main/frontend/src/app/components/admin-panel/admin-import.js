@@ -9,10 +9,6 @@ export default class AdminImport extends Component {
     this.inputItem = null;
   }
 
-  componentWillMount() {
-
-  }
-
   render() {
     return (
       <div>
@@ -51,12 +47,9 @@ export default class AdminImport extends Component {
     }
 
     return PlatformApiCall.post('csv/import', {csv: this.state.value}).then(
-      () => {
-        console.log('imported text');
-      },
-      (err) => {
-        console.log(err);
-      });
+      this.onImportSuccess.bind(this),
+      this.onImportFail.bind(this)
+    );
   }
 
   uploadFile() {
@@ -66,15 +59,16 @@ export default class AdminImport extends Component {
     let data = new FormData();
     data.append('file', this.state.file);
     return PlatformApiCall.post('csv/file-import', data, 'multipart/form-data').then(
-      () => {
-        console.log('imported');
-      },
-      (err) => {
-        console.log(err);
-      });
+        this.onImportSuccess.bind(this),
+        this.onImportFail.bind(this)
+    );
   }
 
-  //  platform/csv/file-import - upload as file
+  onImportSuccess() {
+    this.props.openNotificationSnackbar('CSV successfully imported');
+  }
 
-  // platform/csv/import - upload as text
+  onImportFail(err) {
+    this.props.openNotificationSnackbar('Execution failed!', 'error');
+  }
 }

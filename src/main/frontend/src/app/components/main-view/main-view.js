@@ -188,10 +188,10 @@ export default class MainView extends Component {
     )
   }
 
-  openNotificationSnackbar(message) {
+  openNotificationSnackbar(message, level) {
     this.notificationSystem.addNotification({
       message: message,
-      level: 'success',
+      level: level || 'success',
       position: 'tc'
     });
   }

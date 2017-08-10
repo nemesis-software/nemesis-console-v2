@@ -39,9 +39,9 @@ export default class AdminPanel extends Component {
           <AdminThreads />
           <AdminLoggers />
           <AdminSpringBeans />
-          <AdminImport />
+          <AdminImport openNotificationSnackbar={this.props.openNotificationSnackbar}/>
           <AdminIdAnalyzer />
-          <AdminInsertScript />
+          <AdminInsertScript openNotificationSnackbar={this.props.openNotificationSnackbar}/>
         </SwipeableViews>
       </div>
     );

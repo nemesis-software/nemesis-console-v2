@@ -34,10 +34,10 @@ export default class AdminInsertScript extends Component {
 
     return PlatformApiCall.post('script', {script: this.state.value}).then(
       () => {
-        console.log('executed script');
+        this.props.openNotificationSnackbar('Script successfully executed!');
       },
       (err) => {
-        console.log(err);
+        this.props.openNotificationSnackbar('Execution failed!', 'error');
       });
   }
 }
