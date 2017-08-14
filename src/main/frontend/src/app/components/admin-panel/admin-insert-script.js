@@ -20,7 +20,7 @@ export default class AdminInsertScript extends Component {
     return (
       <div>
         <div>
-          <button className="btn btn-default" onClick={this.insertScript.bind(this)}>Insert Script</button>
+          <button className="btn btn-default" onClick={this.insertScript.bind(this)}>Execute script</button>
         </div>
         <CodeMirror onChange={code => this.setState({...this.state, value: code})} value={this.state.value}  options={codeMirrorOptions}/>
       </div>
