@@ -11,7 +11,7 @@ let EntitiesResultViewer = componentRequire('app/components/entity-window/entiti
 let EntitiesFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/entities-filter', 'entities-filter');
 
 const pagerData = {
-  page: 1,
+  page: 0,
   pageSize: 20
 };
 

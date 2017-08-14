@@ -84,7 +84,7 @@ export default class AdminSpringBeans extends Component {
   }
 
   onPagerChange(page, pageSize) {
-    let pageObject = this.buildPageObject(this.state.filteredBeans.length, pageSize, page - 1);
+    let pageObject = this.buildPageObject(this.state.filteredBeans.length, pageSize, page);
     this.setState({...this.state, page: pageObject});
   }
 
@@ -95,7 +95,7 @@ export default class AdminSpringBeans extends Component {
       filteredBeans = filteredBeans.filter(bean => bean.bean.toLowerCase().indexOf(searchValue.toLowerCase()) > -1)
     }
 
-    let pageObject = this.buildPageObject(filteredBeans.length, this.state.page.size, this.state.page.number);
+    let pageObject = this.buildPageObject(filteredBeans.length, this.state.page.size, 0);
     this.setState({...this.state, filteredBeans: filteredBeans, page: pageObject});
   }
 

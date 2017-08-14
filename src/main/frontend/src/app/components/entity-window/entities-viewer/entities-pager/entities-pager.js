@@ -73,7 +73,7 @@ export default class EntitiesPager extends Component {
 
   handlePageSizeChange(item) {
     this.setState({pageSize: item.value});
-    this.props.onPagerChange(1, item.value);
+    this.props.onPagerChange(0, item.value);
   }
 
   onFirstPageButtonClick() {
@@ -81,7 +81,7 @@ export default class EntitiesPager extends Component {
       return;
     }
 
-    this.props.onPagerChange(1, this.state.pageSize);
+    this.props.onPagerChange(0, this.state.pageSize);
   }
 
   onPrevPageButtonClick() {
@@ -89,22 +89,22 @@ export default class EntitiesPager extends Component {
       return;
     }
 
-    this.props.onPagerChange(this.props.page.number, this.state.pageSize);
+    this.props.onPagerChange(this.props.page.number - 1, this.state.pageSize);
   }
 
   onNextPageButtonClick() {
-    if (this.props.page.number + 1 >= this.props.page.totalPages) {
+    if (this.props.page.number >= this.props.page.totalPages - 1) {
       return;
     }
 
-    this.props.onPagerChange(this.props.page.number + 2, this.state.pageSize);
+    this.props.onPagerChange(this.props.page.number + 1, this.state.pageSize);
   }
 
   onLastPageButtonClick() {
-    if (this.props.page.number + 1 >= this.props.page.totalPages) {
+    if (this.props.page.number >= this.props.page.totalPages - 1) {
       return;
     }
 
-    this.props.onPagerChange(this.props.page.totalPages, this.state.pageSize);
+    this.props.onPagerChange(this.props.page.totalPages - 1, this.state.pageSize);
   }
 }
