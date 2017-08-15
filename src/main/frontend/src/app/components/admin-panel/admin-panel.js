@@ -8,6 +8,7 @@ import AdminThreads from './admin-threads/admin-threads'
 import AdminDetails from './admin-details/admin-details';
 import AdminLoggers from './admin-loggers/admin-loggers';
 import AdminInsertScript from './admin-insert-script';
+import AdminJobsManagement from './admin-jobs-management/admin-jobs-management';
 import SwipeableViews from 'react-swipeable-views';
 
 export default class AdminPanel extends Component {
@@ -29,6 +30,7 @@ export default class AdminPanel extends Component {
           <li className={this.state.sectionIndex === 5 ? 'active' : ''} onClick={() => this.handleChange(5)}><i className="fa fa-file"/>Import</li>
           <li className={this.state.sectionIndex === 6 ? 'active' : ''} onClick={() => this.handleChange(6)}><i className="fa fa-code"/>ID Analyze</li>
           <li className={this.state.sectionIndex === 7 ? 'active' : ''} onClick={() => this.handleChange(7)}><i className="fa fa-terminal"/>Insert Script</li>
+          <li className={this.state.sectionIndex === 8 ? 'active' : ''} onClick={() => this.handleChange(8)}><i className="fa fa-calendar"/>Job Management</li>
         </ul>
         <SwipeableViews
           index={this.state.sectionIndex}
@@ -42,6 +44,7 @@ export default class AdminPanel extends Component {
           <AdminImport openNotificationSnackbar={this.props.openNotificationSnackbar}/>
           <AdminIdAnalyzer />
           <AdminInsertScript openNotificationSnackbar={this.props.openNotificationSnackbar}/>
+          <AdminJobsManagement openNotificationSnackbar={this.props.openNotificationSnackbar}/>
         </SwipeableViews>
       </div>
     );

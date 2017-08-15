@@ -28,6 +28,23 @@
     }
   }
 
+  .admin-jobs-management {
+
+    .job-management-type {
+      padding: 2px 5px;
+      border-radius: 2px;
+      background: lighten(@light-blue, 20%);
+    }
+
+    .admin-job-management {
+      .job-actions {
+        .btn {
+          margin: 3px;
+        }
+      }
+    }
+  }
+
   .admin-loggers {
     .display-table-cell {
       border-bottom: 1px solid lightgrey;
@@ -250,13 +267,13 @@
   }
 }
 
-@keyframes blink {
+@keyframes blink-animation {
   50% { opacity: 0.5; }
 }
-@-webkit-keyframes blink {
+@-webkit-keyframes blink-animation {
   50% { opacity: 0.5; }
 }
 .blink {
-  animation: blink 1.5s step-start 0s infinite;
-  -webkit-animation: blink 1.5s step-start 0s infinite;
+  animation: blink-animation 1.5s step-start 0s infinite;
+  -webkit-animation: blink-animation 1.5s step-start 0s infinite;
 }
