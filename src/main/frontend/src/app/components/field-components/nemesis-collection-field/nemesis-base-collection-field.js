@@ -43,7 +43,7 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
 
   getItemsRender() {
     if (!this.state.value || this.state.value.length === 0) {
-      return <div>No Records</div>
+      return <div className="empty-collection-label">No Records</div>
     } else {
       return (
         <div className="collection-container">

@@ -9,7 +9,7 @@ export default class NemesisSimpleCollectionField extends NemesisBaseCollectionF
 
   getInputField() {
     return (
-      <div style={{width: '256px', display: 'inline-block'}} className="entity-field-container">
+      <div style={{width: '256px', display: 'inline-block', ...this.props.style}} className="entity-field-container">
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
         <input type="text"
                className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
