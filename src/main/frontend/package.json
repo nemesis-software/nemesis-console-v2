@@ -45,7 +45,7 @@
     "react-bootstrap": "^0.31.1",
     "react-codemirror": "^1.0.0",
     "react-color": "^2.13.1",
-    "react-datetime": "^2.8.10",
+    "react-datetime": "^2.9.0",
     "react-dom": "^15.6.1",
     "react-interpolate-component": "^0.11.0",
     "react-notification-system": "^0.2.14",

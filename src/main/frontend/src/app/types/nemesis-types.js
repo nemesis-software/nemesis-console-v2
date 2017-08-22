@@ -15,7 +15,8 @@ export const nemesisFieldTypes = {
   nemesisPasswordField: 'nemesisPasswordField',
   nemesisHtmlEditor: 'nemesisHtmlEditor',
   nemesisColorpickerField: 'nemesisColorpickerField',
-  nemesisMediaField: 'nemesisMediaField'
+  nemesisMediaField: 'nemesisMediaField',
+  nemesisMapField: 'nemesisMapField'
 };
 
 export const nemesisFieldUsageTypes = {
