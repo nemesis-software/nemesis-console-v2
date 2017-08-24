@@ -8,13 +8,13 @@ export default class NavigationFilter extends Component {
 
   render() {
     return (
-    <div className="navigation-filter input-group">
+    <div className="navigation-filter">
       <input type="text"
              placeholder={counterpart.translate('main.Filter...', {fallback: 'Filter'})}
-             className="navigation-filter-input form-control"
+             className="navigation-filter-input"
              disabled={this.props.readOnly}
              onChange={this.filterNavigationContent.bind(this)}/>
-      <span className="input-group-addon"><i className="material-icons">search</i></span>
+      {/*<span className="input-group-addon"><i className="material-icons">search</i></span>*/}
     </div>
     )
   }

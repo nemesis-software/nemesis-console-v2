@@ -82,7 +82,7 @@ export default class App extends Component {
   }
 
   customArrow() {
-    return <div className="white-arrow-icon language-custom-arrow">&nbsp;</div>
+    return <i className="material-icons language-custom-arrow">keyboard_arrow_down</i>
   }
 
   getMainViewClasses() {
