@@ -24,7 +24,9 @@ export default class LanguageChanger extends Component {
         {this.props.label ? <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label> : false}
         <Select style={{width: '100%'}}
                 clearable={false}
+                className={this.props.selectClassName}
                 disabled={this.props.readOnly}
+                arrowRenderer={this.props.customArrow}
                 value={{value: this.state.selectedLanguage, label: this.state.selectedLanguage.labelCode }}
                 onChange={(item) => this.handleChange(item)}
                 options={this.state.availableLanguages.map(this.getOptionFields.bind(this))}/>

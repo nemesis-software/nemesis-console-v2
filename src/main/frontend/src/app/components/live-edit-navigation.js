@@ -19,9 +19,9 @@ export default class LiveEditNavigation extends Component {
 
   render() {
     return (
-    <Dropdown id="live-edit-sites">
-      <Dropdown.Toggle style={{padding: '7px 12px', marginRight: '10px'}}>
-        <i className="fa fa-globe" aria-hidden="true"></i> Live edit
+    <Dropdown id="live-edit-sites" className="live-edit-dropdown">
+      <Dropdown.Toggle className="live-edit-toggle" noCaret>
+        <div className="live-edit-dropdown-content"><i className="fa fa-globe" /> Live edit <div className="white-arrow-icon"></div></div>
       </Dropdown.Toggle>
       <Dropdown.Menu className="super-colors">
         {this.state.sites.map((site, index) => {

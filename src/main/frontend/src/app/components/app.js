@@ -50,18 +50,20 @@ export default class App extends Component {
     return (
         <div>
           {!this.isOpenInFrame ? <div className="nemesis-navbar">
-            <i className="material-icons sidebar-icon" onClick={() => this.setState({isNavigationTreeOpened: !this.state.isNavigationTreeOpened})}>menu</i>
+            <i className="fa fa-bars sidebar-icon" onClick={() => this.setState({isNavigationTreeOpened: !this.state.isNavigationTreeOpened})}/>
             <div className="nemesis-navbar-header">Nemesis Console</div>
             <div className="nemesis-navbar-right">
               <LiveEditNavigation/>
               <LanguageChanger
                 style={{width: '150px'}}
+                selectClassName="header-language-changer"
+                customArrow={this.customArrow}
                 onLanguageChange={language => counterpart.setLocale(language)}
                 availableLanguages={translationLanguages.languages}
                 selectedLanguage={translationLanguages.defaultLanguage}
               />
               <div className="logout-button" onClick={this.handleLogoutButtonClick.bind(this)}>
-                <i className="material-icons">exit_to_app</i> <Translate component="span" content={'main.Logout'} fallback={'Log out'} />
+                <i className="fa fa-sign-out logout-icon"/> <Translate component="span" content={'main.Logout'} fallback={'Log out'} />
               </div>
             </div>
           </div> : false }
@@ -77,6 +79,10 @@ export default class App extends Component {
 
   onEntityClick(entity) {
     this.mainViewRef.openNewEntity(entity)
+  }
+
+  customArrow() {
+    return <div className="white-arrow-icon language-custom-arrow">&nbsp;</div>
   }
 
   getMainViewClasses() {
