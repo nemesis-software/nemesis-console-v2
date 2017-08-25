@@ -148,6 +148,7 @@
     color: @light-font-color;
 
     &.main-level {
+      background: @dark-grey;
       &.expanded-item {
         background: @dark-grey-lighter;
       }
@@ -201,7 +202,7 @@
 }
 
 .selected-navigation-menu-item {
-  color: @dark-blue;
+  color: @main-blue-darker;
 }
 
 .Select {
@@ -371,15 +372,38 @@
   .entity-navigation {
     position: fixed;
     width: ~"calc(100% - 300px)";
-    background-color: @light-blue;
+    background-color: @light-grey-darker;
     margin: 0 0 2px 0 !important;
-    padding: 2px;
-    box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
+    padding: 10px 15px 0;
     z-index: 100;
 
+
     .entity-nav-dropdown {
-      background: lighten(@light-blue, 5%);
-      color: @light-grey;
+      background: @main-blue-darker;
+      color: @light-font-color;
+      height: 40px;
+      margin: 0 5px 10px 0;
+      border: none;
+      border-radius: 0;
+      padding-left: 5px;
+      padding-right: 26px;
+
+      .dropdown-menu {
+        border: none;
+        border-radius: 0;
+      }
+
+      .dropdown-title-container {
+        span {
+          vertical-align: top;
+        }
+
+        .dropdown-caret-icon {
+          position: absolute;
+          top: 9px;
+          right: -17px;
+        }
+      }
 
       .close-icon {
         margin-left: 15px;
@@ -393,16 +417,15 @@
       }
 
       &.open > a {
-        background: lighten(@light-blue, 5%);
+        background: @main-blue-darker;
       }
-      border-radius: 2px;
 
       & .dropdown-toggle {
-        color: @light-grey;
+        color: @light-font-color;
 
         &:hover, &:focus {
-          background: lighten(@light-blue, 5%);
-          color: lighten(@light-grey, 5%);
+          background: @main-blue-darker;
+          color: @light-font-color;
         }
       }
 
@@ -414,10 +437,10 @@
         }
 
         & .dropdown-toggle {
-          color: @light-blue;
+          color: @darken-font-color;
 
           &:hover, &:focus {
-            color: darker(@light-blue, 30%);
+            color: @darken-font-color;
             background-color: @light-grey;
           }
         }
