@@ -22,7 +22,7 @@ export default class NavigationTree extends Component {
       <div>
         <NavigationFilter onFilterChange={this.onFilterChange.bind(this)} data={this.state.treeData} />
         {this.state.loadingData ? <div>
-          <div style={{textAlign: 'center'}}>Loading...</div>
+          <div style={{textAlign: 'center'}} className="loading-text">Loading...</div>
           <div style={{textAlign: 'center'}}><i className="material-icons loading-icon" style={{fontSize: '30px', padding: '10px'}}>cached</i></div>
 
         </div> : false}

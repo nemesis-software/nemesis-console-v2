@@ -19,14 +19,16 @@ export default class TreeItem extends Component {
   render() {
     return (
       <div style={this.getContainerStyles(this.props.nestingLevel)}>
-        <div className="nav-tree-item" onClick={this.handleItemClick.bind(this)} style={this.getItemStyles(this.props.nestingLevel)}>
+        <div className={'nav-tree-item' + (this.props.nestingLevel === 0 ? ' main-level' : ' nested-level') + (this.state.isChildrenVisible ? ' expanded-item' : '')}
+             onClick={this.handleItemClick.bind(this)}
+             style={this.getItemStyles(this.props.nestingLevel)}>
             <Translate component="span"
                        style={alignStyle}
                        content={'main.' + this.props.item.text}
                        fallback={this.props.item.text}/>
             {
               this.props.nestedItems && this.props.nestedItems.length > 0 && (this.props.isVisible || this.props.nestingLevel === 0) ?
-                <i className={this.state.isChildrenVisible ? 'material-icons tree-item-icon reverse-icon' : 'material-icons tree-item-icon'}>arrow_drop_down</i> :
+                <i className={this.state.isChildrenVisible ? 'material-icons tree-item-icon reverse-icon' : 'material-icons tree-item-icon'}>keyboard_arrow_right</i> :
                 false
             }
             { (!this.props.nestedItems || this.props.nestedItems.length === 0) && this.props.isVisible ? <i className="material-icons add-icon">add</i> : false}
@@ -102,14 +104,14 @@ export default class TreeItem extends Component {
 
 
   getItemStyles(nestingLevel) {
-    let paddingLeft = (nestingLevel * 10);
-    let paddingTopBottom = this.props.isVisible || this.props.nestingLevel === 0 ? '5px' : 0;
+    let paddingLeft = (nestingLevel * 20);
+    let paddingTopBottom = this.props.isVisible || this.props.nestingLevel === 0 ? '10px' : 0;
     let paddingLeftActual = (20 + paddingLeft) + 'px';
     return {
       position: 'relative',
       textAlign: 'left',
       width: '100%',
-      padding: `${paddingTopBottom} 10px ${paddingTopBottom} ${paddingLeftActual}`,
+      padding: `${paddingTopBottom} 14px ${paddingTopBottom} ${paddingLeftActual}`,
       cursor: 'pointer',
       transition: 'padding .25s'
     };

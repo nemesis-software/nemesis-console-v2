@@ -115,8 +115,7 @@
   top: 60px;
   height: ~"calc(100vh - 60px)";
   overflow-y: auto;
-  background: @light-blue;
-  color: @light-grey;
+  background: @dark-grey-darker;
   transition: left .5s ease-in;
 
   .navigation-filter {
@@ -135,36 +134,69 @@
         outline: none;
       }
     }
+
+    .search-icon {
+      position: absolute;
+      right: 20px;
+      top: 23px;
+      font-size: 14px;
+      color: @dark-font-color;
+    }
   }
 
   .nav-tree-item {
-    &:hover {
-      background: lighten(@light-blue, 5%);
+    color: @light-font-color;
+
+    &.main-level {
+      &.expanded-item {
+        background: @dark-grey-lighter;
+      }
+
+      &:hover {
+        background: @dark-grey-lighter;
+
+        .tree-item-icon {
+          color: @light-font-color;
+        }
+      }
+    }
+
+    &.nested-level {
+      background: @dark-grey-lighter;
+      &:hover {
+        color: @main-blue;
+
+        .tree-item-icon {
+          color: @main-blue;
+        }
+      }
     }
 
     .tree-item-icon {
       vertical-align: middle;
       transition: all 0.5s;
+      float: right;
+      color: @dark-font-color;
 
       &.reverse-icon {
-        transform: rotate(180deg);
+        transform: rotate(90deg);
       }
     }
 
     .add-icon {
       vertical-align: middle;
       margin-left: 15px;
-      font-size: 21px;
-
-      &:hover {
-        font-weight: bold;
-      }
+      font-size: 19px;
     }
   }
 
   &.hidden-tree {
     left: -300px;
     transition: left .5s ease-out;
+  }
+
+  .loading-text {
+    color: @light-font-color;
   }
 }
 
@@ -574,6 +606,7 @@
 }
 
 .loading-icon {
+  color: @light-font-color;
   animation: spin 1s infinite linear;
   -webkit-animation: spin2 1s infinite linear;
 }

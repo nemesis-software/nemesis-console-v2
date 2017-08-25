@@ -14,7 +14,7 @@ export default class NavigationFilter extends Component {
              className="navigation-filter-input"
              disabled={this.props.readOnly}
              onChange={this.filterNavigationContent.bind(this)}/>
-      {/*<span className="input-group-addon"><i className="material-icons">search</i></span>*/}
+      <i className="fa fa-search search-icon"/>
     </div>
     )
   }
