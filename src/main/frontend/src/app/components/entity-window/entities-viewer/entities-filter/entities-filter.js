@@ -4,6 +4,8 @@ import Translate from 'react-translate-component';
 
 import Select from 'react-select';
 
+import SelectCustomArrow from '../../../../components/helper-components/select-custom-arrow';
+
 import { componentRequire } from '../../../../utils/require-util';
 
 let DefaultFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/default-filter/default-filter', 'default-filter');
@@ -18,11 +20,12 @@ export default class EntitiesFilter extends Component {
   render() {
     return (
       <div>
-        <div className="paper-box" style={{margin: '5px', padding: '5px'}}>
+        <div className="paper-box entities-filter">
           <div style={this.getFilterSelectStyle()}>
             <label><Translate content={'main.Filter'} fallback={'Filter'}/></label>
             <Select style={{width: '265px'}}
                     clearable={false}
+                    arrowRenderer={() => <SelectCustomArrow/>}
                     disabled={this.props.readOnly}
                     value={{value: this.state.selectedMenuIndex, label: this.getFilters()[this.state.selectedMenuIndex].filterName}}
                     onChange={this.handleFilterChange.bind(this)}

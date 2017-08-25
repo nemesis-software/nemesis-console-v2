@@ -17,7 +17,7 @@ export default class NemesisDateTimeField extends NemesisBaseField {
         <ReactDatetime timeFormat={this.isTimeEditable()}
                        style={this.props.style}
                        className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
-                       inputProps={{disabled: this.props.readOnly}}
+                       inputProps={{disabled: this.props.readOnly, className: 'entity-field form-control'}}
                        value={this.state.value}
                        onChange={(v) => {this.onValueChange(null, v)}}
         />

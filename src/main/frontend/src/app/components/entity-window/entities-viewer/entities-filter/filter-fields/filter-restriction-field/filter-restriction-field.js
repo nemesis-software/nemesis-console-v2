@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Translate from 'react-translate-component';
 import Select from 'react-select';
 
+import SelectCustomArrow from '../../../../../helper-components/select-custom-arrow';
+
 export default class FilterRestrictionField extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,8 @@ export default class FilterRestrictionField extends Component {
       <div className="filter-restriction-field" style={this.props.style}>
         <label>{this.props.label ? `${this.props.label} restriction` : 'Restriction'}</label>
         <Select style={{width: '100%'}}
+                className="filter-restriction-field-select"
+                arrowRenderer={this.customArrow}
                 disabled={this.props.readOnly}
                 value={{value: this.state.selectedRestrictionField, label: this.state.selectedRestrictionField }}
                 onChange={(item) => this.handleChange(item)}
@@ -31,5 +35,9 @@ export default class FilterRestrictionField extends Component {
     return this.props.restrictionFields.map((field, index) => {
       return {value: field, label: <Translate component="span" key={index} value={field} content={'main.' + field} fallback={field} />}
     });
+  }
+
+  customArrow() {
+    return <SelectCustomArrow />
   }
 }

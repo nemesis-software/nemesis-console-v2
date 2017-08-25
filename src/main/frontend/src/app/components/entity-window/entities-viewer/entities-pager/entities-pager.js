@@ -4,6 +4,8 @@ import Translate from 'react-translate-component';
 
 import Select from 'react-select';
 
+import SelectCustomArrow from '../../../helper-components/select-custom-arrow';
+
 const styles = {
   table: {
     display: 'table'
@@ -36,30 +38,30 @@ export default class EntitiesPager extends Component {
 
   render() {
     return (
-      <div style={styles.container}>
-        <div style={{display: 'inline-block', verticalAlign: 'bottom', marginRight: '10px'}}>
-          <div style={styles.table}>
-            <div style={styles.tableCell}>
-              <i style={styles.navButton} className="material-icons" onClick={this.onFirstPageButtonClick.bind(this)}>first_page</i>
+      <div className="entities-pager-container">
+        <div className="entities-pager">
+          <div className="display-table">
+            <div className="display-table-cell entities-pager-button-container">
+              <i className="material-icons entities-pager-button" onClick={this.onFirstPageButtonClick.bind(this)}>first_page</i>
             </div>
-            <div style={styles.tableCell}>
-              <i style={styles.navButton} className="material-icons" onClick={this.onPrevPageButtonClick.bind(this)}>chevron_left</i>
+            <div className="display-table-cell entities-pager-button-container">
+              <i className="material-icons entities-pager-button" onClick={this.onPrevPageButtonClick.bind(this)}>chevron_left</i>
             </div>
-            <div style={{...styles.tableCell, fontSize: '20px', fontWeight: 'normal', paddingBottom: '5px'}}>
+            <div className="display-table-cell page-content">
               {this.props.page.number + 1} of {Math.max(this.props.page.totalPages, 1)}
             </div>
-            <div style={styles.tableCell}>
-              <i style={styles.navButton} className="material-icons" onClick={this.onNextPageButtonClick.bind(this)}>chevron_right</i>
+            <div className="display-table-cell entities-pager-button-container">
+              <i className="material-icons entities-pager-button" onClick={this.onNextPageButtonClick.bind(this)}>chevron_right</i>
             </div>
-            <div style={styles.tableCell}>
-              <i style={styles.navButton} className="material-icons" onClick={this.onLastPageButtonClick.bind(this)}>last_page</i>
+            <div className="display-table-cell entities-pager-button-container">
+              <i className="material-icons entities-pager-button" onClick={this.onLastPageButtonClick.bind(this)}>last_page</i>
             </div>
           </div>
         </div>
-        <div style={{display: 'inline-block'}}>
+        <div style={{display: 'inline-block', width: '80px'}}>
           <label><Translate content={'main.pageSize'} fallback={'Page Size'} /></label>
-          <Select style={{width: '100%'}}
-                  clearable={false}
+          <Select clearable={false}
+                  arrowRenderer={() => <SelectCustomArrow/>}
                   disabled={this.props.readOnly}
                   value={{value: this.state.pageSize, label: this.state.pageSize}}
                   onChange={(item) => this.handlePageSizeChange(item)}
