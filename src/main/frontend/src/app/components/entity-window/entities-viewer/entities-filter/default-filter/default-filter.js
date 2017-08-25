@@ -26,7 +26,7 @@ export default class DefaultFilter extends Component {
 
   render() {
     return (
-      <div style={this.props.style} key={this.state.key}>
+      <div style={this.props.style} key={this.state.key} className="default-filter">
         <form onSubmit={e => e.preventDefault()}>
           {this.props.filterMarkup.map((filterItem, index) => {
             return (
@@ -36,9 +36,9 @@ export default class DefaultFilter extends Component {
               </div>
             )
           })}
-          <div style={{padding: '10px 0'}} >
-            <button className="btn btn-default" style={{margin: '10px'}} onClick={this.onSearchButtonClick.bind(this)}><Translate component="span" content={'main.Search'} fallback={'Search'} /></button>
-            <button type="button" className="btn btn-default" onClick={this.onClearButtonClick.bind(this)}><Translate component="span" content={'main.Clear'} fallback={'Clear'} /></button>
+          <div className="default-filter-buttons-container">
+            <button className="btn btn-default default-filter-button search-button" onClick={this.onSearchButtonClick.bind(this)}><Translate component="span" content={'main.Search'} fallback={'Search'} /></button>
+            <button type="button" className="btn btn-default default-filter-button clear-button" onClick={this.onClearButtonClick.bind(this)}><Translate component="span" content={'main.Clear'} fallback={'Clear'} /></button>
           </div>
         </form>
 

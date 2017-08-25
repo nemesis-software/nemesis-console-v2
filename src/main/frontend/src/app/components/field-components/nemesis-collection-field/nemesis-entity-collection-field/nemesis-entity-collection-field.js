@@ -5,6 +5,9 @@ import ApiCall from '../../../../services/api-call';
 import _ from 'lodash';
 import Translate from 'react-translate-component';
 
+import SelectCustomArrow from '../../../helper-components/select-custom-arrow';
+
+
 export default class NemesisEntityCollectionField extends NemesisBaseCollectionField {
   constructor(props) {
     super(props);
@@ -16,6 +19,8 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
         <Select.Async style={this.getSelectStyle()}
                       cache={false}
+                      className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
+                      arrowRenderer={() => <SelectCustomArrow />}
                       disabled={this.props.readOnly}
                       onChange={this.onItemSelect.bind(this)}
                       loadOptions={this.filterEntityData.bind(this)}/>

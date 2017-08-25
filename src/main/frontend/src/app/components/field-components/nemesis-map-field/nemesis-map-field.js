@@ -6,6 +6,9 @@ import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 import Select from 'react-select';
 import _ from 'lodash';
 
+import SelectCustomArrow from '../../helper-components/select-custom-arrow';
+
+
 export default class NemesisMapField extends NemesisBaseField {
   constructor(props) {
     super(props);
@@ -18,6 +21,7 @@ export default class NemesisMapField extends NemesisBaseField {
         <div style={{width: '256px', display: 'inline-block'}}>
           <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
           <Select clearable={false}
+                  arrowRenderer={() => <SelectCustomArrow />}
                   disabled={this.props.readOnly}
                   value={{value: this.state.selectedKey, label: this.state.selectedKey }}
                   onChange={(item) => this.handleChange(item)}

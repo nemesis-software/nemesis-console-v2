@@ -29,7 +29,7 @@ export default class EntitiesNavigationItem extends Component {
 
   render() {
     return (
-      <NavDropdown id={this.props.entityId} className={'entity-nav-dropdown' + (_.some(this.props.entities, {isVisible: true}) ? ' selected' : '')} title={<Translate content={'main.' + this.props.entityId} fallback={this.props.entityId}/>}>
+      <NavDropdown id={this.props.entityId} noCaret className={'entity-nav-dropdown' + (_.some(this.props.entities, {isVisible: true}) ? ' selected' : '')} title={this.getDropdownTitle()}>
         {this.getFilteredSubEntities().map((subEntity, index) => {
           return <MenuItem onClick={(event) => this.onNestedItemTouchTab(event, subEntity)} key={index}>{this.getMenuItemContentByEntityType(subEntity)}</MenuItem>;
         })}
@@ -76,5 +76,9 @@ export default class EntitiesNavigationItem extends Component {
     _.forIn(groupedEntities, (value, key) => result = result.concat(value));
 
     return result;
+  }
+
+  getDropdownTitle() {
+    return <div className="dropdown-title-container"><Translate content={'main.' + this.props.entityId} fallback={this.props.entityId}/> <i className="material-icons dropdown-caret-icon">keyboard_arrow_down</i></div>
   }
 }

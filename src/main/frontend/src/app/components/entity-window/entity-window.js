@@ -14,10 +14,6 @@ export default class EntitiesWindow extends Component {
 
   render() {
     let styles = {
-      minHeight: 'calc(100vh - 106px)',
-      overflowY: 'auto',
-      padding: '0px 5px 5px',
-      backgroundColor: 'whitesmoke',
     };
 
     if (!this.props.entity.isVisible) {
@@ -25,7 +21,7 @@ export default class EntitiesWindow extends Component {
     }
 
     return (
-      <div style={styles}>
+      <div className="entities-window" style={styles}>
         {this.renderEntityByType(this.props.entity)}
       </div>
     )
