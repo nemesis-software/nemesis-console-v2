@@ -4,6 +4,8 @@ import Translate from 'react-translate-component';
 
 import Select from 'react-select';
 
+import SelectCustomArrow from './helper-components/select-custom-arrow';
+
 export default class LanguageChanger extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ export default class LanguageChanger extends Component {
                 clearable={false}
                 className={this.props.selectClassName}
                 disabled={this.props.readOnly}
-                arrowRenderer={this.props.customArrow}
+                arrowRenderer={() => <SelectCustomArrow />}
                 value={{value: this.state.selectedLanguage, label: this.state.selectedLanguage.labelCode }}
                 onChange={(item) => this.handleChange(item)}
                 options={this.state.availableLanguages.map(this.getOptionFields.bind(this))}/>

@@ -33,10 +33,10 @@ export default class EntitiesTableViewer extends Component {
 
   render() {
     return (
-      <div style={this.props.style}>
-        <table className="table table-striped">
+      <div style={this.props.style} className="entities-table-viewer">
+        <table>
           <thead>
-            <tr>
+            <tr className="navigation-header">
               <th colSpan={this.state.entitiesMarkup.length}>
                 <LanguageChanger
                   label="language"
@@ -47,7 +47,7 @@ export default class EntitiesTableViewer extends Component {
                 <EntitiesPager onPagerChange={this.props.onPagerChange}  page={this.props.page}/>
               </th>
             </tr>
-            <tr>
+            <tr className="content-header">
               {
                 this.state.entitiesMarkup.map((markupItem, index) => {
                   return (

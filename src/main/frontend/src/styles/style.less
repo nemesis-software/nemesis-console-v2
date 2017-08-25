@@ -75,8 +75,7 @@
       }
     }
 
-    .language-custom-arrow {
-      padding-top: 7px;
+    .select-custom-arrow {
       color: @light-font-color!important;
     }
   }
@@ -243,7 +242,83 @@
   }
 }
 
+.entities-table-viewer {
+  table {
+    width: 100%;
+
+    .content-header {
+      background: @light-grey;
+      height: 36px;
+      th:first-of-type {
+        padding-left: 20px;
+      }
+    }
+
+    .navigation-header {
+      th {
+        padding-bottom: 20px;
+      }
+    }
+
+    tbody {
+      tr {
+        height: 50px;
+        border-bottom: 1px solid @border-colors;
+        td:first-of-type {
+          padding-left: 20px;
+        }
+
+        td:last-of-type {
+          padding-right: 20px;
+        }
+      }
+    }
+  }
+}
+
+.entities-pager-container {
+  display: inline-block;
+  user-select: none;
+  margin: 0 10px;
+
+  .entities-pager {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 10px;
+
+    .display-table {
+      border-spacing: 5px 0;
+      border-collapse: separate;
+    }
+
+    .entities-pager-button-container {
+      border: 1px solid @border-colors;
+      padding: 3px;
+
+      .entities-pager-button {
+        cursor: pointer;
+        font-size: 28px;
+        color: @dark-font-color;
+        vertical-align: middle;
+      }
+    }
+
+
+    .page-content {
+      vertical-align: middle;
+      font-size: 16px;
+      padding: 0 13px;
+    }
+  }
+}
+
 .Select {
+
+  .Select-control {
+    border-radius: 0;
+    border-color: @border-colors;
+  }
+
   &.is-disabled {
     & > .Select-control {
       background-color: #eee;
@@ -512,6 +587,11 @@
 
   .entities-filter {
     padding: 17px 20px 20px;
+  }
+
+  .entities-result-viewer {
+    padding: 17px 20px 20px;
+    margin-top: 15px;
   }
 }
 

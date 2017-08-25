@@ -4,6 +4,8 @@ import Translate from 'react-translate-component';
 
 import Select from 'react-select';
 
+import SelectCustomArrow from '../../../helper-components/select-custom-arrow';
+
 import { componentRequire } from '../../../../utils/require-util';
 let EntitiesTableViewer = componentRequire('app/components/entity-window/entities-viewer/entities-table-viewer/entities-table-viewer', 'entities-table-viewer');
 
@@ -15,11 +17,12 @@ export default class EntitiesResultViewer extends Component {
 
   render() {
     return (
-      <div className="paper-box" style={{margin: '5px', padding: '5px', marginTop: '20px'}}>
+      <div className="paper-box entities-result-viewer">
         <div style={this.getViewerSelectStyle()}>
           <label><Translate content={'main.viewer'} fallback={'Viewer'}/></label>
           <Select style={{width: '265px'}}
                   clearable={false}
+                  arrowRenderer={() => <SelectCustomArrow/>}
                   disabled={this.props.readOnly}
                   value={{value: this.state.selectedMenuIndex, label: this.getViewers()[this.state.selectedMenuIndex].viewerName}}
                   onChange={this.handleViewerChange.bind(this)}

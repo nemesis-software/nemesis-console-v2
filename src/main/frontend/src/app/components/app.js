@@ -57,7 +57,6 @@ export default class App extends Component {
               <LanguageChanger
                 style={{width: '150px'}}
                 selectClassName="header-language-changer"
-                customArrow={this.customArrow}
                 onLanguageChange={language => counterpart.setLocale(language)}
                 availableLanguages={translationLanguages.languages}
                 selectedLanguage={translationLanguages.defaultLanguage}
@@ -79,10 +78,6 @@ export default class App extends Component {
 
   onEntityClick(entity) {
     this.mainViewRef.openNewEntity(entity)
-  }
-
-  customArrow() {
-    return <i className="material-icons language-custom-arrow">keyboard_arrow_down</i>
   }
 
   getMainViewClasses() {

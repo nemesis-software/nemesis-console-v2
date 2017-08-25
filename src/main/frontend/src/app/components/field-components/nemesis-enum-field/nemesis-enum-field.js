@@ -18,6 +18,7 @@ export default class NemesisEnumField extends NemesisBaseField {
         <Select style={this.getSelectStyle()}
                 clearable={false}
                 arrowRenderer={() => <SelectCustomArrow />}
+                className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
                 disabled={this.props.readOnly}
                 value={this.state.value !== -1 ? {value: this.state.value, label: <Translate content={'main.' + this.props.values[this.state.value]} fallback={this.props.values[this.state.value]} />} : null} //
                 onChange={(item) => this.onChange(item)}

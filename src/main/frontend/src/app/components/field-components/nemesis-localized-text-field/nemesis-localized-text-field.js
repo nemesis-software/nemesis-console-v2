@@ -5,8 +5,6 @@ import LanguageChanger from '../../language-changer';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import SelectCustomArrow from '../../helper-components/select-custom-arrow';
-
 const translationLanguages = {
   languages: [
     {value: 'en', labelCode: 'English'},
@@ -29,7 +27,6 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           readOnly={this.props.readOnly}
           label="language"
           selectClassName="entity-field"
-          customArrow={() => <SelectCustomArrow />}
           style={this.props.style}
           onLanguageChange={this.onLanguageChange.bind(this)}
           availableLanguages={translationLanguages.languages}
