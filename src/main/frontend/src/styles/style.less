@@ -9,10 +9,26 @@
 
   .filter-restriction-field {
     vertical-align: top;
-    margin-right: 10px;
+    margin-right: 15px;
     display: inline-block;
     width: 265px;
+
+    .filter-restriction-field-select {
+      .Select-control {
+        border-radius: 0;
+        border-color: @border-colors;
+
+        .Select-clear {
+          color: @dark-font-color;
+        }
+      }
+    }
   }
+}
+
+.select-custom-arrow {
+  padding: 5px;
+  color: @dark-font-color;
 }
 
 .nemesis-navbar {
@@ -205,10 +221,42 @@
   color: @main-blue-darker;
 }
 
+.default-filter {
+  .default-filter-buttons-container {
+    .default-filter-button {
+      width: 135px;
+      border: none;
+      border-radius: 0;
+      height: 40px;
+      text-transform: uppercase;
+      color: @light-font-color;
+
+      &.search-button {
+        background: @main-blue-darker;
+        margin-right: 15px;
+      }
+
+      &.clear-button {
+        background: @light-grey-darker;
+      }
+    }
+  }
+}
+
 .Select {
   &.is-disabled {
     & > .Select-control {
       background-color: #eee;
+
+      .Select-value {
+        .Select-value-label {
+          color: @dark-font-color;
+        }
+      }
+
+      .select-custom-arrow {
+        color: @dark-font-color-transparent
+      }
     }
   }
 }
@@ -222,13 +270,19 @@
 
   .entity-field {
     vertical-align: top;
+    border-radius: 0;
+    border-color: @border-colors;
+    &[disabled] {
+      color: @dark-font-color
+    }
 
     &.has-error {
       border-color: @red-color;
+    }
 
-      .select-control {
-
-      }
+    .Select-control {
+      border-radius: 0;
+      border-color: @border-colors;
     }
   }
 
@@ -449,7 +503,17 @@
   }
 }
 
+.entities-window {
+  overflow-y: auto;
+  padding: 15px 15px 5px;
+  min-height: ~"calc(100vh - 120px)";
+  background: @light-grey;
+  position: relative;
 
+  .entities-filter {
+    padding: 17px 20px 20px;
+  }
+}
 
 .nemesis-radio-button {
   -webkit-appearance: none;
@@ -508,10 +572,10 @@
 }
 
 .line {
-  margin: 5px 0;
+  margin: 17px 0;
   height: 1px;
   border: none;
-  background-color: rgb(224, 224, 224);
+  background-color: @light-grey;
 }
 
 .form-control:not(textarea, div) {

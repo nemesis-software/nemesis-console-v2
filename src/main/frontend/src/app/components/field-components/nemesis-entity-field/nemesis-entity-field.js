@@ -7,6 +7,8 @@ import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 import Modal from 'react-bootstrap/lib/Modal';
 import NemesisBaseField from '../nemesis-base-field'
 
+import SelectCustomArrow from '../../helper-components/select-custom-arrow';
+
 export default class NemesisEntityField extends NemesisBaseField {
   constructor(props) {
     super(props);
@@ -20,6 +22,7 @@ export default class NemesisEntityField extends NemesisBaseField {
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
         <Select.Async style={this.getSelectStyle()}
                       cache={false}
+                      arrowRenderer={() => <SelectCustomArrow />}
                       className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
                       disabled={this.props.readOnly}
                       value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}

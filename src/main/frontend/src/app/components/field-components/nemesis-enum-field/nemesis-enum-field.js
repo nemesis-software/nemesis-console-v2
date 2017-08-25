@@ -4,6 +4,8 @@ import NemesisBaseField from '../nemesis-base-field'
 
 import Select from 'react-select';
 
+import SelectCustomArrow from '../../helper-components/select-custom-arrow';
+
 export default class NemesisEnumField extends NemesisBaseField {
   constructor(props) {
     super(props);
@@ -15,6 +17,7 @@ export default class NemesisEnumField extends NemesisBaseField {
         <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label>
         <Select style={this.getSelectStyle()}
                 clearable={false}
+                arrowRenderer={() => <SelectCustomArrow />}
                 disabled={this.props.readOnly}
                 value={this.state.value !== -1 ? {value: this.state.value, label: <Translate content={'main.' + this.props.values[this.state.value]} fallback={this.props.values[this.state.value]} />} : null} //
                 onChange={(item) => this.onChange(item)}
