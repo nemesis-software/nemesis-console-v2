@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 
 let baseUrl = null;
 export default class ApiCall {
@@ -31,6 +32,9 @@ export default class ApiCall {
       headers: this.getHeaders(contentType),
       data: data,
       params: params,
+      paramsSerializer: function(params) {
+        return qs.stringify(params, {arrayFormat: 'repeat'})
+      }
     })
   }
 

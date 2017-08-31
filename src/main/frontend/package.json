@@ -52,6 +52,7 @@
     "react-select": "^1.0.0-rc.3",
     "react-swipeable-views": "^0.10.5",
     "react-translate-component": "^0.13.2",
-    "recharts": "^0.22.3"
+    "recharts": "^0.22.3",
+    "qs": "^6.5.0"
   }
 }
