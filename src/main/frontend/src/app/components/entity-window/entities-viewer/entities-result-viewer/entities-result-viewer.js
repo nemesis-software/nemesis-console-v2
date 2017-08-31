@@ -57,6 +57,8 @@ export default class EntitiesResultViewer extends Component {
       entities: this.props.entities,
       entitiesMarkup: this.props.entitiesMarkup,
       onPagerChange: this.props.onPagerChange,
+      onSortDataChange: this.props.onSortDataChange,
+      sortData: this.props.sortData,
       page: this.props.page,
       onEntityItemClick: this.props.onEntityItemClick,
       key: index,

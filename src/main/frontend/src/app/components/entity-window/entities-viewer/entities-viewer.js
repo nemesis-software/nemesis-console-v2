@@ -18,11 +18,11 @@ const pagerData = {
 export default class EntitiesViewer extends Component {
   constructor(props) {
     super(props);
-    this.state = {searchData: [], page: {}, filter: null, isDataLoading: false, openErrorDialog: false, errorMessage: null};
+    this.state = {searchData: [], page: {}, sortData: [], filter: null, isDataLoading: false, openErrorDialog: false, errorMessage: null};
   }
 
   componentWillMount() {
-    this.getEntitiesData(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter);
+    this.getEntitiesData(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
   }
 
   render() {
@@ -36,7 +36,9 @@ export default class EntitiesViewer extends Component {
                               entity={this.props.entity}
                               entitiesMarkup={this.props.entity.data.result}
                               onPagerChange={this.onPagerChange.bind(this)}
+                              onSortDataChange={this.onSortDataChange.bind(this)}
                               page={this.state.page}
+                              sortData={this.state.sortData}
                               onEntityItemClick={this.onEntityItemClick.bind(this)}/>
         {this.getErrorDialog()}
       </div>
@@ -49,9 +51,9 @@ export default class EntitiesViewer extends Component {
     });
   }
 
-  getEntitiesData(entity, page, pageSize, filter) {
+  getEntitiesData(entity, page, pageSize, filter, sortData) {
     this.setState({...this.state, isDataLoading: true});
-    ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, projection: 'search'}).then(result => {
+    ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
       this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
     }, this.handleRequestError.bind(this));
   }
@@ -72,6 +74,12 @@ export default class EntitiesViewer extends Component {
 
   onPagerChange(page, pageSize) {
     this.getEntitiesData(this.props.entity, page, pageSize, this.state.filter);
+  }
+
+  onSortDataChange(sortData) {
+    this.setState({...this.state, sortData: sortData}, () => {
+      this.getEntitiesData(this.props.entity, pagerData.page, this.state.page.size, this.state.filter, sortData);
+    });
   }
 
   handleRequestError(err) {
@@ -97,5 +105,14 @@ export default class EntitiesViewer extends Component {
 
   handleCloseErrorDialog() {
     this.setState({...this.state, openErrorDialog: false});
+  }
+
+  buildSortArray(sortData) {
+    sortData = sortData || [];
+    let result = [];
+    _.forEach(sortData, sortElement => {
+      result.push(`${sortElement.field},${sortElement.orderType}`);
+    });
+    return result;
   }
 }
