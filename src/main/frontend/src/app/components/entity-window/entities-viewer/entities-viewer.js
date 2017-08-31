@@ -5,6 +5,8 @@ import _ from 'lodash';
 import ApiCall from '../../../services/api-call';
 import { componentRequire } from '../../../utils/require-util';
 
+import Modal from 'react-bootstrap/lib/Modal';
+
 let EntitiesResultViewer = componentRequire('app/components/entity-window/entities-viewer/entities-result-viewer/entities-result-viewer', 'entities-result-viewer');
 let EntitiesFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/entities-filter', 'entities-filter');
 
