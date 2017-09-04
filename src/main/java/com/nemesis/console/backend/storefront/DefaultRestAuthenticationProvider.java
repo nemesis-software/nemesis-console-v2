@@ -17,12 +17,15 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContexts;
+import org.apache.http.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -30,19 +33,24 @@ import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import sun.misc.BASE64Encoder;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Base64;
 
 /**
  * @author Petar Tahchiev
@@ -52,10 +60,16 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
 
     protected final Logger LOG = LogManager.getLogger(getClass());
 
-    private String restBaseUrl;
+    private String websiteUrl;
 
-    public DefaultRestAuthenticationProvider(final String restBaseUrl) {
-        this.restBaseUrl = restBaseUrl;
+    private String basicAuthUsername;
+
+    private String basicAuthPassword;
+
+    public DefaultRestAuthenticationProvider(final String websiteUrl, final String basicAuthUsername, final String basicAuthPassword) {
+        this.websiteUrl = websiteUrl;
+        this.basicAuthUsername = basicAuthUsername;
+        this.basicAuthPassword = basicAuthPassword;
     }
 
     @Override
@@ -67,7 +81,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
         final UserData userData;
         try {
             SSLContext context = SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
-            SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(context, SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+            SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(context, NoopHostnameVerifier.INSTANCE);
             Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create().register("https", csf).build();
             HttpClientConnectionManager ccm = new PoolingHttpClientConnectionManager(registry);
 
@@ -76,12 +90,21 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
             /**
              * It can't be POST because the CSRF is triggered.
              */
-            HttpGet httpGet = new HttpGet(restBaseUrl + "auth");
+            String url = websiteUrl + "oauth/token";
+            HttpPost httpGet = null;
+            try {
+                URIBuilder builder = new URIBuilder(url);
+                builder.setParameter("grant_type", "password")
+                       .setParameter("username", username)
+                       .setParameter("password",password);
+                httpGet = new HttpPost(builder.build());
 
-            LOG.debug("Calling: " + restBaseUrl + "auth");
-
-            httpGet.setHeader("X-Nemesis-Username", username);
-            httpGet.setHeader("X-Nemesis-Password", password);
+                String encoding = Base64.getEncoder().encodeToString((String.format("%s:%s", this.basicAuthUsername, this.basicAuthPassword)).getBytes("UTF-8"));
+                httpGet.setHeader("Authorization", "Basic " + encoding);
+                LOG.debug("Calling: " + websiteUrl + "oauth/token");
+            } catch (URISyntaxException e) {
+                throw new AuthenticationServiceException("Invalid website url");
+            }
 
             HttpResponse response2 = httpclient.execute(httpGet);
             HttpEntity entity2 = response2.getEntity();
@@ -90,14 +113,14 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
             userData = mapper.readValue(response, UserData.class);
-            if (userData.getToken() == null) {
+            if (userData.getAccessToken() == null) {
                 throw new BadCredentialsException("Invalid username/password");
             }
 
             final ConsoleUserPrincipal principal =
-                            new ConsoleUserPrincipal(userData.getUsername(), password, AuthorityUtils.createAuthorityList(userData.getAuthorities()));
-            principal.setExpiryTime(userData.getExpiryTime());
-            principal.setToken(userData.getToken());
+                            new ConsoleUserPrincipal(username, password, Arrays.asList(new SimpleGrantedAuthority("ROLE_EMPLOYEEGROUP")));
+            principal.setExpiryTime(userData.getExpiresIn());
+            principal.setToken(userData.getAccessToken());
 
             return new UsernamePasswordAuthenticationToken(principal, password, principal.getAuthorities());
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException | IOException e) {

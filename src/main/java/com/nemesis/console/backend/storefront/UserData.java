@@ -11,6 +11,8 @@
  */
 package com.nemesis.console.backend.storefront;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 /**
@@ -18,47 +20,57 @@ import java.io.Serializable;
  */
 public class UserData implements Serializable {
 
-    private String username;
+    @JsonProperty("access_token")
+    private String accessToken;
 
-    private String token;
+    @JsonProperty("token_type")
+    private String tokenType;
 
-    private String[] authorities;
+    @JsonProperty("refresh_token")
+    private String refreshToken;
 
-    private Long expiryTime;
+    @JsonProperty("expires_in")
+    private Long expiresIn;
 
-    /* getters/setters */
+    private String scope;
 
-    public String getUsername() {
-        return username;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public String getToken() {
-        return token;
+    public String getTokenType() {
+        return tokenType;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
     }
 
-    public String[] getAuthorities() {
-        return authorities != null ? authorities.clone() : null;
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
-    public void setAuthorities(String[] authorities) {
-        if (authorities != null) {
-            this.authorities = authorities.clone();
-        }
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
-    public Long getExpiryTime() {
-        return expiryTime;
+    public Long getExpiresIn() {
+        return expiresIn;
     }
 
-    public void setExpiryTime(Long expiryTime) {
-        this.expiryTime = expiryTime;
+    public void setExpiresIn(Long expiresIn) {
+        this.expiresIn = expiresIn;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 }

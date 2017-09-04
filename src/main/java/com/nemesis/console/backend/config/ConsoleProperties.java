@@ -24,6 +24,10 @@ public class ConsoleProperties {
 
     private String websiteBaseUrl;
 
+    private String basicAuthUsername;
+
+    private String basicAuthPassword;
+
     /* getters/setters */
 
     public String getRestBaseUrl() {
@@ -40,5 +44,21 @@ public class ConsoleProperties {
 
     public void setWebsiteBaseUrl(String websiteBaseUrl) {
         this.websiteBaseUrl = websiteBaseUrl;
+    }
+
+    public String getBasicAuthUsername() {
+        return basicAuthUsername;
+    }
+
+    public void setBasicAuthUsername(String basicAuthUsername) {
+        this.basicAuthUsername = basicAuthUsername;
+    }
+
+    public String getBasicAuthPassword() {
+        return basicAuthPassword;
+    }
+
+    public void setBasicAuthPassword(String basicAuthPassword) {
+        this.basicAuthPassword = basicAuthPassword;
     }
 }

@@ -76,7 +76,7 @@ public class CommonConsoleConfig {
 
     @Bean(name = { "defaultRestAuthenticationProvider", "restAuthenticationProvider" })
     public AuthenticationProvider defaultRestAuthenticationProvider(final ConsoleProperties consoleProperties) throws NamingException {
-        return new DefaultRestAuthenticationProvider(consoleProperties.getRestBaseUrl());
+        return new DefaultRestAuthenticationProvider(consoleProperties.getWebsiteBaseUrl(), consoleProperties.getBasicAuthUsername(), consoleProperties.getBasicAuthPassword());
     }
 
     @Bean

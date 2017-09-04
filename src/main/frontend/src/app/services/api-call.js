@@ -52,7 +52,7 @@ export default class ApiCall {
     };
     let nemesisToken = document.getElementById('token').getAttribute('value');
     if (nemesisToken) {
-      result['X-Nemesis-Token'] = nemesisToken;
+      result['Authorization'] = `Bearer ${nemesisToken}`;
     }
 
     return result;
