@@ -52,11 +52,11 @@ export default class EntitySections extends Component {
         <div className="paper-box" style={{margin: '5px 0', padding: '5px'}}>
           {this.getFunctionalButtons(this.props.entity).map((button, index) => <button style={{margin: '0 5px'}} className="btn btn-default" onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></button>)}
         </div>
-        <ul className="nav nav-tabs">
+        <div className="section-navigation">
           {this.props.entity.data.sections.map((item, index) => {
-            return <li className={this.state.sectionIndex === index ? 'active' : ''} onClick={() => this.handleChange(index)} key={index}><Translate component="a" content={'main.' + item.title} fallback={item.title} /></li>
+            return <div className={'section-navigation-item' + (this.state.sectionIndex === index ? ' active' : '')} onClick={() => this.handleChange(index)} key={index}><Translate component="span" content={'main.' + item.title} fallback={item.title} /></div>
           })}
-        </ul>
+        </div>
         <SwipeableViews
           index={this.state.sectionIndex}
           onChangeIndex={this.handleChange}

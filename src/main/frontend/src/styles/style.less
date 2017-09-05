@@ -515,6 +515,27 @@
   }
 
   .entity-sections {
+    .section-navigation {
+      padding: 10px 10px 0;
+      background: @main-blue-darker;
+
+      .section-navigation-item {
+        display: inline-block;
+        height: 40px;
+        color: white;
+        background: @main-blue;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        padding: 10px 15px;
+        cursor: pointer;
+
+        &.active {
+          color: black;
+          background: white;
+        }
+      }
+    }
+
     .entity-section {
       padding: 20px;
 
@@ -523,6 +544,7 @@
         margin-bottom: 15px;
         padding: 20px 20px 30px 20px;
         display: inline-block;
+        vertical-align: top;
 
         .entity-field-input-container {
           width: 295px;
@@ -548,7 +570,7 @@
           padding-right: 10px;
         }
 
-        &.full-screen-item-container {
+        &.full-screen-item-cosection-navigation-itemntainer {
           width: 1385px;
         }
       }
