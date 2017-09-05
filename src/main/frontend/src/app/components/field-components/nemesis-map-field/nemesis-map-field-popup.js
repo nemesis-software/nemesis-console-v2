@@ -24,7 +24,7 @@ export default class NemesisMapFieldPopup extends Component {
           <Modal.Title>Edit map field</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <button className="btn btn-default" onClick={this.addNewField.bind(this)}>Add new field</button>
+          <div className="nemesis-link-button" style={{marginBottom: '10px'}} onClick={this.addNewField.bind(this)}><span style={{verticalAlign: 'middle'}}>Add new field</span><i className="material-icons" style={{verticalAlign: 'middle',marginLeft: '15px',fontSize: '19px'}}>add</i></div>
           {this.state.fields.map(item => {
             return <NemesisMapFieldItem ref={(el) => { el && this.mapFieldsReference.push(el)}}
                                         key={item.id}
