@@ -17,10 +17,10 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
     return (
       <div className="entity-field-container">
         <div className="entity-field-input-container">
-          <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
+          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ? <span className="required-star">*</span> : false}</div>
           <Select.Async style={this.getSelectStyle()}
                         cache={false}
-                        className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
+                        className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                         arrowRenderer={() => <SelectCustomArrow />}
                         disabled={this.props.readOnly}
                         onChange={this.onItemSelect.bind(this)}

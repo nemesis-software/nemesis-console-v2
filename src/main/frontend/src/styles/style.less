@@ -358,6 +358,14 @@
     border-radius: 0;
     border-color: @border-colors;
 
+    &.empty-required-field {
+      background: #fcebf0;
+
+      .Select-control {
+        background: #fcebf0;
+      }
+    }
+
     &.form-control {
       height: 36px!important;
     }
@@ -499,6 +507,12 @@
   cursor: pointer;
 }
 
+.required-star {
+  color: #eb0848;
+  margin-left: 5px;
+  font-size: 18px;
+}
+
 .nemesis-html-editor {
   .btn, .form-control, .dropdown-menu {
     border-radius: 0!important;
@@ -599,6 +613,10 @@
         .entity-field-input-container {
           width: 295px;
           display: inline-block;
+
+          label {
+            vertical-align: top;
+          }
         }
 
         .language-changer {
@@ -620,7 +638,7 @@
           padding-right: 10px;
         }
 
-        &.full-screen-item-cosection-navigation-itemntainer {
+        &.full-screen-item-container {
           width: 1385px;
         }
       }

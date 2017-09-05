@@ -14,10 +14,10 @@ export default class NemesisDateTimeField extends NemesisBaseField {
     return (
       <div className="entity-field-container">
         <div className="entity-field-input-container">
-          <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
           <ReactDatetime timeFormat={this.isTimeEditable()}
                          style={this.props.style}
-                         className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
+                         className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                          inputProps={{disabled: this.props.readOnly, className: 'entity-field form-control'}}
                          value={this.state.value}
                          onChange={(v) => {this.onValueChange(null, v)}}

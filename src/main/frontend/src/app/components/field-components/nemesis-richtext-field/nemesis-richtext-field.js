@@ -15,9 +15,9 @@ export default class NemesisRichTextField extends NemesisBaseField {
     return (
       <div className="entity-field-container">
         <div className="entity-field-input-container">
-          <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
           <input type="text"
-                 className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
+                 className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                  value={this.state.value || ''}
                  disabled={this.props.readOnly}
                  onChange={(e) => this.onValueChange(e, e.target.value)} />
