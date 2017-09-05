@@ -14,7 +14,7 @@ const buttonGroupStyle = {
   display: 'inline-block'
 };
 
-export default class LanguageChanger extends Component {
+export default class HtmlEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {content : this.props.htmlContent || '', previewAsText: false};

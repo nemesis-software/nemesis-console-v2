@@ -25,22 +25,24 @@ export default class NemesisBooleanField extends NemesisBaseField {
   render() {
     return (
       <div className="entity-field-container">
-        <div><Translate  component="label" content={'main.' + this.props.label} fallback={this.props.label} /></div>
-        <div style={{padding: '0 5px'}}>
-          <label  className="radio-inline">
-            <input className="nemesis-radio-button" type="radio" value="true" defaultChecked={'true' === this.state.value} onChange={this.handleRadioChange.bind(this)} disabled={this.props.readOnly} name={this.props.label}/>
-            True
-          </label>
-          <label className="radio-inline">
-            <input className="nemesis-radio-button" type="radio" value="false" defaultChecked={'false' === this.state.value} onChange={this.handleRadioChange.bind(this)} disabled={this.props.readOnly} name={this.props.label}/>
-            False
-          </label>
-          <label style={this.getNotAvailableButtonStyle()} className="radio-inline">
-            <input className="nemesis-radio-button" type="radio" defaultChecked={'null' === this.state.value} onChange={this.handleRadioChange.bind(this)} disabled={this.props.readOnly} value="null" name={this.props.label}/>
-            N/A
-          </label>
+        <div className="entity-field-input-container">
+          <div><Translate  component="label" content={'main.' + this.props.label} fallback={this.props.label} /></div>
+          <div style={{padding: '0 5px 15px'}}>
+            <label className="radio-inline" style={{marginRight: '30px', paddingLeft: '25px'}}>
+              <input className="nemesis-radio-button" type="radio" value="true" defaultChecked={'true' === this.state.value} onChange={this.handleRadioChange.bind(this)} disabled={this.props.readOnly} name={this.props.label}/>
+              True
+            </label>
+            <label className="radio-inline" style={{marginRight: '30px', paddingLeft: '25px'}}>
+              <input className="nemesis-radio-button" type="radio" value="false" defaultChecked={'false' === this.state.value} onChange={this.handleRadioChange.bind(this)} disabled={this.props.readOnly} name={this.props.label}/>
+              False
+            </label>
+            <label style={{marginRight: '30px', paddingLeft: '25px', ...this.getNotAvailableButtonStyle()}} className="radio-inline" >
+              <input className="nemesis-radio-button" type="radio" defaultChecked={'null' === this.state.value} onChange={this.handleRadioChange.bind(this)} disabled={this.props.readOnly} value="null" name={this.props.label}/>
+              N/A
+            </label>
+          </div>
+          {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         </div>
-        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       </div>
     )
   }
@@ -70,7 +72,7 @@ export default class NemesisBooleanField extends NemesisBaseField {
   }
 
   getNotAvailableButtonStyle() {
-    let style = {...styles.container};
+    let style = {};
     if (this.props.type !== nemesisFieldUsageTypes.edit) {
       style.display = 'none';
     }

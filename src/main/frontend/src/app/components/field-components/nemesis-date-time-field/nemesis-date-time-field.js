@@ -12,16 +12,18 @@ export default class NemesisDateTimeField extends NemesisBaseField {
 
   render() {
     return (
-      <div className="entity-field-container" style={{display: 'inline-block', width:'256px'}}>
-        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
-        <ReactDatetime timeFormat={this.isTimeEditable()}
-                       style={this.props.style}
-                       className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
-                       inputProps={{disabled: this.props.readOnly, className: 'entity-field form-control'}}
-                       value={this.state.value}
-                       onChange={(v) => {this.onValueChange(null, v)}}
-        />
-        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+      <div className="entity-field-container">
+        <div className="entity-field-input-container">
+          <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+          <ReactDatetime timeFormat={this.isTimeEditable()}
+                         style={this.props.style}
+                         className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
+                         inputProps={{disabled: this.props.readOnly, className: 'entity-field form-control'}}
+                         value={this.state.value}
+                         onChange={(v) => {this.onValueChange(null, v)}}
+          />
+          {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+        </div>
       </div>
     )
   }

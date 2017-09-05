@@ -14,7 +14,7 @@ export default class NemesisRichTextField extends NemesisBaseField {
   render() {
     return (
       <div className="entity-field-container">
-        <div style={{width: '256px', display: 'inline-block'}}>
+        <div className="entity-field-input-container">
           <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
           <input type="text"
                  className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}

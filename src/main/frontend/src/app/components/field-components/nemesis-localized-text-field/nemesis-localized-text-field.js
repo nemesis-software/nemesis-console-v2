@@ -27,12 +27,12 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           readOnly={this.props.readOnly}
           label="language"
           selectClassName="entity-field"
-          style={this.props.style}
+          style={{marginRight: '15px', ...this.props.style}}
           onLanguageChange={this.onLanguageChange.bind(this)}
           availableLanguages={translationLanguages.languages}
           selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
         />
-        <div style={{width: '256px', display: 'inline-block'}}>
+        <div className="entity-field-input-container">
             <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
             <input type="text"
                    style={{height: '36px'}}

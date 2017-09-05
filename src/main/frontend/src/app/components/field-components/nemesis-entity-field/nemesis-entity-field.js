@@ -18,7 +18,7 @@ export default class NemesisEntityField extends NemesisBaseField {
   render() {
     return (
     <div className="entity-field-container">
-      <div style={{width: '256px', display: 'inline-block'}}>
+      <div className="entity-field-input-container">
         <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
         <Select.Async style={this.getSelectStyle()}
                       cache={false}

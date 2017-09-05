@@ -21,6 +21,8 @@ let NemesisMapField = componentRequire('app/components/field-components/nemesis-
 let NemesisSimpleCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field', 'nemesis-simple-collection-field');
 let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
 
+import CssClassHelper from '../../../../services/css-class-helper';
+
 export default class EntitySection extends Component {
   constructor(props) {
     super(props);
@@ -28,10 +30,10 @@ export default class EntitySection extends Component {
   }
   render() {
     return (
-      <div style={{minHeight: 'calc(100vh - 205px)', background: 'white'}}>
+      <div style={{minHeight: 'calc(100vh - 205px)', background: 'white'}} className="entity-section">
         {this.props.section.items.map((item, index) => {
           return (
-            <div className="paper-box with-hover" key={index} style={this.getPaperStyles(item)}>
+            <div className={'paper-box with-hover section-item-container' + CssClassHelper.getStyleClassSectionItem(item.xtype)} key={index}>
               {this.getSectionItemRenderer(item, index)}
             </div>
           )
@@ -126,7 +128,7 @@ export default class EntitySection extends Component {
   }
 
   getPaperStyles(item) {
-    let style = {margin: '5px', padding: '5px', display: 'inline-block', minHeight: '95px'};
+    let style = {};
     if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisMediaField, nemesisFieldTypes.nemesisSimpleCollectionField].indexOf(item.xtype) > -1) {
       style.width = 'calc(100% - 10px)';
     }

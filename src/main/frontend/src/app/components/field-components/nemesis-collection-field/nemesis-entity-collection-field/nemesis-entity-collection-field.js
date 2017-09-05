@@ -15,16 +15,18 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   getInputField() {
     return (
-      <div style={{width: '256px', display: 'inline-block'}} className="entity-field-container">
-        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
-        <Select.Async style={this.getSelectStyle()}
-                      cache={false}
-                      className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
-                      arrowRenderer={() => <SelectCustomArrow />}
-                      disabled={this.props.readOnly}
-                      onChange={this.onItemSelect.bind(this)}
-                      loadOptions={this.filterEntityData.bind(this)}/>
-        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+      <div className="entity-field-container">
+        <div className="entity-field-input-container">
+          <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
+          <Select.Async style={this.getSelectStyle()}
+                        cache={false}
+                        className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
+                        arrowRenderer={() => <SelectCustomArrow />}
+                        disabled={this.props.readOnly}
+                        onChange={this.onItemSelect.bind(this)}
+                        loadOptions={this.filterEntityData.bind(this)}/>
+          {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+        </div>
       </div>
     )
   }
