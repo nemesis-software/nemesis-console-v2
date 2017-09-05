@@ -27,7 +27,7 @@ export default class NemesisMapField extends NemesisBaseField {
                   onChange={(item) => this.handleChange(item)}
                   options={this.getMapKeys().map(item => {return {value: item, label: item}})}/>
         </div>
-        <div className="entity-field-input-container">
+        <div className="entity-field-input-container" style={{verticalAlign: 'bottom'}}>
           <input type="text"
                  style={{height: '36px'}}
                  className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}

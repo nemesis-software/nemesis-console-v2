@@ -10,7 +10,7 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
 
   getDialogInputField(language, index) {
     return (
-      <div key={index}>
+      <div key={index} style={{marginBottom: '20px'}}>
         <Translate component="label" content={'main.' + language.labelCode} fallback={language.labelCode} />
         <HtmlEditor htmlContent={this.getTextFieldValue(language.value)} onChange={(value) => this.onTextChange(null, value, language.value)} />
       </div>
@@ -19,5 +19,9 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
 
   getOpenDialogIconClass() {
     return 'fa fa-code entity-navigation-icon';
+  }
+
+  getModalSize() {
+    return 'large';
   }
 }

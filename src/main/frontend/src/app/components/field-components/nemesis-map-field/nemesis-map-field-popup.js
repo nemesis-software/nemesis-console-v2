@@ -33,8 +33,8 @@ export default class NemesisMapFieldPopup extends Component {
           })}
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-default" onClick={this.handleCloseModal.bind(this, false)}>Cancel</button>
-          <button className="btn btn-default" onClick={this.handleCloseModal.bind(this, true)}>Done</button>
+          <button className="nemesis-button decline-button" style={{marginRight: '15px'}} onClick={this.handleCloseModal.bind(this, false)}>Cancel</button>
+          <button className="nemesis-button success-button" onClick={this.handleCloseModal.bind(this, true)}>Done</button>
         </Modal.Footer>
       </Modal>
     )

@@ -463,6 +463,41 @@
 
 .modal {
   z-index: 1000000 !important;
+  .modal-content {
+    border-radius: 0!important;
+  }
+}
+
+.nemesis-button {
+  text-transform: uppercase;
+  background: white;
+  padding: 10px 25px;
+  color: @dark-font-color;
+  display: inline-block;
+  height: 40px;
+  border: 1px solid @border-colors;
+  cursor: pointer;
+
+  &.dark-button {
+    color: white;
+    background: @dark-grey-darker;
+  }
+
+  &.decline-button {
+    color: white;
+    background: @light-grey-darker;
+  }
+
+  &.success-button {
+    color: white;
+    background: @main-blue-darker;
+  }
+}
+
+.nemesis-html-editor {
+  .btn, .form-control, .dropdown-menu {
+    border-radius: 0!important;
+  }
 }
 
 .main-view-wrapper {
@@ -520,21 +555,8 @@
       padding-bottom: 10px;
 
       .functional-button {
-        text-transform: uppercase;
-        background: white;
-        padding: 10px 25px;
-        color: @dark-font-color;
-        display: inline-block;
-        height: 40px;
-        border: 1px solid @border-colors;
         margin-right: 5px;
         margin-bottom: 5px;
-        cursor: pointer;
-
-        &.dark-button {
-          color: white;
-          background: @dark-grey-darker;
-        }
       }
     }
 

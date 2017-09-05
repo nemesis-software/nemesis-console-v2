@@ -97,7 +97,7 @@ export default class EntitiesViewer extends Component {
           <div style={{color: 'red'}}>{this.state.errorMessage}</div>
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-default" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+          <button className="nemesis-button success-button" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
         </Modal.Footer>
       </Modal>
     );

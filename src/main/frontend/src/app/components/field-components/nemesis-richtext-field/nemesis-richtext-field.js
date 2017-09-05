@@ -33,7 +33,7 @@ export default class NemesisRichTextField extends NemesisBaseField {
             <HtmlEditor htmlContent={this.state.value} onChange={(value) => this.onValueChange(null, value)}/>
           </Modal.Body>
           <Modal.Footer>
-            <button className="btn btn-default" onClick={this.handleDialogClose.bind(this)}>Done</button>
+            <button className="nemesis-button success-button" onClick={this.handleDialogClose.bind(this)}>Done</button>
           </Modal.Footer>
         </Modal>
       </div>

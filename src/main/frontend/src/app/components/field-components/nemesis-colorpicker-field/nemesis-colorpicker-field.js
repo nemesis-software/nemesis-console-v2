@@ -32,7 +32,7 @@ export default class NemesisColorpickerField extends NemesisBaseField {
           <ChromePicker color={this.state.value} disableAlpha={true} onChange={(color, event) => this.onValueChange(event, color.hex)}/>
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-default" onClick={this.handleClose.bind(this)}>Done</button>
+          <button className="nemesis-button success-button" onClick={this.handleClose.bind(this)}>Done</button>
         </Modal.Footer>
       </Modal>
     </div>

@@ -37,7 +37,7 @@ export default class NemesisTextAreaField extends NemesisBaseField {
                       onChange={(e) => this.onValueChange(e, e.target.value)}/>
           </Modal.Body>
           <Modal.Footer>
-            <button className="btn btn-default" onClick={this.handleDialogClose.bind(this)}>Done</button>
+            <button className="nemesis-button success-button" onClick={this.handleDialogClose.bind(this)}>Done</button>
           </Modal.Footer>
         </Modal>
       </div>

@@ -49,7 +49,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
-          <Modal show={this.state.openTranslateDialog} onHide={this.handleTranslateDialogClose.bind(this)} backdrop="static">
+          <Modal show={this.state.openTranslateDialog} bsSize={this.getModalSize()} onHide={this.handleTranslateDialogClose.bind(this)} backdrop="static">
             <Modal.Header>
               <Modal.Title>Translate field</Modal.Title>
             </Modal.Header>
@@ -57,7 +57,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
               {translationLanguages.languages.map(this.getDialogInputField.bind(this))}
             </Modal.Body>
             <Modal.Footer>
-              <button className="btn btn-default" onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
+              <button className="nemesis-button success-button" onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
             </Modal.Footer>
           </Modal>
           ) :
@@ -68,7 +68,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
 
   getDialogInputField(language, index) {
     return (
-      <div key={index}>
+      <div key={index} style={{marginBottom: '20px'}}>
         <Translate component="label" content={'main.' + language.labelCode} fallback={language.labelCode} />
         <input type="text"
                className="entity-field form-control"
@@ -77,6 +77,10 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
                onChange={(e) => this.onTextChange(e, e.target.value, language.value)}/>
       </div>
     )
+  }
+
+  getModalSize() {
+    return '';
   }
 
   onLanguageChange(language) {

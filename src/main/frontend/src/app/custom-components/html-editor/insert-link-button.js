@@ -16,7 +16,7 @@ export default class InsertLinkButton extends AbstractInsertButton {
         <label>Text</label>
         <input className="form-control" value={this.state.text} onChange={e => this.setState({...this.state, text: e.target.value})} placeholder="Text"/>
         <div style={{textAlign: 'center'}}>
-          <button style={{margin: '5px 0'}} className="btn btn-default" onClick={this.insertContent.bind(this)}>Add link</button>
+          <button style={{margin: '5px 0'}} className="nemesis-button success-button" onClick={this.insertContent.bind(this)}>Add link</button>
         </div>
       </div>
     );

@@ -10,7 +10,7 @@ import InsertImageButton from "./insert-image-button";
 
 
 const buttonGroupStyle = {
-  marginRight: '3px',
+  marginRight: '5px',
   display: 'inline-block'
 };
 
@@ -23,7 +23,7 @@ export default class HtmlEditor extends Component {
 
   render() {
     return (
-      <div>
+      <div className="nemesis-html-editor">
         <div style={{marginBottom: '5px'}}>
           <div style={buttonGroupStyle}>
             <Dropdown id="html-headers" disabled={this.state.previewAsText}>
@@ -76,10 +76,10 @@ export default class HtmlEditor extends Component {
         </div>
         {this.state.previewAsText ? <textarea className="form-control"
                                               value={this.state.content}
-                                              style={{width: '100%', height: '250px', overflow: 'auto', resize: 'none'}}
+                                              style={{width: '100%', height: '250px', overflow: 'auto', resize: 'none', borderRadius: '0'}}
                                               onChange={e => this.handleContentInput(e.target.value)} /> :
           <div className="form-control"
-               style={{width: '100%', height: '250px', overflow: 'auto', padding: '10px 25px'}}
+               style={{width: '100%', height: '250px', overflow: 'auto', padding: '10px 25px', borderRadius: '0'}}
                dangerouslySetInnerHTML={{__html : this.state.content}}
                ref={el => this.editableDiv = el}
                contentEditable={true}
