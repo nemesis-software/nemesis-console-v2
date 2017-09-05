@@ -49,8 +49,8 @@ export default class EntitySections extends Component {
         {this.state.isDataLoading ? <div className="loading-screen">
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
-        <div className="paper-box" style={{margin: '5px 0', padding: '5px'}}>
-          {this.getFunctionalButtons(this.props.entity).map((button, index) => <button style={{margin: '0 5px'}} className="btn btn-default" onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></button>)}
+        <div className="functional-buttons-container">
+          {this.getFunctionalButtons(this.props.entity).map((button, index) => <div className={'functional-button' + (button.className ? ` ${button.className}` : '')} onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></div>)}
         </div>
         <div className="section-navigation">
           {this.props.entity.data.sections.map((item, index) => {
@@ -78,7 +78,7 @@ export default class EntitySections extends Component {
 
   getFunctionalButtons(entity) {
     let result = [
-      {label: 'Save', onClickFunction: () => this.handleSaveButtonClick(false)},
+      {label: 'Save', onClickFunction: () => this.handleSaveButtonClick(false), className: 'dark-button'},
       {label: 'Save & Close', onClickFunction: () => this.handleSaveButtonClick(true)}
     ];
 

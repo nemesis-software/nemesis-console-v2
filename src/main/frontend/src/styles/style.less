@@ -515,6 +515,28 @@
   }
 
   .entity-sections {
+
+    .functional-buttons-container {
+      padding-bottom: 15px;
+
+      .functional-button {
+        text-transform: uppercase;
+        background: white;
+        padding: 10px 25px;
+        color: @dark-font-color;
+        display: inline-block;
+        height: 40px;
+        border: 1px solid @border-colors;
+        margin-right: 5px;
+        cursor: pointer;
+
+        &.dark-button {
+          color: white;
+          background: @dark-grey-darker;
+        }
+      }
+    }
+
     .section-navigation {
       padding: 10px 10px 0;
       background: @main-blue-darker;
