@@ -26,7 +26,7 @@ export default class NemesisTextAreaField extends NemesisBaseField {
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)}>
           <Modal.Header>
-            <Modal.Title>Edit richtext</Modal.Title>
+            <Modal.Title>Edit text</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
