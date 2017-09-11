@@ -31,8 +31,9 @@ export default class FilterEnumField extends Component {
   }
 
   updateParentFilter(enumField)  {
+    let actualValue = enumField ? `'${enumField}'` : null;
     this.props.onFilterChange({
-      value: `'${enumField}'`,
+      value: actualValue,
       restriction: searchRestrictionTypes.equals,
       field: this.props.filterItem.name,
       id: this.props.filterItem.name
