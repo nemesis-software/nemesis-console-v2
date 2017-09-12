@@ -80,7 +80,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   }
 
   getModalSize() {
-    return '';
+    return null;
   }
 
   onLanguageChange(language) {
