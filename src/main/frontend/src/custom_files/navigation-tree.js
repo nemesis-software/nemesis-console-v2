@@ -14,7 +14,7 @@ export default class CustomTreeItem extends NavigationTree {
         text: 'Admin',
         children: [{id: 'AdminDashboard', text:'Admin dashboard', leaf: true}]
       });
-      this.setState({...this.state, treeData: data, filteredData: data});
+      this.setState({...this.state, treeData: result.data, filteredData: this.filterChildren(result.data, this.state.filterContent)});
     });
   }
 }
