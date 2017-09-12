@@ -5,7 +5,7 @@ import AbstractInsertButton from './abstract-insert-button';
 export default class InsertLinkButton extends AbstractInsertButton {
   constructor(props) {
     super(props);
-    this.state = {link: '', width: '', height: '', isDropDownOpen: false};
+    this.state = {link: '', title: '', width: '', height: '', isDropDownOpen: false};
   }
 
   getDropDownContent() {
@@ -13,6 +13,8 @@ export default class InsertLinkButton extends AbstractInsertButton {
       <div style={{width: '200px', padding: '5px 10px'}}>
         <label>Link</label>
         <input className="form-control" value={this.state.link} onChange={e => this.setState({...this.state, link: e.target.value})} placeholder="Link"/>
+        <label>Title</label>
+        <input className="form-control" value={this.state.title} onChange={e => this.setState({...this.state, title: e.target.value})} placeholder="Title"/>
         <label>Width (optional)</label>
         <input className="form-control" value={this.state.width} onChange={e => this.setState({...this.state, width: e.target.value})} placeholder="Width"/>
         <label>Height (optional)</label>
@@ -25,7 +27,7 @@ export default class InsertLinkButton extends AbstractInsertButton {
   }
 
   getHTMLForInsert() {
-    return `<img src="${this.state.link}" width="${this.state.width}" height="${this.state.height}"/>`;
+    return `<img src="${this.state.link}" width="${this.state.width}" height="${this.state.height}" title="${this.state.title}" alt="${this.state.title}"/>`;
   }
 
   getButtonIcon() {
