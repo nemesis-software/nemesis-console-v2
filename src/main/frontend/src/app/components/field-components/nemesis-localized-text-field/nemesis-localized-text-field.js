@@ -70,11 +70,12 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
     return (
       <div key={index} style={{marginBottom: '20px'}}>
         <Translate component="label" content={'main.' + language.labelCode} fallback={language.labelCode} />
-        <input type="text"
-               className="entity-field form-control"
-               value={this.getTextFieldValue(language.value)}
-               disabled={this.props.readOnly}
-               onChange={(e) => this.onTextChange(e, e.target.value, language.value)}/>
+        <textarea className="entity-field form-control"
+                  rows={1}
+                  style={{resize: 'vertical'}}
+                  value={this.getTextFieldValue(language.value)}
+                  disabled={this.props.readOnly}
+                  onChange={(e) => this.onTextChange(e, e.target.value, language.value)}/>
       </div>
     )
   }
