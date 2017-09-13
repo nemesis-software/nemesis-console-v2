@@ -18,12 +18,12 @@ export default class NemesisEntityField extends NemesisBaseField {
   render() {
     return (
     <div className="entity-field-container">
-      <div style={{width: '256px', display: 'inline-block'}}>
-        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>
+      <div className="entity-field-input-container">
+        <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ? <span className="required-star">*</span> : false}</div>
         <Select.Async style={this.getSelectStyle()}
                       cache={false}
                       arrowRenderer={() => <SelectCustomArrow />}
-                      className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
+                      className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                       disabled={this.props.readOnly}
                       value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
                       onChange={(item) => this.onValueChange(item && item.value)}
@@ -121,7 +121,7 @@ export default class NemesisEntityField extends NemesisBaseField {
           <div style={{color: 'red'}}>{this.state.errorMessage}</div>
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-default" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+          <button className="nemesis-button success-button" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
         </Modal.Footer>
       </Modal>
     );

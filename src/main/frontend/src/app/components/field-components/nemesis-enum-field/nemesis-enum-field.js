@@ -14,22 +14,24 @@ export default class NemesisEnumField extends NemesisBaseField {
   render() {
     return (
       <div className="entity-field-container">
-        <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label>
-        <Select style={this.getSelectStyle()}
-                clearable={false}
-                arrowRenderer={() => <SelectCustomArrow />}
-                className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '')}
-                disabled={this.props.readOnly}
-                value={this.state.value !== -1 ? {value: this.state.value, label: <Translate content={'main.' + this.props.values[this.state.value]} fallback={this.props.values[this.state.value]} />} : null} //
-                onChange={(item) => this.onChange(item)}
-                options={this.props.values.map(this.getOptions.bind(this))}/>
-        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+        <div className="entity-field-input-container">
+          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
+          <Select style={this.getSelectStyle()}
+                  clearable={true}
+                  arrowRenderer={() => <SelectCustomArrow />}
+                  className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                  disabled={this.props.readOnly}
+                  value={this.state.value !== -1 ? {value: this.state.value, label: <Translate content={'main.' + this.props.values[this.state.value]} fallback={this.props.values[this.state.value]} />} : null} //
+                  onChange={(item) => this.onChange(item)}
+                  options={this.props.values.map(this.getOptions.bind(this))}/>
+          {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+        </div>
       </div>
     )
   }
 
   getSelectStyle() {
-    let style = {width: '256px'};
+    let style = {};
     if (this.state.errorMessage) {
       style.borderColor = '#F24F4B';
     }
@@ -50,6 +52,7 @@ export default class NemesisEnumField extends NemesisBaseField {
   }
 
   onChange(item) {
-    this.onValueChange(event, item && item.value);
+    let newValue = !item ? -1 : item.value;
+    this.onValueChange(event, newValue);
   }
 }

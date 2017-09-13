@@ -49,14 +49,14 @@ export default class EntitySections extends Component {
         {this.state.isDataLoading ? <div className="loading-screen">
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
-        <div className="paper-box" style={{margin: '5px 0', padding: '5px'}}>
-          {this.getFunctionalButtons(this.props.entity).map((button, index) => <button style={{margin: '0 5px'}} className="btn btn-default" onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></button>)}
+        <div className="functional-buttons-container">
+          {this.getFunctionalButtons(this.props.entity).map((button, index) => <div className={'functional-button nemesis-button' + (button.className ? ` ${button.className}` : '')} onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></div>)}
         </div>
-        <ul className="nav nav-tabs">
+        <div className="section-navigation">
           {this.props.entity.data.sections.map((item, index) => {
-            return <li className={this.state.sectionIndex === index ? 'active' : ''} onClick={() => this.handleChange(index)} key={index}><Translate component="a" content={'main.' + item.title} fallback={item.title} /></li>
+            return <div className={'section-navigation-item' + (this.state.sectionIndex === index ? ' active' : '')} onClick={() => this.handleChange(index)} key={index}><Translate component="span" content={'main.' + item.title} fallback={item.title} /></div>
           })}
-        </ul>
+        </div>
         <SwipeableViews
           index={this.state.sectionIndex}
           onChangeIndex={this.handleChange}
@@ -78,7 +78,7 @@ export default class EntitySections extends Component {
 
   getFunctionalButtons(entity) {
     let result = [
-      {label: 'Save', onClickFunction: () => this.handleSaveButtonClick(false)},
+      {label: 'Save', onClickFunction: () => this.handleSaveButtonClick(false), className: 'dark-button'},
       {label: 'Save & Close', onClickFunction: () => this.handleSaveButtonClick(true)}
     ];
 
@@ -136,8 +136,8 @@ export default class EntitySections extends Component {
         <div>Are you sure you want to delete it?</div>
       </Modal.Body>
       <Modal.Footer>
-        <button className="btn btn-info" onClick={this.handleCloseDeleteConfirmation.bind(this)}>No</button>
-        <button className="btn btn-primary" onClick={this.handleConfirmationDeleteButtonClick.bind(this)}>Yes</button>
+        <button className="nemesis-button decline-button" style={{marginRight: '15px'}} onClick={this.handleCloseDeleteConfirmation.bind(this)}>No</button>
+        <button className="nemesis-button success-button" onClick={this.handleConfirmationDeleteButtonClick.bind(this)}>Yes</button>
       </Modal.Footer>
     </Modal>
     );
@@ -153,7 +153,7 @@ export default class EntitySections extends Component {
           <div style={{color: 'red'}}>{this.state.errorMessage}</div>
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-default" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+          <button className="nemesis-button success-button" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
         </Modal.Footer>
       </Modal>
     );

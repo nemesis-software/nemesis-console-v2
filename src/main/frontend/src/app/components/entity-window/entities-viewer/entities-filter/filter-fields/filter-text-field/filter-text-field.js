@@ -33,7 +33,7 @@ export default class FilterTextField extends Component {
     return (
       <div className="filter-item-container">
         <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
-        {this.isTextFieldVisible() ? <NemesisTextField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.textField} onValueChange={_.debounce(this.onTextFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/> : false}
+        {this.isTextFieldVisible() ? <NemesisTextField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.textField} onValueChange={this.onTextFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/> : false}
       </div>
     )
   }

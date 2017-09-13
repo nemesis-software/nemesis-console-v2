@@ -44,7 +44,7 @@ export default class TreeItem extends Component {
                 {this.getEntityCategories(this.state.creationEntity, 0).map((item, index) => {
                   return (
                     <div style={this.getRadioButtonStyle(item)} key={index}>
-                      <label className="radio-inline">
+                      <label className="radio-inline" style={{marginBottom: '10px'}}>
                         <input className="nemesis-radio-button" type="radio" value={item.entityId} defaultChecked={index === 0} onChange={this.handleRadioChange.bind(this)} name={'new-entity'}/>
                         {item.text}
                       </label>
@@ -53,8 +53,8 @@ export default class TreeItem extends Component {
                 })}
             </Modal.Body>
             <Modal.Footer>
-              <button className="btn btn-info" onClick={this.handleClose.bind(this)}>Cancel</button>
-              <button className="btn btn-primary" onClick={this.handleSelectCreateEntity.bind(this)}>Create</button>
+              <button className="nemesis-button decline-button" style={{marginRight: '15px'}} onClick={this.handleClose.bind(this)}>Cancel</button>
+              <button className="nemesis-button success-button" onClick={this.handleSelectCreateEntity.bind(this)}>Create</button>
             </Modal.Footer>
           </Modal> : false}
       </div>

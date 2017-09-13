@@ -9,13 +9,15 @@ export default class NemesisSimpleCollectionField extends NemesisBaseCollectionF
 
   getInputField() {
     return (
-      <div style={{width: '256px', display: 'inline-block', ...this.props.style}} className="entity-field-container">
-        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
-        <input type="text"
-               className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
-               disabled={this.props.readOnly}
-               onKeyPress={this.onInputKeyPress.bind(this)} />
-        {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+      <div className="entity-field-container">
+        <div className="entity-field-input-container">
+          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
+          <input type="text"
+                 className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                 disabled={this.props.readOnly}
+                 onKeyPress={this.onInputKeyPress.bind(this)} />
+          {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+        </div>
       </div>
     )
   }

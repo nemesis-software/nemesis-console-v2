@@ -14,10 +14,10 @@ export default class NemesisColorpickerField extends NemesisBaseField {
 
     return (
     <div className="entity-field-container">
-      <div style={{width: '256px', display: 'inline-block'}}>
-        <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+      <div className="entity-field-input-container">
+        <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
         <input type="text"
-               className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
+               className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                value={this.state.value || ''}
                disabled={this.props.readOnly}
                onChange={(e) => this.onValueChange(e, e.target.value)} />
@@ -32,7 +32,7 @@ export default class NemesisColorpickerField extends NemesisBaseField {
           <ChromePicker color={this.state.value} disableAlpha={true} onChange={(color, event) => this.onValueChange(event, color.hex)}/>
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-default" onClick={this.handleClose.bind(this)}>Done</button>
+          <button className="nemesis-button success-button" onClick={this.handleClose.bind(this)}>Done</button>
         </Modal.Footer>
       </Modal>
     </div>

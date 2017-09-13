@@ -22,7 +22,7 @@ export default class LanguageChanger extends Component {
 
   render() {
     return (
-      <div style={{display: 'inline-block', width: '256px', verticalAlign: 'top', ...this.props.style}}>
+      <div className="language-changer" style={{...this.props.style}}>
         {this.props.label ? <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label> : false}
         <Select style={{width: '100%'}}
                 clearable={false}

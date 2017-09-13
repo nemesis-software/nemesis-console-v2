@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import _ from 'lodash';
-
 import { componentRequire } from '../../../../../../utils/require-util';
 import { searchRestrictionTypes, nemesisFieldTypes } from '../../../../../../types/nemesis-types';
 
@@ -26,7 +24,7 @@ export default class FilterNumberField extends Component {
     return (
       <div className="filter-item-container">
         <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
-        {this.isNumberFieldVisible() ? <NemesisNumberField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.numberField} step={this.props.filterItem.xtype === nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1'} onValueChange={_.debounce(this.onNumberFieldChange.bind(this), 250)} label={this.props.filterItem.fieldLabel}/> : false}
+        {this.isNumberFieldVisible() ? <NemesisNumberField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.numberField} step={this.props.filterItem.xtype === nemesisFieldTypes.nemesisDecimalField ? '0.1' : '1'} onValueChange={this.onNumberFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/> : false}
       </div>
     )
   }

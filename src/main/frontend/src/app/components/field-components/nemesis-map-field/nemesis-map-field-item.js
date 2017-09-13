@@ -12,7 +12,7 @@ export default class NemesisMapFieldItem extends Component {
     return (
       <div className="nemesis-map-field-item">
         <div className="display-table" style={{width: '100%', margin: '3px 0'}}>
-          <div className="display-table-cell" style={{width: '45%', paddingRight: '3px'}}>
+          <div className="display-table-cell" style={{width: '45%', paddingRight: '15px'}}>
             <input type="text"
                    placeholder="key"
                    className={'form-control' + (!!this.props.item.errorMessage ? ' has-error' : '')}
@@ -26,8 +26,8 @@ export default class NemesisMapFieldItem extends Component {
                    value={this.state.value}
                    onChange={(e) => this.onValueChange(e.target.value)} />
           </div>
-          <div className="display-table-cell" style={{textAlign: 'center'}}>
-            <i className="fa fa-remove remove-icon" onClick={() => this.props.removeField(this.props.item.id)}/>
+          <div className="display-table-cell" style={{textAlign: 'right'}}>
+            <i className="material-icons remove-icon" onClick={() => this.props.removeField(this.props.item.id)}>close</i>
           </div>
         </div>
         {this.props.item.errorMessage ? <div className="error-message">{this.props.item.errorMessage}</div> : false}

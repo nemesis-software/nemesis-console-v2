@@ -10,6 +10,7 @@
     <style type="text/css">
         html {
             min-height: 100%;
+            font-family: sans-serif;
         }
 
         body {
@@ -25,78 +26,86 @@
         }
 
         form {
-            opacity: 0.95;
             width: 250px;
-            padding: 20px;
+            padding: 30px;
             margin: 150px auto;
             position: relative;
-            border: 1px solid #000000;
-            outline: 1px solid #FFFFFF;
-            background: #1E4176;
+            background: #4cb2e2;
         }
 
         form h1 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             color: #FFF;
-            padding-bottom: 8px;
+            padding-bottom: 20px;
             border-bottom: 1px solid #FFF;
             text-align: center;
-            text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
         label {
-            font-size: 11px;
-            font-family: tahoma, arial, verdana, sans-serif;
-            font-weight: bold;
-            line-height: 15px;
+            font-size: 14px;
+            font-family: sans-serif;
             list-style-type: none;
             color: #FFF;
             margin-bottom: 10px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
             display: block;
+            font-weight: bold;
         }
 
         input[type='text'], input[type='password'] {
-            width: 95%;
+            width: 222px;
             background: #FFFFFF;
-            padding: 6px;
-            margin-bottom: 10px;
-            border: 1px solid #000;
+            padding: 6px 12px;
+            margin-bottom: 20px;
+            line-height: 20px;
+            font-size: 14px;
         }
 
         input.submit {
-            width: 100px;
-            padding: 6px;
-            margin-bottom: 10px;
-            border: 1px solid #000;
-            color: #000;
+            color: white;
+            padding: 10px 25px;
             text-transform: uppercase;
             margin-top: 10px;
-            background: #F5F7F9;
-            font-family: tahoma, arial, verdana, sans-serif;
-            font-size: 11px;
+            background: #53c6fc;
+            font-family: sans-serif;
+            font-size: 14px;
+            border-style: unset;
         }
 
         .error {
-            color: #B3171A;
-            font-family: arial;
+            color: #eb0848;
             font-size: 12px;
             font-weight: bold;
             text-align: center;
             background-color: #fff;
             padding: 5px;
             width: 234px;
+            margin-top: 10px;
+        }
+
+        .logo-container {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .logo-container img {
+            height: 35px;
+        }
+
+        .submit-button-container {
+            text-align: center;
         }
     </style>
 </head>
 <body onload="document.getElementById('login_username').focus();">
 <form action="<c:url value='/j_spring_security_check'/>" method="POST" onsubmit="keepHash(this)">
-    <h1>Login</h1>
-    <label for="login_username">Username:</label> <input id="login_username" type="text" name="username"/>
-    <label for="login_password">Password:</label> <input id="login_password" type="password" name="password"/>
-
+    <div class="logo-container"><img src="resources/logo.svg"/></div>
+    <h1>Nemesis Console Login</h1>
+    <label for="login_username">Username</label> <input id="login_username" type="text" name="username"/>
+    <label for="login_password">Password</label> <input id="login_password" type="password" name="password"/>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <div class="submit-button-container"><input type="submit" value="Login" name="submit" class="submit"/></div>
     <div class="error" style="${not empty param.error ? '' : 'display:none'}">
         <%
             String reason = request.getParameter("error");
@@ -116,8 +125,6 @@
             }
         %>
     </div>
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <input type="submit" value="Submit" name="submit" class="submit"/>
 </form>
 
 <script type="text/javascript">

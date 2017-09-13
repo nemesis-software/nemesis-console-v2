@@ -18,8 +18,8 @@ export default class NemesisMapField extends NemesisBaseField {
   render() {
     return (
       <div className="entity-field-container">
-        <div style={{width: '256px', display: 'inline-block'}}>
-          <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
+        <div style={{width: '300px', display: 'inline-block'}}>
+          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
           <Select clearable={false}
                   arrowRenderer={() => <SelectCustomArrow />}
                   disabled={this.props.readOnly}
@@ -27,10 +27,10 @@ export default class NemesisMapField extends NemesisBaseField {
                   onChange={(item) => this.handleChange(item)}
                   options={this.getMapKeys().map(item => {return {value: item, label: item}})}/>
         </div>
-        <div style={{width: '256px', display: 'inline-block', verticalAlign: 'bottom'}}>
+        <div className="entity-field-input-container" style={{verticalAlign: 'bottom'}}>
           <input type="text"
                  style={{height: '36px'}}
-                 className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '')}
+                 className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                  value={this.getInputValue()}
                  disabled={this.props.readOnly || !this.state.selectedKey}
                  onChange={(e) => this.onValueChange(e, e.target.value)} />
