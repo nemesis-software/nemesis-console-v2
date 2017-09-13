@@ -23,11 +23,11 @@ export default class AdminJobManagement extends AdminExpandable {
         Expression: {this.props.data.expression} <br />
         Trigger: {this.props.data.trigger} <br />
         <div className="job-actions">
-          <button className="btn btn-default" onClick={this.onRunButtonClick.bind(this)}>Run <i className="fa fa-play"/></button>
-          <button className="btn btn-default" onClick={this.onStopButtonClick.bind(this)}>Stop <i className="fa fa-stop"/></button>
-          <button className="btn btn-default" onClick={this.onRestartButtonClick.bind(this)}>Restart <i className="fa fa-refresh"/></button>
-          <button className="btn btn-default" onClick={this.onScheduleButtonClick.bind(this)}>Schedule <i className="fa fa-calendar-plus-o"/></button>
-          <button className="btn btn-default" onClick={this.onUnscheduleButtonClick.bind(this)}>Unschedule <i className="fa fa-calendar-times-o"/></button>
+          <button className="nemesis-button success-button" onClick={this.onRunButtonClick.bind(this)}>Run <i className="fa fa-play"/></button>
+          <button className="nemesis-button success-button" onClick={this.onStopButtonClick.bind(this)}>Stop <i className="fa fa-stop"/></button>
+          <button className="nemesis-button success-button" onClick={this.onRestartButtonClick.bind(this)}>Restart <i className="fa fa-refresh"/></button>
+          <button className="nemesis-button success-button" onClick={this.onScheduleButtonClick.bind(this)}>Schedule <i className="fa fa-calendar-plus-o"/></button>
+          <button className="nemesis-button success-button" onClick={this.onUnscheduleButtonClick.bind(this)}>Unschedule <i className="fa fa-calendar-times-o"/></button>
         </div>
       </div>
     );
