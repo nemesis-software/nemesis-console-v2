@@ -53,6 +53,6 @@ export default class NemesisEnumField extends NemesisBaseField {
 
   onChange(item) {
     let newValue = !item ? -1 : item.value;
-    this.onValueChange(event, newValue);
+    this.onValueChange(null, newValue);
   }
 }
