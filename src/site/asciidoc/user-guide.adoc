@@ -12,7 +12,7 @@ IMPORTANT: The Nemesis Backend console is data-driven. The results you will see 
 
 In the *Navigation filter* start typing the type of entity you want to create. We are going to create a `widget`, so this is how the search-filtration looks like:
 
-[.center.text-center]
+[.center.text-left]
 .navigation-filter
 image::navigation-filter-guide.png[Nemesis Backend Console Navigation Filter]
 
@@ -20,19 +20,19 @@ image::navigation-filter-guide.png[Nemesis Backend Console Navigation Filter]
 
 Click the "+"-sign next to the entity you want to create a new instance of:
 
-[.center.text-center]
+[.center.text-left]
 .plus
 image::plus-sign.png[Nemesis Backend Console Plus-sign]
 
 A pop-up window appears to ask you for the exact subtype of the chosen entity you want to create:
 
-[.center.text-center]
+[.center.text-left]
 .pop-up window
 image::pop-up-window.png[Nemesis Backend Console Pop-up window]
 
 After you choose the sub-type and press the `CREATE` button, a new window opens. Here you need to enter the information for your new entity. Below is a sample page-information for the `Footer widget`:
 
-[.center.text-center]
+[.center.text-left]
 .footer widget
 image::footer-widget.png[Nemesis Backend Console Footer widget]
 
@@ -42,19 +42,19 @@ Once you fill in the information you intended to, press the `SAVE` button.
 
 If you press the `SAVE` button, without filling-in all of the required fields, a message, as shown, below appears and prevents you from saving the data you have entered:
 
-[.center.text-center]
+[.center.text-left]
 .required field
 image::required-field.png[Nemesis Backend Console Required fields]
 
 When you fill in all of the required fields and press the `SAVE` button, a pop-up message appears to indicate the information is saved correctly:
 
-[.center.text-center]
+[.center.text-left]
 .saved successfully message
 image::saved-successfully.png[Saved successfully widget]
 
 As you notice, at this stage, you have 3 buttons available - `SAVE`, `SAVE & CLOSE` and `CLOSE`.
 
-[.center.text-center]
+[.center.text-left]
 .buttons when you create an entity
 image::initial-btns.png[Nemesis Backend Console Initial buttons]
 
@@ -68,25 +68,25 @@ image::initial-btns.png[Nemesis Backend Console Initial buttons]
 
 After you fill in the information for your entity
 
-[.center.text-center]
+[.center.text-left]
 .fill in the fields for the newly created entity
 image::new-entity-info.png[Filled in information]
 
 and save it.
 
-[.center.text-center]
+[.center.text-left]
 .save the entity
 image::saved-entry.png[save the entity]
 
 Then navigate to the `Entity search`
 
-[.center.text-center]
+[.center.text-left]
 .click on the `Entity search`
 image::entity-search.png[Entity search]
 
 and check your new entity.
 
-[.center.text-center]
+[.center.text-left]
 .check the new entity
 image::new-entity.png[New entity]
 
@@ -96,7 +96,7 @@ image::new-entity.png[New entity]
 
 In the *Navigation filter* start typing the type of entity you want to edit. We are going to edit an instance of the `Product` entity:
 
-[.center.text-center]
+[.center.text-left]
 .filtered Product entity
 image::filtered-product.png[Filtered Product entity]
 
@@ -106,13 +106,13 @@ After you choose the entity to edit, click on it (not on the `+`-sign as you wil
 
 The window that opens consists of 2 parts - the search fields (which we'll discuss later) and the created entity instances so far. Open the instance you want to edit and add the necessary changes. In the example below we'll edit the entity instance with code `andie-snow-jacket`:
 
-[.center.text-center]
+[.center.text-left]
 .the instance of the entity to edit
 image::entity-instance.png[The instance of the entity to edit]
 
 What we want to change is the approval status to `UNAPPROVED`:
 
-[.center.text-center]
+[.center.text-left]
 .edit the entity
 image::change-status.png[Edit the entity]
 
@@ -124,13 +124,13 @@ After you finish adding the information, click the `SAVE` or `SAVE & CLOSE` butt
 
 If you are creating a new entity, after you click the 'SAVE' button you will see that 2 more buttons appear, one of them - the `DELETE` button:
 
-[.center.text-center]
+[.center.text-left]
 .buttons after you save the entity
 image::after-save-btns.png[Nemesis Backend Console After Save Buttons]
 
 Click the `DELETE` button and you will see a pop-up window, asking you for confirmation:
 
-[.center.text-center]
+[.center.text-left]
 .deletion confirmation window
 image::delete-pop-up.png[Deletion pop-up window]
 
@@ -140,13 +140,13 @@ If you want to edit an already existing entity, not the one tht you have just cr
 
 All of the fields with the option to be translated, are marked with this image next to them:
 
-[.center.text-center]
+[.center.text-left]
 .translatable field
 image::translatable-icon.png[Translatable field]
 
 When you click it, a pop-up window shows you the information entered so far for the entity instance. When you finish entering the translated text in the respectie language, click `DONE`:
 
-[.center.text-center]
+[.center.text-left]
 .translatable pop-up window
 image::translatable-pop-up.png[Translatable pop-up window]
 
@@ -165,13 +165,13 @@ Let's look at some sample scenarios:
 
 Have a look at the created product entities and choose the one you want to add a new variant to. Let's try with the first product with code `andie-snow-jacket`. The catalog this product belows to is `samplestoreB2BProductCatalog:Online`:
 
-[.center.text-center]
+[.center.text-left]
 .choose the product
 image::chosen-product.png[Choose the product]
 
 The `Variants` section shows which the associated with the product variants are.
 
-[.center.text-center]
+[.center.text-left]
 .product variants
 image::variants.png[Variants]
 
@@ -179,13 +179,13 @@ image::variants.png[Variants]
 
 Create a new `VariantProductEntity` with code `new-blue-jacket` and catalog `samplestoreB2BProductCatalog:Online`.
 
-[.center.text-center]
+[.center.text-left]
 .variantProductEntity
 image::variant-product-entity.png[VariantProductEntity]
 
 In the `Variants` section choose the base product you want this one to be a variant of. In our example - `andie-snow-jacket - samplestoreB2BProductCatalog:Online`
 
-[.center.text-center]
+[.center.text-left]
 .base product
 image::base-product.png[Base Product]
 
@@ -195,7 +195,7 @@ Save the product variant you have just created.
 
 Go to the variants section of the `andie-snow-jacket` product. Click the `REFRESH` button. You will see the variant you have just added:
 
-[.center.text-center]
+[.center.text-left]
 .new product variant added
 image::base-product.png[Base Product]
 
@@ -229,13 +229,13 @@ To find a particular record faster, take advantage of the search options that le
 
 * by CODE - either by the exact code, or to restrict it
 
-[.center.text-center]
+[.center.text-left]
 .filter by code
 image::code-filter.png[Filter by code]
 
 * by NAME and LANGUAGE - either by the exact name, or to restrict it
 
-[.center.text-center]
+[.center.text-left]
 .filter by name
 image::name-filter.png[Filter by name]
 
