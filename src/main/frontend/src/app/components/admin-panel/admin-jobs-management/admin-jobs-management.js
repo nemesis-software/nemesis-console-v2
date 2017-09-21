@@ -10,7 +10,6 @@ export default class AdminJobsManagement extends Component {
 
   componentWillMount() {
     return PlatformApiCall.get('job/trigger').then(result => {
-      console.log(result.data);
       this.setState({jobs: result.data});
     });
   }

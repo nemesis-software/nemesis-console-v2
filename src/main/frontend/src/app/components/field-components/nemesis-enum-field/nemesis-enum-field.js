@@ -31,7 +31,7 @@ export default class NemesisEnumField extends NemesisBaseField {
   }
 
   getSelectStyle() {
-    let style = {};
+    let style = {...this.props.style};
     if (this.state.errorMessage) {
       style.borderColor = '#F24F4B';
     }
@@ -53,6 +53,6 @@ export default class NemesisEnumField extends NemesisBaseField {
 
   onChange(item) {
     let newValue = !item ? -1 : item.value;
-    this.onValueChange(event, newValue);
+    this.onValueChange(null, newValue);
   }
 }

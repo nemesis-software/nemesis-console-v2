@@ -35,18 +35,14 @@ export default class AdminCsvExport extends Component {
   }
 
   onExportCsvButtonClick() {
-    console.log(this.blockReferences);
     if (!this.isBlocksValid()) {
-      console.log('empty fields');
       return;
     }
     let data = {blockDtos: []};
     this.blockReferences.forEach(block => {
       data.blockDtos.push(block.getBlockData());
     });
-    console.log(data);
     PlatformApiCall.post('csv/export', data);
-    console.log('success');
   }
 
   isBlocksValid() {
