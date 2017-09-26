@@ -1,7 +1,8 @@
 import { searchRestrictionTypes } from '../types/nemesis-types';
 
 export default class FilterBuilder {
-  static buildFilter(appliedFilters) {
+  static buildFilter(appliedFilters, filterSearchType) {
+    let filterSearchTypeActual = filterSearchType ? filterSearchType : 'and';
     let restrictionMap = this.getRestrictionMap();
     let result = [];
     appliedFilters.forEach(item => {
@@ -16,7 +17,7 @@ export default class FilterBuilder {
       result.push(restrictionData.getFilterString(item));
     });
 
-    return result.join(' and ');
+    return result.join(` ${filterSearchTypeActual} `);
   }
 
   static getRestrictionMap() {
