@@ -50,6 +50,8 @@
     "react-dom": "^15.6.1",
     "react-interpolate-component": "^0.11.0",
     "react-notification-system": "^0.2.14",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-select": "^1.0.0-rc.5",
     "react-swipeable-views": "^0.12.4",
     "react-translate-component": "^0.14.0",

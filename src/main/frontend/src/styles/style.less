@@ -4,6 +4,28 @@
   font-family: Roboto, sans-serif;
 }
 
+.nemesis-side-bar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 60px;
+  height: 100vh;
+  z-index: 1000000;
+  background: @main-blue;
+
+  .nemesis-side-bar-item {
+    padding: 5px 5px 0;
+    margin: 0 10px 10px;
+    text-align: center;
+    background: @main-blue-darker;
+
+    .nemesis-side-bar-icon {
+      font-size: 30px;
+      color: white;
+    }
+  }
+}
+
 .filter-item-container {
   padding-bottom: 5px;
 
@@ -58,13 +80,14 @@
     padding: 13px 20px;
   }
 
-  .sidebar-icon {
+  .nemesis-navbar-icon {
     float: left;
     color: @light-font-color;
     font-size: 20px;
-    padding: 20px;
+    padding: 20px 22px;
     cursor: pointer;
     background: @main-blue;
+    width: 60px;
   }
 
   .nemesis-navbar-right {
@@ -137,7 +160,7 @@
 .navigation-tree {
   position: fixed;
   width: 300px;
-  left: 0;
+  left: 60px;
   top: 60px;
   height: ~"calc(100vh - 60px)";
   overflow-y: auto;
@@ -521,11 +544,11 @@
 
 .main-view-wrapper {
   padding-top: 60px;
-  padding-left: 300px;
+  padding-left: 360px;
   transition: padding-left .5s ease-in;
 
   &.full-view {
-    padding-left: 0;
+    padding-left: 60px;
     transition: padding-left .5s ease-out;
 
     .entity-navigation {
@@ -647,7 +670,7 @@
 
   .entity-navigation {
     position: fixed;
-    width: ~"calc(100% - 300px)";
+    width: ~"calc(100% - 360px)";
     background-color: @light-grey-darker;
     margin: 0 0 2px 0 !important;
     padding: 10px 15px 0;
