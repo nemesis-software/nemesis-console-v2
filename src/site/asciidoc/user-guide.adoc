@@ -144,7 +144,13 @@ All of the fields with the option to be translated, are marked with this image n
 .translatable field
 image::translatable-icon.png[Translatable field]
 
-When you click it, a pop-up window shows you the information entered so far for the entity instance. When you finish entering the translated text in the respectie language, click `DONE`:
+If the translatable field's content is HTML editable, this is the respective icon:
+
+[.center.text-left]
+.HTML translatable field
+image::translatable-icon-html.png[HTML translatable field]
+
+When you click it, a pop-up window shows you the information entered so far for the entity instance. When you finish entering the translated text in the respective language, click `DONE`:
 
 [.center.text-left]
 .translatable pop-up window
@@ -163,11 +169,11 @@ Let's look at some sample scenarios:
 
 ** Step 1: Choose the product
 
-Have a look at the created product entities and choose the one you want to add a new variant to. Let's try with the first product with code `andie-snow-jacket`. The catalog this product belows to is `samplestoreB2BProductCatalog:Online`:
+Have a look at the created product entities and choose the one you want to add a new variant to. Let's try with the first product with code `andie-snow-jacket`. The catalog this product belongs to is `samplestoreB2BProductCatalog:Staged`:
 
 [.center.text-left]
 .choose the product
-image::chosen-product.png[Choose the product]
+image::entity-instance.png[Choose the product]
 
 The `Variants` section shows which the associated with the product variants are.
 
@@ -183,7 +189,7 @@ Create a new `VariantProductEntity` with code `new-blue-jacket` and catalog `sam
 .variantProductEntity
 image::variant-product-entity.png[VariantProductEntity]
 
-In the `Variants` section choose the base product you want this one to be a variant of. In our example - `andie-snow-jacket - samplestoreB2BProductCatalog:Online`
+In the `Variants` section choose the base product you want this one to be a variant of. In our example - `andie-snow-jacket - samplestoreB2BProductCatalog:Staged`
 
 [.center.text-left]
 .base product
@@ -197,7 +203,7 @@ Go to the variants section of the `andie-snow-jacket` product. Click the `REFRES
 
 [.center.text-left]
 .new product variant added
-image::base-product.png[Base Product]
+image::new-variant-added.png[New Variant added]
 
 * You want to remove a particular variant of a product:
 
@@ -222,6 +228,10 @@ The `SYNCHRONIZE` button is available for some entities only (`widget` or `produ
 
 What it does is to synchronize your catalogs, so that the changes you make in your stage catalog get transferred to the live one.
 
+[.center.text-left]
+.synchronize button
+image::synchronize-button.png[Synchronize button]
+
 
 == How to use the search section
 
@@ -232,6 +242,8 @@ To find a particular record faster, take advantage of the search options that le
 [.center.text-left]
 .filter by code
 image::code-filter.png[Filter by code]
+
+When the `Code restriction` is entered, `Code` field gets activated.
 
 * by NAME and LANGUAGE - either by the exact name, or to restrict it
 
