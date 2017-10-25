@@ -40,6 +40,6 @@
     <skin>
         <groupId>com.nemesis.tools</groupId>
         <artifactId>nemesis-maven-skin</artifactId>
-        <version>1.5.0.RELEASE</version>
+        <version>1.6.0.BUILD-SNAPSHOT</version>
     </skin>
 </project>
