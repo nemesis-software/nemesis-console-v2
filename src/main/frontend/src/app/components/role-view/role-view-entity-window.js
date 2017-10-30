@@ -1,12 +1,24 @@
 import React, {Component} from 'react';
 
-import ApiCall from '../../services/api-call';
+import ApiCall from 'servicesDir/api-call';
+
+import Translate from 'react-translate-component';
 
 import _ from 'lodash';
+
+import {nemesisFieldTypes} from '../../types/nemesis-types'
 
 const pagerData = {
   page: 0,
   pageSize: 20
+};
+
+const translationLanguages = {
+  languages: [
+    {value: 'en', labelCode: 'English'},
+    {value: 'bg_BG', labelCode: 'Bulgarian'},
+  ],
+  defaultLanguage: {value: 'en', labelCode: 'English'}
 };
 
 export default class RoleViewEntityWindow extends Component {
@@ -14,9 +26,8 @@ export default class RoleViewEntityWindow extends Component {
     super(props);
     console.log(props);
     this.getEntityPromise = null;
-    this.state = {searchData: [], page: {}, sortData: [], filter: null, isDataLoading: false, isEntitySelected: false};
+    this.state = {searchData: [], page: {}, sortData: [], filter: null, isDataLoading: false, isEntitySelected: false, selectedLanguage: translationLanguages.defaultLanguage.value};
   }
-
 
   componentWillMount() {
     this.getEntitiesData(this.props.entityId, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
@@ -28,10 +39,49 @@ export default class RoleViewEntityWindow extends Component {
         {this.state.isEntitySelected ?
           <div>is entity selected</div>
           :
-          <div>
-            <div className="display-table">
-
-            </div>
+          <div style={this.props.style} className="entities-table-viewer">
+            <table>
+              <thead>
+              {/*<tr className="navigation-header">*/}
+                {/*<th colSpan={this.state.entitiesMarkup.length}>*/}
+                  {/*<LanguageChanger*/}
+                    {/*label="language"*/}
+                    {/*onLanguageChange={this.onLanguageChange.bind(this)}*/}
+                    {/*availableLanguages={translationLanguages.languages}*/}
+                    {/*selectedLanguage={translationLanguages.defaultLanguage}*/}
+                  {/*/>*/}
+                  {/*<EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>*/}
+                {/*</th>*/}
+              {/*</tr>*/}
+              <tr className="content-header">
+                {
+                  this.props.searchFields.map((markupItem, index) => {
+                    return (
+                      <Translate key={index} component="th" content={'main.' + markupItem.text} fallback={markupItem.text}/>
+                    )})
+                }
+                <Translate  component="th" content={'main.actions'} fallback={'Actions'}/>
+              </tr>
+              </thead>
+              <tbody>
+              {
+                this.state.searchData.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      {
+                        this.props.searchFields.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
+                      }
+                      <td>
+                        <div onClick={() => this.onEntityItemClick(item)}>Edit</div>
+                        <div>Preview</div>
+                        <div>Delete</div>
+                      </td>
+                    </tr>
+                  )
+                })
+              }
+              </tbody>
+            </table>
           </div>
         }
       </div>
@@ -67,10 +117,102 @@ export default class RoleViewEntityWindow extends Component {
     return result;
   }
 
-
   mapCollectionData(data) {
     let result = [];
     _.forIn(data._embedded, (value) => result = result.concat(value));
     return result;
+  }
+
+  getTableRowColumnItem(item, markupItem, index) {
+    let itemValue = item[markupItem.name];
+    if (['nemesisLocalizedRichtextField', 'nemesisLocalizedTextField'].indexOf(markupItem.type) > -1) {
+      itemValue = item[markupItem.name][this.state.selectedLanguage] && item[markupItem.name][this.state.selectedLanguage].value;
+    }
+    itemValue = isFinite(itemValue) && itemValue !== null ? itemValue + '' : itemValue;
+    itemValue = (typeof itemValue === 'object' && itemValue !== null) ? JSON.stringify(itemValue) : itemValue;
+
+
+    let style = {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    };
+
+    return (
+      <td style={style} key={index}>{itemValue || ''}</td>
+    )
+  }
+
+  onEntityItemClick(item) {
+    console.log('item', item);
+    console.log(this.props.entityFields);
+    //TODO: load item
+    this.setState({...this.state, isEntitySelected: true})
+  }
+
+  getDataEntity(entity) {
+    this.setState({...this.state, isDataLoading: true});
+    let relatedEntities = this.getEntityRelatedEntities(entity);
+    let restUrl = entity.entityUrl || (entity.entityName + '/' + entity.itemId);
+    return ApiCall.get(restUrl).then(result => {
+      this.setState({...this.state, entityData: result.data});
+      Promise.all(
+        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
+          .then(result => {
+            return Promise.resolve(result);
+          }, err => {
+            return Promise.resolve({data: null});
+          }) : Promise.resolve({data: null}))
+      ).then(result => {
+        let relatedEntitiesResult = {};
+        relatedEntities.forEach((item, index) => {
+          let data;
+          if (item.type === nemesisFieldTypes.nemesisCollectionField) {
+            data = this.mapCollectionData(result[index].data);
+          } else {
+            data = this.mapEntityData(result[index].data);
+          }
+
+          relatedEntitiesResult[item.name] = data;
+        });
+        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now(), isDataLoading: false})
+      })
+    });
+  }
+
+  getEntityRelatedEntities(entity) {
+    let result = [];
+    if (!entity) {
+      return result;
+    }
+    entity.data.sections.forEach(item => {
+      item.items.forEach(subItem => {
+        if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+          result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
+        }
+      })
+    });
+
+    return result;
+  }
+
+  mapCollectionData(data) {
+    let result = [];
+
+    if (!data) {
+      return result;
+    }
+
+    _.forIn(data._embedded, (value) => result = result.concat(value));
+    return result;
+  }
+
+  mapEntityData(data) {
+    if (!data) {
+      return null;
+    }
+
+    return data.content && data.content.id ? data.content : data;
   }
 }

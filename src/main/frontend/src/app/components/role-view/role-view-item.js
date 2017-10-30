@@ -9,7 +9,7 @@ import _ from 'lodash';
 export default class RoleViewItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {isCatalogable: props.entityMarkupData[props.item].synchronizable, selectedCatalogs: null};
+    this.state = {isCatalogable: props.entityMarkupData[props.item].synchronizable, selectedCatalogs: null, selectedSite: null};
   }
 
   render() {
@@ -26,7 +26,7 @@ export default class RoleViewItem extends Component {
                 )
               }
             )}</div> :
-            <RoleViewEntityWindow entityId={this.props.item} searchFields={this.getEntityWindowSearchResultFields()} selectedCatalogs={this.state.selectedCatalogs} />
+            <RoleViewEntityWindow entityId={this.props.item} entityFields={this.getEntityFields()}  searchFields={this.getEntityWindowSearchResultFields()} selectedCatalogs={this.state.selectedCatalogs} />
         }
       </div>
     )
@@ -34,7 +34,7 @@ export default class RoleViewItem extends Component {
 
   onSiteSelect(site) {
     ApiCall.get(site._links.cmsCatalogs.href).then(result => {
-      this.setState({...this.state, selectedCatalogs: this.mapCollectionData(result.data)});
+      this.setState({...this.state, selectedCatalogs: this.mapCollectionData(result.data), selectedSite: site});
     });
   }
 
@@ -46,22 +46,48 @@ export default class RoleViewItem extends Component {
 
   getEntityWindowSearchResultFields() {
     if (this.props.item === 'blog_entry') {
-      let allowedSearchFileds = ['thumbnail', 'title', 'publishDate', 'categories'];
+      let allowedSearchFileds = ['title', 'thumbnail', 'publishDate', 'categories'];
       return _.filter(this.props.markupData[this.props.item].result, (item) => {
         return allowedSearchFileds.indexOf(item.name) > -1;
       })
-
     }
 
     return [];
   }
 
-  getEntityWindowEntityView() {
+  getEntityFields() {
     if (this.props.item === 'blog_entry') {
-      return {
+      let flattedFields = [];
+
+      this.props.entityMarkupData[this.props.item].sections.forEach(section => {
+        flattedFields = flattedFields.concat(section.items);
+      });
+      console.log(flattedFields);
+
+      let config = {
         mainView: ['code', 'title', 'content'],
-        sideBar: []
+        sideBar: [
+          {groupName: 'status', items: ['publishDate']}
+        ]
       };
+
+      let result = {mainView: null, sideBar: []};
+      result.mainView = _.filter(flattedFields, item => {
+        return config.mainView.indexOf(item.name) > -1;
+      });
+
+      _.forEach(config.sideBar, sideBarItem => {
+        result.sideBar.push({
+          groupName: sideBarItem.groupName,
+          items: _.filter(flattedFields, item => {
+            return sideBarItem.items.indexOf(item.name) > -1;
+          })
+        });
+      });
+
+      console.log(result);
+
+      return result
     }
 
     return {};
