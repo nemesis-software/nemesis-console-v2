@@ -4,6 +4,8 @@ import {
   Route
 } from 'react-router-dom';
 
+require('es6-promise').polyfill();
+
 import counterpart from 'counterpart';
 
 import MasterAdmin from './master-admin/master-admin';

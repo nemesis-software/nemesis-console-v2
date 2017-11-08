@@ -1,7 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../../../types/nemesis-types';
-import { componentRequire } from '../../../../utils/require-util';
+import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../types/nemesis-types';
+
+import { componentRequire } from '../../utils/require-util';
+
+import LanguageChanger from '../language-changer';
+
+const translationLanguages = {
+  languages: [
+    {value: 'en', labelCode: 'English'},
+    {value: 'bg_BG', labelCode: 'Bulgarian'},
+  ],
+  defaultLanguage: {value: 'en', labelCode: 'English'}
+};
 
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
 let NemesisTextareaField = componentRequire('app/components/field-components/nemesis-textarea-field/nemesis-textarea-field', 'nemesis-textarea-field');
@@ -12,8 +23,8 @@ let NemesisNumberField = componentRequire('app/components/field-components/nemes
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 let NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
 let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
-let NemesisLocalizedTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field', 'nemesis-localized-text-field');
-let NemesisLocalizedRichTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-richtext-field', 'nemesis-localized-richtext-field');
+let NemesisSimpleLocalizedTextField = componentRequire('app/components/field-components/nemesis-simple-localized-text-field/nemesis-simple-localized-text-field', 'nemesis-simple-localized-text-field');
+let NemesisSimpleLocalizedRichTextField = componentRequire('app/components/field-components/nemesis-simple-localized-text-field/nemesis-simple-localized-richtext-field', 'nemesis-simple-localized-richtext-field');
 let NemesisRichTextField = componentRequire('app/components/field-components/nemesis-richtext-field/nemesis-richtext-field', 'nemesis-richtext-field');
 let NemesisColorpickerField = componentRequire('app/components/field-components/nemesis-colorpicker-field/nemesis-colorpicker-field', 'nemesis-colorpicker-field');
 let NemesisMediaField = componentRequire('app/components/field-components/nemesis-media-field/nemesis-media-field', 'nemesis-media-field');
@@ -21,26 +32,12 @@ let NemesisMapField = componentRequire('app/components/field-components/nemesis-
 let NemesisSimpleCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field', 'nemesis-simple-collection-field');
 let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
 
-import CssClassHelper from '../../../../services/css-class-helper';
 
-export default class EntitySection extends Component {
+export default class RoleEntityItemView extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.fieldsReferences = [];
-  }
-
-  render() {
-    return (
-      <div style={{minHeight: 'calc(100vh - 205px)', background: 'white'}} className="entity-section">
-        {this.props.section.items.map((item, index) => {
-          return (
-            <div className={'paper-box with-hover section-item-container' + CssClassHelper.getStyleClassSectionItem(item.xtype)} key={index}>
-              {this.getSectionItemRenderer(item, index)}
-            </div>
-          )
-        })}
-      </div>
-    )
   }
 
   componentWillMount() {
@@ -51,10 +48,54 @@ export default class EntitySection extends Component {
     this.fieldsReferences = [];
   }
 
+  render() {
+    return (
+      <div>
+        <div>
+          <LanguageChanger
+            readOnly={this.props.readOnly}
+            label="language"
+            selectClassName="entity-field"
+            style={{marginRight: '15px', ...this.props.style}}
+            onLanguageChange={this.onLanguageChange.bind(this)}
+            availableLanguages={translationLanguages.languages}
+            selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
+          />
+        </div>
+        <div style={{display: 'inline-block', width: '70%', verticalAlign: 'top'}}>
+          {this.props.entityFields.mainView.map((item, key) => {
+            return <div>{this.getSectionItemRenderer(item, key)}</div>
+          })}
+        </div>
+        <div style={{display: 'inline-block', width: '25%', verticalAlign: 'top'}}>
+          {this.props.entityFields.sideBar.map((item, key) => {
+            return <div key={key}>{item.groupName}</div>
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  getItemValue(item, itemName) {
+    if ([nemesisFieldTypes.nemesisEntityField, nemesisFieldTypes.nemesisCollectionField].indexOf(item.xtype) > -1) {
+      return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
+    }
+
+    return this.props.entityData[itemName];
+  }
+
+  onLanguageChange(language) {
+    this.fieldsReferences.forEach(field => {
+      if (field.onLanguageChange) (
+        field.onLanguageChange(language)
+      )
+    });
+  }
+
   getSectionItemRenderer(item, index) {
     let reactElement;
     let itemName = item.name.replace('entity-', '');
-    let elementConfig ={
+    let elementConfig = {
       mainEntity: this.props.entity,
       label: item.fieldLabel,
       name: itemName,
@@ -77,8 +118,8 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;
       case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
       case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
-      case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisLocalizedTextField; break;
-      case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisLocalizedRichTextField; break;
+      case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisSimpleLocalizedTextField; break;
+      case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisSimpleLocalizedRichTextField; break;
       case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;
       case nemesisFieldTypes.nemesisMediaField: reactElement = NemesisMediaField; break;
       case nemesisFieldTypes.nemesisMapField: reactElement = NemesisMapField; break;
@@ -88,43 +129,5 @@ export default class EntitySection extends Component {
     }
 
     return React.createElement(reactElement, elementConfig)
-  }
-
-  getItemValue(item, itemName) {
-    if ([nemesisFieldTypes.nemesisEntityField, nemesisFieldTypes.nemesisCollectionField].indexOf(item.xtype) > -1) {
-      return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
-    }
-
-    return this.props.entityData[itemName];
-  }
-
-  getDirtyValues() {
-    let result = [];
-    this.fieldsReferences.forEach(field => {
-      let dirtyValue = field.getChangeValue();
-      if (dirtyValue) {
-        result.push(dirtyValue);
-      }
-    });
-    return result;
-  }
-
-  isFieldsValid() {
-    let isNotValid = false;
-    this.fieldsReferences.forEach(field => {
-      let isFieldValid = field.isFieldValid();
-      isNotValid = isNotValid || !isFieldValid;
-    });
-    return !isNotValid;
-  }
-
-  getSectionIndex() {
-    return this.props.sectionIndex;
-  }
-
-  resetDirtyStates() {
-    this.fieldsReferences.forEach(field => {
-      field.resetDirtyState();
-    });
   }
 }

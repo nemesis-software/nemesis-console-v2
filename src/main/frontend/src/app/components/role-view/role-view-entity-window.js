@@ -8,6 +8,8 @@ import _ from 'lodash';
 
 import {nemesisFieldTypes} from '../../types/nemesis-types'
 
+import RoleEntityItemView from './role-entity-item-view';
+
 const pagerData = {
   page: 0,
   pageSize: 20
@@ -24,7 +26,6 @@ const translationLanguages = {
 export default class RoleViewEntityWindow extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.getEntityPromise = null;
     this.state = {searchData: [], page: {}, sortData: [], filter: null, isDataLoading: false, isEntitySelected: false, selectedLanguage: translationLanguages.defaultLanguage.value};
   }
@@ -37,7 +38,7 @@ export default class RoleViewEntityWindow extends Component {
     return (
       <div>
         {this.state.isEntitySelected ?
-          <div>is entity selected</div>
+          <RoleEntityItemView entityData={this.state.entityData} entityFields={this.props.entityFields}/>
           :
           <div style={this.props.style} className="entities-table-viewer">
             <table>
@@ -145,16 +146,13 @@ export default class RoleViewEntityWindow extends Component {
   }
 
   onEntityItemClick(item) {
-    console.log('item', item);
-    console.log(this.props.entityFields);
-    //TODO: load item
-    this.setState({...this.state, isEntitySelected: true})
+    this.getDataEntity(item);
   }
 
   getDataEntity(entity) {
     this.setState({...this.state, isDataLoading: true});
-    let relatedEntities = this.getEntityRelatedEntities(entity);
-    let restUrl = entity.entityUrl || (entity.entityName + '/' + entity.itemId);
+    let relatedEntities = this.getEntityRelatedEntities(this.props.entityFields);
+    let restUrl = entity.entityUrl || (entity.entityName + '/' + entity.id);
     return ApiCall.get(restUrl).then(result => {
       this.setState({...this.state, entityData: result.data});
       Promise.all(
@@ -176,17 +174,24 @@ export default class RoleViewEntityWindow extends Component {
 
           relatedEntitiesResult[item.name] = data;
         });
-        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now(), isDataLoading: false})
+        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, isDataLoading: false, isEntitySelected: true})
       })
     });
   }
 
-  getEntityRelatedEntities(entity) {
+  getEntityRelatedEntities(entityFields) {
     let result = [];
-    if (!entity) {
+    if (!entityFields) {
       return result;
     }
-    entity.data.sections.forEach(item => {
+
+    entityFields.mainView.forEach(subItem => {
+      if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+        result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
+      }
+    });
+
+    entityFields.sideBar.forEach(item => {
       item.items.forEach(subItem => {
         if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
           result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
@@ -194,6 +199,7 @@ export default class RoleViewEntityWindow extends Component {
       })
     });
 
+    console.log('relatedEntities', result);
     return result;
   }
 

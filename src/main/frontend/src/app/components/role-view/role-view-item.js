@@ -63,11 +63,10 @@ export default class RoleViewItem extends Component {
         flattedFields = flattedFields.concat(section.items);
       });
       console.log(flattedFields);
-
       let config = {
         mainView: ['code', 'title', 'content'],
         sideBar: [
-          {groupName: 'status', items: ['publishDate']}
+          {groupName: 'status', items: ['publishDate', 'entity-thumbnail']}
         ]
       };
 
@@ -85,7 +84,6 @@ export default class RoleViewItem extends Component {
         });
       });
 
-      console.log(result);
 
       return result
     }
