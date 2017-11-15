@@ -2,9 +2,13 @@ import React, {Component} from 'react';
 
 import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../types/nemesis-types';
 
+import SideBar from './additional-side-bar';
+
 import { componentRequire } from '../../utils/require-util';
 
 import LanguageChanger from '../language-changer';
+
+import _ from 'lodash';
 
 const translationLanguages = {
   languages: [
@@ -32,12 +36,12 @@ let NemesisMapField = componentRequire('app/components/field-components/nemesis-
 let NemesisSimpleCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field', 'nemesis-simple-collection-field');
 let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
 
-
 export default class RoleEntityItemView extends Component {
   constructor(props) {
     super(props);
     console.log(props);
     this.fieldsReferences = [];
+    this.state = {isSidebarOpened: false};
   }
 
   componentWillMount() {
@@ -50,8 +54,9 @@ export default class RoleEntityItemView extends Component {
 
   render() {
     return (
-      <div>
+      <div className="role-entity-item-view">
         <div>
+          <button onClick={() => {this.setState({...this.state, isSidebarOpened: true})}}>Open Sidebar</button>
           <LanguageChanger
             readOnly={this.props.readOnly}
             label="language"
@@ -63,15 +68,15 @@ export default class RoleEntityItemView extends Component {
           />
         </div>
         <div style={{display: 'inline-block', width: '70%', verticalAlign: 'top'}}>
-          {this.props.entityFields.mainView.map((item, key) => {
-            return <div>{this.getSectionItemRenderer(item, key)}</div>
+          {_.map(this.props.entityFields.mainView, (item, key) => {
+            return <div key={key}>{this.getSectionItemRenderer(item, key)}</div>
           })}
         </div>
-        <div style={{display: 'inline-block', width: '25%', verticalAlign: 'top'}}>
-          {this.props.entityFields.sideBar.map((item, key) => {
-            return <div key={key}>{item.groupName}</div>
-          })}
-        </div>
+        <SideBar isSidebarOpened={this.state.isSidebarOpened}
+                 sideBar={this.props.entityFields.sideBar}
+                 closeSidebar={() => {this.setState({...this.state, isSidebarOpened: false})}}
+                 getSectionItemRenderer={this.getSectionItemRenderer.bind(this)}
+        />
       </div>
     )
   }

@@ -66,7 +66,9 @@ export default class RoleViewItem extends Component {
       let config = {
         mainView: ['code', 'title', 'content'],
         sideBar: [
-          {groupName: 'status', items: ['publishDate', 'entity-thumbnail']}
+          {groupName: 'Status', items: ['publishDate', 'entity-thumbnail']},
+          {groupName: 'Images', items: ['publishDate', 'entity-thumbnail']},
+          {groupName: 'Addition fields', items: ['publishDate', 'entity-thumbnail']},
         ]
       };
 

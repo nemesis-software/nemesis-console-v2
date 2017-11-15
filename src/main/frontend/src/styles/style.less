@@ -42,6 +42,26 @@
     .role-view-item-selector-icon {
     }
   }
+
+  .role-entity-item-view {
+    position: relative;
+    overflow-x: hidden;
+
+    .additional-sidebar {
+      position: fixed;
+      right: -500px;
+      width: 500px;
+      transition: right .5s ease-out;
+      top: 60px;
+      height: ~"calc(100vh - 60px)";
+
+      &.opened {
+        width: 500px;
+        right: 0;
+        transition: right .5s ease-in;
+      }
+    }
+  }
 }
 
 .filter-item-container {
@@ -1062,8 +1082,3 @@
     }
   }
 }
-
-
-
-
-
