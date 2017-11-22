@@ -26,7 +26,7 @@ export default class RoleViewItem extends Component {
                 )
               }
             )}</div> :
-            <RoleViewEntityWindow entityId={this.props.item} entityFields={this.getEntityFields()}  searchFields={this.getEntityWindowSearchResultFields()} selectedCatalogs={this.state.selectedCatalogs} />
+            <RoleViewEntityWindow entityId={this.props.item} entityFields={this.getEntityFields()} searchFields={this.getEntityWindowSearchResultFields()} selectedCatalogs={this.state.selectedCatalogs} />
         }
       </div>
     )
@@ -86,8 +86,7 @@ export default class RoleViewItem extends Component {
         });
       });
 
-
-      return result
+      return result;
     }
 
     return {};

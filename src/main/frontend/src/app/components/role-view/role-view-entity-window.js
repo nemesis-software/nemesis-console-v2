@@ -38,7 +38,7 @@ export default class RoleViewEntityWindow extends Component {
     return (
       <div>
         {this.state.isEntitySelected ?
-          <RoleEntityItemView entityData={this.state.entityData} entityFields={this.props.entityFields}/>
+          <RoleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityId={this.props.entityId} entityData={this.state.entityData} entityFields={this.props.entityFields}/>
           :
           <div style={this.props.style} className="entities-table-viewer">
             <table>
@@ -122,6 +122,14 @@ export default class RoleViewEntityWindow extends Component {
     let result = [];
     _.forIn(data._embedded, (value) => result = result.concat(value));
     return result;
+  }
+
+  closeSelectedEntityView(shouldDataReload) {
+    if (shouldDataReload) {
+      this.setState({...this.state, isEntitySelected: false})
+    } else {
+      this.setState({...this.state, isEntitySelected: false})
+    }
   }
 
   getTableRowColumnItem(item, markupItem, index) {

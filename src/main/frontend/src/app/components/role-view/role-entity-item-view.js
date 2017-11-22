@@ -8,6 +8,8 @@ import { componentRequire } from '../../utils/require-util';
 
 import LanguageChanger from '../language-changer';
 
+import ApiCall from 'servicesDir/api-call';
+
 import _ from 'lodash';
 
 const translationLanguages = {
@@ -57,6 +59,9 @@ export default class RoleEntityItemView extends Component {
       <div className="role-entity-item-view">
         <div>
           <button onClick={() => {this.setState({...this.state, isSidebarOpened: true})}}>Open Sidebar</button>
+          <button onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
+          <button onClick={() => this.props.closeSelectedEntityView(true)}>Close View</button>
+
           <LanguageChanger
             readOnly={this.props.readOnly}
             label="language"
@@ -105,7 +110,7 @@ export default class RoleEntityItemView extends Component {
       label: item.fieldLabel,
       name: itemName,
       readOnly: item.readOnly,
-      required: false, //item.required,
+      required: item.required,
       value: this.getItemValue(item, itemName),
       type: nemesisFieldUsageTypes.edit,
       ref: (field) => { field && this.fieldsReferences.push(field)}
@@ -134,5 +139,84 @@ export default class RoleEntityItemView extends Component {
     }
 
     return React.createElement(reactElement, elementConfig)
+  }
+
+  getDirtyValues() {
+    let result = [];
+    this.fieldsReferences.forEach(field => {
+      let dirtyValue = field.getChangeValue();
+      if (dirtyValue) {
+        result.push(dirtyValue);
+      }
+    });
+    return result;
+  }
+
+  isFieldsValid() {
+    let isNotValid = false;
+    this.fieldsReferences.forEach(field => {
+      let isFieldValid = field.isFieldValid();
+      isNotValid = isNotValid || !isFieldValid;
+    });
+    return !isNotValid;
+  }
+
+
+  resetDirtyStates() {
+    this.fieldsReferences.forEach(field => {
+      field.resetDirtyState();
+    });
+  }
+
+  handleSaveButtonClick() {
+    if (!this.isFieldsValid()) {
+      return;
+    }
+
+    this.setState({...this.state, isDataLoading: true});
+
+    let dirtyEntityProps = this.getDirtyValues();
+    let resultObject = {};
+    let mediaFields = [];
+    dirtyEntityProps.forEach(prop => {
+      if (prop.isMedia) {
+        mediaFields.push(prop);
+      } else {
+        resultObject[prop.name] = prop.value;
+      }
+    });
+    let restMethod = this.props.entityData.id ? 'patch' : 'post';
+    let restUrl = this.props.entityData.id ? `${this.props.entityId}/${this.props.entityData.id}` : this.props.entityId;
+    ApiCall[restMethod](restUrl, resultObject).then((result) => {
+      //this.props.onUpdateEntitySearchView(this.props.entity);
+      let itemId = this.props.entityData.id ? this.props.entityData.id : result.data.id;
+      //this.props.openNotificationSnackbar('Entity successfully saved');
+      this.resetDirtyStates();
+
+      this.uploadMediaFile(itemId, mediaFields).then(() => {
+        this.setState({...this.state, isDataLoading: false});
+      });
+    }, this.handleRequestError.bind(this));
+  }
+
+  uploadMediaFile(itemId, mediaFields) {
+    if (!mediaFields || mediaFields.length === 0) {
+      return Promise.resolve();
+    }
+    let data = new FormData();
+    data.append('file', mediaFields[0].value);
+    return ApiCall.post('upload/media/' + itemId, data, 'multipart/form-data').then(
+      () => {
+        //this.props.openNotificationSnackbar('File successfully uploaded');
+        return Promise.resolve();
+      },
+      (err) => {
+        this.handleRequestError(err);
+        return Promise.resolve();
+      });
+  }
+
+  handleRequestError(err) {
+    console.log('err', err)
   }
 }
