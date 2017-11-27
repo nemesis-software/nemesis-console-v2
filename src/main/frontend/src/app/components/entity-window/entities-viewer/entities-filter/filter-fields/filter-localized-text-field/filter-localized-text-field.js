@@ -47,12 +47,12 @@ export default class FilterLocalizedTextField extends Component {
 
   onRestrictionFieldChange(restrictionValue) {
     this.setState({...this.state, restrictionField: restrictionValue});
-    this.updateParentFilter(this.state.value, restrictionValue, this.state.selectedLanguage);
+    this.updateParentFilter(this.state.value, restrictionValue);
   }
 
   onLocalizedFieldChange(value) {
     this.setState({...this.state, value: value});
-    this.updateParentFilter(value, this.state.restrictionField, this.state.selectedLanguage);
+    this.updateParentFilter(value, this.state.restrictionField);
   }
 
   updateParentFilter(value, restrictionValue) {
