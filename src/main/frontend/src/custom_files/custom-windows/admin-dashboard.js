@@ -47,10 +47,10 @@ const areaChartData = [
 ];
 
 const data01 = [
-  {name: 'Unisex', value: 600, fill: '#82ca9d'},
-  {name: 'Male', value: 300, fill: '#003366'},
-  {name: 'Women', value: 300, fill: '#ff69b4'},
-  {name: 'Kids', value: 200, fill: '#ff6600'}
+  {name: 'Green', value: 600, fill: '#82ca9d'},
+  {name: 'Blue', value: 300, fill: '#003366'},
+  {name: 'Orange', value: 300, fill: '#ff69b4'},
+  {name: 'Pink', value: 200, fill: '#ff6600'}
 ];
 
 const data02 = [{name: 'Red', value: 100, fill: '#e52c0a'},
@@ -89,11 +89,11 @@ export default class AdminDashboard extends Component {
 
           <div className="admin-info-panel display-table">
             <div className="display-table-cell info-panel-icon">
-              <i className="material-icons">shopping_cart</i>
+              <i className="material-icons">done</i>
             </div>
             <div className="display-table-cell info-panel-text">
               <div className="info-panel-count">27013</div>
-              <div className="info-panel-type">Orders</div>
+              <div className="info-panel-type">Nr of transactions</div>
             </div>
           </div>
 
@@ -103,7 +103,7 @@ export default class AdminDashboard extends Component {
             </div>
             <div className="display-table-cell info-panel-text">
               <div className="info-panel-count">7610</div>
-              <div className="info-panel-type">Payments</div>
+              <div className="info-panel-type">Transactions value</div>
             </div>
           </div>
 
@@ -113,7 +113,7 @@ export default class AdminDashboard extends Component {
             </div>
             <div className="display-table-cell info-panel-text">
               <div className="info-panel-count">13827</div>
-              <div className="info-panel-type">Products</div>
+              <div className="info-panel-type">Number of debit cards</div>
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default class AdminDashboard extends Component {
               <CartesianGrid strokeDasharray="3 3"/>
               <Tooltip/>
               <Legend />
-              <Bar yAxisId="left" dataKey="Paid" fill="#8884d8" />
+              <Bar yAxisId="left" dataKey="Processed" fill="#8884d8" />
               <Bar yAxisId="right" dataKey="Canceled" fill="#82ca9d" />
             </BarChart>
           </div>
