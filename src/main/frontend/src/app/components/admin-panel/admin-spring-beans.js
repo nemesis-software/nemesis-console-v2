@@ -13,9 +13,10 @@ export default class AdminSpringBeans extends Component {
 
   componentWillMount() {
     PlatformApiCall.get('beans').then(result => {
-      let beans = result.data[0].beans;
+
+      let beans = result.data.beans;
       this.setState({
-        context: result.data[0].context,
+        context: result.data.contextId,
         beans: beans,
         filteredBeans: beans,
         page: this.buildPageObject(beans.length, 20, 0)
