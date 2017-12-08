@@ -26,7 +26,7 @@ export default class ApiCall {
 
   static requestHelper(url, method, data, params, contentType) {
     return axios({
-      url: url,
+      url: this.parseTemplatedUrl(url),
       method: method,
       baseURL: this.getRestUrl(),
       headers: this.getHeaders(contentType),
@@ -56,5 +56,9 @@ export default class ApiCall {
     }
 
     return result;
+  }
+
+  static parseTemplatedUrl(url) {
+    return url.replace(new RegExp('({.*})', 'g'), '');
   }
 }
