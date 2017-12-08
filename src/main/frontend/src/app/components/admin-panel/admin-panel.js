@@ -10,6 +10,7 @@ import AdminLoggers from './admin-loggers/admin-loggers';
 import AdminInsertScript from './admin-insert-script';
 import AdminJobsManagement from './admin-jobs-management/admin-jobs-management';
 import AdminCsvExport from './admin-csv-export/admin-csv-export';
+import AdminSessions from './admin-sessions/admin-sessions';
 import SwipeableViews from 'react-swipeable-views';
 
 export default class AdminPanel extends Component {
@@ -28,11 +29,12 @@ export default class AdminPanel extends Component {
           <div className={'navigation-bar-item' + (this.state.sectionIndex === 2 ? ' active' : '')} onClick={() => this.handleChange(2)}><i className="fa fa-list"/>Threads</div>
           <div className={'navigation-bar-item' + (this.state.sectionIndex === 3 ? ' active' : '')} onClick={() => this.handleChange(3)}><i className="fa fa-sliders"/>Loggers</div>
           <div className={'navigation-bar-item' + (this.state.sectionIndex === 4 ? ' active' : '')} onClick={() => this.handleChange(4)}><i className="fa fa-cog"/>Beans</div>
-          <div className={'navigation-bar-item' + (this.state.sectionIndex === 5 ? ' active' : '')} onClick={() => this.handleChange(5)}><i className="fa fa-file"/>Import</div>
-          <div className={'navigation-bar-item' + (this.state.sectionIndex === 6 ? ' active' : '')} onClick={() => this.handleChange(6)}><i className="fa fa-code"/>ID Analyze</div>
-          <div className={'navigation-bar-item' + (this.state.sectionIndex === 7 ? ' active' : '')} onClick={() => this.handleChange(7)}><i className="fa fa-terminal"/>Execute script</div>
-          <div className={'navigation-bar-item' + (this.state.sectionIndex === 8 ? ' active' : '')} onClick={() => this.handleChange(8)}><i className="fa fa-calendar"/>Job Management</div>
-          <div className={'navigation-bar-item' + (this.state.sectionIndex === 9 ? ' active' : '')} onClick={() => this.handleChange(9)}><i className="fa fa-download"/>CSV Export</div>
+          <div className={'navigation-bar-item' + (this.state.sectionIndex === 5 ? ' active' : '')} onClick={() => this.handleChange(5)}><i className="fa fa-file"/>CSV Import</div>
+          <div className={'navigation-bar-item' + (this.state.sectionIndex === 6 ? ' active' : '')} onClick={() => this.handleChange(6)}><i className="fa fa-download"/>CSV Export</div>
+          <div className={'navigation-bar-item' + (this.state.sectionIndex === 7 ? ' active' : '')} onClick={() => this.handleChange(7)}><i className="fa fa-code"/>ID Analyze</div>
+          <div className={'navigation-bar-item' + (this.state.sectionIndex === 8 ? ' active' : '')} onClick={() => this.handleChange(8)}><i className="fa fa-terminal"/>Execute script</div>
+          <div className={'navigation-bar-item' + (this.state.sectionIndex === 9 ? ' active' : '')} onClick={() => this.handleChange(9)}><i className="fa fa-calendar"/>Job Management</div>
+          <div className={'navigation-bar-item' + (this.state.sectionIndex === 10 ? ' active' : '')} onClick={() => this.handleChange(10)}><i className="fa fa-calendar"/>Sessions</div>
         </div>
         <div className="container">
           <SwipeableViews
@@ -45,10 +47,11 @@ export default class AdminPanel extends Component {
             <AdminLoggers />
             <AdminSpringBeans />
             <AdminImport openNotificationSnackbar={this.props.openNotificationSnackbar}/>
+            <AdminCsvExport />
             <AdminIdAnalyzer />
             <AdminInsertScript openNotificationSnackbar={this.props.openNotificationSnackbar}/>
             <AdminJobsManagement openNotificationSnackbar={this.props.openNotificationSnackbar}/>
-            <AdminCsvExport />
+            <AdminSessions openNotificationSnackbar={this.props.openNotificationSnackbar} />
           </SwipeableViews>
         </div>
       </div>

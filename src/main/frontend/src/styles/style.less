@@ -330,12 +330,27 @@
       th {
         padding-bottom: 20px;
       }
+
+      .language-changer {
+        vertical-align: bottom;
+      }
+    }
+
+    .navigation-footer {
+      td {
+        padding-top: 20px;
+      }
     }
 
     tbody {
       tr {
         height: 50px;
         border-bottom: 1px solid @border-colors;
+
+        &:hover {
+          background: @light-grey;
+        }
+
         td:first-of-type {
           padding-left: 20px;
         }
@@ -375,11 +390,11 @@
       }
     }
 
-
     .page-content {
       vertical-align: middle;
       font-size: 16px;
       padding: 0 13px;
+      font-weight: bold;
     }
   }
 }
@@ -407,8 +422,6 @@
     }
   }
 }
-
-
 
 .entity-field-container {
   display: inline-block;

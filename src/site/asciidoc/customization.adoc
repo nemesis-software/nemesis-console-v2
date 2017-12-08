@@ -173,7 +173,7 @@ export default class CustomEntitySections extends EntitySections {
 ----
 
 [.center.text-left]
-.entity-sections
+.custom-button
 image::custom-button.png[Nemesis Backend Console Custom Button]
 
 == *How to change the visualization of a field-component*

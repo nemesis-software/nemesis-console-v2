@@ -59,7 +59,7 @@ export default class EntitySection extends Component {
       label: item.fieldLabel,
       name: itemName,
       readOnly: item.readOnly,
-      required: false, //item.required,
+      required: item.required,
       value: this.getItemValue(item, itemName),
       type: nemesisFieldUsageTypes.edit,
       ref: (field) => { field && this.fieldsReferences.push(field)}

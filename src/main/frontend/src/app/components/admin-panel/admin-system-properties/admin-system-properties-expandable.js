@@ -21,11 +21,11 @@ export default class AdminSystemPropertiesExpandable extends AdminExpandable {
       <div>
         <table style={{width: '100%', tableLayout: 'fixed'}} className="table table-striped">
           <tbody>
-          {this.getSystemProperties().map((item, index) => {
+          {_.map(this.getSystemProperties(), (item, index) => {
             return (
               <tr key={index}>
                 <td style={{wordWrap: 'break-word'}}>{item.key}</td>
-                <td style={{wordWrap: 'break-word'}}>{item.value}</td>
+                <td style={{wordWrap: 'break-word'}}>{item.value.value}</td>
               </tr>
             );
           })}

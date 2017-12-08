@@ -69,6 +69,13 @@ export default class EntitiesTableViewer extends Component {
             })
           }
           </tbody>
+          <tfoot>
+          <tr className="navigation-footer">
+            <td colSpan={this.state.entitiesMarkup.length}>
+              <EntitiesPager onPagerChange={this.props.onPagerChange}  page={this.props.page}/>
+            </td>
+          </tr>
+          </tfoot>
         </table>
       </div>
     )

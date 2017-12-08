@@ -104,7 +104,7 @@ export default class EntitySections extends Component {
     return ApiCall.get(restUrl).then(result => {
       this.setState({...this.state, entityData: result.data});
       Promise.all(
-        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
+        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(this.parseLinkHref(result.data._links[item.name]), {projection: 'search'})
           .then(result => {
             return Promise.resolve(result);
           }, err => {
@@ -322,5 +322,14 @@ export default class EntitySections extends Component {
 
   getAdditionalItem() {
     return false;
+  }
+
+  parseLinkHref(link) {
+    let result = link.href;
+    if (link.templated) {
+      result = result.replace(new RegExp('({.*})', 'g'), '');
+    }
+
+    return result;
   }
 }

@@ -83,11 +83,11 @@ export default class EntitiesViewer extends Component {
   }
 
   retakeEntityData() {
-    this.getEntitiesData(this.props.entity, this.state.page.number, this.state.page.size, this.state.filter);
+    this.getEntitiesData(this.props.entity, this.state.page.number, this.state.page.size, this.state.filter, this.state.sortData);
   }
 
   onPagerChange(page, pageSize) {
-    this.getEntitiesData(this.props.entity, page, pageSize, this.state.filter);
+    this.getEntitiesData(this.props.entity, page, pageSize, this.state.filter, this.state.sortData);
   }
 
   onSortDataChange(sortData) {
