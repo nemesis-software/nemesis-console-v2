@@ -25,7 +25,7 @@ export default class AdminSystemPropertiesExpandable extends AdminExpandable {
             return (
               <tr key={index}>
                 <td style={{wordWrap: 'break-word'}}>{item.key}</td>
-                <td style={{wordWrap: 'break-word'}}>{item.value.value}</td>
+                <td style={{wordWrap: 'break-word'}}>{item.value}</td>
               </tr>
             );
           })}
