@@ -12,7 +12,8 @@ export default class AdminSystemProperties extends Component {
 
   componentWillMount() {
     PlatformApiCall.get('env').then(result => {
-      this.setState({properties: result.data, filteredProperties: result.data});
+      let data = this.parseProperties(result.data);
+      this.setState({properties: data, filteredProperties: data});
     })
   }
 
@@ -24,13 +25,25 @@ export default class AdminSystemProperties extends Component {
                  placeholder={counterpart.translate('main.Filter...', {fallback: 'Filter'})}
                  className="form-control"
                  onChange={this.onFilterChange.bind(this)}/>
-          <span className="input-group-addon"><i className="fa fa-search" /></span>
+          <span className="input-group-addon"><i className="fa fa-search"/></span>
         </div>
         {this.getFilteredProperties().map(item => <ExpandableProperties name={item.name} key={item.name} properties={item.value}/>)}
       </div>
     );
   }
 
+  parseProperties(data) {
+    let result = {profiles: data.activeProfiles};
+    _.forEach(data.propertySources, property => {
+      let properties = {};
+      _.forIn(property.properties, (value, key) => {
+          properties[key] = value.value;
+      });
+      result[property.name] = properties
+    });
+
+    return result;
+  }
 
   getFilteredProperties() {
     let result = [];
@@ -48,7 +61,7 @@ export default class AdminSystemProperties extends Component {
       _.forIn(this.state.properties, (value, key) => {
         let filterValue = {};
         _.forIn(value, (value, key) => {
-          if (key.toLowerCase().indexOf(searchValue.toLowerCase()) > -1 ) {
+          if (key.toLowerCase().indexOf(searchValue.toLowerCase()) > -1) {
             filterValue[key] = value;
           }
         });

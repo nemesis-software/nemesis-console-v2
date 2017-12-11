@@ -35,7 +35,6 @@ export default class AdminHealth extends AdminExpandable {
         result.push({name: 'platform', status: value})
       } else {
         _.forIn(value, (detail, key) => {
-          let status = detail.status;
           let actualValue = {...detail.details};
           delete actualValue.status;
           result.push({name: key, status: detail.status, properties: actualValue})
