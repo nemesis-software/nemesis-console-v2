@@ -11,6 +11,7 @@ import counterpart from 'counterpart';
 import MasterAdmin from './master-admin/master-admin';
 import AdminPanel from './admin-panel/admin-panel';
 import RoleVIew from './role-view/role-view';
+import PointOfSale from './point-of-sale/point-of-sale';
 import NemesisSideBar from './nemesis-side-bar/nemesis-side-bar';
 
 import 'react-select/dist/react-select.css';
@@ -57,6 +58,11 @@ export default class App extends Component {
               exact={true}
               path={'/'}
               component={MasterAdmin}
+            />
+            <Route
+              exact={true}
+              path={'/pos'}
+              component={PointOfSale}
             />
             <Route
               exact={true}

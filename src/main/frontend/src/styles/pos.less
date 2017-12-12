@@ -1,0 +1,61 @@
+@import './variables';
+
+.point-of-sale-container {
+  position: relative;
+
+  .bill-panel-container {
+    border: 1px solid red;
+    height: ~"calc(100vh - 60px)";
+    width: 435px;
+    position: fixed;
+    left: 60px;
+  }
+
+  .product-panel-container {
+    border: 1px solid #0e2bff;
+    width: ~"calc(100% - 495px)";
+    height: ~"calc(100vh - 60px)";
+    position: fixed;
+    right: 0;
+
+    .product-lister {
+      height: 100%;
+      overflow-y: scroll;
+      .product-lister-item {
+        display: inline-block;
+        height: 120px;
+        width: 120px;
+        margin: 15px;
+        border: 1px solid @border-colors;
+        cursor: pointer;
+        position: relative;
+
+        .product-image {
+          text-align: center;
+          img {
+            margin: 10px;
+            width: 100px;
+            height: 100px;
+          }
+        }
+
+        .product-price {
+          background: @main-blue;
+          color: @light-font-color;
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 0 3px;
+        }
+
+        .product-name {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          padding: 0 3px;
+        }
+
+      }
+    }
+  }
+}

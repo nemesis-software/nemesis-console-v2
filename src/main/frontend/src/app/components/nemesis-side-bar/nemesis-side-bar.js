@@ -10,6 +10,9 @@ export default class NemesisSideBar extends Component {
   render() {
     return (
       <div className="nemesis-side-bar">
+        <Link to="/pos">
+          <div title="Point of sale" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">add_to_queue</i></div>
+        </Link>
         <Link to="/content">
           <div title="Content" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">web</i></div>
         </Link>
