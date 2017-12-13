@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import BillItemsLister from './bill-items-lister/bill-items-lister';
+import BillControlButtons from './bill-control-buttons/bill-control-buttons';
 
 export default class BillPanel extends Component {
   constructor(props) {
@@ -10,7 +12,8 @@ export default class BillPanel extends Component {
   render() {
     return (
       <div className="bill-panel-container">
-        bill
+        <BillItemsLister/>
+        <BillControlButtons/>
       </div>
     )
   }

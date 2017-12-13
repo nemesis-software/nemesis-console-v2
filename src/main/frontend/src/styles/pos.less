@@ -9,6 +9,44 @@
     width: 435px;
     position: fixed;
     left: 60px;
+
+    .bill-control-buttons {
+      height: 240px;
+      width: 100%;
+      padding: 10px;
+      border-top: 2px solid @main-blue;
+
+      .payment-process-button {
+        display: inline-block;
+        width: 40%;
+        border: 2px solid @border-colors;
+        height: 100%;
+        vertical-align: top;
+        border-right: 0;
+      }
+
+      .number-pad-container {
+        display: inline-block;
+        width: 60%;
+        vertical-align: top;
+        height: 100%;
+
+        table {
+          width: 100%;
+          td {
+            height: 54px;
+            width: 54px;
+            border: 2px solid @border-colors;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .bill-items-lister {
+      width: 100%;
+      height: ~"calc(100% - 240px)";
+    }
   }
 
   .product-panel-container {
