@@ -11,7 +11,7 @@ export default class ProductLister extends Component {
   render() {
     return (
       <div className="product-lister">
-        {this.state.products.map(product => <ProductListerItem product={product} />)}
+        {this.state.products.map(product => <ProductListerItem key={product.id} product={product} />)}
       </div>
     )
   }

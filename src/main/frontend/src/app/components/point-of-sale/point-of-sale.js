@@ -10,11 +10,12 @@ import _ from 'lodash';
 import Translate from 'react-translate-component';
 import BillPanel from './bill-panel/bill-panel';
 import ProductPanel from './product-panel/product-panel';
+import PaymentProcess from './payment-process/payment-process';
 
 export default class PointOfSale extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {isPaymentProcess: false};
   }
 
   componentWillMount() {
@@ -23,11 +24,27 @@ export default class PointOfSale extends Component {
   render() {
     return (
       <div className="point-of-sale-container">
-        <div style={{padding: '60px'}}>
-          <BillPanel />
-          <ProductPanel />
+        <div style={this.getContainerStyles(this.state.isPaymentProcess)}>
+          <BillPanel setIsPaymentProcess={this.setIsPaymentProcess.bind(this)}/>
+          <ProductPanel/>
+        </div>
+        <div style={this.getContainerStyles(!this.state.isPaymentProcess)}>
+          <PaymentProcess setIsPaymentProcess={this.setIsPaymentProcess.bind(this)}/>
         </div>
       </div>
     )
+  }
+
+  getContainerStyles(shouldBeHidden) {
+    let style = {padding: '60px'};
+    if (shouldBeHidden) {
+      style.display = 'none';
+    }
+
+    return style;
+  }
+
+  setIsPaymentProcess(value) {
+    this.setState({...this.state, isPaymentProcess: value});
   }
 }

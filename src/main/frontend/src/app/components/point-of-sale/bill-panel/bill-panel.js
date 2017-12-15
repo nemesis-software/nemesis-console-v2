@@ -13,7 +13,7 @@ export default class BillPanel extends Component {
     return (
       <div className="bill-panel-container">
         <BillItemsLister/>
-        <BillControlButtons/>
+        <BillControlButtons setIsPaymentProcess={this.props.setIsPaymentProcess}/>
       </div>
     )
   }

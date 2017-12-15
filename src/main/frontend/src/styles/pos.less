@@ -3,6 +3,80 @@
 .point-of-sale-container {
   position: relative;
 
+  .pos-button {
+    border: 2px solid @border-colors;
+    text-align: center;
+    background-color: #e2e2e2;
+    color: #555555;
+    cursor: pointer;
+    transition: all 150ms linear;
+    user-select: none;
+
+    &:hover {
+      background-color: #eeeeee;
+    }
+
+    &:active {
+      background-color: #000000;
+      color: white;
+    }
+  }
+
+  .payment-process {
+
+    .payment-methods {
+      margin: 0 auto;
+      max-width: 1024px;
+      text-align: left;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .payment-types {
+      width: 300px;
+      display: inline-block;
+      vertical-align: top;
+
+      .payment-type {
+        margin: 15px;
+        font-size: 20px;
+        padding: 10px 0;
+      }
+    }
+
+    .payment-calculator {
+      width: ~"calc(100% - 300px)";
+      display: inline-block;
+      vertical-align: top;
+
+      .payment-calculation {
+        table {
+          width: 100%;
+
+          th {
+            width: 33%;
+            font-size: 16px;
+            padding: 8px;
+          }
+        }
+      }
+
+      .payment-keyboard {
+        table {
+          td {
+            height: 74px;
+            width: 74px;
+
+            &.number-buttons {
+              font-size: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .bill-panel-container {
     border: 1px solid red;
     height: ~"calc(100vh - 60px)";
@@ -19,27 +93,10 @@
       .payment-process-button {
         display: inline-block;
         width: 40%;
-        border: 2px solid @border-colors;
         height: 100%;
         vertical-align: top;
         border-right: 0;
-        text-align: center;
         padding: 70px 0;
-        transition: all 150ms linear;
-        user-select: none;
-
-        background-color: #e2e2e2;
-        color: #555555;
-        cursor: pointer;
-
-        &:hover {
-          background-color: #eeeeee
-        }
-
-        &:active {
-          background-color: #000000;
-          color: white;
-        }
 
         .material-icons {
           font-size: 40px;
@@ -53,27 +110,11 @@
         height: 100%;
         user-select: none;
 
-
         table {
           width: 100%;
           td {
             height: 54px;
             width: 54px;
-            border: 2px solid @border-colors;
-            text-align: center;
-            background-color: #e2e2e2;
-            color: #555555;
-            cursor: pointer;
-            transition: all 150ms linear;
-
-            &:hover {
-              background-color: #eeeeee
-            }
-
-            &:active {
-              background-color: #000000;
-              color: white;
-            }
 
             &.number-buttons {
               font-size: 24px;
