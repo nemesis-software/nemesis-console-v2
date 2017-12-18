@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import _ from 'lodash';
+
 export default class BillItemsLister extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,12 @@ export default class BillItemsLister extends Component {
   render() {
     return (
       <div className="bill-items-lister">
-        Lister
+        {this.props.cart.products.map(item => {
+          return (
+            <div key={item.product.id}>{item.product.name.en.value} Q: {item.quantity}</div>
+          )
+        })}
+        Total price: {this.props.cart.totalPrice}$
       </div>
     )
   }

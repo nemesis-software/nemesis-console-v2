@@ -11,7 +11,7 @@ export default class ProductPanel extends Component {
   render() {
     return (
       <div className="product-panel-container">
-        <ProductLister/>
+        <ProductLister onProductSelect={this.props.onProductSelect} products={this.props.products}/>
       </div>
     )
   }
