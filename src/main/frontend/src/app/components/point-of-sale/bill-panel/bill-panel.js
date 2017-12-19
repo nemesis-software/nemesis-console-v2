@@ -12,8 +12,8 @@ export default class BillPanel extends Component {
   render() {
     return (
       <div className="bill-panel-container">
-        <BillItemsLister cart={this.props.cart}/>
-        <BillControlButtons setIsPaymentProcess={this.props.setIsPaymentProcess}/>
+        <BillItemsLister selectedProductId={this.props.selectedProductId} cart={this.props.cart}/>
+        <BillControlButtons onKeyboardButtonClick={this.props.onKeyboardButtonClick}/>
       </div>
     )
   }

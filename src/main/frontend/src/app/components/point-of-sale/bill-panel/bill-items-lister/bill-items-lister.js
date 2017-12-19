@@ -13,7 +13,7 @@ export default class BillItemsLister extends Component {
       <div className="bill-items-lister">
         {this.props.cart.products.map(item => {
           return (
-            <div key={item.product.id}>{item.product.name.en.value} Q: {item.quantity}</div>
+            <div key={item.product.id}>{item.product.name.en.value} Q: {item.quantity} {this.props.selectedProductId === item.product.id ? 'selected' : false}</div>
           )
         })}
         Total price: {this.props.cart.totalPrice}$

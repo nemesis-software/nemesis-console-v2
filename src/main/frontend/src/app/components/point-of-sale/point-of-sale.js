@@ -13,7 +13,7 @@ import PaymentProcess from './payment-process/payment-process';
 export default class PointOfSale extends Component {
   constructor(props) {
     super(props);
-    this.state = {isPaymentProcess: false, products: [], cart: {products: [], totalPrice: 0}};
+    this.state = {isPaymentProcess: false, products: [], cart: {products: [], totalPrice: 0}, selectedProductId: -1, isProductQuantityChanged: false};
   }
 
   componentWillMount() {
@@ -32,7 +32,7 @@ export default class PointOfSale extends Component {
     return (
       <div className="point-of-sale-container">
         <div style={this.getContainerStyles(this.state.isPaymentProcess)}>
-          <BillPanel cart={this.state.cart} setIsPaymentProcess={this.setIsPaymentProcess.bind(this)}/>
+          <BillPanel cart={this.state.cart} onKeyboardButtonClick={this.onKeyboardButtonClick.bind(this)} selectedProductId={this.state.selectedProductId}/>
           <ProductPanel onProductSelect={this.onProductSelect.bind(this)} products={this.state.products}/>
         </div>
         <div style={this.getContainerStyles(!this.state.isPaymentProcess)}>
@@ -59,7 +59,7 @@ export default class PointOfSale extends Component {
     }
 
     let cart = {products: cartProducts, totalPrice: this.getCartTotalPrice(cartProducts)};
-    this.setState({...this.state, cart: cart});
+    this.setState({...this.state, cart: cart, selectedProductId: product.id, isProductQuantityChanged: false});
   }
 
   getCartTotalPrice(cartProducts) {
@@ -80,6 +80,61 @@ export default class PointOfSale extends Component {
     }
 
     return style;
+  }
+
+  onKeyboardButtonClick(value) {
+    if (value === 'payment') {
+      this.setIsPaymentProcess(true);
+      return;
+    }
+
+    let cartProducts = [...this.state.cart.products];
+
+    let selectedProductIndex = _.findIndex(cartProducts, (item) => {
+      return item.product.id === this.state.selectedProductId
+    });
+
+    if (selectedProductIndex === -1) {
+      return;
+    }
+
+    let product = cartProducts[selectedProductIndex];
+
+    if (value === 'delete') {
+      if (product.quantity === 0) {
+        cartProducts.splice(selectedProductIndex, 1);
+        let newSelectedProductId = cartProducts.length > 0 ? cartProducts[cartProducts.length - 1].product.id : -1;
+        let cart = {products: cartProducts, totalPrice: this.getCartTotalPrice(cartProducts)};
+        this.setState({...this.state, cart: cart, isProductQuantityChanged: false, selectedProductId: newSelectedProductId});
+        return;
+      }
+
+      if (this.state.isProductQuantityChanged && product.quantity.toString().length > 1) {
+        let newQuantity = product.quantity.toString().slice(0, -1);
+        cartProducts[selectedProductIndex].quantity = Number(newQuantity);
+      } else {
+        cartProducts[selectedProductIndex].quantity = 0;
+      }
+
+      let cart = {products: cartProducts, totalPrice: this.getCartTotalPrice(cartProducts)};
+      this.setState({...this.state, cart: cart, isProductQuantityChanged: true});
+
+      return;
+    }
+
+    if (isFinite(value)) {
+      if (product.quantity === 0) {
+        cartProducts[selectedProductIndex].quantity = Number(value);
+      } else if (this.state.isProductQuantityChanged) {
+        let newQuantity = product.quantity.toString() + value.toString();
+        cartProducts[selectedProductIndex].quantity = Number(newQuantity);
+      } else {
+        cartProducts[selectedProductIndex].quantity = Number(value);
+      }
+
+      let cart = {products: cartProducts, totalPrice: this.getCartTotalPrice(cartProducts)};
+      this.setState({...this.state, cart: cart, isProductQuantityChanged: true});
+    }
   }
 
   setIsPaymentProcess(value) {
