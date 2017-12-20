@@ -11,9 +11,13 @@ export default class PaymentProcess extends Component {
   render() {
     return (
       <div className="payment-process">
-        <PaymentMethods setIsPaymentProcess={this.props.setIsPaymentProcess}/>
+        <PaymentMethods onFinalizePayment={this.onFinalizePayment.bind(this)} totalPrice={this.props.cart.totalPrice} setIsPaymentProcess={this.props.setIsPaymentProcess}/>
 
       </div>
     )
+  }
+
+  onFinalizePayment(totalMoneyPayed) {
+
   }
 }

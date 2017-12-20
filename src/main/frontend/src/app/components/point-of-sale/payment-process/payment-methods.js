@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 export default class PaymentMethods extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {payedAmount: 0};
 
   }
 
@@ -11,9 +11,11 @@ export default class PaymentMethods extends Component {
     return (
       <div className="payment-methods">
         <div className="payment-methods-header">
-          <button onClick={() => this.props.setIsPaymentProcess(false)}>Back</button>
+          <div className="pos-button back-button" onClick={() => this.props.setIsPaymentProcess(false)}>Back</div>
+          <div className="payment-methods-header-text">Payment</div>
+          <div className="pos-button validate-button" onClick={() => this.props.setIsPaymentProcess(false)}>Validate</div>
         </div>
-        <div>
+        <div style={{height: '100%'}}>
           <div className="payment-types">
             <div className="payment-type pos-button">Cash (USD)</div>
             <div className="payment-type pos-button">Credit card</div>
@@ -31,9 +33,9 @@ export default class PaymentMethods extends Component {
                 </thead>
                 <tbody>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td className="blue-td">{this.props.totalPrice} $</td>
+                  <td className="payed-number">500.00$</td>
+                  <td className="blue-td">161.00$</td>
                 </tr>
                 <tr>
                   <td colSpan="3"></td>

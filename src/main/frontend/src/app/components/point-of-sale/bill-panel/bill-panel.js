@@ -12,7 +12,7 @@ export default class BillPanel extends Component {
   render() {
     return (
       <div className="bill-panel-container">
-        <BillItemsLister selectedProductId={this.props.selectedProductId} cart={this.props.cart}/>
+        <BillItemsLister onBillItemClick={this.props.onBillItemClick} selectedProductId={this.props.selectedProductId} cart={this.props.cart}/>
         <BillControlButtons onKeyboardButtonClick={this.props.onKeyboardButtonClick}/>
       </div>
     )

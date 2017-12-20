@@ -4,6 +4,10 @@ import '../../../styles/pos.less';
 
 import ApiCall from '../../services/api-call'
 
+import {componentRequire} from '../../utils/require-util'
+
+let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
+
 import _ from 'lodash';
 
 import BillPanel from './bill-panel/bill-panel';
@@ -31,12 +35,16 @@ export default class PointOfSale extends Component {
   render() {
     return (
       <div className="point-of-sale-container">
+        <NemesisHeader onRightIconButtonClick={() => {}} isOpenInFrame={this.isOpenInFrame}/>
         <div style={this.getContainerStyles(this.state.isPaymentProcess)}>
-          <BillPanel cart={this.state.cart} onKeyboardButtonClick={this.onKeyboardButtonClick.bind(this)} selectedProductId={this.state.selectedProductId}/>
+          <BillPanel cart={this.state.cart}
+                     onKeyboardButtonClick={this.onKeyboardButtonClick.bind(this)}
+                     onBillItemClick={this.onBillItemClick.bind(this)}
+                     selectedProductId={this.state.selectedProductId}/>
           <ProductPanel onProductSelect={this.onProductSelect.bind(this)} products={this.state.products}/>
         </div>
         <div style={this.getContainerStyles(!this.state.isPaymentProcess)}>
-          <PaymentProcess setIsPaymentProcess={this.setIsPaymentProcess.bind(this)}/>
+          <PaymentProcess cart={this.state.cart} setIsPaymentProcess={this.setIsPaymentProcess.bind(this)}/>
         </div>
       </div>
     )
@@ -74,7 +82,7 @@ export default class PointOfSale extends Component {
   }
 
   getContainerStyles(shouldBeHidden) {
-    let style = {padding: '60px'};
+    let style = {padding: '60px 0 0 60px'};
     if (shouldBeHidden) {
       style.display = 'none';
     }
@@ -135,6 +143,10 @@ export default class PointOfSale extends Component {
       let cart = {products: cartProducts, totalPrice: this.getCartTotalPrice(cartProducts)};
       this.setState({...this.state, cart: cart, isProductQuantityChanged: true});
     }
+  }
+
+  onBillItemClick(itemId) {
+    this.setState({...this.state, selectedProductId: itemId, isProductQuantityChanged: false});
   }
 
   setIsPaymentProcess(value) {

@@ -23,53 +23,106 @@
   }
 
   .payment-process {
+    height: ~"calc(100vh - 60px)";
+    background: #eeeeee;
 
     .payment-methods {
+      background: white;
       margin: 0 auto;
       max-width: 1024px;
       text-align: left;
       height: 100%;
       overflow: hidden;
       position: relative;
-    }
 
-    .payment-types {
-      width: 300px;
-      display: inline-block;
-      vertical-align: top;
+      .payment-methods-header {
+        border-bottom: 1px solid @main-blue;
+        text-align: center;
+        padding: 15px;
 
-      .payment-type {
-        margin: 15px;
-        font-size: 20px;
-        padding: 10px 0;
-      }
-    }
+        .back-button {
+          display: inline-block;
+          float: left;
+          padding: 5px 8px;
+          font-size: 16px;
+        }
 
-    .payment-calculator {
-      width: ~"calc(100% - 300px)";
-      display: inline-block;
-      vertical-align: top;
+        .validate-button {
+          display: inline-block;
+          float: right;
+          padding: 5px 8px;
+          font-size: 16px;
+        }
 
-      .payment-calculation {
-        table {
-          width: 100%;
-
-          th {
-            width: 33%;
-            font-size: 16px;
-            padding: 8px;
-          }
+        .payment-methods-header-text {
+          font-size: 20px;
+          font-weight: bold;
+          display: inline-block;
         }
       }
 
-      .payment-keyboard {
-        table {
-          td {
-            height: 74px;
-            width: 74px;
+      border-right: 1px solid @main-blue;
+      border-left: 1px solid @main-blue;
 
-            &.number-buttons {
-              font-size: 24px;
+      .payment-types {
+        width: 300px;
+        display: inline-block;
+        vertical-align: top;
+        height: 100%;
+        border-right: 1px solid @main-blue;
+
+        .payment-type {
+          margin: 15px;
+          font-size: 20px;
+          padding: 10px 0;
+        }
+      }
+
+      .payment-calculator {
+        width: ~"calc(100% - 300px)";
+        display: inline-block;
+        vertical-align: top;
+
+        .payment-calculation {
+          border-bottom: 1px solid @main-blue;
+
+          table {
+            width: 100%;
+
+            th {
+              width: 33%;
+              font-size: 16px;
+              padding: 8px;
+            }
+
+            td {
+              width: 33%;
+              font-size: 16px;
+              padding: 8px;
+
+              &.blue-td {
+                background: @main-blue;
+                color: @light-font-color;
+              }
+
+              &.payed-number {
+                border: 1px solid @main-blue
+              }
+            }
+          }
+        }
+
+        .payment-keyboard {
+          padding: 20px;
+          table {
+            margin: 0 auto;
+            td {
+              height: 74px;
+              width: 74px;
+
+              &.number-buttons {
+                font-size: 24px;
+              }
             }
           }
         }
@@ -78,7 +131,7 @@
   }
 
   .bill-panel-container {
-    border: 1px solid red;
+    border-right: 2px solid @main-blue;
     height: ~"calc(100vh - 60px)";
     width: 435px;
     position: fixed;
@@ -127,11 +180,49 @@
     .bill-items-lister {
       width: 100%;
       height: ~"calc(100% - 240px)";
+      overflow-y: auto;
+
+      .bill-item-lister-total-price {
+        font-size: 22px;
+        text-align: right;
+        padding: 10px;
+
+        span {
+          border-top: 2px solid black;
+          padding-top: 5px;
+        }
+      }
+
+      .bill-lister-item {
+        padding: 5px 10px;
+        cursor: pointer;
+
+        &.selected {
+          background: rgba(140, 143, 183, 0.2);
+        }
+
+        .bill-lister-item-name {
+          font-weight: bold;
+        }
+
+        .bill-lister-item-calculations {
+          .bill-lister-item-units {
+            .bill-lister-item-quantity {
+              font-weight: bold;
+            }
+          }
+
+          .bill-lister-item-total {
+            float: right;
+            padding: 0;
+            font-weight: bold;
+          }
+        }
+      }
     }
   }
 
   .product-panel-container {
-    border: 1px solid #0e2bff;
     width: ~"calc(100% - 495px)";
     height: ~"calc(100vh - 60px)";
     position: fixed;
@@ -178,7 +269,7 @@
           padding: 0 3px;
           font-size: 12px;
           line-height: 12px;
-          background: linear-gradient(-180deg,rgba(255,255,255,0.3),rgba(255,255,255,1), rgba(255,255,255,1));
+          background: linear-gradient(-180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
         }
       }
     }
