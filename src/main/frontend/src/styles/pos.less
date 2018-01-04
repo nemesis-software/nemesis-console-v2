@@ -26,6 +26,65 @@
     height: ~"calc(100vh - 60px)";
     background: #eeeeee;
 
+    .payment-receipt-container {
+      background: white;
+      margin: 0 auto;
+      max-width: 1024px;
+      text-align: left;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+
+      .payment-receipt-header {
+        border-bottom: 1px solid @main-blue;
+        text-align: center;
+        padding: 15px;
+
+
+        .next-order-button {
+          display: inline-block;
+          float: right;
+          padding: 5px 8px;
+          font-size: 16px;
+        }
+
+        .payment-receipt-header-text {
+          font-size: 20px;
+          font-weight: bold;
+          display: inline-block;
+        }
+      }
+
+      .payment-receipt {
+        width: 350px;
+        margin: 10px auto;
+        border: 2px solid @border-colors;
+        border-radius: 3px;
+        padding: 10px;
+
+        .payment-receipt-content {
+          margin: 10px 0;
+          table {
+            width: 100%;
+            border: 0;
+            table-layout: fixed;
+
+            tr {
+              td {
+                width: 25%;
+                text-align: right;
+              }
+              td:first-of-type {
+                width: 50%;
+                text-align: left;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
     .payment-methods {
       background: white;
       margin: 0 auto;
