@@ -45,7 +45,7 @@ export default class TreeItem extends Component {
                   return (
                     <div style={this.getRadioButtonStyle(item)} key={index}>
                       <label className="radio-inline" style={{marginBottom: '10px'}}>
-                        <input className="nemesis-radio-button" type="radio" value={item.entityId} defaultChecked={index === 0} onChange={this.handleRadioChange.bind(this)} name={'new-entity'}/>
+                        <input className="nemesis-radio-button default-checked" type="radio" value={item.entityId} defaultChecked={index === 0} onChange={this.handleRadioChange.bind(this)} name={'new-entity'}/>
                         {item.text}
                       </label>
                     </div>
