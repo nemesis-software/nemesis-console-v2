@@ -12,7 +12,7 @@ export default class PaymentMethods extends Component {
         <div className="payment-methods-header">
           <div className="pos-button back-button" onClick={() => this.props.setIsPaymentProcess(false)}>Back</div>
           <div className="payment-methods-header-text">Payment</div>
-          <div className="pos-button validate-button" onClick={() => this.props.onFinalizePayment(this.state.payedAmount)}>Validate</div>
+          <div className="pos-button validate-button" onClick={() => this.props.onFinalizePayment(this.getActualAmountValue())}>Validate</div>
         </div>
         <div style={{height: '100%'}}>
           <div className="payment-types">
@@ -33,11 +33,11 @@ export default class PaymentMethods extends Component {
                 <tbody>
                 <tr>
                   <td className="blue-td">{this.props.totalPrice} $</td>
-                  <td className="payed-number">{this.getActualAmountValue()}</td>
-                  <td className="blue-td">161.00$</td>
+                  <td className="payed-number">{this.getActualAmountValue()} $</td>
+                  <td className="blue-td">{this.getChangeValue()}</td>
                 </tr>
                 <tr>
-                  <td colSpan="3"></td>
+                  <td colSpan="3">{this.getRemainingToPay()}</td>
                 </tr>
                 </tbody>
               </table>
@@ -60,7 +60,7 @@ export default class PaymentMethods extends Component {
                   <td className="number-buttons pos-button" onClick={() => this.onKeyboardButtonClick(7)}>7</td>
                   <td className="number-buttons pos-button" onClick={() => this.onKeyboardButtonClick(8)}>8</td>
                   <td className="number-buttons pos-button" onClick={() => this.onKeyboardButtonClick(9)}>9</td>
-                  <td className="pos-button" rowSpan={2}><i className="material-icons" onClick={() => this.onKeyboardButtonClick('delete')}>backspace</i></td>
+                  <td className="pos-button" rowSpan={2} onClick={() => this.onKeyboardButtonClick('delete')}><i className="material-icons">backspace</i></td>
                 </tr>
                 <tr>
                   <td className="number-buttons pos-button" colSpan={2} onClick={() => this.onKeyboardButtonClick(0)}>0</td>
@@ -80,17 +80,22 @@ export default class PaymentMethods extends Component {
       this.setState({...this.state, payedAmount: ''});
       return;
     }
-
+    console.log('here');
     if (value === 'delete' && this.state.payedAmount.length > 0) {
       let amountActual = this.state.payedAmount;
       amountActual = amountActual.substring(0, amountActual.length - 1);
+      console.log(amountActual);
       this.setState({...this.state, payedAmount: amountActual});
       return;
     }
 
     if (value === 'dot' && this.state.payedAmount.indexOf('.') === -1) {
       let amountActual = this.state.payedAmount;
-      amountActual += '.';
+      if (amountActual.length > 0) {
+        amountActual += '.';
+      } else {
+        amountActual += '0.';
+      }
       this.setState({...this.state, payedAmount: amountActual});
       return;
     }
@@ -109,5 +114,21 @@ export default class PaymentMethods extends Component {
 
   getActualAmountValue() {
     return Number(this.state.payedAmount).toFixed(2);
+  }
+
+  getChangeValue() {
+    if ( this.getActualAmountValue() - this.props.totalPrice >= 0) {
+      return Number(this.getActualAmountValue() - this.props.totalPrice).toFixed(2) + ' $';
+    }
+
+    return false;
+  }
+
+  getRemainingToPay() {
+    if ( this.props.totalPrice - this.getActualAmountValue() > 0) {
+      return Number(this.props.totalPrice - this.getActualAmountValue()).toFixed(2) + ' $';
+    }
+
+    return false;
   }
 }
