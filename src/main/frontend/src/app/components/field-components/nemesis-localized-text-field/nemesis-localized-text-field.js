@@ -112,10 +112,14 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
 
   getFormattedValue(value, language) {
     let languageActual = language || this.state.selectedLanguage;
-    let result = {};
-    result.language = languageActual;
-    result.value = value[languageActual] && value[languageActual].value;
-    return result;
+    if (this.props.type !== nemesisFieldUsageTypes.edit) {
+      let result = {};
+      result.language = languageActual;
+      result.value = value[languageActual] && value[languageActual].value;
+      return result;
+    }
+
+    return value;
   }
 
   handleTranslateIconClick = () => {
