@@ -13,7 +13,7 @@ export default class PaymentProcess extends Component {
     return (
       <div className="payment-process">
         {this.state.isFinalizePayment ?
-          <PaymentReceipt startNextOrder={this.props.startNextOrder} totalPayed={this.state.totalPayed} cart={this.props.cart}/> :
+          <PaymentReceipt startNextOrder={this.onStartNextOrderClick.bind(this)} totalPayed={this.state.totalPayed} cart={this.props.cart}/> :
           <PaymentMethods onFinalizePayment={this.onFinalizePayment.bind(this)} totalPrice={this.props.cart.totalPrice}
                           setIsPaymentProcess={this.props.setIsPaymentProcess}/>
         }
@@ -24,5 +24,11 @@ export default class PaymentProcess extends Component {
 
   onFinalizePayment(totalMoneyPayed) {
     this.setState({isFinalizePayment: true, totalPayed: totalMoneyPayed});
+  }
+
+  onStartNextOrderClick() {
+    this.setState({isFinalizePayment: false}, () => {
+      this.props.startNextOrder();
+    })
   }
 }
