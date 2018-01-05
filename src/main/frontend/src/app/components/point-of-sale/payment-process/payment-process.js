@@ -17,7 +17,6 @@ export default class PaymentProcess extends Component {
           <PaymentMethods onFinalizePayment={this.onFinalizePayment.bind(this)} totalPrice={this.props.cart.totalPrice}
                           setIsPaymentProcess={this.props.setIsPaymentProcess}/>
         }
-
       </div>
     )
   }
