@@ -13,7 +13,7 @@ export default class BillPanel extends Component {
     return (
       <div className="bill-panel-container">
         <BillItemsLister onBillItemClick={this.props.onBillItemClick} selectedProductId={this.props.selectedProductId} cart={this.props.cart}/>
-        <BillControlButtons onKeyboardButtonClick={this.props.onKeyboardButtonClick}/>
+        <BillControlButtons isPaymentDisabled={this.props.cart.products.length === 0} onKeyboardButtonClick={this.props.onKeyboardButtonClick}/>
       </div>
     )
   }

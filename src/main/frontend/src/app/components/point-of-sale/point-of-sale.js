@@ -44,7 +44,7 @@ export default class PointOfSale extends Component {
           <ProductPanel onProductSelect={this.onProductSelect.bind(this)} products={this.state.products}/>
         </div>
         <div style={this.getContainerStyles(!this.state.isPaymentProcess)}>
-          <PaymentProcess cart={this.state.cart} setIsPaymentProcess={this.setIsPaymentProcess.bind(this)}/>
+          <PaymentProcess cart={this.state.cart} setIsPaymentProcess={this.setIsPaymentProcess.bind(this)} startNextOrder={this.startNextOrder.bind(this)}/>
         </div>
       </div>
     )
@@ -93,7 +93,6 @@ export default class PointOfSale extends Component {
   onKeyboardButtonClick(value) {
     if (value === 'payment') {
       if (this.state.cart.products.length === 0) {
-        //TODO: add notification
         return;
       }
       this.setIsPaymentProcess(true);
@@ -166,5 +165,9 @@ export default class PointOfSale extends Component {
 
     _.forIn(data._embedded, (value) => result = result.concat(value));
     return result;
+  }
+
+  startNextOrder() {
+    this.setState({...this.state, isPaymentProcess: false, cart: {products: [], totalPrice: 0}, selectedProductId: -1, isProductQuantityChanged: false})
   }
 }

@@ -9,7 +9,7 @@ export default class BillControlButtons extends Component {
   render() {
     return (
       <div className="bill-control-buttons">
-        <div className="payment-process-button pos-button" onClick={() => this.props.onKeyboardButtonClick('payment')}>
+        <div className={"payment-process-button pos-button" + (this.props.isPaymentDisabled ? ' disabled' : '')} onClick={() => this.props.onKeyboardButtonClick('payment')}>
           <div><i className="material-icons">attach_money</i></div>
           Payment
         </div>

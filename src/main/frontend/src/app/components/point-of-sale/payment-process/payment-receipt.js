@@ -11,11 +11,11 @@ export default class PaymentReceipt extends Component {
       <div className="payment-receipt-container">
         <div className="payment-receipt-header">
           <div className="payment-receipt-header-text">Change $ {changePrice(this.props.cart.totalPrice, this.props.totalPayed)}</div>
-          <div className="pos-button next-order-button" onClick={() => this.props.onFinalizePayment(this.state.payedAmount)}>Next Order</div>
+          <div className="pos-button next-order-button" onClick={() => this.props.startNextOrder()}>Next Order</div>
         </div>
         <div className="payment-receipt">
           <div className="payment-receipt-date">
-
+            {new Date().toLocaleString()}
           </div>
           <div className="payment-receipt-organization">
             <div>Store Company</div>
