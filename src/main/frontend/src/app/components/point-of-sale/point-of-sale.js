@@ -92,6 +92,10 @@ export default class PointOfSale extends Component {
 
   onKeyboardButtonClick(value) {
     if (value === 'payment') {
+      if (this.state.cart.products.length === 0) {
+        //TODO: add notification
+        return;
+      }
       this.setIsPaymentProcess(true);
       return;
     }

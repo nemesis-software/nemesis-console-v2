@@ -12,13 +12,13 @@ export default class PaymentMethods extends Component {
         <div className="payment-methods-header">
           <div className="pos-button back-button" onClick={() => this.props.setIsPaymentProcess(false)}>Back</div>
           <div className="payment-methods-header-text">Payment</div>
-          <div className="pos-button validate-button" onClick={() => this.props.onFinalizePayment(this.getActualAmountValue())}>Validate</div>
+          <div className={"pos-button validate-button" + (this.getChangeValue() ? '' : ' disabled')} onClick={this.onValidateButtonClick.bind(this)}>Validate</div>
         </div>
         <div style={{height: '100%'}}>
           <div className="payment-types">
             <div className="payment-type pos-button">Cash (USD)</div>
-            <div className="payment-type pos-button">Credit card</div>
-            <div className="payment-type pos-button">Voucher</div>
+            <div className="payment-type pos-button disabled">Credit card</div>
+            <div className="payment-type pos-button disabled">Voucher</div>
           </div>
           <div className="payment-calculator">
             <div className="payment-calculation">
@@ -80,11 +80,9 @@ export default class PaymentMethods extends Component {
       this.setState({...this.state, payedAmount: ''});
       return;
     }
-    console.log('here');
     if (value === 'delete' && this.state.payedAmount.length > 0) {
       let amountActual = this.state.payedAmount;
       amountActual = amountActual.substring(0, amountActual.length - 1);
-      console.log(amountActual);
       this.setState({...this.state, payedAmount: amountActual});
       return;
     }
@@ -130,5 +128,12 @@ export default class PaymentMethods extends Component {
     }
 
     return false;
+  }
+
+  onValidateButtonClick() {
+    if (!this.getChangeValue()) {
+      return;
+    }
+    this.props.onFinalizePayment(this.getActualAmountValue());
   }
 }

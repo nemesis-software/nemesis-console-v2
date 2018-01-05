@@ -26,7 +26,10 @@ export default class BillItemsLister extends Component {
             </div>
           )
         })}
-        <div className="bill-item-lister-total-price"><span>Total price: {this.props.cart.totalPrice}$</span></div>
+        {this.props.cart.products.length === 0 ?
+          <div className="bill-empty-cart">Your shopping cart is empty</div> :
+          <div className="bill-item-lister-total-price"><span>Total price: {this.props.cart.totalPrice}$</span></div>
+        }
       </div>
     )
   }
