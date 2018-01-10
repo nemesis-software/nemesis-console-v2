@@ -118,12 +118,13 @@ export default class TreeItem extends Component {
   }
 
   handleSelectCreateEntity() {
-    this.props.onEntityClick({
-      isNew: true,
-      entityId: this.state.creationEntity.id,
-      entityName: this.selectedCreatingItem
+    this.setState({...this.state, openModalCreation: false}, () => {
+      this.props.onEntityClick({
+        isNew: true,
+        entityId: this.state.creationEntity.id,
+        entityName: this.selectedCreatingItem
+      });
     });
-    this.setState({...this.state, openModalCreation: false});
   }
 
   onCreateEntityClick(entity) {
