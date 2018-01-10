@@ -81,7 +81,6 @@ export default class NemesisSimpleLocalizedTextField extends NemesisBaseField {
   }
 
   onLanguageChange(language) {
-    console.log('ll', language);
     this.setState({...this.state, selectedLanguage: language});
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(this.state.value || {}, language));

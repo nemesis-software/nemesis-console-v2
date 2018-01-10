@@ -19,8 +19,6 @@ export default class RoleView extends Component {
 
   componentWillMount() {
     return Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('site')]).then(result => {
-      console.log(result[1].data);
-      console.log(result[0].data);
       this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sites: this.mapCollectionData(result[2].data)});
     })
   }

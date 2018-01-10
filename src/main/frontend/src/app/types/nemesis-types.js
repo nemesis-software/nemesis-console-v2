@@ -21,7 +21,8 @@ export const nemesisFieldTypes = {
 
 export const nemesisFieldUsageTypes = {
   search: 'SEARCH',
-  edit: 'EDIT'
+  edit: 'EDIT',
+  quickView: 'QUICK_VIEW'
 };
 
 export const searchRestrictionTypes = {

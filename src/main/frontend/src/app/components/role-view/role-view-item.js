@@ -4,6 +4,10 @@ import ApiCall from '../../services/api-call';
 
 import RoleViewEntityWindow from './role-view-entity-window';
 
+import QuickViewHelper from 'servicesDir/quick-view-helper';
+
+import PropTypes from 'prop-types';
+
 import _ from 'lodash';
 
 export default class RoleViewItem extends Component {
@@ -63,30 +67,38 @@ export default class RoleViewItem extends Component {
         flattedFields = flattedFields.concat(section.items);
       });
       console.log(flattedFields);
-      let config = {
-        mainView: ['code', 'title', 'content'],
-        sideBar: [
-          {groupName: 'Status', items: ['publishDate', 'entity-thumbnail']},
-          {groupName: 'Images', items: ['publishDate', 'entity-thumbnail']},
-          {groupName: 'Addition fields', items: ['publishDate', 'entity-thumbnail']},
-        ]
-      };
+      let config = QuickViewHelper[this.props.item];
 
-      let result = {mainView: null, sideBar: []};
-      result.mainView = _.filter(flattedFields, item => {
-        return config.mainView.indexOf(item.name) > -1;
+      let mainViewActual = [];
+      _.forEach(config.mainView, item => {
+        let itemIndex = _.findIndex(flattedFields, (field) => {
+          return field.name === item.name;
+        });
+
+        if (itemIndex > -1) {
+          mainViewActual.push({field: flattedFields[itemIndex], embeddedCreation: item.embeddedCreation});
+        }
       });
 
+      let sideBarActual = [];
       _.forEach(config.sideBar, sideBarItem => {
-        result.sideBar.push({
+        let sideBarItemActual = [];
+        _.forEach(sideBarItem.items, (item) => {
+          let itemIndex = _.findIndex(flattedFields, (field) => {
+            return field.name === item.name;
+          });
+          if (itemIndex > -1) {
+            sideBarItemActual.push({field: flattedFields[itemIndex], embeddedCreation: item.embeddedCreation});
+          }
+        });
+
+        sideBarActual.push({
           groupName: sideBarItem.groupName,
-          items: _.filter(flattedFields, item => {
-            return sideBarItem.items.indexOf(item.name) > -1;
-          })
+          items: sideBarItemActual
         });
       });
 
-      return result;
+      return {mainView: mainViewActual, sideBar: sideBarActual};
     }
 
     return {};

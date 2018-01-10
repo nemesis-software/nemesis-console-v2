@@ -35,12 +35,14 @@ export default class RoleViewEntityWindow extends Component {
   }
 
   render() {
+    console.log(this.state.entityData);
     return (
       <div>
         {this.state.isEntitySelected ?
           <RoleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityId={this.props.entityId} entityData={this.state.entityData} entityFields={this.props.entityFields}/>
           :
           <div style={this.props.style} className="entities-table-viewer">
+            <button onClick={this.onClickCreateNewEntityButton.bind(this)}>Create New entity</button>
             <table>
               <thead>
               {/*<tr className="navigation-header">*/}
@@ -115,12 +117,6 @@ export default class RoleViewEntityWindow extends Component {
     _.forEach(sortData, sortElement => {
       result.push(`${sortElement.field},${sortElement.orderType}`);
     });
-    return result;
-  }
-
-  mapCollectionData(data) {
-    let result = [];
-    _.forIn(data._embedded, (value) => result = result.concat(value));
     return result;
   }
 
@@ -209,6 +205,12 @@ export default class RoleViewEntityWindow extends Component {
 
     console.log('relatedEntities', result);
     return result;
+  }
+
+  onClickCreateNewEntityButton() {
+    ApiCall.get(`subtypes/${this.props.entityId}`).then(result => {
+      console.log(result);
+    })
   }
 
   mapCollectionData(data) {
