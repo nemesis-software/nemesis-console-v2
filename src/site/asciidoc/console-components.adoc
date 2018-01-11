@@ -77,7 +77,7 @@ The `navigation-tree` consists of different items. Each item may contain differe
 
 [.center.text-left]
 .navigation-tree-item
-image::navigation-tree-item.png[Nemesis Backend Console Navigation Tree Item Component]
+image::navigation-tree-item.PNG[Nemesis Backend Console Navigation Tree Item Component]
 
 As shown on the picture, we have a 3-level-structure of a navigation item. `Commerce` is a `navigation-tree-item`, containing instances of `Catalog`, `Order`, `Price`, `Location` and `Leasing`. They are `navigation-tree-item`-s again. Each of these, on an inner level, has its editable instances. The `Manufacturer` is also a `navigation-tree-item`.
 
