@@ -18,8 +18,8 @@ export default class RoleView extends Component {
   }
 
   componentWillMount() {
-    return Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('site')]).then(result => {
-      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sites: this.mapCollectionData(result[2].data)});
+    return Promise.all([ ApiCall.get('site')]).then(result => {
+      this.setState({sites: this.mapCollectionData(result[0].data)});
     })
   }
 
@@ -39,9 +39,7 @@ export default class RoleView extends Component {
           {
             this.state.isItemSelected ?
               <RoleViewItem item={this.state.selectedItem}
-                            sites={this.state.sites}
-                            entityMarkupData={this.state.entityMarkupData}
-                            markupData={this.state.markupData}/>
+                            sites={this.state.sites}/>
               : false
           }
         </div>

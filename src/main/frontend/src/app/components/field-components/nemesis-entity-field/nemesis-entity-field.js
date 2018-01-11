@@ -6,13 +6,15 @@ import _ from 'lodash';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 import Modal from 'react-bootstrap/lib/Modal';
 import NemesisBaseField from '../nemesis-base-field'
+import EmbeddedCreation from '../../embedded-creation/embedded-creation';
 
 import SelectCustomArrow from '../../helper-components/select-custom-arrow';
 
 export default class NemesisEntityField extends NemesisBaseField {
   constructor(props) {
     super(props);
-    this.state = {...this.state, openErrorDialog: false, errorMessage: null };
+    console.log('props', props);
+    this.state = {...this.state, openErrorDialog: false, errorMessage: null, openEmbeddedCreation: false };
   }
 
   render() {
@@ -30,7 +32,9 @@ export default class NemesisEntityField extends NemesisBaseField {
                       loadOptions={this.filterEntityData.bind(this)}/>
       </div>
       {this.props.type === nemesisFieldUsageTypes.edit ? <i className={'material-icons entity-navigation-icon' + (!this.state.value ? ' disabled' : '')} onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
+      {(this.props.type === nemesisFieldUsageTypes.quickView) && this.props.embeddedCreation ? <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i> : false}
       {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+      {this.state.openEmbeddedCreation ? <EmbeddedCreation entityId={this.props.entityId}/> : false}
       {this.getErrorDialog()}
     </div>
     )
@@ -137,5 +141,9 @@ export default class NemesisEntityField extends NemesisBaseField {
     }
 
     return null;
+  }
+
+  openEmbeddedCreation() {
+    this.setState({openEmbeddedCreation: true});
   }
 }

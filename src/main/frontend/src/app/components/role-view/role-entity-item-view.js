@@ -113,7 +113,7 @@ export default class RoleEntityItemView extends Component {
       readOnly: item.field.readOnly,
       required: item.field.required,
       value: this.getItemValue(item.field, itemName),
-      type: nemesisFieldUsageTypes.edit,
+      type: nemesisFieldUsageTypes.quickView,
       ref: (field) => { field && this.fieldsReferences.push(field)}
     };
 

@@ -11,9 +11,9 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 export default class RoleViewItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {isCatalogable: props.entityMarkupData[props.item].synchronizable, selectedCatalogs: null, selectedSite: null};
+  constructor(props, context) {
+    super(props, context);
+    this.state = {isCatalogable: context.entityMarkupData[props.item].synchronizable, selectedCatalogs: null, selectedSite: null};
   }
 
   render() {
@@ -51,7 +51,7 @@ export default class RoleViewItem extends Component {
   getEntityWindowSearchResultFields() {
     if (this.props.item === 'blog_entry') {
       let allowedSearchFileds = ['title', 'thumbnail', 'publishDate', 'categories'];
-      return _.filter(this.props.markupData[this.props.item].result, (item) => {
+      return _.filter(this.context.markupData[this.props.item].result, (item) => {
         return allowedSearchFileds.indexOf(item.name) > -1;
       })
     }
@@ -63,7 +63,7 @@ export default class RoleViewItem extends Component {
     if (this.props.item === 'blog_entry') {
       let flattedFields = [];
 
-      this.props.entityMarkupData[this.props.item].sections.forEach(section => {
+      this.context.entityMarkupData[this.props.item].sections.forEach(section => {
         flattedFields = flattedFields.concat(section.items);
       });
       console.log(flattedFields);
@@ -104,3 +104,8 @@ export default class RoleViewItem extends Component {
     return {};
   }
 }
+
+RoleViewItem.contextTypes = {
+  markupData: PropTypes.object,
+  entityMarkupData: PropTypes.object
+};
