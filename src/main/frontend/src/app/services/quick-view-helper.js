@@ -8,7 +8,7 @@ export default {
     ]
   },
   media: {
-    mainView: [{name: 'code'}, {name: 'entity-medialFolder', embeddedCreation: true}, {name: 'previewUrl'}]
+    mainView: [{name: 'code'}, {name: 'entity-mediaFolder', embeddedCreation: true}, {name: 'previewUrl'}]
   },
   media_folder: {
     mainView: [{name: 'code'}, {name: 'name'}, {name: 'entity-parent'}]

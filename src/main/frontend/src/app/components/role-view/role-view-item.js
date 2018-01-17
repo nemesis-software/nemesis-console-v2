@@ -4,8 +4,6 @@ import ApiCall from '../../services/api-call';
 
 import RoleViewEntityWindow from './role-view-entity-window';
 
-import QuickViewHelper from 'servicesDir/quick-view-helper';
-
 import PropTypes from 'prop-types';
 
 import _ from 'lodash';
@@ -67,7 +65,7 @@ export default class RoleViewItem extends Component {
         flattedFields = flattedFields.concat(section.items);
       });
       console.log(flattedFields);
-      let config = QuickViewHelper[this.props.item];
+      let config = this.context.quickViewData[this.props.item];
 
       let mainViewActual = [];
       _.forEach(config.mainView, item => {
@@ -107,5 +105,6 @@ export default class RoleViewItem extends Component {
 
 RoleViewItem.contextTypes = {
   markupData: PropTypes.object,
-  entityMarkupData: PropTypes.object
+  entityMarkupData: PropTypes.object,
+  quickViewData: PropTypes.object
 };

@@ -8,7 +8,7 @@ export default class EntityTypeCreationModal extends Component {
   constructor(props) {
     super(props);
     this.state = {creationEntity: null};
-    this.selectedCreatingItem = null;
+    this.selectedCreatingItem = this.props.entityId;
   }
 
   componentWillMount() {
@@ -49,11 +49,11 @@ export default class EntityTypeCreationModal extends Component {
   }
 
   handleSelectCreateEntity() {
-
+    this.props.onEntityTypeSelected(this.selectedCreatingItem);
   }
 
   handleModalClose() {
-
+    this.props.onModalCancel();
   }
 
   getRadioButtonStyle(item) {
