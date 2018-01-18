@@ -72,9 +72,9 @@ export default class RoleEntityItemView extends Component {
             selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
           />
         </div>
-        <div style={{display: 'inline-block', width: '70%', verticalAlign: 'top'}}>
+        <div style={{display: 'inline-block', width: '710px', verticalAlign: 'top', padding: '20px'}}>
           {_.map(this.props.entityFields.mainView, (item, key) => {
-            return <div key={key}>{this.getSectionItemRenderer(item, key)}</div>
+            return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
           })}
         </div>
         <SideBar isSidebarOpened={this.state.isSidebarOpened}
@@ -219,5 +219,13 @@ export default class RoleEntityItemView extends Component {
 
   handleRequestError(err) {
     console.log('err', err)
+  }
+
+  getFieldStyle(item) {
+    if (item.embeddedCreation || item.field.xtype === nemesisFieldTypes.nemesisMapField) {
+      return ' with-icon';
+    }
+
+    return '';
   }
 }

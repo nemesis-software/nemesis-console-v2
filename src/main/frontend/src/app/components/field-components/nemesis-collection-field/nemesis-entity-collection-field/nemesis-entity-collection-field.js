@@ -1,32 +1,40 @@
 import React from 'react';
 import Select from 'react-select';
 import NemesisBaseCollectionField from '../nemesis-base-collection-field';
+import {nemesisFieldUsageTypes} from '../../../../types/nemesis-types';
 import ApiCall from '../../../../services/api-call';
 import _ from 'lodash';
 import Translate from 'react-translate-component';
+import EmbeddedCreation from '../../../embedded-creation/embedded-creation';
 
 import SelectCustomArrow from '../../../helper-components/select-custom-arrow';
-
 
 export default class NemesisEntityCollectionField extends NemesisBaseCollectionField {
   constructor(props) {
     super(props);
+    this.state = {...this.state, openEmbeddedCreation: false};
   }
 
   getInputField() {
     return (
       <div className="entity-field-container">
         <div className="entity-field-input-container">
-          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ? <span className="required-star">*</span> : false}</div>
+          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
+            <span className="required-star">*</span> : false}</div>
           <Select.Async style={this.getSelectStyle()}
                         cache={false}
                         className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
-                        arrowRenderer={() => <SelectCustomArrow />}
+                        arrowRenderer={() => <SelectCustomArrow/>}
                         disabled={this.props.readOnly}
                         onChange={this.onItemSelect.bind(this)}
                         loadOptions={this.filterEntityData.bind(this)}/>
           {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         </div>
+        {(this.props.type === nemesisFieldUsageTypes.quickView) && this.props.embeddedCreation ?
+          <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i> : false}
+        {this.state.openEmbeddedCreation ?
+          <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
+                            entityId={this.props.entityId}/> : false}
       </div>
     )
   }
@@ -68,7 +76,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getAutocompleteRenderingValue(item) {
-    if (item.entityName === 'cms_slot'){
+    if (item.entityName === 'cms_slot') {
       return `${item.code}:${item.position}`
     }
 
@@ -85,9 +93,22 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
       visualizationContent = `${item.code}:${item.position}`;
     }
 
-    return (<div className="chip-item">
-      <span style={{verticalAlign: 'top'}}>{visualizationContent}</span>
-      <i style={{verticalAlign: 'top'}} className="material-icons" onClick={() =>  this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i>
-    </div>)
+    return (
+      <div className="chip-item">
+        <span style={{verticalAlign: 'top'}}>{visualizationContent}</span>
+        {this.props.type !== nemesisFieldUsageTypes.quickView ? <i style={{verticalAlign: 'top'}} className="material-icons"
+           onClick={() => this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i> : false}
+      </div>
+    )
+  }
+
+  openEmbeddedCreation() {
+    this.setState({openEmbeddedCreation: true});
+  }
+
+  onCreateEmbeddedEntity(entity) {
+    this.setState({openEmbeddedCreation: false}, () => {
+      this.onValueChange(entity);
+    })
   }
 }

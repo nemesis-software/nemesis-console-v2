@@ -37,7 +37,8 @@ export default class NemesisEntityField extends NemesisBaseField {
           <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i> : false}
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         {this.state.openEmbeddedCreation ?
-          <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)} entityId={this.props.entityId}/> : false}
+          <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
+                            entityId={this.props.entityId}/> : false}
         {this.getErrorDialog()}
       </div>
     )

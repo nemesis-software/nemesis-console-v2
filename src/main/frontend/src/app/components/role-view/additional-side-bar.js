@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import _ from 'lodash';
 
+import { nemesisFieldTypes} from '../../types/nemesis-types';
+
 export default class AdditionalSidebar extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ export default class AdditionalSidebar extends Component {
             return <div key={key} style={this.getChoosenGroupStyle(item.groupName)}>
               {item.groupName}
               {_.map(item.items, (item, key) => {
-                return <div key={key}>{this.props.getSectionItemRenderer(item, key)}</div>
+                return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.props.getSectionItemRenderer(item, key)}</div>
               })}
             </div>
           })}
@@ -67,5 +69,13 @@ export default class AdditionalSidebar extends Component {
 
   setSelectedGroup(selectedGroup) {
     this.setState({...this.state, selectedGroup: selectedGroup})
+  }
+
+  getFieldStyle(item) {
+    if (item.embeddedCreation || item.field.xtype === nemesisFieldTypes.nemesisMapField) {
+      return ' with-icon';
+    }
+
+    return '';
   }
 }

@@ -35,7 +35,7 @@ export default class NemesisMapField extends NemesisBaseField {
                  disabled={this.props.readOnly || !this.state.selectedKey}
                  onChange={(e) => this.onValueChange(e, e.target.value)} />
         </div>
-        {this.props.type === nemesisFieldUsageTypes.edit ?
+        {this.props.type === nemesisFieldUsageTypes.edit || this.props.type === nemesisFieldUsageTypes.quickView ?
           (
             <i className="fa fa-table entity-navigation-icon" onClick={this.handleAllFieldsIconClick.bind(this)}/>
           ) : false

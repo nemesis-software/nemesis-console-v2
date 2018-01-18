@@ -2,7 +2,7 @@ export default {
   blog_entry: {
     mainView: [{name: 'code'}, {name: 'title'}, {name: 'content'}],
     sideBar: [
-      {groupName: 'Status', items: [{name: 'publishDate'}, {name: 'entity-categories'}]},
+      {groupName: 'Status', items: [{name: 'publishDate'}, {name: 'entity-categories', embeddedCreation: true}]},
       {groupName: 'Images', items: [{name: 'entity-picture'}, {name: 'entity-thumbnail', embeddedCreation: true}]},
       {groupName: 'Addition fields', items: [{name: 'teaser'}, {name: 'socialMetadataAttributes'}]},
     ]

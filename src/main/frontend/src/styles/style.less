@@ -81,6 +81,36 @@ body {
     position: relative;
     overflow-x: hidden;
 
+    .nemesis-field-container {
+      margin-right: 15px;
+      margin-bottom: 15px;
+      padding: 20px 20px 30px 20px;
+      display: block;
+      vertical-align: top;
+
+      &.with-icon {
+        padding-right: 10px;
+        .entity-field-container {
+          .entity-field-input-container {
+            width: ~"calc(100% - 35px)";
+          }
+        }
+      }
+
+      .entity-field-container {
+        width: 100%;
+
+        .entity-field-input-container {
+          display: inline-block;
+          width: 100%;
+
+          label {
+            vertical-align: top;
+          }
+        }
+      }
+    }
+
     .additional-sidebar {
       position: fixed;
       right: -500px;
@@ -176,13 +206,13 @@ body {
         padding: 0 20px;
 
         .Select-value-label {
-          color: @light-font-color!important;
+          color: @light-font-color !important;
         }
       }
     }
 
     .select-custom-arrow {
-      color: @light-font-color!important;
+      color: @light-font-color !important;
     }
   }
 
@@ -191,7 +221,6 @@ body {
     display: inline-block;
     color: @light-font-color;
     margin: 7px 20px;
-
 
     span {
       font-size: 16px;
@@ -210,10 +239,10 @@ body {
     padding: 0;
     margin-right: 10px;
     border-radius: 0;
-    border: none!important;
-    color: white!important;
-    background: @main-blue!important;
-    box-shadow: none!important;
+    border: none !important;
+    color: white !important;
+    background: @main-blue !important;
+    box-shadow: none !important;
   }
 
   .live-edit-dropdown-content {
@@ -475,7 +504,7 @@ body {
     }
 
     &.form-control {
-      height: 36px!important;
+      height: 36px !important;
     }
 
     &[disabled] {
@@ -517,7 +546,7 @@ body {
 
   .chip {
     display: table;
-    padding: 10px 15px;
+    padding: 10px 25px;
     font-size: 14px;
     border-radius: 25px;
     background-color: #f1f1f1;
@@ -580,7 +609,7 @@ body {
 .modal {
   z-index: 1000000 !important;
   .modal-content {
-    border-radius: 0!important;
+    border-radius: 0 !important;
   }
 }
 
@@ -623,7 +652,7 @@ body {
 
 .nemesis-html-editor {
   .btn, .form-control, .dropdown-menu {
-    border-radius: 0!important;
+    border-radius: 0 !important;
   }
 }
 
@@ -760,7 +789,6 @@ body {
     margin: 0 0 2px 0 !important;
     padding: 10px 15px 0;
     z-index: 100;
-
 
     .entity-nav-dropdown {
       background: @main-blue-darker;
@@ -909,7 +937,7 @@ body {
 }
 
 .form-control:not(textarea, div) {
-  height: 36px!important;
+  height: 36px !important;
 }
 
 .admin-panel {
@@ -1038,13 +1066,21 @@ body {
 }
 
 @keyframes spin {
-  from { transform: scale(1) rotate(360deg); }
-  to { transform: scale(1) rotate(0deg); }
+  from {
+    transform: scale(1) rotate(360deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 @-webkit-keyframes spin2 {
-  from { -webkit-transform: rotate(360deg); }
-  to { -webkit-transform: rotate(0deg); }
+  from {
+    -webkit-transform: rotate(360deg);
+  }
+  to {
+    -webkit-transform: rotate(0deg);
+  }
 }
 
 @media (min-width: 1440px) and (max-width: 1790px) {
