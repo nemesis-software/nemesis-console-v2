@@ -60,15 +60,14 @@ export default class EmbeddedCreationPortal extends Component {
     return ReactDOM.createPortal(
       (
         <div className="embedded-creation-portal">
-          test
           <div style={{verticalAlign: 'top'}}>
             {_.map(this.state.entityFields, (item, key) => {
-              return <div key={key}>{this.getSectionItemRenderer(item, key)}</div>
+              return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
             })}
           </div>
-          <div>
-            <button onClick={() => this.props.onCreationCancel()}>Cancel</button>
-            <button onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
+          <div className="portal-action-buttons-container">
+            <button className="nemesis-button success-button" style={{marginRight: '15px'}} onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
+            <button className="nemesis-button decline-button" onClick={() => this.props.onCreationCancel()}>Cancel</button>
           </div>
         </div>
 
@@ -210,6 +209,14 @@ export default class EmbeddedCreationPortal extends Component {
 
   handleRequestError(err) {
     console.log('err', err)
+  }
+
+  getFieldStyle(item) {
+    if (item.embeddedCreation || item.field.xtype === nemesisFieldTypes.nemesisMapField) {
+      return ' with-icon';
+    }
+
+    return '';
   }
 }
 

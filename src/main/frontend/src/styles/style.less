@@ -32,6 +32,41 @@ body {
     background: white;
     padding: 20px;
 
+    .portal-action-buttons-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .nemesis-field-container {
+      margin-right: 15px;
+      margin-bottom: 15px;
+      padding: 20px 20px 30px 20px;
+      display: block;
+      vertical-align: top;
+
+      &.with-icon {
+        padding-right: 10px;
+        .entity-field-container {
+          .entity-field-input-container {
+            width: ~"calc(100% - 35px)";
+          }
+        }
+      }
+
+      .entity-field-container {
+        width: 100%;
+
+        .entity-field-input-container {
+          display: inline-block;
+          width: 100%;
+
+          label {
+            vertical-align: top;
+          }
+        }
+      }
+    }
+
     &:not(:last-of-type) {
       display: none;
     }
