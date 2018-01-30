@@ -41,7 +41,6 @@ let NemesisEntityCollectionField = componentRequire('app/components/field-compon
 export default class RoleEntityItemView extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.fieldsReferences = [];
     this.state = {isSidebarOpened: false};
   }
@@ -57,31 +56,33 @@ export default class RoleEntityItemView extends Component {
   render() {
     return (
       <div className="role-entity-item-view">
-        <div>
-          <button onClick={() => {this.setState({...this.state, isSidebarOpened: true})}}>Open Sidebar</button>
-          <button onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
-          <button onClick={() => this.props.closeSelectedEntityView(true)}>Close View</button>
+        <div className="role-entity-item-view-header">
+          {/*<button onClick={() => {this.setState({...this.state, isSidebarOpened: true})}}>Open Sidebar</button>*/}
+          <button className="nemesis-button success-button save-button" onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
+          <div className="back-button" title="back" onClick={() => this.props.closeSelectedEntityView(true)}><i className="material-icons">arrow_back</i></div>
 
           <LanguageChanger
-            readOnly={this.props.readOnly}
-            label="language"
             selectClassName="entity-field"
-            style={{marginRight: '15px', ...this.props.style}}
+            style={{...this.props.style}}
             onLanguageChange={this.onLanguageChange.bind(this)}
             availableLanguages={translationLanguages.languages}
             selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
           />
         </div>
-        <div style={{display: 'inline-block', width: '710px', verticalAlign: 'top', padding: '20px'}}>
-          {_.map(this.props.entityFields.mainView, (item, key) => {
-            return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
-          })}
+        <div className="role-entity-main-content">
+          <div className="role-entity-item-main-view">
+            <div style={{display: 'inline-block', width: '100%', verticalAlign: 'top', padding: '0 20px'}}>
+              {_.map(this.props.entityFields.mainView, (item, key) => {
+                return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
+              })}
+            </div>
+          </div>
+          <SideBar isSidebarOpened={this.state.isSidebarOpened}
+                   sideBar={this.props.entityFields.sideBar}
+                   closeSidebar={() => {this.setState({...this.state, isSidebarOpened: false})}}
+                   getSectionItemRenderer={this.getSectionItemRenderer.bind(this)}
+          />
         </div>
-        <SideBar isSidebarOpened={this.state.isSidebarOpened}
-                 sideBar={this.props.entityFields.sideBar}
-                 closeSidebar={() => {this.setState({...this.state, isSidebarOpened: false})}}
-                 getSectionItemRenderer={this.getSectionItemRenderer.bind(this)}
-        />
       </div>
     )
   }

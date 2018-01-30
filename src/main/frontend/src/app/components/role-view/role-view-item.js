@@ -17,7 +17,6 @@ export default class RoleViewItem extends Component {
   render() {
     return (
       <div>
-        Role view item
         {
           this.state.isCatalogable && !this.state.selectedCatalogs ?
             <div>{this.props.sites.map(site => {

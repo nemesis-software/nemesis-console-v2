@@ -61,7 +61,7 @@ body {
 }
 
 .role-view {
-  padding: 60px;
+  padding: 60px 0 60px 60px;
 
   .role-view-item-selector {
     padding: 20px;
@@ -81,48 +81,115 @@ body {
     position: relative;
     overflow-x: hidden;
 
-    .nemesis-field-container {
-      margin-right: 15px;
-      margin-bottom: 15px;
-      padding: 20px 20px 30px 20px;
-      display: block;
-      vertical-align: top;
+    .role-entity-item-view-header {
+      padding: 20px 100px;
+      text-align: right;
+      position: relative;
 
-      &.with-icon {
-        padding-right: 10px;
-        .entity-field-container {
-          .entity-field-input-container {
-            width: ~"calc(100% - 35px)";
-          }
+      .save-button {
+        padding: 8px 25px;
+        height: 36px;
+        width: 200px;
+        margin-right: 10px;
+      }
+
+      .back-button {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+
+        .material-icons {
+          font-size: 30px;
+          color: @main-blue-darker;
+          cursor: pointer;
+          font-weight: bold;
         }
       }
 
-      .entity-field-container {
-        width: 100%;
-
-        .entity-field-input-container {
-          display: inline-block;
-          width: 100%;
-
-          label {
-            vertical-align: top;
-          }
-        }
+      .language-changer {
+        text-align: left;
+        width: 200px;
       }
     }
 
-    .additional-sidebar {
-      position: fixed;
-      right: -500px;
-      width: 500px;
-      transition: right .5s ease-out;
-      top: 60px;
-      height: ~"calc(100vh - 60px)";
+    .role-entity-main-content {
+      position: relative;
 
-      &.opened {
-        width: 500px;
-        right: 0;
-        transition: right .5s ease-in;
+      .role-entity-item-main-view {
+        width: ~"calc(100% - 510px)";
+        display: inline-block;
+        text-align: center;
+        vertical-align: top;
+      }
+
+      .nemesis-field-container {
+        margin-right: 15px;
+        margin-bottom: 15px;
+        padding: 20px 20px 30px 20px;
+        display: block;
+        vertical-align: top;
+
+        &.with-icon {
+          padding-right: 10px;
+          .entity-field-container {
+            .entity-field-input-container {
+              width: ~"calc(100% - 35px)";
+            }
+          }
+        }
+
+        .entity-field-container {
+          width: 100%;
+
+          .entity-field-input-container {
+            display: inline-block;
+            width: 100%;
+
+            label {
+              vertical-align: top;
+            }
+          }
+        }
+      }
+
+      .additional-sidebar-container {
+        display: inline-block;
+        width: 510px;
+        position: relative;
+
+        .back-to-group-button {
+          position: absolute;
+          top: 10px;
+          left: 0;
+
+          .material-icons {
+            font-size: 30px;
+            color: @main-blue-darker;
+            cursor: pointer;
+            font-weight: bold;
+          }
+        }
+
+        .groups-container {
+          text-align: center;
+
+          .group-item-button {
+            display: block;
+            width: 412px;
+            margin-bottom: 10px;
+          }
+        }
+
+        .selected-group {
+
+          .group-name-container {
+            text-align: center;
+            font-size: 20px;
+            padding: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+          }
+        }
       }
     }
   }
@@ -1110,6 +1177,38 @@ body {
     }
   }
 }
+
+//@media (max-width: 1279px) {
+//  .role-view {
+//    .role-entity-item-view {
+//      .role-entity-main-content {
+//        .additional-sidebar-container {
+//          overflow: hidden;
+//          .additional-sidebar {
+//            right: -500px;
+//            width: 500px;
+//            transition: right .5s ease-out;
+//            top: 60px;
+//            height: ~"calc(100vh - 60px)";
+//          }
+//          &.opened {
+//            display: block;
+//            position: absolute;
+//            top: 0;
+//            left: 0;
+//            width: 100%;
+//            height: 100%;
+//            background: rgba(0, 0, 0, 0.5);
+//            .additional-sidebar {
+//              right: 0;
+//              transition: right .5s ease-in;
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
+//}
 
 @media (max-width: 1085px) {
   .entity-field-container {

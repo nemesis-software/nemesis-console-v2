@@ -1,4 +1,3 @@
-
 import { nemesisFieldTypes} from '../types/nemesis-types';
 
 export default class CssClassHelper {

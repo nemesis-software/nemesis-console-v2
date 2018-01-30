@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import _ from 'lodash';
 
-import { nemesisFieldTypes} from '../../types/nemesis-types';
+import {nemesisFieldTypes} from '../../types/nemesis-types';
 
 export default class AdditionalSidebar extends Component {
   constructor(props) {
@@ -12,26 +12,30 @@ export default class AdditionalSidebar extends Component {
 
   render() {
     return (
-      <div className={'additional-sidebar' + (this.props.isSidebarOpened ? ' opened' : '')}>
-        <button onClick={() => {
-          this.props.closeSidebar();
-          this.setSelectedGroup(null);
-        }}>Close Sidebar</button>
-        <button onClick={() => this.setSelectedGroup(null)}>Back to groups</button>
-        <div className="groups-container" style={this.getGroupContainerStyle()}>
-          {_.map(this.props.sideBar, (item, key) => {
-            return <div key={key} onClick={() => this.setSelectedGroup(item.groupName)}>{item.groupName}</div>
-          })}
-        </div>
-        <div className="selected-group" style={this.getSelectedGroupStyle()}>
-          {_.map(this.props.sideBar, (item, key) => {
-            return <div key={key} style={this.getChoosenGroupStyle(item.groupName)}>
-              {item.groupName}
-              {_.map(item.items, (item, key) => {
-                return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.props.getSectionItemRenderer(item, key)}</div>
-              })}
-            </div>
-          })}
+      <div className={'additional-sidebar-container' + (this.props.isSidebarOpened ? ' opened' : '')}>
+        <div className={'additional-sidebar'}>
+          {/*<button onClick={() => {*/}
+            {/*this.props.closeSidebar();*/}
+            {/*this.setSelectedGroup(null);*/}
+          {/*}}>Close Sidebar*/}
+          {/*</button>*/}
+          {this.state.selectedGroup ? <div className="back-to-group-button" title="back to groups" onClick={() => this.setSelectedGroup(null)}><i className="material-icons">arrow_back</i></div> : false}
+          <div className="groups-container" style={this.getGroupContainerStyle()}>
+            {_.map(this.props.sideBar, (item, key) => {
+              return <div className="group-item-button nemesis-button success-button" key={key} onClick={() => this.setSelectedGroup(item.groupName)}>{item.groupName}</div>
+            })}
+          </div>
+          <div className="selected-group" style={this.getSelectedGroupStyle()}>
+            {_.map(this.props.sideBar, (item, key) => {
+              return <div key={key} style={this.getChoosenGroupStyle(item.groupName)}>
+                <div className="group-name-container">{item.groupName}</div>
+                {_.map(item.items, (item, key) => {
+                  return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)}
+                              key={key}>{this.props.getSectionItemRenderer(item, key)}</div>
+                })}
+              </div>
+            })}
+          </div>
         </div>
       </div>
     )
