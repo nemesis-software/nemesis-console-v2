@@ -1,6 +1,6 @@
 export default {
   blog_entry: {
-    mainView: [{name: 'code'}, {name: 'title'}, {name: 'content'}],
+    mainView: [{name: 'code'}, {name: 'title'}, {name: 'entity-catalogVersion'}, {name: 'content'}],
     sideBar: [
       {groupName: 'Status', items: [{name: 'publishDate'}, {name: 'entity-categories', embeddedCreation: true}]},
       {groupName: 'Images', items: [{name: 'entity-picture'}, {name: 'entity-thumbnail', embeddedCreation: true}]},

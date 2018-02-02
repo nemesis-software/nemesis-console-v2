@@ -42,7 +42,7 @@ export default class RoleEntityItemView extends Component {
   constructor(props) {
     super(props);
     this.fieldsReferences = [];
-    this.state = {isSidebarOpened: false};
+    this.state = {isSidebarOpened: false, isEntityUpdated: false};
   }
 
   componentWillMount() {
@@ -59,7 +59,7 @@ export default class RoleEntityItemView extends Component {
         <div className="role-entity-item-view-header">
           {/*<button onClick={() => {this.setState({...this.state, isSidebarOpened: true})}}>Open Sidebar</button>*/}
           <button className="nemesis-button success-button save-button" onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
-          <div className="back-button" title="back" onClick={() => this.props.closeSelectedEntityView(true)}><i className="material-icons">arrow_back</i></div>
+          <div className="back-button" title="back" onClick={() => this.props.closeSelectedEntityView(this.state.isEntityUpdated)}><i className="material-icons">arrow_back</i></div>
 
           <LanguageChanger
             selectClassName="entity-field"
@@ -188,7 +188,7 @@ export default class RoleEntityItemView extends Component {
       }
     });
     let restMethod = this.props.entityData.id ? 'patch' : 'post';
-    let restUrl = this.props.entityData.id ? `${this.props.entityId}/${this.props.entityData.id}` : this.props.entityId;
+    let restUrl = this.props.entityData.id ? `${this.props.entityData.entityName}/${this.props.entityData.id}` : this.props.entityData.entityName;
     ApiCall[restMethod](restUrl, resultObject).then((result) => {
       //this.props.onUpdateEntitySearchView(this.props.entity);
       let itemId = this.props.entityData.id ? this.props.entityData.id : result.data.id;
@@ -196,7 +196,7 @@ export default class RoleEntityItemView extends Component {
       this.resetDirtyStates();
 
       this.uploadMediaFile(itemId, mediaFields).then(() => {
-        this.setState({...this.state, isDataLoading: false});
+        this.setState({...this.state, isDataLoading: false, isEntityUpdated: true});
       });
     }, this.handleRequestError.bind(this));
   }

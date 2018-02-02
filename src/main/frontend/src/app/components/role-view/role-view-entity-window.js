@@ -10,6 +10,8 @@ import {nemesisFieldTypes} from '../../types/nemesis-types'
 
 import RoleEntityItemView from './role-entity-item-view';
 
+import EntityTypeCreationModal from '../embedded-creation/entity-type-creation-modal';
+
 const pagerData = {
   page: 0,
   pageSize: 20
@@ -27,7 +29,7 @@ export default class RoleViewEntityWindow extends Component {
   constructor(props) {
     super(props);
     this.getEntityPromise = null;
-    this.state = {searchData: [], page: {}, sortData: [], filter: null, isDataLoading: false, isEntitySelected: false, selectedLanguage: translationLanguages.defaultLanguage.value};
+    this.state = {searchData: [], page: {}, sortData: [], filter: null, isDataLoading: false, isEntitySelected: false, selectedLanguage: translationLanguages.defaultLanguage.value, openModalCreation: false};
   }
 
   componentWillMount() {
@@ -39,10 +41,12 @@ export default class RoleViewEntityWindow extends Component {
     return (
       <div>
         {this.state.isEntitySelected ?
-          <RoleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityId={this.props.entityId} entityData={this.state.entityData} entityFields={this.props.entityFields}/>
+          <RoleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityData={this.state.entityData} entityFields={this.props.entityFields}/>
           :
           <div style={this.props.style} className="entities-table-viewer">
             <button onClick={this.onClickCreateNewEntityButton.bind(this)}>Create New entity</button>
+            <EntityTypeCreationModal onModalCancel={() => {this.setState({openModalCreation: false})}} onEntityTypeSelected={this.onEntityTypeSelected.bind(this)}
+                                     openModalCreation={this.state.openModalCreation} entityId={this.props.entityId}/>
             <table>
               <thead>
               {/*<tr className="navigation-header">*/}
@@ -122,7 +126,9 @@ export default class RoleViewEntityWindow extends Component {
 
   closeSelectedEntityView(shouldDataReload) {
     if (shouldDataReload) {
-      this.setState({...this.state, isEntitySelected: false})
+      this.setState({...this.state, isEntitySelected: false}, () => {
+        this.getEntitiesData(this.props.entityId, this.state.page.number, this.state.page.size, this.state.filter, this.state.sortData);
+      })
     } else {
       this.setState({...this.state, isEntitySelected: false})
     }
@@ -190,15 +196,15 @@ export default class RoleViewEntityWindow extends Component {
     }
 
     entityFields.mainView.forEach(subItem => {
-      if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
-        result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
+      if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.field.xtype) > -1) {
+        result.push({type: subItem.field.xtype, name: subItem.field.name.replace('entity-', '')});
       }
     });
 
     entityFields.sideBar.forEach(item => {
       item.items.forEach(subItem => {
-        if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
-          result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
+        if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.field.xtype) > -1) {
+          result.push({type: subItem.field.xtype, name: subItem.field.name.replace('entity-', '')});
         }
       })
     });
@@ -208,9 +214,7 @@ export default class RoleViewEntityWindow extends Component {
   }
 
   onClickCreateNewEntityButton() {
-    ApiCall.get(`subtypes/${this.props.entityId}`).then(result => {
-      console.log(result);
-    })
+    this.setState({openModalCreation: true});
   }
 
   mapCollectionData(data) {
@@ -230,5 +234,9 @@ export default class RoleViewEntityWindow extends Component {
     }
 
     return data.content && data.content.id ? data.content : data;
+  }
+
+  onEntityTypeSelected(selectedEntityName) {
+    this.setState({openModalCreation: false, entityData: {entityName: selectedEntityName}, isEntitySelected: true})
   }
 }

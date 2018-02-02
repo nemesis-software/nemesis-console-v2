@@ -60,6 +60,9 @@ export default class EmbeddedCreationPortal extends Component {
     return ReactDOM.createPortal(
       (
         <div className="embedded-creation-portal">
+          {this.state.isLoading ? <div className="loading-screen">
+            <i className="material-icons loading-icon">cached</i>
+          </div> : false}
           <div style={{verticalAlign: 'top'}}>
             {_.map(this.state.entityFields, (item, key) => {
               return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
@@ -170,7 +173,7 @@ export default class EmbeddedCreationPortal extends Component {
       return;
     }
 
-    this.setState({...this.state, isDataLoading: true});
+    this.setState({...this.state, isLoading: true});
 
     let dirtyEntityProps = this.getDirtyValues();
     let resultObject = {};
@@ -184,7 +187,7 @@ export default class EmbeddedCreationPortal extends Component {
     });
     ApiCall['post'](this.props.entityId, resultObject).then((result) => {
       this.uploadMediaFile(result.data.id, mediaFields).then(() => {
-        this.setState({isDataLoading: false}, () => {
+        this.setState({isLoading: false}, () => {
           this.props.onCreateEntity(result.data);
         });
       });
