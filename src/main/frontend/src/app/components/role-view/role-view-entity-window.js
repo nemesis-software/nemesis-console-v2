@@ -2,15 +2,21 @@ import React, {Component} from 'react';
 
 import ApiCall from 'servicesDir/api-call';
 
+import FilterBuilder from 'servicesDir/filter-builder';
+
 import Translate from 'react-translate-component';
 
 import _ from 'lodash';
 
-import {nemesisFieldTypes} from '../../types/nemesis-types'
+import {nemesisFieldTypes, searchRestrictionTypes} from '../../types/nemesis-types'
 
 import RoleEntityItemView from './role-entity-item-view';
 
 import EntityTypeCreationModal from '../embedded-creation/entity-type-creation-modal';
+
+import { componentRequire } from '../../utils/require-util';
+
+let EntitiesFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/entities-filter', 'entities-filter');
 
 const pagerData = {
   page: 0,
@@ -29,66 +35,81 @@ export default class RoleViewEntityWindow extends Component {
   constructor(props) {
     super(props);
     this.getEntityPromise = null;
-    this.state = {searchData: [], page: {}, sortData: [], filter: null, isDataLoading: false, isEntitySelected: false, selectedLanguage: translationLanguages.defaultLanguage.value, openModalCreation: false};
+    this.state = {
+      searchData: [],
+      page: {},
+      sortData: [],
+      filter: null,
+      isDataLoading: false,
+      isEntitySelected: false,
+      selectedLanguage: translationLanguages.defaultLanguage.value,
+      openModalCreation: false
+    };
   }
 
   componentWillMount() {
-    this.getEntitiesData(this.props.entityId, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
+    this.getEntitiesData(this.props.entity.entityId, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
   }
 
   render() {
-    console.log(this.state.entityData);
     return (
       <div>
         {this.state.isEntitySelected ?
-          <RoleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityData={this.state.entityData} entityFields={this.props.entityFields}/>
+          <RoleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityData={this.state.entityData}
+                              entityFields={this.props.entityFields}/>
           :
-          <div style={this.props.style} className="entities-table-viewer">
+          <div className="entities-window">
             <button onClick={this.onClickCreateNewEntityButton.bind(this)}>Create New entity</button>
-            <EntityTypeCreationModal onModalCancel={() => {this.setState({openModalCreation: false})}} onEntityTypeSelected={this.onEntityTypeSelected.bind(this)}
-                                     openModalCreation={this.state.openModalCreation} entityId={this.props.entityId}/>
-            <table>
-              <thead>
-              {/*<tr className="navigation-header">*/}
+            <EntityTypeCreationModal onModalCancel={() => {
+              this.setState({openModalCreation: false})
+            }} onEntityTypeSelected={this.onEntityTypeSelected.bind(this)}
+                                     openModalCreation={this.state.openModalCreation} entityId={this.props.entity.entityId}/>
+            <EntitiesFilter entity={{entityId: this.props.entity}} filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
+            <div style={this.props.style} className="entities-table-viewer entities-result-viewer paper-box">
+              <table>
+                <thead>
+                {/*<tr className="navigation-header">*/}
                 {/*<th colSpan={this.state.entitiesMarkup.length}>*/}
-                  {/*<LanguageChanger*/}
-                    {/*label="language"*/}
-                    {/*onLanguageChange={this.onLanguageChange.bind(this)}*/}
-                    {/*availableLanguages={translationLanguages.languages}*/}
-                    {/*selectedLanguage={translationLanguages.defaultLanguage}*/}
-                  {/*/>*/}
-                  {/*<EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>*/}
+                {/*<LanguageChanger*/}
+                {/*label="language"*/}
+                {/*onLanguageChange={this.onLanguageChange.bind(this)}*/}
+                {/*availableLanguages={translationLanguages.languages}*/}
+                {/*selectedLanguage={translationLanguages.defaultLanguage}*/}
+                {/*/>*/}
+                {/*<EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>*/}
                 {/*</th>*/}
-              {/*</tr>*/}
-              <tr className="content-header">
+                {/*</tr>*/}
+                <tr className="content-header">
+                  {
+                    this.props.entity.data.result.map((markupItem, index) => {
+                      return (
+                        <Translate key={index} component="th" content={'main.' + markupItem.text} fallback={markupItem.text}/>
+                      )
+                    })
+                  }
+                  <Translate component="th" content={'main.actions'} fallback={'Actions'}/>
+                </tr>
+                </thead>
+                <tbody>
                 {
-                  this.props.searchFields.map((markupItem, index) => {
+                  this.state.searchData.map((item, index) => {
                     return (
-                      <Translate key={index} component="th" content={'main.' + markupItem.text} fallback={markupItem.text}/>
-                    )})
+                      <tr key={index}>
+                        {
+                          this.props.entity.data.result.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
+                        }
+                        <td>
+                          <div onClick={() => this.onEntityItemClick(item)}>Edit</div>
+                          {this.getPreviewLink(item)}
+                          <div>Delete</div>
+                        </td>
+                      </tr>
+                    )
+                  })
                 }
-                <Translate  component="th" content={'main.actions'} fallback={'Actions'}/>
-              </tr>
-              </thead>
-              <tbody>
-              {
-                this.state.searchData.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      {
-                        this.props.searchFields.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
-                      }
-                      <td>
-                        <div onClick={() => this.onEntityItemClick(item)}>Edit</div>
-                        <div>Preview</div>
-                        <div>Delete</div>
-                      </td>
-                    </tr>
-                  )
-                })
-              }
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
           </div>
         }
       </div>
@@ -110,7 +131,8 @@ export default class RoleViewEntityWindow extends Component {
   }
 
   getEntityDataPromise(entityId, page, pageSize, filter, sortData) {
-    return ApiCall.get(entityId, {page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
+    let filterActual = this.getFilterWithCatalogs(filter);
+    return ApiCall.get(entityId, {page: page, size: pageSize, $filter: filterActual, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
       this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
     });
   }
@@ -127,7 +149,7 @@ export default class RoleViewEntityWindow extends Component {
   closeSelectedEntityView(shouldDataReload) {
     if (shouldDataReload) {
       this.setState({...this.state, isEntitySelected: false}, () => {
-        this.getEntitiesData(this.props.entityId, this.state.page.number, this.state.page.size, this.state.filter, this.state.sortData);
+        this.getEntitiesData(this.props.entity.entityId, this.state.page.number, this.state.page.size, this.state.filter, this.state.sortData);
       })
     } else {
       this.setState({...this.state, isEntitySelected: false})
@@ -184,7 +206,12 @@ export default class RoleViewEntityWindow extends Component {
 
           relatedEntitiesResult[item.name] = data;
         });
-        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, isDataLoading: false, isEntitySelected: true})
+        this.setState({
+          ...this.state,
+          entityData: {...this.state.entityData, customClientData: relatedEntitiesResult},
+          isDataLoading: false,
+          isEntitySelected: true
+        })
       })
     });
   }
@@ -238,5 +265,44 @@ export default class RoleViewEntityWindow extends Component {
 
   onEntityTypeSelected(selectedEntityName) {
     this.setState({openModalCreation: false, entityData: {entityName: selectedEntityName}, isEntitySelected: true})
+  }
+
+  onFilterApply(filter) {
+    this.setState({...this.state, filter: filter}, () => {
+      this.getEntitiesData(this.props.entity.entityId, pagerData.page, this.state.page.size, filter, this.state.sortData);
+    });
+  }
+
+  getPreviewLink(entity) {
+    let entityId = this.props.entity.entityId;
+    if (entityId === 'blog_entry' || entityId === 'product') {
+      if (!entity.active) {
+        return false;
+      }
+      let siteUrl = document.getElementById('website-base-url').getAttribute('url');
+      let actualUrl = `${siteUrl}blog/${entity.code}?site=${this.props.selectedSite.code}`;
+      return (
+        <div><a href={actualUrl} target="_blank">Preview</a></div>
+      )
+    }
+    return false;
+  }
+
+  getFilterWithCatalogs(filter) {
+    let catalogFilter = [];
+    _.forEach(this.props.selectedCatalogVersions, catalog => {
+      let filterItem = {
+        restriction: searchRestrictionTypes.equals,
+        field: 'catalogVersion/id',
+        value: `${catalog.id}L`
+      };
+      catalogFilter.push(filterItem);
+    });
+    let actualCatalogFilter = '(' + FilterBuilder.buildFilter(catalogFilter, 'or') + ')';
+    if (!filter) {
+      return actualCatalogFilter;
+    }
+
+    return actualCatalogFilter + filter;
   }
 }

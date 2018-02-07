@@ -11,14 +11,14 @@ import _ from 'lodash';
 export default class RoleViewItem extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {isCatalogable: context.entityMarkupData[props.item].synchronizable, selectedCatalogs: null, selectedSite: null};
+    this.state = {isCatalogable: context.entityMarkupData[props.item].synchronizable, selectedCatalogVersions: null, selectedSite: null};
   }
 
   render() {
     return (
       <div>
         {
-          this.state.isCatalogable && !this.state.selectedCatalogs ?
+          this.state.isCatalogable && !this.state.selectedCatalogVersions ?
             <div>{this.props.sites.map(site => {
                 return (
                   <div className="role-view-item-selector" key={site.code} onClick={() => {this.onSiteSelect(site)}}>
@@ -27,7 +27,7 @@ export default class RoleViewItem extends Component {
                 )
               }
             )}</div> :
-            <RoleViewEntityWindow entityId={this.props.item} entityFields={this.getEntityFields()} searchFields={this.getEntityWindowSearchResultFields()} selectedCatalogs={this.state.selectedCatalogs} />
+            <RoleViewEntityWindow entity={{entityId: this.props.item, data: this.context.markupData[this.props.item]}} entityFields={this.getEntityFields()} selectedSite={this.state.selectedSite} selectedCatalogVersions={this.state.selectedCatalogVersions} />
         }
       </div>
     )
@@ -35,7 +35,15 @@ export default class RoleViewItem extends Component {
 
   onSiteSelect(site) {
     ApiCall.get(site._links.cmsCatalogs.href).then(result => {
-      this.setState({...this.state, selectedCatalogs: this.mapCollectionData(result.data), selectedSite: site});
+      let selectedCatalogs = this.mapCollectionData(result.data);
+      Promise.all(selectedCatalogs.map(catalog => ApiCall.get(catalog._links.catalogVersions.href))).then(result => {
+        let selectedCatalogVersion = [];
+        result.forEach(catalogVersion => {
+          selectedCatalogVersion = selectedCatalogVersion.concat(this.mapCollectionData(catalogVersion.data));
+        });
+        console.log(selectedCatalogVersion);
+        this.setState({...this.state, selectedCatalogVersions: selectedCatalogVersion, selectedSite: site});
+      });
     });
   }
 
@@ -45,17 +53,6 @@ export default class RoleViewItem extends Component {
     return result;
   }
 
-  getEntityWindowSearchResultFields() {
-    if (this.props.item === 'blog_entry') {
-      let allowedSearchFileds = ['title', 'thumbnail', 'publishDate', 'categories'];
-      return _.filter(this.context.markupData[this.props.item].result, (item) => {
-        return allowedSearchFileds.indexOf(item.name) > -1;
-      })
-    }
-
-    return [];
-  }
-
   getEntityFields() {
     if (this.props.item === 'blog_entry') {
       let flattedFields = [];
@@ -63,7 +60,6 @@ export default class RoleViewItem extends Component {
       this.context.entityMarkupData[this.props.item].sections.forEach(section => {
         flattedFields = flattedFields.concat(section.items);
       });
-      console.log(flattedFields);
       let config = this.context.quickViewData[this.props.item];
 
       let mainViewActual = [];

@@ -4,8 +4,6 @@ import {
   Route
 } from 'react-router-dom';
 
-require('es6-promise').polyfill();
-
 import counterpart from 'counterpart';
 
 import PropTypes from 'prop-types';
@@ -28,6 +26,8 @@ import 'font-awesome/css/font-awesome.css';
 import 'react-datetime/css/react-datetime.css';
 
 import '../../styles/style.less';
+
+require('es6-promise').polyfill();
 
 const translationLanguages = {
  languages: [
@@ -90,7 +90,7 @@ export default class App extends Component {
             <Route
               exact={true}
               path={'/content'}
-              component={() => <RoleVIew allowedViews={['blog_entry', 'widget']}/>}
+              component={() => <RoleVIew timestamp={new Date().toString()} allowedViews={['blog_entry', 'widget']}/>}
             />
             <Route
               exact={true}

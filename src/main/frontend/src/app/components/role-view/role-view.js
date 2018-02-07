@@ -23,9 +23,15 @@ export default class RoleView extends Component {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.timestamp !== nextProps.timestamp) {
+      this.setState({isItemSelected: false});
+    }
+  }
+
   render() {
     return (
-      <div>
+      <div key={this.props.timestamp}>
         <NemesisHeader onRightIconButtonClick={() => {}} isOpenInFrame={this.isOpenInFrame}/>
         <div className="role-view">
           {!this.state.isItemSelected ? this.props.allowedViews.map(item => {
