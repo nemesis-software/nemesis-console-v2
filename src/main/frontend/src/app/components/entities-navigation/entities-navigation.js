@@ -13,7 +13,7 @@ let EntitiesNavigationItem = componentRequire('app/components/entities-navigatio
 export default class EntitiesNavigation extends Component {
   constructor(props) {
     super(props);
-    this.state = {groupedEntities: [], containerHeight: '44'};
+    this.state = {groupedEntities: this.getGroupedEntities(props.entities), containerHeight: '60'};
     this.navRef = null;
   }
 
