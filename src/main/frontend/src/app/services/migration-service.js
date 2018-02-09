@@ -16,10 +16,10 @@ export default class MigrationService {
     _.forIn(entityData, (value, key) => {
       for (let i = 0; i < value.sections.length; i++) {
         let section = value.sections[i];
-        let sectionWeight = 1000 - (i * 10);
+        let sectionWeight = i * 10;
         for (let j = 0; j < section.items.length; j++) {
           let item = section.items[j];
-          let itemWeight = 1000 - (j * 10);
+          let itemWeight = j * 10;
           data += `,${key}-${item.name},${item.name},${item.fieldLabel},${!item.readOnly},${!item.readOnly},${item.required},${itemWeight},${item.xtype},${section.title},${sectionWeight},${key}\n`
         }
       }
