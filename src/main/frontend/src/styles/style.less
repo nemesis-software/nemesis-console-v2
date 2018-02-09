@@ -477,6 +477,7 @@ body {
 }
 
 .default-filter {
+  position: relative;
   .default-filter-buttons-container {
     .default-filter-button {
       width: 135px;
@@ -493,6 +494,27 @@ body {
 
       &.clear-button {
         background: @light-grey-darker;
+      }
+    }
+  }
+
+  .filter-resize-icon {
+    position: absolute;
+    bottom: -30px;
+    left: ~"calc(50% - 21px)";
+    border: 1px solid @border-colors;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+
+    .material-icons {
+      font-size: 38px;
+      color: @dark-font-color;
+
+      &.reversed {
+        transform: scale(1) rotate(180deg);
       }
     }
   }

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
 import { componentRequire } from '../../../../../../utils/require-util';
 
+import FilterHelper from 'servicesDir/filter-helper';
+
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 
 export default class FilterEnumField extends Component {
@@ -36,7 +38,12 @@ export default class FilterEnumField extends Component {
       value: actualValue,
       restriction: searchRestrictionTypes.equals,
       field: this.props.filterItem.name,
-      id: this.props.filterItem.name
+      id: this.props.filterItem.name,
+      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, searchRestrictionTypes.equals, actualValue)
     });
+  }
+
+  getTextRepresentation(name, restrictionValue, value) {
+    return FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, value);
   }
 }

@@ -5,6 +5,8 @@ import _ from 'lodash';
 import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
 import { componentRequire } from '../../../../../../utils/require-util';
 
+import FilterHelper from 'servicesDir/filter-helper';
+
 let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
 let NemesisLocalizedTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field', 'nemesis-localized-text-field');
 
@@ -60,11 +62,16 @@ export default class FilterLocalizedTextField extends Component {
       value: _.isEmpty(value.value) ? null : `'${value.value}'`,
       restriction: restrictionValue,
       field: `${this.props.filterItem.name}/${value.language}/value`,
-      id: this.props.filterItem.name
+      id: this.props.filterItem.name,
+      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, value.value)
     });
   }
 
   isLocalizedFieldVisible() {
     return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
+  }
+
+  getTextRepresentation(name, restrictionValue, value) {
+    return FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, value);
   }
 }

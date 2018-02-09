@@ -11,7 +11,6 @@ import {nemesisFieldTypes} from '../../../../../types/nemesis-types';
 
 import SelectCustomArrow from '../../../../helper-components/select-custom-arrow';
 
-
 let FilterTextField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-text-field/filter-text-field', 'filter-text-field');
 let FilterDateTimeField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-date-time-field/filter-date-time-field', 'filter-date-time-field');
 let FilterLocalizedTextField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-localized-text-field/filter-localized-text-field', '');
@@ -26,13 +25,17 @@ const keyPrefix = 'defaultFilter';
 export default class DefaultFilter extends Component {
   constructor(props) {
     super(props);
-    this.state = {appliedFilters: [], key: keyPrefix + Date.now(), filterItems: this.getInitialFilterItems()};
+    this.state = {appliedFilters: [], key: keyPrefix + Date.now(), filterItems: this.getInitialFilterItems(), appliedFilterText: [], isSmallView: false};
   }
 
   render() {
     return (
       <div style={this.props.style} key={this.state.key} className="default-filter">
-        <form onSubmit={e => e.preventDefault()}>
+        {this.state.isSmallView ? <div style={{paddingBottom: '20px'}}>
+          <label>Applied Filter: </label>
+          <div>{this.state.appliedFilterText.length !== 0 ? this.state.appliedFilterText : <div><i>Filter is empty</i></div>}</div>
+        </div> : false}
+        <form onSubmit={e => e.preventDefault()} style={this.state.isSmallView ? {display: 'none'} : {}}>
           {this.state.filterItems.map((filterItem, index) => {
             return (
               <div key={index}>
@@ -60,7 +63,7 @@ export default class DefaultFilter extends Component {
               component="span" content={'main.Clear'} fallback={'Clear'}/></button>
           </div>
         </form>
-
+        <div onClick={() => this.setState({isSmallView: !this.state.isSmallView})} className="filter-resize-icon paper-box with-hover"><i className={'material-icons' + (this.state.isSmallView ? ' reversed' : '')}>keyboard_arrow_up</i></div>
       </div>
     )
   }
@@ -115,11 +118,15 @@ export default class DefaultFilter extends Component {
 
   onSearchButtonClick() {
     let filterString = FilterBuilder.buildFilter(this.state.appliedFilters);
-    this.props.onFilterApply(filterString);
+    let appliedFilterText = this.state.appliedFilters.map(item => item.textRepresentation ? item.textRepresentation : false);
+    this.setState({appliedFilterText: appliedFilterText}, () => {
+      this.props.onFilterApply(filterString);
+
+    });
   }
 
   onClearButtonClick() {
-    this.setState({appliedFilters: [], key: keyPrefix + Date.now()});
+    this.setState({appliedFilters: [], key: keyPrefix + Date.now(), appliedFilterText: []});
     this.props.onFilterApply();
   }
 

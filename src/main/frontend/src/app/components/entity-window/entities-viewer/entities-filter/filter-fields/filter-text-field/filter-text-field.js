@@ -5,6 +5,8 @@ import _ from 'lodash';
 import { componentRequire } from '../../../../../../utils/require-util';
 import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
 
+import FilterHelper from 'servicesDir/filter-helper';
+
 let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
 
@@ -53,11 +55,16 @@ export default class FilterTextField extends Component {
       value: _.isEmpty(textField) ? null : `'${textField}'`,
       restriction: restrictionValue,
       field: this.props.filterItem.name,
-      id: this.props.filterItem.name
+      id: this.props.filterItem.name,
+      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, textField)
     });
   }
 
   isTextFieldVisible() {
     return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
+  }
+
+  getTextRepresentation(name, restrictionValue, value) {
+    return FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, value);
   }
 }
