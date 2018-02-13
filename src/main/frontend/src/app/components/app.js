@@ -15,6 +15,7 @@ import MasterAdmin from './master-admin/master-admin';
 import AdminPanel from './admin-panel/admin-panel';
 import RoleVIew from './role-view/role-view';
 import PointOfSale from './point-of-sale/point-of-sale';
+import ConsoleConfigurationPanel from './console-configuration-panel/console-configuration-panel';
 import NemesisSideBar from './nemesis-side-bar/nemesis-side-bar';
 
 import 'react-select/dist/react-select.css';
@@ -96,6 +97,11 @@ export default class App extends Component {
               exact={true}
               path={'/maintenance'}
               component={AdminPanel}
+            />
+            <Route
+              exact={true}
+              path={'/console-configuration'}
+              component={ConsoleConfigurationPanel}
             />
           </div>
         </Router>

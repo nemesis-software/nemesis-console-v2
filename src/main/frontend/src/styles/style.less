@@ -113,6 +113,40 @@ body {
   }
 }
 
+.console-configuration-panel {
+  padding: 60px 0 60px 60px;
+  background: @light-grey;
+
+  .configuration-type-box {
+    padding: 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    vertical-align: top;
+    margin: 20px;
+  }
+
+  .all-fields-configuration {
+
+    .fields-container {
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+
+      .field-key-container {
+        display: inline-block;
+        padding: 10px 20px;
+        text-align: center;
+        border: 1px solid @border-colors;
+        margin: 10px;
+        cursor: pointer;
+        background: white;
+      }
+    }
+  }
+}
+
 .role-view {
   padding: 60px 0 60px 60px;
   background: @light-grey;
