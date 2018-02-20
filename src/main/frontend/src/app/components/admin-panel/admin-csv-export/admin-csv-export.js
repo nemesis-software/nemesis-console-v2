@@ -43,7 +43,6 @@ export default class AdminCsvExport extends Component {
       data.blockDtos.push(block.getBlockData());
     });
     PlatformApiCall.post('csv/export', data).then(result => {
-      console.log(result.data);
       let csvContent = "data:text/csv;charset=utf-8," + result.data;
       let encodedUri = encodeURI(csvContent);
       let link = document.createElement("a");
