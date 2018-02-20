@@ -23,7 +23,8 @@ export default class AllFieldsConfiguration extends Component {
         allFieldsKey: this.parseFieldsKey(result.data),
         filteredFieldsKey: this.parseFieldsKey(result.data),
         selectedFieldData: null,
-        selectedFieldKey: null
+        selectedFieldKey: null,
+        selectedEntityConfigId: null
       });
     })
   }
@@ -31,7 +32,7 @@ export default class AllFieldsConfiguration extends Component {
   render() {
     if (this.state.selectedFieldData) {
       return (
-        <MasterAdminConfiguration allFields={this.state.allFields[this.state.selectedFieldKey]} fieldData={this.state.selectedFieldData}/>
+        <MasterAdminConfiguration selectedEntityConfigId={this.state.selectedEntityConfigId} allFields={this.state.allFields[this.state.selectedFieldKey]} fieldData={this.state.selectedFieldData}/>
       )
     } else {
       return (
@@ -71,7 +72,7 @@ export default class AllFieldsConfiguration extends Component {
   onFieldSelect(field) {
     ApiCall.get('entity_config/search/findByCode/', {code: field}).then(result => {
       ApiCall.get(result.data._links.entityProperties.href).then(entityPropertiesResult => {
-        this.setState({selectedFieldKey: field, selectedFieldData: this.mapCollectionData(entityPropertiesResult.data)});
+        this.setState({selectedEntityConfigId: result.data.id, selectedFieldKey: field, selectedFieldData: this.mapCollectionData(entityPropertiesResult.data)});
       })
 
     }, (err) => {

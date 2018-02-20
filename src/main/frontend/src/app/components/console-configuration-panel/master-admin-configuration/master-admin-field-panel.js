@@ -57,7 +57,7 @@ export default class MasterAdminFieldPanel extends Component {
     if (dirtyEntityProps.length === 0) {
       return;
     }
-    let resultObject = {};
+    let resultObject = this.props.field.id ? {} : {...this.props.field, entityConfig: this.props.selectedEntityConfigId};
     dirtyEntityProps.forEach(prop => {
       resultObject[prop.name] = prop.value;
     });
