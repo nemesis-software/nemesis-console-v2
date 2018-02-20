@@ -20,7 +20,7 @@ export default class MigrationService {
         for (let j = 0; j < section.items.length; j++) {
           let item = section.items[j];
           let itemWeight = j * 10;
-          data += `,${key}-${item.name},${item.name},${item.fieldLabel},${!item.readOnly},${!item.readOnly},${item.required},${itemWeight},${item.xtype},${section.title},${sectionWeight},${key}\n`
+          data += `,${key}-${item.name},${item.name.replace('entity-', '')},${item.fieldLabel},${!item.readOnly},${!item.readOnly},${item.required},${itemWeight},${item.xtype},${section.title},${sectionWeight},${key}\n`
         }
       }
     });
