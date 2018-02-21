@@ -14,6 +14,7 @@ export default class NemesisNumberField extends NemesisBaseField {
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
             <span className="required-star">*</span> : false}</div>
           <input type="number" step={this.props.step || '1'}
+                 style={{...this.props.style}}
                  className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                  value={this.getInputValue(this.state.value)}
                  disabled={this.props.readOnly} onChange={(e) => this.onValueChange(e, e.target.value)}/>

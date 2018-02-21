@@ -34,14 +34,20 @@ export default class MasterAdminFieldPanel extends Component {
   render() {
     return (
       <div className="master-admin-field-panel paper-box">
-        <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} name="name" value={this.props.field.name} label="Name" readOnly={true}/>
-        <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} name="fieldLabel" value={this.props.field.fieldLabel} label="Field label"/>
-        <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} name="section" value={this.props.field.section} label="Section"/>
-        <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} name="weight" value={this.props.field.weight} label="Weight"/>
-        <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} name="sectionWeight" value={this.props.field.sectionWeight} label="Section weight"/>
-        <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} name="updatable" value={this.props.field.updatable} label="Updatable"/>
-        <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} name="insertable" value={this.props.field.insertable} label="Insertable"/>
-        <NemesisEnumField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="xtype" label="Field type" values={this.fieldTypes} value={_.indexOf(this.fieldTypes, this.props.field.xtype)}/>
+        <div className="master-admin-field-panel-header">
+          {this.props.field.name}
+        </div>
+        <div className="master-admin-fields-container">
+          <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="fieldLabel" value={this.props.field.fieldLabel} label="Field label"/>
+          <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="weight" value={this.props.field.weight} label="Weight"/>
+          <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="updatable" value={this.props.field.updatable} label="Updatable"/>
+          <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="insertable" value={this.props.field.insertable} label="Insertable"/>
+          <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="required" value={this.props.field.required} label="Required"/>
+          <NemesisEnumField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="xtype" label="Field type" values={this.fieldTypes} value={_.indexOf(this.fieldTypes, this.props.field.xtype)}/>
+          <hr/>
+          <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="section" value={this.props.field.section} label="Section"/>
+          <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="sectionWeight" value={this.props.field.sectionWeight} label="Section weight"/>
+        </div>
       </div>
     )
   }

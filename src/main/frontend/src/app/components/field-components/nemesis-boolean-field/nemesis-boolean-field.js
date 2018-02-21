@@ -27,7 +27,7 @@ export default class NemesisBooleanField extends NemesisBaseField {
       <div className="entity-field-container">
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ? <span className="required-star">*</span> : false}</div>
-          <div style={{padding: '0 5px 15px'}}>
+          <div style={{padding: '0 5px 15px', ...this.props.style}}>
             <label className="radio-inline" style={{marginRight: '30px', paddingLeft: '25px'}}>
               <input className={"nemesis-radio-button" + ('true' === this.state.value ? ' active' : '')} type="radio" value="true" defaultChecked={'true' === this.state.value} onChange={this.handleRadioChange.bind(this)} disabled={this.props.readOnly} name={this.props.label}/>
               True
