@@ -32,7 +32,7 @@ export default class AllFieldsConfiguration extends Component {
   render() {
     if (this.state.selectedFieldData) {
       return (
-        <MasterAdminConfiguration selectedEntityConfigId={this.state.selectedEntityConfigId} allFields={this.state.allFields[this.state.selectedFieldKey]} fieldData={this.state.selectedFieldData}/>
+        <MasterAdminConfiguration openNotificationSnackbar={this.props.openNotificationSnackbar} selectedEntityConfigId={this.state.selectedEntityConfigId} allFields={this.state.allFields[this.state.selectedFieldKey]} fieldData={this.state.selectedFieldData}/>
       )
     } else {
       return (

@@ -9,6 +9,8 @@ import {nemesisFieldTypes} from '../../../types/nemesis-types';
 
 import Translate from 'react-translate-component';
 
+import Modal from 'react-bootstrap/lib/Modal';
+
 import ApiCall from 'servicesDir/api-call';
 
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
@@ -19,6 +21,7 @@ let NemesisBooleanField = componentRequire('app/components/field-components/neme
 export default class MasterAdminFieldPanel extends Component {
   constructor(props) {
     super(props);
+    this.state = {openDeleteConfirmation: false};
     this.fieldTypes = _.values(nemesisFieldTypes);
     this.fieldsReferences = [];
   }
@@ -36,6 +39,7 @@ export default class MasterAdminFieldPanel extends Component {
       <div className="master-admin-field-panel paper-box">
         <div className="master-admin-field-panel-header">
           {this.props.field.name}
+          <div className="delete-icon-container" onClick={this.handleDeleteButtonClick.bind(this)}><i className="material-icons">delete_forever</i></div>
         </div>
         <div className="master-admin-fields-container">
           <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="fieldLabel" value={this.props.field.fieldLabel} label="Field label"/>
@@ -48,6 +52,7 @@ export default class MasterAdminFieldPanel extends Component {
           <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="section" value={this.props.field.section} label="Section"/>
           <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="sectionWeight" value={this.props.field.sectionWeight} label="Section weight"/>
         </div>
+        {this.getDeleteConfirmationDialog()}
       </div>
     )
   }
@@ -103,5 +108,42 @@ export default class MasterAdminFieldPanel extends Component {
 
   handleRequestError(err) {
     console.log(err);
+  }
+
+  getDeleteConfirmationDialog() {
+    return (
+      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}>
+        <Modal.Header>
+          <Modal.Title>Delete Field</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>Are you sure you want to delete it?</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="nemesis-button decline-button" style={{marginRight: '15px'}} onClick={this.handleCloseDeleteConfirmation.bind(this)}>No</button>
+          <button className="nemesis-button success-button" onClick={this.handleConfirmationDeleteButtonClick.bind(this)}>Yes</button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  handleConfirmationDeleteButtonClick() {
+    if (!this.props.field.id) {
+      this.props.onDeleteField(this.props.field.name);
+      return;
+    }
+
+    ApiCall.delete(`entity_property_config/${this.props.field.id}`).then(() => {
+      this.props.onDeleteField(this.props.field.name);
+    }, this.handleRequestError.bind(this))
+  }
+
+  handleCloseDeleteConfirmation() {
+    this.setState({openDeleteConfirmation: false});
+  };
+
+
+  handleDeleteButtonClick() {
+    this.setState({openDeleteConfirmation: true});
   }
 }

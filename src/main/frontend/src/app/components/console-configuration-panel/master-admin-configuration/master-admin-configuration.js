@@ -42,7 +42,7 @@ export default class MasterAdminConfiguration extends Component {
           </div>
         </div>
         {this.state.selectedFields.map(field => {
-          return <MasterAdminFieldPanel ref={(fieldPanel) => {fieldPanel && this.fieldPanelReferences.push(fieldPanel)}} key={field.name} field={field} selectedEntityConfigId={this.props.selectedEntityConfigId}/>
+          return <MasterAdminFieldPanel ref={(fieldPanel) => {fieldPanel && this.fieldPanelReferences.push(fieldPanel)}} onDeleteField={this.onDeleteField.bind(this)} key={field.name} field={field} selectedEntityConfigId={this.props.selectedEntityConfigId}/>
         })}
       </div>
     )
@@ -62,7 +62,19 @@ export default class MasterAdminConfiguration extends Component {
 
   onAddFieldSelected(item) {
     let selectedFields = this.state.selectedFields;
-    selectedFields.push(item.value);
+    selectedFields.unshift(item.value);
     this.setState({selectedFields: selectedFields});
+  }
+
+  onDeleteField(fieldName) {
+    let selectedFields = this.state.selectedFields;
+    let fieldIndex = _.findIndex(selectedFields, {name: fieldName});
+    if (fieldIndex === -1) {
+      return;
+    }
+    selectedFields.splice(fieldIndex, 1);
+    this.setState({selectedFields: selectedFields}, () => {
+      this.props.openNotificationSnackbar(`${fieldName} successfully removed`)
+    });
   }
 }

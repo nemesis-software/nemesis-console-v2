@@ -153,7 +153,24 @@ body {
       background: @main-blue;
       color: @light-font-color;
       font-size: 16px;
-      padding: 5px 10px;
+      padding: 7px 10px;
+      position: relative;
+
+      .delete-icon-container {
+        position: absolute;
+        right: 4px;
+        top: 4px;
+        color: @red-color;
+        background: white;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        text-align: center;
+
+        .material-icons {
+          font-size: 26px;
+        }
+      }
     }
 
     .master-admin-fields-container {
