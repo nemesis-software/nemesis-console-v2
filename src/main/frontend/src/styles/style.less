@@ -155,6 +155,11 @@ body {
       font-size: 16px;
       padding: 7px 10px;
       position: relative;
+      cursor: pointer;
+
+      .header-field-name {
+        display: inline-block;
+      }
 
       .delete-icon-container {
         position: absolute;
@@ -175,6 +180,10 @@ body {
 
     .master-admin-fields-container {
       padding: 10px 20px;
+
+      &.collapsed {
+        display: none;
+      }
 
       .entity-field-container {
         margin-bottom: 15px;

@@ -2,12 +2,9 @@ import React, {Component} from 'react';
 
 import _ from 'lodash';
 
-import counterpart from 'counterpart';
 import { componentRequire } from '../../../utils/require-util';
 
 import {nemesisFieldTypes} from '../../../types/nemesis-types';
-
-import Translate from 'react-translate-component';
 
 import Modal from 'react-bootstrap/lib/Modal';
 
@@ -21,7 +18,7 @@ let NemesisBooleanField = componentRequire('app/components/field-components/neme
 export default class MasterAdminFieldPanel extends Component {
   constructor(props) {
     super(props);
-    this.state = {openDeleteConfirmation: false};
+    this.state = {openDeleteConfirmation: false, isFieldCollapsed: !!this.props.field.id};
     this.fieldTypes = _.values(nemesisFieldTypes);
     this.fieldsReferences = [];
   }
@@ -37,11 +34,11 @@ export default class MasterAdminFieldPanel extends Component {
   render() {
     return (
       <div className="master-admin-field-panel paper-box">
-        <div className="master-admin-field-panel-header">
-          {this.props.field.name}
+        <div className="master-admin-field-panel-header" onClick={this.handleOnHeaderClick.bind(this)}>
+          <div className="header-field-name">{this.props.field.name}</div>
           <div className="delete-icon-container" onClick={this.handleDeleteButtonClick.bind(this)}><i className="material-icons">delete_forever</i></div>
         </div>
-        <div className="master-admin-fields-container">
+        <div className={'master-admin-fields-container' + (this.state.isFieldCollapsed ? ' collapsed' : '')}>
           <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="fieldLabel" value={this.props.field.fieldLabel} label="Field label"/>
           <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="weight" value={this.props.field.weight} label="Weight"/>
           <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="updatable" value={this.props.field.updatable} label="Updatable"/>
@@ -145,5 +142,12 @@ export default class MasterAdminFieldPanel extends Component {
 
   handleDeleteButtonClick() {
     this.setState({openDeleteConfirmation: true});
+  }
+
+  handleOnHeaderClick(ev) {
+    if (!ev.target.classList.contains('master-admin-field-panel-header')) {
+      return;
+    }
+    this.setState({isFieldCollapsed: !this.state.isFieldCollapsed})
   }
 }
