@@ -28,14 +28,15 @@ export default class MasterAdminConfiguration extends Component {
   render() {
     return (
       <div className="master-admin-configuration">
-        <div>
-          <button className="nemesis-button success-button" onClick={this.onSaveButtonClick.bind(this)}>Save</button>
+        <div className="master-admin-configuration-header">
+          <div className="back-button" title="back" onClick={() => {}}><i className="material-icons">arrow_back</i></div>
+          <button className="nemesis-button success-button save-button" onClick={this.onSaveButtonClick.bind(this)}>Save</button>
           <div className="add-field-container">
-            <Translate component="label" content={'main.addField'} fallback={'Add field'}/>
             <Select cache={false}
                     style={{width: '265px'}}
                     arrowRenderer={() => <SelectCustomArrow/>}
                     clearable={false}
+                    placeholder={<Translate component="span" content={'main.addField'} fallback={'Add field'}/>}
                     onChange={this.onAddFieldSelected.bind(this)}
                     options={this.getRemainingFields()}/>
             <hr className="line"/>

@@ -32,7 +32,6 @@ export default class ConsoleConfigurationPanel extends Component {
       <div>
         <NemesisHeader onRightIconButtonClick={() => {}}/>
         <div className="console-configuration-panel">
-          Console Configuration Panel
           {this.state.configurationOption ? this.getConfigurationOptionPanel(this.state.configurationOption) :
             <div>
               <div className="configuration-type-box" onClick={() => {this.setSelectedConfiguration(ConfigurationOptions.MASTER_ADMIN)}} >Configuration for master admin</div>

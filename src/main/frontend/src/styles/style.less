@@ -146,6 +146,38 @@ body {
     }
   }
 
+  .master-admin-configuration-header {
+    text-align: right;
+    margin: 20px;
+    position: relative;
+
+    .back-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      .material-icons {
+        font-size: 30px;
+        color: @main-blue-darker;
+        cursor: pointer;
+        font-weight: bold;
+      }
+    }
+
+    .add-field-container {
+      text-align: left;
+      vertical-align: top;
+      display: inline-block;
+    }
+
+    .save-button {
+      padding: 8px 25px;
+      height: 36px;
+      width: 200px;
+      margin-right: 10px;
+    }
+  }
+
   .master-admin-field-panel {
     margin: 20px;
 
@@ -156,10 +188,6 @@ body {
       padding: 7px 10px;
       position: relative;
       cursor: pointer;
-
-      .header-field-name {
-        display: inline-block;
-      }
 
       .delete-icon-container {
         position: absolute;
@@ -871,6 +899,7 @@ body {
   color: #eb0848;
   margin-left: 5px;
   font-size: 18px;
+  line-height: 14px;
 }
 
 .nemesis-html-editor {
