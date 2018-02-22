@@ -32,7 +32,7 @@ export default class AllFieldsConfiguration extends Component {
   render() {
     if (this.state.selectedFieldData) {
       return (
-        <MasterAdminConfiguration openNotificationSnackbar={this.props.openNotificationSnackbar} selectedEntityConfigId={this.state.selectedEntityConfigId} allFields={this.state.allFields[this.state.selectedFieldKey]} fieldData={this.state.selectedFieldData}/>
+        <MasterAdminConfiguration handleBackButton={this.handleBackButton.bind(this)} openNotificationSnackbar={this.props.openNotificationSnackbar} selectedEntityConfigId={this.state.selectedEntityConfigId} allFields={this.state.allFields[this.state.selectedFieldKey]} fieldData={this.state.selectedFieldData}/>
       )
     } else {
       return (
@@ -83,6 +83,11 @@ export default class AllFieldsConfiguration extends Component {
         console.log(err);
       }
     });
+  }
+
+  handleBackButton() {
+    this.setState({selectedEntityConfigId: null, selectedFieldKey: null, selectedFieldData: null});
+
   }
 
   mapCollectionData(data) {

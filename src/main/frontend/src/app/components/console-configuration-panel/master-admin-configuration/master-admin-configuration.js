@@ -29,7 +29,7 @@ export default class MasterAdminConfiguration extends Component {
     return (
       <div className="master-admin-configuration">
         <div className="master-admin-configuration-header">
-          <div className="back-button" title="back" onClick={() => {}}><i className="material-icons">arrow_back</i></div>
+          <div className="back-button" title="back" onClick={this.props.handleBackButton}><i className="material-icons">arrow_back</i></div>
           <button className="nemesis-button success-button save-button" onClick={this.onSaveButtonClick.bind(this)}>Save</button>
           <div className="add-field-container">
             <Select cache={false}
