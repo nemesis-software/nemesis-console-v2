@@ -32,7 +32,7 @@ export default class AllFieldsConfiguration extends Component {
   render() {
     if (this.state.selectedFieldData) {
       return (
-        <MasterAdminConfiguration handleBackButton={this.handleBackButton.bind(this)} openNotificationSnackbar={this.props.openNotificationSnackbar} selectedEntityConfigId={this.state.selectedEntityConfigId} allFields={this.state.allFields[this.state.selectedFieldKey]} fieldData={this.state.selectedFieldData}/>
+        <MasterAdminConfiguration handleBackButton={this.handleBackButton.bind(this)} openNotificationSnackbar={this.props.openNotificationSnackbar} selectedEntityConfigId={this.state.selectedEntityConfigId} entityName={this.state.selectedFieldKey} allFields={this.state.allFields[this.state.selectedFieldKey]} fieldData={this.state.selectedFieldData}/>
       )
     } else {
       return (

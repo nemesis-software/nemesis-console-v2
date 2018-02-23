@@ -6,7 +6,6 @@ import AllFieldsConfiguration from './all-fields-configuration/all-fields-config
 
 import NotificationSystem from 'react-notification-system';
 
-
 let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
 
 const ConfigurationOptions = {
