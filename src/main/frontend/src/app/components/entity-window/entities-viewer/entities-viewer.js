@@ -19,6 +19,7 @@ export default class EntitiesViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {searchData: [], page: {}, sortData: [], filter: null, isDataLoading: false, openErrorDialog: false, errorMessage: null};
+    this.getEntityPromise = null;
   }
 
   componentWillMount() {
@@ -47,13 +48,26 @@ export default class EntitiesViewer extends Component {
 
   onFilterApply(filter) {
     this.setState({...this.state, filter: filter}, () => {
-      this.getEntitiesData(this.props.entity, pagerData.page, this.state.page.size, filter);
+      this.getEntitiesData(this.props.entity, pagerData.page, this.state.page.size, filter, this.state.sortData);
     });
   }
 
   getEntitiesData(entity, page, pageSize, filter, sortData) {
     this.setState({...this.state, isDataLoading: true});
-    ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
+
+    if (this.getEntityPromise) {
+      this.getEntityPromise.then(() => {
+        this.setState({...this.state, isDataLoading: true});
+        this.getEntityPromise = this.getEntityDataPromise(entity, page, pageSize, filter, sortData);
+        return this.getEntityPromise;
+      })
+    } else {
+      this.getEntityPromise = this.getEntityDataPromise(entity, page, pageSize, filter, sortData);
+    }
+  }
+
+  getEntityDataPromise(entity, page, pageSize, filter, sortData) {
+    return ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
       this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
     }, this.handleRequestError.bind(this));
   }
@@ -69,11 +83,11 @@ export default class EntitiesViewer extends Component {
   }
 
   retakeEntityData() {
-    this.getEntitiesData(this.props.entity, this.state.page.number, this.state.page.size, this.state.filter);
+    this.getEntitiesData(this.props.entity, this.state.page.number, this.state.page.size, this.state.filter, this.state.sortData);
   }
 
   onPagerChange(page, pageSize) {
-    this.getEntitiesData(this.props.entity, page, pageSize, this.state.filter);
+    this.getEntitiesData(this.props.entity, page, pageSize, this.state.filter, this.state.sortData);
   }
 
   onSortDataChange(sortData) {

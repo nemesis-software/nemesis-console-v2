@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
 import { componentRequire } from '../../../../../../utils/require-util';
 
+import FilterHelper from 'servicesDir/filter-helper';
+
 let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
 let NemesisDateTimeField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-time-field', 'nemesis-date-time-field');
 
@@ -48,11 +50,16 @@ export default class FilterDateTimeField extends Component {
       value: dateField,
       restriction: restrictionValue,
       field: this.props.filterItem.name,
-      id: this.props.filterItem.name
+      id: this.props.filterItem.name,
+      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, searchRestrictionTypes.equals, dateField)
     });
   }
 
   isDateFieldVisible() {
     return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
+  }
+
+  getTextRepresentation(name, restrictionValue, value) {
+    return FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, value);
   }
 }

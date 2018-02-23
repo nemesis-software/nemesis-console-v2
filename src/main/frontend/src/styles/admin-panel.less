@@ -1,30 +1,28 @@
-@light-blue: #357492;
+@import './variables';
 
 .nemesis-admin-panel {
 
   .navigation-bar {
-    list-style: none;
-    margin: 5px 0;
-    text-align: center;
+    padding: 10px 10px 0;
+    background: @main-blue-darker;
 
-    li {
+    .navigation-bar-item {
       display: inline-block;
+      height: 40px;
+      color: white;
+      background: @main-blue;
+      margin-right: 5px;
+      margin-bottom: 10px;
       padding: 10px 15px;
       cursor: pointer;
-      margin: 0 2px;
+
+      &.active {
+        color: black;
+        background: white;
+      }
 
       .fa {
         margin-right: 5px;
-      }
-
-      &:hover {
-        background: darken(#F5F5F5, 5%);
-      }
-
-      &.active {
-        background-color: @light-blue;
-        color: white;
-        border-radius: 3px;
       }
     }
   }
@@ -32,7 +30,7 @@
   .admin-csv-export {
 
     .csv-dto-block {
-      background-color: @light-blue;
+      background-color: @main-blue-darker;
       position: relative;
       padding: 5px;
       margin: 3px 0;
@@ -56,14 +54,16 @@
 
     .job-management-type {
       padding: 2px 5px;
-      border-radius: 2px;
-      background: lighten(@light-blue, 20%);
+      background: @main-blue;
     }
 
     .admin-job-management {
+      padding: 5px;
+
       .job-actions {
-        .btn {
-          margin: 3px;
+        margin-top: 10px;
+        .nemesis-button {
+          margin-right: 5px;
         }
       }
     }
@@ -90,7 +90,7 @@
         padding: 5px 10px;
 
         button {
-          background-color: @light-blue;
+          background-color: @main-blue-darker;
           color: white;
         }
       }
@@ -135,8 +135,7 @@
     margin: 5px 0;
 
     &.expanded {
-      border: 1px solid #357492;
-      border-radius: 5px;
+      border: 1px solid @main-blue-darker;
 
       .expandable-header {
         border-radius: 0;
@@ -144,9 +143,8 @@
     }
 
     .expandable-header {
-      background: @light-blue;
+      background: @main-blue-darker;
       color: white;
-      border-radius: 5px;
       padding: 5px 10px;
       cursor: pointer;
     }
@@ -171,8 +169,7 @@
       margin: 5px 0;
 
       &.expanded {
-        border: 1px solid #357492;
-        border-radius: 5px;
+        border: 1px solid @main-blue-darker;
 
         .admin-thread-main {
           border-radius: 0;
@@ -183,7 +180,6 @@
         .admin-thread-stack-trace {
           border: 1px solid #ccc;
           padding: 6px 12px;
-          border-radius: 4px;
           width: ~"calc(100% - 20px)";
           margin: 10px;
           background: white;
@@ -191,9 +187,8 @@
       }
 
       .admin-thread-main {
-        background: @light-blue;
+        background: @main-blue-darker;
         color: white;
-        border-radius: 5px;
         padding: 5px 10px;
         cursor: pointer;
 
@@ -202,7 +197,7 @@
         }
 
         .admin-thread-id {
-          color: #CDCDCD;
+          color: @light-font-color;
           padding: 0 5px;
         }
 
@@ -212,7 +207,6 @@
 
         .admin-thread-state {
           padding: 2px 5px;
-          border-radius: 2px;
 
           &.runnable {
             background: #08a20f;
@@ -294,10 +288,11 @@
 @keyframes blink-animation {
   50% { opacity: 0.5; }
 }
-@-webkit-keyframes blink-animation {
+@-webkit-keyframes blink-animation2 {
   50% { opacity: 0.5; }
 }
+
 .blink {
   animation: blink-animation 1.5s step-start 0s infinite;
-  -webkit-animation: blink-animation 1.5s step-start 0s infinite;
+  -webkit-animation: blink-animation2 1.5s step-start 0s infinite;
 }

@@ -16,7 +16,7 @@ Go through the article below, as well as through the respective files, to start 
 * Add the visualization you want to appear in your custom window.
 The custom window, created for demo purposes, is the Admin dashboard. It is located at `../custom_files/custom-windows/`. The `admin-dashboard` component is imported in the custom `entity-window.js`.
 
-[.center.text-center]
+[.center.text-left]
 .admin-dashboard
 image::admin-dashboard.png[Nemesis Backend Console Admin dashboard]
 
@@ -36,7 +36,7 @@ populateNavigationData() {
     });
 ----
 
-[.center.text-center]
+[.center.text-left]
 .custom navigation-tree
 image::custom-navigation-tree.png[Nemesis Backend Console Custom Navigation Tree items]
 
@@ -76,26 +76,26 @@ In the above example the filtering condition is the `entityId`.
 
 ** Active product filter
 
-[.center.text-center]
+[.center.text-left]
 .active-product-filter
 image::active-product-filter.png[Nemesis Backend Console Active product filter]
 
 ** Batch filter
 
-[.center.text-center]
+[.center.text-left]
 .batch-filter
 image::batch-filter.png[Nemesis Backend Console Batch filter]
 
 
 ** Transaction filter
 
-[.center.text-center]
+[.center.text-left]
 .transaction-filter
 image::transaction-filter.png[Nemesis Backend Console Transaction filter]
 
 ** Category filter
 
-[.center.text-center]
+[.center.text-left]
 .new-custom-filter
 image::category-filter.png[Nemesis Backend Console Category filter]
 
@@ -128,7 +128,7 @@ In the above example the filtering condition is the `entityId`.
 
 * Create your custom viewer. The custom viewer, created for demo purposes, is the `card-viewer.js`. It is in the `../custom_files/viewers/` directory.
 
-[.center.text-center]
+[.center.text-left]
 .card-viewer
 image::card-viewer.png[Nemesis Backend Console Card Viewer]
 
@@ -136,7 +136,7 @@ image::card-viewer.png[Nemesis Backend Console Card Viewer]
 
 In your custom `nemesis-localized-text-field.js` extend the `nemesis-localized-text-field` component from the `../app/components/field-components/nemesis-localized-text-field/` directory. Then add your custom validation logic.
 
-[.center.text-center]
+[.center.text-left]
 .nemesis-localized-text-field
 image::custom-validation.png[Nemesis Backend Console Custom Validation]
 
@@ -172,8 +172,8 @@ export default class CustomEntitySections extends EntitySections {
 }
 ----
 
-[.center.text-center]
-.entity-sections
+[.center.text-left]
+.custom-button
 image::custom-button.png[Nemesis Backend Console Custom Button]
 
 == *How to change the visualization of a field-component*
@@ -217,6 +217,6 @@ getItemsRender() {
 
 ----
 
-[.center.text-center]
+[.center.text-left]
 .nemesis-entity-collection-field
 image::nemesis-entity-collection-field.png[Nemesis Backend Console Entity Collection Field]

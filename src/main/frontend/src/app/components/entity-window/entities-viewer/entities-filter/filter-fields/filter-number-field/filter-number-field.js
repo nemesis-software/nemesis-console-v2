@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { componentRequire } from '../../../../../../utils/require-util';
 import { searchRestrictionTypes, nemesisFieldTypes } from '../../../../../../types/nemesis-types';
 
+import FilterHelper from 'servicesDir/filter-helper';
+
 let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
 let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
 
@@ -50,11 +52,16 @@ export default class FilterNumberField extends Component {
       value: numberField,
       restriction: restrictionValue,
       field: this.props.filterItem.name,
-      id: this.props.filterItem.name
+      id: this.props.filterItem.name,
+      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, numberField)
     });
   }
 
   isNumberFieldVisible() {
     return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
+  }
+
+  getTextRepresentation(name, restrictionValue, value) {
+    return FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, value);
   }
 }

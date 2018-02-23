@@ -13,7 +13,7 @@ The Nemesis Backend Console consists of several components, each of them extendi
 
 The `entities-navigation` component is the area where each of the `entity-navigation-item`-s is shown. It is billed as react-bootstrap link:https://react-bootstrap.github.io/components.html#navs[Nav] element with `pills` style.
 
-[.center.text-center]
+[.center.text-left]
 .entities-navigation
 image::entities-navigation.png[Nemesis Backend Console Entities Navigation Component]
 
@@ -23,7 +23,7 @@ Regardless of the order you choose an entity, by default they will be ordered al
 
 The `entity-navigation-item` component handles the logic of appearance for each entity you choose from the side navigation.
 
-[.center.text-center]
+[.center.text-left]
 .entity-navigation-item
 image::entity-navigation-item.png[Nemesis Backend Console Entity Navigation Item Component]
 
@@ -46,7 +46,7 @@ Called RESTs:
 
 The `main-view` component, as you may see from the picture below, functions as a wrapper of the information for the item  you choose. By default, when you start the console, the custom admin dashboard  is opened (we'll talk later about it).
 
-[.center.text-center]
+[.center.text-left]
 .main-view
 image::main-view.png[Nemesis Backend Console Main View Component]
 
@@ -58,7 +58,7 @@ Called REST: `/backend/navigation`
 
 The `navigation-filter` component handles the user's input and lets the filtered on the given criteria entities to be displayed only. Your input is dependent on the language of the console. If it is in English, for example, a filtration condition in a different language will not match.
 
-[.center.text-center]
+[.center.text-left]
 .navigation-filter
 image::navigation-filter.png[Nemesis Backend Console Navigation Filter Component]
 
@@ -66,7 +66,7 @@ image::navigation-filter.png[Nemesis Backend Console Navigation Filter Component
 
 The `navigation-tree` component holds the `navigation-filter` component and a collection of the `navigation-tree-item` components.
 
-[.center.text-center]
+[.center.text-left]
 .navigation-tree
 image::navigation-tree.png[Nemesis Backend Console Navigation Tree Component]
 
@@ -75,9 +75,9 @@ image::navigation-tree.png[Nemesis Backend Console Navigation Tree Component]
 
 The `navigation-tree` consists of different items. Each item may contain different sub-items from the same type. The inner level navigation item only is the one that can be opened/ created an instance of.
 
-[.center.text-center]
+[.center.text-left]
 .navigation-tree-item
-image::navigation-tree-item.PNG[Nemesis Backend Console Navigation Tree Item Component]
+image::navigation-tree-item.png[Nemesis Backend Console Navigation Tree Item Component]
 
 As shown on the picture, we have a 3-level-structure of a navigation item. `Commerce` is a `navigation-tree-item`, containing instances of `Catalog`, `Order`, `Price`, `Location` and `Leasing`. They are `navigation-tree-item`-s again. Each of these, on an inner level, has its editable instances. The `Manufacturer` is also a `navigation-tree-item`.
 
@@ -94,7 +94,7 @@ The `entities-viewer` consists of
     * filters and
     * results' view
 
-[.center.text-center]
+[.center.text-left]
 .entities-viewer
 image::entities-viewer.png[Nemesis Backend Console Entities Viewer Window]
 
@@ -102,7 +102,7 @@ image::entities-viewer.png[Nemesis Backend Console Entities Viewer Window]
 
 The filtration is done based on the criteria entered. If there is no customization, the returned JSON from the API call is visualized as shown on the picture.
 
-[.center.text-center]
+[.center.text-left]
 .filters
 image::filters.png[Nemesis Backend Console Filters Window]
 
@@ -112,7 +112,7 @@ A custom filter may pre-populate filtration conditions (check the `Custom` filte
 
 The `entities-result-viewer` component handles the results of your entity search:
 
-[.center.text-center]
+[.center.text-left]
 .entities-result-viewer
 image::entities-result-viewer.png[Nemesis Backend Console Entities Result Viewer Component]
 
@@ -122,7 +122,7 @@ image::entities-result-viewer.png[Nemesis Backend Console Entities Result Viewer
 
 The visualization of the results, in case there is no customization, is displayed in a table. The respective component is `entities-table-viewer` :
 
-[.center.text-center]
+[.center.text-left]
 .entities-table-viewer
 image::entities-table-viewer.png[Nemesis Backend Console Entities Table Viewer Component]
 
@@ -132,7 +132,7 @@ image::entities-table-viewer.png[Nemesis Backend Console Entities Table Viewer C
 
 You control the size of the displayed results via the pager's value:. The respective component is `entities-pager`:
 
-[.center.text-center]
+[.center.text-left]
 .entities-pager
 image::entities-pager.png[Nemesis Backend Console Entities Pager Component]
 
@@ -144,7 +144,7 @@ image::entities-pager.png[Nemesis Backend Console Entities Pager Component]
 
 The `entity-section` visualizes the information, relevant for the exact entity, filtered on a condition. Each of the tabs opens a new `entity-section`:
 
-[.center.text-center]
+[.center.text-left]
 .entity-section
 image::entity-section.png[Nemesis Backend Console Entity Section Component]
 
@@ -153,7 +153,7 @@ image::entity-section.png[Nemesis Backend Console Entity Section Component]
 All sections, related to the entity, are united in a `entity-sections` component.
 
 
-[.center.text-center]
+[.center.text-left]
 .entity-sections
 image::entity-sections.png[Nemesis Backend Console Entity Sections Component]
 

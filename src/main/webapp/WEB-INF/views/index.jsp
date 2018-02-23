@@ -10,6 +10,7 @@
 </head>
 <body>
     <div class="app-container"></div>
+    <div class="portals-container"></div>
 </body>
 <div id="website-base-url" style="display:none" url="${websiteBaseUrl}"></div>
 <div id="rest-base-url" style="display:none" url="${restBaseUrl}" locale="${currentLocale}"></div>

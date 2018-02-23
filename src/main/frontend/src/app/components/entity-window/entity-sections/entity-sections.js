@@ -72,6 +72,7 @@ export default class EntitySections extends Component {
         </SwipeableViews>
         {this.getDeleteConfirmationDialog()}
         {this.getErrorDialog()}
+        {this.getAdditionalItem()}
       </div>
     )
   }
@@ -195,7 +196,7 @@ export default class EntitySections extends Component {
       return null;
     }
 
-    return data.content || data;
+    return data.content && data.content.id ? data.content : data;
   }
 
   handleRefreshButtonClick() {
@@ -318,4 +319,8 @@ export default class EntitySections extends Component {
   handleCloseDeleteConfirmation() {
     this.setState({...this.state, openDeleteConfirmation: false});
   };
+
+  getAdditionalItem() {
+    return false;
+  }
 }

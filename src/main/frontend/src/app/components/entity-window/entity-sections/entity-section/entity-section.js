@@ -28,6 +28,7 @@ export default class EntitySection extends Component {
     super(props);
     this.fieldsReferences = [];
   }
+
   render() {
     return (
       <div style={{minHeight: 'calc(100vh - 205px)', background: 'white'}} className="entity-section">
@@ -125,13 +126,5 @@ export default class EntitySection extends Component {
     this.fieldsReferences.forEach(field => {
       field.resetDirtyState();
     });
-  }
-
-  getPaperStyles(item) {
-    let style = {};
-    if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisMediaField, nemesisFieldTypes.nemesisSimpleCollectionField].indexOf(item.xtype) > -1) {
-      style.width = 'calc(100% - 10px)';
-    }
-    return style;
   }
 }

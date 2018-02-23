@@ -1,29 +1,36 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import NotificationSystem from 'react-notification-system';
 
 import _ from 'lodash';
 
+import PropTypes from 'prop-types';
+
 import ApiCall from '../../services/api-call'
 import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types'
-import { componentRequire } from '../../utils/require-util';
+import {componentRequire} from '../../utils/require-util';
 
 let EntitiesNavigation = componentRequire('app/components/entities-navigation/entities-navigation', 'entities-navigation');
 let EntityWindow = componentRequire('app/components/entity-window/entity-window', 'entity-window');
 
 export default class MainView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {markupData: [], entityMarkupData: [], selectedEntity: null, openedEntities: [], snackbarOpen: false, snackbarMessage: ''};
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      markupData: context.markupData,
+      entityMarkupData: context.entityMarkupData,
+      selectedEntity: null,
+      openedEntities: [],
+      snackbarOpen: false,
+      snackbarMessage: ''
+    };
     this.searchEntityWindowReferences = [];
     this.createWindowIncrementor = 1;
     this.notificationSystem = null;
   }
 
   componentWillMount() {
-    return Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
-      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data});
-    }).then(this.parseUrlEntity.bind(this))
+    return this.parseUrlEntity()
   }
 
   componentDidMount() {
@@ -60,12 +67,18 @@ export default class MainView extends Component {
   }
 
   getOpenedEntities(selectedEntity) {
-    let openedEntities = this.state.openedEntities.map(item => {return {...item, isVisible: false}});
+    let openedEntities = this.state.openedEntities.map(item => {
+      return {...item, isVisible: false}
+    });
     let selectedEntityIndex = -1;
     if (selectedEntity.type === entityItemType) {
       selectedEntityIndex = _.findIndex(this.state.openedEntities, {itemId: selectedEntity.itemId});
     } else {
-      selectedEntityIndex = _.findIndex(this.state.openedEntities, {entityId: selectedEntity.entityId, type: selectedEntity.type, itemId: selectedEntity.itemId});
+      selectedEntityIndex = _.findIndex(this.state.openedEntities, {
+        entityId: selectedEntity.entityId,
+        type: selectedEntity.type,
+        itemId: selectedEntity.itemId
+      });
     }
     if (selectedEntityIndex < 0) {
       selectedEntity.isVisible = true;
@@ -162,9 +175,10 @@ export default class MainView extends Component {
   render() {
     return (
       <div>
-        <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)} entities={this.state.openedEntities} />
+        <EntitiesNavigation onNavigationItemClick={this.onNavigationItemClick.bind(this)} onEntityWindowClose={this.onEntityWindowClose.bind(this)}
+                            entities={this.state.openedEntities}/>
         {this.renderOpenedEntities()}
-        <NotificationSystem ref="notificationSystem" />
+        <NotificationSystem ref="notificationSystem"/>
       </div>
     )
   }
@@ -179,7 +193,10 @@ export default class MainView extends Component {
       (entity, index) => <EntityWindow onEntityItemClick={this.onEntityItemClick.bind(this)}
                                        openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}
                                        updateNavigationCode={this.updateNavigationCode.bind(this)}
-                                       ref={item => item && entity.type === entitySearchType && this.searchEntityWindowReferences.push({entity: entity, refItem: item})}
+                                       ref={item => item && entity.type === entitySearchType && this.searchEntityWindowReferences.push({
+                                         entity: entity,
+                                         refItem: item
+                                       })}
                                        onEntityWindowClose={this.onEntityWindowClose.bind(this)}
                                        onUpdateEntitySearchView={this.onUpdateEntitySearchView.bind(this)}
                                        updateCreatedEntity={this.updateCreatedEntity.bind(this)}
@@ -233,3 +250,8 @@ export default class MainView extends Component {
     return Promise.resolve();
   }
 }
+
+MainView.contextTypes = {
+  markupData: PropTypes.object,
+  entityMarkupData: PropTypes.object
+};

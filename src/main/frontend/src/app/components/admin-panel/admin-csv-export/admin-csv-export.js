@@ -35,18 +35,24 @@ export default class AdminCsvExport extends Component {
   }
 
   onExportCsvButtonClick() {
-    console.log(this.blockReferences);
     if (!this.isBlocksValid()) {
-      console.log('empty fields');
       return;
     }
     let data = {blockDtos: []};
     this.blockReferences.forEach(block => {
       data.blockDtos.push(block.getBlockData());
     });
-    console.log(data);
-    PlatformApiCall.post('csv/export', data);
-    console.log('success');
+    PlatformApiCall.post('csv/export', data).then(result => {
+      let csvContent = "data:text/csv;charset=utf-8," + result.data;
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      let fileName = `exported_data_${new Date().getTime()}.csv`;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
   }
 
   isBlocksValid() {

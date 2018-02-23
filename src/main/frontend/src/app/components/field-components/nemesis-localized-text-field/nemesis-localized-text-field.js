@@ -2,7 +2,7 @@ import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
 import LanguageChanger from '../../language-changer';
-import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
+import {nemesisFieldUsageTypes} from '../../../types/nemesis-types';
 import Modal from 'react-bootstrap/lib/Modal';
 
 const translationLanguages = {
@@ -33,13 +33,14 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
         />
         <div className="entity-field-input-container">
-          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
-            <input type="text"
-                   style={{height: '36px'}}
-                   className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
-                   value={this.getTextFieldValue(this.state.selectedLanguage)}
-                   disabled={this.props.readOnly}
-                   onChange={(e) => this.onTextChange(e, e.target.value, this.state.selectedLanguage)}/>
+          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
+            <span className="required-star">*</span> : false}</div>
+          <input type="text"
+                 style={{height: '36px'}}
+                 className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                 value={this.getTextFieldValue(this.state.selectedLanguage)}
+                 disabled={this.props.readOnly}
+                 onChange={(e) => this.onTextChange(e, e.target.value, this.state.selectedLanguage)}/>
         </div>
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
@@ -49,17 +50,17 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
-          <Modal show={this.state.openTranslateDialog} bsSize={this.getModalSize()} onHide={this.handleTranslateDialogClose.bind(this)} backdrop="static">
-            <Modal.Header>
-              <Modal.Title>Translate field</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {translationLanguages.languages.map(this.getDialogInputField.bind(this))}
-            </Modal.Body>
-            <Modal.Footer>
-              <button className="nemesis-button success-button" onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
-            </Modal.Footer>
-          </Modal>
+            <Modal show={this.state.openTranslateDialog} bsSize={this.getModalSize()} onHide={this.handleTranslateDialogClose.bind(this)} backdrop="static">
+              <Modal.Header>
+                <Modal.Title>Translate field</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {translationLanguages.languages.map(this.getDialogInputField.bind(this))}
+              </Modal.Body>
+              <Modal.Footer>
+                <button className="nemesis-button success-button" onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
+              </Modal.Footer>
+            </Modal>
           ) :
           false}
       </div>
@@ -69,7 +70,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   getDialogInputField(language, index) {
     return (
       <div key={index} style={{marginBottom: '20px'}}>
-        <Translate component="label" content={'main.' + language.labelCode} fallback={language.labelCode} />
+        <Translate component="label" content={'main.' + language.labelCode} fallback={language.labelCode}/>
         <textarea className="entity-field form-control"
                   rows={1}
                   style={{resize: 'vertical'}}
@@ -85,10 +86,11 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   }
 
   onLanguageChange(language) {
-    this.setState({...this.state, selectedLanguage: language});
-    if (this.props.onValueChange) {
-      this.props.onValueChange(this.getFormattedValue(this.state.value || {}, language));
-    }
+    this.setState({...this.state, selectedLanguage: language}, () => {
+      if (this.props.onValueChange) {
+        this.props.onValueChange(this.getFormattedValue(this.state.value || {}, language));
+      }
+    });
   }
 
   getTextFieldValue(language) {
@@ -121,11 +123,11 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   }
 
   handleTranslateIconClick = () => {
-    this.setState({...this.state, openTranslateDialog: true });
+    this.setState({...this.state, openTranslateDialog: true});
   };
 
   handleTranslateDialogClose = () => {
-    this.setState({...this.state, openTranslateDialog: false });
+    this.setState({...this.state, openTranslateDialog: false});
   };
 
   getOpenDialogIconClass() {

@@ -1,14 +1,24 @@
 = *Nemesis CMS Console - user guide*
 :toc:
 
-This guide shows you how to use the Nemesis CMS console. If this is your first time to work with the console, check our Overview article link:https://docs.nemesis.io/current-snapshot/nemesis-console-v2/index.html[here]). Once logged, you are ready to start the tutorial below:
+This guide shows you how to use the Nemesis CMS console. If this is your first time to work with the console, check our Overview article link:index.html[here]). Once logged, you are ready to start the tutorial below:
 
 == *Start the CMS console*
-To open the CMS live edit, click `Live edit` in the navigation bar and choose the site you want to edit. You see it opened in a new window.
+To open the CMS live edit, click `Live edit` in the navigation bar and choose the site you want to edit.
+
+[.center.text-left]
+.Live edit navigation
+image::live-edit.png[navigation to CMS live edit]
+
+You see it opened in a new window.
 
 == *The navigation bar*
 
 By default, the *Navigation bar* of the CMS console is in the left side of your screen.
+
+[.center.text-left]
+.CMS navigation bar
+image::CMS-navigation-bar.png[CMS navigation bar]
 
 IMPORTANT: Currently, in order to see the list of the available widgets, you need to have the stage catalogs activated. Please, check the value of the `enableCatalogVersions` property in the `application.properties` file of your application, and if `FALSE`, set it to `TRUE`.
 
@@ -23,14 +33,32 @@ The *paginated list of widgets* shows all widgets, available among all stage cat
 * 2nd) its name;
 * 3rd) its catalog;
 
+[.center.text-left]
+.Widget hover
+image::widget-hover.png[widget hover]
+
 When you switch on the *Live edit*, you see all of the currently *visible* slots and widgets inside.
+
+[.center.text-left]
+.Live edit switched on
+image::live-edit-switched-on.png[live edit switched on]
 
 NOTE: Visually, each *slot* is outlined in *red*, whereas each *widget* is outlined in *blue*.
 
 
 When you switch on the *Show all* ONLY, you activate the *empty slots* and the *non-initialized slots*. That is why, visually, you will see that the site's content is pushed aside.
 
-To get a clear idea what is going on, switch on the *Live edit* as well. The empty slots are in red (as usual), without the blue line inside (without a widget, in other words). The non-initialized slots, if any, are in green. More on what a non-initialized slot is read below.
+To get a clear idea what is going on, switch on the *Live edit* as well. The empty slots are in red (as usual), without the blue line inside (without a widget, in other words).
+
+[.center.text-left]
+.Empty slots
+image::empty-slots.png[live edit empty slots]
+
+The non-initialized slots, if any, are in green. More on what a non-initialized slot is read below.
+
+[.center.text-left]
+.Non-initialized slots
+image::non-initialized-slots.png[non-initialized slots]
 
 In the *search bar* you may search against the database of all widgets in the stage catalogs. The search criteria is the *widget code*. If the code you enter is *contained* in any of the widget codes available, the match is displayed.
 
@@ -38,11 +66,19 @@ In the *search bar* you may search against the database of all widgets in the st
 
 All of the widgets available are enumerated in the navigation bar and can be searched by their code. When you find the widget you want, just drag and drop it in a slot - either an empty, of a filled-in one. When the widget is placed in the slot, the page is reloaded and you can see the changes you have just made.
 
+[.center.text-left]
+.Drag and drop a widget
+image::drag-and-drop-widget.png[drag and drop widgets]
+
 IMPORTANT: New widgets and slots *cannot* be created in the CSV console. You can only edit the way they are located on the site. In order to create a new widget or a new slot, you need the *Backend console*.
 
 == *How to modify the content of a widget*
 
 Each of the widgets, enumerated in the navigation bar, has s 3-dot-button on top. When you click it, the Backend console gets opened (or asks you to log in and opens after that) and you are navigated to the respective widget. From the Backend console now, you can edit your widget. If you have any doubts on how to work with the Backend Console, check link:user-guide.html[this] guide.
+
+[.center.text-left]
+.Edit a widget
+image::edit-widget.png[edit widgets]
 
 When you click `Close`, you are returned on the current page, without any changes in the visualization.
 
@@ -52,7 +88,12 @@ NOTE: Do not forget to click `SAVE` if you want to store the changes in the data
 
 == *How to remove a widget from a slot*
 
-When the `Live edit` is ON, you see the slots outlined in red. Click on the 3-dot red button to open the respective slot in the backend console. From there, navigate to the `Widgets` section and `Remove` the widgets you'd want to. Do not forget to `SAVE` your changes.
+When the `Live edit` is ON, you see the slots outlined in red. Click on the 3-dot red button to open the respective slot in the backend console. From there, navigate to the `Widgets` section and remove the widgets you'd want to by choosing the `X` button at the end of the widget's block. Do not forget to `SAVE` your changes.
+
+[.center.text-left]
+.Remove a widget
+image::remove-widget.png[remove widgets]
+
 
 If you want to see the change of the visualization, click `Reload changes`.
 
@@ -70,10 +111,10 @@ Drag and drop a widget from the navigation bar.
 
 A pop-up appears, asking you to create a slot first. You need to choose if this slot is to apply to the whole template (in other words, on every page on this place) or to the respective page only. Choose the option you want.
 
+[.center.text-left]
+.Slot pop-up
+image::slot-popup.png[slot pop-up]
+
 Then enter the slot's code (an obligatory requisite for each and every slot).
 
 Click `Create`. You have just created a new slot with the entered code and your widget is inserted inside.
-
-
-
-

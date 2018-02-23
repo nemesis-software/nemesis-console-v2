@@ -15,7 +15,7 @@ export default class CsvDtoBlock extends Component {
     return (
       <div className="csv-dto-block">
         <i className="fa fa-window-close remove-button" onClick={() => {this.props.removeBlock(this.props.identityKey)}}/>
-        <NemesisEnumField className="test" ref={el => this.enumElement = el} required={true} label="Verb" values={['MERGE' , 'REMOVE', 'PERSIST']} value={-1}/>
+        <NemesisEnumField style={{width: '265px'}} ref={el => this.enumElement = el} required={true} label="Verb" values={['MERGE' , 'REMOVE', 'PERSIST']} value={-1}/>
         <NemesisTextField style={{width: '768px'}} ref={el => this.textElement = el} required={true} label="Entity class" />
         <CsvFieldsComponent style={{width: '1043px'}} ref={el => this.fieldsElement = el} required={true} label="Fields"/>
       </div>

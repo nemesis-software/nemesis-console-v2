@@ -109,6 +109,7 @@ export default class HtmlEditor extends Component {
   componentDidUpdate() {
     if ( this.editableDiv && this.props.htmlContent !== this.editableDiv.innerHTML ) {
       this.editableDiv.innerHTML = this.props.htmlContent;
+      this.setState({...this.state, content: this.props.htmlContent});
     }
   }
 
