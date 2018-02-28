@@ -55,43 +55,7 @@ export default class RoleViewItem extends Component {
 
   getEntityFields() {
     if (this.props.item === 'blog_entry') {
-      let flattedFields = [];
-
-      this.context.entityMarkupData[this.props.item].sections.forEach(section => {
-        flattedFields = flattedFields.concat(section.items);
-      });
-      let config = this.context.quickViewData[this.props.item];
-
-      let mainViewActual = [];
-      _.forEach(config.mainView, item => {
-        let itemIndex = _.findIndex(flattedFields, (field) => {
-          return field.name === item.name;
-        });
-
-        if (itemIndex > -1) {
-          mainViewActual.push({field: flattedFields[itemIndex], embeddedCreation: item.embeddedCreation});
-        }
-      });
-
-      let sideBarActual = [];
-      _.forEach(config.sideBar, sideBarItem => {
-        let sideBarItemActual = [];
-        _.forEach(sideBarItem.items, (item) => {
-          let itemIndex = _.findIndex(flattedFields, (field) => {
-            return field.name === item.name;
-          });
-          if (itemIndex > -1) {
-            sideBarItemActual.push({field: flattedFields[itemIndex], embeddedCreation: item.embeddedCreation});
-          }
-        });
-
-        sideBarActual.push({
-          groupName: sideBarItem.groupName,
-          items: sideBarItemActual
-        });
-      });
-
-      return {mainView: mainViewActual, sideBar: sideBarActual};
+      return this.context.entityMarkupData[this.props.item].simpleView;
     }
 
     return {};
@@ -100,6 +64,5 @@ export default class RoleViewItem extends Component {
 
 RoleViewItem.contextTypes = {
   markupData: PropTypes.object,
-  entityMarkupData: PropTypes.object,
-  quickViewData: PropTypes.object
+  entityMarkupData: PropTypes.object
 };

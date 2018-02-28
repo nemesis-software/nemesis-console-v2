@@ -37,21 +37,3 @@ export const searchRestrictionTypes = {
   isNull: 'Null',
   equals: 'Equals'
 };
-
-
-// "nemesisTextField" - done
-// "nemesisTextarea" - done
-// "nemesisEntityField" - done
-// "nemesisCollectionField" - done
-// "nemesisDateField" - done
-// "nemesisBooleanField" - done
-// "nemesisIntegerField" - done
-// "nemesisEnumField" - done
-// "nemesisPasswordField" - done
-// "nemesisLocalizedTextField" - done
-// "nemesisDecimalField" - done
-// "nemesisSimpleCollectionField" - done
-// "nemesisHtmlEditor" - done // use textarea
-// "nemesisLocalizedRichtextField" - done // user text area
-// "nemesisColorpickerField" - done
-// "nemesisMediaField"

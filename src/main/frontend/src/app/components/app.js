@@ -9,7 +9,6 @@ import counterpart from 'counterpart';
 import PropTypes from 'prop-types';
 
 import ApiCall from 'servicesDir/api-call'
-import QuickViewData from 'servicesDir/quick-view-helper'
 
 import MasterAdmin from './master-admin/master-admin';
 import AdminPanel from './admin-panel/admin-panel';
@@ -49,20 +48,19 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.isOpenInFrame = false;
-    this.state = {markupData: {}, entityMarkupData: {}, quickViewData: {}, isLoadingData: true};
+    this.state = {markupData: {}, entityMarkupData: {}, isLoadingData: true};
   }
 
   getChildContext() {
     return {
       markupData: this.state.markupData,
-      entityMarkupData: this.state.entityMarkupData,
-      quickViewData: this.state.quickViewData
+      entityMarkupData: this.state.entityMarkupData
     };
   }
 
   componentWillMount() {
     Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
-      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, quickViewData: QuickViewData, isLoadingData: false});
+      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, isLoadingData: false});
     });
     this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
   }
@@ -111,6 +109,5 @@ export default class App extends Component {
 
 App.childContextTypes = {
   markupData: PropTypes.object,
-  entityMarkupData: PropTypes.object,
-  quickViewData: PropTypes.object,
+  entityMarkupData: PropTypes.object
 };

@@ -33,7 +33,7 @@ export default class EmbeddedCreationPortal extends Component {
   constructor(props, context) {
     super(props, context);
     this.portalsContainer = document.querySelector('.portals-container');
-    this.state = {entityFields: this.getEntityFields(), isLoading: false};
+    this.state = {entityFields: context.entityMarkupData[props.entityId].simpleView.mainViewItems, isLoading: false};
     this.fieldsReferences = [];
   }
 
@@ -79,39 +79,16 @@ export default class EmbeddedCreationPortal extends Component {
     );
   }
 
-  getEntityFields() {
-    let flattedFields = [];
-
-    this.context.entityMarkupData[this.props.entityId].sections.forEach(section => {
-      flattedFields = flattedFields.concat(section.items);
-    });
-    console.log(flattedFields);
-    let config = this.context.quickViewData[this.props.entityId];
-
-    let result = [];
-    _.forEach(config.mainView, item => {
-      let itemIndex = _.findIndex(flattedFields, (field) => {
-        return field.name === item.name;
-      });
-
-      if (itemIndex > -1) {
-        result.push({field: flattedFields[itemIndex], embeddedCreation: item.embeddedCreation});
-      }
-    });
-
-    return result;
-  }
-
   getSectionItemRenderer(item, index) {
     let reactElement;
-    let itemName = item.field.name.replace('entity-', '');
+    let itemName = item.name;
     let elementConfig = {
       mainEntity: this.props.entity,
-      embeddedCreation: item.embeddedCreation,
-      label: item.field.fieldLabel,
+      embeddedCreationAllowed: item.embeddedCreationAllowed,
+      label: item.fieldLabel,
       name: itemName,
-      readOnly: item.field.readOnly,
-      required: item.field.required,
+      readOnly: item.readOnly,
+      required: item.required,
       value: undefined,
       type: nemesisFieldUsageTypes.quickView,
       ref: (field) => { field && this.fieldsReferences.push(field)}
@@ -124,7 +101,7 @@ export default class EmbeddedCreationPortal extends Component {
       NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
     }
 
-    switch (item.field.xtype) {
+    switch (item.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
       case nemesisFieldTypes.nemesisTextarea: reactElement = NemesisTextareaField; break;
       case nemesisFieldTypes.nemesisHtmlEditor: reactElement = NemesisRichTextField; break;
@@ -134,16 +111,16 @@ export default class EmbeddedCreationPortal extends Component {
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;
-      case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.field.values; elementConfig.value = item.field.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
-      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.field.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
+      case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
+      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
       case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisSimpleLocalizedTextField; break;
       case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisSimpleLocalizedRichTextField; break;
       case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;
       case nemesisFieldTypes.nemesisMediaField: reactElement = NemesisMediaField; break;
       case nemesisFieldTypes.nemesisMapField: reactElement = NemesisMapField; break;
       case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
-      case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.field.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
-      default: return <div key={index}>Not supported yet - {item.field.xtype}</div>
+      case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
+      default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
     return React.createElement(reactElement, elementConfig)
   }
@@ -215,7 +192,7 @@ export default class EmbeddedCreationPortal extends Component {
   }
 
   getFieldStyle(item) {
-    if (item.embeddedCreation || item.field.xtype === nemesisFieldTypes.nemesisMapField) {
+    if (item.embeddedCreationAllowed || item.xtype === nemesisFieldTypes.nemesisMapField) {
       return ' with-icon';
     }
 
@@ -225,6 +202,5 @@ export default class EmbeddedCreationPortal extends Component {
 
 EmbeddedCreationPortal.contextTypes = {
   markupData: PropTypes.object,
-  entityMarkupData: PropTypes.object,
-  quickViewData: PropTypes.object
+  entityMarkupData: PropTypes.object
 };

@@ -13,7 +13,7 @@ import ApiCall from 'servicesDir/api-call';
 export default class AllFieldsConfiguration extends Component {
   constructor(props) {
     super(props);
-    this.state = {allFields: {}, allFieldsKey: [], filteredFieldsKey: []};
+    this.state = {allFields: {}, allFieldsKey: [], filteredFieldsKey: [], filterValue: ''};
   }
 
   componentWillMount() {
@@ -32,7 +32,12 @@ export default class AllFieldsConfiguration extends Component {
   render() {
     if (this.state.selectedFieldData) {
       return (
-        <MasterAdminConfiguration handleBackButton={this.handleBackButton.bind(this)} openNotificationSnackbar={this.props.openNotificationSnackbar} selectedEntityConfigId={this.state.selectedEntityConfigId} entityName={this.state.selectedFieldKey} allFields={this.state.allFields[this.state.selectedFieldKey]} fieldData={this.state.selectedFieldData}/>
+        <MasterAdminConfiguration handleBackButton={this.handleBackButton.bind(this)}
+                                  openNotificationSnackbar={this.props.openNotificationSnackbar}
+                                  selectedEntityConfigId={this.state.selectedEntityConfigId}
+                                  entityName={this.state.selectedFieldKey}
+                                  allFields={this.state.allFields[this.state.selectedFieldKey]}
+                                  fieldData={this.state.selectedFieldData}/>
       )
     } else {
       return (
@@ -41,6 +46,7 @@ export default class AllFieldsConfiguration extends Component {
             <input type="text"
                    placeholder={counterpart.translate('main.Filter...', {fallback: 'Filter'})}
                    className="form-control"
+                   value={this.state.filterValue}
                    onChange={this.onFilterChange.bind(this)}/>
             <span className="input-group-addon"><i className="fa fa-search"/></span>
           </div>
@@ -66,23 +72,27 @@ export default class AllFieldsConfiguration extends Component {
       return regex.test(counterpart.translate('main.' + key))
     });
 
-    this.setState({filteredFieldsKey: result});
+    this.setState({filteredFieldsKey: result, filterValue: searchValue});
   }
 
   onFieldSelect(field) {
     ApiCall.get('entity_config/search/findByCode/', {code: field}).then(result => {
-      ApiCall.get(result.data._links.entityProperties.href).then(entityPropertiesResult => {
-        this.setState({selectedEntityConfigId: result.data.id, selectedFieldKey: field, selectedFieldData: this.mapCollectionData(entityPropertiesResult.data)});
-      })
-
+      this.getEntityProperties(result.data, field);
     }, (err) => {
       if (err.response.status === 404) {
-        console.log('no config');
-        //TODO: ask user to create new config
+        ApiCall.post('entity_config', {code: field, xtype: `${field}Markup`}).then(result => {
+          this.getEntityProperties(result.data, field);
+        });
       } else {
         console.log(err);
       }
     });
+  }
+
+  getEntityProperties(entityConfig, selectedFieldKey) {
+    ApiCall.get(entityConfig._links.entityProperties.href).then(entityPropertiesResult => {
+      this.setState({selectedEntityConfigId: entityConfig.id, selectedFieldKey: selectedFieldKey, selectedFieldData: this.mapCollectionData(entityPropertiesResult.data)});
+    })
   }
 
   handleBackButton() {

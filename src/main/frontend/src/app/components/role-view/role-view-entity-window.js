@@ -222,21 +222,20 @@ export default class RoleViewEntityWindow extends Component {
       return result;
     }
 
-    entityFields.mainView.forEach(subItem => {
-      if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.field.xtype) > -1) {
-        result.push({type: subItem.field.xtype, name: subItem.field.name.replace('entity-', '')});
+    entityFields.mainViewItems.forEach(subItem => {
+      if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+        result.push({type: subItem.xtype, name: subItem.name});
       }
     });
 
-    entityFields.sideBar.forEach(item => {
+    entityFields.groups.forEach(item => {
       item.items.forEach(subItem => {
-        if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.field.xtype) > -1) {
-          result.push({type: subItem.field.xtype, name: subItem.field.name.replace('entity-', '')});
+        if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+          result.push({type: subItem.xtype, name: subItem.name});
         }
       })
     });
 
-    console.log('relatedEntities', result);
     return result;
   }
 

@@ -72,13 +72,13 @@ export default class RoleEntityItemView extends Component {
         <div className="role-entity-main-content">
           <div className="role-entity-item-main-view">
             <div style={{display: 'inline-block', width: '100%', verticalAlign: 'top', padding: '0 20px'}}>
-              {_.map(this.props.entityFields.mainView, (item, key) => {
+              {_.map(this.props.entityFields.mainViewItems, (item, key) => {
                 return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
               })}
             </div>
           </div>
           <SideBar isSidebarOpened={this.state.isSidebarOpened}
-                   sideBar={this.props.entityFields.sideBar}
+                   sideBar={this.props.entityFields.groups}
                    closeSidebar={() => {this.setState({...this.state, isSidebarOpened: false})}}
                    getSectionItemRenderer={this.getSectionItemRenderer.bind(this)}
           />
@@ -88,6 +88,7 @@ export default class RoleEntityItemView extends Component {
   }
 
   getItemValue(item, itemName) {
+    console.log(item);
     if ([nemesisFieldTypes.nemesisEntityField, nemesisFieldTypes.nemesisCollectionField].indexOf(item.xtype) > -1) {
       return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
     }
@@ -105,20 +106,20 @@ export default class RoleEntityItemView extends Component {
 
   getSectionItemRenderer(item, index) {
     let reactElement;
-    let itemName = item.field.name.replace('entity-', '');
+    let itemName = item.name.replace('entity-', '');
     let elementConfig = {
       mainEntity: this.props.entity,
-      embeddedCreation: item.embeddedCreation,
-      label: item.field.fieldLabel,
+      embeddedCreationAllowed: item.embeddedCreationAllowed,
+      label: item.fieldLabel,
       name: itemName,
-      readOnly: item.field.readOnly,
-      required: item.field.required,
-      value: this.getItemValue(item.field, itemName),
+      readOnly: item.readOnly,
+      required: item.required,
+      value: this.getItemValue(item, itemName),
       type: nemesisFieldUsageTypes.quickView,
       ref: (field) => { field && this.fieldsReferences.push(field)}
     };
 
-    switch (item.field.xtype) {
+    switch (item.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
       case nemesisFieldTypes.nemesisTextarea: reactElement = NemesisTextareaField; break;
       case nemesisFieldTypes.nemesisHtmlEditor: reactElement = NemesisRichTextField; break;
@@ -128,16 +129,16 @@ export default class RoleEntityItemView extends Component {
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;
-      case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.field.values; elementConfig.value = item.field.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
-      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.field.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
+      case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
+      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
       case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisSimpleLocalizedTextField; break;
       case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisSimpleLocalizedRichTextField; break;
       case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;
       case nemesisFieldTypes.nemesisMediaField: reactElement = NemesisMediaField; break;
       case nemesisFieldTypes.nemesisMapField: reactElement = NemesisMapField; break;
       case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
-      case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.field.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
-      default: return <div key={index}>Not supported yet - {item.field.xtype}</div>
+      case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
+      default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
 
     return React.createElement(reactElement, elementConfig)
@@ -223,7 +224,7 @@ export default class RoleEntityItemView extends Component {
   }
 
   getFieldStyle(item) {
-    if (item.embeddedCreation || item.field.xtype === nemesisFieldTypes.nemesisMapField) {
+    if (item.embeddedCreationAllowed || item.xtype === nemesisFieldTypes.nemesisMapField) {
       return ' with-icon';
     }
 
