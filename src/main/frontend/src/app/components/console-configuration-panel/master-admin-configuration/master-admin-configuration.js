@@ -44,7 +44,12 @@ export default class MasterAdminConfiguration extends Component {
         </div>
         <Translate component="div" content={'main.' + this.props.entityName} fallback={this.props.entityName} className="entity-name-container"/>
         {this.state.selectedFields.map(field => {
-          return <MasterAdminFieldPanel ref={(fieldPanel) => {fieldPanel && this.fieldPanelReferences.push(fieldPanel)}} onDeleteField={this.onDeleteField.bind(this)} key={field.name} field={field} selectedEntityConfigId={this.props.selectedEntityConfigId}/>
+          return <MasterAdminFieldPanel ref={(fieldPanel) => {fieldPanel && this.fieldPanelReferences.push(fieldPanel)}}
+                                        onDeleteField={this.onDeleteField.bind(this)}
+                                        key={field.name}
+                                        field={field}
+                                        openNotificationSnackbar={this.props.openNotificationSnackbar}
+                                        selectedEntityConfigId={this.props.selectedEntityConfigId}/>
         })}
       </div>
     )
