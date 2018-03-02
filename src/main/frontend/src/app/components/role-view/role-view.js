@@ -68,11 +68,9 @@ export default class RoleView extends Component {
     this.setState({...this.state, selectedItem: item, isItemSelected: true});
   }
 
-
   mapCollectionData(data) {
     let result = [];
     _.forIn(data._embedded, (value) => result = result.concat(value));
     return result;
   }
-
 }

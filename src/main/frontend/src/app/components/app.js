@@ -12,7 +12,7 @@ import ApiCall from 'servicesDir/api-call'
 
 import MasterAdmin from './master-admin/master-admin';
 import AdminPanel from './admin-panel/admin-panel';
-import RoleVIew from './role-view/role-view';
+import RoleView from './role-view/role-view';
 import PointOfSale from './point-of-sale/point-of-sale';
 import ConsoleConfigurationPanel from './console-configuration-panel/console-configuration-panel';
 import NemesisSideBar from './nemesis-side-bar/nemesis-side-bar';
@@ -59,16 +59,27 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
-      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, isLoadingData: false});
-    });
+    setTimeout(() => {
+      Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
+        this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, isLoadingData: false});
+      });
+    }, 2000);
+
     this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
   }
 
   render() {
     if (this.state.isLoadingData) {
       return (
-        <div>Loading</div>
+        <div className="initially-loading-screen">
+          <div className="nemesis-logo-container"><img src="resources/logo.svg"/></div>
+          <div className="loading-text">Loading</div>
+          <div className="loading-dots">
+            <div className="dot">.</div>
+            <div className="dot">.</div>
+            <div className="dot">.</div>
+          </div>
+        </div>
       )
     }
 
@@ -89,7 +100,7 @@ export default class App extends Component {
             <Route
               exact={true}
               path={'/content'}
-              component={() => <RoleVIew timestamp={new Date().toString()} allowedViews={['blog_entry', 'widget']}/>}
+              component={() => <RoleView timestamp={new Date().toString()} allowedViews={['blog_entry', 'widget']}/>}
             />
             <Route
               exact={true}
