@@ -288,12 +288,13 @@ export default class RoleViewEntityWindow extends Component {
   }
 
   getFilterWithCatalogs(filter) {
+    console.log('here');
     let catalogFilter = [];
     _.forEach(this.props.selectedCatalogVersions, catalog => {
       let filterItem = {
         restriction: searchRestrictionTypes.equals,
         field: 'catalogVersion/id',
-        value: `${catalog.id}L`
+        value: `${catalog}L`
       };
       catalogFilter.push(filterItem);
     });

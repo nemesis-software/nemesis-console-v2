@@ -27,24 +27,21 @@ export default class RoleViewItem extends Component {
                 )
               }
             )}</div> :
-            <RoleViewEntityWindow entity={{entityId: this.props.item, data: this.context.markupData[this.props.item]}} entityFields={this.getEntityFields()} selectedSite={this.state.selectedSite} selectedCatalogVersions={this.state.selectedCatalogVersions} />
+            <RoleViewEntityWindow entity={{entityId: this.props.item, data: this.context.markupData[this.props.item]}}
+                                  entityFields={this.getEntityFields()}
+                                  selectedSite={this.state.selectedSite}
+                                  selectedCatalogVersions={this.state.selectedCatalogVersions} />
         }
       </div>
     )
   }
 
   onSiteSelect(site) {
-    ApiCall.get(site._links.cmsCatalogs.href).then(result => {
-      let selectedCatalogs = this.mapCollectionData(result.data);
-      Promise.all(selectedCatalogs.map(catalog => ApiCall.get(catalog._links.catalogVersions.href))).then(result => {
-        let selectedCatalogVersion = [];
-        result.forEach(catalogVersion => {
-          selectedCatalogVersion = selectedCatalogVersion.concat(this.mapCollectionData(catalogVersion.data));
-        });
-        console.log(selectedCatalogVersion);
-        this.setState({...this.state, selectedCatalogVersions: selectedCatalogVersion, selectedSite: site});
-      });
+    ApiCall.get('backend/catalog-versions', {siteCode: site.code}).then(result => {
+      let selectedCatalogsVersions = result.data;
+      this.setState({...this.state, selectedCatalogVersions: selectedCatalogsVersions, selectedSite: site});
     });
+
   }
 
   mapCollectionData(data) {
@@ -54,11 +51,7 @@ export default class RoleViewItem extends Component {
   }
 
   getEntityFields() {
-    if (this.props.item === 'blog_entry') {
-      return this.context.entityMarkupData[this.props.item].simpleView;
-    }
-
-    return {};
+    return this.context.entityMarkupData[this.props.item].simpleView;
   }
 }
 

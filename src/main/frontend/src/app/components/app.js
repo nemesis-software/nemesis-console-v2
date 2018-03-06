@@ -64,6 +64,8 @@ export default class App extends Component {
     setTimeout(() => {
       Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then(result => {
         this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: result[2].data, isLoadingData: false});
+      }, err => {
+        this.setState({isLoadingData: false});
       });
     }, 2000);
 
