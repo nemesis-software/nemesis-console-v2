@@ -6,6 +6,10 @@ import FilterBuilder from 'servicesDir/filter-builder';
 
 import Translate from 'react-translate-component';
 
+import EntitiesPager from '../entity-window/entities-viewer/entities-pager/entities-pager';
+
+import LanguageChanger from '../language-changer';
+
 import _ from 'lodash';
 
 import {nemesisFieldTypes, searchRestrictionTypes} from '../../types/nemesis-types'
@@ -68,17 +72,17 @@ export default class RoleViewEntityWindow extends Component {
             <div style={this.props.style} className="entities-table-viewer entities-result-viewer paper-box">
               <table>
                 <thead>
-                {/*<tr className="navigation-header">*/}
-                {/*<th colSpan={this.state.entitiesMarkup.length}>*/}
-                {/*<LanguageChanger*/}
-                {/*label="language"*/}
-                {/*onLanguageChange={this.onLanguageChange.bind(this)}*/}
-                {/*availableLanguages={translationLanguages.languages}*/}
-                {/*selectedLanguage={translationLanguages.defaultLanguage}*/}
-                {/*/>*/}
-                {/*<EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>*/}
-                {/*</th>*/}
-                {/*</tr>*/}
+                <tr className="navigation-header">
+                  <th colSpan={this.props.entity.data.result.length + 1}>
+                    <LanguageChanger
+                      label="language"
+                      onLanguageChange={this.onLanguageChange.bind(this)}
+                      availableLanguages={translationLanguages.languages}
+                      selectedLanguage={translationLanguages.defaultLanguage}
+                    />
+                    <EntitiesPager onPagerChange={this.onPagerChange.bind(this)} page={this.state.page}/>
+                  </th>
+                </tr>
                 <tr className="content-header">
                   {
                     this.props.entity.data.result.map((markupItem, index) => {
@@ -128,6 +132,10 @@ export default class RoleViewEntityWindow extends Component {
     } else {
       this.getEntityPromise = this.getEntityDataPromise(entityId, page, pageSize, filter, sortData);
     }
+  }
+
+  onPagerChange(page, pageSize) {
+    this.getEntitiesData(this.props.entity.entityId, page, pageSize, this.state.filter, this.state.sortData);
   }
 
   getEntityDataPromise(entityId, page, pageSize, filter, sortData) {
@@ -274,7 +282,7 @@ export default class RoleViewEntityWindow extends Component {
 
   getPreviewLink(entity) {
     let entityId = this.props.entity.entityId;
-    if (entityId === 'blog_entry' || entityId === 'product') {
+    if (entityId === 'blog_entry') {
       if (!entity.active) {
         return false;
       }
@@ -304,5 +312,9 @@ export default class RoleViewEntityWindow extends Component {
     }
 
     return actualCatalogFilter + filter;
+  }
+
+  onLanguageChange(language) {
+    this.setState({...this.state, selectedLanguage: language});
   }
 }
