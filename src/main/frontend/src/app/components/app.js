@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 
 import ApiCall from 'servicesDir/api-call'
 
+import _ from 'lodash';
+
 import MasterAdmin from './master-admin/master-admin';
 import AdminPanel from './admin-panel/admin-panel';
 import RoleView from './role-view/role-view';
@@ -48,7 +50,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.isOpenInFrame = false;
-    this.state = {markupData: {}, entityMarkupData: {}, isLoadingData: true};
+    this.state = {markupData: {}, entityMarkupData: {}, sidebarData: {}, isLoadingData: true};
   }
 
   getChildContext() {
@@ -60,8 +62,8 @@ export default class App extends Component {
 
   componentWillMount() {
     setTimeout(() => {
-      Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all')]).then(result => {
-        this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, isLoadingData: false});
+      Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then(result => {
+        this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: result[2].data, isLoadingData: false});
       });
     }, 2000);
 
@@ -86,7 +88,7 @@ export default class App extends Component {
     return (
         <Router basename="/backend">
           <div>
-            <NemesisSideBar />
+            <NemesisSideBar sidebarData={this.state.sidebarData}/>
             <Route
               exact={true}
               path={'/'}
@@ -97,11 +99,16 @@ export default class App extends Component {
               path={'/pos'}
               component={PointOfSale}
             />
-            <Route
-              exact={true}
-              path={'/content'}
-              component={() => <RoleView timestamp={new Date().toString()} allowedViews={['blog_entry', 'widget']}/>}
-            />
+            {_.map(this.getSidebarParsedData(this.state.sidebarData), item => {
+              return (
+                <Route
+                  key={item.code}
+                  exact={true}
+                  path={`/${item.code}`}
+                  component={() => <RoleView timestamp={new Date().toString()} allowedViews={item.items}/>}
+                />
+              )
+            })}
             <Route
               exact={true}
               path={'/maintenance'}
@@ -115,6 +122,15 @@ export default class App extends Component {
           </div>
         </Router>
     );
+  }
+
+  getSidebarParsedData(sidebarData) {
+    let result = [];
+    _.forIn(sidebarData, (value, key) => {
+      result.push({code: key, items: value})
+    });
+
+    return result;
   }
 }
 
