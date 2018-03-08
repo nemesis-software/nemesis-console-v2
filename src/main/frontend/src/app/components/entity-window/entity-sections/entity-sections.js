@@ -10,6 +10,7 @@ import _ from 'lodash';
 import {entityItemType, entityCreateType} from '../../../types/entity-types';
 import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
+import DataHelper from 'servicesDir/data-helper';
 import { componentRequire } from '../../../utils/require-util';
 
 let EntitySection = componentRequire('app/components/entity-window/entity-sections/entity-section/entity-section', 'entity-section');
@@ -115,9 +116,9 @@ export default class EntitySections extends Component {
         relatedEntities.forEach((item, index) => {
           let data;
           if (item.type === nemesisFieldTypes.nemesisCollectionField) {
-            data = this.mapCollectionData(result[index].data);
+            data = DataHelper.mapCollectionData(result[index].data);
           } else {
-            data = this.mapEntityData(result[index].data);
+            data = DataHelper.mapEntityData(result[index].data);
           }
 
           relatedEntitiesResult[item.name] = data;
@@ -178,25 +179,6 @@ export default class EntitySections extends Component {
     });
 
     return result;
-  }
-
-  mapCollectionData(data) {
-    let result = [];
-
-    if (!data) {
-      return result;
-    }
-
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
-  }
-
-  mapEntityData(data) {
-    if (!data) {
-      return null;
-    }
-
-    return data.content && data.content.id ? data.content : data;
   }
 
   handleRefreshButtonClick() {

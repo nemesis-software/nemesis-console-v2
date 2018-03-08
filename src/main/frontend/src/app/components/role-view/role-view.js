@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
-import ApiCall from '../../services/api-call'
+import ApiCall from '../../services/api-call';
+import DataHelper from 'servicesDir/data-helper';
+
 import {componentRequire} from '../../utils/require-util'
 
 import _ from 'lodash';
@@ -19,7 +21,7 @@ export default class RoleView extends Component {
 
   componentWillMount() {
     return Promise.all([ ApiCall.get('site')]).then(result => {
-      this.setState({sites: this.mapCollectionData(result[0].data)});
+      this.setState({sites: DataHelper.mapCollectionData(result[0].data)});
     })
   }
 
@@ -66,11 +68,5 @@ export default class RoleView extends Component {
 
   openRoleViewItem(item) {
     this.setState({...this.state, selectedItem: item, isItemSelected: true});
-  }
-
-  mapCollectionData(data) {
-    let result = [];
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
   }
 }

@@ -103,7 +103,7 @@ module.exports = {
       source: path.join(__dirname, 'src'),
       customFiles: path.join(__dirname, 'src/custom_files'),
       localesDir: path.join(__dirname, 'src/locales'),
-      'servicesDir': path.join(__dirname, 'src/app/services')
+      servicesDir: path.join(__dirname, 'src/app/services')
     },
     extensions: ['.js', '.jsx']
   }

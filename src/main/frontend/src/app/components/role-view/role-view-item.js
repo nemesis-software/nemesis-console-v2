@@ -44,12 +44,6 @@ export default class RoleViewItem extends Component {
 
   }
 
-  mapCollectionData(data) {
-    let result = [];
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
-  }
-
   getEntityFields() {
     return this.context.entityMarkupData[this.props.item].simpleView;
   }

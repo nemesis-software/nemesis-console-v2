@@ -25,6 +25,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import 'font-awesome/css/font-awesome.css';
 
+import 'material-design-icons/iconfont/material-icons.css'
+
 import 'react-datetime/css/react-datetime.css';
 
 import '../../styles/style.less';
@@ -76,7 +78,7 @@ export default class App extends Component {
     if (this.state.isLoadingData) {
       return (
         <div className="initially-loading-screen">
-          <div className="nemesis-logo-container"><img src="resources/logo.svg"/></div>
+          <div className="nemesis-logo-container"><img src="/backend/resources/logo.svg"/></div>
           <div className="loading-text">Loading</div>
           <div className="loading-dots">
             <div className="dot">.</div>
@@ -117,7 +119,6 @@ export default class App extends Component {
               component={AdminPanel}
             />
             <Route
-              exact={true}
               path={'/console-configuration'}
               component={ConsoleConfigurationPanel}
             />

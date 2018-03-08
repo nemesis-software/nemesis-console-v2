@@ -10,6 +10,8 @@ let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-head
 
 import _ from 'lodash';
 
+import DataHelper from 'servicesDir/data-helper';
+
 import BillPanel from './bill-panel/bill-panel';
 import ProductPanel from './product-panel/product-panel';
 import PaymentProcess from './payment-process/payment-process';
@@ -28,7 +30,7 @@ export default class PointOfSale extends Component {
       page: 0,
       size: 50
     }).then(result => {
-      this.setState({...this.state, products: this.mapCollectionData(result.data)});
+      this.setState({...this.state, products: DataHelper.mapCollectionData(result.data)});
     })
   }
 
@@ -154,17 +156,6 @@ export default class PointOfSale extends Component {
 
   setIsPaymentProcess(value) {
     this.setState({...this.state, isPaymentProcess: value});
-  }
-
-  mapCollectionData(data) {
-    let result = [];
-
-    if (!data) {
-      return result;
-    }
-
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
   }
 
   startNextOrder() {

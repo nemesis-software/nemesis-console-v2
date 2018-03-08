@@ -88,7 +88,6 @@ export default class RoleEntityItemView extends Component {
   }
 
   getItemValue(item, itemName) {
-    console.log(item);
     if ([nemesisFieldTypes.nemesisEntityField, nemesisFieldTypes.nemesisCollectionField].indexOf(item.xtype) > -1) {
       return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
     }

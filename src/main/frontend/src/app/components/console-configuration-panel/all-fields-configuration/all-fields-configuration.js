@@ -9,6 +9,8 @@ import MasterAdminConfiguration from '../master-admin-configuration/master-admin
 import Translate from 'react-translate-component';
 
 import ApiCall from 'servicesDir/api-call';
+import DataHelper from 'servicesDir/data-helper';
+
 
 export default class AllFieldsConfiguration extends Component {
   constructor(props) {
@@ -91,18 +93,11 @@ export default class AllFieldsConfiguration extends Component {
 
   getEntityProperties(entityConfig, selectedFieldKey) {
     ApiCall.get(entityConfig._links.entityProperties.href).then(entityPropertiesResult => {
-      this.setState({selectedEntityConfigId: entityConfig.id, selectedFieldKey: selectedFieldKey, selectedFieldData: this.mapCollectionData(entityPropertiesResult.data)});
+      this.setState({selectedEntityConfigId: entityConfig.id, selectedFieldKey: selectedFieldKey, selectedFieldData: DataHelper.mapCollectionData(entityPropertiesResult.data)});
     })
   }
 
   handleBackButton() {
     this.setState({selectedEntityConfigId: null, selectedFieldKey: null, selectedFieldData: null});
-
-  }
-
-  mapCollectionData(data) {
-    let result = [];
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
   }
 }

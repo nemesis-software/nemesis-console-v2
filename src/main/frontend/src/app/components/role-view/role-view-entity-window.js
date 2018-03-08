@@ -20,6 +20,8 @@ import EntityTypeCreationModal from '../embedded-creation/entity-type-creation-m
 
 import { componentRequire } from '../../utils/require-util';
 
+import DataHelper from 'servicesDir/data-helper';
+
 let EntitiesFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/entities-filter', 'entities-filter');
 
 const pagerData = {
@@ -64,11 +66,13 @@ export default class RoleViewEntityWindow extends Component {
           :
           <div className="entities-window">
             <button onClick={this.onClickCreateNewEntityButton.bind(this)}>Create New entity</button>
-            <EntityTypeCreationModal onModalCancel={() => {
-              this.setState({openModalCreation: false})
-            }} onEntityTypeSelected={this.onEntityTypeSelected.bind(this)}
-                                     openModalCreation={this.state.openModalCreation} entityId={this.props.entity.entityId}/>
-            <EntitiesFilter entity={{entityId: this.props.entity}} filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
+            <EntityTypeCreationModal onModalCancel={() => {this.setState({openModalCreation: false})}}
+                                     onEntityTypeSelected={this.onEntityTypeSelected.bind(this)}
+                                     openModalCreation={this.state.openModalCreation}
+                                     entityId={this.props.entity.entityId}/>
+            <EntitiesFilter entity={{entityId: this.props.entity}}
+                            filterMarkup={this.props.entity.data.filter}
+                            onFilterApply={this.onFilterApply.bind(this)}/>
             <div style={this.props.style} className="entities-table-viewer entities-result-viewer paper-box">
               <table>
                 <thead>
@@ -80,7 +84,8 @@ export default class RoleViewEntityWindow extends Component {
                       availableLanguages={translationLanguages.languages}
                       selectedLanguage={translationLanguages.defaultLanguage}
                     />
-                    <EntitiesPager onPagerChange={this.onPagerChange.bind(this)} page={this.state.page}/>
+                    <EntitiesPager onPagerChange={this.onPagerChange.bind(this)}
+                                   page={this.state.page}/>
                   </th>
                 </tr>
                 <tr className="content-header">
@@ -141,7 +146,7 @@ export default class RoleViewEntityWindow extends Component {
   getEntityDataPromise(entityId, page, pageSize, filter, sortData) {
     let filterActual = this.getFilterWithCatalogs(filter);
     return ApiCall.get(entityId, {page: page, size: pageSize, $filter: filterActual, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
-      this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
+      this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
     });
   }
 
@@ -207,9 +212,9 @@ export default class RoleViewEntityWindow extends Component {
         relatedEntities.forEach((item, index) => {
           let data;
           if (item.type === nemesisFieldTypes.nemesisCollectionField) {
-            data = this.mapCollectionData(result[index].data);
+            data = DataHelper.mapCollectionData(result[index].data);
           } else {
-            data = this.mapEntityData(result[index].data);
+            data = DataHelper.mapEntityData(result[index].data);
           }
 
           relatedEntitiesResult[item.name] = data;
@@ -251,25 +256,6 @@ export default class RoleViewEntityWindow extends Component {
     this.setState({openModalCreation: true});
   }
 
-  mapCollectionData(data) {
-    let result = [];
-
-    if (!data) {
-      return result;
-    }
-
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
-  }
-
-  mapEntityData(data) {
-    if (!data) {
-      return null;
-    }
-
-    return data.content && data.content.id ? data.content : data;
-  }
-
   onEntityTypeSelected(selectedEntityName) {
     this.setState({openModalCreation: false, entityData: {entityName: selectedEntityName}, isEntitySelected: true})
   }
@@ -296,7 +282,6 @@ export default class RoleViewEntityWindow extends Component {
   }
 
   getFilterWithCatalogs(filter) {
-    console.log('here');
     let catalogFilter = [];
     _.forEach(this.props.selectedCatalogVersions, catalog => {
       let filterItem = {
