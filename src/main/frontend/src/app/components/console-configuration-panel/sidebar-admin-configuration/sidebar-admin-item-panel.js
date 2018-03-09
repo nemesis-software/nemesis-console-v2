@@ -26,7 +26,8 @@ export default class SidebarAdminItemPanel extends Component {
 
   render() {
     return (
-      <div className="paper-box" style={{margin: '20px', padding: '20px'}}>
+      <div className="sidebar-admin-item-panel paper-box">
+        <div className="delete-icon-container" onClick={this.handleDeleteButtonClick.bind(this)}><i className="material-icons">delete_forever</i></div>
         <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="code" value={this.props.item.code} required={true} label="Code"/>
         <SidebarAdminEntitiesNameCollection ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} allEntitiesName={this.props.allEntitiesName} name="entityNames" value={this.props.item.entityNames} label="Entity names" />
         {this.getDeleteConfirmationDialog()}
