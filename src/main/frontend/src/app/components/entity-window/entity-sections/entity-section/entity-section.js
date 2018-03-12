@@ -20,6 +20,7 @@ let NemesisMediaField = componentRequire('app/components/field-components/nemesi
 let NemesisMapField = componentRequire('app/components/field-components/nemesis-map-field/nemesis-map-field', 'nemesis-map-field');
 let NemesisSimpleCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field', 'nemesis-simple-collection-field');
 let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
+let NemesisProjectionCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-projection-collection-field/nemesis-projection-collection-field', 'nemesis-projection-collection-field');
 
 import CssClassHelper from '../../../../services/css-class-helper';
 
@@ -84,6 +85,7 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisMapField: reactElement = NemesisMapField; break;
       case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
       case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
+      case nemesisFieldTypes.nemesisProjectionCollection: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisProjectionCollectionField; break;
       default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
 
@@ -91,7 +93,7 @@ export default class EntitySection extends Component {
   }
 
   getItemValue(item, itemName) {
-    if ([nemesisFieldTypes.nemesisEntityField, nemesisFieldTypes.nemesisCollectionField].indexOf(item.xtype) > -1) {
+    if (item.entityId) {
       return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
     }
 

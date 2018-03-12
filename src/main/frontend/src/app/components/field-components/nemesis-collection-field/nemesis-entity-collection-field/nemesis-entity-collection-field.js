@@ -84,6 +84,10 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getFormattedValue() {
+    if (!this.state.value) {
+      return [];
+    }
+
     return this.state.value.map(item => item.id);
   }
 

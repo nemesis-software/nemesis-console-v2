@@ -211,7 +211,8 @@ export default class RoleViewEntityWindow extends Component {
         let relatedEntitiesResult = {};
         relatedEntities.forEach((item, index) => {
           let data;
-          if (item.type === nemesisFieldTypes.nemesisCollectionField) {
+
+          if (result[index].data && result[index].data._embedded) {
             data = DataHelper.mapCollectionData(result[index].data);
           } else {
             data = DataHelper.mapEntityData(result[index].data);
@@ -236,14 +237,14 @@ export default class RoleViewEntityWindow extends Component {
     }
 
     entityFields.mainViewItems.forEach(subItem => {
-      if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+      if (subItem.entityId) {
         result.push({type: subItem.xtype, name: subItem.name});
       }
     });
 
     entityFields.groups.forEach(item => {
       item.items.forEach(subItem => {
-        if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+        if (subItem.entityId) {
           result.push({type: subItem.xtype, name: subItem.name});
         }
       })

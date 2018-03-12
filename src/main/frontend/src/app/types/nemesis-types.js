@@ -16,7 +16,8 @@ export const nemesisFieldTypes = {
   nemesisHtmlEditor: 'nemesisHtmlEditor',
   nemesisColorpickerField: 'nemesisColorpickerField',
   nemesisMediaField: 'nemesisMediaField',
-  nemesisMapField: 'nemesisMapField'
+  nemesisMapField: 'nemesisMapField',
+  nemesisProjectionCollection: 'nemesisProjectionCollection'
 };
 
 export const nemesisFieldUsageTypes = {

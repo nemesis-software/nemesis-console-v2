@@ -88,7 +88,7 @@ export default class RoleEntityItemView extends Component {
   }
 
   getItemValue(item, itemName) {
-    if ([nemesisFieldTypes.nemesisEntityField, nemesisFieldTypes.nemesisCollectionField].indexOf(item.xtype) > -1) {
+    if (item.entityId) {
       return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
     }
 
@@ -136,6 +136,7 @@ export default class RoleEntityItemView extends Component {
       case nemesisFieldTypes.nemesisMediaField: reactElement = NemesisMediaField; break;
       case nemesisFieldTypes.nemesisMapField: reactElement = NemesisMapField; break;
       case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
+      case nemesisFieldTypes.nemesisProjectionCollection:
       case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
       default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
