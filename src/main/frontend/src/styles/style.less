@@ -463,8 +463,15 @@ body {
     }
   }
 
+  .entities-table-viewer {
+    background: white;
+    padding: 10px;
+    margin: 10px;
+  }
+
   .entity-field-container {
     width: 350px;
+    padding: 10px;
   }
 }
 
@@ -1290,6 +1297,45 @@ body {
       width: 12px;
       height: 12px;
       border-radius: 50%;
+      background: @main-blue;
+    }
+  }
+}
+
+.nemesis-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  user-select: none;
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  transition: all 0.15s ease-out 0s;
+  background: @light-grey;
+  border: 1px solid @light-grey-darker;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+
+  &:focus {
+    outline: none !important;
+  }
+
+  &.active, &.default-checked:checked {
+    &::before {
+      content: "";
+      display: block;
+      position: relative;
+      top: 3px;
+      left: 3px;
+      width: 12px;
+      height: 12px;
       background: @main-blue;
     }
   }

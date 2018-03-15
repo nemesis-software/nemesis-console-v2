@@ -14,7 +14,7 @@ export default class AdminPermissionCell extends Component {
   render() {
     return (
       <td>
-        <input type="checkbox" onChange={this.handleCheckboxChange.bind(this)} defaultChecked={!!this.state.aclEntry}/>
+        <input title={this.props.mask.code} type="checkbox" className={"nemesis-checkbox" + (this.state.aclEntry ? ' active' : '')} onChange={this.handleCheckboxChange.bind(this)}/>
       </td>
     )
   }
