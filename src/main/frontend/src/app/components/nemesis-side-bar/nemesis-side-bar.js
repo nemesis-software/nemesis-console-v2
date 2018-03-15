@@ -29,7 +29,7 @@ export default class NemesisSideBar extends Component {
           <div title="Admin" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">settings</i></div>
         </Link>
         <Link to="/console-configuration">
-          <div title="Console configuration" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">settings</i></div>
+          <div title="Console configuration" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">build</i></div>
         </Link>
       </div>
     );
