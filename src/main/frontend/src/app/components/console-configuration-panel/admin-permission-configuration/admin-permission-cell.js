@@ -42,7 +42,15 @@ export default class AdminPermissionCell extends Component {
       ApiCall.get(this.props.aclClass._links.aclObjectIdentities.href).then(result => {
         let objectIdentity = DataHelper.mapCollectionData(result.data)[0];
         if (!objectIdentity) {
-
+          let newObjectIdentity = {
+            inheriting: true,
+            objectClass: this.props.aclClass.id,
+            objectIdentity: -1,
+            ownerSid: this.props.sidID
+          };
+          ApiCall.post('acl_object_identity', newObjectIdentity).then(result => {
+            this.createAclClass(result.data.id);
+          })
         } else {
           this.createAclClass(objectIdentity.id);
         }
