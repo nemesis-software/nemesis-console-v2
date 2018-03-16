@@ -5,15 +5,13 @@ import DataHelper from 'servicesDir/data-helper';
 
 import {componentRequire} from '../../utils/require-util'
 
-import _ from 'lodash';
-
-import RoleViewItem from './role-view-item';
+import SimpleViewItem from './simple-view-item';
 
 let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
 
 import Translate from 'react-translate-component';
 
-export default class RoleView extends Component {
+export default class SimpleView extends Component {
   constructor(props) {
     super(props);
     this.state = {markupData: [], entityMarkupData: [], isItemSelected: false, selectedItemData: {}};
@@ -35,10 +33,10 @@ export default class RoleView extends Component {
     return (
       <div key={this.props.timestamp}>
         <NemesisHeader onRightIconButtonClick={() => {}} isOpenInFrame={this.isOpenInFrame}/>
-        <div className="role-view">
+        <div className="simple-view">
           {!this.state.isItemSelected ? this.props.allowedViews.map(item => {
             return (
-              <div className="role-view-item-selector" key={item} onClick={() => {this.openRoleViewItem(item)}}>
+              <div className="simple-view-item-selector" key={item} onClick={() => {this.openSimpleViewItem(item)}}>
                 <Translate component="div" content={'main.' + item} fallback={item}/>
                 <div>{this.getItemIcon(item)}</div>
               </div>
@@ -46,7 +44,7 @@ export default class RoleView extends Component {
           }) : false}
           {
             this.state.isItemSelected ?
-              <RoleViewItem item={this.state.selectedItem}
+              <SimpleViewItem item={this.state.selectedItem}
                             sites={this.state.sites}/>
               : false
           }
@@ -58,15 +56,15 @@ export default class RoleView extends Component {
   getItemIcon(item) {
     switch (item) {
       case 'blog_entry':
-        return <i className="fa fa-address-card-o role-view-item-selector-icon"/>;
+        return <i className="fa fa-address-card-o simple-view-item-selector-icon"/>;
       case 'widget':
-        return <i className="fa fa-cog role-view-item-selector-icon"/>;
+        return <i className="fa fa-cog simple-view-item-selector-icon"/>;
       default:
         return false;
     }
   }
 
-  openRoleViewItem(item) {
+  openSimpleViewItem(item) {
     this.setState({...this.state, selectedItem: item, isItemSelected: true});
   }
 }

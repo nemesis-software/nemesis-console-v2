@@ -12,9 +12,9 @@ import LanguageChanger from '../language-changer';
 
 import _ from 'lodash';
 
-import {nemesisFieldTypes, searchRestrictionTypes} from '../../types/nemesis-types'
+import {searchRestrictionTypes} from '../../types/nemesis-types'
 
-import RoleEntityItemView from './role-entity-item-view';
+import SimpleEntityItemView from './simple-entity-item-view';
 
 import EntityTypeCreationModal from '../embedded-creation/entity-type-creation-modal';
 
@@ -37,7 +37,7 @@ const translationLanguages = {
   defaultLanguage: {value: 'en', labelCode: 'English'}
 };
 
-export default class RoleViewEntityWindow extends Component {
+export default class SimpleViewEntityWindow extends Component {
   constructor(props) {
     super(props);
     this.getEntityPromise = null;
@@ -61,7 +61,7 @@ export default class RoleViewEntityWindow extends Component {
     return (
       <div>
         {this.state.isEntitySelected ?
-          <RoleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityData={this.state.entityData}
+          <SimpleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityData={this.state.entityData}
                               entityFields={this.props.entityFields}/>
           :
           <div className="entities-window">

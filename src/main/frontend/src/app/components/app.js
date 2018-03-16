@@ -14,7 +14,7 @@ import _ from 'lodash';
 
 import MasterAdmin from './master-admin/master-admin';
 import AdminPanel from './admin-panel/admin-panel';
-import RoleView from './role-view/role-view';
+import SimpleView from './simple-view/simple-view';
 import PointOfSale from './point-of-sale/point-of-sale';
 import ConsoleConfigurationPanel from './console-configuration-panel/console-configuration-panel';
 import NemesisSideBar from './nemesis-side-bar/nemesis-side-bar';
@@ -109,7 +109,7 @@ export default class App extends Component {
                   key={item.code}
                   exact={true}
                   path={`/${item.code}`}
-                  component={() => <RoleView timestamp={new Date().toString()} allowedViews={item.items}/>}
+                  component={() => <SimpleView timestamp={new Date().toString()} allowedViews={item.items}/>}
                 />
               )
             })}

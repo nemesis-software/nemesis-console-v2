@@ -38,7 +38,7 @@ let NemesisMapField = componentRequire('app/components/field-components/nemesis-
 let NemesisSimpleCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field', 'nemesis-simple-collection-field');
 let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
 
-export default class RoleEntityItemView extends Component {
+export default class SimpleEntityItemView extends Component {
   constructor(props) {
     super(props);
     this.fieldsReferences = [];
@@ -55,11 +55,11 @@ export default class RoleEntityItemView extends Component {
 
   render() {
     return (
-      <div className="role-entity-item-view">
+      <div className="simple-entity-item-view">
         {this.state.isLoading ? <div className="loading-screen">
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
-        <div className="role-entity-item-view-header">
+        <div className="simple-entity-item-view-header">
           {/*<button onClick={() => {this.setState({...this.state, isSidebarOpened: true})}}>Open Sidebar</button>*/}
           <button className="nemesis-button success-button save-button" onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
           <div className="back-button" title="back" onClick={() => this.props.closeSelectedEntityView(this.state.isEntityUpdated)}><i className="material-icons">arrow_back</i></div>
@@ -72,8 +72,8 @@ export default class RoleEntityItemView extends Component {
             selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
           />
         </div>
-        <div className="role-entity-main-content">
-          <div className="role-entity-item-main-view">
+        <div className="simple-entity-main-content">
+          <div className="simple-entity-item-main-view">
             <div style={{display: 'inline-block', width: '100%', verticalAlign: 'top', padding: '0 20px'}}>
               {_.map(this.props.entityFields.mainViewItems, (item, key) => {
                 return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
