@@ -42,7 +42,7 @@ export default class RoleEntityItemView extends Component {
   constructor(props) {
     super(props);
     this.fieldsReferences = [];
-    this.state = {isSidebarOpened: false, isEntityUpdated: false};
+    this.state = {isSidebarOpened: false, isEntityUpdated: false, isLoading: false};
   }
 
   componentWillMount() {
@@ -56,6 +56,9 @@ export default class RoleEntityItemView extends Component {
   render() {
     return (
       <div className="role-entity-item-view">
+        {this.state.isLoading ? <div className="loading-screen">
+          <i className="material-icons loading-icon">cached</i>
+        </div> : false}
         <div className="role-entity-item-view-header">
           {/*<button onClick={() => {this.setState({...this.state, isSidebarOpened: true})}}>Open Sidebar</button>*/}
           <button className="nemesis-button success-button save-button" onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
@@ -176,7 +179,7 @@ export default class RoleEntityItemView extends Component {
       return;
     }
 
-    this.setState({...this.state, isDataLoading: true});
+    this.setState({...this.state, isLoading: true});
 
     let dirtyEntityProps = this.getDirtyValues();
     let resultObject = {};
@@ -197,7 +200,7 @@ export default class RoleEntityItemView extends Component {
       this.resetDirtyStates();
 
       this.uploadMediaFile(itemId, mediaFields).then(() => {
-        this.setState({...this.state, isDataLoading: false, isEntityUpdated: true});
+        this.setState({...this.state, isLoading: false, isEntityUpdated: true});
       });
     }, this.handleRequestError.bind(this));
   }
