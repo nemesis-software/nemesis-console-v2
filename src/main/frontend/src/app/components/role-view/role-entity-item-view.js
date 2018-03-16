@@ -111,7 +111,7 @@ export default class RoleEntityItemView extends Component {
       embeddedCreationAllowed: item.embeddedCreationAllowed,
       label: item.fieldLabel,
       name: itemName,
-      readOnly: item.readOnly,
+      readOnly: !item.updatable || !item.insertable,
       required: item.required,
       value: this.getItemValue(item, itemName),
       type: nemesisFieldUsageTypes.quickView,

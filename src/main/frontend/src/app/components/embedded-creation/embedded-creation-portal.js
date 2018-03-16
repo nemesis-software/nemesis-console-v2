@@ -87,7 +87,7 @@ export default class EmbeddedCreationPortal extends Component {
       embeddedCreationAllowed: item.embeddedCreationAllowed,
       label: item.fieldLabel,
       name: itemName,
-      readOnly: item.readOnly,
+      readOnly: !item.updatable || !item.insertable,
       required: item.required,
       value: undefined,
       type: nemesisFieldUsageTypes.quickView,
