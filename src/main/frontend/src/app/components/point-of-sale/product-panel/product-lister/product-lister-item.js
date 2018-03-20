@@ -23,7 +23,7 @@ const productName = (product) => {
 };
 
 const productImage = (product) => {
-  let mainUrl = 'https://dk4bbvhtxx00t.cloudfront.net/solarapparel/catalog/solar';
+  let mainUrl = 'https://dk4bbvhtxx00t.cloudfront.net/solarapparel/catalog/solar/';
 
   if (product.thumbnail) {
     return `${mainUrl}${product.thumbnail}`;
