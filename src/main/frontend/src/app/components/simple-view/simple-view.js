@@ -9,12 +9,19 @@ import SimpleViewItem from './simple-view-item';
 
 let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
 
+import NotificationSystem from 'react-notification-system';
+
 import Translate from 'react-translate-component';
 
 export default class SimpleView extends Component {
   constructor(props) {
     super(props);
     this.state = {markupData: [], entityMarkupData: [], isItemSelected: false, selectedItemData: {}};
+    this.notificationSystem = null;
+  }
+
+  componentDidMount() {
+    this.notificationSystem = this.refs.notificationSystem;
   }
 
   componentWillMount() {
@@ -45,10 +52,12 @@ export default class SimpleView extends Component {
           {
             this.state.isItemSelected ?
               <SimpleViewItem item={this.state.selectedItem}
-                            sites={this.state.sites}/>
+                              openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}
+                              sites={this.state.sites}/>
               : false
           }
         </div>
+        <NotificationSystem ref="notificationSystem"/>
       </div>
     )
   }
@@ -66,5 +75,13 @@ export default class SimpleView extends Component {
 
   openSimpleViewItem(item) {
     this.setState({...this.state, selectedItem: item, isItemSelected: true});
+  }
+
+  openNotificationSnackbar(message, level) {
+    this.notificationSystem.addNotification({
+      message: message,
+      level: level || 'success',
+      position: 'tc'
+    });
   }
 }

@@ -61,8 +61,10 @@ export default class SimpleViewEntityWindow extends Component {
     return (
       <div>
         {this.state.isEntitySelected ?
-          <SimpleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityData={this.state.entityData}
-                              entityFields={this.props.entityFields}/>
+          <SimpleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)}
+                                openNotificationSnackbar={this.props.openNotificationSnackbar}
+                                entityData={this.state.entityData}
+                                entityFields={this.props.entityFields}/>
           :
           <div className="entities-window">
             <button onClick={this.onClickCreateNewEntityButton.bind(this)}>Create New entity</button>

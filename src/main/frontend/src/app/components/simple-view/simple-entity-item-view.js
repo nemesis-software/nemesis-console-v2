@@ -199,7 +199,7 @@ export default class SimpleEntityItemView extends Component {
     ApiCall[restMethod](restUrl, resultObject).then((result) => {
       //this.props.onUpdateEntitySearchView(this.props.entity);
       let itemId = this.props.entityData.id ? this.props.entityData.id : result.data.id;
-      //this.props.openNotificationSnackbar('Entity successfully saved');
+      this.props.openNotificationSnackbar('Entity successfully saved');
       this.resetDirtyStates();
 
       this.uploadMediaFile(itemId, mediaFields).then(() => {
@@ -216,7 +216,7 @@ export default class SimpleEntityItemView extends Component {
     data.append('file', mediaFields[0].value);
     return ApiCall.post('upload/media/' + itemId, data, 'multipart/form-data').then(
       () => {
-        //this.props.openNotificationSnackbar('File successfully uploaded');
+        this.props.openNotificationSnackbar('File successfully uploaded');
         return Promise.resolve();
       },
       (err) => {

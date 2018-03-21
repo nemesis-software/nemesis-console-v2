@@ -26,6 +26,7 @@ export default class SimpleViewItem extends Component {
               }
             )}</div> :
             <SimpleViewEntityWindow entity={{entityId: this.props.item, data: this.context.markupData[this.props.item]}}
+                                    openNotificationSnackbar={this.props.openNotificationSnackbar}
                                   entityFields={this.getEntityFields()}
                                   selectedSite={this.state.selectedSite}
                                   selectedCatalogVersions={this.state.selectedCatalogVersions} />
