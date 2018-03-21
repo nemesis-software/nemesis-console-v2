@@ -30,12 +30,20 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
                         loadOptions={this.filterEntityData.bind(this)}/>
           {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         </div>
+        {this.getAdditionalIconFunctionality()}
+      </div>
+    )
+  }
+
+  getAdditionalIconFunctionality() {
+    return (
+      <React.Fragment>
         {(this.props.type === nemesisFieldUsageTypes.quickView) && this.props.embeddedCreationAllowed ?
           <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i> : false}
         {this.state.openEmbeddedCreation ?
           <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
                             entityId={this.props.entityId}/> : false}
-      </div>
+      </React.Fragment>
     )
   }
 
