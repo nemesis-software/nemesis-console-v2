@@ -63,6 +63,7 @@ export default class App extends Component {
   }
 
   componentWillMount() {
+    this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
     setTimeout(() => {
       Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then(result => {
         this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: result[2].data, isLoadingData: false});
@@ -92,7 +93,7 @@ export default class App extends Component {
     return (
         <Router basename="/backend">
           <div>
-            <NemesisSideBar sidebarData={this.state.sidebarData}/>
+            {!this.isOpenInFrame ? <NemesisSideBar sidebarData={this.state.sidebarData}/> : false}
             <Route
               exact={true}
               path={'/'}
