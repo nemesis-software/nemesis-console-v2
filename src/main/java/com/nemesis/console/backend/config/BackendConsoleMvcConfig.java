@@ -13,20 +13,23 @@ package com.nemesis.console.backend.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
-import org.springframework.boot.autoconfigure.web.WebMvcProperties;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = { "com.nemesis.console.backend.storefront" })
-public class BackendConsoleMvcConfig extends WebMvcConfigurerAdapter {
+public class BackendConsoleMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private ResourceProperties resourceProperties;
@@ -39,14 +42,21 @@ public class BackendConsoleMvcConfig extends WebMvcConfigurerAdapter {
         if (!this.resourceProperties.isAddMappings()) {
             return;
         }
-        Integer cachePeriod = this.resourceProperties.getCachePeriod();
+        Duration cachePeriod = this.resourceProperties.getCache().getPeriod();
+
+        if (cachePeriod == null) {
+            cachePeriod = Duration.of(365, ChronoUnit.DAYS);
+        }
+
         if (!registry.hasMappingForPattern("/webjars/**")) {
-            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(cachePeriod);
+            registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(
+                            (int) cachePeriod.getSeconds());
         }
         String staticPathPattern = this.mvcProperties.getStaticPathPattern();
         if (!registry.hasMappingForPattern(staticPathPattern)) {
 
-            registry.addResourceHandler(staticPathPattern).addResourceLocations(this.resourceProperties.getStaticLocations()).setCachePeriod(cachePeriod);
+            registry.addResourceHandler(staticPathPattern).addResourceLocations(this.resourceProperties.getStaticLocations()).setCachePeriod(
+                            (int) cachePeriod.getSeconds());
         }
     }
 
