@@ -64,15 +64,22 @@ export default class App extends Component {
 
   componentWillMount() {
     this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
-    setTimeout(() => {
-      Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then(result => {
-        this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: result[2].data, isLoadingData: false});
-      }, err => {
-        this.setState({isLoadingData: false});
-      });
-    }, 2000);
+    if (this.isOpenInFrame) {
+      this.getMarkupData();
+    } else {
+      setTimeout(() => {
+        this.getMarkupData();
+      }, 2000);
+    }
 
-    this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
+  }
+
+  getMarkupData() {
+    Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then(result => {
+      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: result[2].data, isLoadingData: false});
+    }, err => {
+      this.setState({isLoadingData: false});
+    });
   }
 
   render() {
