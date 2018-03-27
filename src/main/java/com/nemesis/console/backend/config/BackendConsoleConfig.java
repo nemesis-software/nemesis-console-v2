@@ -53,6 +53,7 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/resources/img/**").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/error").permitAll()
                 .antMatchers("/**").hasRole("EMPLOYEEGROUP")
                 .and()
             .headers().disable()
