@@ -50,9 +50,10 @@ export default class NemesisHeader extends Component {
 
   handleLogoutButtonClick() {
     let csrfToken = document.getElementById('security').getAttribute('token');
+    let contextPath = document.getElementById('contextPath').getAttribute('ctxPath');
     let form = document.createElement('form');
     form.setAttribute('method', 'POST');
-    form.setAttribute('action', 'j_spring_security_logout');
+    form.setAttribute('action', `${contextPath}/j_spring_security_logout`);
     let hiddenField = document.createElement("input");
     hiddenField.setAttribute('type', 'hidden');
     hiddenField.setAttribute('name', '_csrf');
