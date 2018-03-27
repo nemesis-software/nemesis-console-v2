@@ -8,6 +8,7 @@ let FilterRestrictionFields = componentRequire('app/components/entity-window/ent
 let NemesisDateTimeField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-time-field', 'nemesis-date-time-field');
 
 const restrictionFields = [
+  searchRestrictionTypes.between,
   searchRestrictionTypes.before,
   searchRestrictionTypes.after,
   searchRestrictionTypes.notNull,
@@ -17,20 +18,25 @@ const restrictionFields = [
 export default class FilterDateTimeField extends Component {
   constructor(props) {
     super(props);
-    this.state = {restrictionField: props.defaultRestriction || null, dateField: props.defaultValue || null};
+    this.state = {restrictionField: props.defaultRestriction || null, dateField: props.defaultValue || null, secondDateField: props.secondDefaultValue || null};
   }
 
   componentWillMount() {
     if (this.props.defaultRestriction || this.props.defaultValue) {
-      this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction);
+      let actualValue = this.props.defaultValue;
+      if (this.props.defaultRestriction === searchRestrictionTypes.between) {
+        actualValue = {from: this.props.defaultValue, to: this.props.secondDefaultValue};
+      }
+      this.updateParentFilter(actualValue, this.props.defaultRestriction);
     }
   }
 
   render() {
     return (
       <div className="filter-item-container">
-        <FilterRestrictionFields  readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
-        {this.isDateFieldVisible() ? <NemesisDateTimeField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.dateField} onValueChange={this.onDateFieldChange.bind(this)} label={this.props.filterItem.fieldLabel}/> : false}
+        <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
+        {this.isDateFieldVisible() ? <NemesisDateTimeField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.dateField} onValueChange={this.onDateFieldChange.bind(this)} label={this.getFirstDateTimeLabel()}/> : false}
+        {this.state.restrictionField === searchRestrictionTypes.between ? <NemesisDateTimeField readOnly={this.props.readOnly} value={this.state.secondDateField} onValueChange={this.onSecondDateFieldChange.bind(this)} label={`${this.props.filterItem.fieldLabel} to`}/> : false}
       </div>
     )
   }
@@ -40,9 +46,30 @@ export default class FilterDateTimeField extends Component {
     this.updateParentFilter(this.state.dateField, restrictionValue);
   }
 
+  getFirstDateTimeLabel() {
+    if (this.state.restrictionField === searchRestrictionTypes.between) {
+      return `${this.props.filterItem.fieldLabel} from`;
+    }
+
+    return this.props.filterItem.fieldLabel;
+  }
+
   onDateFieldChange(value) {
     this.setState({...this.state, dateField: value});
-    this.updateParentFilter(value, this.state.restrictionField);
+    let actualValue = value;
+    if (this.state.restrictionField === searchRestrictionTypes.between) {
+      actualValue = {from: value, to: this.state.secondDateField}
+    }
+    this.updateParentFilter(actualValue, this.state.restrictionField);
+  }
+
+  onSecondDateFieldChange(value) {
+    this.setState({...this.state, secondDateField: value});
+    let actualValue = value;
+    if (this.state.restrictionField === searchRestrictionTypes.between) {
+      actualValue = {from: this.state.dateField, to: value}
+    }
+    this.updateParentFilter(actualValue, this.state.restrictionField);
   }
 
   updateParentFilter(dateField, restrictionValue) {
@@ -51,7 +78,7 @@ export default class FilterDateTimeField extends Component {
       restriction: restrictionValue,
       field: this.props.filterItem.name,
       id: this.props.filterItem.name,
-      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, searchRestrictionTypes.equals, dateField)
+      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, dateField)
     });
   }
 

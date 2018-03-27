@@ -17,6 +17,12 @@ export default class FilterHelper {
       );
     }
 
+    if (restrictionValue === searchRestrictionTypes.between) {
+      return (
+        <span key={name}><Translate component="b" content={'main.' + name} fallback={name}/> <Translate component="i" content={'main.' + restrictionValue} fallback={restrictionValue}/> <b>{value.from || '\'\''} and {value.to || '\'\''}</b>; </span>
+      );
+    }
+
     return (
       <span key={name}><Translate component="b" content={'main.' + name} fallback={name}/> <Translate component="i" content={'main.' + restrictionValue} fallback={restrictionValue}/> <b>{value}</b>; </span>
     );
