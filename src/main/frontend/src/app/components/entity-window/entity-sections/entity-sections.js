@@ -5,10 +5,7 @@ import Translate from 'react-translate-component';
 import SwipeableViews from 'react-swipeable-views';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import _ from 'lodash';
-
 import {entityItemType, entityCreateType} from '../../../types/entity-types';
-import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
 import DataHelper from 'servicesDir/data-helper';
 import { componentRequire } from '../../../utils/require-util';

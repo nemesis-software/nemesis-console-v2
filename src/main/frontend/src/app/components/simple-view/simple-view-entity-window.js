@@ -10,6 +10,8 @@ import EntitiesPager from '../entity-window/entities-viewer/entities-pager/entit
 
 import LanguageChanger from '../language-changer';
 
+import Modal from 'react-bootstrap/lib/Modal';
+
 import _ from 'lodash';
 
 import {searchRestrictionTypes} from '../../types/nemesis-types'
@@ -19,6 +21,8 @@ import SimpleEntityItemView from './simple-entity-item-view';
 import EntityTypeCreationModal from '../embedded-creation/entity-type-creation-modal';
 
 import { componentRequire } from '../../utils/require-util';
+import TableHeaderElement from '../helper-components/table-header-element';
+
 
 import DataHelper from 'servicesDir/data-helper';
 
@@ -49,7 +53,11 @@ export default class SimpleViewEntityWindow extends Component {
       isDataLoading: false,
       isEntitySelected: false,
       selectedLanguage: translationLanguages.defaultLanguage.value,
-      openModalCreation: false
+      openModalCreation: false,
+      openDeleteConfirmation: false,
+      entityIdForDelete: null,
+      errorMessage: null,
+      openErrorDialog: false
     };
   }
 
@@ -94,7 +102,7 @@ export default class SimpleViewEntityWindow extends Component {
                   {
                     this.props.entity.data.result.map((markupItem, index) => {
                       return (
-                        <Translate key={index} component="th" content={'main.' + markupItem.text} fallback={markupItem.text}/>
+                        <TableHeaderElement  key={index} markupItem={markupItem} onSortDataChange={this.onSortDataChange.bind(this)} sortData={this.state.sortData}/>
                       )
                     })
                   }
@@ -110,9 +118,9 @@ export default class SimpleViewEntityWindow extends Component {
                           this.props.entity.data.result.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
                         }
                         <td>
-                          <div onClick={() => this.onEntityItemClick(item)}>Edit</div>
+                          <div style={{cursor: 'pointer', color: '#4cb2e2'}} onClick={() => this.onEntityItemClick(item)}>Edit</div>
                           {this.getPreviewLink(item)}
-                          <div>Delete</div>
+                          <div style={{cursor: 'pointer', color: '#F24F4B'}} onClick={() => this.onDeleteButtonClick(item.id)}>Delete</div>
                         </td>
                       </tr>
                     )
@@ -121,6 +129,8 @@ export default class SimpleViewEntityWindow extends Component {
                 </tbody>
               </table>
             </div>
+            {this.getDeleteConfirmationDialog()}
+            {this.getErrorDialog()}
           </div>
         }
       </div>
@@ -139,6 +149,65 @@ export default class SimpleViewEntityWindow extends Component {
     } else {
       this.getEntityPromise = this.getEntityDataPromise(entityId, page, pageSize, filter, sortData);
     }
+  }
+
+  handleRequestError(err) {
+    let errorMsg = (err && err.response && err.response.data && err.response.data.message) || err.message || err;
+    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true, isDataLoading: false})
+  }
+
+  getDeleteConfirmationDialog() {
+    return (
+      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}>
+        <Modal.Header>
+          <Modal.Title>Delete Entity</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>Are you sure you want to delete it?</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="nemesis-button decline-button" style={{marginRight: '15px'}} onClick={this.handleCloseDeleteConfirmation.bind(this)}>No</button>
+          <button className="nemesis-button success-button" onClick={this.handleConfirmationDeleteButtonClick.bind(this)}>Yes</button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  getErrorDialog() {
+    return (
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Something went wrong!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="nemesis-button success-button" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  handleCloseErrorDialog() {
+    this.setState({...this.state, openErrorDialog: false});
+  }
+
+  onDeleteButtonClick(itemId) {
+    this.setState({openDeleteConfirmation: true, entityIdForDelete: itemId})
+  }
+
+  handleCloseDeleteConfirmation() {
+    this.setState({...this.state, openDeleteConfirmation: false});
+  };
+
+  handleConfirmationDeleteButtonClick() {
+    ApiCall.delete(this.props.entity.entityId + '/' + this.state.entityIdForDelete).then(() => {
+      this.setState({openDeleteConfirmation: false, entityIdForDelete: null}, () => {
+        this.getEntitiesData(this.props.entity.entityId, this.state.page.number, this.state.page.size, this.state.filter, this.state.sortData);
+        this.props.openNotificationSnackbar('Entity successfully deleted');
+      })
+    }, this.handleRequestError.bind(this))
   }
 
   onPagerChange(page, pageSize) {
@@ -304,5 +373,11 @@ export default class SimpleViewEntityWindow extends Component {
 
   onLanguageChange(language) {
     this.setState({...this.state, selectedLanguage: language});
+  }
+
+  onSortDataChange(sortData) {
+    this.setState({...this.state, sortData: sortData}, () => {
+      this.getEntitiesData(this.props.entity.entityId, pagerData.page, this.state.page.size, this.state.filter, sortData);
+    });
   }
 }

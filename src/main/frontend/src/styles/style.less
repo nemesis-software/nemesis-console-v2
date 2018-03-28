@@ -51,6 +51,32 @@ body {
   }
 }
 
+.table-header-element {
+  .sort-icon-container {
+    position: relative;
+  }
+
+  .fa {
+    position: absolute;
+    font-size: 18px;
+    left: 5px;
+    line-height: 14px;
+    cursor: pointer;
+
+    &.selected {
+      color: @red-color;
+    }
+
+    &.up-icon {
+      top: -6px;
+    }
+
+    &.down-icon {
+      top: 6px;
+    }
+  }
+}
+
 .portals-container {
   &:empty {
     display: none;
