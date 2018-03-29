@@ -64,8 +64,8 @@ export default class HtmlEditor extends Component {
             </Dropdown>
           </div>
           <div style={buttonGroupStyle}>
-            <InsertLinkButton/>
-            <InsertImageButton />
+            <InsertLinkButton disabled={this.state.previewAsText}/>
+            <InsertImageButton disabled={this.state.previewAsText}/>
           </div>
           <div style={buttonGroupStyle}>
             <button className="btn btn-default" title="Remove Format" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'removeFormat')}><i className="fa fa-eraser"/></button>
