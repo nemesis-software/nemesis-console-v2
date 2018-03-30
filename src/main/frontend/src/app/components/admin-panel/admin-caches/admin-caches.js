@@ -65,7 +65,10 @@ export default class AdminCaches extends Component {
       }
       this.setState({caches: caches, openDeleteConfirmation: false});
       this.onClearSuccess();
-    }, this.onClearFail.bind(this))
+    }, err => {
+      this.onClearFail(err);
+      this.setState({openDeleteConfirmation: false});
+    })
   }
 
   onClearCacheClick(cacheName) {
