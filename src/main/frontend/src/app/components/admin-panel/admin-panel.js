@@ -12,6 +12,7 @@ import AdminJobsManagement from './admin-jobs-management/admin-jobs-management';
 import AdminCsvExport from './admin-csv-export/admin-csv-export';
 import AdminSessions from './admin-sessions/admin-sessions';
 import SwipeableViews from 'react-swipeable-views';
+import AdminCaches from './admin-caches/admin-caches';
 import {componentRequire} from "../../utils/require-util";
 import NotificationSystem from 'react-notification-system';
 
@@ -46,6 +47,7 @@ export default class AdminPanel extends Component {
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 8 ? ' active' : '')} onClick={() => this.handleChange(8)}><i className="fa fa-terminal"/>Execute script</div>
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 9 ? ' active' : '')} onClick={() => this.handleChange(9)}><i className="fa fa-calendar"/>Job Management</div>
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 10 ? ' active' : '')} onClick={() => this.handleChange(10)}><i className="fa fa-calendar"/>Sessions</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 11 ? ' active' : '')} onClick={() => this.handleChange(11)}><i className="fa fa-cached"/>Caches</div>
           </div>
           <div className="container">
             <SwipeableViews
@@ -63,6 +65,7 @@ export default class AdminPanel extends Component {
               <AdminInsertScript openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>
               <AdminJobsManagement openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>
               <AdminSessions openNotificationSnackbar={this.openNotificationSnackbar.bind(this)} />
+              <AdminCaches openNotificationSnackbar={this.openNotificationSnackbar.bind(this)} />
             </SwipeableViews>
           </div>
         </div>
