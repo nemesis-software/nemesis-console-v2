@@ -24,7 +24,7 @@ export default class MigrationService {
           if (searchData[key] && _.some(searchData[key].filter, {name: item.name})) {
             searchable = true;
           }
-          data += `,${key}-${item.name},${item.name.replace('entity-', '')},${item.fieldLabel},${!item.readOnly},${!item.readOnly},${item.required},${itemWeight},${item.xtype},${section.title},${sectionWeight},${searchable},${key}\n`
+          data += `,${key}-${item.name.replace('entity-', '')},${item.name.replace('entity-', '')},${item.fieldLabel},${!item.readOnly},${!item.readOnly},${item.required},${itemWeight},${item.xtype},${section.title},${sectionWeight},${searchable},${key}\n`
         }
       }
     });

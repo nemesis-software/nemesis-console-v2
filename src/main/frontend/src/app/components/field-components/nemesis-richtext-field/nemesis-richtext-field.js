@@ -2,7 +2,9 @@ import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
 import Modal from 'react-bootstrap/lib/Modal';
-import HtmlEditor from '../../../custom-components/html-editor/html-editor';
+
+import { componentRequire } from '../../../utils/require-util';
+let HtmlEditor = componentRequire('app/custom-components/html-editor/html-editor', 'html-editor');
 
 export default class NemesisRichTextField extends NemesisBaseField {
   constructor(props) {

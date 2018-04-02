@@ -1,7 +1,8 @@
 import React from 'react';
 import NemesisSimpleLocalizedTextField from './nemesis-simple-localized-text-field';
 
-import HtmlEditor from '../../../custom-components/html-editor/html-editor';
+import { componentRequire } from '../../../utils/require-util';
+let HtmlEditor = componentRequire('app/custom-components/html-editor/html-editor', 'html-editor');
 
 export default class NemesisSimpleLocalizedRichTextField extends NemesisSimpleLocalizedTextField {
   constructor(props) {
