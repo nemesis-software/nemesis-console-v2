@@ -131,12 +131,16 @@ export default class MasterAdminFieldPanel extends Component {
 
   handleConfirmationDeleteButtonClick() {
     if (!this.props.field.id) {
-      this.props.onDeleteField(this.props.field.name);
+      this.setState({openDeleteConfirmation: false}, () => {
+        this.props.onDeleteField(this.props.field.name);
+      });
       return;
     }
 
     ApiCall.delete(`entity_property_config/${this.props.field.id}`).then(() => {
-      this.props.onDeleteField(this.props.field.name);
+      this.setState({openDeleteConfirmation: false}, () => {
+        this.props.onDeleteField(this.props.field.name);
+      });
     }, this.handleRequestError.bind(this))
   }
 
