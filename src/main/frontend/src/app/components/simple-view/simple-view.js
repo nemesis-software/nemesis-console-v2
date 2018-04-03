@@ -45,7 +45,6 @@ export default class SimpleView extends Component {
             return (
               <div className="simple-view-item-selector" key={item} onClick={() => {this.openSimpleViewItem(item)}}>
                 <Translate component="div" content={'main.' + item} fallback={item}/>
-                <div>{this.getItemIcon(item)}</div>
               </div>
             )
           }) : false}
@@ -60,17 +59,6 @@ export default class SimpleView extends Component {
         <NotificationSystem ref="notificationSystem"/>
       </div>
     )
-  }
-
-  getItemIcon(item) {
-    switch (item) {
-      case 'blog_entry':
-        return <i className="fa fa-address-card-o simple-view-item-selector-icon"/>;
-      case 'widget':
-        return <i className="fa fa-cog simple-view-item-selector-icon"/>;
-      default:
-        return false;
-    }
   }
 
   openSimpleViewItem(item) {
