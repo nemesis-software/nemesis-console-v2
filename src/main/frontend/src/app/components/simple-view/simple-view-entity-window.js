@@ -75,7 +75,7 @@ export default class SimpleViewEntityWindow extends Component {
                                 entityFields={this.props.entityFields}/>
           :
           <div className="entities-window">
-            <button onClick={this.onClickCreateNewEntityButton.bind(this)}>Create New entity</button>
+            <Translate component="button" onClick={this.onClickCreateNewEntityButton.bind(this)} className="nemesis-button success-button" style={{marginBottom: '10px'}} content={'main.Create New entity'} fallback={'Create New entity'}/>
             <EntityTypeCreationModal onModalCancel={() => {this.setState({openModalCreation: false})}}
                                      onEntityTypeSelected={this.onEntityTypeSelected.bind(this)}
                                      openModalCreation={this.state.openModalCreation}
