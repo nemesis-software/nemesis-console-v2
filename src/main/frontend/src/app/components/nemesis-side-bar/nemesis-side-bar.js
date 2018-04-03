@@ -7,6 +7,8 @@ import _ from 'lodash';
 export default class NemesisSideBar extends Component {
   constructor(props) {
     super(props);
+    this.isAdmin = document.getElementById('authorities').getAttribute('value').indexOf('ROLE_ADMINGROUP') > -1;
+
   }
 
   render() {
@@ -22,15 +24,19 @@ export default class NemesisSideBar extends Component {
           </Link>
           )
         })}
-        <Link to="/maintenance">
-          <div title="Maintenance" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">settings_remote</i></div>
-        </Link>
         <Link to="/">
           <div title="Admin" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">settings</i></div>
         </Link>
-        <Link to="/console-configuration">
-          <div title="Console configuration" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">build</i></div>
-        </Link>
+        {this.isAdmin ?
+          <Link to="/maintenance">
+            <div title="Maintenance" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">settings_remote</i></div>
+          </Link>
+          : false}
+        {this.isAdmin ?
+          <Link to="/console-configuration">
+            <div title="Console configuration" className="nemesis-side-bar-item"><i className="material-icons nemesis-side-bar-icon">build</i></div>
+          </Link>
+          : false}
       </div>
     );
   }
