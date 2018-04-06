@@ -16,8 +16,8 @@ export default class ApiCall {
     return this.requestHelper(url, 'PUT', data, null, contentType);
   }
 
-  static delete(url) {
-    return this.requestHelper(url, 'DELETE', null, null, null);
+  static delete(url, queryParams) {
+    return this.requestHelper(url, 'DELETE', null, queryParams, null);
   }
 
   static patch(url, data, contentType) {

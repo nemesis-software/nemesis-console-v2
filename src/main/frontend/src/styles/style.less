@@ -10,6 +10,73 @@ body {
   }
 }
 
+.initially-loading-screen {
+  background: @main-blue;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+  padding-top: ~"calc(50vh - 75px)";
+
+  .loading-text {
+    font-size: 30px;
+    margin: 10px;
+  }
+
+  .loading-dots {
+    text-align: center;
+
+    .dot {
+      display: inline;
+      margin-left: 0.2em;
+      margin-right: 0.2em;
+      position: relative;
+      top: -1em;
+      font-size: 80px;
+      opacity: 0;
+      animation: showHideDot 2.5s ease-in-out infinite;
+
+      &:nth-of-type(1) { animation-delay: 0.2s; }
+      &:nth-of-type(2) { animation-delay: 0.4s; }
+      &:nth-of-type(3) { animation-delay: 0.6s; }
+    }
+  }
+
+  @keyframes showHideDot {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    60% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+}
+
+.table-header-element {
+  .sort-icon-container {
+    position: relative;
+  }
+
+  .fa {
+    position: absolute;
+    font-size: 18px;
+    left: 5px;
+    line-height: 14px;
+    cursor: pointer;
+
+    &.selected {
+      color: @red-color;
+    }
+
+    &.up-icon {
+      top: -6px;
+    }
+
+    &.down-icon {
+      top: 6px;
+    }
+  }
+}
+
 .portals-container {
   &:empty {
     display: none;
@@ -146,9 +213,55 @@ body {
     }
   }
 
+  .sidebar-admin-configuration {
+    .sidebar-admin-configuration-header {
+      text-align: right;
+      margin: 20px 20px 0 20px;
+      position: relative;
+
+      .nemesis-button {
+        padding: 8px 25px;
+        height: 36px;
+        width: 200px;
+      }
+      .save-button {
+        margin-right: 10px;
+      }
+    }
+
+    .sidebar-admin-item-panel {
+      margin: 20px;
+      padding: 20px;
+      position: relative;
+
+      .delete-icon-container {
+        position: absolute;
+        right: 4px;
+        top: 4px;
+        color: @red-color;
+        background: white;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        text-align: center;
+
+        .material-icons {
+          font-size: 26px;
+        }
+      }
+    }
+  }
+
+  .master-admin-configuration {
+    .entity-name-container {
+      text-align: center;
+      font-size: 20px;
+    }
+  }
+
   .master-admin-configuration-header {
     text-align: right;
-    margin: 20px;
+    margin: 20px 20px 0 20px;
     position: relative;
 
     .back-button {
@@ -221,29 +334,44 @@ body {
   }
 }
 
-.role-view {
+.simple-view {
   padding: 60px 0 60px 60px;
   background: @light-grey;
 
-  .role-view-item-selector {
-    padding: 20px;
-    border: 1px solid black;
-    cursor: pointer;
+  .simple-view-item-selector {
     display: inline-block;
-    width: 200px;
-    height: 200px;
-    vertical-align: top;
-    margin: 20px;
-
-    .role-view-item-selector-icon {
-    }
+    padding: 10px 20px;
+    text-align: center;
+    border: 1px solid #d3d3d3;
+    margin: 10px;
+    cursor: pointer;
+    background: white;
+    min-width: 200px;
   }
 
-  .role-entity-item-view {
+  .simple-entity-item-view {
     position: relative;
     overflow-x: hidden;
 
-    .role-entity-item-view-header {
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.1);
+      z-index: 100000;
+
+      .loading-icon {
+        font-size: 50px;
+        position: absolute;
+        top: ~"calc(50vh - 35px)";
+        left: ~"calc(50vw - 35px)";
+        color: @dark-blue;
+      }
+    }
+
+    .simple-entity-item-view-header {
       padding: 20px 100px;
       text-align: right;
       position: relative;
@@ -274,10 +402,10 @@ body {
       }
     }
 
-    .role-entity-main-content {
+    .simple-entity-main-content {
       position: relative;
 
-      .role-entity-item-main-view {
+      .simple-entity-item-main-view {
         width: ~"calc(100% - 510px)";
         display: inline-block;
         text-align: center;
@@ -354,6 +482,37 @@ body {
         }
       }
     }
+  }
+}
+
+.admin-permission-configuration {
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 100000;
+
+    .loading-icon {
+      font-size: 50px;
+      position: absolute;
+      top: ~"calc(50vh - 35px)";
+      left: ~"calc(50vw - 35px)";
+      color: @dark-blue;
+    }
+  }
+
+  .entities-table-viewer {
+    background: white;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .entity-field-container {
+    width: 350px;
+    padding: 10px;
   }
 }
 
@@ -888,6 +1047,11 @@ body {
     color: white;
     background: @main-blue-darker;
   }
+
+  &.danger-button {
+    color: white;
+    background: @red-color;
+  }
 }
 
 .nemesis-link-button {
@@ -1130,6 +1294,18 @@ body {
   }
 }
 
+.projection-table {
+  .material-icons {
+    vertical-align: top;
+    cursor: pointer;
+  }
+
+  .delete-icon {
+    color: @red-color;
+    margin-left: 10px;
+  }
+}
+
 .nemesis-radio-button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1172,6 +1348,45 @@ body {
   }
 }
 
+.nemesis-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  user-select: none;
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  transition: all 0.15s ease-out 0s;
+  background: @light-grey;
+  border: 1px solid @light-grey-darker;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+
+  &:focus {
+    outline: none !important;
+  }
+
+  &.active, &.default-checked:checked {
+    &::before {
+      content: "";
+      display: block;
+      position: relative;
+      top: 3px;
+      left: 3px;
+      width: 12px;
+      height: 12px;
+      background: @main-blue;
+    }
+  }
+}
+
 .paper-box {
   box-shadow: rgba(0, 0, 0, 0.117647) 0 1px 6px, rgba(0, 0, 0, 0.117647) 0 1px 4px;
   background: white;
@@ -1202,7 +1417,6 @@ body {
       height: 140px;
       padding: 20px;
       margin: 20px;
-      border-radius: 25px;
       width: ~"calc(25% - 40px)";
       display: inline-block;
       background: white;
@@ -1234,7 +1448,6 @@ body {
       .info-panel-icon {
         color: white;
         padding: 15px;
-        border-radius: 20px;
 
         .material-icons {
           font-size: 60px;
@@ -1296,6 +1509,51 @@ body {
     font-size: 18px;
     vertical-align: middle;
     padding-left: 10px;
+  }
+}
+
+.categories-tree-popup {
+
+  .modal-content {
+    position: relative;
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.1);
+      z-index: 100000;
+
+      .loading-icon {
+        font-size: 50px;
+        position: absolute;
+        top: ~"calc(50% - 35px)";
+        left: ~"calc(50% - 35px)";
+        color: @dark-blue;
+      }
+    }
+  }
+
+
+  .search-field {
+    border-radius: 0;
+    margin-bottom: 10px;
+  }
+
+  .category-tree-item {
+    .category-tree-item-text {
+      display: inline-block;
+      vertical-align: top;
+
+      &.selected {
+        background: @main-blue;
+      }
+
+      .highlight-text {
+        background: yellow;
+      }
+    }
   }
 }
 
@@ -1362,38 +1620,6 @@ body {
     }
   }
 }
-
-//@media (max-width: 1279px) {
-//  .role-view {
-//    .role-entity-item-view {
-//      .role-entity-main-content {
-//        .additional-sidebar-container {
-//          overflow: hidden;
-//          .additional-sidebar {
-//            right: -500px;
-//            width: 500px;
-//            transition: right .5s ease-out;
-//            top: 60px;
-//            height: ~"calc(100vh - 60px)";
-//          }
-//          &.opened {
-//            display: block;
-//            position: absolute;
-//            top: 0;
-//            left: 0;
-//            width: 100%;
-//            height: 100%;
-//            background: rgba(0, 0, 0, 0.5);
-//            .additional-sidebar {
-//              right: 0;
-//              transition: right .5s ease-in;
-//            }
-//          }
-//        }
-//      }
-//    }
-//  }
-//}
 
 @media (max-width: 1085px) {
   .entity-field-container {

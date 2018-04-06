@@ -48,6 +48,19 @@ export default class FilterBuilder {
       isValueRequired: true
     };
 
+    result[searchRestrictionTypes.between] = {
+      getFilterString: (item) => {
+        if (item.value.from && item.value.to) {
+          return `(${item.field} gt datetime'${item.value.from}' and ${item.field} lt datetime'${item.value.to}')`
+        } else if (item.value.from) {
+          return `${item.field} gt datetime'${item.value.from}'`
+        } else {
+          return `${item.field} lt datetime'${item.value.to}'`
+        }
+      },
+      isValueRequired: true
+    };
+
     result[searchRestrictionTypes.greaterThan] = {
       getFilterString: (item) => `${item.field} ge ${item.value}M`,
       isValueRequired: true

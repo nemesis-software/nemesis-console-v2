@@ -31,4 +31,16 @@ export default class NemesisNumberField extends NemesisBaseField {
 
     return value || '';
   }
+
+  isEmptyValue() {
+    if (this.state.value === null) {
+      return true;
+    }
+
+    if (isFinite(this.state.value)) {
+      return false;
+    }
+
+    return true;
+  }
 }

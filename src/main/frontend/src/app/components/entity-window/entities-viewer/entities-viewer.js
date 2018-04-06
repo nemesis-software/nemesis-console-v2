@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 import ApiCall from '../../../services/api-call';
+import DataHelper from 'servicesDir/data-helper';
+
 import { componentRequire } from '../../../utils/require-util';
 
 import Modal from 'react-bootstrap/lib/Modal';
@@ -68,14 +70,8 @@ export default class EntitiesViewer extends Component {
 
   getEntityDataPromise(entity, page, pageSize, filter, sortData) {
     return ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
-      this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
+      this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
     }, this.handleRequestError.bind(this));
-  }
-
-  mapCollectionData(data) {
-    let result = [];
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
   }
 
   onEntityItemClick(item) {

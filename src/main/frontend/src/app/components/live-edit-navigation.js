@@ -5,6 +5,8 @@ import ApiCall from '../services/api-call';
 import Dropdown from 'react-bootstrap/lib/Dropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
+import DataHelper from 'servicesDir/data-helper';
+
 export default class LiveEditNavigation extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,7 @@ export default class LiveEditNavigation extends Component {
 
   componentWillMount() {
     ApiCall.get('site').then(result => {
-      this.setState({sites: this.mapCollectionData(result.data)});
+      this.setState({sites: DataHelper.mapCollectionData(result.data)});
     })
   }
 
@@ -30,12 +32,6 @@ export default class LiveEditNavigation extends Component {
       </Dropdown.Menu>
     </Dropdown>
     );
-  }
-
-  mapCollectionData(data) {
-    let result = [];
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
   }
 
   openLiveEditPage(site) {

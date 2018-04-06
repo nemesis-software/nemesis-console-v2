@@ -6,15 +6,25 @@ import FilterBuilder from 'servicesDir/filter-builder';
 
 import Translate from 'react-translate-component';
 
+import EntitiesPager from '../entity-window/entities-viewer/entities-pager/entities-pager';
+
+import LanguageChanger from '../language-changer';
+
+import Modal from 'react-bootstrap/lib/Modal';
+
 import _ from 'lodash';
 
-import {nemesisFieldTypes, searchRestrictionTypes} from '../../types/nemesis-types'
+import {searchRestrictionTypes} from '../../types/nemesis-types'
 
-import RoleEntityItemView from './role-entity-item-view';
+import SimpleEntityItemView from './simple-entity-item-view';
 
 import EntityTypeCreationModal from '../embedded-creation/entity-type-creation-modal';
 
 import { componentRequire } from '../../utils/require-util';
+import TableHeaderElement from '../helper-components/table-header-element';
+
+
+import DataHelper from 'servicesDir/data-helper';
 
 let EntitiesFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/entities-filter', 'entities-filter');
 
@@ -31,7 +41,7 @@ const translationLanguages = {
   defaultLanguage: {value: 'en', labelCode: 'English'}
 };
 
-export default class RoleViewEntityWindow extends Component {
+export default class SimpleViewEntityWindow extends Component {
   constructor(props) {
     super(props);
     this.getEntityPromise = null;
@@ -43,7 +53,11 @@ export default class RoleViewEntityWindow extends Component {
       isDataLoading: false,
       isEntitySelected: false,
       selectedLanguage: translationLanguages.defaultLanguage.value,
-      openModalCreation: false
+      openModalCreation: false,
+      openDeleteConfirmation: false,
+      entityIdForDelete: null,
+      errorMessage: null,
+      openErrorDialog: false
     };
   }
 
@@ -55,35 +69,40 @@ export default class RoleViewEntityWindow extends Component {
     return (
       <div>
         {this.state.isEntitySelected ?
-          <RoleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)} entityData={this.state.entityData}
-                              entityFields={this.props.entityFields}/>
+          <SimpleEntityItemView closeSelectedEntityView={this.closeSelectedEntityView.bind(this)}
+                                openNotificationSnackbar={this.props.openNotificationSnackbar}
+                                entityData={this.state.entityData}
+                                entityFields={this.props.entityFields}/>
           :
           <div className="entities-window">
-            <button onClick={this.onClickCreateNewEntityButton.bind(this)}>Create New entity</button>
-            <EntityTypeCreationModal onModalCancel={() => {
-              this.setState({openModalCreation: false})
-            }} onEntityTypeSelected={this.onEntityTypeSelected.bind(this)}
-                                     openModalCreation={this.state.openModalCreation} entityId={this.props.entity.entityId}/>
-            <EntitiesFilter entity={{entityId: this.props.entity}} filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
+            <Translate component="button" onClick={this.onClickCreateNewEntityButton.bind(this)} className="nemesis-button success-button" style={{marginBottom: '10px'}} content={'main.Create New entity'} fallback={'Create New entity'}/>
+            <EntityTypeCreationModal onModalCancel={() => {this.setState({openModalCreation: false})}}
+                                     onEntityTypeSelected={this.onEntityTypeSelected.bind(this)}
+                                     openModalCreation={this.state.openModalCreation}
+                                     entityId={this.props.entity.entityId}/>
+            <EntitiesFilter entity={{entityId: this.props.entity}}
+                            filterMarkup={this.props.entity.data.filter}
+                            onFilterApply={this.onFilterApply.bind(this)}/>
             <div style={this.props.style} className="entities-table-viewer entities-result-viewer paper-box">
               <table>
                 <thead>
-                {/*<tr className="navigation-header">*/}
-                {/*<th colSpan={this.state.entitiesMarkup.length}>*/}
-                {/*<LanguageChanger*/}
-                {/*label="language"*/}
-                {/*onLanguageChange={this.onLanguageChange.bind(this)}*/}
-                {/*availableLanguages={translationLanguages.languages}*/}
-                {/*selectedLanguage={translationLanguages.defaultLanguage}*/}
-                {/*/>*/}
-                {/*<EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>*/}
-                {/*</th>*/}
-                {/*</tr>*/}
+                <tr className="navigation-header">
+                  <th colSpan={this.props.entity.data.result.length + 1}>
+                    <LanguageChanger
+                      label="language"
+                      onLanguageChange={this.onLanguageChange.bind(this)}
+                      availableLanguages={translationLanguages.languages}
+                      selectedLanguage={translationLanguages.defaultLanguage}
+                    />
+                    <EntitiesPager onPagerChange={this.onPagerChange.bind(this)}
+                                   page={this.state.page}/>
+                  </th>
+                </tr>
                 <tr className="content-header">
                   {
                     this.props.entity.data.result.map((markupItem, index) => {
                       return (
-                        <Translate key={index} component="th" content={'main.' + markupItem.text} fallback={markupItem.text}/>
+                        <TableHeaderElement  key={index} markupItem={markupItem} onSortDataChange={this.onSortDataChange.bind(this)} sortData={this.state.sortData}/>
                       )
                     })
                   }
@@ -99,9 +118,9 @@ export default class RoleViewEntityWindow extends Component {
                           this.props.entity.data.result.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
                         }
                         <td>
-                          <div onClick={() => this.onEntityItemClick(item)}>Edit</div>
+                          <div style={{cursor: 'pointer', color: '#4cb2e2'}} onClick={() => this.onEntityItemClick(item)}>Edit</div>
                           {this.getPreviewLink(item)}
-                          <div>Delete</div>
+                          <div style={{cursor: 'pointer', color: '#F24F4B'}} onClick={() => this.onDeleteButtonClick(item.id)}>Delete</div>
                         </td>
                       </tr>
                     )
@@ -110,6 +129,8 @@ export default class RoleViewEntityWindow extends Component {
                 </tbody>
               </table>
             </div>
+            {this.getDeleteConfirmationDialog()}
+            {this.getErrorDialog()}
           </div>
         }
       </div>
@@ -130,10 +151,73 @@ export default class RoleViewEntityWindow extends Component {
     }
   }
 
+  handleRequestError(err) {
+    let errorMsg = (err && err.response && err.response.data && err.response.data.message) || err.message || err;
+    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true, isDataLoading: false})
+  }
+
+  getDeleteConfirmationDialog() {
+    return (
+      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}>
+        <Modal.Header>
+          <Modal.Title>Delete Entity</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>Are you sure you want to delete it?</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="nemesis-button decline-button" style={{marginRight: '15px'}} onClick={this.handleCloseDeleteConfirmation.bind(this)}>No</button>
+          <button className="nemesis-button success-button" onClick={this.handleConfirmationDeleteButtonClick.bind(this)}>Yes</button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  getErrorDialog() {
+    return (
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Something went wrong!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="nemesis-button success-button" onClick={this.handleCloseErrorDialog.bind(this)}>Ok</button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
+  handleCloseErrorDialog() {
+    this.setState({...this.state, openErrorDialog: false});
+  }
+
+  onDeleteButtonClick(itemId) {
+    this.setState({openDeleteConfirmation: true, entityIdForDelete: itemId})
+  }
+
+  handleCloseDeleteConfirmation() {
+    this.setState({...this.state, openDeleteConfirmation: false});
+  };
+
+  handleConfirmationDeleteButtonClick() {
+    ApiCall.delete(this.props.entity.entityId + '/' + this.state.entityIdForDelete).then(() => {
+      this.setState({openDeleteConfirmation: false, entityIdForDelete: null}, () => {
+        this.getEntitiesData(this.props.entity.entityId, this.state.page.number, this.state.page.size, this.state.filter, this.state.sortData);
+        this.props.openNotificationSnackbar('Entity successfully deleted');
+      })
+    }, this.handleRequestError.bind(this))
+  }
+
+  onPagerChange(page, pageSize) {
+    this.getEntitiesData(this.props.entity.entityId, page, pageSize, this.state.filter, this.state.sortData);
+  }
+
   getEntityDataPromise(entityId, page, pageSize, filter, sortData) {
     let filterActual = this.getFilterWithCatalogs(filter);
     return ApiCall.get(entityId, {page: page, size: pageSize, $filter: filterActual, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
-      this.setState({...this.state, searchData: this.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
+      this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
     });
   }
 
@@ -198,10 +282,11 @@ export default class RoleViewEntityWindow extends Component {
         let relatedEntitiesResult = {};
         relatedEntities.forEach((item, index) => {
           let data;
-          if (item.type === nemesisFieldTypes.nemesisCollectionField) {
-            data = this.mapCollectionData(result[index].data);
+
+          if (result[index].data && result[index].data._embedded) {
+            data = DataHelper.mapCollectionData(result[index].data);
           } else {
-            data = this.mapEntityData(result[index].data);
+            data = DataHelper.mapEntityData(result[index].data);
           }
 
           relatedEntitiesResult[item.name] = data;
@@ -222,45 +307,25 @@ export default class RoleViewEntityWindow extends Component {
       return result;
     }
 
-    entityFields.mainView.forEach(subItem => {
-      if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.field.xtype) > -1) {
-        result.push({type: subItem.field.xtype, name: subItem.field.name.replace('entity-', '')});
+    entityFields.mainViewItems.forEach(subItem => {
+      if (subItem.entityId) {
+        result.push({type: subItem.xtype, name: subItem.name});
       }
     });
 
-    entityFields.sideBar.forEach(item => {
+    entityFields.groups.forEach(item => {
       item.items.forEach(subItem => {
-        if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.field.xtype) > -1) {
-          result.push({type: subItem.field.xtype, name: subItem.field.name.replace('entity-', '')});
+        if (subItem.entityId) {
+          result.push({type: subItem.xtype, name: subItem.name});
         }
       })
     });
 
-    console.log('relatedEntities', result);
     return result;
   }
 
   onClickCreateNewEntityButton() {
     this.setState({openModalCreation: true});
-  }
-
-  mapCollectionData(data) {
-    let result = [];
-
-    if (!data) {
-      return result;
-    }
-
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
-  }
-
-  mapEntityData(data) {
-    if (!data) {
-      return null;
-    }
-
-    return data.content && data.content.id ? data.content : data;
   }
 
   onEntityTypeSelected(selectedEntityName) {
@@ -275,7 +340,7 @@ export default class RoleViewEntityWindow extends Component {
 
   getPreviewLink(entity) {
     let entityId = this.props.entity.entityId;
-    if (entityId === 'blog_entry' || entityId === 'product') {
+    if (entityId === 'blog_entry') {
       if (!entity.active) {
         return false;
       }
@@ -294,7 +359,7 @@ export default class RoleViewEntityWindow extends Component {
       let filterItem = {
         restriction: searchRestrictionTypes.equals,
         field: 'catalogVersion/id',
-        value: `${catalog.id}L`
+        value: `${catalog}L`
       };
       catalogFilter.push(filterItem);
     });
@@ -304,5 +369,15 @@ export default class RoleViewEntityWindow extends Component {
     }
 
     return actualCatalogFilter + filter;
+  }
+
+  onLanguageChange(language) {
+    this.setState({...this.state, selectedLanguage: language});
+  }
+
+  onSortDataChange(sortData) {
+    this.setState({...this.state, sortData: sortData}, () => {
+      this.getEntitiesData(this.props.entity.entityId, pagerData.page, this.state.page.size, this.state.filter, sortData);
+    });
   }
 }

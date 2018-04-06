@@ -36,7 +36,8 @@ export default class EntitiesNavigation extends Component {
       <div style={this.getContainerStyle()}>
         <Nav ref={el => this.navRef = el} bsStyle="pills" className="nav nav-pills entity-navigation">
           {_.map(this.state.groupedEntities, (value, key) =>
-            <EntitiesNavigationItem key={key} entityId={key}
+            <EntitiesNavigationItem key={key}
+                                    entityId={key}
                                     entities={value.reverse()}
                                     onEntityWindowClose={this.props.onEntityWindowClose}
                                     onNavigationItemClick={this.props.onNavigationItemClick}/>

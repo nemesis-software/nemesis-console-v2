@@ -37,12 +37,14 @@ let NemesisMediaField = componentRequire('app/components/field-components/nemesi
 let NemesisMapField = componentRequire('app/components/field-components/nemesis-map-field/nemesis-map-field', 'nemesis-map-field');
 let NemesisSimpleCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field', 'nemesis-simple-collection-field');
 let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
+let NemesisCategoriesCollection = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-categories-entity-collection/nemesis-categories-entity-collection', 'nemesis-categories-entity-collection');
 
-export default class RoleEntityItemView extends Component {
+
+export default class SimpleEntityItemView extends Component {
   constructor(props) {
     super(props);
     this.fieldsReferences = [];
-    this.state = {isSidebarOpened: false, isEntityUpdated: false};
+    this.state = {isSidebarOpened: false, isEntityUpdated: false, isLoading: false};
   }
 
   componentWillMount() {
@@ -55,8 +57,11 @@ export default class RoleEntityItemView extends Component {
 
   render() {
     return (
-      <div className="role-entity-item-view">
-        <div className="role-entity-item-view-header">
+      <div className="simple-entity-item-view">
+        {this.state.isLoading ? <div className="loading-screen">
+          <i className="material-icons loading-icon">cached</i>
+        </div> : false}
+        <div className="simple-entity-item-view-header">
           {/*<button onClick={() => {this.setState({...this.state, isSidebarOpened: true})}}>Open Sidebar</button>*/}
           <button className="nemesis-button success-button save-button" onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
           <div className="back-button" title="back" onClick={() => this.props.closeSelectedEntityView(this.state.isEntityUpdated)}><i className="material-icons">arrow_back</i></div>
@@ -69,16 +74,16 @@ export default class RoleEntityItemView extends Component {
             selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
           />
         </div>
-        <div className="role-entity-main-content">
-          <div className="role-entity-item-main-view">
+        <div className="simple-entity-main-content">
+          <div className="simple-entity-item-main-view">
             <div style={{display: 'inline-block', width: '100%', verticalAlign: 'top', padding: '0 20px'}}>
-              {_.map(this.props.entityFields.mainView, (item, key) => {
+              {_.map(this.props.entityFields.mainViewItems, (item, key) => {
                 return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
               })}
             </div>
           </div>
           <SideBar isSidebarOpened={this.state.isSidebarOpened}
-                   sideBar={this.props.entityFields.sideBar}
+                   sideBar={this.props.entityFields.groups}
                    closeSidebar={() => {this.setState({...this.state, isSidebarOpened: false})}}
                    getSectionItemRenderer={this.getSectionItemRenderer.bind(this)}
           />
@@ -88,7 +93,7 @@ export default class RoleEntityItemView extends Component {
   }
 
   getItemValue(item, itemName) {
-    if ([nemesisFieldTypes.nemesisEntityField, nemesisFieldTypes.nemesisCollectionField].indexOf(item.xtype) > -1) {
+    if (item.entityId) {
       return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
     }
 
@@ -105,20 +110,20 @@ export default class RoleEntityItemView extends Component {
 
   getSectionItemRenderer(item, index) {
     let reactElement;
-    let itemName = item.field.name.replace('entity-', '');
+    let itemName = item.name.replace('entity-', '');
     let elementConfig = {
       mainEntity: this.props.entity,
-      embeddedCreation: item.embeddedCreation,
-      label: item.field.fieldLabel,
+      embeddedCreationAllowed: item.embeddedCreationAllowed,
+      label: item.fieldLabel,
       name: itemName,
-      readOnly: item.field.readOnly,
-      required: item.field.required,
-      value: this.getItemValue(item.field, itemName),
+      readOnly: !item.updatable || !item.insertable,
+      required: item.required,
+      value: this.getItemValue(item, itemName),
       type: nemesisFieldUsageTypes.quickView,
       ref: (field) => { field && this.fieldsReferences.push(field)}
     };
 
-    switch (item.field.xtype) {
+    switch (item.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
       case nemesisFieldTypes.nemesisTextarea: reactElement = NemesisTextareaField; break;
       case nemesisFieldTypes.nemesisHtmlEditor: reactElement = NemesisRichTextField; break;
@@ -128,16 +133,18 @@ export default class RoleEntityItemView extends Component {
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;
-      case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.field.values; elementConfig.value = item.field.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
-      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.field.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
+      case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
+      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
       case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisSimpleLocalizedTextField; break;
       case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisSimpleLocalizedRichTextField; break;
       case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;
       case nemesisFieldTypes.nemesisMediaField: reactElement = NemesisMediaField; break;
       case nemesisFieldTypes.nemesisMapField: reactElement = NemesisMapField; break;
       case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
-      case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.field.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
-      default: return <div key={index}>Not supported yet - {item.field.xtype}</div>
+      case nemesisFieldTypes.nemesisProjectionCollection:
+      case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
+      case nemesisFieldTypes.nemesisCategoriesCollection: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisCategoriesCollection; break;
+      default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
 
     return React.createElement(reactElement, elementConfig)
@@ -175,7 +182,7 @@ export default class RoleEntityItemView extends Component {
       return;
     }
 
-    this.setState({...this.state, isDataLoading: true});
+    this.setState({...this.state, isLoading: true});
 
     let dirtyEntityProps = this.getDirtyValues();
     let resultObject = {};
@@ -192,11 +199,11 @@ export default class RoleEntityItemView extends Component {
     ApiCall[restMethod](restUrl, resultObject).then((result) => {
       //this.props.onUpdateEntitySearchView(this.props.entity);
       let itemId = this.props.entityData.id ? this.props.entityData.id : result.data.id;
-      //this.props.openNotificationSnackbar('Entity successfully saved');
+      this.props.openNotificationSnackbar('Entity successfully saved');
       this.resetDirtyStates();
 
       this.uploadMediaFile(itemId, mediaFields).then(() => {
-        this.setState({...this.state, isDataLoading: false, isEntityUpdated: true});
+        this.setState({...this.state, isLoading: false, isEntityUpdated: true});
       });
     }, this.handleRequestError.bind(this));
   }
@@ -209,7 +216,7 @@ export default class RoleEntityItemView extends Component {
     data.append('file', mediaFields[0].value);
     return ApiCall.post('upload/media/' + itemId, data, 'multipart/form-data').then(
       () => {
-        //this.props.openNotificationSnackbar('File successfully uploaded');
+        this.props.openNotificationSnackbar('File successfully uploaded');
         return Promise.resolve();
       },
       (err) => {
@@ -223,7 +230,7 @@ export default class RoleEntityItemView extends Component {
   }
 
   getFieldStyle(item) {
-    if (item.embeddedCreation || item.field.xtype === nemesisFieldTypes.nemesisMapField) {
+    if (item.embeddedCreationAllowed || item.xtype === nemesisFieldTypes.nemesisMapField || item.xtype === nemesisFieldTypes.nemesisCategoriesCollection) {
       return ' with-icon';
     }
 

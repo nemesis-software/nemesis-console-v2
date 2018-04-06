@@ -33,7 +33,7 @@ export default class NemesisEntityField extends NemesisBaseField {
         </div>
         {this.props.type === nemesisFieldUsageTypes.edit ? <i className={'material-icons entity-navigation-icon' + (!this.state.value ? ' disabled' : '')}
                                                               onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
-        {(this.props.type === nemesisFieldUsageTypes.quickView) && this.props.embeddedCreation ?
+        {(this.props.type === nemesisFieldUsageTypes.quickView) && this.props.embeddedCreationAllowed ?
           <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i> : false}
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         {this.state.openEmbeddedCreation ?

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import _ from 'lodash';
+
 import FilterBooleanField from '../../app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-boolean-field/filter-boolean-field'
 import FilterEntityField from '../../app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-entity-field/filter-entity-field'
 import BaseCustomFilter from './base-custom-filter';
@@ -28,7 +30,7 @@ export default class TransactionFilter extends BaseCustomFilter {
   }
 
   getCatalogItem() {
-    let transactionTypeIndex = _.findIndex(this.props.filterMarkup, {name: 'entity-catalogVersion'});
+    let transactionTypeIndex = _.findIndex(this.props.filterMarkup, {name: 'catalogVersion'});
     if (transactionTypeIndex > -1) {
       return this.props.filterMarkup[transactionTypeIndex];
     }

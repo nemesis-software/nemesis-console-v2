@@ -16,7 +16,9 @@ export const nemesisFieldTypes = {
   nemesisHtmlEditor: 'nemesisHtmlEditor',
   nemesisColorpickerField: 'nemesisColorpickerField',
   nemesisMediaField: 'nemesisMediaField',
-  nemesisMapField: 'nemesisMapField'
+  nemesisMapField: 'nemesisMapField',
+  nemesisProjectionCollection: 'nemesisProjectionCollection',
+  nemesisCategoriesCollection: 'nemesisCategoriesCollection'
 };
 
 export const nemesisFieldUsageTypes = {
@@ -35,23 +37,6 @@ export const searchRestrictionTypes = {
   lessThan: 'LessThan',
   notNull: 'NotNull',
   isNull: 'Null',
-  equals: 'Equals'
+  equals: 'Equals',
+  between: 'Between'
 };
-
-
-// "nemesisTextField" - done
-// "nemesisTextarea" - done
-// "nemesisEntityField" - done
-// "nemesisCollectionField" - done
-// "nemesisDateField" - done
-// "nemesisBooleanField" - done
-// "nemesisIntegerField" - done
-// "nemesisEnumField" - done
-// "nemesisPasswordField" - done
-// "nemesisLocalizedTextField" - done
-// "nemesisDecimalField" - done
-// "nemesisSimpleCollectionField" - done
-// "nemesisHtmlEditor" - done // use textarea
-// "nemesisLocalizedRichtextField" - done // user text area
-// "nemesisColorpickerField" - done
-// "nemesisMediaField"

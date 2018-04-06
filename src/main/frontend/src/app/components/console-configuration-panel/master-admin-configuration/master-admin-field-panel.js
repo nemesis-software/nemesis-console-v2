@@ -45,9 +45,14 @@ export default class MasterAdminFieldPanel extends Component {
           <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="insertable" value={this.props.field.insertable} label="Insertable"/>
           <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="required" value={this.props.field.required} label="Required"/>
           <NemesisEnumField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} clearable={false} style={{width: '265px'}} name="xtype" label="Field type" values={this.fieldTypes} value={_.indexOf(this.fieldTypes, this.props.field.xtype)}/>
+          <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="searchable" value={this.props.field.searchable} label="Searchable"/>
           <hr/>
           <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="section" value={this.props.field.section} label="Section"/>
           <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="sectionWeight" value={this.props.field.sectionWeight} label="Section weight"/>
+          <hr/>
+          <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="inMainView" value={this.props.field.inMainView} label="In main view"/>
+          <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="groupName" value={this.props.field.groupName} label="Group name"/>
+          <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="embeddedCreationAllowed" value={this.props.field.embeddedCreationAllowed} label="Embedded Creation"/>
         </div>
         {this.getDeleteConfirmationDialog()}
       </div>
@@ -62,7 +67,7 @@ export default class MasterAdminFieldPanel extends Component {
     this.setState({...this.state, isLoading: true});
 
     let dirtyEntityProps = this.getDirtyValues();
-    if (dirtyEntityProps.length === 0) {
+    if (dirtyEntityProps.length === 0 && this.props.field.id) {
       return;
     }
     let resultObject = this.props.field.id ? {} : {...this.props.field, entityConfig: this.props.selectedEntityConfigId};
@@ -72,7 +77,7 @@ export default class MasterAdminFieldPanel extends Component {
     let restMethod = this.props.field.id ? 'patch' : 'post';
     let restUrl = this.props.field.id ? `entity_property_config/${this.props.field.id}` : 'entity_property_config';
     ApiCall[restMethod](restUrl, resultObject).then((result) => {
-      //TODO: on update
+      this.props.openNotificationSnackbar(`${this.props.field.name} successfully saved!`);
       this.resetDirtyStates();
     }, this.handleRequestError.bind(this));
   }
@@ -126,12 +131,16 @@ export default class MasterAdminFieldPanel extends Component {
 
   handleConfirmationDeleteButtonClick() {
     if (!this.props.field.id) {
-      this.props.onDeleteField(this.props.field.name);
+      this.setState({openDeleteConfirmation: false}, () => {
+        this.props.onDeleteField(this.props.field.name);
+      });
       return;
     }
 
     ApiCall.delete(`entity_property_config/${this.props.field.id}`).then(() => {
-      this.props.onDeleteField(this.props.field.name);
+      this.setState({openDeleteConfirmation: false}, () => {
+        this.props.onDeleteField(this.props.field.name);
+      });
     }, this.handleRequestError.bind(this))
   }
 

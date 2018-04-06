@@ -12,9 +12,10 @@
 package com.nemesis.console.backend;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
  * Main entry point for the nemesis backend console.
@@ -33,7 +34,7 @@ public class BackendConsoleApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
 
         SpringApplication application = new SpringApplication(BackendConsoleApplication.class);
-        application.setWebEnvironment(true);
+        application.setWebApplicationType(WebApplicationType.SERVLET);
         //application.setBanner(new NemesisResourceBanner(new ClassPathResource("nemesis-banner.txt")));
 
         application.run(args);

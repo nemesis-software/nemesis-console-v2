@@ -22,13 +22,13 @@ export default class AdditionalSidebar extends Component {
           {this.state.selectedGroup ? <div className="back-to-group-button" title="back to groups" onClick={() => this.setSelectedGroup(null)}><i className="material-icons">arrow_back</i></div> : false}
           <div className="groups-container" style={this.getGroupContainerStyle()}>
             {_.map(this.props.sideBar, (item, key) => {
-              return <div className="group-item-button nemesis-button success-button" key={key} onClick={() => this.setSelectedGroup(item.groupName)}>{item.groupName}</div>
+              return <div className="group-item-button nemesis-button success-button" key={key} onClick={() => this.setSelectedGroup(item.title)}>{item.title}</div>
             })}
           </div>
           <div className="selected-group" style={this.getSelectedGroupStyle()}>
             {_.map(this.props.sideBar, (item, key) => {
-              return <div key={key} style={this.getChoosenGroupStyle(item.groupName)}>
-                <div className="group-name-container">{item.groupName}</div>
+              return <div key={key} style={this.getChoosenGroupStyle(item.title)}>
+                <div className="group-name-container">{item.title}</div>
                 {_.map(item.items, (item, key) => {
                   return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)}
                               key={key}>{this.props.getSectionItemRenderer(item, key)}</div>
@@ -76,7 +76,7 @@ export default class AdditionalSidebar extends Component {
   }
 
   getFieldStyle(item) {
-    if (item.embeddedCreation || item.field.xtype === nemesisFieldTypes.nemesisMapField) {
+    if (item.embeddedCreationAllowed || item.xtype === nemesisFieldTypes.nemesisMapField) {
       return ' with-icon';
     }
 

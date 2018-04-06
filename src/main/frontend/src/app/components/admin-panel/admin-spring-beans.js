@@ -14,8 +14,9 @@ export default class AdminSpringBeans extends Component {
   componentWillMount() {
     PlatformApiCall.get('beans').then(result => {
 
+      let beansObj = this.findBeans(result.data);
       let beans = [];
-      _.forIn(result.data.beans, (value, key) => {
+      _.forIn(beansObj, (value, key) => {
         let resultBean = {...value, bean: key};
         beans.push(resultBean);
       });
@@ -26,6 +27,21 @@ export default class AdminSpringBeans extends Component {
         page: this.buildPageObject(beans.length, 20, 0)
       });
     })
+  }
+
+  findBeans(data) {
+    if (data.beans) {
+      return data.beans;
+    }
+
+    let beans = null;
+    _.forIn(data, (value, key) => {
+      if (!beans) {
+        beans = this.findBeans(value);
+      }
+    });
+
+    return beans;
   }
 
   render() {
