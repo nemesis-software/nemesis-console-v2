@@ -13,11 +13,11 @@ import AdminCsvExport from './admin-csv-export/admin-csv-export';
 import AdminSessions from './admin-sessions/admin-sessions';
 import SwipeableViews from 'react-swipeable-views';
 import AdminCaches from './admin-caches/admin-caches';
+import AdminMappings from './admin-mappings/admin-mappings';
 import {componentRequire} from "../../utils/require-util";
 import NotificationSystem from 'react-notification-system';
 
 let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
-
 
 export default class AdminPanel extends Component {
   constructor(props) {
@@ -48,6 +48,7 @@ export default class AdminPanel extends Component {
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 9 ? ' active' : '')} onClick={() => this.handleChange(9)}><i className="fa fa-calendar"/>Job Management</div>
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 10 ? ' active' : '')} onClick={() => this.handleChange(10)}><i className="fa fa-calendar"/>Sessions</div>
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 11 ? ' active' : '')} onClick={() => this.handleChange(11)}><i className="fa fa-cached"/>Caches</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 12 ? ' active' : '')} onClick={() => this.handleChange(12)}><i className="fa fa-road"/>Mappings</div>
           </div>
           <div className="container">
             <SwipeableViews
@@ -66,6 +67,7 @@ export default class AdminPanel extends Component {
               <AdminJobsManagement openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>
               <AdminSessions openNotificationSnackbar={this.openNotificationSnackbar.bind(this)} />
               <AdminCaches openNotificationSnackbar={this.openNotificationSnackbar.bind(this)} />
+              <AdminMappings />
             </SwipeableViews>
           </div>
         </div>

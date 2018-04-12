@@ -18,7 +18,7 @@ export default class TableHeaderElement extends Component {
   }
 
   getOrderSymbols() {
-    if ([nemesisFieldTypes.nemesisTextField, nemesisFieldTypes.nemesisDateTimeField, nemesisFieldTypes.nemesisBooleanField].indexOf(this.props.markupItem.type) > -1) {
+    if (this.props.markupItem.sortable && [nemesisFieldTypes.nemesisTextField, nemesisFieldTypes.nemesisDateTimeField, nemesisFieldTypes.nemesisBooleanField].indexOf(this.props.markupItem.type) > -1) {
       return (
         <span className="sort-icon-container">
           <i className={'fa fa-caret-up up-icon' + (this.isSortedField('asc'))} onClick={() => this.setOrder('asc')}/>

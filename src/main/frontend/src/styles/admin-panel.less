@@ -29,6 +29,16 @@
     }
   }
 
+  .admin-mappings {
+    .navigation-bar {
+      text-align: center;
+    }
+
+    .navigation-bar-item {
+      width: 250px;
+    }
+  }
+
   .admin-csv-export {
 
     .csv-dto-block {
@@ -295,6 +305,32 @@
 
         &.offline {
           background: #F24F4B;
+        }
+      }
+    }
+  }
+
+  .admin-mappings-dispatcher-servlets {
+    .admin-mappings-dispatcher-servlets-item {
+      border: 1px solid @main-blue-darker;
+      margin-top: 5px;
+
+      .servlets-item-main {
+        padding: 5px;
+        width: 100%;
+        color: white;
+        cursor: pointer;
+        background: @main-blue-darker;
+      }
+
+      .admin-mappings-details {
+        padding: 10px;
+
+        .servlets-item-handler-method, .servlets-item-request-conditions, .servlets-item-handler {
+          margin: 10px 0;
+          border: 1px solid @main-blue-darker;
+          padding: 5px;
+          word-break: break-all;
         }
       }
     }

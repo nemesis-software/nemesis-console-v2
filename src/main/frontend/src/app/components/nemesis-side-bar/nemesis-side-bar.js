@@ -8,7 +8,6 @@ export default class NemesisSideBar extends Component {
   constructor(props) {
     super(props);
     this.isAdmin = document.getElementById('authorities').getAttribute('value').indexOf('ROLE_ADMINGROUP') > -1;
-
   }
 
   render() {
