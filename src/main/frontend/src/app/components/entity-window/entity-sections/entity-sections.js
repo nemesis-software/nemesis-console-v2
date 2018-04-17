@@ -48,6 +48,7 @@ export default class EntitySections extends Component {
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
         <div className="functional-buttons-container">
+          {this.props.entity.type === 'SINGLE_ITEM' ? <i className="fa fa-link rest-navigation" title="Open rest" onClick={this.openRest.bind(this)}/> : false}
           {this.getFunctionalButtons(this.props.entity).map((button, index) => <div className={'functional-button nemesis-button' + (button.className ? ` ${button.className}` : '')} onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></div>)}
         </div>
         <div className="section-navigation">
@@ -302,5 +303,12 @@ export default class EntitySections extends Component {
 
   getAdditionalItem() {
     return false;
+  }
+
+  openRest() {
+    let restUrl = document.getElementById('rest-base-url').getAttribute('url');
+    let url = this.props.entity.entityUrl || `${restUrl}${this.props.entity.entityName}/${this.props.entity.itemId}`;
+
+    window.open(url, '_blank')
   }
 }

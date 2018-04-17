@@ -1124,7 +1124,18 @@ body {
   .entity-sections {
 
     .functional-buttons-container {
+      position: relative;
       padding-bottom: 10px;
+      padding-right: 25px;
+
+      .rest-navigation {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        font-size: 20px;
+        color: @main-blue-darker;
+        cursor: pointer;
+      }
 
       .functional-button {
         margin-right: 5px;
