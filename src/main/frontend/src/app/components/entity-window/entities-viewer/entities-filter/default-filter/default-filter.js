@@ -25,7 +25,7 @@ const keyPrefix = 'defaultFilter';
 export default class DefaultFilter extends Component {
   constructor(props) {
     super(props);
-    this.state = {appliedFilters: [], key: keyPrefix + Date.now(), filterItems: this.getInitialFilterItems(), appliedFilterText: [], isSmallView: false};
+    this.state = {appliedFilters: [], key: keyPrefix + Date.now(), filterItems: this.getInitialFilterItems(), appliedFilterText: [], isSmallView: false, filterOperation: 'and'};
   }
 
   render() {
@@ -61,6 +61,12 @@ export default class DefaultFilter extends Component {
             </button>
             <button type="button" className="btn btn-default default-filter-button clear-button" onClick={this.onClearButtonClick.bind(this)}><Translate
               component="span" content={'main.Clear'} fallback={'Clear'}/></button>
+            <div className="filter-operation-container">
+              <div><em>Filter operator</em></div>
+              <div className="filter-operation-type">
+                <div className="filter-operation-type-text" onClick={this.switchFilterOperation.bind(this)}>{this.state.filterOperation  === 'and' ? 'AND' : 'OR'}</div>
+              </div>
+            </div>
           </div>
         </form>
         <div onClick={() => this.setState({isSmallView: !this.state.isSmallView})} className="filter-resize-icon paper-box with-hover"><i className={'material-icons' + (this.state.isSmallView ? ' reversed' : '')}>keyboard_arrow_up</i></div>
@@ -117,7 +123,7 @@ export default class DefaultFilter extends Component {
   }
 
   onSearchButtonClick() {
-    let filterString = FilterBuilder.buildFilter(this.state.appliedFilters);
+    let filterString = FilterBuilder.buildFilter(this.state.appliedFilters, this.state.filterOperation);
     let appliedFilterText = this.state.appliedFilters.map(item => item.textRepresentation ? item.textRepresentation : false);
     this.setState({appliedFilterText: appliedFilterText}, () => {
       this.props.onFilterApply(filterString);
@@ -146,5 +152,9 @@ export default class DefaultFilter extends Component {
     return _.map(_.difference(this.props.filterMarkup, this.state.filterItems), item => {
       return {value: item, label: <Translate component="div" content={'main.' + item.name.replace('entity-', '')} fallback={item.name.replace('entity-', '')}/>}
     });
+  }
+
+  switchFilterOperation() {
+    this.setState({filterOperation: this.state.filterOperation === 'and' ? 'or' : 'and'});
   }
 }

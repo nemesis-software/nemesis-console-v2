@@ -753,14 +753,31 @@ body {
       height: 40px;
       text-transform: uppercase;
       color: @light-font-color;
+      vertical-align: top;
+      margin-right: 15px;
 
       &.search-button {
         background: @main-blue-darker;
-        margin-right: 15px;
       }
 
       &.clear-button {
         background: @light-grey-darker;
+      }
+    }
+
+    .filter-operation-container {
+      display: inline-block;
+
+      .filter-operation-type {
+        text-align: center;
+
+        .filter-operation-type-text {
+          background: @main-blue-darker;
+          color: white;
+          cursor: pointer;
+          width: 50px;
+          margin: 0 auto;
+        }
       }
     }
   }
