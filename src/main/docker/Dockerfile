@@ -1,16 +1,13 @@
-FROM cogniteev/oracle-java
+FROM openjdk:8u151-jdk-alpine3.7
 
 MAINTAINER Petar Tahchiev <ptahchiev@nemesis.io>
 
 # Set the locale
-RUN locale-gen en_US.UTF-8
+#RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Install unzip
-RUN apt-get update
-RUN apt-get install unzip -y
 
 # Prepare work dirs
 VOLUME /tmp
@@ -19,8 +16,10 @@ WORKDIR /apps/
 
 # Add the project
 ADD /nemesis-console-v2.war /apps/
-RUN bash -c 'touch /apps/nemesis-console-v2.war'
-RUN bash -c 'unzip -q -d console /apps/nemesis-console-v2.war'
+RUN touch /apps/nemesis-console-v2.war
+RUN mkdir console
+RUN unzip -q -d console /apps/nemesis-console-v2.war
+RUN rm -rf /apps/nemesis-console-v2.war
 
 WORKDIR /apps/console/
 
