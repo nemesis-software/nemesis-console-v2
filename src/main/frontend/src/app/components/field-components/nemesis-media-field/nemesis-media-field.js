@@ -1,7 +1,7 @@
 import React from 'react';
 import NemesisBaseField from '../nemesis-base-field'
 
-export default class NemesisTextField extends NemesisBaseField {
+export default class NemesisMediaField extends NemesisBaseField {
   constructor(props) {
     super(props);
     this.state = {...this.state, file: ''};
@@ -21,6 +21,14 @@ export default class NemesisTextField extends NemesisBaseField {
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
       </div>
     )
+  }
+
+  setFormattedValue(value) {
+    if (value) {
+      return value + `?_t=${new Date().getTime()}`
+    }
+
+    return value;
   }
 
   handleImageChange(e) {

@@ -1,4 +1,3 @@
-
 import { nemesisFieldTypes} from '../types/nemesis-types';
 
 export default class CssClassHelper {
@@ -21,6 +20,8 @@ export default class CssClassHelper {
       case nemesisFieldTypes.nemesisLocalizedTextField:
       case nemesisFieldTypes.nemesisLocalizedRichtextField: className = ' item-container-with-icon'; break;
       case nemesisFieldTypes.nemesisCollectionField:
+      case nemesisFieldTypes.nemesisProjectionCollection:
+      case nemesisFieldTypes.nemesisCategoriesCollection:
       case nemesisFieldTypes.nemesisSimpleCollectionField: className = ' full-screen-item-container'; break;
       case nemesisFieldTypes.nemesisMediaField: className = ''; break;
       default: className =  '';

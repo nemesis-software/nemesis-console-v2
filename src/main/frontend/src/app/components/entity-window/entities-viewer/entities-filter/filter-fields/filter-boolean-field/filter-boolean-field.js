@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
 import { componentRequire } from '../../../../../../utils/require-util';
 
+import FilterHelper from 'servicesDir/filter-helper';
+
 let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
 
 export default class FilterBooleanField extends Component {
@@ -35,7 +37,20 @@ export default class FilterBooleanField extends Component {
       value: booleanField,
       restriction: searchRestrictionTypes.equals,
       field: this.props.filterItem.name,
-      id: this.props.filterItem.name
+      id: this.props.filterItem.name,
+      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, searchRestrictionTypes.equals, this.getBooleanTextRepresentation(booleanField))
     });
+  }
+
+  getTextRepresentation(name, restrictionValue, value) {
+    return FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, value);
+  }
+
+  getBooleanTextRepresentation(value) {
+    if (value === true || value === false) {
+      return value.toString();
+    }
+
+    return null;
   }
 }

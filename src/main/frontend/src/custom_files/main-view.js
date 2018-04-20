@@ -1,9 +1,11 @@
 import React from 'react';
 import MainView from '../app/components/main-view/main-view';
 
+import PropTypes from 'prop-types';
+
 export default class CustomMainView extends MainView {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
   }
 
   componentWillMount() {
@@ -32,3 +34,9 @@ export default class CustomMainView extends MainView {
     super.openNewEntity(entity);
   }
 }
+
+
+CustomMainView.contextTypes = {
+  markupData: PropTypes.object,
+  entityMarkupData: PropTypes.object
+};

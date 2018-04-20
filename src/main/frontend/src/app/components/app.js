@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
-import { componentRequire } from '../utils/require-util'
-import Translate from 'react-translate-component';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
+
 import counterpart from 'counterpart';
+
+import PropTypes from 'prop-types';
+
+import ApiCall from 'servicesDir/api-call'
+
+import _ from 'lodash';
+
+import MasterAdmin from './master-admin/master-admin';
+import AdminPanel from './admin-panel/admin-panel';
+import SimpleView from './simple-view/simple-view';
+import PointOfSale from './point-of-sale/point-of-sale';
+import ConsoleConfigurationPanel from './console-configuration-panel/console-configuration-panel';
+import NemesisSideBar from './nemesis-side-bar/nemesis-side-bar';
 
 import 'react-select/dist/react-select.css';
 
@@ -9,11 +25,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import 'font-awesome/css/font-awesome.css';
 
+import 'material-design-icons/iconfont/material-icons.css'
+
 import 'react-datetime/css/react-datetime.css';
 
 import '../../styles/style.less';
 
-import LiveEditNavigation from './live-edit-navigation';
+require('es6-promise').polyfill();
 
 const translationLanguages = {
  languages: [
@@ -30,83 +48,104 @@ translationLanguages.languages.forEach(language => {
 
 counterpart.setLocale(translationLanguages.defaultLanguage.value);
 
-let NavigationTree = componentRequire('app/components/navigation-tree/navigation-tree', 'navigation-tree');
-let MainView = componentRequire('app/components/main-view/main-view', 'main-view');
-let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
-
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.mainViewRef = null;
-    this.state = {isNavigationTreeOpened: true};
     this.isOpenInFrame = false;
+    this.state = {markupData: {}, entityMarkupData: {}, sidebarData: {}, isLoadingData: true};
+  }
+
+  getChildContext() {
+    return {
+      markupData: this.state.markupData,
+      entityMarkupData: this.state.entityMarkupData
+    };
   }
 
   componentWillMount() {
     this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
+    if (this.isOpenInFrame) {
+      this.getMarkupData();
+    } else {
+      setTimeout(() => {
+        this.getMarkupData();
+      }, 2000);
+    }
+
+  }
+
+  getMarkupData() {
+    Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then(result => {
+      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: result[2].data, isLoadingData: false});
+    }, err => {
+      this.setState({isLoadingData: false});
+    });
   }
 
   render() {
-    return (
-        <div>
-          {!this.isOpenInFrame ? <div className="nemesis-navbar">
-            <i className="fa fa-bars sidebar-icon" onClick={() => this.setState({isNavigationTreeOpened: !this.state.isNavigationTreeOpened})}/>
-            <div className="nemesis-navbar-header">Nemesis Console</div>
-            <div className="nemesis-navbar-right">
-              <LiveEditNavigation/>
-              <LanguageChanger
-                style={{width: '150px'}}
-                selectClassName="header-language-changer"
-                onLanguageChange={language => counterpart.setLocale(language)}
-                availableLanguages={translationLanguages.languages}
-                selectedLanguage={translationLanguages.defaultLanguage}
-              />
-              <div className="logout-button" onClick={this.handleLogoutButtonClick.bind(this)}>
-                <i className="fa fa-sign-out logout-icon"/> <Translate component="span" content={'main.Logout'} fallback={'Log out'} />
-              </div>
-            </div>
-          </div> : false }
-          {!this.isOpenInFrame ? <div className={this.state.isNavigationTreeOpened ? 'navigation-tree' : 'navigation-tree hidden-tree'}>
-            <NavigationTree onEntityClick={this.onEntityClick.bind(this)}/>
-          </div> : false }
-          <div className={this.getMainViewClasses()}>
-            <MainView ref={el => {this.mainViewRef = el}}/>
+    if (this.state.isLoadingData) {
+      return (
+        <div className="initially-loading-screen">
+          <div className="nemesis-logo-container"><img src="/backend/resources/logo.svg"/></div>
+          <div className="loading-text">Loading</div>
+          <div className="loading-dots">
+            <div className="dot">.</div>
+            <div className="dot">.</div>
+            <div className="dot">.</div>
           </div>
         </div>
+      )
+    }
+
+    return (
+        <Router basename="/backend">
+          <div>
+            {!this.isOpenInFrame ? <NemesisSideBar sidebarData={this.state.sidebarData}/> : false}
+            <Route
+              exact={true}
+              path={'/'}
+              component={MasterAdmin}
+            />
+            <Route
+              exact={true}
+              path={'/pos'}
+              component={PointOfSale}
+            />
+            {_.map(this.getSidebarParsedData(this.state.sidebarData), item => {
+              return (
+                <Route
+                  key={item.code}
+                  exact={true}
+                  path={`/${item.code}`}
+                  component={() => <SimpleView timestamp={new Date().toString()} allowedViews={item.items}/>}
+                />
+              )
+            })}
+            <Route
+              exact={true}
+              path={'/maintenance'}
+              component={AdminPanel}
+            />
+            <Route
+              path={'/console-configuration'}
+              component={ConsoleConfigurationPanel}
+            />
+          </div>
+        </Router>
     );
   }
 
-  onEntityClick(entity) {
-    this.mainViewRef.openNewEntity(entity)
-  }
+  getSidebarParsedData(sidebarData) {
+    let result = [];
+    _.forIn(sidebarData, (value, key) => {
+      result.push({code: key, items: value})
+    });
 
-  getMainViewClasses() {
-    let mainClass = 'main-view-wrapper';
-
-    if (this.isOpenInFrame) {
-      return mainClass + ' iframe-view';
-    }
-
-    if (!this.state.isNavigationTreeOpened) {
-      return mainClass + ' full-view';
-    }
-
-    return mainClass;
-  }
-
-  handleLogoutButtonClick() {
-    let csrfToken = document.getElementById('security').getAttribute('token');
-    let form = document.createElement('form');
-    form.setAttribute('method', 'POST');
-    form.setAttribute('action', 'j_spring_security_logout');
-    let hiddenField = document.createElement("input");
-    hiddenField.setAttribute('type', 'hidden');
-    hiddenField.setAttribute('name', '_csrf');
-    hiddenField.setAttribute('value', csrfToken);
-
-    form.appendChild(hiddenField);
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
+    return result;
   }
 }
+
+App.childContextTypes = {
+  markupData: PropTypes.object,
+  entityMarkupData: PropTypes.object
+};

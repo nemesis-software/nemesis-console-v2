@@ -31,7 +31,7 @@ export default class TreeItem extends Component {
                 <i className={this.state.isChildrenVisible ? 'material-icons tree-item-icon reverse-icon' : 'material-icons tree-item-icon'}>keyboard_arrow_right</i> :
                 false
             }
-            { (!this.props.nestedItems || this.props.nestedItems.length === 0) && this.props.isVisible ? <i className="material-icons add-icon">add</i> : false}
+            {this.getAddNewItemIcon()}
         </div>
         {this.props.isVisible || this.props.nestingLevel === 0 ? this.props.nestedItems.map(this.renderChildren.bind(this)) : false}
         {this.state.openModalCreation ?
@@ -72,6 +72,14 @@ export default class TreeItem extends Component {
 
   handleRadioChange(e) {
     this.selectedCreatingItem = e.target.value;
+  }
+
+  getAddNewItemIcon() {
+    if ((!this.props.nestedItems || this.props.nestedItems.length === 0) && this.props.isVisible) {
+      return <i className="material-icons add-icon">add</i>;
+    }
+
+    return false;
   }
 
   renderChildren(nestedItem, index) {
@@ -118,12 +126,13 @@ export default class TreeItem extends Component {
   }
 
   handleSelectCreateEntity() {
-    this.props.onEntityClick({
-      isNew: true,
-      entityId: this.state.creationEntity.id,
-      entityName: this.selectedCreatingItem
+    this.setState({...this.state, openModalCreation: false}, () => {
+      this.props.onEntityClick({
+        isNew: true,
+        entityId: this.state.creationEntity.id,
+        entityName: this.selectedCreatingItem
+      });
     });
-    this.setState({...this.state, openModalCreation: false});
   }
 
   onCreateEntityClick(entity) {

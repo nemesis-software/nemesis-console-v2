@@ -20,6 +20,8 @@ let NemesisMediaField = componentRequire('app/components/field-components/nemesi
 let NemesisMapField = componentRequire('app/components/field-components/nemesis-map-field/nemesis-map-field', 'nemesis-map-field');
 let NemesisSimpleCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field', 'nemesis-simple-collection-field');
 let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
+let NemesisProjectionCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-projection-collection-field/nemesis-projection-collection-field', 'nemesis-projection-collection-field');
+let NemesisCategoriesCollection = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-categories-entity-collection/nemesis-categories-entity-collection', 'nemesis-categories-entity-collection');
 
 import CssClassHelper from '../../../../services/css-class-helper';
 
@@ -28,6 +30,7 @@ export default class EntitySection extends Component {
     super(props);
     this.fieldsReferences = [];
   }
+
   render() {
     return (
       <div style={{minHeight: 'calc(100vh - 205px)', background: 'white'}} className="entity-section">
@@ -57,7 +60,7 @@ export default class EntitySection extends Component {
       mainEntity: this.props.entity,
       label: item.fieldLabel,
       name: itemName,
-      readOnly: item.readOnly,
+      readOnly: !item.updatable || !item.insertable,
       required: item.required,
       value: this.getItemValue(item, itemName),
       type: nemesisFieldUsageTypes.edit,
@@ -83,6 +86,8 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisMapField: reactElement = NemesisMapField; break;
       case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
       case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
+      case nemesisFieldTypes.nemesisProjectionCollection: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisProjectionCollectionField; break;
+      case nemesisFieldTypes.nemesisCategoriesCollection: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisCategoriesCollection; break;
       default: return <div key={index}>Not supported yet - {item.xtype}</div>
     }
 
@@ -90,7 +95,7 @@ export default class EntitySection extends Component {
   }
 
   getItemValue(item, itemName) {
-    if ([nemesisFieldTypes.nemesisEntityField, nemesisFieldTypes.nemesisCollectionField].indexOf(item.xtype) > -1) {
+    if (item.entityId) {
       return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
     }
 
@@ -125,13 +130,5 @@ export default class EntitySection extends Component {
     this.fieldsReferences.forEach(field => {
       field.resetDirtyState();
     });
-  }
-
-  getPaperStyles(item) {
-    let style = {};
-    if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisMediaField, nemesisFieldTypes.nemesisSimpleCollectionField].indexOf(item.xtype) > -1) {
-      style.width = 'calc(100% - 10px)';
-    }
-    return style;
   }
 }

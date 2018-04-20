@@ -17,7 +17,7 @@ export default class NemesisEnumField extends NemesisBaseField {
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
           <Select style={this.getSelectStyle()}
-                  clearable={true}
+                  clearable={this.props.clearable === undefined ? true : this.props.clearable}
                   arrowRenderer={() => <SelectCustomArrow />}
                   className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                   disabled={this.props.readOnly}
@@ -44,7 +44,7 @@ export default class NemesisEnumField extends NemesisBaseField {
   }
 
   getFormattedValue(value) {
-    return this.props.values[value];
+    return this.props.values[value] ? this.props.values[value] : null;
   }
 
   isEmptyValue() {

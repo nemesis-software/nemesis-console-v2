@@ -5,11 +5,11 @@
 <html>
 <head>
     <title>Backend Console | Nemesis</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="resources/styles.css" type="text/css">
+    <link rel="stylesheet" href = "<c:url value="/resources/styles.css"/>" type="text/css">
 </head>
 <body>
     <div class="app-container"></div>
+    <div class="portals-container"></div>
 </body>
 <div id="website-base-url" style="display:none" url="${websiteBaseUrl}"></div>
 <div id="rest-base-url" style="display:none" url="${restBaseUrl}" locale="${currentLocale}"></div>
@@ -20,5 +20,5 @@
 <div id="token" style="display:none" value="<sec:authentication property='principal.token' htmlEscape="false" />"></div>
 <div id="expiryTime" style="display:none" value="<sec:authentication property='principal.expiryTime' />"></div>
 <div id="authorities" style="display:none" value="<sec:authentication property='principal.authorities' />"></div>
-<script src="resources/bundle.js"></script>
+<script src="<c:url value="/resources/bundle.js"/>"></script>
 </html>

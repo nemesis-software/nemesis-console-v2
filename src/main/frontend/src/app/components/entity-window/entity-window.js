@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types';
 import { componentRequire } from '../../utils/require-util';
 
-import AdminPanel from '../admin-panel/admin-panel';
 let EntitiesViewer = componentRequire('app/components/entity-window/entities-viewer/entities-viewer', 'entities-viewer');
 let EntitySections = componentRequire('app/components/entity-window/entity-sections/entity-sections', 'entity-sections');
 
@@ -41,9 +40,6 @@ export default class EntitiesWindow extends Component {
       }
       case entitySearchType: {
         return <EntitiesViewer ref={this.setEntitiesViewerInstance.bind(this)} entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>
-      }
-      case 'adminPanel': {
-        return <AdminPanel openNotificationSnackbar={this.props.openNotificationSnackbar} />
       }
       default: {
         return <div>INVALID ENTITY TYPE!!!</div>

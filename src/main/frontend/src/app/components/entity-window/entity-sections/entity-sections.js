@@ -5,11 +5,9 @@ import Translate from 'react-translate-component';
 import SwipeableViews from 'react-swipeable-views';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import _ from 'lodash';
-
 import {entityItemType, entityCreateType} from '../../../types/entity-types';
-import { nemesisFieldTypes } from '../../../types/nemesis-types'
 import ApiCall from '../../../services/api-call';
+import DataHelper from 'servicesDir/data-helper';
 import { componentRequire } from '../../../utils/require-util';
 
 let EntitySection = componentRequire('app/components/entity-window/entity-sections/entity-section/entity-section', 'entity-section');
@@ -50,6 +48,7 @@ export default class EntitySections extends Component {
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
         <div className="functional-buttons-container">
+          {this.props.entity.type === 'SINGLE_ITEM' ? <i className="fa fa-link rest-navigation" title="Open rest" onClick={this.openRest.bind(this)}/> : false}
           {this.getFunctionalButtons(this.props.entity).map((button, index) => <div className={'functional-button nemesis-button' + (button.className ? ` ${button.className}` : '')} onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></div>)}
         </div>
         <div className="section-navigation">
@@ -104,7 +103,7 @@ export default class EntitySections extends Component {
     return ApiCall.get(restUrl).then(result => {
       this.setState({...this.state, entityData: result.data});
       Promise.all(
-        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(this.parseLinkHref(result.data._links[item.name]), {projection: 'search'})
+        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
           .then(result => {
             return Promise.resolve(result);
           }, err => {
@@ -114,10 +113,11 @@ export default class EntitySections extends Component {
         let relatedEntitiesResult = {};
         relatedEntities.forEach((item, index) => {
           let data;
-          if (item.type === nemesisFieldTypes.nemesisCollectionField) {
-            data = this.mapCollectionData(result[index].data);
+
+          if (result[index].data && result[index].data._embedded) {
+            data = DataHelper.mapCollectionData(result[index].data);
           } else {
-            data = this.mapEntityData(result[index].data);
+            data = DataHelper.mapEntityData(result[index].data);
           }
 
           relatedEntitiesResult[item.name] = data;
@@ -171,32 +171,13 @@ export default class EntitySections extends Component {
     }
     entity.data.sections.forEach(item => {
       item.items.forEach(subItem => {
-        if ([nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(subItem.xtype) > -1) {
+        if (subItem.entityId) {
           result.push({type: subItem.xtype, name: subItem.name.replace('entity-', '')});
         }
       })
     });
 
     return result;
-  }
-
-  mapCollectionData(data) {
-    let result = [];
-
-    if (!data) {
-      return result;
-    }
-
-    _.forIn(data._embedded, (value) => result = result.concat(value));
-    return result;
-  }
-
-  mapEntityData(data) {
-    if (!data) {
-      return null;
-    }
-
-    return data.content && data.content.id ? data.content : data;
   }
 
   handleRefreshButtonClick() {
@@ -324,12 +305,10 @@ export default class EntitySections extends Component {
     return false;
   }
 
-  parseLinkHref(link) {
-    let result = link.href;
-    if (link.templated) {
-      result = result.replace(new RegExp('({.*})', 'g'), '');
-    }
+  openRest() {
+    let restUrl = document.getElementById('rest-base-url').getAttribute('url');
+    let url = this.props.entity.entityUrl || `${restUrl}${this.props.entity.entityName}/${this.props.entity.itemId}`;
 
-    return result;
+    window.open(url, '_blank')
   }
 }

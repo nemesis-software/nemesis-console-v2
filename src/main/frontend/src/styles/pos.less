@@ -1,0 +1,377 @@
+@import './variables';
+
+.point-of-sale-container {
+  position: relative;
+
+  .pos-button {
+    border: 2px solid @border-colors;
+    text-align: center;
+    background-color: #e2e2e2;
+    color: #555555;
+    cursor: pointer;
+    transition: all 150ms linear;
+    user-select: none;
+
+    &.disabled {
+      cursor: not-allowed;
+      background-color: #f3f0f0;
+      color: #a7a7a7;
+    }
+
+    &:not(.disabled) {
+      &:hover {
+        background-color: #eeeeee;
+      }
+
+      &:active {
+        background-color: #000000;
+        color: white;
+      }
+    }
+  }
+
+  .payment-process {
+    height: ~"calc(100vh - 60px)";
+    background: #eeeeee;
+
+    .payment-receipt-container {
+      background: white;
+      margin: 0 auto;
+      max-width: 1024px;
+      text-align: left;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+
+      .payment-receipt-header {
+        border-bottom: 1px solid @main-blue;
+        text-align: center;
+        padding: 15px;
+
+
+        .next-order-button {
+          display: inline-block;
+          float: right;
+          padding: 5px 8px;
+          font-size: 16px;
+        }
+
+        .payment-receipt-header-text {
+          font-size: 20px;
+          font-weight: bold;
+          display: inline-block;
+        }
+      }
+
+      .payment-receipt {
+        width: 350px;
+        margin: 10px auto;
+        border: 1px solid @border-colors;
+        border-radius: 1px;
+        padding: 10px;
+        color: #555555;
+
+        .payment-receipt-date {
+          text-align: center;
+          margin-bottom: 5px;
+        }
+
+        .payment-receipt-content {
+          margin: 10px 0;
+          table {
+            width: 100%;
+            border: 0;
+            table-layout: fixed;
+
+            tr {
+              td {
+                width: 25%;
+                text-align: right;
+              }
+              td:first-of-type {
+                width: 50%;
+                text-align: left;
+              }
+            }
+          }
+        }
+
+        .payment-receipt-finalization {
+          table {
+            width: 100%;
+
+            tr {
+              &:first-of-type {
+                font-size: 20px;
+              }
+
+              td {
+                text-align: right;
+              }
+              td:first-of-type {
+                text-align: left;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+    .payment-methods {
+      background: white;
+      margin: 0 auto;
+      max-width: 1024px;
+      text-align: left;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+
+      .payment-methods-header {
+        border-bottom: 1px solid @main-blue;
+        text-align: center;
+        padding: 15px;
+
+        .back-button {
+          display: inline-block;
+          float: left;
+          padding: 5px 8px;
+          font-size: 16px;
+        }
+
+        .validate-button {
+          display: inline-block;
+          float: right;
+          padding: 5px 8px;
+          font-size: 16px;
+        }
+
+        .payment-methods-header-text {
+          font-size: 20px;
+          font-weight: bold;
+          display: inline-block;
+        }
+      }
+
+      border-right: 1px solid @main-blue;
+      border-left: 1px solid @main-blue;
+
+      .payment-types {
+        width: 300px;
+        display: inline-block;
+        vertical-align: top;
+        height: 100%;
+        border-right: 1px solid @main-blue;
+
+        .payment-type {
+          margin: 15px;
+          font-size: 20px;
+          padding: 10px 0;
+        }
+      }
+
+      .payment-calculator {
+        width: ~"calc(100% - 300px)";
+        display: inline-block;
+        vertical-align: top;
+
+        .payment-calculation {
+          border-bottom: 1px solid @main-blue;
+
+          table {
+            width: 100%;
+
+            th {
+              width: 33%;
+              font-size: 16px;
+              padding: 8px;
+            }
+
+            td {
+              width: 33%;
+              font-size: 16px;
+              padding: 8px;
+
+              &.blue-td {
+                background: @main-blue;
+                color: @light-font-color;
+              }
+
+              &.payed-number {
+                border: 1px solid @main-blue
+              }
+            }
+          }
+        }
+
+        .payment-keyboard {
+          padding: 20px;
+          table {
+            margin: 0 auto;
+            td {
+              height: 74px;
+              width: 74px;
+
+              &.number-buttons {
+                font-size: 24px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .bill-panel-container {
+    border-right: 2px solid @main-blue;
+    height: ~"calc(100vh - 60px)";
+    width: 435px;
+    position: fixed;
+    left: 60px;
+
+    .bill-control-buttons {
+      height: 240px;
+      width: 100%;
+      padding: 10px;
+      border-top: 2px solid @main-blue;
+
+      .payment-process-button {
+        display: inline-block;
+        width: 40%;
+        height: 100%;
+        vertical-align: top;
+        border-right: 0;
+        padding: 70px 0;
+
+        .material-icons {
+          font-size: 40px;
+        }
+      }
+
+      .number-pad-container {
+        display: inline-block;
+        width: 60%;
+        vertical-align: top;
+        height: 100%;
+        user-select: none;
+
+        table {
+          width: 100%;
+          td {
+            height: 54px;
+            width: 54px;
+
+            &.number-buttons {
+              font-size: 24px;
+            }
+          }
+        }
+      }
+    }
+
+    .bill-items-lister {
+      width: 100%;
+      height: ~"calc(100% - 240px)";
+      overflow-y: auto;
+
+      .bill-empty-cart {
+        margin: 30px 0;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #dddddd;
+      }
+
+      .bill-item-lister-total-price {
+        font-size: 22px;
+        text-align: right;
+        padding: 10px;
+
+        span {
+          border-top: 2px solid black;
+          padding-top: 5px;
+        }
+      }
+
+      .bill-lister-item {
+        padding: 5px 10px;
+        cursor: pointer;
+
+        &.selected {
+          background: rgba(140, 143, 183, 0.2);
+        }
+
+        .bill-lister-item-name {
+          font-weight: bold;
+        }
+
+        .bill-lister-item-calculations {
+          .bill-lister-item-units {
+            .bill-lister-item-quantity {
+              font-weight: bold;
+            }
+          }
+
+          .bill-lister-item-total {
+            float: right;
+            padding: 0;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  .product-panel-container {
+    width: ~"calc(100% - 495px)";
+    height: ~"calc(100vh - 60px)";
+    position: fixed;
+    right: 0;
+
+    .product-lister {
+      height: 100%;
+      overflow-y: scroll;
+
+      .product-lister-item {
+        display: inline-block;
+        height: 120px;
+        width: 120px;
+        margin: 15px;
+        border: 1px solid @border-colors;
+        cursor: pointer;
+        position: relative;
+
+        .product-image {
+          text-align: center;
+          width: 120px;
+          height: 100px;
+
+          img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+          }
+        }
+
+        .product-price {
+          background: @main-blue;
+          color: @light-font-color;
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 0 3px;
+        }
+
+        .product-name {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          padding: 0 3px;
+          font-size: 12px;
+          line-height: 12px;
+          background: linear-gradient(-180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 1));
+        }
+      }
+    }
+  }
+}

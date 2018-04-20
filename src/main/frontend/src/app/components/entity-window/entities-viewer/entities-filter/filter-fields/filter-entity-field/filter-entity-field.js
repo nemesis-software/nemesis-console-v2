@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import _ from 'lodash';
 
+import FilterHelper from 'servicesDir/filter-helper';
+
 import { componentRequire } from '../../../../../../utils/require-util';
 import { searchRestrictionTypes } from '../../../../../../types/nemesis-types';
 
@@ -45,7 +47,8 @@ export default class FilterEntityField extends Component {
       value: _.isEmpty(selectedEntity) ? null : `${selectedEntity.id}L`,
       restriction: restrictionValue,
       field: this.props.filterItem.name.replace('entity-', '') + '/id',
-      id: this.props.filterItem.name
+      id: this.props.filterItem.name,
+      textRepresentation: this.getTextRepresentation(selectedEntity && selectedEntity.entityName, restrictionValue, this.getItemText(selectedEntity))
     });
   }
 
@@ -54,7 +57,27 @@ export default class FilterEntityField extends Component {
     this.updateParentFilter(item, this.state.restrictionField);
   }
 
+  getItemText(item) {
+    if (!item) {
+      return '';
+    }
+    let text = item.code;
+    if (item.entityName === 'catalog_version') {
+      text = item.catalogVersion || item.code;
+    } else if (item.entityName === 'cms_slot') {
+      text = `${item.code} - ${item.position}`
+    } else if (item.catalogVersion) {
+      text = `${item.code} - ${item.catalogVersion}`
+    }
+
+    return text;
+  }
+
   isEntityFieldVisible() {
     return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
+  }
+
+  getTextRepresentation(name, restrictionValue, value) {
+    return FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, value);
   }
 }

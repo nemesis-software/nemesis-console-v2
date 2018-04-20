@@ -62,13 +62,6 @@ export default class NavigationTree extends Component {
 
   getNavigationData() {
     return ApiCall.get('backend/navigation').then(result => {
-      if (document.getElementById('authorities').getAttribute('value').indexOf('ROLE_ADMINGROUP') > -1) {
-        result.data.unshift({
-          id: 'adminPanel',
-          text: 'Admin Panel',
-          children: [{id: 'adminPanel', text:'Admin panel', leaf: true}]
-        });
-      }
       this.setState({...this.state, loadingData: false});
       return result;
     }, err => {

@@ -1,10 +1,12 @@
 @import './variables';
 
 .nemesis-admin-panel {
+  padding: 60px 0 60px 60px;
 
   .navigation-bar {
     padding: 10px 10px 0;
-    background: @main-blue-darker;
+    background: @light-grey-darker;
+    margin-bottom: 10px;
 
     .navigation-bar-item {
       display: inline-block;
@@ -24,6 +26,16 @@
       .fa {
         margin-right: 5px;
       }
+    }
+  }
+
+  .admin-mappings {
+    .navigation-bar {
+      text-align: center;
+    }
+
+    .navigation-bar-item {
+      width: 250px;
     }
   }
 
@@ -69,7 +81,21 @@
     }
   }
 
-  .admin-loggers {
+  .admin-caches {
+    padding: 20px;
+
+    .admin-cache-panel {
+      padding: 20px;
+      margin-bottom: 20px;
+
+      .admin-cache-panel-header {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .admin-loggers, .admin-caches {
     .display-table-cell {
       border-bottom: 1px solid lightgrey;
       padding: 5px 0;
@@ -279,6 +305,32 @@
 
         &.offline {
           background: #F24F4B;
+        }
+      }
+    }
+  }
+
+  .admin-mappings-dispatcher-servlets {
+    .admin-mappings-dispatcher-servlets-item {
+      border: 1px solid @main-blue-darker;
+      margin-top: 5px;
+
+      .servlets-item-main {
+        padding: 5px;
+        width: 100%;
+        color: white;
+        cursor: pointer;
+        background: @main-blue-darker;
+      }
+
+      .admin-mappings-details {
+        padding: 10px;
+
+        .servlets-item-handler-method, .servlets-item-request-conditions, .servlets-item-handler {
+          margin: 10px 0;
+          border: 1px solid @main-blue-darker;
+          padding: 5px;
+          word-break: break-all;
         }
       }
     }

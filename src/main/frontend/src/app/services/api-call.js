@@ -16,8 +16,8 @@ export default class ApiCall {
     return this.requestHelper(url, 'PUT', data, null, contentType);
   }
 
-  static delete(url) {
-    return this.requestHelper(url, 'DELETE', null, null, null);
+  static delete(url, queryParams) {
+    return this.requestHelper(url, 'DELETE', null, queryParams, null);
   }
 
   static patch(url, data, contentType) {
@@ -26,7 +26,7 @@ export default class ApiCall {
 
   static requestHelper(url, method, data, params, contentType) {
     return axios({
-      url: url,
+      url: this.parseTemplatedUrl(url),
       method: method,
       baseURL: this.getRestUrl(),
       headers: this.getHeaders(contentType),
@@ -56,5 +56,9 @@ export default class ApiCall {
     }
 
     return result;
+  }
+
+  static parseTemplatedUrl(url) {
+    return url.replace(new RegExp('({.*})', 'g'), '');
   }
 }

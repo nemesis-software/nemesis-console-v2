@@ -1,5 +1,6 @@
 import React from 'react';
 import NemesisSimpleCollectionField from '../../field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field';
+import _ from 'lodash';
 
 export default class CsvFieldsComponent extends NemesisSimpleCollectionField {
   constructor(props) {
@@ -11,9 +12,9 @@ export default class CsvFieldsComponent extends NemesisSimpleCollectionField {
       let valueActual = this.state.value || [];
       let inputValue = e.target.value;
       if (inputValue.indexOf(',') > -1) {
-        valueActual = valueActual.concat(inputValue.split(','));
+        valueActual = valueActual.concat(_.map(inputValue.split(','), item => item.trim()));
       } else {
-        valueActual.push(inputValue);
+        valueActual.push(inputValue.trim());
       }
 
       e.target.value = null;

@@ -29,7 +29,7 @@ import javax.annotation.Resource;
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = { "com.nemesis.console.backend", "com.nemesis.platform.util" })
-@Import(value = CommonConsoleConfig.class)
+@Import(value = { CommonConsoleConfig.class })
 @EnableConfigurationProperties(value = ConsoleProperties.class)
 @EnableGlobalMethodSecurity(prePostEnabled = true, mode = AdviceMode.PROXY)
 public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
@@ -44,7 +44,7 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     public void configure(final WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/*");
+        web.ignoring().antMatchers("/resources/**");
     }
     
     @Override
@@ -53,13 +53,14 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/resources/img/**").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/error").permitAll()
                 .antMatchers("/**").hasRole("EMPLOYEEGROUP")
                 .and()
             .headers().disable()
             .formLogin()
                 .loginProcessingUrl("/j_spring_security_check")
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/console")
+                .defaultSuccessUrl("/")
                 .failureHandler(defaultAuthenticationFailureHandler)
                 .permitAll()
                 .and()

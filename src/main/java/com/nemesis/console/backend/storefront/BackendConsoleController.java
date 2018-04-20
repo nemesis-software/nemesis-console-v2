@@ -31,7 +31,7 @@ public class BackendConsoleController {
     @Autowired
     private ConsoleProperties consoleProperties;
 
-    @RequestMapping(value = { "/", "/console" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/", "{path:(?!login|media|resources).*$}", "{path:(?!login|media|resources).*$}/**"}, method = RequestMethod.GET)
     public String home(final Model model, final HttpServletRequest request) {
         model.addAttribute("websiteBaseUrl", consoleProperties.getWebsiteBaseUrl());
         model.addAttribute("restBaseUrl", consoleProperties.getRestBaseUrl());

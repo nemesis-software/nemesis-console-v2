@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import Translate from 'react-translate-component';
 import _ from 'lodash';
 
 import { componentRequire } from '../../../../utils/require-util';
+import TableHeaderElement from "../../../helper-components/table-header-element";
 
 let EntitiesPager = componentRequire('app/components/entity-window/entities-viewer/entities-pager/entities-pager', 'entities-pager');
 let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
@@ -51,7 +51,7 @@ export default class EntitiesTableViewer extends Component {
               {
                 this.state.entitiesMarkup.map((markupItem, index) => {
                   return (
-                      <Translate key={index} component="th" content={'main.' + markupItem.text} fallback={markupItem.text}/>
+                    <TableHeaderElement  key={index} markupItem={markupItem} onSortDataChange={this.props.onSortDataChange} sortData={this.props.sortData}/>
                 )})
               }
             </tr>

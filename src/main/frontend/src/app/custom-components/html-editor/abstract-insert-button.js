@@ -10,7 +10,7 @@ export default class AbstractInsertButton extends Component {
 
   render() {
     return (
-      <Dropdown id="insert-link-button" disabled={this.state.previewAsText} open={this.state.isDropDownOpen} onToggle={this.onToggleDropdown.bind(this)}>
+      <Dropdown id="insert-link-button" disabled={this.props.disabled} open={this.state.isDropDownOpen} onToggle={this.onToggleDropdown.bind(this)}>
         <Dropdown.Toggle title={this.getButtonTitle()} noCaret onClick={this.openDropdown.bind(this)}>
           {this.getButtonIcon()}
         </Dropdown.Toggle>
