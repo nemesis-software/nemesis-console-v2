@@ -278,7 +278,7 @@
                <artifactId>docker-maven-plugin</artifactId>
                <version>${docker-maven-plugin.version}</version>
                <configuration>
-                    <imageName>nemesis/${project.artifactId}</imageName>
+                    <imageName>nemesis/console</imageName>
                     <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
                     <serverId>docker-hub</serverId>
                     <resources>
