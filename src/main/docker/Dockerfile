@@ -25,6 +25,6 @@ WORKDIR /apps/console/
 
 # Run the project
 # add this for debug ,"-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
-ENTRYPOINT ["java","-Xss512K","-Xms2g","-Xmx2g","-XX:MaxMetaspaceSize=256m","-XX:ReservedCodeCacheSize=256m","-XX:CompressedClassSpaceSize=128m","-XX:+HeapDumpOnOutOfMemoryError","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=docker","-cp","/apps/console/.","org.springframework.boot.loader.WarLauncher"]
+ENTRYPOINT ["java","-Xss512K","-Xms2g","-Xmx2g","-XX:MaxMetaspaceSize=256m","-XX:ReservedCodeCacheSize=256m","-XX:CompressedClassSpaceSize=128m","-XX:+HeapDumpOnOutOfMemoryError","-Djava.security.egd=file:/dev/./urandom","-cp","/apps/console/.","org.springframework.boot.loader.WarLauncher"]
 
 EXPOSE 8443
