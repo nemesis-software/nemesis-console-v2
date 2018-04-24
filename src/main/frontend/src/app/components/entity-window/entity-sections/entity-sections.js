@@ -5,7 +5,7 @@ import Translate from 'react-translate-component';
 import SwipeableViews from 'react-swipeable-views';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import {entityItemType, entityCreateType} from '../../../types/entity-types';
+import {entityItemType, entityCreateType, entityCloneType} from '../../../types/entity-types';
 import ApiCall from '../../../services/api-call';
 import DataHelper from 'servicesDir/data-helper';
 import { componentRequire } from '../../../utils/require-util';
@@ -25,6 +25,10 @@ export default class EntitySections extends Component {
   componentWillMount() {
     if (this.props.entity.type === entityItemType) {
       this.getDataEntity(this.props.entity);
+    }
+
+    if (this.props.entity.type === entityCloneType) {
+      this.setState({entityData: this.props.entity.additionParams});
     }
 
     this.sectionsReferences = [];
@@ -85,6 +89,7 @@ export default class EntitySections extends Component {
     if (entity.type === entityItemType) {
       result.push({label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this)});
       result.push({label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this)});
+      result.push({label: 'Clone', onClickFunction: this.handleCloneButtonClick.bind(this)});
     }
 
     if (entity.data.synchronizable) {
@@ -184,6 +189,12 @@ export default class EntitySections extends Component {
     this.getDataEntity(this.props.entity);
   }
 
+  handleCloneButtonClick() {
+    let entityData = {...this.state.entityData, id: null, code: this.state.entityData.code + new Date().getTime()};
+    this.props.onEntityItemClick({entityName: this.props.entity.entityName}, this.props.entity.entityId , null, entityCloneType, entityData);
+    this.getDataEntity(this.props.entity);
+  }
+
   handleConfirmationDeleteButtonClick() {
     let entity = this.props.entity;
     ApiCall.delete(entity.entityId + '/' + entity.itemId).then(() => {
@@ -215,7 +226,7 @@ export default class EntitySections extends Component {
 
     let entity = this.props.entity;
     let dirtyEntityProps = this.getDirtyEntityProps();
-    let resultObject = {};
+    let resultObject = entity.type === entityCloneType ? this.getCloneInitialDataForSave() : {};
     let mediaFields = [];
     dirtyEntityProps.forEach(prop => {
       if (prop.isMedia) {
@@ -235,7 +246,7 @@ export default class EntitySections extends Component {
       this.uploadMediaFile(itemId, mediaFields, windowShouldClose).then(() => {
         if (windowShouldClose) {
           this.props.onEntityWindowClose(this.props.entity);
-        } else if (entity.type === entityCreateType) {
+        } else if (entity.type === entityCreateType || entity.type === entityCloneType) {
           this.props.updateCreatedEntity(entity, itemId, result.data.code);
         } else if (resultObject.code) {
           this.props.updateNavigationCode(this.props.entity, resultObject.code);
@@ -243,6 +254,22 @@ export default class EntitySections extends Component {
         this.setState({...this.state, isDataLoading: false});
       });
     }, this.handleRequestError.bind(this));
+  }
+
+  getCloneInitialDataForSave() {
+    let entityData = {...this.state.entityData};
+    _.forIn(entityData.customClientData, (value, key) => {
+      if (!value) {
+        entityData[key] = value;
+      } else if (Array.isArray(value)) {
+        entityData[key] = value.map(item => item.id);
+      } else {
+        entityData[key] = value.id;
+      }
+    });
+
+    delete entityData.customClientData;
+    return entityData;
   }
 
   uploadMediaFile(itemId, mediaFields) {
