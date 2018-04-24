@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types';
+import {entitySearchType, entityItemType, entityCreateType, entityCloneType} from '../../types/entity-types';
 import { componentRequire } from '../../utils/require-util';
 
 let EntitiesViewer = componentRequire('app/components/entity-window/entities-viewer/entities-viewer', 'entities-viewer');
@@ -29,6 +29,7 @@ export default class EntitiesWindow extends Component {
   renderEntityByType(entity) {
     switch (entity.type) {
       case entityCreateType:
+      case entityCloneType:
       case entityItemType: {
         return <EntitySections entity={entity}
                                onEntityItemClick={this.props.onEntityItemClick}

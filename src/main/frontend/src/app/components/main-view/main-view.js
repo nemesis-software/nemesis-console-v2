@@ -7,7 +7,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 
 import ApiCall from '../../services/api-call'
-import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types'
+import {entitySearchType, entityItemType, entityCreateType, entityCloneType} from '../../types/entity-types'
 import {componentRequire} from '../../utils/require-util';
 
 let EntitiesNavigation = componentRequire('app/components/entities-navigation/entities-navigation', 'entities-navigation');
@@ -79,6 +79,9 @@ export default class MainView extends Component {
     } else {
       let selectedEntityActual = openedEntities[selectedEntityIndex];
       selectedEntityActual.isVisible = true;
+      if (selectedEntity.type === entitySearchType) {
+        selectedEntityActual.additionParams = selectedEntity.additionParams;
+      }
       openedEntities.splice(selectedEntityIndex, 1);
       openedEntities.push(selectedEntityActual);
     }
@@ -99,16 +102,38 @@ export default class MainView extends Component {
     });
   }
 
-  onEntityItemClick(entityItem, entityId, url) {
-    let selectedEntity = {
-      entityId: entityId,
-      data: this.state.entityMarkupData[entityItem.entityName],
-      type: entityItemType,
-      itemId: entityItem.id,
-      entityName: entityItem.entityName,
-      entityUrl: url,
-      entityCode: entityItem.code
-    };
+  onEntityItemClick(entityItem, entityId, url, itemType, additionParams) {
+    let selectedEntity = {};
+
+    if (itemType && itemType === entitySearchType) {
+      selectedEntity = {
+        entityId: entityId,
+        data: this.state.markupData[entityId],
+        type: entitySearchType,
+        itemId: null,
+        additionParams: additionParams
+      };
+    } else if (itemType && itemType === entityCloneType) {
+      selectedEntity = {
+        entityId: entityId,
+        data: this.state.entityMarkupData[entityItem.entityName],
+        type: entityCloneType,
+        itemId: this.createWindowIncrementor,
+        entityName: entityItem.entityName,
+        additionParams: additionParams
+      };
+      this.createWindowIncrementor++;
+    } else {
+      selectedEntity = {
+        entityId: entityId,
+        data: this.state.entityMarkupData[entityItem.entityName],
+        type: entityItemType,
+        itemId: entityItem.id,
+        entityName: entityItem.entityName,
+        entityUrl: url,
+        entityCode: entityItem.code
+      };
+    }
 
     this.setSelectedItemInState(selectedEntity);
   }
