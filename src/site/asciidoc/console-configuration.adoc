@@ -1,0 +1,126 @@
+= *Console configuration *
+:toc:
+:toclevels: 3
+
+The way your custom console will look like depends on the configurations, done by the admin (or any other role, assigned the respective rights).
+
+== *Configuration basics*
+
+Go to the `Console configuration` tab.
+
+[.center.text-left]
+.console configuration
+image::config-panel.png[Console configuration]
+
+Choose what you want to do - to configure the quick views (click `configuration for master admin`), to configure the sidebar (click `configuration for sidebar`), or to configure the permission settings (click `permission configuration`).
+
+== *Configuration for Master Admin*
+
+The `Configuration for Master Admin` panel holds all defined in the backend entities. As a master admin, you may configure
+
+[.center.text-left]
+.master-admin-configuration-panel
+image::master-admin-configuration-panel.png[Master admin configuration panel]
+
+* what to be seen in the quick edit view;
+* what to be seen as part of the main view;
+* what to be seen as part of the side view;
+* what will be created inside the view (embedded creation);
+
+By default, there are some tabs with selected entities predefined. `Blog entry` and `Widget` are predefined in the `content` tab. `Product`, `price`, `discount` and `tax` are predefined in the `product` tab.
+
+If an entity is not configured, all of the defined fields will be displayed. Go to `content` -> `Blog Entry` -> choose a catalog -> click `create new entity' -> `create`. That is now a non-configured entity looks like:
+
+[.center.text-left]
+.not-configured-entity
+image::not-configured-entity.png[Not configured entity]
+
+=== *Entity configuration - quick views*
+
+In the example below we will configure the quick view for creating a blog.
+
+Use the search in the `console configuration` tab to select the `Configuration for master admin`. Find the `blog entry`. In the window you see all defined properties for the blog entry (if you need something else, consult a developer).
+
+[.center.text-left]
+.blog-entry-properties
+image::blog-entry.png[Blog entry properties]
+
+Whichever property you choose, the expandable configuration block below is identical:
+
+[.center.text-left]
+.content-property
+image::content-property.png[Configurable property]
+
+[width="100%", options=header]
+|====================
+| Property | Description
+| *Field label* | the label of the field as it will be displayed in your custom console quick view
+| *Weight* | the order this property will be displayed in the custom console quick view
+| *Updatable/ Insertable* | if any of them is set to FALSE, the field is READ ONLY. By default, both of them are set to true (the field is editable)
+| *Required* | marks the field as required
+| *Field type* | the type of field as it will be visualized on the custom console quick view
+| *Embedded Creation* | if set to TRUE, you allow this entity to be created inside the main entity
+| *Section* | the label of the section
+| *Section weight* | the order the section is displayed in
+| *In main view* | if set to TRUE, the field will appear in the main view of the custom console quick view
+| *Group name* | the label of the side group view
+|====================
+
+IMPORTANT: If you do not make any configuration, all of the fields will be visible in the main view of the custom console quick view.
+
+If there is at least one configuration, all of the required fields will be displayed in the main view of the custom console quick view.
+
+Let’s say that what you need to create a blog post is its catalog version, id, code, title, content, whether it is active or not, when it will be active to, what image will be displayed in the blog post,  what the thumbnail will be and which categories the blog post belongs to. Mark the `In the main view` checkbox as `True`.
+
+[.center.text-left]
+.content-property
+image::content-property.png[Add content to the main view]
+
+This first group of properties (catalog version, id, code, title, content, whether it is active or not, when it will be active to) we want to appear in the main view of the quick editor.
+
+[.center.text-left]
+.configured-entity
+image::configured-entity.png[Configured entity]
+
+In the side view we want 2 groups - one, holding the categories (named `CATEGORIES`) and one, holding the thumbnail and the picture (named `IMAGES`). All of these - categories, thumbnail and picture - we want to be able to be created inside the blog entry. So, add the `Group name` and configure each of the fields, that can be created inside the blog. To do so, mark the `Embedded creation` checkbox as `True`.
+
+[.center.text-left]
+.thumbnail-embedded
+image::thumbnail-embedded.png[Created embedded thumbnail]
+
+After you save all your changes and reload the console, go and check the configured quick view. The entities where embedded creation is allowed are shown with a `+` sign next to them. Click it to see how the configured pop-ups look like.
+
+[.center.text-left]
+.embedded-creation
+image::embedded-creation.png[Embedded creation]
+
+== *Configuration for Sidebar*
+
+It is up to your custom preferences how the sidebar of the console will look like. In order to configure it, go to `Console configuration` -> `Configuration for Sidebar`.
+
+[.center.text-left]
+.console configuration
+image::config-panel.png[Console configuration]
+
+The `Code` you enter is the name of your tab in the sidebar. (screenshot)
+
+[.center.text-left]
+.tab-configuration
+image::tab-configuration.png[Tab configuration]
+
+The `Entity names` dropdown lets you choose what you want to see in your custom sidebar tab.
+
+If you need to change the order of the chosen entities, you may use the arrows.
+
+In order to see the changes, click SAVE and reload your console.
+
+IMPORTANT: The icon you see is the default one. It can be changed in the backend, by a developer.
+
+== *Permission Configuration*
+
+You may assign different rights to predefined in the backend roles. To do so, go to the `Console configuration` -> `Permission configuration tab`. Choose the role you want to assign/change the permissions of. Click `SAVE`.
+
+permission-roles
+[.center.text-left]
+.permission-roles
+image::permission-roles.png[Permission rights for different roles]

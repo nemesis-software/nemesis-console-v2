@@ -33,7 +33,8 @@
         <menu name="Guides">
             <item name="The backend console components" href="console-components.html" />
             <item name="How to customize the console" href="customization.html" />
-            <item name="Backend console user guide" href="user-guide.html" />
+            <item name="Admin console user guide" href="user-guide.html" />
+            <item name="Console configuration" href="console-configuration.html" />
             <item name="CMS console user guide" href="cms-user-guide.html"/>
         </menu>
 	</body>

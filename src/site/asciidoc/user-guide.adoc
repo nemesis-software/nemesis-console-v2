@@ -235,27 +235,16 @@ image::synchronize-button.png[Synchronize button]
 
 == How to use the search section
 
-To find a particular record faster, take advantage of the search options that let you filter the results. When open an entity, the first half of the window is where the `FILTER` is located. Based on the type of entity, you have different filtration options. You may search, for example:
+To find a particular record faster, take advantage of the search options that let you filter the results. By default, you may search by `code`, by `catalog`, or by `code` + `catalog`.
+The search filter may be collapsed as well.
 
-* by CODE - either by the exact code, or to restrict it
+When collapsed, it shows all applied filters within the current search.
 
-[.center.text-left]
-.filter by code
-image::code-filter.png[Filter by code]
-
-When the `Code restriction` is entered, `Code` field gets activated.
-
-* by NAME and LANGUAGE - either by the exact name, or to restrict it
+If you want to add a new searchable field, use the dropdown.
 
 [.center.text-left]
-.filter by name
-image::name-filter.png[Filter by name]
-
-* whether it's `ACTIVE` or not
-
-* by the `CATALOG`
-
-* by the time it was last modified or published, etc.
+.Search filter
+image::search-filter.png[Filter by code]
 
 
 
