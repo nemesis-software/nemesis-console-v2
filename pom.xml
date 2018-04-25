@@ -281,6 +281,7 @@
                     <imageName>nemesis/console</imageName>
                     <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
                     <serverId>docker-hub</serverId>
+                    <noCache>true</noCache>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
