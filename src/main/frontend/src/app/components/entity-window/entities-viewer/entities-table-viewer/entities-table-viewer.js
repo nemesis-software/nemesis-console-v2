@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import { componentRequire } from '../../../../utils/require-util';
 import TableHeaderElement from "../../../helper-components/table-header-element";
+import SyncStateTableRenderer from "../../../helper-components/sync-states-table-renderer";
 
 let EntitiesPager = componentRequire('app/components/entity-window/entities-viewer/entities-pager/entities-pager', 'entities-pager');
 let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
@@ -82,6 +83,18 @@ export default class EntitiesTableViewer extends Component {
   }
 
   getTableRowColumnItem(item, markupItem, index) {
+    let style = {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap'
+    };
+
+    if (markupItem.name === 'syncStates') {
+      return (
+        <SyncStateTableRenderer style={style} value={item.syncStates} key={index}/>
+      )
+    }
     let itemValue = item[markupItem.name];
     if (['nemesisLocalizedRichtextField', 'nemesisLocalizedTextField'].indexOf(markupItem.type) > -1) {
       itemValue = item[markupItem.name][this.state.selectedLanguage] && item[markupItem.name][this.state.selectedLanguage].value;
@@ -90,12 +103,7 @@ export default class EntitiesTableViewer extends Component {
     itemValue = (typeof itemValue === 'object' && itemValue !== null) ? JSON.stringify(itemValue) : itemValue;
 
 
-    let style = {
-      maxWidth: '100px',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap'
-    };
+
 
     return (
       <td style={style} key={index}>{itemValue || ''}</td>
