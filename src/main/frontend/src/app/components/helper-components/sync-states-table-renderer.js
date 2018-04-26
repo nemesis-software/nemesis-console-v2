@@ -38,13 +38,6 @@ export default class SyncStateTableRenderer extends Component {
         toCatalogVersion: splittedItem[3],
         toCatalog: splittedItem[4]
       });
-      result.push({
-        status: splittedItem[0],
-        fromCatalogVersion: splittedItem[1],
-        fromCatalog: splittedItem[2],
-        toCatalogVersion: splittedItem[3],
-        toCatalog: splittedItem[4]
-      });
     });
 
     return result;
