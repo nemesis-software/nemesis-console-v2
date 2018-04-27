@@ -25,8 +25,7 @@ export default class AllFieldsConfiguration extends Component {
         allFieldsKey: this.parseFieldsKey(result.data),
         filteredFieldsKey: this.parseFieldsKey(result.data),
         selectedFieldData: null,
-        selectedFieldKey: null,
-        selectedEntityConfigId: null
+        selectedFieldKey: null
       });
     })
   }
@@ -36,7 +35,6 @@ export default class AllFieldsConfiguration extends Component {
       return (
         <MasterAdminConfiguration handleBackButton={this.handleBackButton.bind(this)}
                                   openNotificationSnackbar={this.props.openNotificationSnackbar}
-                                  selectedEntityConfigId={this.state.selectedEntityConfigId}
                                   entityName={this.state.selectedFieldKey}
                                   allFields={this.state.allFields[this.state.selectedFieldKey]}
                                   fieldData={this.state.selectedFieldData}/>
@@ -78,26 +76,18 @@ export default class AllFieldsConfiguration extends Component {
   }
 
   onFieldSelect(field) {
-    ApiCall.get('entity_config/search/findByCode/', {code: field}).then(result => {
-      this.getEntityProperties(result.data, field);
+    ApiCall.get('entity_property_config/search/findByAbstractEntityName', {abstractEntityName: field}).then(result => {
+      this.setState({selectedFieldKey: field, selectedFieldData: DataHelper.mapCollectionData(result.data)});
     }, (err) => {
       if (err.response.status === 404) {
-        ApiCall.post('entity_config', {code: field, xtype: `${field}Markup`}).then(result => {
-          this.getEntityProperties(result.data, field);
-        });
+        this.setState({selectedFieldKey: field, selectedFieldData: []});
       } else {
         console.log(err);
       }
     });
   }
 
-  getEntityProperties(entityConfig, selectedFieldKey) {
-    ApiCall.get(entityConfig._links.entityProperties.href).then(entityPropertiesResult => {
-      this.setState({selectedEntityConfigId: entityConfig.id, selectedFieldKey: selectedFieldKey, selectedFieldData: DataHelper.mapCollectionData(entityPropertiesResult.data)});
-    })
-  }
-
   handleBackButton() {
-    this.setState({selectedEntityConfigId: null, selectedFieldKey: null, selectedFieldData: null});
+    this.setState({selectedFieldKey: null, selectedFieldData: null});
   }
 }

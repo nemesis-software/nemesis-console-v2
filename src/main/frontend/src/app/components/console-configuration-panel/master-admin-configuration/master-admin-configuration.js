@@ -47,9 +47,9 @@ export default class MasterAdminConfiguration extends Component {
           return <MasterAdminFieldPanel ref={(fieldPanel) => {fieldPanel && this.fieldPanelReferences.push(fieldPanel)}}
                                         onDeleteField={this.onDeleteField.bind(this)}
                                         key={field.name}
+                                        entityName={this.props.entityName}
                                         field={field}
-                                        openNotificationSnackbar={this.props.openNotificationSnackbar}
-                                        selectedEntityConfigId={this.props.selectedEntityConfigId}/>
+                                        openNotificationSnackbar={this.props.openNotificationSnackbar}/>
         })}
       </div>
     )
