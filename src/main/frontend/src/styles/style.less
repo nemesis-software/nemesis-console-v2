@@ -857,7 +857,7 @@ body {
   }
 }
 
-.sync-state-container {
+.sync-state-container, .synchronize-button {
   .status-dot {
     width: 15px;
     height: 15px;
@@ -872,6 +872,15 @@ body {
     &.red {
       background: #F24F4B;
     }
+  }
+}
+
+.synchronize-button {
+  position: relative;
+  .status-dot {
+    position: absolute;
+    left: 5px;
+    top: 12px;
   }
 }
 

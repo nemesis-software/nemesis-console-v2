@@ -9,6 +9,7 @@ import {entityItemType, entityCreateType, entityCloneType} from '../../../types/
 import ApiCall from '../../../services/api-call';
 import DataHelper from 'servicesDir/data-helper';
 import { componentRequire } from '../../../utils/require-util';
+import _ from 'lodash';
 
 let EntitySection = componentRequire('app/components/entity-window/entity-sections/entity-section/entity-section', 'entity-section');
 
@@ -19,7 +20,7 @@ export default class EntitySections extends Component {
     super(props);
     this.sectionsReferences = [];
 
-    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false, openErrorDialog: false, errorMessage: null, isDataLoading: false };
+    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false, openErrorDialog: false, errorMessage: null, isDataLoading: false, entitySyncStatus: null };
   }
 
   componentWillMount() {
@@ -53,7 +54,14 @@ export default class EntitySections extends Component {
         </div> : false}
         <div className="functional-buttons-container">
           {this.props.entity.type === 'SINGLE_ITEM' ? <i className="fa fa-link rest-navigation" title="Open rest" onClick={this.openRest.bind(this)}/> : false}
-          {this.getFunctionalButtons(this.props.entity).map((button, index) => <div className={'functional-button nemesis-button' + (button.className ? ` ${button.className}` : '')} onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></div>)}
+          {this.getFunctionalButtons(this.props.entity).map((button, index) => {
+            if (button.customRenderer) {
+              return button.customRenderer(index);
+            } else {
+              return <div className={'functional-button nemesis-button' + (button.className ? ` ${button.className}` : '')} onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></div>
+
+            }
+          })}
         </div>
         <div className="section-navigation">
           {this.props.entity.data.sections.map((item, index) => {
@@ -93,12 +101,29 @@ export default class EntitySections extends Component {
     }
 
     if (entity.data.synchronizable) {
-      result.push({label: 'Synchronize', onClickFunction: this.handleSynchronizeButtonClick.bind(this)})
+      result.push({label: 'Synchronize', customRenderer: (index) => {
+        return (
+          <div className={'functional-button nemesis-button synchronize-button'} onClick={this.handleSynchronizeButtonClick.bind(this)} key={index}>
+            {this.getSynchronizeDot()}
+            <Translate component="span" content={'main.Synchronize'} fallback={'Synchronize'}/>
+          </div>
+        )
+      }, onClickFunction: this.handleSynchronizeButtonClick.bind(this)})
     }
 
     result.push({label: 'Close', onClickFunction: () => this.props.onEntityWindowClose(this.props.entity)});
 
     return result;
+  }
+
+  getSynchronizeDot() {
+    if (this.state.entitySyncStatus) {
+      return (
+        <div className={'status-dot' + (this.state.entitySyncStatus === 'OUT_OF_SYNC' ? ' red' : ' green')}>&nbsp;</div>
+      );
+    }
+
+    return false;
   }
 
   getDataEntity(entity) {
@@ -127,7 +152,11 @@ export default class EntitySections extends Component {
 
           relatedEntitiesResult[item.name] = data;
         });
-        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now(), isDataLoading: false})
+        let syncStatus = null;
+        if (relatedEntitiesResult.syncStates && relatedEntitiesResult.syncStates.length > 0) {
+          syncStatus = _.some(relatedEntitiesResult.syncStates, {stateValue: 'OUT_OF_SYNC'}) ? 'OUT_OF_SYNC' : 'COMPLETED';
+        }
+        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now(), isDataLoading: false, entitySyncStatus: syncStatus})
       })
     });
   }
@@ -251,7 +280,7 @@ export default class EntitySections extends Component {
         } else if (resultObject.code) {
           this.props.updateNavigationCode(this.props.entity, resultObject.code);
         }
-        this.setState({...this.state, isDataLoading: false});
+        this.setState({...this.state, isDataLoading: false, entitySyncStatus: 'OUT_OF_SYNC'});
       });
     }, this.handleRequestError.bind(this));
   }

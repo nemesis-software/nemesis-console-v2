@@ -18,7 +18,7 @@ export default class SyncStateTableRenderer extends Component {
       <td style={this.props.style} className="sync-state-container">
         {this.state.syncStates.map((item, index) => {
           return (item.status ?
-            <div className={'status-dot blink' + (item.status === 'COMPLETED' ? ' green' : ' red')} key={index} title={this.getItemTitle(item)}>&nbsp;</div>
+            <div className={'status-dot' + (item.status === 'COMPLETED' ? ' green' : ' red')} key={index} title={this.getItemTitle(item)}>&nbsp;</div>
             : false)
         })}
       </td>
