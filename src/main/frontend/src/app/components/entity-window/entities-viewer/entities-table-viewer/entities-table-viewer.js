@@ -32,6 +32,7 @@ export default class EntitiesTableViewer extends Component {
   }
 
   render() {
+    console.log(this.props.page);
     return (
       <div style={this.props.style} className="entities-table-viewer">
         <table>
@@ -44,7 +45,8 @@ export default class EntitiesTableViewer extends Component {
                   availableLanguages={translationLanguages.languages}
                   selectedLanguage={translationLanguages.defaultLanguage}
                 />
-                <EntitiesPager onPagerChange={this.props.onPagerChange}  page={this.props.page}/>
+                <EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>
+                <div className="total-elements"><label>Total elements</label> <div className="total-element-container">{this.props.page.totalElements}</div></div>
               </th>
             </tr>
             <tr className="content-header">
