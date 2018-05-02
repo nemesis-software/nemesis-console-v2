@@ -18,6 +18,7 @@ let FilterBooleanField = componentRequire('app/components/entity-window/entities
 let FilterNumberField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-number-field/filter-number-field', 'filter-number-field');
 let FilterEnumField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-enum-field/filter-enum-field', 'filter-enum-field');
 let FilterEntityField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-entity-field/filter-entity-field', 'filter-entity-field');
+let FilterCollectionField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-collection-field/filter-collection-field', 'filter-collection-field');
 let FilterBuilder = componentRequire('app/services/filter-builder', 'filter-builder');
 
 const keyPrefix = 'defaultFilter';
@@ -98,6 +99,9 @@ export default class DefaultFilter extends Component {
         break;
       case nemesisFieldTypes.nemesisEntityField:
         reactElement = FilterEntityField;
+        break;
+      case nemesisFieldTypes.nemesisCollectionField:
+        reactElement = FilterCollectionField;
         break;
       default:
         return <div>Not supported yet - {filterItem.xtype}</div>

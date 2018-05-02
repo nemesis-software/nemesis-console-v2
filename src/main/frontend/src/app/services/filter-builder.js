@@ -86,6 +86,11 @@ export default class FilterBuilder {
       isValueRequired: false
     };
 
+    result[searchRestrictionTypes.any] = {
+      getFilterString: (item) => `${item.field}/any(${item.field}:${item.field}/id eq ${item.value})`,
+      isValueRequired: true
+    };
+
     return result;
   }
 
