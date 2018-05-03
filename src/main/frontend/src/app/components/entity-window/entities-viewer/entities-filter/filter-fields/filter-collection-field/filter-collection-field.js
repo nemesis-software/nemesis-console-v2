@@ -4,6 +4,8 @@ import FilterHelper from 'servicesDir/filter-helper';
 
 import {searchRestrictionTypes} from "../../../../../../types/nemesis-types";
 import {componentRequire} from "../../../../../../utils/require-util";
+import FilterItemRenderer from "../filter-item-renderer";
+import NestedFilterPopup from "../nested-filter-popup/nested-filter-popup";
 
 let NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
 
@@ -11,15 +13,28 @@ let NemesisEntityField = componentRequire('app/components/field-components/nemes
 export default class FilterCollectionField extends Component {
   constructor(props) {
     super(props);
-    this.state = {restrictionField: searchRestrictionTypes.any, selectedEntity: props.defaultValue || null};
+    this.state = {restrictionField: searchRestrictionTypes.any, selectedEntity: props.defaultValue || null, openNestedFilterPopup: false, nestedFilters: null};
   }
 
   render() {
-    return (
-      <div className="filter-item-container">
-        <NemesisEntityField readOnly={this.props.readOnly} value={this.state.selectedEntity} entityId={this.props.filterItem.entityId} onValueChange={this.onSelectedMenuItem.bind(this)} label={this.props.filterItem.fieldLabel}/>
-      </div>
-    )
+    if (!this.state.nestedFilters) {
+      return (
+        <div className="filter-item-container">
+          <NemesisEntityField readOnly={this.props.readOnly} value={this.state.selectedEntity} entityId={this.props.filterItem.entityId}
+                              onValueChange={this.onSelectedMenuItem.bind(this)} label={this.props.filterItem.fieldLabel}/>
+          <i className={'material-icons nested-filter-icon'} onClick={this.openNestedFilterPopup.bind(this)}>navigate_next</i>
+          {this.getNestedFilterFunctionality()}
+        </div>
+      )
+    } else {
+      return (
+        <div className="nested-filter-renderer">
+          <label>Nested Filter: {this.getNestedFilterItemsText()} <span className="edit-item" onClick={this.openNestedFilterPopup.bind(this)}>EDIT</span></label>
+          <FilterItemRenderer filterItem={this.state.nestedFilters[this.state.nestedFilters.length - 1]} onFilterChange={this.onFilterChange.bind(this)}/>
+          {this.getNestedFilterFunctionality()}
+        </div>
+      )
+    }
   }
 
   onRestrictionFieldChange(restrictionValue) {
@@ -37,9 +52,31 @@ export default class FilterCollectionField extends Component {
     });
   }
 
+  getNestedFilterFunctionality() {
+    if (this.state.openNestedFilterPopup) {
+      return (<NestedFilterPopup openNestedFilterPopup={this.state.openNestedFilterPopup}
+                                 onNestedFilterApply={this.onNestedFilterApply.bind(this)}
+                                 nestedFilters={this.state.nestedFilters || [{...this.props.filterItem}]}
+                                 onModalCancel={this.closeNestedFilterPopup.bind(this)}/>)
+    }
+    return false;
+  }
+
+  onFilterChange(actualFilterItem) {
+    this.props.onFilterChange({...actualFilterItem, id: this.props.filterItem.name, nestedFilters: [...this.state.nestedFilters.slice(0, -1)]});
+  }
+
+  getNestedFilterItemsText() {
+    return [...this.state.nestedFilters.slice(0, -1)].map(item => item.fieldLabel).join(' / ');
+  }
+
   onSelectedMenuItem(item) {
     this.setState({...this.state, selectedEntity: item});
     this.updateParentFilter(item, this.state.restrictionField);
+  }
+
+  onNestedFilterApply(nestedFilters) {
+    this.setState({nestedFilters: nestedFilters, openNestedFilterPopup: false});
   }
 
   getItemText(item) {
@@ -60,5 +97,13 @@ export default class FilterCollectionField extends Component {
 
   getTextRepresentation(name, restrictionValue, value) {
     return FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, value);
+  }
+
+  openNestedFilterPopup() {
+    this.setState({openNestedFilterPopup: true});
+  }
+
+  closeNestedFilterPopup() {
+    this.setState({openNestedFilterPopup: false});
   }
 }

@@ -359,7 +359,7 @@ export default class SimpleViewEntityWindow extends Component {
       let filterItem = {
         restriction: searchRestrictionTypes.equals,
         field: 'catalogVersion/id',
-        value: `${catalog}L`
+        value: `${catalog}`
       };
       catalogFilter.push(filterItem);
     });

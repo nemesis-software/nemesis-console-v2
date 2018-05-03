@@ -61,8 +61,8 @@ export default class FilterEntityField extends Component {
     return false;
   }
 
-  onFilterChange() {
-
+  onFilterChange(actualFilterItem) {
+    this.props.onFilterChange({...actualFilterItem, id: this.props.filterItem.name, nestedFilters: [...this.state.nestedFilters.slice(0, -1)]});
   }
 
   getNestedFilterItemsText() {
@@ -80,7 +80,7 @@ export default class FilterEntityField extends Component {
 
   updateParentFilter(selectedEntity, restrictionValue) {
     this.props.onFilterChange({
-      value: _.isEmpty(selectedEntity) ? null : `${selectedEntity.id}L`,
+      value: _.isEmpty(selectedEntity) ? null : `${selectedEntity.id}`,
       restriction: restrictionValue,
       field: this.props.filterItem.name.replace('entity-', '') + '/id',
       id: this.props.filterItem.name,
