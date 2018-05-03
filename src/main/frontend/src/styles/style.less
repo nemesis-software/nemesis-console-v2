@@ -516,6 +516,14 @@ body {
   }
 }
 
+.nested-filter-renderer {
+  .edit-item {
+    font-weight: normal;
+    color: @main-blue;
+    cursor: pointer;
+  }
+}
+
 .filter-item-container {
   padding-bottom: 5px;
 
@@ -545,6 +553,22 @@ body {
   .entity-field-container:nth-of-type(3) {
     margin-left: 15px;
   }
+}
+
+.nested-filter-icon {
+  vertical-align: top;
+  padding: 30px 0 0 10px;
+  cursor: pointer;
+  font-size: 24px;
+  width: 35px;
+}
+
+.nested-filter-icon-popup {
+  vertical-align: top;
+  padding: 5px 0 0 10px;
+  cursor: pointer;
+  font-size: 24px;
+  width: 35px;
 }
 
 .select-custom-arrow {
@@ -1079,6 +1103,11 @@ body {
   &.success-button {
     color: white;
     background: @main-blue-darker;
+
+    &:disabled {
+      background: lighten(@main-blue-darker, 20%);
+      cursor: not-allowed;
+    }
   }
 
   &.danger-button {

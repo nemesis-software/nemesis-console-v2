@@ -5,6 +5,7 @@ export default class FilterBuilder {
     let filterSearchTypeActual = filterSearchType ? filterSearchType : 'and';
     let restrictionMap = this.getRestrictionMap();
     let result = [];
+    let filterItemIndex = 0;
     appliedFilters.forEach(item => {
       if (!item.restriction) {
         return;
@@ -14,7 +15,7 @@ export default class FilterBuilder {
         return;
       }
 
-      result.push(restrictionData.getFilterString(item));
+      result.push(restrictionData.getFilterString(item, filterItemIndex++));
     });
 
     return result.join(` ${filterSearchTypeActual} `);

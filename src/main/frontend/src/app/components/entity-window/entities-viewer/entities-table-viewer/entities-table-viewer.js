@@ -32,7 +32,6 @@ export default class EntitiesTableViewer extends Component {
   }
 
   render() {
-    console.log(this.props.page);
     return (
       <div style={this.props.style} className="entities-table-viewer">
         <table>
