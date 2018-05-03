@@ -18,12 +18,12 @@ export default class NestedFilterPopup extends Component {
 
   render() {
     return (
-      <Modal show={this.props.openNestedFilterPopup} onHide={this.handleModalClose.bind(this)}>
+      <Modal className="nested-filter-popup" show={this.props.openNestedFilterPopup} onHide={this.handleModalClose.bind(this)}>
         <Modal.Header>
           <Modal.Title>Select nested filter</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>{this.state.selectedItems.map(item => item.fieldLabel).join(' / ')}</div>
+          <div>{this.state.selectedItems.map(item => item.fieldLabel).join(' / ')}<i className="fa fa-times-circle remove-icon" onClick={this.handleRemoveIconClick.bind(this)}/></div>
           <label><Translate content={'main.selectField'} fallback={'Select field'} /></label>
           <div>
             <div style={{display: 'inline-block'}}>
@@ -49,6 +49,14 @@ export default class NestedFilterPopup extends Component {
     this.props.onNestedFilterApply([...this.state.selectedItems, this.state.selectedItem]);
   }
 
+  handleRemoveIconClick() {
+    if (this.state.selectedItems.length === 1) {
+      this.props.onNestedFilterApply(null);
+    } else {
+      this.setState({selectedItem: null, selectedItems: [...this.state.selectedItems.slice(0, -1)]})
+    }
+  }
+
   getNavigationNextIcon() {
     if (!this.state.selectedItem || [nemesisFieldTypes.nemesisCollectionField, nemesisFieldTypes.nemesisEntityField].indexOf(this.state.selectedItem.xtype) === -1) {
       return false;
@@ -68,11 +76,9 @@ export default class NestedFilterPopup extends Component {
 
   getOptions() {
     let latestFilterItem = this.state.selectedItems[this.state.selectedItems.length - 1];
-    console.log(latestFilterItem);
     let filterItemsForSelect = this.context.markupData[latestFilterItem.entityId].filter;
-    console.log(filterItemsForSelect);
 
-    return filterItemsForSelect.map(item => {
+    return filterItemsForSelect.filter(item => nemesisFieldTypes.nemesisLocalizedTextField !== item.xtype).map(item => {
       return {value: item, label: item.fieldLabel};
     })
   }

@@ -54,7 +54,8 @@ export default class FilterItemRenderer extends Component {
 
     return React.createElement(reactElement, {
       onFilterChange: this.props.onFilterChange,
-      filterItem: filterItem
+      filterItem: filterItem,
+      hideNestedIcon: this.props.hideNestedIcon
     })
   }
 
