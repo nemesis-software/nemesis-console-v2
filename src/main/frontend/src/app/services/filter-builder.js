@@ -207,6 +207,4 @@ export default class FilterBuilder {
 
     return result;
   }
-
-
 }

@@ -62,7 +62,7 @@ export default class EntitiesTableViewer extends Component {
           {
             this.props.entities.map((item, index) => {
               return (
-                <tr style={{cursor: 'pointer'}} onClick={() => this.props.onEntityItemClick(item)} key={index}>
+                <tr style={{cursor: 'pointer'}} onClick={(ev) => this.onRowClick(ev, item)} key={index}>
                   {
                     this.state.entitiesMarkup.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
                   }
@@ -81,6 +81,13 @@ export default class EntitiesTableViewer extends Component {
         </table>
       </div>
     )
+  }
+
+  onRowClick(ev, item) {
+    if (ev.target.classList.contains('status-dot')) {
+      return;
+    }
+    this.props.onEntityItemClick(item);
   }
 
   getTableRowColumnItem(item, markupItem, index) {

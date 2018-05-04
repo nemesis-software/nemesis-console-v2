@@ -20,7 +20,16 @@ export default class EntitySections extends Component {
     super(props);
     this.sectionsReferences = [];
 
-    this.state = { sectionIndex: 0, entityData: {}, key: keyPrefix + Date.now(), openDeleteConfirmation: false, openErrorDialog: false, errorMessage: null, isDataLoading: false, entitySyncStatus: null };
+    this.state = {
+      sectionIndex: 0,
+      entityData: {},
+      key: keyPrefix + Date.now(),
+      openDeleteConfirmation: false,
+      openErrorDialog: false,
+      errorMessage: null,
+      isDataLoading: false,
+      entitySyncStatus: null
+    };
   }
 
   componentWillMount() {
@@ -242,7 +251,7 @@ export default class EntitySections extends Component {
     this.setState({...this.state, isDataLoading: true});
     ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
       this.props.openNotificationSnackbar('Entity successfully synchronized');
-      this.setState({...this.state, isDataLoading: false});
+      this.setState({...this.state, isDataLoading: false, entitySyncStatus: 'COMPLETED'});
     }, this.handleRequestError.bind(this))
   }
 

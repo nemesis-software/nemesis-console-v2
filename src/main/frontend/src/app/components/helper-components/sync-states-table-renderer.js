@@ -1,28 +1,44 @@
 import React, {Component} from 'react';
-import Translate from 'react-translate-component';
-
-import {nemesisFieldTypes} from '../../types/nemesis-types';
+import ApiCall from "../../services/api-call";
 
 export default class SyncStateTableRenderer extends Component {
   constructor(props) {
     super(props);
-    this.state = {syncStates: this.parseSyncStates(props.value)}
+    this.state = {syncStates: this.parseSyncStates(props.value), onProgress: false}
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({syncStates: this.parseSyncStates(nextProps.value)})
+    this.setState({syncStates: this.parseSyncStates(nextProps.value), onProgress: false})
   }
 
   render() {
     return (
       <td style={this.props.style} className="sync-state-container">
-        {this.state.syncStates.map((item, index) => {
-          return (item.status ?
-            <div className={'status-dot' + (item.status === 'COMPLETED' ? ' green' : ' red')} key={index} title={this.getItemTitle(item)}>&nbsp;</div>
-            : false)
-        })}
+        {this.state.syncStates.map(this.getSyncStateStatus.bind(this))}
       </td>
     )
+  }
+
+  getSyncStateStatus(item, index) {
+    if (item.status) {
+      return <div className={this.getDotClass(item.status)}
+                  key={index}
+                  title={this.getItemTitle(item)}
+                  onClick={() => this.handleStatusDotClick(item)}>&nbsp;</div>
+    }
+
+    return false;
+  }
+
+  getDotClass(status) {
+    let result = 'status-dot';
+    if (this.state.onProgress) {
+      result += ' yellow blink';
+    } else {
+      result += status === 'COMPLETED' ? ' green' : ' red';
+    }
+
+    return result;
   }
 
 
@@ -36,11 +52,30 @@ export default class SyncStateTableRenderer extends Component {
         fromCatalogVersion: splittedItem[1],
         fromCatalog: splittedItem[2],
         toCatalogVersion: splittedItem[3],
-        toCatalog: splittedItem[4]
+        toCatalog: splittedItem[4],
+        syncStateId: splittedItem[5]
       });
     });
 
     return result;
+  }
+
+  handleStatusDotClick({syncStateId, status}) {
+    if (status === 'COMPLETED') {
+      return;
+    }
+    ApiCall.get('backend/synchronize', {entityName: 'sync_state', id: syncStateId}).then(() => {
+      this.setState({onProgress: true});
+    }, err => console.log(err))
+  }
+
+  handleSynchronizeButtonClick() {
+    let entity = this.props.entity;
+    this.setState({...this.state, isDataLoading: true});
+    ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
+      this.props.openNotificationSnackbar('Entity successfully synchronized');
+      this.setState({...this.state, isDataLoading: false, entitySyncStatus: 'COMPLETED'});
+    }, this.handleRequestError.bind(this))
   }
 
   getItemTitle(item) {
