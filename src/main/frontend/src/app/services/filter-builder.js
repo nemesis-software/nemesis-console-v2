@@ -110,7 +110,25 @@ export default class FilterBuilder {
       isValueRequired: true
     };
 
+    // result[searchRestrictionTypes.all] = {
+    //   getFilterString: (item, filterItemIndex) => `${this.getFullFieldCode(item)}/all(${item.field + filterItemIndex}:${item.field + filterItemIndex}/id eq ${item.value})${this.getClosedBrackets(item)}`,
+    //   isValueRequired: true
+    // };
+
+    result[searchRestrictionTypes.count] = {
+      getFilterString: (item) => `${this.getFullFieldCode(item)}/$count ${this.parseCountSecondRestriction(item.secondRestriction)} ${item.value})${this.getClosedBrackets(item)}`,
+      isValueRequired: true
+    };
+
     return result;
+  }
+
+  static parseCountSecondRestriction(restriction) {
+    switch (restriction) {
+      case searchRestrictionTypes.equals: return 'eq';
+      case searchRestrictionTypes.lessThan: return 'lt';
+      case searchRestrictionTypes.greaterThan: return 'gt';
+    }
   }
 
   static getFullFieldCode(item) {

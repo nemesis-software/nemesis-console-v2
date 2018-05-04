@@ -5,10 +5,10 @@ import _ from 'lodash';
 import FilterHelper from 'servicesDir/filter-helper';
 
 import { componentRequire } from '../../../../../../utils/require-util';
-import {nemesisFieldUsageTypes, searchRestrictionTypes} from '../../../../../../types/nemesis-types';
+import {searchRestrictionTypes} from '../../../../../../types/nemesis-types';
 import NestedFilterPopup from "../nested-filter-popup/nested-filter-popup";
-import FilterItemRenderer from "../filter-item-renderer";
 
+let FilterItemRenderer = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-item-renderer', 'filter-item-renderer');
 let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
 let NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
 
@@ -41,6 +41,9 @@ export default class FilterEntityField extends Component {
         </div>
       )
     } else {
+      if (!FilterItemRenderer) {
+        FilterItemRenderer = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-item-renderer', 'filter-item-renderer');
+      }
       return (
         <div className="nested-filter-renderer">
           <label>Nested Filter: {this.getNestedFilterItemsText()} <span className="edit-item" onClick={this.openNestedFilterPopup.bind(this)}>EDIT</span></label>
