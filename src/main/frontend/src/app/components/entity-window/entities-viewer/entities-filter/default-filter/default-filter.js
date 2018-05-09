@@ -34,7 +34,7 @@ export default class DefaultFilter extends Component {
           {this.state.filterItems.map((filterItem, index) => {
             return (
               <div key={index}>
-                <FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
+                {this.getFilterItemRender(filterItem)}
                 <hr className="line"/>
               </div>
             )
@@ -67,6 +67,10 @@ export default class DefaultFilter extends Component {
         <div onClick={() => this.setState({isSmallView: !this.state.isSmallView})} className="filter-resize-icon paper-box with-hover"><i className={'material-icons' + (this.state.isSmallView ? ' reversed' : '')}>keyboard_arrow_up</i></div>
       </div>
     )
+  }
+
+  getFilterItemRender(filterItem) {
+    return <FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
   }
 
   onFilterChange(filterObject) {
