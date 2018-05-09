@@ -38,6 +38,7 @@ export const searchRestrictionTypes = {
   notNull: 'NotNull',
   isNull: 'Null',
   equals: 'Equals',
+  notEquals: 'NotEquals',
   between: 'Between',
   // all: 'All',
   any: 'Any',

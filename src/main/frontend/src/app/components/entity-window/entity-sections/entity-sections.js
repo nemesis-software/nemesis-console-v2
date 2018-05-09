@@ -68,7 +68,6 @@ export default class EntitySections extends Component {
               return button.customRenderer(index);
             } else {
               return <div className={'functional-button nemesis-button' + (button.className ? ` ${button.className}` : '')} onClick={button.onClickFunction} key={index}><Translate component="span" content={'main.' + button.label} fallback={button.label} /></div>
-
             }
           })}
         </div>

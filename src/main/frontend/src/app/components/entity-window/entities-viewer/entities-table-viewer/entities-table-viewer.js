@@ -110,9 +110,6 @@ export default class EntitiesTableViewer extends Component {
     itemValue = isFinite(itemValue) && itemValue !== null ? itemValue + '' : itemValue;
     itemValue = (typeof itemValue === 'object' && itemValue !== null) ? JSON.stringify(itemValue) : itemValue;
 
-
-
-
     return (
       <td style={style} key={index}>{itemValue || ''}</td>
     )

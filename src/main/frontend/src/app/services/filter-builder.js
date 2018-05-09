@@ -95,6 +95,11 @@ export default class FilterBuilder {
       isValueRequired: true
     };
 
+    result[searchRestrictionTypes.notEquals] = {
+      getFilterString: (item) => `${this.getFullFieldCode(item)} ne ${item.value}${this.getClosedBrackets(item)}`,
+      isValueRequired: true
+    };
+
     result[searchRestrictionTypes.notNull] = {
       getFilterString: (item) => `${this.getFullFieldCode(item)} ne null${this.getClosedBrackets(item)}`,
       isValueRequired: false
