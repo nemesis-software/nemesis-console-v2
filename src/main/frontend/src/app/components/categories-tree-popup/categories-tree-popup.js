@@ -6,6 +6,8 @@ import CategoryTreeItem from './category-tree-item';
 
 import ApiCall from 'servicesDir/api-call';
 
+import _ from 'lodash';
+
 export default class CategoriesTreePopup extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +16,8 @@ export default class CategoriesTreePopup extends Component {
 
   componentWillMount() {
     ApiCall.get('backend/categories').then(result => {
-      this.setState({categories: result.data, filteredCategories: result.data, isDataLoading: false})
+      let actualCategories = this.filterCategoriesForEntity(result.data, this.props.categoriesForEntity);
+      this.setState({categories: actualCategories, filteredCategories: actualCategories, isDataLoading: false})
     })
   }
 
@@ -45,6 +48,27 @@ export default class CategoriesTreePopup extends Component {
         </Modal.Footer>
       </Modal>
     )
+  }
+
+  filterCategoriesForEntity(categories, categoriesForEntity) {
+    if (!categoriesForEntity || categoriesForEntity.length === 0) {
+      return categories;
+    }
+
+    let result = [];
+
+    categoriesForEntity.forEach(category => {
+      let searchedIndex = _.findIndex(categories, {code: category});
+      if (searchedIndex !== -1) {
+        result = result.concat(categories[searchedIndex]);
+      }
+    });
+
+    if (result.length === 0) {
+      return categories;
+    }
+
+    return result;
   }
 
   onSelectCategory(category) {

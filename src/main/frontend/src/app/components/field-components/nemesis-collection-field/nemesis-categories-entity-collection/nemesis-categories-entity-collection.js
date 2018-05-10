@@ -14,9 +14,13 @@ export default class NemesisCategoriesEntityCollectionField extends NemesisEntit
       <React.Fragment>
         {super.getAdditionalIconFunctionality()}
         <i className={'material-icons entity-navigation-icon'} onClick={this.openCategoriesTree.bind(this)}>reorder</i>
-        {this.state.openCategoriesTree ? <CategoriesTreePopup handleCloseModal={this.handleModalClose.bind(this)} openPopup={this.state.openCategoriesTree}/> : false}
+        {this.state.openCategoriesTree ? <CategoriesTreePopup categoriesForEntity={this.getCategoriesForEntity()} handleCloseModal={this.handleModalClose.bind(this)} openPopup={this.state.openCategoriesTree}/> : false}
       </React.Fragment>
     )
+  }
+
+  getCategoriesForEntity() {
+    return [];
   }
 
   openCategoriesTree() {
