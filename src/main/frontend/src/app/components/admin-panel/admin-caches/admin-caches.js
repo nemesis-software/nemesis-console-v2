@@ -28,7 +28,7 @@ export default class AdminCaches extends Component {
     let result = [];
 
     _.forIn(data.cacheManagers, (value, key) => {
-      result.push({managerName: key, caches: _.keys(value)})
+      result.push({managerName: key, caches: _.keys(value.caches)})
     });
 
     return result;
