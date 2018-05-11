@@ -1,7 +1,8 @@
 import React from 'react';
 import NemesisEntityCollectionField from '../nemesis-entity-collection-field/nemesis-entity-collection-field';
 
-import CategoriesTreePopup from '../../../categories-tree-popup/categories-tree-popup';
+import {componentRequire} from "../../../../utils/require-util";
+let CategoriesTreePopup = componentRequire('app/components/categories-tree-popup/categories-tree-popup', 'categories-tree-popup');
 
 export default class NemesisCategoriesEntityCollectionField extends NemesisEntityCollectionField {
   constructor(props) {
