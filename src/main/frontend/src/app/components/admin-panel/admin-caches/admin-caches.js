@@ -3,6 +3,7 @@ import PlatformApiCall from 'servicesDir/platform-api-call';
 
 import _ from 'lodash';
 import AdminCachePanel from "./admin-cache-panel";
+import counterpart from "counterpart";
 
 export default class AdminCaches extends Component {
   constructor(props) {
@@ -17,8 +18,15 @@ export default class AdminCaches extends Component {
   render() {
     return (
       <div className="admin-caches">
+        <div className="input-group" style={{marginBottom: '10px'}}>
+          <input type="text"
+                 placeholder={counterpart.translate('main.Filter...', {fallback: 'Filter'})}
+                 className="form-control"
+                 onChange={this.onFilterChange.bind(this)}/>
+          <span className="input-group-addon"><i className="fa fa-search" /></span>
+        </div>
         {this.state.caches.map((item, index) => {
-          return <AdminCachePanel openNotificationSnackbar={this.props.openNotificationSnackbar} key={index} name={item.managerName} caches={item.caches}/>
+          return <AdminCachePanel filterInput={this.state.filterInput} openNotificationSnackbar={this.props.openNotificationSnackbar} key={index} name={item.managerName} caches={item.caches}/>
         })}
       </div>
     );
@@ -42,5 +50,10 @@ export default class AdminCaches extends Component {
     PlatformApiCall.get('caches').then(result => {
       this.setState({caches: this.getCaches(result.data) || []});
     });
+  }
+
+  onFilterChange(ev) {
+    let searchValue = ev.target.value;
+    this.setState({filterInput: searchValue});
   }
 }

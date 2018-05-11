@@ -17,7 +17,7 @@ export default class AdminCachePanel extends Component {
       <div className="admin-cache-panel paper-box">
         <div className="admin-cache-panel-header">{this.props.name}</div>
         <div className="display-table" style={{width: '100%'}}>
-          {this.props.caches.map(cache => {
+          {this.getCachesForRendering().map(cache => {
             return <div className="display-table-row" key={cache.name}>
               <div className="display-table-cell">{cache.name}</div>
               <div className="display-table-cell" style={{textAlign: 'right'}}>
@@ -33,6 +33,16 @@ export default class AdminCachePanel extends Component {
         {this.getDeleteConfirmationDialog()}
       </div>
     );
+  }
+
+  getCachesForRendering() {
+    if (!this.props.filterInput) {
+      return this.props.caches;
+    }
+
+    return this.props.caches.filter(cache => {
+      return cache.name.toLowerCase().indexOf(this.props.filterInput.toLowerCase()) > -1;
+    })
   }
 
   getDeleteConfirmationDialog() {
