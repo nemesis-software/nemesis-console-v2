@@ -180,6 +180,55 @@ body {
   }
 }
 
+.navigation-entity-config-item {
+  padding: 20px;
+
+  .navigation-entity-config-item-header {
+    text-align: right;
+    margin: 20px;
+    position: relative;
+
+    .nemesis-button {
+      width: 200px;
+      margin-left: 15px;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      .material-icons {
+        font-size: 30px;
+        color: @main-blue-darker;
+        cursor: pointer;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .navigation-entity-config-fields {
+    padding: 20px;
+    background: white;
+  }
+
+  .entity-field-container {
+    margin-bottom: 15px;
+    margin-right: 15px;
+  }
+
+  .categories-container {
+    .entity-field-container {
+      width: 580px;
+
+      .entity-field-input-container {
+        display: inline-block;
+        width: 545px;
+      }
+    }
+  }
+}
+
 .console-configuration-panel {
   padding: 60px 0 60px 60px;
   background: @light-grey;
