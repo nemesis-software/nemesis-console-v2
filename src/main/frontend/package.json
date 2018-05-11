@@ -59,6 +59,7 @@
     "react-translate-component": "^0.14.0",
     "recharts": "^0.22.4",
     "sockjs-client": "^1.1.4",
-    "webstomp-client": "^1.2.0"
+    "webstomp-client": "^1.2.0",
+    "rc-switch": "^1.4.4"
   }
 }

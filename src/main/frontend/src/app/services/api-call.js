@@ -8,12 +8,12 @@ export default class ApiCall {
     return this.requestHelper(url, 'GET', null, queryParams, contentType);
   }
 
-  static post(url, data, contentType) {
-    return this.requestHelper(url, 'POST', data, null , contentType);
+  static post(url, data, contentType, queryParams) {
+    return this.requestHelper(url, 'POST', data, queryParams , contentType);
   }
 
-  static put(url, data, contentType) {
-    return this.requestHelper(url, 'PUT', data, null, contentType);
+  static put(url, data, queryParams, contentType) {
+    return this.requestHelper(url, 'PUT', data, queryParams, contentType);
   }
 
   static delete(url, queryParams) {
