@@ -5,7 +5,7 @@ import _ from 'lodash';
 export default class AdminIdAnalyzer extends Component {
   constructor(props) {
     super(props);
-    this.state = {inputValue: null, queryResult: ''}
+    this.state = {inputValue: null, queryResult: {}}
   }
 
   componentWillMount() {
@@ -23,7 +23,11 @@ export default class AdminIdAnalyzer extends Component {
                onChange={ev => this.setState({...this.state, inputValue: ev.target.value})}/>
           <button className="btn btn-default" onClick={this.onDecodeButtonClick.bind(this)}>Decode</button>
         </div>
-        <div className="error-container">ID Discriminator: {this.state.queryResult}</div>
+        <div>
+          <div><b>ID Discriminator:</b> {this.state.queryResult.idDiscriminator}</div>
+          <div><b>Entity name:</b> {this.state.queryResult.entityName}</div>
+          <div><b>Canonical class name:</b> {this.state.queryResult.canonicalClassName}</div>
+        </div>
       </div>
     );
   }
@@ -34,10 +38,10 @@ export default class AdminIdAnalyzer extends Component {
       return;
     }
 
-    PlatformApiCall.get(`idDiscriminator/${valueForDecode}`).then(result => {
+    PlatformApiCall.get(`entity/${valueForDecode}`).then(result => {
       this.setState({...this.state, queryResult: result.data})
     }, err => {
-      this.setState({...this.state, queryResult: 'INVALID ID'})
+      this.setState({...this.state, queryResult: {idDiscriminator: 'INVALID ID'}})
     })
   }
 }
