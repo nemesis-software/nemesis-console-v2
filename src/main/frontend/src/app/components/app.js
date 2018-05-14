@@ -69,7 +69,7 @@ export default class App extends Component {
     } else {
       setTimeout(() => {
         this.getMarkupData();
-      }, 2000);
+      }, 500);
     }
 
   }
