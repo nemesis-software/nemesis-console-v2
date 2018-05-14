@@ -3,8 +3,6 @@ import React, {Component} from 'react';
 import ApiCall from 'servicesDir/api-call'
 import DataHelper from "../../../services/data-helper";
 
-import Translate from 'react-translate-component';
-import counterpart from "counterpart";
 import {componentRequire} from "../../../utils/require-util";
 
 import Modal from 'react-bootstrap/lib/Modal';
@@ -13,6 +11,7 @@ let NemesisTextField = componentRequire('app/components/field-components/nemesis
 let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
 let NemesisCategoriesCollection = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-categories-entity-collection/nemesis-categories-entity-collection', 'nemesis-categories-entity-collection');
 
+const mainEntity = {entityName: 'entity_config'};
 
 export default class EntityConfigItem extends Component {
   constructor(props) {
@@ -44,10 +43,10 @@ export default class EntityConfigItem extends Component {
           <button className="nemesis-button success-button save-button" onClick={this.onSaveButtonClick.bind(this)}>Save</button>
         </div>
         <div className="paper-box navigation-entity-config-fields">
-          <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} readOnly={!!this.props.config.id} style={{width: '265px'}} name="code" value={this.props.config.code} required={true} label="Code"/>
-          <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="weight" value={this.props.config.weight} label="Weight"/>
+          <NemesisTextField mainEntity={mainEntity} ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} readOnly={!!this.props.config.id} style={{width: '265px'}} name="code" value={this.props.config.code} required={true} label="Code"/>
+          <NemesisNumberField mainEntity={mainEntity} ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="weight" value={this.props.config.weight} label="Weight"/>
           <div className="categories-container">
-            <NemesisCategoriesCollection onEntityItemClick={() => {}} entityId="category" ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="categories" value={this.state.categories} label="Categories"/>
+            <NemesisCategoriesCollection mainEntity={mainEntity} onEntityItemClick={() => {}} entityId="category" ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="categories" value={this.state.categories} label="Categories"/>
           </div>
         </div>
         {this.getDeleteConfirmationDialog()}
