@@ -11,6 +11,7 @@ import Modal from 'react-bootstrap/lib/Modal';
 import ApiCall from 'servicesDir/api-call';
 
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
+let NemesisCreatableSelect = componentRequire('app/components/field-components/nemesis-creatable-select/nemesis-creatable-select', 'nemesis-creatable-select');
 let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
@@ -47,7 +48,7 @@ export default class MasterAdminFieldPanel extends Component {
           <NemesisEnumField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} clearable={false} style={{width: '265px'}} name="xtype" label="Field type" values={this.fieldTypes} value={_.indexOf(this.fieldTypes, this.props.field.xtype)}/>
           <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="searchable" value={this.props.field.searchable} label="Searchable"/>
           <hr/>
-          <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="section" value={this.props.field.section} label="Section"/>
+          <NemesisCreatableSelect values={this.props.sections} ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="section" value={this.props.field.section} label="Section"/>
           <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="sectionWeight" value={this.props.field.sectionWeight} label="Section weight"/>
           <hr/>
           <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="inMainView" value={this.props.field.inMainView} label="In main view"/>

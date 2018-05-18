@@ -13,7 +13,8 @@ import MasterAdminFieldPanel from './master-admin-field-panel';
 export default class MasterAdminConfiguration extends Component {
   constructor(props) {
     super(props);
-    this.state = {selectedFields: [...this.props.fieldData]};
+    let selectedFields = [...this.props.fieldData];
+    this.state = {selectedFields: selectedFields, sections: _.uniq(selectedFields.map(item => item.section))};
     this.fieldPanelReferences = [];
   }
 
@@ -49,6 +50,7 @@ export default class MasterAdminConfiguration extends Component {
                                         key={field.name}
                                         entityName={this.props.entityName}
                                         field={field}
+                                        sections={this.state.sections}
                                         openNotificationSnackbar={this.props.openNotificationSnackbar}/>
         })}
       </div>
