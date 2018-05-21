@@ -73,7 +73,7 @@ export default class EntitySections extends Component {
         </div>
         <div className="section-navigation">
           {this.props.entity.data.sections.map((item, index) => {
-            return <div className={'section-navigation-item' + (this.state.sectionIndex === index ? ' active' : '')} onClick={() => this.handleChange(index)} key={index}><Translate component="span" content={'main.' + item.title} fallback={item.title} /></div>
+            return <div className={'section-navigation-item' + (this.state.sectionIndex === index ? ' active' : '')} onClick={() => this.handleChange(index)} key={index}><Translate component="span" content={'main.' + item.title} fallback={item.title} />{this.getRequiredStar(item.items)}</div>
           })}
         </div>
         <SwipeableViews
@@ -82,7 +82,8 @@ export default class EntitySections extends Component {
         >
           {this.props.entity.data.sections.map((item, index) => {
             return <EntitySection ref={(section) => {section && this.sectionsReferences.push(section)}}
-                                  key={index} section={item}
+                                  key={index}
+                                  section={item}
                                   entity={this.props.entity}
                                   sectionIndex={index}
                                   entityData={this.state.entityData}
@@ -374,5 +375,13 @@ export default class EntitySections extends Component {
     let url = this.props.entity.entityUrl || `${restUrl}${this.props.entity.entityName}/${this.props.entity.itemId}`;
 
     window.open(url, '_blank')
+  }
+
+  getRequiredStar(items) {
+    if (_.some(items, {required: true})) {
+      return <span className="required-star">*</span>;
+    }
+
+    return false;
   }
 }
