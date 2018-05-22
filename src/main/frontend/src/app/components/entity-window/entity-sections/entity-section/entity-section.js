@@ -27,13 +27,14 @@ import CssClassHelper from '../../../../services/css-class-helper';
 
 export default class EntitySection extends Component {
   constructor(props) {
+
     super(props);
     this.fieldsReferences = [];
   }
 
   render() {
     return (
-      <div style={{minHeight: 'calc(100vh - 205px)', background: 'white'}} className="entity-section">
+      <div style={{background: 'white'}} className="entity-section">
         {this.props.section.items.map((item, index) => {
           return (
             <div className={'paper-box with-hover section-item-container' + CssClassHelper.getStyleClassSectionItem(item.xtype)} key={index}>
@@ -66,6 +67,18 @@ export default class EntitySection extends Component {
       type: nemesisFieldUsageTypes.edit,
       ref: (field) => { field && this.fieldsReferences.push(field)}
     };
+
+    if (!NemesisEntityField) {
+      NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
+    }
+
+    if (!NemesisEntityCollectionField) {
+      NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
+    }
+
+    if (!NemesisProjectionCollectionField) {
+      NemesisProjectionCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-projection-collection-field/nemesis-projection-collection-field', 'nemesis-projection-collection-field');
+    }
 
     switch (item.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;

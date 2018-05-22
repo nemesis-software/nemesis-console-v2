@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import EntityTypeCreationModal from './entity-type-creation-modal';
-import EmbeddedCreationPortal from './embedded-creation-portal';
+import EmbeddedCreationPortal from './embedded-creation-portal/embedded-creation-portal';
 
 export default class EmbeddedCreation extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ export default class EmbeddedCreation extends Component {
         {this.state.openModalCreation ?
           <EntityTypeCreationModal onModalCancel={() => this.props.onCreationCancel()} onEntityTypeSelected={this.onEntityTypeSelected.bind(this)}
                                    openModalCreation={this.state.openModalCreation} entityId={this.props.entityId}/> :
-          <EmbeddedCreationPortal entityId={this.state.selectedEntityType} onCreateEntity={this.props.onCreateEntity} onCreationCancel={this.props.onCreationCancel}/>}
+          <EmbeddedCreationPortal type={this.props.type} entityId={this.state.selectedEntityType} onCreateEntity={this.props.onCreateEntity} onCreationCancel={this.props.onCreationCancel}/>}
       </React.Fragment>
     )
   }

@@ -101,15 +101,27 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
                         disabled={this.props.readOnly}
                         onChange={this.onItemSelect.bind(this)}
                         loadOptions={this.filterEntityData.bind(this)}/>
+          {this.getAdditionalIconFunctionality()}
           {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         </div>
-        {(this.props.type === nemesisFieldUsageTypes.quickView) && this.props.embeddedCreationAllowed ?
-          <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i> : false}
-        {this.state.openEmbeddedCreation ?
-          <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
-                            entityId={this.props.entityId}/> : false}
+
       </div>
     )
+  }
+
+  getAdditionalIconFunctionality() {
+    if (!this.props.readOnly && ((this.props.type === nemesisFieldUsageTypes.edit) || (this.props.type === nemesisFieldUsageTypes.quickView && this.props.embeddedCreationAllowed))) {
+      return (
+        <React.Fragment>
+          <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i>
+          {this.state.openEmbeddedCreation ?
+            <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
+                              entityId={this.props.entityId} type={this.props.type}/> : false}
+        </React.Fragment>
+      )
+    }
+
+    return false;
   }
 
   getTotalPages(itemCount, pageSize) {
@@ -237,7 +249,7 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
 
   onCreateEmbeddedEntity(entity) {
     this.setState({openEmbeddedCreation: false}, () => {
-      this.onValueChange(entity);
+      this.onItemSelect({value:entity});
     })
   }
 

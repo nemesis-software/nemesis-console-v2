@@ -36,15 +36,18 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getAdditionalIconFunctionality() {
-    return (
-      <React.Fragment>
-        {(this.props.type === nemesisFieldUsageTypes.quickView) && this.props.embeddedCreationAllowed ?
-          <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i> : false}
-        {this.state.openEmbeddedCreation ?
-          <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
-                            entityId={this.props.entityId}/> : false}
-      </React.Fragment>
-    )
+    if (!this.props.readOnly && ((this.props.type === nemesisFieldUsageTypes.edit) || (this.props.type === nemesisFieldUsageTypes.quickView && this.props.embeddedCreationAllowed))) {
+      return (
+        <React.Fragment>
+          <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i>
+          {this.state.openEmbeddedCreation ?
+            <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
+                              entityId={this.props.entityId} type={this.props.type}/> : false}
+        </React.Fragment>
+      )
+    }
+
+    return false;
   }
 
   getSelectStyle() {
@@ -120,7 +123,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   onCreateEmbeddedEntity(entity) {
     this.setState({openEmbeddedCreation: false}, () => {
-      this.onValueChange(entity);
+      this.onItemSelect({value:entity});
     })
   }
 }

@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 
-import ReactDOM from 'react-dom';
-
 import PropTypes from 'prop-types';
 
-import ApiCall from 'servicesDir/api-call';
-
-import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../types/nemesis-types';
+import { nemesisFieldTypes, nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 
 import _ from 'lodash';
-import { componentRequire } from '../../utils/require-util';
+import { componentRequire } from '../../../utils/require-util';
 
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
 let NemesisTextareaField = componentRequire('app/components/field-components/nemesis-textarea-field/nemesis-textarea-field', 'nemesis-textarea-field');
@@ -29,27 +25,15 @@ let NemesisMapField = componentRequire('app/components/field-components/nemesis-
 let NemesisSimpleCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-simple-collection-field/nemesis-simple-collection-field', 'nemesis-simple-collection-field');
 let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
 
-export default class EmbeddedCreationPortal extends Component {
+export default class EmbeddedCreationPortalQuickView extends Component {
   constructor(props, context) {
     super(props, context);
-    this.portalsContainer = document.querySelector('.portals-container');
-    this.state = {entityFields: context.entityMarkupData[props.entityId].simpleView.mainViewItems, isLoading: false};
+    this.state = {entityFields: context.entityMarkupData[props.entityId].simpleView.mainViewItems};
     this.fieldsReferences = [];
   }
 
   componentWillMount() {
-    let body = document.querySelector('body');
-    if (!body.classList.contains('overflow-portal')) {
-      body.classList.add('overflow-portal');
-    }
     this.fieldsReferences = [];
-  }
-
-  componentWillUnmount() {
-    if (document.querySelectorAll('.embedded-creation-portal').length === 1) {
-      let body = document.querySelector('body');
-      body.classList.remove('overflow-portal');
-    }
   }
 
   componentWillUpdate() {
@@ -57,25 +41,12 @@ export default class EmbeddedCreationPortal extends Component {
   }
 
   render() {
-    return ReactDOM.createPortal(
-      (
-        <div className="embedded-creation-portal">
-          {this.state.isLoading ? <div className="loading-screen">
-            <i className="material-icons loading-icon">cached</i>
-          </div> : false}
-          <div style={{verticalAlign: 'top'}}>
-            {_.map(this.state.entityFields, (item, key) => {
-              return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
-            })}
-          </div>
-          <div className="portal-action-buttons-container">
-            <button className="nemesis-button success-button" style={{marginRight: '15px'}} onClick={this.handleSaveButtonClick.bind(this)}>Save</button>
-            <button className="nemesis-button decline-button" onClick={() => this.props.onCreationCancel()}>Cancel</button>
-          </div>
+      return (
+        <div style={{verticalAlign: 'top'}}>
+          {_.map(this.state.entityFields, (item, key) => {
+            return <div className={'paper-box with-hover nemesis-field-container' + this.getFieldStyle(item)} key={key}>{this.getSectionItemRenderer(item, key)}</div>
+          })}
         </div>
-
-      ),
-      this.portalsContainer
     );
   }
 
@@ -99,6 +70,10 @@ export default class EmbeddedCreationPortal extends Component {
     //but embedded-creation is inside the file with nemesis-entity-field
     if (!NemesisEntityField) {
       NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
+    }
+
+    if (!NemesisEntityCollectionField) {
+      NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
     }
 
     switch (item.xtype) {
@@ -145,51 +120,6 @@ export default class EmbeddedCreationPortal extends Component {
     return !isNotValid;
   }
 
-  handleSaveButtonClick() {
-    if (!this.isFieldsValid()) {
-      return;
-    }
-
-    this.setState({...this.state, isLoading: true});
-
-    let dirtyEntityProps = this.getDirtyValues();
-    let resultObject = {};
-    let mediaFields = [];
-    dirtyEntityProps.forEach(prop => {
-      if (prop.isMedia) {
-        mediaFields.push(prop);
-      } else {
-        resultObject[prop.name] = prop.value;
-      }
-    });
-    ApiCall['post'](this.props.entityId, resultObject).then((result) => {
-      this.uploadMediaFile(result.data.id, mediaFields).then(() => {
-        this.setState({isLoading: false}, () => {
-          this.props.onCreateEntity(result.data);
-        });
-      });
-    }, this.handleRequestError.bind(this));
-  }
-
-  uploadMediaFile(itemId, mediaFields) {
-    if (!mediaFields || mediaFields.length === 0) {
-      return Promise.resolve();
-    }
-    let data = new FormData();
-    data.append('file', mediaFields[0].value);
-    return ApiCall.post('upload/media/' + itemId, data, 'multipart/form-data').then(
-      () => {
-        return Promise.resolve();
-      },
-      (err) => {
-        this.handleRequestError(err);
-        return Promise.resolve();
-      });
-  }
-
-  handleRequestError(err) {
-    console.log('err', err)
-  }
 
   getFieldStyle(item) {
     if (item.embeddedCreationAllowed || item.xtype === nemesisFieldTypes.nemesisMapField) {
@@ -200,7 +130,7 @@ export default class EmbeddedCreationPortal extends Component {
   }
 }
 
-EmbeddedCreationPortal.contextTypes = {
+EmbeddedCreationPortalQuickView.contextTypes = {
   markupData: PropTypes.object,
   entityMarkupData: PropTypes.object
 };

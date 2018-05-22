@@ -94,10 +94,82 @@ body {
   }
 
   .embedded-creation-portal {
-    width: 1080px;
+    width: 1130px;
     margin: 100px auto;
     background: white;
     padding: 20px;
+
+    .section-navigation {
+      padding: 10px 10px 0;
+      background: @main-blue-darker;
+
+      .section-navigation-item {
+        display: inline-block;
+        height: 40px;
+        color: white;
+        background: @main-blue;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        padding: 10px 15px;
+        cursor: pointer;
+
+        .required-star {
+          color: white;
+        }
+
+        &.active {
+          color: black;
+          background: white;
+          .required-star {
+            color: #eb0848;
+          }
+        }
+      }
+    }
+
+    .entity-section {
+      padding: 20px;
+
+      .section-item-container {
+        margin-right: 15px;
+        margin-bottom: 15px;
+        padding: 20px 20px 30px 20px;
+        display: inline-block;
+        vertical-align: top;
+
+        .entity-field-input-container {
+          width: 295px;
+          display: inline-block;
+
+          label {
+            vertical-align: top;
+          }
+        }
+
+        .language-changer {
+          width: 300px;
+        }
+
+        &.simple-item-container {
+
+        }
+
+        &.single-item-container-with-icon {
+          padding-right: 10px;
+          .entity-field-input-container {
+            width: 270px;
+          }
+        }
+
+        &.item-container-with-icon {
+          padding-right: 10px;
+        }
+
+        &.full-screen-item-container {
+          width: 100%;
+        }
+      }
+    }
 
     .loading-screen {
       position: fixed;
@@ -164,7 +236,7 @@ body {
   left: 0;
   width: 60px;
   height: 100vh;
-  z-index: 1000000;
+  z-index: 1000;
   background: @main-blue;
 
   .nemesis-side-bar-item {
@@ -1323,6 +1395,7 @@ body {
 
     .entity-section {
       padding: 20px;
+      min-height: ~"calc(100vh - 205px)";
 
       .section-item-container {
         margin-right: 15px;
@@ -1789,6 +1862,15 @@ body {
   }
 }
 
+@media (max-width: 1150px) {
+  .portals-container {
+    .embedded-creation-portal {
+      width: ~"calc(100% - 20px)";
+      margin: 10px;
+    }
+  }
+}
+
 @media (max-width: 1085px) {
   .entity-field-container {
     width: 100%;
@@ -1835,7 +1917,7 @@ body {
           &.full-screen-item-container {
             width: 100%;
             .entity-field-input-container {
-              width: 100%;
+              width: ~"calc(100% - 35px)";
             }
           }
         }

@@ -71,7 +71,6 @@ export default class App extends Component {
         this.getMarkupData();
       }, 500);
     }
-
   }
 
   getMarkupData() {

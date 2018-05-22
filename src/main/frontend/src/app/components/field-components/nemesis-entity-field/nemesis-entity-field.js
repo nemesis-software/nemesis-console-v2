@@ -31,14 +31,8 @@ export default class NemesisEntityField extends NemesisBaseField {
                         onChange={(item) => this.onValueChange(item && item.value)}
                         loadOptions={this.filterEntityData.bind(this)}/>
         </div>
-        {this.props.type === nemesisFieldUsageTypes.edit ? <i className={'material-icons entity-navigation-icon' + (!this.state.value ? ' disabled' : '')}
-                                                              onClick={this.openEntityWindow.bind(this)}>launch</i> : false}
-        {(this.props.type === nemesisFieldUsageTypes.quickView) && this.props.embeddedCreationAllowed ?
-          <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i> : false}
+        {this.getAdditionalIcons()}
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
-        {this.state.openEmbeddedCreation ?
-          <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
-                            entityId={this.props.entityId}/> : false}
         {this.getErrorDialog()}
       </div>
     )
@@ -51,6 +45,23 @@ export default class NemesisEntityField extends NemesisBaseField {
     }
 
     return style;
+  }
+
+  getAdditionalIcons() {
+    if (this.props.type === nemesisFieldUsageTypes.edit && !!this.state.value) {
+      return <i className={'material-icons entity-navigation-icon'} onClick={this.openEntityWindow.bind(this)}>launch</i>;
+    }
+
+    if ((this.props.type === nemesisFieldUsageTypes.edit && !this.state.value && !this.props.readOnly) || (this.props.type === nemesisFieldUsageTypes.quickView && this.props.embeddedCreationAllowed)) {
+      return (
+        <React.Fragment>
+          <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i>
+          {this.state.openEmbeddedCreation ?
+            <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
+                              entityId={this.props.entityId} type={this.props.type}/> : false}
+        </React.Fragment>
+      )
+    }
   }
 
   componentWillReceiveProps(nextProps) {
