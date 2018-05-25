@@ -14,8 +14,8 @@ export default class AdminCsvExport extends Component {
   render() {
     return (
       <div className="admin-csv-export">
-        <button className="btn btn-default" style={{marginRight: '5px'}} onClick={this.onAddNewBlockButtonClick.bind(this)}>Add New Block</button>
-        <button className="btn btn-default" onClick={this.onExportCsvButtonClick.bind(this)}>Export Csv</button>
+        <button className="nemesis-button success-button" style={{marginRight: '5px'}} onClick={this.onAddNewBlockButtonClick.bind(this)}>Add New Block</button>
+        <button className="nemesis-button success-button" onClick={this.onExportCsvButtonClick.bind(this)}>Export Csv</button>
         {this.state.csvBlocks.map(item => <CsvDtoBlock ref={(el) => { el && this.blockReferences.push(el)}}
                                                        identityKey={item}
                                                        key={item}

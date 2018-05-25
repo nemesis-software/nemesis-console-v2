@@ -26,7 +26,7 @@ export default class AdminAddNewLogger extends AdminExpandable {
           </div>
         </div>
         <div className="button-container">
-          <button disabled={!this.state.newLoggerLevel || !this.state.newLoggerName} className="btn btn-default" onClick={this.handleOnAddLoggerClick.bind(this)}>Add Logger</button>
+          <button disabled={!this.state.newLoggerLevel || !this.state.newLoggerName} className="nemesis-button success-button" onClick={this.handleOnAddLoggerClick.bind(this)}>Add Logger</button>
         </div>
       </div>
     );

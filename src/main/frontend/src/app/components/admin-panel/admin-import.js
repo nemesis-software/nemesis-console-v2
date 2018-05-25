@@ -12,13 +12,13 @@ export default class AdminImport extends Component {
   render() {
     return (
       <div>
-        <div>
-          <button className="btn btn-default" onClick={() => this.inputItem.click()}>
+        <div style={{marginBottom: '10px'}}>
+          <button className="nemesis-button success-button" style={{marginRight: '5px'}} onClick={() => this.inputItem.click()}>
             Upload
             <input ref={e => this.inputItem = e} onChange={this.handleFileChange.bind(this)} style={{display: 'none'}} type="file" />
           </button>
-          <button className="btn btn-default" onClick={this.uploadFile.bind(this)}>Send as file</button>
-          <button className="btn btn-default" onClick={this.uploadAsText.bind(this)}>Send as text</button>
+          <button className="nemesis-button success-button" style={{marginRight: '5px'}} onClick={this.uploadFile.bind(this)}>Send as file</button>
+          <button className="nemesis-button success-button" onClick={this.uploadAsText.bind(this)}>Send as text</button>
         </div>
         <textarea style={{width: '100%', resize: 'vertical'}} name="csv-content" onChange={e => this.setState({...this.state, value: e.target.value})} cols="30" rows="30" value={this.state.value} />
       </div>

@@ -47,9 +47,8 @@ export default class AdminSpringBeans extends Component {
   render() {
     return (
       <div className="paper-box">
-        Beans {this.state.context}
         <EntitiesPager onPagerChange={this.onPagerChange.bind(this)}  page={this.state.page} />
-        <div className="input-group">
+        <div className="input-group" style={{margin: '10px 0'}}>
           <input type="text"
                  placeholder={counterpart.translate('main.Filter...', {fallback: 'Filter'})}
                  className="form-control"

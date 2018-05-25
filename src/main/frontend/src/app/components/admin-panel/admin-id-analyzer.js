@@ -13,15 +13,15 @@ export default class AdminIdAnalyzer extends Component {
 
   render() {
     return (
-      <div className="paper-box">
+      <div className="paper-box" style={{margin: '5px'}}>
         <div>
         <input type="text"
-               style={{width: '256px', display: 'inline-block'}}
+               style={{width: '256px', display: 'inline-block', borderRadius: '0px', height: '36px', verticalAlign: 'top'}}
                placeholder="Enter ID"
                className="form-control"
                value={this.state.inputValue || ''}
                onChange={ev => this.setState({...this.state, inputValue: ev.target.value})}/>
-          <button className="btn btn-default" onClick={this.onDecodeButtonClick.bind(this)}>Decode</button>
+          <button className="nemesis-button success-button" style={{height: '36px', padding: '8px 25px', marginLeft: '10px'}} onClick={this.onDecodeButtonClick.bind(this)}>Decode</button>
         </div>
         <div>
           <div><b>ID Discriminator:</b> {this.state.queryResult.idDiscriminator}</div>

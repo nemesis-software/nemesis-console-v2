@@ -3,6 +3,12 @@
 .nemesis-admin-panel {
   padding: 60px 0 60px 60px;
 
+  .input-group {
+    .input-group-addon, .form-control {
+      border-radius: 0;
+    }
+  }
+
   .navigation-bar {
     padding: 10px 10px 0;
     background: @light-grey-darker;
@@ -45,7 +51,7 @@
       background-color: @main-blue-darker;
       position: relative;
       padding: 5px;
-      margin: 3px 0;
+      margin: 10px 0;
 
       label, .empty-collection-label {
         color: white;
