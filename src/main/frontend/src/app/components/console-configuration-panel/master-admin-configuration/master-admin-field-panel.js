@@ -27,6 +27,9 @@ export default class MasterAdminFieldPanel extends Component {
   componentWillMount() {
     this.fieldsReferences = [];
   }
+  componentWillReceiveProps(nextProps) {
+    console.log('next props', nextProps.field.id, nextProps.field.name);
+  }
 
   componentWillUpdate() {
     this.fieldsReferences = [];
@@ -77,10 +80,14 @@ export default class MasterAdminFieldPanel extends Component {
     });
     let restMethod = this.props.field.id ? 'patch' : 'post';
     let restUrl = this.props.field.id ? `entity_property_config/${this.props.field.id}` : 'entity_property_config';
-    ApiCall[restMethod](restUrl, resultObject).then((result) => {
+    return ApiCall[restMethod](restUrl, resultObject).then((result) => {
       this.props.openNotificationSnackbar(`${this.props.field.name} successfully saved!`);
       this.resetDirtyStates();
-    }, this.handleRequestError.bind(this));
+      return Promise.resolve(result.data);
+    }, err => {
+      this.handleRequestError(err);
+      return Promise.reslove(null);
+    });
   }
 
   resetDirtyStates() {

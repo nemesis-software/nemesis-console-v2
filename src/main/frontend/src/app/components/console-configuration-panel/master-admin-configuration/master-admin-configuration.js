@@ -58,8 +58,19 @@ export default class MasterAdminConfiguration extends Component {
   }
 
   onSaveButtonClick() {
-    _.forEach(this.fieldPanelReferences, fieldPanel => {
-      fieldPanel.onSaveButtonClick();
+    Promise.all(this.fieldPanelReferences.map(fieldPanel => {
+      return fieldPanel.onSaveButtonClick();
+    })).then(result => {
+      let selectedFields = [...this.state.selectedFields];
+      result.forEach(item => {
+        if (item) {
+          let fieldIndex = _.findIndex(selectedFields, {name: item.name});
+          if (fieldIndex !== -1) {
+            selectedFields[fieldIndex] = item;
+          }
+        }
+      });
+      this.setState({selectedFields: selectedFields});
     })
   }
 
@@ -70,13 +81,13 @@ export default class MasterAdminConfiguration extends Component {
   }
 
   onAddFieldSelected(item) {
-    let selectedFields = this.state.selectedFields;
+    let selectedFields = [...this.state.selectedFields];
     selectedFields.unshift(item.value);
     this.setState({selectedFields: selectedFields});
   }
 
   onDeleteField(fieldName) {
-    let selectedFields = this.state.selectedFields;
+    let selectedFields = [...this.state.selectedFields];
     let fieldIndex = _.findIndex(selectedFields, {name: fieldName});
     if (fieldIndex === -1) {
       return;
