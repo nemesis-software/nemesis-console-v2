@@ -779,7 +779,7 @@ body {
   }
 }
 
-.live-edit-dropdown {
+.live-edit-dropdown, .global-filter-dropdown {
   .live-edit-toggle {
     padding: 0;
     margin-right: 10px;
@@ -799,6 +799,20 @@ body {
       position: absolute;
       right: 10px;
       top: 7px;
+    }
+  }
+
+  .live-edit-dropdown-item {
+    &.active  > a{
+      background-color: @main-blue!important;
+    }
+  }
+}
+
+.global-filter-dropdown {
+  .fa-filter {
+    &.has-filter {
+      color: @red-color;
     }
   }
 }

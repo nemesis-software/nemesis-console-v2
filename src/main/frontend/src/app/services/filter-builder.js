@@ -1,7 +1,8 @@
 import {nemesisFieldTypes, searchRestrictionTypes} from '../types/nemesis-types';
+import _ from 'lodash';
 
 export default class FilterBuilder {
-  static buildFilter(appliedFilters, filterSearchType) {
+  static buildFilter(appliedFilters, filterSearchType, defaultCatalogs) {
     let filterSearchTypeActual = filterSearchType ? filterSearchType : 'and';
     let restrictionMap = this.getRestrictionMap();
     let result = [];
@@ -18,7 +19,13 @@ export default class FilterBuilder {
       result.push(restrictionData.getFilterString(item, filterItemIndex++));
     });
 
-    return result.join(` ${filterSearchTypeActual} `);
+    let resultString = result.join(` ${filterSearchTypeActual} `);
+
+    if (defaultCatalogs && defaultCatalogs.length > 0 && !_.some(appliedFilters, {id: 'catalogVersion'})) {
+      resultString = this.addCatalogsToFilter(resultString, defaultCatalogs);
+    }
+
+    return resultString;
   }
 
   static getRestrictionMap() {
@@ -211,5 +218,27 @@ export default class FilterBuilder {
     result += `${item.field}, ${item.value}) ${equalityParam}${this.getClosedBrackets(item)}`;
 
     return result;
+  }
+
+  static addCatalogsToFilter(filterString, catalogs) {
+    let catalogFilter = [];
+    if (catalogs.length === 0) {
+      return filterString;
+    }
+
+    _.forEach(catalogs, catalog => {
+      let filterItem = {
+        restriction: searchRestrictionTypes.equals,
+        field: 'catalogVersion/id',
+        value: `${catalog.id}`
+      };
+      catalogFilter.push(filterItem);
+    });
+    let actualCatalogFilter = '(' + this.buildFilter(catalogFilter, 'or') + ')';
+    if (!filterString) {
+      return actualCatalogFilter;
+    }
+
+    return actualCatalogFilter + filterString;
   }
 }

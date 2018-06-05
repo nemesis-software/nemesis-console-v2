@@ -27,6 +27,7 @@ export default class MasterAdminFieldPanel extends Component {
   componentWillMount() {
     this.fieldsReferences = [];
   }
+
   componentWillReceiveProps(nextProps) {
     console.log('next props', nextProps.field.id, nextProps.field.name);
   }

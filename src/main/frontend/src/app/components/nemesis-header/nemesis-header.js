@@ -8,6 +8,7 @@ import LiveEditNavigation from '../live-edit-navigation';
 import { componentRequire } from '../../utils/require-util'
 
 let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
+import GlobalFilter from './global-filter';
 
 const translationLanguages = {
   languages: [
@@ -29,6 +30,7 @@ export default class NemesisHeader extends Component {
             <i className="fa fa-bars nemesis-navbar-icon" onClick={() => this.props.onRightIconButtonClick()}/>
             <div className="nemesis-navbar-header">Nemesis Console</div>
             <div className="nemesis-navbar-right">
+              {this.props.onGlobalFilterSelect ? <GlobalFilter onGlobalFilterSelect={this.props.onGlobalFilterSelect}/> : false}
               <LiveEditNavigation/>
               <LanguageChanger
                 style={{width: '150px'}}

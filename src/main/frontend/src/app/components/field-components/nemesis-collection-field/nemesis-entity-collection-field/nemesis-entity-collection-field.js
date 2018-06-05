@@ -8,10 +8,11 @@ import Translate from 'react-translate-component';
 import EmbeddedCreation from '../../../embedded-creation/embedded-creation';
 
 import SelectCustomArrow from '../../../helper-components/select-custom-arrow';
+import PropTypes from "prop-types";
 
 export default class NemesisEntityCollectionField extends NemesisBaseCollectionField {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {...this.state, openEmbeddedCreation: false};
   }
 
@@ -61,7 +62,11 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   filterEntityData(inputText) {
     let inputTextActual = inputText || '';
-    return ApiCall.get(this.getSearchUrl(), {page: 0, size: 10, code: `%${inputTextActual}%`, projection: 'search'}).then(result => {
+    let params = {page: 0, size: 10, code: `%${inputTextActual}%`, projection: 'search'};
+    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs.length > 0) {
+      params.catalogVersionIds = this.context.globalFiltersCatalogs.map(item => item.id).join(',');
+    }
+    return ApiCall.get(this.getSearchUrl(), params).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
       return {options: data.map(this.mapDataSource.bind(this))};
@@ -76,6 +81,10 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   getSearchUrl() {
     let urlSuffix = '/search/findByCodeLike/';
+    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs.length > 0) {
+      urlSuffix = '/search/findByCodeLikeAndCatalogVersionIdIn'
+    }
+
     return `${this.props.entityId}${urlSuffix}`;
   }
 
@@ -127,3 +136,8 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
     })
   }
 }
+
+NemesisEntityCollectionField.contextTypes = {
+  entityMarkupData: PropTypes.object,
+  globalFiltersCatalogs: PropTypes.array
+};

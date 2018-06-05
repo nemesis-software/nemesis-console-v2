@@ -8,6 +8,8 @@ import DataHelper from 'servicesDir/data-helper';
 import { componentRequire } from '../../../utils/require-util';
 
 import Modal from 'react-bootstrap/lib/Modal';
+import FilterBuilder from "../../../services/filter-builder";
+import PropTypes from "prop-types";
 
 let EntitiesResultViewer = componentRequire('app/components/entity-window/entities-viewer/entities-result-viewer/entities-result-viewer', 'entities-result-viewer');
 let EntitiesFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/entities-filter', 'entities-filter');
@@ -18,9 +20,9 @@ const pagerData = {
 };
 
 export default class EntitiesViewer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {searchData: [], page: {}, sortData: [], filter: null, isDataLoading: false, openErrorDialog: false, errorMessage: null};
+  constructor(props, context) {
+    super(props, context);
+    this.state = {searchData: [], page: {}, sortData: [], filter: FilterBuilder.buildFilter([], null, context.globalFiltersCatalogs), isDataLoading: false, openErrorDialog: false, errorMessage: null};
     this.getEntityPromise = null;
   }
 
@@ -126,3 +128,7 @@ export default class EntitiesViewer extends Component {
     return result;
   }
 }
+
+EntitiesViewer.contextTypes = {
+  globalFiltersCatalogs: PropTypes.array
+};

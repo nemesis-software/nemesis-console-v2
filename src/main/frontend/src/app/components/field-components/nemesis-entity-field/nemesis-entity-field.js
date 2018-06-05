@@ -9,10 +9,11 @@ import NemesisBaseField from '../nemesis-base-field'
 import EmbeddedCreation from '../../embedded-creation/embedded-creation';
 
 import SelectCustomArrow from '../../helper-components/select-custom-arrow';
+import PropTypes from "prop-types";
 
 export default class NemesisEntityField extends NemesisBaseField {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {...this.state, openErrorDialog: false, errorMessage: null, openEmbeddedCreation: false};
   }
 
@@ -22,14 +23,25 @@ export default class NemesisEntityField extends NemesisBaseField {
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
             <span className="required-star">*</span> : false}</div>
-          <Select.Async style={this.getSelectStyle()}
-                        cache={false}
-                        arrowRenderer={() => <SelectCustomArrow/>}
-                        className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
-                        disabled={this.props.readOnly}
-                        value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
-                        onChange={(item) => this.onValueChange(item && item.value)}
-                        loadOptions={this.filterEntityData.bind(this)}/>
+          {this.props.entityId !== 'catalog_version' && this.context.globalFiltersCatalogs.length !== 0 ?
+            <Select.Async style={this.getSelectStyle()}
+                          cache={false}
+                          arrowRenderer={() => <SelectCustomArrow/>}
+                          className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                          disabled={this.props.readOnly}
+                          value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
+                          onChange={(item) => this.onValueChange(item && item.value)}
+                          loadOptions={this.filterEntityData.bind(this)}/>
+            :
+            <Select style={this.getSelectStyle()}
+                                        cache={false}
+                                        arrowRenderer={() => <SelectCustomArrow/>}
+                                        className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                                        disabled={this.props.readOnly}
+                                        value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
+                                        onChange={(item) => this.onValueChange(item && item.value)}
+                                        options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))}/>
+          }
         </div>
         {this.getAdditionalIcons()}
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
@@ -82,13 +94,19 @@ export default class NemesisEntityField extends NemesisBaseField {
 
   filterEntityData(inputText) {
     let inputTextActual = inputText || '';
-    return ApiCall.get(this.getSearchUrl(), {
+    let params =  {
       page: 0,
       size: 10,
       catalogCode: `%${inputTextActual}%`,
       code: `%${inputTextActual}%`,
       projection: 'search'
-    }).then(result => {
+    };
+
+    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs.length > 0) {
+      params.catalogVersionIds = this.context.globalFiltersCatalogs.map(item => item.id).join(',');
+    }
+
+    return ApiCall.get(this.getSearchUrl(),params).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
       return {options: data.map(this.mapDataSource.bind(this))};
@@ -99,6 +117,10 @@ export default class NemesisEntityField extends NemesisBaseField {
     let urlSuffix = '/search/findByCodeLike/';
     if (this.props.entityId === 'catalog_version') {
       urlSuffix = '/search/findByCodeLikeOrCatalogCodeLike/';
+    }
+
+    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs.length > 0) {
+      urlSuffix = '/search/findByCodeLikeAndCatalogVersionIdIn'
     }
 
     return `${this.props.entityId}${urlSuffix}`;
@@ -174,3 +196,8 @@ export default class NemesisEntityField extends NemesisBaseField {
     })
   }
 }
+
+NemesisEntityField.contextTypes = {
+  entityMarkupData: PropTypes.object,
+  globalFiltersCatalogs: PropTypes.array
+};

@@ -37,7 +37,7 @@ export default class SimpleViewItem extends Component {
 
   onSiteSelect(site) {
     ApiCall.get('backend/catalog-versions', {siteCode: site.code}).then(result => {
-      let selectedCatalogsVersions = result.data;
+      let selectedCatalogsVersions = result.data.map(item => item.id);
       this.setState({...this.state, selectedCatalogVersions: selectedCatalogsVersions, selectedSite: site});
     });
 

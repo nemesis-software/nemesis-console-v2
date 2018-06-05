@@ -7,10 +7,11 @@ import Select from 'react-select';
 import _ from 'lodash';
 
 import {componentRequire} from '../../../../../utils/require-util';
-import {nemesisFieldTypes} from '../../../../../types/nemesis-types';
+import {nemesisFieldTypes, searchRestrictionTypes} from '../../../../../types/nemesis-types';
 
 import SelectCustomArrow from '../../../../helper-components/select-custom-arrow';
 import FilterItemRenderer from "../filter-fields/filter-item-renderer";
+import PropTypes from "prop-types";
 
 
 let FilterBuilder = componentRequire('app/services/filter-builder', 'filter-builder');
@@ -18,8 +19,8 @@ let FilterBuilder = componentRequire('app/services/filter-builder', 'filter-buil
 const keyPrefix = 'defaultFilter';
 
 export default class DefaultFilter extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {appliedFilters: [], key: keyPrefix + Date.now(), filterItems: this.getInitialFilterItems(), appliedFilterText: [], isSmallView: false, filterOperation: 'and'};
   }
 
@@ -87,17 +88,17 @@ export default class DefaultFilter extends Component {
   }
 
   onSearchButtonClick() {
-    let filterString = FilterBuilder.buildFilter(this.state.appliedFilters, this.state.filterOperation);
+    let filterString = FilterBuilder.buildFilter(this.state.appliedFilters, this.state.filterOperation, this.context.globalFiltersCatalogs);
     let appliedFilterText = this.state.appliedFilters.map(item => item.textRepresentation ? item.textRepresentation : false);
     this.setState({appliedFilterText: appliedFilterText}, () => {
       this.props.onFilterApply(filterString);
-
     });
   }
 
   onClearButtonClick() {
     this.setState({appliedFilters: [], key: keyPrefix + Date.now(), appliedFilterText: []});
-    this.props.onFilterApply();
+    let filterString = FilterBuilder.buildFilter([], null, this.context.globalFiltersCatalogs);
+    this.props.onFilterApply(filterString);
   }
 
   getInitialFilterItems() {
@@ -122,3 +123,7 @@ export default class DefaultFilter extends Component {
     this.setState({filterOperation: this.state.filterOperation === 'and' ? 'or' : 'and'});
   }
 }
+
+DefaultFilter.contextTypes = {
+  globalFiltersCatalogs: PropTypes.array
+};
