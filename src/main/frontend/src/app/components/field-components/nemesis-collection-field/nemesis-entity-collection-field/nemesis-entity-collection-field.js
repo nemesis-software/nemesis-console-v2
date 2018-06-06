@@ -22,13 +22,24 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
             <span className="required-star">*</span> : false}</div>
-          <Select.Async style={this.getSelectStyle()}
-                        cache={false}
-                        className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
-                        arrowRenderer={() => <SelectCustomArrow/>}
-                        disabled={this.props.readOnly}
-                        onChange={this.onItemSelect.bind(this)}
-                        loadOptions={this.filterEntityData.bind(this)}/>
+          {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs.length > 0 ?
+            <Select style={this.getSelectStyle()}
+                    cache={false}
+                    arrowRenderer={() => <SelectCustomArrow/>}
+                    className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                    disabled={this.props.readOnly}
+                    value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
+                    onChange={(item) => this.onValueChange(item && item.value)}
+                    options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))}/>
+            :
+            <Select.Async style={this.getSelectStyle()}
+                          cache={false}
+                          className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                          arrowRenderer={() => <SelectCustomArrow/>}
+                          disabled={this.props.readOnly}
+                          onChange={this.onItemSelect.bind(this)}
+                          loadOptions={this.filterEntityData.bind(this)}/>
+          }
           {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         </div>
         {this.getAdditionalIconFunctionality()}
@@ -96,6 +107,10 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getAutocompleteRenderingValue(item) {
+    if (this.props.entityId === 'catalog_version') {
+      return item.catalogVersion || item.code;
+    }
+
     if (item.entityName === 'cms_slot') {
       return `${item.code}:${item.position}`
     }

@@ -23,7 +23,16 @@ export default class NemesisEntityField extends NemesisBaseField {
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
             <span className="required-star">*</span> : false}</div>
-          {this.props.entityId !== 'catalog_version' && this.context.globalFiltersCatalogs.length !== 0 ?
+          {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs.length > 0 ?
+            <Select style={this.getSelectStyle()}
+                    cache={false}
+                    arrowRenderer={() => <SelectCustomArrow/>}
+                    className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                    disabled={this.props.readOnly}
+                    value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
+                    onChange={(item) => this.onValueChange(item && item.value)}
+                    options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))}/>
+            :
             <Select.Async style={this.getSelectStyle()}
                           cache={false}
                           arrowRenderer={() => <SelectCustomArrow/>}
@@ -32,15 +41,6 @@ export default class NemesisEntityField extends NemesisBaseField {
                           value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
                           onChange={(item) => this.onValueChange(item && item.value)}
                           loadOptions={this.filterEntityData.bind(this)}/>
-            :
-            <Select style={this.getSelectStyle()}
-                                        cache={false}
-                                        arrowRenderer={() => <SelectCustomArrow/>}
-                                        className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
-                                        disabled={this.props.readOnly}
-                                        value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
-                                        onChange={(item) => this.onValueChange(item && item.value)}
-                                        options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))}/>
           }
         </div>
         {this.getAdditionalIcons()}
