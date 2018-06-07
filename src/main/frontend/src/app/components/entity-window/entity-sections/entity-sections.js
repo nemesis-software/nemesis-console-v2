@@ -10,6 +10,7 @@ import ApiCall from '../../../services/api-call';
 import DataHelper from 'servicesDir/data-helper';
 import { componentRequire } from '../../../utils/require-util';
 import _ from 'lodash';
+import MirrorButton from "./entity-sections-buttons/mirror-button";
 
 let EntitySection = componentRequire('app/components/entity-window/entity-sections/entity-section/entity-section', 'entity-section');
 
@@ -117,7 +118,13 @@ export default class EntitySections extends Component {
             <Translate component="span" content={'main.Synchronize'} fallback={'Synchronize'}/>
           </div>
         )
-      }, onClickFunction: this.handleSynchronizeButtonClick.bind(this)})
+      }, onClickFunction: this.handleSynchronizeButtonClick.bind(this)});
+
+      if (!_.isEmpty(this.state.entityData) && this.state.entityData._links.mirrorSyncStates) {
+        result.push({label: 'Get Mirror', customRenderer: (index) => {
+            return <MirrorButton onMirrorEntityClick={this.onMirrorEntityClick.bind(this)} key={index} isOnline={this.state.entityData.online} mirrorLink={this.state.entityData._links.mirrorSyncStates.href}/>
+          }});
+      }
     }
 
     result.push({label: 'Close', onClickFunction: () => this.props.onEntityWindowClose(this.props.entity)});
@@ -139,15 +146,16 @@ export default class EntitySections extends Component {
     this.setState({...this.state, isDataLoading: true});
     let relatedEntities = this.getEntityRelatedEntities(entity);
     let restUrl = entity.entityUrl || (entity.entityName + '/' + entity.itemId);
+    let entityData = null;
     return ApiCall.get(restUrl).then(result => {
-      this.setState({...this.state, entityData: result.data});
+      entityData = result.data;
       Promise.all(
-        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
+        (relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
           .then(result => {
             return Promise.resolve(result);
           }, err => {
             return Promise.resolve({data: null});
-          }) : Promise.resolve({data: null}))
+          }) : Promise.resolve({data: null})))
       ).then(result => {
         let relatedEntitiesResult = {};
         relatedEntities.forEach((item, index) => {
@@ -165,7 +173,7 @@ export default class EntitySections extends Component {
         if (relatedEntitiesResult.syncStates && relatedEntitiesResult.syncStates.length > 0) {
           syncStatus = _.some(relatedEntitiesResult.syncStates, {stateValue: 'OUT_OF_SYNC'}) ? 'OUT_OF_SYNC' : 'COMPLETED';
         }
-        this.setState({...this.state, entityData: {...this.state.entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now(), isDataLoading: false, entitySyncStatus: syncStatus})
+        this.setState({...this.state, entityData: {...this.state.entityData, ...entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now(), isDataLoading: false, entitySyncStatus: syncStatus})
       })
     });
   }
@@ -185,6 +193,10 @@ export default class EntitySections extends Component {
       </Modal.Footer>
     </Modal>
     );
+  }
+
+  onMirrorEntityClick(id) {
+    this.props.onEntityItemClick({entityName: this.props.entity.entityName, id: id, code: this.state.entityData.code}, this.props.entity.entityId);
   }
 
   getErrorDialog() {
