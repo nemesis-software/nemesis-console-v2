@@ -29,6 +29,10 @@ import 'material-design-icons/iconfont/material-icons.css'
 
 import 'react-datetime/css/react-datetime.css';
 
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/groovy/groovy';
+import 'codemirror/mode/javascript/javascript';
+
 import '../../styles/style.less';
 
 require('es6-promise').polyfill();

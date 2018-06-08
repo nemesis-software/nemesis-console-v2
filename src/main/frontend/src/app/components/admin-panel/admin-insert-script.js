@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import PlatformApiCall from '../../services/platform-api-call';
 import CodeMirror from 'react-codemirror';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/groovy/groovy';
 
 const codeMirrorOptions = {
   lineNumbers: true,

@@ -9,6 +9,7 @@ import { componentRequire } from '../../../utils/require-util';
 
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
 let NemesisTextareaField = componentRequire('app/components/field-components/nemesis-textarea-field/nemesis-textarea-field', 'nemesis-textarea-field');
+let NemesisJavascriptField = componentRequire('app/components/field-components/nemesis-javascript-field/nemesis-javascript-field', 'nemesis-javascript-field');
 let NemesisPasswordField = componentRequire('app/components/field-components/nemesis-password-field/nemesis-password-field', 'nemesis-password-field');
 let NemesisDateField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-field', 'nemesis-date-field');
 let NemesisDateTimeField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-time-field', 'nemesis-date-time-field');
@@ -79,6 +80,7 @@ export default class EmbeddedCreationPortalQuickView extends Component {
     switch (item.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
       case nemesisFieldTypes.nemesisTextarea: reactElement = NemesisTextareaField; break;
+      case nemesisFieldTypes.nemesisJavascriptField: reactElement = NemesisJavascriptField; break;
       case nemesisFieldTypes.nemesisHtmlEditor: reactElement = NemesisRichTextField; break;
       case nemesisFieldTypes.nemesisPasswordField: reactElement = NemesisPasswordField; break;
       case nemesisFieldTypes.nemesisDateField: reactElement = NemesisDateField; break;
