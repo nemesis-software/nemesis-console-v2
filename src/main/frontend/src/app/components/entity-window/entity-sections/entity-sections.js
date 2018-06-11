@@ -150,7 +150,7 @@ export default class EntitySections extends Component {
     return ApiCall.get(restUrl).then(result => {
       entityData = result.data;
       Promise.all(
-        (relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
+        (relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {filter: 'search'})
           .then(result => {
             return Promise.resolve(result);
           }, err => {

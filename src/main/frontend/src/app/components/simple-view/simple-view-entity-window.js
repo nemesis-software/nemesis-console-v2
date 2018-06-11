@@ -216,7 +216,7 @@ export default class SimpleViewEntityWindow extends Component {
 
   getEntityDataPromise(entityId, page, pageSize, filter, sortData) {
     let filterActual = this.getFilterWithCatalogs(filter);
-    return ApiCall.get(entityId, {page: page, size: pageSize, $filter: filterActual, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
+    return ApiCall.get(entityId, {page: page, size: pageSize, $filter: filterActual, sort: this.buildSortArray(sortData), filter: 'search'}).then(result => {
       this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
     });
   }
@@ -272,7 +272,7 @@ export default class SimpleViewEntityWindow extends Component {
     return ApiCall.get(restUrl).then(result => {
       this.setState({...this.state, entityData: result.data});
       Promise.all(
-        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
+        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {filter: 'search'})
           .then(result => {
             return Promise.resolve(result);
           }, err => {

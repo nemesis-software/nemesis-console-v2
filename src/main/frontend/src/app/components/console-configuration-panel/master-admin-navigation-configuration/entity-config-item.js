@@ -22,7 +22,7 @@ export default class EntityConfigItem extends Component {
 
   componentWillMount() {
     if (this.props.config.id) {
-      ApiCall.get(this.props.config._links.categories.href, {projection: 'search'}).then(result => {
+      ApiCall.get(this.props.config._links.categories.href, {filter: 'search'}).then(result => {
         this.setState({categories: DataHelper.mapCollectionData(result.data)});
       });
     }

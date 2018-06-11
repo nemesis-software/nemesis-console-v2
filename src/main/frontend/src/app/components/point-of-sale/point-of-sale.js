@@ -24,7 +24,7 @@ export default class PointOfSale extends Component {
 
   componentWillMount() {
     ApiCall.get('variant/search/findByCatalogVersionCatalogCodeAndCatalogVersionCode', {
-      projection: 'pos',
+      filter: 'pos',
       catalogCode: 'samplestoreB2CProductCatalog',
       catalogVersionCode: 'Online',
       page: 0,
