@@ -7,10 +7,11 @@ import Modal from 'react-bootstrap/lib/Modal';
 
 import {entityItemType, entityCreateType, entityCloneType} from '../../../types/entity-types';
 import ApiCall from '../../../services/api-call';
-import DataHelper from 'servicesDir/data-helper';
+import DataService from 'servicesDir/data-service';
 import { componentRequire } from '../../../utils/require-util';
 import _ from 'lodash';
 import MirrorButton from "./entity-sections-buttons/mirror-button";
+import DiffButton from "./entity-sections-buttons/diff-button";
 
 let EntitySection = componentRequire('app/components/entity-window/entity-sections/entity-section/entity-section', 'entity-section');
 
@@ -124,6 +125,9 @@ export default class EntitySections extends Component {
         result.push({label: 'Get Mirror', customRenderer: (index) => {
             return <MirrorButton onMirrorEntityClick={this.onMirrorEntityClick.bind(this)} key={index} isOnline={this.state.entityData.online} mirrorLink={this.state.entityData._links.mirrorSyncStates.href}/>
           }});
+        result.push({label: 'Get Mirror', customRenderer: (index) => {
+            return <DiffButton key={index} entityName={this.props.entity.entityName} mirrorLink={this.state.entityData._links.mirrorSyncStates.href}/>
+          }});
       }
     }
 
@@ -146,35 +150,12 @@ export default class EntitySections extends Component {
     this.setState({...this.state, isDataLoading: true});
     let relatedEntities = this.getEntityRelatedEntities(entity);
     let restUrl = entity.entityUrl || (entity.entityName + '/' + entity.itemId);
-    let entityData = null;
-    return ApiCall.get(restUrl).then(result => {
-      entityData = result.data;
-      Promise.all(
-        (relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
-          .then(result => {
-            return Promise.resolve(result);
-          }, err => {
-            return Promise.resolve({data: null});
-          }) : Promise.resolve({data: null})))
-      ).then(result => {
-        let relatedEntitiesResult = {};
-        relatedEntities.forEach((item, index) => {
-          let data;
-
-          if (result[index].data && result[index].data._embedded) {
-            data = DataHelper.mapCollectionData(result[index].data);
-          } else {
-            data = DataHelper.mapEntityData(result[index].data);
-          }
-
-          relatedEntitiesResult[item.name] = data;
-        });
-        let syncStatus = null;
-        if (relatedEntitiesResult.syncStates && relatedEntitiesResult.syncStates.length > 0) {
-          syncStatus = _.some(relatedEntitiesResult.syncStates, {stateValue: 'OUT_OF_SYNC'}) ? 'OUT_OF_SYNC' : 'COMPLETED';
-        }
-        this.setState({...this.state, entityData: {...this.state.entityData, ...entityData, customClientData: relatedEntitiesResult}, key: keyPrefix + Date.now(), isDataLoading: false, entitySyncStatus: syncStatus})
-      })
+    return DataService.getEntityData(restUrl, relatedEntities).then(result => {
+      let syncStatus = null;
+      if (result.customClientData.syncStates && result.customClientData.syncStates.length > 0) {
+        syncStatus = _.some(result.customClientData.syncStates, {stateValue: 'OUT_OF_SYNC'}) ? 'OUT_OF_SYNC' : 'COMPLETED';
+      }
+      this.setState({...this.state, entityData: {...this.state.entityData, ...result}, key: keyPrefix + Date.now(), isDataLoading: false, entitySyncStatus: syncStatus})
     });
   }
 

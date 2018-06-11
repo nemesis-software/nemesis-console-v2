@@ -26,6 +26,8 @@ import TableHeaderElement from '../helper-components/table-header-element';
 
 import DataHelper from 'servicesDir/data-helper';
 
+import DataService from 'servicesDir/data-service';
+
 let EntitiesFilter = componentRequire('app/components/entity-window/entities-viewer/entities-filter/entities-filter', 'entities-filter');
 
 const pagerData = {
@@ -269,35 +271,13 @@ export default class SimpleViewEntityWindow extends Component {
     this.setState({...this.state, isDataLoading: true});
     let relatedEntities = this.getEntityRelatedEntities(this.props.entityFields);
     let restUrl = entity.entityUrl || (entity.entityName + '/' + entity.id);
-    return ApiCall.get(restUrl).then(result => {
-      this.setState({...this.state, entityData: result.data});
-      Promise.all(
-        relatedEntities.map(item => result.data._links[item.name] ? ApiCall.get(result.data._links[item.name].href, {projection: 'search'})
-          .then(result => {
-            return Promise.resolve(result);
-          }, err => {
-            return Promise.resolve({data: null});
-          }) : Promise.resolve({data: null}))
-      ).then(result => {
-        let relatedEntitiesResult = {};
-        relatedEntities.forEach((item, index) => {
-          let data;
-
-          if (result[index].data && result[index].data._embedded) {
-            data = DataHelper.mapCollectionData(result[index].data);
-          } else {
-            data = DataHelper.mapEntityData(result[index].data);
-          }
-
-          relatedEntitiesResult[item.name] = data;
-        });
-        this.setState({
-          ...this.state,
-          entityData: {...this.state.entityData, customClientData: relatedEntitiesResult},
-          isDataLoading: false,
-          isEntitySelected: true
-        })
-      })
+    return DataService.getEntityData(restUrl, relatedEntities).then(result => {
+      this.setState({
+        ...this.state,
+        entityData: {...this.state.entityData, ...result},
+        isDataLoading: false,
+        isEntitySelected: true
+      });
     });
   }
 
