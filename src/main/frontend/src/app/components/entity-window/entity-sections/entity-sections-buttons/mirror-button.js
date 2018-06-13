@@ -16,6 +16,7 @@ export default class MirrorButton extends Component {
   }
 
   componentWillMount() {
+    console.log(this.props)
     ApiCall.get(this.props.mirrorLink).then(result => {
       this.setState({syncStates: DataHelper.mapCollectionData(result.data)});
     }, err => {
@@ -50,7 +51,5 @@ export default class MirrorButton extends Component {
         </Dropdown.Menu>
       </Dropdown>
     )
-
-
   }
 }
