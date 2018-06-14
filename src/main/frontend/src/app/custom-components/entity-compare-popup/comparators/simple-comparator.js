@@ -22,7 +22,7 @@ export default class SimpleComparator extends Component {
   }
 
   isFieldsEqual(props) {
-    return props.firstData === props.secondData;
+    return _.isEqual(props.firstData, props.secondData);
   }
 
   getItemRepresentation(item) {
