@@ -9,7 +9,13 @@ import EntityFieldComparator from "./entity-field-comparator";
 export default class EntityComparePopup extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {entityFields: this.getFlattedEntityFields(context.entityMarkupData[this.props.entityName]), firstEntityData: {}, secondEntityData: {}, isDataLoading: true}
+    this.state = {
+      entityFields: this.getFlattedEntityFields(context.entityMarkupData[this.props.entityName]),
+      firstEntityData: {},
+      secondEntityData: {},
+      isDataLoading: true,
+      showDiffOnly: false
+    }
   }
 
   componentWillMount() {
@@ -26,20 +32,30 @@ export default class EntityComparePopup extends Component {
 
   render() {
     return (
-      <Modal show={this.props.openModal} onHide={this.handleModalClose.bind(this)} bsSize="large">
+      <Modal className={'entity-compare-popup' + (this.state.showDiffOnly ? ' diff-only' : '')} show={this.props.openModal} onHide={this.handleModalClose.bind(this)} bsSize="large">
         <Modal.Header>
           <Modal.Title>
             Entity compare
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <div style={{paddingLeft: '20px', marginBottom: '10px'}}>
+            <label className="checkbox-inline">
+              <input type="checkbox" className={"nemesis-checkbox" + (this.state.showDiffOnly ? ' active' : '')}
+                     onChange={() => this.setState({showDiffOnly: !this.state.showDiffOnly})}/>
+              Show different only
+            </label>
+
+          </div>
+          <div className="display-table" style={{width: '100%'}}>
+            <div className="display-table-cell" style={{textAlign: 'center', width: '50%'}}><label>Staged</label></div>
+            <div className="display-table-cell" style={{textAlign: 'center', width: '50%'}}><label>Online</label></div>
+          </div>
           {this.state.isDataLoading ? false : this.state.entityFields.map((field, index) => {
-            return <React.Fragment><EntityFieldComparator key={index}
+            return <EntityFieldComparator key={index}
                                           field={field}
                                           firstData={this.getItemData(field, this.state.firstEntityData)}
                                           secondData={this.getItemData(field, this.state.secondEntityData)}/>
-              <hr/>
-            </React.Fragment>
           })}
         </Modal.Body>
         <Modal.Footer>
