@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import Translate from 'react-translate-component';
 import {nemesisFieldTypes} from "../../types/nemesis-types";
 import SimpleComparator from "./comparators/simple-comparator";
 import EntityComparator from "./comparators/entity-comparator";
@@ -13,12 +12,7 @@ export default class EntityFieldComparator extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div><Translate component="label" content={'main.' + this.props.field.fieldLabel} fallback={this.props.field.fieldLabel}/></div>
-        {this.getComparator(this.props.field.xtype)}
-      </div>
-    )
+    return this.getComparator(this.props.field.xtype);
   }
 
   getComparator(itemType) {

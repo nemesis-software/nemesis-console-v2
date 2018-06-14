@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import Translate from 'react-translate-component';
 
 export default class EntityComparator extends Component {
   constructor(props) {
@@ -9,9 +9,13 @@ export default class EntityComparator extends Component {
 
   render() {
     return (
-      <div className="display-table" style={{width: '100%'}}>
-        <div className="display-table-cell">{this.getItemText(this.props.firstData)}</div>
-        <div className="display-table-cell">{this.getItemText(this.props.secondData)}</div>
+      <div className={'entity-field-comparator' + (this.state.areEquals ? ' equals' : ' not-equals')}>
+        <div><Translate component="label" content={'main.' + this.props.field.fieldLabel} fallback={this.props.field.fieldLabel}/></div>
+        <div className={'display-table'} style={{width: '100%'}}>
+          <div className="display-table-cell">{this.getItemText(this.props.firstData)}</div>
+          <div className="display-table-cell">{this.getItemText(this.props.secondData)}</div>
+        </div>
+        <hr/>
       </div>
     )
   }
@@ -21,7 +25,7 @@ export default class EntityComparator extends Component {
       return _.isEqual(props.firstData, props.secondData)
     }
 
-    return props.firstData.id === props.secondData.id;
+    return props.firstData.code === props.secondData.code;
   }
 
   getItemText(item) {
