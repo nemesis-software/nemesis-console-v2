@@ -842,6 +842,34 @@ body {
   }
 }
 
+.entity-compare-popup {
+  &.diff-only {
+    .equals {
+      display: none;
+    }
+  }
+
+  .entity-field-comparator {
+    hr {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    &.not-equals {
+      .display-table-cell {
+        width: 50%;
+        padding: 5px;
+        &:first-of-type {
+          background: #e6ffed;
+        }
+        &:nth-last-of-type(1) {
+          background: #ffeef0;
+        }
+      }
+    }
+  }
+}
+
 .navigation-tree {
   position: fixed;
   width: 300px;

@@ -35,7 +35,7 @@ export default class EntitySection extends Component {
 
   render() {
     return (
-      <div style={{background: 'white'}} className="entity-section">
+      <div style={{background: this.props.entityData.online ? '#ffffd8' : 'white'}} className="entity-section">
         {this.props.section.items.map((item, index) => {
           return (
             <div className={'paper-box with-hover section-item-container' + CssClassHelper.getStyleClassSectionItem(item.xtype)} key={index}>
