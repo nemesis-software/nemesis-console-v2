@@ -24,8 +24,8 @@ export default class DataService {
           }
 
           relatedEntitiesResult[item.name] = data;
-          entityData.customClientData = relatedEntitiesResult;
         });
+        entityData.customClientData = relatedEntitiesResult;
         return Promise.resolve(entityData);
       })
     });
