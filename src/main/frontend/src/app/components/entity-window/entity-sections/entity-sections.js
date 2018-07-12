@@ -222,8 +222,10 @@ export default class EntitySections extends Component {
 
   handleCloneButtonClick() {
     let entityData = {...this.state.entityData, id: null, code: this.state.entityData.code + new Date().getTime()};
+    if (entityData && entityData.customClientData && entityData.customClientData.syncStates) {
+      delete entityData.customClientData.syncStates;
+    }
     this.props.onEntityItemClick({entityName: this.props.entity.entityName}, this.props.entity.entityId , null, entityCloneType, entityData);
-    this.getDataEntity(this.props.entity);
   }
 
   handleConfirmationDeleteButtonClick() {
