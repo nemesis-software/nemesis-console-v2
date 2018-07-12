@@ -67,7 +67,7 @@ export default class AdminCachePanel extends Component {
   }
 
   handleConfirmationDeleteButtonClick() {
-    PlatformApiCall.delete('caches', {cacheManager: this.props.name, cacheName: this.state.cacheForClear}).then(() => {
+    PlatformApiCall.delete(`caches/${this.state.cacheForClear}`, {cacheManager: this.props.name}).then(() => {
       this.setState({openDeleteConfirmation: false}, () => {
         this.onClearSuccess();
       });
