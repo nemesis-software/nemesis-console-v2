@@ -254,6 +254,11 @@ export default class MainView extends Component {
       urlEntity[splitItem[0]] = !!splitItem[1] ? splitItem[1] : null;
     });
 
+    if (urlEntity.type === 'nemesisNewWidget') {
+      this.setNemesisNewWidget(urlEntity.slotId);
+      return Promise.resolve();
+    }
+
     if (urlEntity.type === entityItemType) {
       urlEntity.data = this.state.entityMarkupData[urlEntity.entityName]
     } else if (urlEntity.type === entitySearchType) {
@@ -264,6 +269,17 @@ export default class MainView extends Component {
 
     this.setSelectedItemInState(urlEntity);
     return Promise.resolve();
+  }
+
+  setNemesisNewWidget(slotId) {
+    let selectedEntity = {
+      type: 'nemesisNewWidget',
+      entityCode: 'nemesisNewWidget',
+      entityId: 'widget',
+      itemId: null,
+      slotId: slotId
+    };
+    this.setSelectedItemInState(selectedEntity);
   }
 }
 

@@ -121,7 +121,7 @@ export default class EntitySections extends Component {
         )
       }, onClickFunction: this.handleSynchronizeButtonClick.bind(this)});
 
-      if (!_.isEmpty(this.state.entityData) && this.state.entityData._links.mirrorSyncStates) {
+      if (!_.isEmpty(this.state.entityData) && this.state.entityData._links && this.state.entityData._links.mirrorSyncStates) {
         result.push({label: 'Get Mirror', customRenderer: (index) => {
             return <MirrorButton onMirrorEntityClick={this.onMirrorEntityClick.bind(this)} key={index} isOnline={this.state.entityData.online} mirrorLink={this.state.entityData._links.mirrorSyncStates.href}/>
           }});
