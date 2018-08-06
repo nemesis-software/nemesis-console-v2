@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {entitySearchType, entityItemType, entityCreateType, entityCloneType} from '../../types/entity-types';
+import {entitySearchType, entityItemType, entityCreateType, entityCloneType, entityBulkEdit} from '../../types/entity-types';
 import { componentRequire } from '../../utils/require-util';
 import NewWidgets from "../new-widgets/new-widgets";
 
@@ -34,6 +34,7 @@ export default class EntitiesWindow extends Component {
       }
       case entityCreateType:
       case entityCloneType:
+      case entityBulkEdit:
       case entityItemType: {
         return <EntitySections entity={entity}
                                onEntityItemClick={this.props.onEntityItemClick}

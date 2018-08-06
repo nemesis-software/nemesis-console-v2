@@ -7,7 +7,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 
 import ApiCall from '../../services/api-call'
-import {entitySearchType, entityItemType, entityCreateType, entityCloneType} from '../../types/entity-types'
+import {entitySearchType, entityItemType, entityCreateType, entityCloneType, entityBulkEdit} from '../../types/entity-types'
 import {componentRequire} from '../../utils/require-util';
 
 let EntitiesNavigation = componentRequire('app/components/entities-navigation/entities-navigation', 'entities-navigation');
@@ -113,11 +113,11 @@ export default class MainView extends Component {
         itemId: null,
         additionParams: additionParams
       };
-    } else if (itemType && itemType === entityCloneType) {
+    } else if (itemType && itemType === entityCloneType || itemType === entityBulkEdit) {
       selectedEntity = {
         entityId: entityId,
         data: this.state.entityMarkupData[entityItem.entityName],
-        type: entityCloneType,
+        type: itemType,
         itemId: this.createWindowIncrementor,
         entityName: entityItem.entityName,
         additionParams: additionParams

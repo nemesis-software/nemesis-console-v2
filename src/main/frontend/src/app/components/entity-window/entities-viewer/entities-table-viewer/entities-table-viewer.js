@@ -5,6 +5,8 @@ import _ from 'lodash';
 import { componentRequire } from '../../../../utils/require-util';
 import TableHeaderElement from "../../../helper-components/table-header-element";
 import SyncStateTableRenderer from "../../../helper-components/sync-states-table-renderer";
+import SelectEntityTableRenderer from "../../../helper-components/select-entity-table-renderer";
+import {entityBulkEdit} from "../../../../types/entity-types";
 
 let EntitiesPager = componentRequire('app/components/entity-window/entities-viewer/entities-pager/entities-pager', 'entities-pager');
 let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
@@ -20,8 +22,7 @@ const translationLanguages = {
 export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value};
+    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false};
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,9 +48,19 @@ export default class EntitiesTableViewer extends Component {
                 />
                 <EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>
                 <div className="total-elements"><label>Total elements</label> <div className="total-element-container">{this.props.page.totalElements}</div></div>
+                <button className="nemesis-button success-button select-button" onClick={this.onSelectButtonClick.bind(this)}>Select</button>
               </th>
             </tr>
+            {this.state.isSelectedActive ? <tr>
+              <th style={{paddingBottom: '20px'}} colSpan={this.state.entitiesMarkup.length}>
+                <div className="selected-elements"><label>Selected elements</label> <div className="total-selected-container">{Object.keys(this.state.selectedIds).length}</div></div>
+                {this.getBulkButtons()}
+              </th>
+            </tr> : false}
             <tr className="content-header">
+              {this.state.isSelectedActive ? <th className="table-header-element" style={{width: '60px'}}>
+                <input type="checkbox" style={{background: 'white'}} className={"select-entity-checkbox nemesis-checkbox"} onChange={this.markAllAsSelected.bind(this)}/>
+              </th> : false}
               {
                 this.state.entitiesMarkup.map((markupItem, index) => {
                   return (
@@ -63,6 +74,7 @@ export default class EntitiesTableViewer extends Component {
             this.props.entities.map((item, index) => {
               return (
                 <tr style={{cursor: 'pointer'}} onClick={(ev) => this.onRowClick(ev, item)} key={index}>
+                  {this.state.isSelectedActive ? <SelectEntityTableRenderer key={index} id={item.id} selectedIds={this.state.selectedIds} onSelectedIdsChange={this.onSelectedIdsChange.bind(this)}/> : false}
                   {
                     this.state.entitiesMarkup.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
                   }
@@ -74,7 +86,7 @@ export default class EntitiesTableViewer extends Component {
           <tfoot>
           <tr className="navigation-footer">
             <td colSpan={this.state.entitiesMarkup.length}>
-              <EntitiesPager onPagerChange={this.props.onPagerChange}  page={this.props.page}/>
+              <EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>
             </td>
           </tr>
           </tfoot>
@@ -83,8 +95,37 @@ export default class EntitiesTableViewer extends Component {
     )
   }
 
+  onBulkEditClick() {
+    this.props.onEntityItemClick({entityName: this.props.entityId}, this.props.entityId , null, entityBulkEdit, Object.keys(this.state.selectedIds));
+  }
+
+  getBulkButtons() {
+    return (
+      <React.Fragment>
+        <button className="nemesis-button success-button bulk-button" onClick={this.onBulkEditClick.bind(this)}>Bulk Edit</button>
+      </React.Fragment>
+    )
+  }
+
+  markAllAsSelected() {
+    let result = {...this.state.selectedIds};
+    this.props.entities.forEach(item => {
+      result[item.id] = true;
+    });
+
+    this.setState({selectedIds: result});
+  }
+
+  onSelectedIdsChange(value) {
+    this.setState({selectedIds: value});
+  }
+
+  onSelectButtonClick() {
+    this.setState({selectedIds: {}, isSelectedActive: !this.state.isSelectedActive});
+  }
+
   onRowClick(ev, item) {
-    if (ev.target.classList.contains('status-dot')) {
+    if (ev.target.classList.contains('status-dot') || ev.target.classList.contains('select-entity-checkbox')) {
       return;
     }
     this.props.onEntityItemClick(item);
