@@ -113,7 +113,7 @@ export default class MainView extends Component {
         itemId: null,
         additionParams: additionParams
       };
-    } else if (itemType && itemType === entityCloneType || itemType === entityBulkEdit) {
+    } else if (itemType && (itemType === entityCloneType || itemType === entityBulkEdit)) {
       selectedEntity = {
         entityId: entityId,
         data: this.state.entityMarkupData[entityItem.entityName],
