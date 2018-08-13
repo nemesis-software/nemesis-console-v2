@@ -4,7 +4,7 @@ import _ from 'lodash';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
-import {entitySearchType, entityItemType, entityCreateType} from '../../types/entity-types'
+import {entitySearchType, entityItemType, entityCreateType, entityCloneType, entityBulkEdit} from '../../types/entity-types'
 
 export default class EntitiesNavigationItem extends Component {
   constructor(props) {
@@ -48,8 +48,12 @@ export default class EntitiesNavigationItem extends Component {
       text = `${entity.entityCode} - ${entity.itemId}` ;
     }
 
-    if (type === entityCreateType) {
+    if (type === entityCreateType || type === entityCloneType) {
       text = `${entity.itemId} - ${entity.entityName} - Create Entity`;
+    }
+
+    if (type === entityBulkEdit) {
+      text = `${entity.itemId} - ${entity.entityName} - Bulk edit`;
     }
 
     return <div><span className={entity.isVisible ? 'selected-navigation-menu-item' : ''}>{text}</span><i className="material-icons close-icon">close</i></div>

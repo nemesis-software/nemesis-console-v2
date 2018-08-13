@@ -13,6 +13,7 @@ export default class EntitiesResultViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {selectedMenuIndex: 0};
+    console.log(props);
   }
 
   render() {
@@ -62,7 +63,8 @@ export default class EntitiesResultViewer extends Component {
       page: this.props.page,
       onEntityItemClick: this.props.onEntityItemClick,
       key: index,
-      style: index === this.state.selectedMenuIndex ? {} : {display: 'none'}
+      style: index === this.state.selectedMenuIndex ? {} : {display: 'none'},
+      entityId: this.props.entity.entityId
     };
 
     return React.createElement(viewer.viewerClass, config);

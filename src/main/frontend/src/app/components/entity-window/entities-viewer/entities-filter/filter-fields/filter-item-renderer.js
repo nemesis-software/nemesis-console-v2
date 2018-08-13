@@ -52,11 +52,7 @@ export default class FilterItemRenderer extends Component {
         return <div>Not supported yet - {filterItem.xtype}</div>
     }
 
-    return React.createElement(reactElement, {
-      onFilterChange: this.props.onFilterChange,
-      filterItem: filterItem,
-      hideNestedIcon: this.props.hideNestedIcon
-    })
+    return React.createElement(reactElement, {...this.props});
   }
 
 }
