@@ -122,6 +122,7 @@ export default class MainView extends Component {
         entityName: entityItem.entityName,
         additionParams: additionParams
       };
+      console.log(additionParams);
       this.createWindowIncrementor++;
     } else {
       selectedEntity = {
@@ -256,6 +257,14 @@ export default class MainView extends Component {
 
     if (urlEntity.type === 'nemesisNewWidget') {
       this.setNemesisNewWidget(urlEntity.slotId);
+      return Promise.resolve();
+    }
+
+    if (urlEntity.type === 'nemesisNewPage') {
+      let additionParams = {
+        customClientData: {catalogVersion: {catalogVersion: urlEntity.catalogCode, id: urlEntity.catalogVersionId}, masterTemplate:{id: urlEntity.templateId, code: urlEntity.templateCode, catalogVersion: urlEntity.catalogCode}}
+      };
+      this.onEntityItemClick({entityName: 'cms_page'}, 'cms_page', null, entityCloneType, additionParams);
       return Promise.resolve();
     }
 
