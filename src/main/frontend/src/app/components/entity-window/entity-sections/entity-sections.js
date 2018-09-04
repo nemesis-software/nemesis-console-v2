@@ -244,6 +244,10 @@ export default class EntitySections extends Component {
   handleSynchronizeButtonClick() {
     let entity = this.props.entity;
     this.setState({...this.state, isDataLoading: true});
+    if (entity.type === entityBulkEdit) {
+      this.bulkSynchronize();
+      return;
+    }
     ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
       this.props.openNotificationSnackbar('Entity successfully synchronized');
       this.setState({...this.state, isDataLoading: false, entitySyncStatus: 'COMPLETED'});
@@ -327,7 +331,31 @@ export default class EntitySections extends Component {
     }
   }
 
-
+  bulkSynchronize() {
+    let ids = this.props.entity.additionParams;
+    let hasError = false;
+    let entityName = this.props.entity.entityName;
+    for (let i = 0, p = Promise.resolve(); i < ids.length; i++) {
+      p = p.then(() => new Promise(resolve => {
+          if (hasError) {
+            resolve();
+            return;
+          }
+        ApiCall.get('backend/synchronize', {entityName: entityName, id: ids[i]}).then(() => {
+            if (i === ids.length - 1) {
+              this.props.openNotificationSnackbar('All entities successfully synchronized');
+              this.setState({isDataLoading: false});
+            }
+            resolve();
+          }, err => {
+            hasError = true;
+            this.handleRequestError(err);
+            resolve();
+          })
+        }
+      ));
+    }
+  }
 
   getCloneInitialDataForSave() {
     let entityData = {...this.state.entityData};

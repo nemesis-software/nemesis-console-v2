@@ -106,6 +106,7 @@ export default class TreeItem extends Component {
 
     if (this.props.onEntityClick && entity.leaf) {
       this.props.onEntityClick({entityId: entity.id});
+      return;
     }
     this.setState({...this.state, isChildrenVisible: !this.state.isChildrenVisible});
   }

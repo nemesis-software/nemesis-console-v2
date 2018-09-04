@@ -7,6 +7,7 @@ import TableHeaderElement from "../../../helper-components/table-header-element"
 import SyncStateTableRenderer from "../../../helper-components/sync-states-table-renderer";
 import SelectEntityTableRenderer from "../../../helper-components/select-entity-table-renderer";
 import {entityBulkEdit} from "../../../../types/entity-types";
+import ApiCall from "../../../../services/api-call";
 
 let EntitiesPager = componentRequire('app/components/entity-window/entities-viewer/entities-pager/entities-pager', 'entities-pager');
 let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
@@ -99,10 +100,29 @@ export default class EntitiesTableViewer extends Component {
     this.props.onEntityItemClick({entityName: this.props.entityId}, this.props.entityId , null, entityBulkEdit, Object.keys(this.state.selectedIds));
   }
 
+  onExportClick() {
+    if (_.isEmpty(this.state.selectedIds)) {
+      return;
+    }
+    let locale = this.state.selectedLanguage === 'en' ? 'en_US' : 'bg_BG';
+    ApiCall.post('backend/export-excel', null, null, {entityName: this.props.entityId, ids: Object.keys(this.state.selectedIds).join(','), locale: locale}).then(result => {
+      let csvContent = "data:text/csv;charset=utf-8," + result.data;
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      let fileName = `exported_data_${new Date().getTime()}.csv`;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    })
+  }
+
   getBulkButtons() {
     return (
       <React.Fragment>
         <button className="nemesis-button success-button bulk-button" onClick={this.onBulkEditClick.bind(this)}>Bulk Edit</button>
+        <button className="nemesis-button success-button bulk-button" onClick={this.onExportClick.bind(this)}>Export</button>
       </React.Fragment>
     )
   }
