@@ -7,9 +7,7 @@ export default class SelectEntityTableRenderer extends Component {
 
   render() {
     return (
-      <td className="select-entity-table-renderer">
         <input type="checkbox" className={"select-entity-checkbox nemesis-checkbox"  + (this.props.selectedIds[this.props.id] ? ' active' : '')} onChange={this.onChange.bind(this)}/>
-      </td>
     )
   }
 

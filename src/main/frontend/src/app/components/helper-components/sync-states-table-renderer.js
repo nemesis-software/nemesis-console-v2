@@ -13,9 +13,9 @@ export default class SyncStateTableRenderer extends Component {
 
   render() {
     return (
-      <td style={this.props.style} className="sync-state-container">
-        {this.state.syncStates.map(this.getSyncStateStatus.bind(this))}
-      </td>
+        <React.Fragment>
+          {this.state.syncStates.map(this.getSyncStateStatus.bind(this))}
+        </React.Fragment>
     )
   }
 
