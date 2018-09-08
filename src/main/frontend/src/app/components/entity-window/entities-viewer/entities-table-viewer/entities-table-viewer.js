@@ -11,6 +11,8 @@ import ApiCall from "../../../../services/api-call";
 
 let EntitiesPager = componentRequire('app/components/entity-window/entities-viewer/entities-pager/entities-pager', 'entities-pager');
 let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
+const tableMode = 'TABLE_MODE';
+const imageMode = 'IMAGE_MODE';
 
 const translationLanguages = {
   languages: [
@@ -23,7 +25,7 @@ const translationLanguages = {
 export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
-    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false};
+    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode};
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,6 +52,10 @@ export default class EntitiesTableViewer extends Component {
                 <EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>
                 <div className="total-elements"><label>Total elements</label> <div className="total-element-container">{this.props.page.totalElements}</div></div>
                 <button className="nemesis-button success-button select-button" onClick={this.onSelectButtonClick.bind(this)}>Select</button>
+                <div className="view-switcher">
+                  <div className="view-switcher-icon-container"><i className="material-icons" onClick={() => this.setState({viewMode: tableMode})}>view_list</i></div>
+                  <div className="view-switcher-icon-container"><i style={{fontSize: '40px', position: 'absolute'}} className="material-icons" onClick={() => this.setState({viewMode: imageMode})}>view_module</i></div>
+                </div>
               </th>
             </tr>
             {this.state.isSelectedActive ? <tr>
@@ -58,7 +64,7 @@ export default class EntitiesTableViewer extends Component {
                 {this.getBulkButtons()}
               </th>
             </tr> : false}
-            <tr className="content-header">
+            {this.state.viewMode === tableMode ? <tr className="content-header">
               {this.state.isSelectedActive ? <th className="table-header-element" style={{width: '60px'}}>
                 <input type="checkbox" style={{background: 'white'}} className={"select-entity-checkbox nemesis-checkbox"} onChange={this.markAllAsSelected.bind(this)}/>
               </th> : false}
@@ -68,21 +74,43 @@ export default class EntitiesTableViewer extends Component {
                     <TableHeaderElement  key={index} markupItem={markupItem} onSortDataChange={this.props.onSortDataChange} sortData={this.props.sortData}/>
                 )})
               }
-            </tr>
+            </tr> : false}
           </thead>
           <tbody>
-          {
+          {this.state.viewMode === tableMode ?
             this.props.entities.map((item, index) => {
               return (
                 <tr style={{cursor: 'pointer'}} onClick={(ev) => this.onRowClick(ev, item)} key={index}>
-                  {this.state.isSelectedActive ? <SelectEntityTableRenderer key={index} id={item.id} selectedIds={this.state.selectedIds} onSelectedIdsChange={this.onSelectedIdsChange.bind(this)}/> : false}
+                  {this.state.isSelectedActive ?
+                  <td className="select-entity-table-renderer">
+                    <SelectEntityTableRenderer key={index} id={item.id} selectedIds={this.state.selectedIds} onSelectedIdsChange={this.onSelectedIdsChange.bind(this)}/>
+                  </td>: false}
                   {
                     this.state.entitiesMarkup.map((markupItem, index) => this.getTableRowColumnItem(item, markupItem, index))
                   }
                 </tr>
               )
-            })
-          }
+            }) : false}
+          {this.state.viewMode === imageMode ?
+            <tr className="image-mode-tr">
+              <td>
+              {this.props.entities.map((item, index) => {
+                return (
+                  <div className="image-view-item-container" key={index}>
+                    <div className="image-view-image-container"><img src={item.picture ? item.picture : 'resources/no-img.png'}/></div>
+                    <div className="text-container">{item.code}</div>
+                    {item.catalogVersion ? <div className="text-container">{item.catalogVersion}</div> : false}
+                    <div className="image-view-icon-container sync-state-container">
+                      {item.syncStates ? <SyncStateTableRenderer value={item.syncStates}/> : false}
+                      <i className={'material-icons entity-navigation-icon'} onClick={() => this.props.onEntityItemClick(item)}>launch</i>
+                      {this.state.isSelectedActive ? <SelectEntityTableRenderer id={item.id} selectedIds={this.state.selectedIds} onSelectedIdsChange={this.onSelectedIdsChange.bind(this)}/> : false}
+                    </div>
+                  </div>
+                )
+              })}
+              </td>
+            </tr>
+            : false}
           </tbody>
           <tfoot>
           <tr className="navigation-footer">
@@ -161,7 +189,9 @@ export default class EntitiesTableViewer extends Component {
 
     if (markupItem.name === 'syncStates') {
       return (
-        <SyncStateTableRenderer style={style} value={item.syncStates} key={index}/>
+        <td style={style} className="sync-state-container" key={index}>
+          <SyncStateTableRenderer value={item.syncStates}/>
+        </td>
       )
     }
     let itemValue = item[markupItem.name];
