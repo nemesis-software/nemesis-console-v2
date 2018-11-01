@@ -25,6 +25,7 @@ let NemesisProjectionCollectionField = componentRequire('app/components/field-co
 let NemesisCategoriesCollection = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-categories-entity-collection/nemesis-categories-entity-collection', 'nemesis-categories-entity-collection');
 
 import CssClassHelper from '../../../../services/css-class-helper';
+import {entityBulkEdit} from "../../../../types/entity-types";
 
 export default class EntitySection extends Component {
   constructor(props) {
@@ -56,6 +57,7 @@ export default class EntitySection extends Component {
   }
 
   getSectionItemRenderer(item, index) {
+    let isRequered = this.props.entity.type === entityBulkEdit ? false : item.required;
     let reactElement;
     let itemName = item.name.replace('entity-', '');
     let elementConfig ={
@@ -63,7 +65,7 @@ export default class EntitySection extends Component {
       label: item.fieldLabel,
       name: itemName,
       readOnly: !item.updatable || !item.insertable,
-      required: item.required,
+      required: isRequered,
       value: this.getItemValue(item, itemName),
       type: nemesisFieldUsageTypes.edit,
       ref: (field) => { field && this.fieldsReferences.push(field)}

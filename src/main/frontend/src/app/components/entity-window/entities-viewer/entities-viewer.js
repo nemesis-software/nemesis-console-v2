@@ -76,8 +76,12 @@ export default class EntitiesViewer extends Component {
     }, this.handleRequestError.bind(this));
   }
 
-  onEntityItemClick(item) {
-    this.props.onEntityItemClick(item, this.props.entity.entityId, item._links.self.href);
+  onEntityItemClick(item, entityId, url, itemType, additionParams) {
+    if (!itemType) {
+      this.props.onEntityItemClick(item, this.props.entity.entityId, item._links.self.href);
+    } else {
+      this.props.onEntityItemClick(item, entityId, url, itemType, additionParams)
+    }
   }
 
   retakeEntityData() {

@@ -7,7 +7,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 
 import ApiCall from '../../services/api-call'
-import {entitySearchType, entityItemType, entityCreateType, entityCloneType} from '../../types/entity-types'
+import {entitySearchType, entityItemType, entityCreateType, entityCloneType, entityBulkEdit} from '../../types/entity-types'
 import {componentRequire} from '../../utils/require-util';
 
 let EntitiesNavigation = componentRequire('app/components/entities-navigation/entities-navigation', 'entities-navigation');
@@ -113,15 +113,16 @@ export default class MainView extends Component {
         itemId: null,
         additionParams: additionParams
       };
-    } else if (itemType && itemType === entityCloneType) {
+    } else if (itemType && (itemType === entityCloneType || itemType === entityBulkEdit)) {
       selectedEntity = {
         entityId: entityId,
         data: this.state.entityMarkupData[entityItem.entityName],
-        type: entityCloneType,
+        type: itemType,
         itemId: this.createWindowIncrementor,
         entityName: entityItem.entityName,
         additionParams: additionParams
       };
+      console.log(additionParams);
       this.createWindowIncrementor++;
     } else {
       selectedEntity = {
@@ -254,6 +255,19 @@ export default class MainView extends Component {
       urlEntity[splitItem[0]] = !!splitItem[1] ? splitItem[1] : null;
     });
 
+    if (urlEntity.type === 'nemesisNewWidget') {
+      this.setNemesisNewWidget(urlEntity.slotId);
+      return Promise.resolve();
+    }
+
+    if (urlEntity.type === 'nemesisNewPage') {
+      let additionParams = {
+        customClientData: {catalogVersion: {catalogVersion: urlEntity.catalogCode, id: urlEntity.catalogVersionId}, masterTemplate:{id: urlEntity.templateId, code: urlEntity.templateCode, catalogVersion: urlEntity.catalogCode}}
+      };
+      this.onEntityItemClick({entityName: 'cms_page'}, 'cms_page', null, entityCloneType, additionParams);
+      return Promise.resolve();
+    }
+
     if (urlEntity.type === entityItemType) {
       urlEntity.data = this.state.entityMarkupData[urlEntity.entityName]
     } else if (urlEntity.type === entitySearchType) {
@@ -264,6 +278,17 @@ export default class MainView extends Component {
 
     this.setSelectedItemInState(urlEntity);
     return Promise.resolve();
+  }
+
+  setNemesisNewWidget(slotId) {
+    let selectedEntity = {
+      type: 'nemesisNewWidget',
+      entityCode: 'nemesisNewWidget',
+      entityId: 'widget',
+      itemId: null,
+      slotId: slotId
+    };
+    this.setSelectedItemInState(selectedEntity);
   }
 }
 

@@ -5,7 +5,7 @@ import Translate from 'react-translate-component';
 import SwipeableViews from 'react-swipeable-views';
 import Modal from 'react-bootstrap/lib/Modal';
 
-import {entityItemType, entityCreateType, entityCloneType} from '../../../types/entity-types';
+import {entityItemType, entityCreateType, entityCloneType, entityBulkEdit} from '../../../types/entity-types';
 import ApiCall from '../../../services/api-call';
 import DataService from 'servicesDir/data-service';
 import { componentRequire } from '../../../utils/require-util';
@@ -121,7 +121,7 @@ export default class EntitySections extends Component {
         )
       }, onClickFunction: this.handleSynchronizeButtonClick.bind(this)});
 
-      if (!_.isEmpty(this.state.entityData) && this.state.entityData._links.mirrorSyncStates) {
+      if (!_.isEmpty(this.state.entityData) && this.state.entityData._links && this.state.entityData._links.mirrorSyncStates) {
         result.push({label: 'Get Mirror', customRenderer: (index) => {
             return <MirrorButton onMirrorEntityClick={this.onMirrorEntityClick.bind(this)} key={index} isOnline={this.state.entityData.online} mirrorLink={this.state.entityData._links.mirrorSyncStates.href}/>
           }});
@@ -222,8 +222,10 @@ export default class EntitySections extends Component {
 
   handleCloneButtonClick() {
     let entityData = {...this.state.entityData, id: null, code: this.state.entityData.code + new Date().getTime()};
+    if (entityData && entityData.customClientData && entityData.customClientData.syncStates) {
+      delete entityData.customClientData.syncStates;
+    }
     this.props.onEntityItemClick({entityName: this.props.entity.entityName}, this.props.entity.entityId , null, entityCloneType, entityData);
-    this.getDataEntity(this.props.entity);
   }
 
   handleConfirmationDeleteButtonClick() {
@@ -242,6 +244,10 @@ export default class EntitySections extends Component {
   handleSynchronizeButtonClick() {
     let entity = this.props.entity;
     this.setState({...this.state, isDataLoading: true});
+    if (entity.type === entityBulkEdit) {
+      this.bulkSynchronize();
+      return;
+    }
     ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
       this.props.openNotificationSnackbar('Entity successfully synchronized');
       this.setState({...this.state, isDataLoading: false, entitySyncStatus: 'COMPLETED'});
@@ -268,6 +274,10 @@ export default class EntitySections extends Component {
     });
     let restMethod = entity.type === entityItemType ? 'patch' : 'post';
     let restUrl = entity.type === entityItemType ? `${entity.entityName}/${entity.itemId}` : entity.entityName;
+    if (entity.type === entityBulkEdit) {
+      this.bulkEditSave(resultObject);
+      return;
+    }
     ApiCall[restMethod](entity.entityUrl || restUrl, resultObject).then((result) => {
       this.props.onUpdateEntitySearchView(this.props.entity);
       let itemId = entity.type === entityItemType ? entity.itemId : result.data.id;
@@ -285,6 +295,66 @@ export default class EntitySections extends Component {
         this.setState({...this.state, isDataLoading: false, entitySyncStatus: 'OUT_OF_SYNC'});
       });
     }, this.handleRequestError.bind(this));
+  }
+
+  bulkEditSave(resultObj) {
+    if (_.isEmpty(resultObj)) {
+      this.setState({isDataLoading: false});
+      return;
+    }
+    let ids = this.props.entity.additionParams;
+    let hasError = false;
+    for (let i = 0, p = Promise.resolve(); i < ids.length; i++) {
+      p = p.then(() => new Promise(resolve => {
+          let url = `${this.props.entity.entityName}/${ids[i]}`;
+          if (hasError) {
+            resolve();
+            return;
+          }
+          ApiCall.patch(url, resultObj).then(() => {
+            if (i === ids.length - 1) {
+              this.props.onUpdateEntitySearchView(this.props.entity);
+              this.resetDirtyEntityFields();
+              this.props.openNotificationSnackbar('All entities successfully saved');
+              this.setState({isDataLoading: false});
+            }
+            resolve();
+          }, err => {
+            hasError = true;
+            this.handleRequestError(err);
+            this.resetDirtyEntityFields();
+            this.props.onUpdateEntitySearchView(this.props.entity);
+            resolve();
+          })
+        }
+      ));
+    }
+  }
+
+  bulkSynchronize() {
+    let ids = this.props.entity.additionParams;
+    let hasError = false;
+    let entityName = this.props.entity.entityName;
+    for (let i = 0, p = Promise.resolve(); i < ids.length; i++) {
+      p = p.then(() => new Promise(resolve => {
+          if (hasError) {
+            resolve();
+            return;
+          }
+        ApiCall.get('backend/synchronize', {entityName: entityName, id: ids[i]}).then(() => {
+            if (i === ids.length - 1) {
+              this.props.openNotificationSnackbar('All entities successfully synchronized');
+              this.setState({isDataLoading: false});
+            }
+            resolve();
+          }, err => {
+            hasError = true;
+            this.handleRequestError(err);
+            resolve();
+          })
+        }
+      ));
+    }
   }
 
   getCloneInitialDataForSave() {

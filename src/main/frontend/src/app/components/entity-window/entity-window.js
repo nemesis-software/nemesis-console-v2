@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {entitySearchType, entityItemType, entityCreateType, entityCloneType} from '../../types/entity-types';
+import {entitySearchType, entityItemType, entityCreateType, entityCloneType, entityBulkEdit} from '../../types/entity-types';
 import { componentRequire } from '../../utils/require-util';
+import NewWidgets from "../new-widgets/new-widgets";
 
 let EntitiesViewer = componentRequire('app/components/entity-window/entities-viewer/entities-viewer', 'entities-viewer');
 let EntitySections = componentRequire('app/components/entity-window/entity-sections/entity-sections', 'entity-sections');
@@ -28,8 +29,12 @@ export default class EntitiesWindow extends Component {
 
   renderEntityByType(entity) {
     switch (entity.type) {
+      case 'nemesisNewWidget': {
+        return <NewWidgets slotId={entity.slotId} onEntityItemClick={this.props.onEntityItemClick}/>
+      }
       case entityCreateType:
       case entityCloneType:
+      case entityBulkEdit:
       case entityItemType: {
         return <EntitySections entity={entity}
                                onEntityItemClick={this.props.onEntityItemClick}
