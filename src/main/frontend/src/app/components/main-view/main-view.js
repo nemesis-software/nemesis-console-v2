@@ -104,7 +104,6 @@ export default class MainView extends Component {
 
   onEntityItemClick(entityItem, entityId, url, itemType, additionParams) {
     let selectedEntity = {};
-
     if (itemType && itemType === entitySearchType) {
       selectedEntity = {
         entityId: entityId,
@@ -126,7 +125,7 @@ export default class MainView extends Component {
     } else {
       selectedEntity = {
         entityId: entityId,
-        data: this.state.entityMarkupData[entityItem.entityName],
+        data: this.state.entityMarkupData[entityId],
         type: entityItemType,
         itemId: entityItem.id,
         entityName: entityItem.entityName,
