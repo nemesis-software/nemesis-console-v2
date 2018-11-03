@@ -125,7 +125,7 @@ export default class MainView extends Component {
     } else {
       selectedEntity = {
         entityId: entityId,
-        data: this.state.entityMarkupData[entityId],
+        data: this.state.entityMarkupData[entityItem.entityName],
         type: entityItemType,
         itemId: entityItem.id,
         entityName: entityItem.entityName,
