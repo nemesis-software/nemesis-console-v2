@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import { componentRequire } from '../../../utils/require-util';
 
-import {nemesisFieldTypes} from '../../../types/nemesis-types';
+import {nemesisFieldTypes, nemesisFieldUsageTypes} from '../../../types/nemesis-types';
 
 import Modal from 'react-bootstrap/lib/Modal';
 
@@ -15,6 +15,7 @@ let NemesisCreatableSelect = componentRequire('app/components/field-components/n
 let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
+let NemesisMapField = componentRequire('app/components/field-components/nemesis-map-field/nemesis-map-field', 'nemesis-map-field');
 
 export default class MasterAdminFieldPanel extends Component {
   constructor(props) {
@@ -54,6 +55,7 @@ export default class MasterAdminFieldPanel extends Component {
           <hr/>
           <NemesisCreatableSelect values={this.props.sections} ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="section" value={this.props.field.section} label="Section"/>
           <NemesisNumberField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="sectionWeight" value={this.props.field.sectionWeight} label="Section weight"/>
+          <NemesisMapField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} type={nemesisFieldUsageTypes.edit} style={{width: '265px'}} name="projectionExpressions" value={this.props.field.projectionExpressions} label="Projection expressions"/>
           <hr/>
           <NemesisBooleanField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{padding: '5px'}} name="inMainView" value={this.props.field.inMainView} label="In main view"/>
           <NemesisTextField ref={(fieldPanel) => {fieldPanel && this.fieldsReferences.push(fieldPanel)}} style={{width: '265px'}} name="groupName" value={this.props.field.groupName} label="Group name"/>
