@@ -104,7 +104,6 @@ export default class MainView extends Component {
 
   onEntityItemClick(entityItem, entityId, url, itemType, additionParams) {
     let selectedEntity = {};
-
     if (itemType && itemType === entitySearchType) {
       selectedEntity = {
         entityId: entityId,
