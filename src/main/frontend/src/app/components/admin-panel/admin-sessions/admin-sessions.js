@@ -14,12 +14,12 @@ export default class AdminSessions extends Component {
       <div className="admin-sessions">
         <div>
           <input type="text"
-                 style={{width: '256px', display: 'inline-block'}}
+                 style={{width: '256px', display: 'inline-block', borderRadius: '0px', height: '36px', verticalAlign: 'top'}}
                  placeholder="Enter user code"
                  className="form-control"
                  value={this.state.inputValue || ''}
                  onChange={ev => this.setState({...this.state, inputValue: ev.target.value})}/>
-          <button className="btn btn-default" onClick={this.onGetSessionButtonClick.bind(this)}>Get Sessions</button>
+          <button className="nemesis-button success-button" style={{height: '36px', padding: '8px 25px', marginLeft: '10px'}} onClick={this.onGetSessionButtonClick.bind(this)}>Get Sessions</button>
         </div>
         <div>
           <table style={{width: '100%', tableLayout: 'fixed'}} className="table table-striped">
