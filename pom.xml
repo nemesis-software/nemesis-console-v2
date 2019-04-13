@@ -11,7 +11,8 @@
   ~ license agreement you entered into with nemesis.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -30,9 +31,9 @@
     <properties>
         <project.directory>console</project.directory>
         <maven.rat.plugin.skip>true</maven.rat.plugin.skip>
-        <frontend-plugin.version>1.4</frontend-plugin.version>
+        <frontend-plugin.version>1.6</frontend-plugin.version>
         <node.version>v7.10.0</node.version>
-        <yarn.version>v0.24.0</yarn.version>
+        <yarn.version>v1.14.0</yarn.version>
     </properties>
 
     <profiles>
@@ -271,13 +272,13 @@
     </dependencies>
 
     <build>
-	<finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
-	    <plugin>
-               <groupId>com.spotify</groupId>
-               <artifactId>docker-maven-plugin</artifactId>
-               <version>${docker-maven-plugin.version}</version>
-               <configuration>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-plugin.version}</version>
+                <configuration>
                     <imageName>nemesis/console</imageName>
                     <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
                     <serverId>docker-hub</serverId>
@@ -290,7 +291,7 @@
                         </resource>
                     </resources>
                 </configuration>
-	    </plugin>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
