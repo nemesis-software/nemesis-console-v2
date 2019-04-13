@@ -168,6 +168,7 @@ module.exports = {
     bundle_price:'Price',
     bundle_template: 'Template',
     bundle_selection_criteria: 'Selection Criteria',
+    bundle_rule: 'Bundle Rule',
     //classification
     classification: 'Classification',
     classification_category: 'Classification Category',
