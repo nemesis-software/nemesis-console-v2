@@ -75,11 +75,11 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
         final UserData userData;
         try {
             SSLContext context = SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
-            SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(context, new NoopHostnameVerifier());
+            SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(context, NoopHostnameVerifier.INSTANCE);
             Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create().register("https", csf).build();
             HttpClientConnectionManager ccm = new PoolingHttpClientConnectionManager(registry);
 
-            HttpClient httpclient = HttpClientBuilder.create().setConnectionManager(ccm).build();
+            HttpClient httpclient = HttpClientBuilder.create().setConnectionManager(ccm).setSSLSocketFactory(csf).build();
 
             /*
              * It can't be POST because the CSRF is triggered.

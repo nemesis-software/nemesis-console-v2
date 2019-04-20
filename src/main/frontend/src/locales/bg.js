@@ -135,6 +135,7 @@ module.exports = {
     bundle_selection: 'Подбор',
     bundle_price:'Цени',
     bundle_template: 'Темплейти',
+    bundle_rule: 'Правила',
     //classification
     classification: 'Класификация',
     classification_category: 'Класификационна категория',

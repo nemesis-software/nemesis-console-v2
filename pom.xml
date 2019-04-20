@@ -18,7 +18,7 @@
     <parent>
         <groupId>com.nemesis</groupId>
         <artifactId>bom</artifactId>
-        <version>2.0.1.BUILD-SNAPSHOT</version>
+        <version>2.1.0.BUILD-SNAPSHOT</version>
     </parent>
 
     <groupId>com.nemesis.platform.console</groupId>
@@ -31,9 +31,9 @@
     <properties>
         <project.directory>console</project.directory>
         <maven.rat.plugin.skip>true</maven.rat.plugin.skip>
-        <frontend-plugin.version>1.4</frontend-plugin.version>
+        <frontend-plugin.version>1.6</frontend-plugin.version>
         <node.version>v7.10.0</node.version>
-        <yarn.version>v0.24.0</yarn.version>
+        <yarn.version>v1.14.0</yarn.version>
     </properties>
 
     <profiles>
@@ -180,7 +180,7 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
