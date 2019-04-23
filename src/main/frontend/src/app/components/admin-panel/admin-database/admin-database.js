@@ -15,7 +15,7 @@ export default class AdminDatabase extends Component {
   componentWillMount() {
     PlatformApiCall.get('flyway').then(result => {
         let flywayObj = this.findFlyway(result.data);
-        let otherMigrations = flywayObj.migrations.filter(migration => migration.state.toLowerCase() !== 'pending');
+        let otherMigrations = flywayObj.migrations.filter(migration => migration.state.toLowerCase() !== 'pending').sort((a,b) => (a.installedRank > b.installedRank) ? -1 : ((b.installedRank > a.installedRank) ? 1 : 0));
         let pendingMigrations = flywayObj.migrations.filter(migration => migration.state.toLowerCase() === 'pending');
         this.setState({
           migrations: otherMigrations,
@@ -92,7 +92,7 @@ export default class AdminDatabase extends Component {
                       {
                         this.getMigrationsForPage().map((item, index) => {
                           return (
-                            <tr key={index}>
+                            <tr key={index} style={{backgroundColor:'palegreen'}}>
                               <td style={{wordWrap: 'break-word'}}>{item.installedRank}</td>
                               <td style={{wordWrap: 'break-word'}}>{item.type}</td>
                               <td style={{wordWrap: 'break-word'}}>{item.version}</td>
