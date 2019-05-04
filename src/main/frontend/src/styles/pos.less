@@ -224,10 +224,12 @@
 
   .bill-panel-container {
     border-right: 2px solid @main-blue;
+    border-left: 2px solid @main-blue;
     height: ~"calc(100vh - 60px)";
     width: 435px;
     position: fixed;
-    left: 60px;
+    top: @navbar-height;
+    left: @navbar-width;
 
     .bill-control-buttons {
       height: 240px;
@@ -324,7 +326,7 @@
 
   .product-panel-container {
     width: ~"calc(100% - 495px)";
-    height: ~"calc(100vh - 60px)";
+    top: @navbar-height;
     position: fixed;
     right: 0;
 

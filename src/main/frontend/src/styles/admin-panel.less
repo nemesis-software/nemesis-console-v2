@@ -1,7 +1,12 @@
 @import './variables';
 
 .nemesis-admin-panel {
-  padding: 60px 0 60px 60px;
+  position: fixed;
+  top: @navbar-height;
+  left: @navbar-width;
+  width:100% - @navbar-width;
+  height:100% - @navbar-height;
+  overflow-x:scroll;
 
   .input-group {
     .input-group-addon, .form-control {

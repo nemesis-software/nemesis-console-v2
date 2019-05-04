@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  withRouter,
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
@@ -23,7 +24,7 @@ import 'react-select/dist/react-select.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
-import 'font-awesome/css/font-awesome.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 import 'material-design-icons/iconfont/material-icons.css'
 
@@ -100,10 +101,12 @@ export default class App extends Component {
       )
     }
 
+    const SideBarComponent = withRouter(props => <NemesisSideBar sidebarData={this.state.sidebarData} routerProps={props}/>);
+
     return (
         <Router basename="/backend">
           <div>
-            {!this.isOpenInFrame ? <NemesisSideBar sidebarData={this.state.sidebarData}/> : false}
+            {!this.isOpenInFrame ? <SideBarComponent/> : false}
             <Route
               exact={true}
               path={'/'}
