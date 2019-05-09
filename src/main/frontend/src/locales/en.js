@@ -158,7 +158,7 @@ module.exports = {
     navigation_node: 'Navigation Node',
     //blog
     blog: 'Blog',
-    blog_entry: 'Entry',
+    blog_entry: 'Blog Entry',
     blog_category: 'Category',
     //taxonomy
     taxon_attribute: 'Taxon Attribute',

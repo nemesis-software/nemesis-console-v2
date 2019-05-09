@@ -49,7 +49,7 @@ export default class AdminPanel extends Component {
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 9 ? ' active' : '')} onClick={() => this.handleChange(9)}><i className="fa fa-terminal"/>Execute script</div>
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 10 ? ' active' : '')} onClick={() => this.handleChange(10)}><i className="fa fa-calendar"/>Job Management</div>
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 11 ? ' active' : '')} onClick={() => this.handleChange(11)}><i className="fa fa-calendar"/>Sessions</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 12 ? ' active' : '')} onClick={() => this.handleChange(12)}><i className="fa fa-cached"/>Caches</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 12 ? ' active' : '')} onClick={() => this.handleChange(12)}><i className="fa fa-tachometer-alt"/>Caches</div>
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 13 ? ' active' : '')} onClick={() => this.handleChange(13)}><i className="fa fa-road"/>Mappings</div>
           </div>
           <div className="container">
