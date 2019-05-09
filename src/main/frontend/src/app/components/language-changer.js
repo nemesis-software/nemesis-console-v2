@@ -29,7 +29,7 @@ export default class LanguageChanger extends Component {
                 className={this.props.selectClassName}
                 disabled={this.props.readOnly}
                 arrowRenderer={() => <SelectCustomArrow />}
-                value={{value: this.state.selectedLanguage, label: <span className="fa fa-globe">{this.state.selectedLanguage.labelCode}</span> }}
+                value={{value: this.state.selectedLanguage, label: <span><i className="fa fa-globe"></i><span>{this.state.selectedLanguage.labelCode}</span></span> }}
                 onChange={(item) => this.handleChange(item)}
                 options={this.state.availableLanguages.map(this.getOptionFields.bind(this))}/>
       </div>

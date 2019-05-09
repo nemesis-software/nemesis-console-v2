@@ -15,12 +15,12 @@ export default class NemesisSideBar extends Component {
     return (
       <div className="nemesis-side-bar">
         <Link to="/pos">
-          <div title="Point of sale" className={"nemesis-side-bar-item" + (pathName === "/pos" ? " selected" : "")}><i className="fa fa-shopping-basket nemesis-side-bar-icon"></i></div>
+          <div title="Point of sale" className={"nemesis-side-bar-item" + (pathName.startsWith("/pos") ? " selected" : "")}><i className="fa fa-shopping-basket nemesis-side-bar-icon"></i></div>
         </Link>
         {_.map(_.keys(this.props.sidebarData), item => {
           return (
             <Link to={`/${item}`} key={item}>
-            <div title={item} className={"nemesis-side-bar-item"+ (pathName === `/${item}` ? " selected" : "")}><i className={"nemesis-side-bar-icon fa " + this.getIcon(item)}></i></div>
+            <div title={item} className={"nemesis-side-bar-item"+ (pathName.startsWith(`/${item}`) ? " selected" : "")}><i className={"nemesis-side-bar-icon fa " + this.getIcon(item)}></i></div>
           </Link>
           )
         })}
@@ -29,12 +29,12 @@ export default class NemesisSideBar extends Component {
         </Link>
         {this.isAdmin ?
           <Link to="/maintenance">
-            <div title="Maintenance" className={"nemesis-side-bar-item" + (pathName === "/maintenance" ? " selected" : "")}><i className="fa fa-file-code nemesis-side-bar-icon"></i></div>
+            <div title="Maintenance" className={"nemesis-side-bar-item" + (pathName.startsWith("/maintenance") ? " selected" : "")}><i className="fa fa-file-code nemesis-side-bar-icon"></i></div>
           </Link>
           : false}
         {this.isAdmin ?
           <Link to="/console-configuration">
-            <div title="Console configuration" className={"nemesis-side-bar-item"+ (pathName === "/console-configuration" ? " selected" : "")}><i className="fa fa-cog nemesis-side-bar-icon"></i></div>
+            <div title="Console configuration" className={"nemesis-side-bar-item"+ (pathName.startsWith("/console-configuration") ? " selected" : "")}><i className="fa fa-cog nemesis-side-bar-icon"></i></div>
           </Link>
           : false}
       </div>

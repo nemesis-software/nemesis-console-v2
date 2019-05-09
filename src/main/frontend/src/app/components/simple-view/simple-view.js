@@ -44,6 +44,7 @@ export default class SimpleView extends Component {
           {!this.state.isItemSelected ? this.props.allowedViews.map(item => {
             return (
               <div className="simple-view-item-selector" key={item} onClick={() => {this.openSimpleViewItem(item)}}>
+                <i className={"fa " + this.getIcon(item)}></i>
                 <Translate component="div" content={'main.' + item} fallback={item}/>
               </div>
             )
@@ -71,5 +72,18 @@ export default class SimpleView extends Component {
       level: level || 'success',
       position: 'tc'
     });
+  }
+
+  getIcon(item) {
+      switch (item) {
+        case 'price': return 'fa-tag';
+        case 'product': return 'fa-box';
+        case 'discount': return 'fa-percent';
+        case 'tax': return 'fa-dollar-sign';
+        case 'taxonomy': return 'fa-project-diagram';
+        case 'blog_entry': return 'fa-newspaper';
+        case 'widget': return 'fa-puzzle-piece';
+        default: return 'fa-folder'
+      }
   }
 }

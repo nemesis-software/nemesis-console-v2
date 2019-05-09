@@ -251,7 +251,7 @@ body {
         color: white;
         margin-left: 0;
         margin-right: 0;
-        border-radius: 4px;
+        border-radius: @border-radius;
 
         .nemesis-side-bar-icon {
             color: @light-font-color !important;
@@ -318,19 +318,33 @@ body {
   position:absolute;
   top:@navbar-height;
   left:@navbar-width;
-  width:100%;
-  height:100%;
+  width:100% - @navbar-width;
+  height:100% - @navbar-height;
   background: @light-grey;
+  text-align: center;
+
+  .console-configuration-wrapper {
+      margin-top: 15%;
+  }
 
   .configuration-type-box {
     padding: 20px;
-    border: 1px solid black;
+    border: 1px solid @border-colors;
+    border-radius: @border-radius;
     cursor: pointer;
+    background: white;
     display: inline-block;
+    color: @main-blue-darker;
     width: 200px;
-    height: 200px;
-    vertical-align: top;
-    margin: 20px;
+    height: 20%;
+    margin: 2%;
+    font-size: 25px;
+    > i {
+        font-size:50px;
+    }
+    > div {
+        margin-top: 30%;
+    }
   }
 
   .all-fields-configuration {
@@ -344,7 +358,8 @@ body {
         padding: 10px 20px;
         text-align: center;
         border: 1px solid @border-colors;
-        margin: 10px;
+        border-radius: @border-radius;
+        margin: 3%;
         cursor: pointer;
         background: white;
       }
@@ -476,19 +491,32 @@ body {
   position:absolute;
   top:@navbar-height;
   left:@navbar-width;
+  text-align:center;
   width:100%;
   height:100%;
   background: @light-grey;
 
   .simple-view-item-selector {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 20px;
     text-align: center;
-    border: 1px solid #d3d3d3;
-    margin: 10px;
+    border: 1px solid @border-colors;
+    margin: 2%;
+    color: @main-blue-darker;
     cursor: pointer;
     background: white;
     min-width: 200px;
+    height:20%;
+    margin-top:15%;
+    font-size: 25px;
+    border-radius: @border-radius;
+
+    > i {
+        font-size:50px;
+    }
+    > div {
+        margin-top: 30%;
+    }
   }
 
   .simple-entity-item-view {
@@ -768,7 +796,7 @@ body {
   .header-language-changer {
     .Select-control {
       border: none;
-      border-radius: 4px;
+      border-radius: @border-radius;
       color: @main-blue !important;
       background: white !important;
       box-shadow: none !important;
@@ -814,7 +842,7 @@ body {
   .live-edit-toggle {
     padding: 0;
     margin-right: 10px;
-    border-radius: 4px;
+    border-radius: @border-radius;
     border: none !important;
     color: @main-blue !important;
     background: white !important;
@@ -1652,7 +1680,7 @@ body {
       height: 40px;
       margin: 0 5px 10px 0;
       border: none;
-      border-radius: 4px;
+      border-radius: @border-radius;
       padding-left: 5px;
       padding-right: 26px;
 
@@ -1863,7 +1891,7 @@ body {
       width: ~"calc(25% - 40px)";
       display: inline-block;
       background: white;
-      border-radius: 5px;
+      border-radius: @border-radius;
 
       &:nth-of-type(1) {
         .info-panel-icon {

@@ -30,11 +30,11 @@ export default class ConsoleConfigurationPanel extends Component {
         <NemesisHeader onRightIconButtonClick={() => {}}/>
         <div className="console-configuration-panel">
           <Route exact={true} path={this.props.match.path} component={() => (
-            <div>
-              <Link to={`${this.props.match.path}/masterAdmin`}><div className="configuration-type-box">Configuration for master admin</div></Link>
-              <Link to={`${this.props.match.path}/navigationAdmin`}><div className="configuration-type-box">Configuration for master admin navigation</div></Link>
-              <Link to={`${this.props.match.path}/sidebarAdmin`}><div className="configuration-type-box">Configuration for sidebar</div></Link>
-              <Link to={`${this.props.match.path}/permissionConfig`}><div className="configuration-type-box">Permission configuration</div></Link>
+            <div className="console-configuration-wrapper">
+              <Link to={`${this.props.match.path}/masterAdmin`}><div className="configuration-type-box"><i className="fa fa-crown"></i><div>Master</div></div></Link>
+              <Link to={`${this.props.match.path}/navigationAdmin`}><div className="configuration-type-box"><i className="fa fa-sitemap"></i><div>Navigation</div></div></Link>
+              <Link to={`${this.props.match.path}/sidebarAdmin`}><div className="configuration-type-box"><i className="fa fa-ellipsis-v"></i><div>Sidebar</div></div></Link>
+              <Link to={`${this.props.match.path}/permissionConfig`}><div className="configuration-type-box"><i className="fa fa-blind"></i><div>Permissions</div></div></Link>
             </div>
           )}/>
           <Route path={`${this.props.match.path}/masterAdmin`} component={() => <AllFieldsConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>} />
