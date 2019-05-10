@@ -491,32 +491,35 @@ body {
   position:absolute;
   top:@navbar-height;
   left:@navbar-width;
-  text-align:center;
   width:100% - @navbar-width;
   height:100% - @navbar-height;
   background: @light-grey;
 
-  .simple-view-item-selector {
-    display: inline-block;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid @border-colors;
-    margin: 2%;
-    color: @main-blue-darker;
-    cursor: pointer;
-    background: white;
-    min-width: 200px;
-    height:20%;
-    margin-top:15%;
-    font-size: 25px;
-    border-radius: @border-radius;
+  .simple-view-wrapper {
+      text-align: center;
 
-    > i {
-        font-size:50px;
-    }
-    > div {
-        margin-top: 30%;
-    }
+      .simple-view-item-selector {
+            display: inline-block;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid @border-colors;
+            margin: 2%;
+            color: @main-blue-darker;
+            cursor: pointer;
+            background: white;
+            min-width: 200px;
+            height:20%;
+            margin-top:15%;
+            font-size: 25px;
+            border-radius: @border-radius;
+
+            > i {
+                font-size:50px;
+            }
+            > div {
+                margin-top: 30%;
+            }
+      }
   }
 
   .simple-entity-item-view {

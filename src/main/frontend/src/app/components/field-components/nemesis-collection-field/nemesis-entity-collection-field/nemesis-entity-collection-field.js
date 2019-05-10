@@ -22,7 +22,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
             <span className="required-star">*</span> : false}</div>
-          {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs.length > 0 ?
+          {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
             <Select style={this.getSelectStyle()}
                     cache={false}
                     arrowRenderer={() => <SelectCustomArrow/>}
@@ -74,7 +74,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   filterEntityData(inputText) {
     let inputTextActual = inputText || '';
     let params = {page: 0, size: 10, code: `%${inputTextActual}%`, projection: 'search'};
-    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs.length > 0) {
+    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
       params.catalogVersionIds = this.context.globalFiltersCatalogs.map(item => item.id).join(',');
     }
     return ApiCall.get(this.getSearchUrl(), params).then(result => {
@@ -92,7 +92,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   getSearchUrl() {
     let urlSuffix = '/search/findByCodeLike/';
-    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs.length > 0) {
+    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
       urlSuffix = '/search/findByCodeLikeAndCatalogVersionIdIn'
     }
 
