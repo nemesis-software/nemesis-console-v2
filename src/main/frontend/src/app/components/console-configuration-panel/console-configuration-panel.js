@@ -34,7 +34,7 @@ export default class ConsoleConfigurationPanel extends Component {
               <Link to={`${this.props.match.path}/masterAdmin`}><div className="configuration-type-box"><i className="fa fa-crown"></i><div>Master</div></div></Link>
               <Link to={`${this.props.match.path}/navigationAdmin`}><div className="configuration-type-box"><i className="fa fa-sitemap"></i><div>Navigation</div></div></Link>
               <Link to={`${this.props.match.path}/sidebarAdmin`}><div className="configuration-type-box"><i className="fa fa-ellipsis-v"></i><div>Sidebar</div></div></Link>
-              <Link to={`${this.props.match.path}/permissionConfig`}><div className="configuration-type-box"><i className="fa fa-blind"></i><div>Permissions</div></div></Link>
+              <Link to={`${this.props.match.path}/permissionConfig`}><div className="configuration-type-box"><i className="fa fa-user-shield"></i><div>Permissions</div></div></Link>
             </div>
           )}/>
           <Route path={`${this.props.match.path}/masterAdmin`} component={() => <AllFieldsConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>} />

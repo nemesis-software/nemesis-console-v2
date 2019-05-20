@@ -24,10 +24,6 @@ export default class AdminDetails extends Component {
       <div className="admin-details">
         <AdminInfo />
         <AdminHealth />
-        <AdminMemory data={this.state.data}/>
-        <AdminServletContainer data={this.state.data}/>
-        <AdminJVM data={this.state.data}/>
-        <AdminGC data={this.state.data}/>
       </div>
     );
   }
