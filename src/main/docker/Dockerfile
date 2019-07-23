@@ -1,4 +1,4 @@
-FROM openjdk:8u151-jdk-alpine3.7
+FROM openjdk:11.0.4-jdk-stretch
 
 MAINTAINER Petar Tahchiev <ptahchiev@nemesis.io>
 
