@@ -13,21 +13,25 @@ package com.nemesis.console.backend.storefront;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.config.Registry;
-import org.apache.http.config.RegistryBuilder;
-import org.apache.http.conn.HttpClientConnectionManager;
-import org.apache.http.conn.socket.ConnectionSocketFactory;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.ssl.SSLContexts;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
+import org.apache.hc.client5.http.async.methods.SimpleHttpRequests;
+import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.cookie.CookieSpecs;
+import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
+import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
+import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
+import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
+import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
+import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
+import org.apache.hc.core5.http.ssl.TLS;
+import org.apache.hc.core5.http2.HttpVersionPolicy;
+import org.apache.hc.core5.io.CloseMode;
+import org.apache.hc.core5.pool.PoolConcurrencyPolicy;
+import org.apache.hc.core5.pool.PoolReusePolicy;
+import org.apache.hc.core5.ssl.SSLContexts;
+import org.apache.hc.core5.util.TimeValue;
+import org.apache.hc.core5.util.Timeout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -40,10 +44,11 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * @author Petar Tahchiev
@@ -65,43 +70,62 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
         final String username = (String) authentication.getPrincipal();
         final String password = (String) authentication.getCredentials();
 
-        final UserData userData;
         try {
-            SSLContext context = SSLContexts.custom().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
-            SSLConnectionSocketFactory csf = new SSLConnectionSocketFactory(context, NoopHostnameVerifier.INSTANCE);
-            Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create().register("https", csf).build();
-            HttpClientConnectionManager ccm = new PoolingHttpClientConnectionManager(registry);
+            // Trust standard CA and those trusted by our custom strategy
+            final SSLContext sslcontext = SSLContexts.custom().loadTrustMaterial((chain, authType) -> true).build();
 
-            HttpClient httpclient = HttpClientBuilder.create().setConnectionManager(ccm).setSSLSocketFactory(csf).build();
+            int timeout = 5;
 
-            /**
+            PoolingAsyncClientConnectionManager ccm = PoolingAsyncClientConnectionManagerBuilder.create().setTlsStrategy(ClientTlsStrategyBuilder.create()
+                                                                                                                                                 .setSslContext(sslcontext)
+                                                                                                                                                 .setTlsVersions(TLS.V_1_3,
+                                                                                                                                                                 TLS.V_1_2)
+                                                                                                                                                 .setHostnameVerifier(
+                                                                                                                                                                 NoopHostnameVerifier.INSTANCE)
+                                                                                                                                                 .build())
+                                                                                                .setPoolConcurrencyPolicy(PoolConcurrencyPolicy.STRICT)
+                                                                                                .setConnPoolPolicy(PoolReusePolicy.LIFO)
+                                                                                                .setConnectionTimeToLive(TimeValue.ofMinutes(1L)).build();
+
+            try (CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom().setConnectionManager(ccm).setDefaultRequestConfig(
+                            RequestConfig.custom().setConnectTimeout(Timeout.ofSeconds(timeout)).setResponseTimeout(Timeout.ofSeconds(timeout))
+                                         .setCookieSpec(CookieSpecs.STANDARD_STRICT.ident).build()).setVersionPolicy(HttpVersionPolicy.FORCE_HTTP_2).build()) {
+
+                httpclient.start();
+
+
+            /*
              * It can't be POST because the CSRF is triggered.
              */
-            HttpGet httpGet = new HttpGet(restBaseUrl + "auth");
+                SimpleHttpRequest httpGet = SimpleHttpRequests.GET.create(restBaseUrl + "auth");
 
-            LOG.debug("Calling: " + restBaseUrl + "auth");
+                LOG.debug("Calling: " + restBaseUrl + "auth");
 
-            httpGet.setHeader("X-Nemesis-Username", username);
-            httpGet.setHeader("X-Nemesis-Password", password);
+                httpGet.setHeader("X-Nemesis-Username", username);
+                httpGet.setHeader("X-Nemesis-Password", password);
 
-            HttpResponse response2 = httpclient.execute(httpGet);
-            HttpEntity entity2 = response2.getEntity();
-            final String response = EntityUtils.toString(entity2, Charset.defaultCharset());
-            LOG.info(response);
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
-            userData = mapper.readValue(response, UserData.class);
-            if (userData.getToken() == null) {
-                throw new BadCredentialsException("Invalid username/password");
+                Future<SimpleHttpResponse> future = httpclient.execute(httpGet, null);
+
+                httpclient.shutdown(CloseMode.GRACEFUL);
+
+                SimpleHttpResponse response = future.get();
+
+                final String responseText = response.getBody().getBodyText();
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
+                UserData userData = mapper.readValue(responseText, UserData.class);
+                if (userData.getToken() == null) {
+                    throw new BadCredentialsException("Invalid username/password");
+                }
+
+                final ConsoleUserPrincipal principal =
+                                new ConsoleUserPrincipal(userData.getUsername(), password, AuthorityUtils.createAuthorityList(userData.getAuthorities()));
+                principal.setExpiryTime(userData.getExpiryTime());
+                principal.setToken(userData.getToken());
+
+                return new UsernamePasswordAuthenticationToken(principal, password, principal.getAuthorities());
             }
-
-            final ConsoleUserPrincipal principal =
-                            new ConsoleUserPrincipal(userData.getUsername(), password, AuthorityUtils.createAuthorityList(userData.getAuthorities()));
-            principal.setExpiryTime(userData.getExpiryTime());
-            principal.setToken(userData.getToken());
-
-            return new UsernamePasswordAuthenticationToken(principal, password, principal.getAuthorities());
-        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException | IOException e) {
+        } catch (NoSuchAlgorithmException | InterruptedException | ExecutionException | KeyManagementException | KeyStoreException | IOException e) {
             LOG.error(e.getMessage(), e);
             throw new InternalAuthenticationServiceException(e.getMessage());
         }
