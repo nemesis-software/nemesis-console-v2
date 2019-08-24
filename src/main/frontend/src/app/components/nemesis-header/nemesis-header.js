@@ -40,7 +40,7 @@ export default class NemesisHeader extends Component {
                 selectedLanguage={translationLanguages.defaultLanguage}
               />
               <div className="logout-button" onClick={this.handleLogoutButtonClick.bind(this)}>
-                <i className="fa fa-sign-out logout-icon"/> <Translate component="span" content={'main.Logout'} fallback={'Log out'} />
+                <i className="fa fa-sign-out-alt logout-icon"/> <Translate component="span" content={'main.Logout'} fallback={'Log out'} />
               </div>
             </div>
           </div>

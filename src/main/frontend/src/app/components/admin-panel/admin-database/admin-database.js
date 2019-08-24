@@ -143,10 +143,10 @@ export default class AdminDatabase extends Component {
   handleConfirmationActionButtonClick(action) {
     PlatformApiCall.post(`database/${action}`).then(() => {
      this.setState({openDialog: ''}, () => {
-       this.onActionSuccess();
+       this.onActionSuccess(action);
      });
     }, err => {
-     this.onActionFail(err);
+     this.onActionFail(action, err);
      this.setState({openDialog: ''});
     })
   }
@@ -188,11 +188,11 @@ export default class AdminDatabase extends Component {
     return _.slice(this.state.filteredMigrations, skippedPages, skippedPages + this.state.page.size);
   }
 
-  onActionSuccess() {
-     this.props.openNotificationSnackbar('Platform repair started!');
+  onActionSuccess(action) {
+     this.props.openNotificationSnackbar('Platform ' + action + ' started!');
   }
 
-  onActionFail(err) {
-     this.props.openNotificationSnackbar('Could not start platform repair!', 'error');
+  onActionFail(action, err) {
+     this.props.openNotificationSnackbar('Could not start platform ' + action + '!', 'error');
   }
 }

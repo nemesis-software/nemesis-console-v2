@@ -78,42 +78,42 @@ export default class AdminDashboard extends Component {
       <div className="admin-panel">
         <div className="admin-info-panel-container">
           <div className="admin-info-panel display-table">
-            <div className="display-table-cell info-panel-icon">
-              <i className="material-icons">person</i>
-            </div>
             <div className="display-table-cell info-panel-text">
               <div className="info-panel-count">1388</div>
               <div className="info-panel-type">Users</div>
             </div>
+            <div className="display-table-cell info-panel-icon">
+              <i className="fa fa-users"></i>
+            </div>
           </div>
 
           <div className="admin-info-panel display-table">
-            <div className="display-table-cell info-panel-icon">
-              <i className="material-icons">shopping_cart</i>
-            </div>
             <div className="display-table-cell info-panel-text">
               <div className="info-panel-count">27013</div>
               <div className="info-panel-type">Orders</div>
             </div>
+            <div className="display-table-cell info-panel-icon">
+              <i className="fa fa-shopping-cart"></i>
+            </div>
           </div>
 
           <div className="admin-info-panel display-table">
-            <div className="display-table-cell info-panel-icon">
-              <i className="material-icons">attach_money</i>
-            </div>
             <div className="display-table-cell info-panel-text">
               <div className="info-panel-count">7610</div>
               <div className="info-panel-type">Payments</div>
             </div>
+            <div className="display-table-cell info-panel-icon">
+              <i className="fa fa-money-bill-wave"></i>
+            </div>
           </div>
 
           <div className="admin-info-panel display-table">
-            <div className="display-table-cell info-panel-icon">
-              <i className="material-icons">done_all</i>
-            </div>
             <div className="display-table-cell info-panel-text">
               <div className="info-panel-count">13827</div>
               <div className="info-panel-type">Products</div>
+            </div>
+            <div className="display-table-cell info-panel-icon">
+              <i className="fa fa-boxes"></i>
             </div>
           </div>
         </div>

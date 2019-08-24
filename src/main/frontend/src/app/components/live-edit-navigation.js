@@ -23,7 +23,7 @@ export default class LiveEditNavigation extends Component {
     return (
     <Dropdown id="live-edit-sites" className="live-edit-dropdown">
       <Dropdown.Toggle className="live-edit-toggle" noCaret>
-        <div className="live-edit-dropdown-content"><i className="fa fa-globe" /> Live edit <i className="material-icons arrow-icon">keyboard_arrow_down</i></div>
+        <div className="live-edit-dropdown-content"><i className="fas fa-draw-polygon" /> Live edit <i className="material-icons arrow-icon">keyboard_arrow_down</i></div>
       </Dropdown.Toggle>
       <Dropdown.Menu className="super-colors">
         {this.state.sites.map((site, index) => {

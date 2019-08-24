@@ -23,13 +23,13 @@ export default class LanguageChanger extends Component {
   render() {
     return (
       <div className="language-changer" style={{...this.props.style}}>
-        {this.props.label ? <label><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label> : false}
+        {this.props.label ? <label><i className="fa fa-globe" /><Translate content={'main.' + this.props.label} fallback={this.props.label} /></label> : false}
         <Select style={{width: '100%'}}
                 clearable={false}
                 className={this.props.selectClassName}
                 disabled={this.props.readOnly}
                 arrowRenderer={() => <SelectCustomArrow />}
-                value={{value: this.state.selectedLanguage, label: this.state.selectedLanguage.labelCode }}
+                value={{value: this.state.selectedLanguage, label: <span><i className="fa fa-globe"></i><span>{this.state.selectedLanguage.labelCode}</span></span> }}
                 onChange={(item) => this.handleChange(item)}
                 options={this.state.availableLanguages.map(this.getOptionFields.bind(this))}/>
       </div>
