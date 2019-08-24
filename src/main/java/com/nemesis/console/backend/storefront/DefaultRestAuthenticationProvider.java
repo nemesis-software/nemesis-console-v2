@@ -49,6 +49,8 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author Petar Tahchiev
@@ -74,7 +76,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
             // Trust standard CA and those trusted by our custom strategy
             final SSLContext sslcontext = SSLContexts.custom().loadTrustMaterial((chain, authType) -> true).build();
 
-            int timeout = 5;
+            int timeout = 15;
 
             PoolingAsyncClientConnectionManager ccm = PoolingAsyncClientConnectionManagerBuilder.create().setTlsStrategy(ClientTlsStrategyBuilder.create()
                                                                                                                                                  .setSslContext(sslcontext)
@@ -83,13 +85,14 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                                                                                                                                                  .setHostnameVerifier(
                                                                                                                                                                  NoopHostnameVerifier.INSTANCE)
                                                                                                                                                  .build())
-                                                                                                .setPoolConcurrencyPolicy(PoolConcurrencyPolicy.STRICT)
+                                                                                                .setMaxConnTotal(10)
+                                                                                                .setPoolConcurrencyPolicy(PoolConcurrencyPolicy.LAX)
                                                                                                 .setConnPoolPolicy(PoolReusePolicy.LIFO)
                                                                                                 .setConnectionTimeToLive(TimeValue.ofMinutes(1L)).build();
 
             try (CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom().setConnectionManager(ccm).setDefaultRequestConfig(
                             RequestConfig.custom().setConnectTimeout(Timeout.ofSeconds(timeout)).setResponseTimeout(Timeout.ofSeconds(timeout))
-                                         .setCookieSpec(CookieSpecs.STANDARD_STRICT.ident).build()).setVersionPolicy(HttpVersionPolicy.FORCE_HTTP_2).build()) {
+                                         .setCookieSpec(CookieSpecs.STANDARD_STRICT.ident).build()).setVersionPolicy(HttpVersionPolicy.FORCE_HTTP_1).build()) {
 
                 httpclient.start();
 
@@ -106,9 +109,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
 
                 Future<SimpleHttpResponse> future = httpclient.execute(httpGet, null);
 
-                httpclient.shutdown(CloseMode.GRACEFUL);
-
-                SimpleHttpResponse response = future.get();
+                SimpleHttpResponse response = future.get(timeout, TimeUnit.SECONDS);
 
                 final String responseText = response.getBody().getBodyText();
                 ObjectMapper mapper = new ObjectMapper();
@@ -123,11 +124,15 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                 principal.setExpiryTime(userData.getExpiryTime());
                 principal.setToken(userData.getToken());
 
+                httpclient.shutdown(CloseMode.GRACEFUL);
+
                 return new UsernamePasswordAuthenticationToken(principal, password, principal.getAuthorities());
             }
-        } catch (NoSuchAlgorithmException | InterruptedException | ExecutionException | KeyManagementException | KeyStoreException | IOException e) {
+        } catch (NoSuchAlgorithmException | InterruptedException | TimeoutException | ExecutionException | KeyManagementException | KeyStoreException | IOException e) {
             LOG.error(e.getMessage(), e);
             throw new InternalAuthenticationServiceException(e.getMessage());
+        } finally {
+
         }
     }
 
