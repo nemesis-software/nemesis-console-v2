@@ -131,8 +131,6 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
         } catch (NoSuchAlgorithmException | InterruptedException | TimeoutException | ExecutionException | KeyManagementException | KeyStoreException | IOException e) {
             LOG.error(e.getMessage(), e);
             throw new InternalAuthenticationServiceException(e.getMessage());
-        } finally {
-
         }
     }
 
