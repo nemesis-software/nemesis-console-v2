@@ -282,6 +282,9 @@
                     <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
                     <serverId>docker-hub</serverId>
                     <noCache>true</noCache>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                    </imageTags>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
