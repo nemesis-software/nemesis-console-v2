@@ -102,7 +102,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
              */
                 SimpleHttpRequest httpGet = SimpleHttpRequests.GET.create(restBaseUrl + "auth");
 
-                LOG.debug("Calling: " + restBaseUrl + "auth");
+                LOG.info("Calling: " + restBaseUrl + "auth");
 
                 httpGet.setHeader("X-Nemesis-Username", username);
                 httpGet.setHeader("X-Nemesis-Password", password);
