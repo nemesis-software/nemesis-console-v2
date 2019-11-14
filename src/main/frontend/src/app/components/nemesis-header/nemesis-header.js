@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 
-import PlatformApiCall from '../../services/platform-api-call';
-
 import Translate from 'react-translate-component';
 import counterpart from 'counterpart';
-
-import webstomp from 'webstomp-client';
-import SockJS from 'sockjs-client';
 
 import LiveEditNavigation from '../live-edit-navigation';
 
@@ -26,26 +21,14 @@ const translationLanguages = {
 export default class NemesisHeader extends Component {
   constructor(props) {
     super(props);
-    this.socketClient = null;
   }
-
-    componentWillMount() {
-      this.socketClient = webstomp.over(new SockJS(PlatformApiCall.get('/stomp/log')));
-      this.socketClient.connect({}, frame => {
-        console.log(frame)
-      }, err => {
-        console.log(err);
-      })
-    }
 
   render() {
       if (!this.props.isOpenInFrame) {
         return (
           <div className="nemesis-navbar">
             <i className="fa fa-bars nemesis-navbar-icon" onClick={() => this.props.onRightIconButtonClick()}/>
-            <div className="nemesis-navbar-header">Nemesis Console1</div>
-            <div className="nemesis-navbar-right">
-            </div>
+            <div className="nemesis-navbar-header">Nemesis Console</div>
             <div className="nemesis-navbar-right">
               {this.props.onGlobalFilterSelect ? <GlobalFilter onGlobalFilterSelect={this.props.onGlobalFilterSelect}/> : false}
               <LiveEditNavigation/>
