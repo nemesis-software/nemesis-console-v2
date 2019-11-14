@@ -1,4 +1,4 @@
-FROM openjdk:11.0.4-jdk-stretch
+FROM adoptopenjdk/openjdk11:jdk-11.0.5_10-alpine-slim
 
 MAINTAINER Petar Tahchiev <ptahchiev@nemesis.io>
 
@@ -8,23 +8,20 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-
 # Prepare work dirs
 VOLUME /tmp
 
-WORKDIR /apps/
+WORKDIR /app/
 
 # Add the project
-ADD /nemesis-console-v2.war /apps/
-RUN touch /apps/nemesis-console-v2.war
+ADD /nemesis-console-v2.war /app/
+RUN touch /app/nemesis-console-v2.war
 RUN mkdir console
-RUN unzip -q -d console /apps/nemesis-console-v2.war
-RUN rm -rf /apps/nemesis-console-v2.war
+RUN unzip -q -d console /app/nemesis-console-v2.war
+RUN rm -rf /app/nemesis-console-v2.war
 
-WORKDIR /apps/console/
+WORKDIR /app/console/
 
-# Run the project
-# add this for debug ,"-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
-ENTRYPOINT ["java","-Xss512K","-Xms2g","-Xmx2g","-XX:MaxMetaspaceSize=256m","-XX:ReservedCodeCacheSize=256m","-XX:CompressedClassSpaceSize=128m","-XX:+HeapDumpOnOutOfMemoryError","-Djava.security.egd=file:/dev/./urandom","-cp","/apps/console/.","org.springframework.boot.loader.WarLauncher"]
+ENTRYPOINT exec java $NEMESIS_CONSOLE_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -Dfile.encoding=UTF-8 -Dspring.profiles.active=docker -cp /app/console/. org.springframework.boot.loader.WarLauncher
 
 EXPOSE 8443
