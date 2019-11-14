@@ -49,7 +49,7 @@
     "react-codemirror": "^1.0.0",
     "react-color": "^2.13.8",
     "react-datetime": "^2.11.1",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.2.1",
     "react-interpolate-component": "^0.11.0",
     "react-notification-system": "^0.2.16",
     "react-router": "^4.2.0",
