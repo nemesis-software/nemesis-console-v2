@@ -16,6 +16,7 @@ export default class CssClassHelper {
       case nemesisFieldTypes.nemesisJavascriptField:
       case nemesisFieldTypes.nemesisMapField:
       case nemesisFieldTypes.nemesisEntityField:
+      case nemesisFieldTypes.nemesisMoneyField:
       case nemesisFieldTypes.nemesisColorpickerField:
       case nemesisFieldTypes.nemesisHtmlEditor: className = ' single-item-container-with-icon'; break;
       case nemesisFieldTypes.nemesisLocalizedTextField:

@@ -10,6 +10,7 @@ let NemesisPasswordField = componentRequire('app/components/field-components/nem
 let NemesisDateField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-field', 'nemesis-date-field');
 let NemesisDateTimeField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-time-field', 'nemesis-date-time-field');
 let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
+let NemesisMoneyField = componentRequire('app/components/field-components/nemesis-money-field/nemesis-money-field', 'nemesis-money-field');
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 let NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
 let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
@@ -94,6 +95,7 @@ export default class EntitySection extends Component {
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;
+      case nemesisFieldTypes.nemesisMoneyField: reactElement = NemesisMoneyField; break;
       case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
       case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
       case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisLocalizedTextField; break;
