@@ -796,6 +796,30 @@ body {
     padding: @navbar-header-vertical-padding 12px;
   }
 
+  .notification-toggle {
+        border: none;
+        border-radius: @border-radius;
+        color: @main-blue !important;
+        background: white !important;
+        box-shadow: none !important;
+        margin-right:10px;
+        padding:0;
+
+        .badge-counter {
+            background-color: red;
+        }
+        .notification-dropdown-content {
+            width: 180px;
+            padding: 8px 20px;
+            text-align: left;
+            .arrow-icon {
+                position: absolute;
+                right: 10px;
+                top: 7px;
+            }
+        }
+  }
+
   .header-language-changer {
     .Select-control {
       border: none;
