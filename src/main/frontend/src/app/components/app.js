@@ -15,6 +15,7 @@ import _ from 'lodash';
 
 import MasterAdmin from './master-admin/master-admin';
 import AdminPanel from './admin-panel/admin-panel';
+import TaxonomyPanel from './taxonomy/taxonomy-panel';
 import SimpleView from './simple-view/simple-view';
 import PointOfSale from './point-of-sale/point-of-sale';
 import ConsoleConfigurationPanel from './console-configuration-panel/console-configuration-panel';
@@ -127,6 +128,11 @@ export default class App extends Component {
                 />
               )
             })}
+            <Route
+              exact={true}
+              path={'/taxonomy'}
+              component={TaxonomyPanel}
+            />
             <Route
               exact={true}
               path={'/maintenance'}

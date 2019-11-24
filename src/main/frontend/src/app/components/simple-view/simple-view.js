@@ -50,7 +50,7 @@ export default class SimpleView extends Component {
                 <Translate component="div" content={'main.' + item} fallback={item}/>
               </div>
             )
-          })} <div>TEST</div></div>: false}
+          })}</div>: false}
           {
             this.state.isItemSelected ?
               <SimpleViewItem item={this.state.selectedItem}
