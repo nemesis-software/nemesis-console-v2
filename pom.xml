@@ -31,7 +31,7 @@
         <project.directory>console</project.directory>
         <maven.rat.plugin.skip>true</maven.rat.plugin.skip>
         <frontend-plugin.version>1.6</frontend-plugin.version>
-        <node.version>v7.10.0</node.version>
+        <node.version>v12.13.1</node.version>
         <yarn.version>v1.14.0</yarn.version>
     </properties>
 
