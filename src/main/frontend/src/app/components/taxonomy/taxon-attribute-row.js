@@ -23,12 +23,18 @@ export default class TaxonAttributeRow extends Component {
         <td>{this.props.taxonAttribute.unit != null ? this.getTextFieldValue(this.props.taxonAttribute.unit.name, this.state.selectedLanguage) : ''}</td>
         <td>{this.props.taxonAttribute.type}</td>
         <td>value</td>
-        <td><div className="delete-icon-container" onClick={this.handleDeleteButtonClick.bind(this)}><i className="material-icons">delete_forever</i></div></td>
+        <td>
+            <div className="delete-icon-container" onClick={this.handleDeleteButtonClick.bind(this)}><i className="material-icons">delete_forever</i></div>
+            <div className="delete-icon-container" onClick={this.handleEditButtonClick.bind(this)}><i className="material-icons">edit</i></div>
+        </td>
       </tr>
     )
   }
 
   handleDeleteButtonClick() {
+  }
+
+  handleEditButtonClick() {
   }
 
     getTextFieldValue(val, language) {

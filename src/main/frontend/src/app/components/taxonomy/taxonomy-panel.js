@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import '../../../styles/taxonomy-panel.less';
 import Taxons from './taxons';
 import Taxonomables from './taxonomables';
-import SwipeableViews from 'react-swipeable-views';
 import {componentRequire} from "../../utils/require-util";
 import NotificationSystem from 'react-notification-system';
 
@@ -11,7 +10,6 @@ let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-head
 export default class TaxonomyPanel extends Component {
   constructor(props) {
     super(props);
-    this.state = { sectionIndex: 0};
     this.notificationSystem = null;
   }
 
@@ -28,11 +26,4 @@ export default class TaxonomyPanel extends Component {
       </div>
     );
   }
-
-    handleChange = (value) => {
-      this.setState({
-        ...this.state,
-        sectionIndex: value,
-      });
-    };
 }

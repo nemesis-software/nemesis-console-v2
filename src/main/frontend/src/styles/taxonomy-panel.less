@@ -9,6 +9,50 @@
   overflow-x:scroll;
   background: @light-grey;
 
+    .taxon-configuration {
+      text-align:left;
+      height:50%;
+
+      .nemesis-button {
+        margin-top:2%;
+      }
+
+      .delete-icon-container {
+          color: #F24F4B;
+          cursor: pointer;
+      }
+
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        z-index: 100000;
+
+        .loading-icon {
+          font-size: 50px;
+          position: absolute;
+          top: ~"calc(50vh - 35px)";
+          left: ~"calc(50vw - 35px)";
+          color: @dark-blue;
+        }
+      }
+
+      .entities-table-viewer {
+        background: white;
+        padding: 10px;
+        margin: 10px;
+      }
+
+      .entity-field-container {
+        width: 350px;
+        padding: 10px;
+      }
+    }
+
+
   .input-group {
     .input-group-addon, .form-control {
       border-radius: 0;

@@ -15,6 +15,7 @@ import _ from 'lodash';
 
 import MasterAdmin from './master-admin/master-admin';
 import AdminPanel from './admin-panel/admin-panel';
+import BpmnPanel from './bpmn/bpmn-panel';
 import TaxonomyPanel from './taxonomy/taxonomy-panel';
 import SimpleView from './simple-view/simple-view';
 import PointOfSale from './point-of-sale/point-of-sale';
@@ -132,6 +133,11 @@ export default class App extends Component {
               exact={true}
               path={'/taxonomy'}
               component={TaxonomyPanel}
+            />
+            <Route
+              exact={true}
+              path={'/bpmn'}
+              component={BpmnPanel}
             />
             <Route
               exact={true}

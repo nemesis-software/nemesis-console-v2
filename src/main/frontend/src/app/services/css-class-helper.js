@@ -14,6 +14,7 @@ export default class CssClassHelper {
       case nemesisFieldTypes.nemesisTextField: className = ' simple-item-container'; break;
       case nemesisFieldTypes.nemesisTextarea:
       case nemesisFieldTypes.nemesisJavascriptField:
+      case nemesisFieldTypes.nemesisCssField:
       case nemesisFieldTypes.nemesisMapField:
       case nemesisFieldTypes.nemesisEntityField:
       case nemesisFieldTypes.nemesisMoneyField:

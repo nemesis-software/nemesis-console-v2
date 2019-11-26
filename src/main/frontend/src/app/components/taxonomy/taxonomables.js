@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import BootstrapTable from 'react-bootstrap-table-next';
 import ApiCall from 'servicesDir/api-call';
 import _ from 'lodash';
 import counterpart from 'counterpart';
@@ -7,10 +8,34 @@ import EntitiesPager from '../entity-window/entities-viewer/entities-pager/entit
 import TaxonAttributeRow from './taxon-attribute-row'
 import DataHelper from 'servicesDir/data-helper';
 
+const columns = [{
+  dataField: 'name',
+  text: 'Name'
+}, {
+  dataField: 'unit',
+  text: 'Unit'
+}, {
+  dataField: 'type',
+  text: 'Type'
+}, {
+   dataField: 'value',
+   text: 'Value'
+ }];
+
+const translationLanguages = {
+  languages: [
+    {value: 'en', labelCode: 'English'},
+    {value: 'bg_BG', labelCode: 'Bulgarian'},
+  ],
+  defaultLanguage: {value: 'en', labelCode: 'English'}
+};
+
 export default class Taxonomables extends Component {
   constructor(props) {
     super(props);
-    this.state = {taxonAttributes: [], selectedTaxonomable: null, isLoading: true};
+    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || translationLanguages.defaultLanguage.value;
+    this.state = {taxonAttributes: [], selectedTaxonomable: null, expandedAttributes: [], selectedTaxon: null, isLoading: true, selectedLanguage:
+    defaultLanguage};
   }
 
   componentWillMount() {
@@ -18,37 +43,72 @@ export default class Taxonomables extends Component {
   }
 
   render() {
+      const expandRow = {
+        renderer: (row) => (
+             this.state.expandedAttributes.map(ea => {
+                 return <tr>
+                            <td>{ea.name}</td>
+                            <td>{ea.unit}</td>
+                            <td>{ea.type}</td>
+                            <td>{ea.value}</td>
+                        </tr>
+             })
+        ),
+        onExpand: (row, isExpand, rowIndex, e) => {
+          //this.setState({...this.state, expandedAttributes: []});
+          if (isExpand) {
+            ApiCall.get('taxon/' + row.id + "/taxonAttributes", {projection: 'search'}).then(result => {
+                this.setState({...this.state, expandedAttributes : DataHelper.mapCollectionData(result.data).map(attr=> ({id:attr.id, name: attr.code, unit:
+                attr
+                .code, type: attr
+                .type,
+                value:
+                 attr.code}))});
+            });
+          }
+        },
+        className: 'text-bold',
+        showExpandColumn: false,
+        onlyOneExpanding: true
+       }
     return (
       <div className="taxon-configuration">
         {this.state.isLoading ? <div className="loading-screen">
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
+
+        <NemesisEntityField entityId={'product'} onValueChange={this.onTaxonomableSelect.bind(this)} value={this.state.selectedEntityType}
+        label={'Entity Type'}/>
         <NemesisEntityField entityId={'partner'} onValueChange={this.onTaxonomableSelect.bind(this)} value={this.state.selectedTaxonomable}
         label={'Taxonomable'}/>
-        <button className="nemesis-button success-button" onClick={() => this.createNewTaxonAttribute()}>Add new attribute</button>
+        <NemesisEntityField entityId={'taxon'} onValueChange={this.onTaxonSelect.bind(this)} value={this.state.selectedTaxon} label={'Taxon'}/>
+        <button className="nemesis-button success-button" onClick={() => this.createNewTaxonAttribute()} disabled={!(this.state.selectedTaxonomable &&
+        this.state.selectedTaxon)}>Assign taxon</button>
         {this.state.selectedTaxonomable ? <div className="entities-table-viewer" key={this.state.selectedTaxonomable.id}>
-          <table>
-            <thead>
-            <tr>
-              <th>Taxon Attributes</th>
-              <th>Name</th>
-              <th>Unit</th>
-              <th>TYPE</th>
-              <th>Value</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            {this.state.taxonAttributes.map(taxonAttribute => <TaxonAttributeRow openNotificationSnackbar={this.props.openNotificationSnackbar}
-                                                                             setLoadingStatus={this.setLoadingStatus.bind(this)}
-                                                                             key={taxonAttribute.code}
-                                                                             taxonAttribute={taxonAttribute}/>)}
-            </tbody>
-          </table>
+        <BootstrapTable
+              ref={ n => this.node = n }
+              keyField="id"
+              data={ this.state.taxonAttributes.map(taxon => ({id:taxon.id, name:this.getTextFieldValue(taxon.name, this.state.selectedLanguage),
+                unit: taxon.unit != null ? this.getTextFieldValue(taxon.unit.name, this.state.selectedLanguage) : '',
+                type: taxon.type,
+                value: ''})) }
+              columns={ columns }
+              onlyOneExpanding="true"
+              expandRow={ expandRow }
+                />
         </div> : false}
       </div>
     );
   }
+
+  getTextFieldValue(val, language) {
+    if (!val) {
+      return '';
+    }
+
+    return (val[language] && val[language].value) || '';
+  }
+
 
   onTaxonomableSelect(value) {
     if (!value) {
@@ -56,25 +116,31 @@ export default class Taxonomables extends Component {
       return;
     }
     this.setState({isLoading: true}, () => {
-      this.getTaxonAttributes(value);
+      this.getTaxons(value);
     });
+  }
+
+  onTaxonSelect(value) {
+      if (!value) {
+        this.setState({selectedTaxon: null});
+        return;
+      }
+      this.setState({...this.state, selectedTaxon:value});
   }
 
   setLoadingStatus(isLoading) {
     this.setState({isLoading: isLoading});
   }
 
+    getTaxons(selectedTaxonomable) {
+      ApiCall.get('partner/' + selectedTaxonomable.id + "/taxons", {projection: 'search'})
+      .then
+      (result => {
+        this.setState({...this.state, taxonAttributes: DataHelper.mapCollectionData(result.data), selectedTaxonomable: selectedTaxonomable, isLoading: false});
+      })
+    }
 
-getTaxonAttributes(selectedTaxonomable) {
-  ApiCall.get('taxon/' + selectedTaxonomable.id + "/taxonAttributes", {projection: 'search'})
-  .then
-  (result => {
-      console.log(result);
-    this.setState({...this.state, taxonAttributes: DataHelper.mapCollectionData(result.data), selectedTaxonomable: selectedTaxonomable, isLoading: false});
-  })
-}
+    createNewTaxonAttribute() {
 
-createNewTaxonAttribute() {
-
-}
+    }
 }

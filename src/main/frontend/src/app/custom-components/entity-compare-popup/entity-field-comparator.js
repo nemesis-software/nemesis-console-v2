@@ -28,6 +28,7 @@ export default class EntityFieldComparator extends Component {
       case nemesisFieldTypes.nemesisTextField:
       case nemesisFieldTypes.nemesisTextarea:
       case nemesisFieldTypes.nemesisJavascriptField:
+      case nemesisFieldTypes.nemesisCssField:
       case nemesisFieldTypes.nemesisMapField:
       case nemesisFieldTypes.nemesisColorpickerField:
       case nemesisFieldTypes.nemesisMediaField:

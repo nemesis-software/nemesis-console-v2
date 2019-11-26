@@ -1,0 +1,150 @@
+@import './variables';
+
+* {
+  box-sizing: border-box;
+}
+
+
+body, html {
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  font-size: 12px;
+
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.nemesis-bpmn-panel {
+  position: fixed;
+  top: @navbar-height;
+  left: @navbar-width;
+  width:100% - @navbar-width;
+  height:100% - @navbar-height;
+  overflow-x:scroll;
+  background: @light-grey;
+  .nemesis-button {
+    margin-top:2%;
+  }
+
+    #js-canvas {
+        height: 100% !important;
+    }
+
+    .entity-field-container {
+      width: 350px;
+      padding: 10px;
+    }
+
+    .bpp-properties-header > .label{
+        color:#333;
+    }
+
+    .properties-panel-parent {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 2%;
+        width: 260px;
+        z-index: 10;
+        border-left: 1px solid
+        #ccc;
+        overflow: auto;
+    }
+}
+
+
+a:link {
+  text-decoration: none;
+}
+
+.content {
+    position: fixed;
+    top: 8%;
+    left: 4%;
+    width: 96%;
+    height: 92%;
+    overflow-x: scroll;
+    background:#f5f6fa;
+}
+
+.content,
+.content > div {
+  width: 98%;
+  height: 84%;
+  top:16%;
+  overflow: hidden;
+}
+
+.content > .message {
+  text-align: center;
+  display: table;
+
+  font-size: 16px;
+  color: #111;
+}
+
+.content > .message .note {
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+}
+
+.content .error .details {
+  max-width: 500px;
+  font-size: 12px;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.content .error pre {
+  border: solid 1px #CCC;
+  background: #EEE;
+  padding: 10px;
+}
+
+.content:not(.with-error) .error,
+.content.with-error .intro,
+.content.with-diagram .intro {
+  display: none;
+}
+
+
+.content .canvas,
+.content.with-error .canvas {
+  visibility: hidden;
+}
+
+.content.with-diagram .canvas {
+  visibility: visible;
+}
+
+.buttons {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.buttons > li {
+  display: inline-block;
+  margin-right: 10px;
+}
+.buttons > li > a {
+  background: #DDD;
+  border: solid 1px #666;
+  display: inline-block;
+  padding: 5px;
+}
+
+.buttons a {
+  opacity: 0.3;
+}
+
+.buttons a.active {
+  opacity: 1.0;
+}

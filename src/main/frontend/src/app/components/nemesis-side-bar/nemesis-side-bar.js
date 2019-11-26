@@ -14,6 +14,10 @@ export default class NemesisSideBar extends Component {
     const pathName = this.props.routerProps.location.pathname;
     return (
       <div className="nemesis-side-bar">
+       <Link to="/theme">
+         <div title="Theme" className={"nemesis-side-bar-item" + (pathName.startsWith("/theme") ? " selected" : "")}><i className="fas fa-palette
+          nemesis-side-bar-icon"></i></div>
+        </Link>
         <Link to="/pos">
           <div title="Point of sale" className={"nemesis-side-bar-item" + (pathName.startsWith("/pos") ? " selected" : "")}><i className="fa fa-shopping-basket nemesis-side-bar-icon"></i></div>
         </Link>
@@ -27,6 +31,12 @@ export default class NemesisSideBar extends Component {
         <Link to="/">
           <div title="Admin" className={"nemesis-side-bar-item" + (pathName === "/" ? " selected" : "")}><i className="fa fa-chart-bar nemesis-side-bar-icon"></i></div>
         </Link>
+        {this.isAdmin ?
+          <Link to="/bpmn">
+            <div title="BPMN" className={"nemesis-side-bar-item" + (pathName.startsWith("/bpmn") ? " selected" : "")}><i className="fas fa-chalkboard-teacher
+            nemesis-side-bar-icon"></i></div>
+          </Link>
+          : false}
         {this.isAdmin ?
           <Link to="/taxonomy">
             <div title="Taxonomy" className={"nemesis-side-bar-item" + (pathName.startsWith("/taxonomy") ? " selected" : "")}><i className="fa  fa-project-diagram nemesis-side-bar-icon"></i></div>

@@ -6,10 +6,10 @@ import CodeMirror from 'react-codemirror';
 
 const codeMirrorOptions = {
   lineNumbers: true,
-  mode: 'javascript'
+  mode: 'css'
 };
 
-export default class NemesisJavascriptField extends NemesisBaseField {
+export default class NemesisCssField extends NemesisBaseField {
   constructor(props) {
     super(props);
 
