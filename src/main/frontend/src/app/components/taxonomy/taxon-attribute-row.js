@@ -17,6 +17,9 @@ export default class TaxonAttributeRow extends Component {
 
   render() {
     return (
+
+
+      
       <tr>
         <td>{this.props.taxonAttribute.code}</td>
         <td>{this.getTextFieldValue(this.props.taxonAttribute.name, this.state.selectedLanguage)}</td>
@@ -35,6 +38,7 @@ export default class TaxonAttributeRow extends Component {
   }
 
   handleEditButtonClick() {
+
   }
 
     getTextFieldValue(val, language) {

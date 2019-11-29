@@ -15,7 +15,10 @@ import _ from 'lodash';
 
 import MasterAdmin from './master-admin/master-admin';
 import AdminPanel from './admin-panel/admin-panel';
+import ThemeEditorPanel from './theme-editor-panel/theme-editor-panel';
 import BpmnPanel from './bpmn/bpmn-panel';
+import DmnPanel from './dmn/dmn-panel';
+import RulesPanel from './rules/rules-panel';
 import TaxonomyPanel from './taxonomy/taxonomy-panel';
 import SimpleView from './simple-view/simple-view';
 import PointOfSale from './point-of-sale/point-of-sale';
@@ -116,6 +119,11 @@ export default class App extends Component {
             />
             <Route
               exact={true}
+              path={'/theme'}
+              component={ThemeEditorPanel}
+            />
+            <Route
+              exact={true}
               path={'/pos'}
               component={PointOfSale}
             />
@@ -138,6 +146,16 @@ export default class App extends Component {
               exact={true}
               path={'/bpmn'}
               component={BpmnPanel}
+            />
+            <Route
+              exact={true}
+              path={'/dmn'}
+              component={DmnPanel}
+            />
+            <Route
+              exact={true}
+              path={'/rules'}
+              component={RulesPanel}
             />
             <Route
               exact={true}

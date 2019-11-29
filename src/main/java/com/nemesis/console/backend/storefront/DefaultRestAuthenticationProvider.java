@@ -12,6 +12,7 @@
 package com.nemesis.console.backend.storefront;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
 import org.apache.hc.client5.http.async.methods.SimpleHttpRequests;
@@ -97,9 +98,9 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                 httpclient.start();
 
 
-            /*
-             * It can't be POST because the CSRF is triggered.
-             */
+                /*
+                 * It can't be POST because the CSRF is triggered.
+                 */
                 SimpleHttpRequest httpGet = SimpleHttpRequests.GET.create(restBaseUrl + "auth");
 
                 LOG.info("Calling: " + restBaseUrl + "auth");
@@ -114,6 +115,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                 final String responseText = response.getBody().getBodyText();
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
+                mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 UserData userData = mapper.readValue(responseText, UserData.class);
                 if (userData.getToken() == null) {
                     throw new BadCredentialsException("Invalid username/password");

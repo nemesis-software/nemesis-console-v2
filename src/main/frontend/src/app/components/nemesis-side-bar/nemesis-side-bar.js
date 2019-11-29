@@ -38,6 +38,18 @@ export default class NemesisSideBar extends Component {
           </Link>
           : false}
         {this.isAdmin ?
+          <Link to="/dmn">
+            <div title="DMN" className={"nemesis-side-bar-item" + (pathName.startsWith("/dmn") ? " selected" : "")}><i className="fas fa-table
+            nemesis-side-bar-icon"></i></div>
+          </Link>
+          : false}
+        {this.isAdmin ?
+          <Link to="/rules">
+            <div title="rules" className={"nemesis-side-bar-item" + (pathName.startsWith("/rules") ? " selected" : "")}><i className="fas fa-ruler
+            nemesis-side-bar-icon"></i></div>
+          </Link>
+          : false}
+        {this.isAdmin ?
           <Link to="/taxonomy">
             <div title="Taxonomy" className={"nemesis-side-bar-item" + (pathName.startsWith("/taxonomy") ? " selected" : "")}><i className="fa  fa-project-diagram nemesis-side-bar-icon"></i></div>
           </Link>

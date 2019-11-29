@@ -12,6 +12,7 @@ export const nemesisFieldTypes = {
   nemesisIntegerField: 'nemesisIntegerField',
   nemesisSimpleCollectionField: 'nemesisSimpleCollectionField',
   nemesisTextarea: 'nemesisTextarea',
+  nemesisXmlField: 'nemesisXmlField',
   nemesisCssField: 'nemesisCssField',
   nemesisJavascriptField: 'nemesisJavascriptField',
   nemesisPasswordField: 'nemesisPasswordField',

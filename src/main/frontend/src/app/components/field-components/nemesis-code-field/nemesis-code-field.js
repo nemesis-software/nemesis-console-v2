@@ -4,16 +4,11 @@ import NemesisBaseField from '../nemesis-base-field';
 import Modal from 'react-bootstrap/lib/Modal';
 import CodeMirror from 'react-codemirror';
 
-const codeMirrorOptions = {
-  lineNumbers: true,
-  mode: 'css'
-};
-
-export default class NemesisCssField extends NemesisBaseField {
+export default class NemesisCodeField extends NemesisBaseField {
   constructor(props) {
     super(props);
-
     this.state = {...this.state, openFullScreenDialog: false};
+    console.log(this.props);
   }
 
   render() {
@@ -35,7 +30,7 @@ export default class NemesisCssField extends NemesisBaseField {
           </Modal.Header>
           <Modal.Body>
             <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
-            <CodeMirror onChange={code => this.onValueChange(null, code)} value={this.state.value}  options={codeMirrorOptions}/>
+            <CodeMirror onChange={code => this.onValueChange(null, code)} value={this.state.value}  options={{lineNumbers: true, mode: this.props.type}}/>
           </Modal.Body>
           <Modal.Footer>
             <button className="nemesis-button success-button" onClick={this.handleDialogClose.bind(this)}>Done</button>
