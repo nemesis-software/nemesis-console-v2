@@ -81,8 +81,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
 
             PoolingAsyncClientConnectionManager ccm = PoolingAsyncClientConnectionManagerBuilder.create().setTlsStrategy(ClientTlsStrategyBuilder.create()
                                                                                                                                                  .setSslContext(sslcontext)
-                                                                                                                                                 .setTlsVersions(TLS.V_1_3,
-                                                                                                                                                                 TLS.V_1_2)
+                                                                                                                                                 .setTlsVersions(TLS.V_1_2)
                                                                                                                                                  .setHostnameVerifier(
                                                                                                                                                                  NoopHostnameVerifier.INSTANCE)
                                                                                                                                                  .build())
