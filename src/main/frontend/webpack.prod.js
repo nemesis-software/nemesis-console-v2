@@ -5,6 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CommonConfig = require('./webpack.config.js');
 
 module.exports = Merge(CommonConfig, {
+    mode: 'production',
 	optimization: {
 		minimize: false,
 
