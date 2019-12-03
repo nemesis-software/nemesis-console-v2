@@ -14,10 +14,12 @@ export default class NemesisSideBar extends Component {
     const pathName = this.props.routerProps.location.pathname;
     return (
       <div className="nemesis-side-bar">
+      {/*
        <Link to="/theme">
          <div title="Theme" className={"nemesis-side-bar-item" + (pathName.startsWith("/theme") ? " selected" : "")}><i className="fas fa-palette
           nemesis-side-bar-icon"></i></div>
         </Link>
+        */}
         <Link to="/pos">
           <div title="Point of sale" className={"nemesis-side-bar-item" + (pathName.startsWith("/pos") ? " selected" : "")}><i className="fa fa-shopping-basket nemesis-side-bar-icon"></i></div>
         </Link>
@@ -28,9 +30,17 @@ export default class NemesisSideBar extends Component {
           </Link>
           )
         })}
+        {/*
+        {this.isAdmin ?
+          <Link to="/customer">
+            <div title="Customer" className={"nemesis-side-bar-item" + (pathName.startsWith("/customer") ? " selected" : "")}><i className="fas fa-user nemesis-side-bar-icon"></i></div>
+          </Link>
+          : false}
+          */}
         <Link to="/">
           <div title="Admin" className={"nemesis-side-bar-item" + (pathName === "/" ? " selected" : "")}><i className="fa fa-chart-bar nemesis-side-bar-icon"></i></div>
         </Link>
+        {/*
         {this.isAdmin ?
           <Link to="/bpmn">
             <div title="BPMN" className={"nemesis-side-bar-item" + (pathName.startsWith("/bpmn") ? " selected" : "")}><i className="fas fa-chalkboard-teacher
@@ -54,6 +64,7 @@ export default class NemesisSideBar extends Component {
             <div title="Taxonomy" className={"nemesis-side-bar-item" + (pathName.startsWith("/taxonomy") ? " selected" : "")}><i className="fa  fa-project-diagram nemesis-side-bar-icon"></i></div>
           </Link>
           : false}
+          */}
         {this.isAdmin ?
           <Link to="/maintenance">
             <div title="Maintenance" className={"nemesis-side-bar-item" + (pathName.startsWith("/maintenance") ? " selected" : "")}><i className="fa fa-file-code nemesis-side-bar-icon"></i></div>
