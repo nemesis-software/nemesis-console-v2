@@ -37,7 +37,7 @@ export default class NemesisHeader extends Component {
 
         this.stomp = new Promise(resolve => {
             var socketClient = webstomp.over(new SockJS(document.getElementById('website-base-url').getAttribute('url') + 'platform/stomp'));
-            socketClient.connect({}, () => resolve(socketClient));
+            socketClient.connect({'X-Nemesis-Token' : document.getElementById('token').getAttribute('value')}, () => resolve(socketClient));
         });
 
         var self = this;
