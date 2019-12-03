@@ -40,7 +40,7 @@ export default class BpmnPanel extends Component {
                 .selectedBpmnProcess}>Load</button>
                 <button className="nemesis-button success-button" onClick={() => this.saveBpmnProcess()} disabled={!this.state.selectedBpmnProcess}>Save</button>
                 <button className="nemesis-button primary-button" onClick={() => this.createBpmnProcess()}>Create new</button>
-                <button className="nemesis-button primary-button" onClick={() => this.createBpmnProcess()}>Package and deploy</button>
+                <button className="nemesis-button primary-button" onClick={() => this.deployBpmnProcess()}>Package and deploy</button>
             </div>
             <div>
                 <div className="content with-diagram" id="js-drop-zone">
@@ -119,6 +119,22 @@ export default class BpmnPanel extends Component {
 
   createBpmnProcess() {
       this.setState({ ...this.state, openBackendConsolePopup: true });
+  }
+
+  deployBpmnProcess() {
+       if (!this.state.selectedBpmnProcess) {
+         return;
+       }
+       var self = this;
+
+
+       ApiCall.post(`bpmn_process/${self.state.selectedBpmnProcess.id}/deploy`).then(
+             () => {
+               self.openNotificationSnackbar('Deployed successfully!');
+             },
+             (err) => {
+               self.openNotificationSnackbar('Deploy failed!', 'error');
+       });
   }
 
   setEncoded(link, name, data) {
