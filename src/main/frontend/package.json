@@ -41,7 +41,6 @@
     "babel-minify-webpack-plugin": "^0.2.0",
     "babel-plugin-root-import": "^6.4.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "css-loader": "^0.28.8",
     "enzyme": "^3.3.0",
     "file-loader": "^5.0.2",
     "jest": "^22.0.6",
@@ -49,6 +48,7 @@
     "less": "^2.7.3",
     "less-loader": "^5.0.0",
     "react-test-renderer": "^16.2.0",
+    "css-loader": "^3.2.1",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "webpack": "^4.41.2",
@@ -92,8 +92,6 @@
     "recharts": "^1.8.5",
     "sockjs-client": "^1.1.4",
     "terser-webpack-plugin": "^2.2.1",
-    "uglifyes-webpack-plugin": "^0.4.3",
-    "uglifyjs-webpack-plugin": "^2.2.0",
     "webstomp-client": "^1.2.0"
   }
 }
