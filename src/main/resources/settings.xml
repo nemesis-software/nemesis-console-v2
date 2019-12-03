@@ -12,8 +12,8 @@
   -->
 
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
                           http://maven.apache.org/xsd/settings-1.0.0.xsd">
 	<servers>
 		<server>
@@ -21,17 +21,17 @@
 			<username>nemesis</username>
 			<password>${env.NEMESIS_DOCS_SSH_NEMESIS_PASSWORD}</password>
 		</server>
-        <server>
-            <id>nemesis-repository-releases</id>
-            <username>admin</username>
-            <password>${env.NEMESIS_REPOSITORY_HTTP_PASSWORD}</password>
-        </server>
+		<server>
+			<id>nemesis-repository-releases</id>
+			<username>admin</username>
+			<password>${env.NEMESIS_REPOSITORY_HTTP_PASSWORD}</password>
+		</server>
 		<server>
 			<id>nemesis-repository-snapshots</id>
 			<username>admin</username>
 			<password>${env.NEMESIS_REPOSITORY_HTTP_PASSWORD}</password>
 		</server>
-        <server>
+		<server>
 			<id>docker-hub</id>
 			<username>nemesissoftware</username>
 			<password>${env.NEMESIS_DOCKER_HTTP_PASSWORD}</password>
