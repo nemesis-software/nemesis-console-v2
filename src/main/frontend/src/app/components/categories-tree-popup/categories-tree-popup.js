@@ -14,7 +14,7 @@ export default class CategoriesTreePopup extends Component {
     this.state = {categories: [], filteredCategories: [], selectedCategory: null, searchText: null, isDataLoading: true};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get('backend/categories').then(result => {
       let actualCategories = this.filterCategoriesForEntity(result.data, this.props.categoriesForEntity);
       this.setState({categories: actualCategories, filteredCategories: actualCategories, isDataLoading: false})

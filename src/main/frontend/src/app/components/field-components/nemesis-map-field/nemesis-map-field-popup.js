@@ -40,13 +40,13 @@ export default class NemesisMapFieldPopup extends Component {
     )
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.openPopup) {
       this.setState({...this.state, fields: this.buildFields(nextProps.fields)})
     }
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.mapFieldsReference = [];
   }
 

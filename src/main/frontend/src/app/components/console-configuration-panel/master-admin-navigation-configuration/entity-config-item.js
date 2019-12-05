@@ -20,7 +20,7 @@ export default class EntityConfigItem extends Component {
     this.state = {categories: [], openDeleteConfirmation: false}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.config.id) {
       ApiCall.get(this.props.config._links.categories.href, {projection: 'search'}).then(result => {
         this.setState({categories: DataHelper.mapCollectionData(result.data)});
@@ -29,7 +29,7 @@ export default class EntityConfigItem extends Component {
     this.fieldsReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldsReferences = [];
   }
 

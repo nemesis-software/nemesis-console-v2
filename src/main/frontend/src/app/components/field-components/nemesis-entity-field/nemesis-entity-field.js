@@ -75,7 +75,7 @@ export default class NemesisEntityField extends NemesisBaseField {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.value, nextProps.value)) {
       if (!nextProps.value) {
         return;

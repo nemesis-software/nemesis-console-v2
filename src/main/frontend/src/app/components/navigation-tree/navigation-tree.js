@@ -13,7 +13,7 @@ export default class NavigationTree extends Component {
     this.selectedCreatingItem = null;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.populateNavigationData();
   }
 

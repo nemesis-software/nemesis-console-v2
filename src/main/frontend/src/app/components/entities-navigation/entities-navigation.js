@@ -17,7 +17,7 @@ export default class EntitiesNavigation extends Component {
     this.navRef = null;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({...this.state, groupedEntities: this.getGroupedEntities(nextProps.entities)});
   }
 

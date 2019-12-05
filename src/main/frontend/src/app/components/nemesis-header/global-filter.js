@@ -13,7 +13,7 @@ export default class GlobalFilter extends Component {
     this.state = {sites: [], selectedIndex: 'allSites'};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get('site').then(result => {
       this.setState({sites: DataHelper.mapCollectionData(result.data)});
     })

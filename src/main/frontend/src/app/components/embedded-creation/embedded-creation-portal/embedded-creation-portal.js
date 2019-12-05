@@ -19,7 +19,7 @@ export default class EmbeddedCreationPortal extends Component {
     this.viewRef = null;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let body = document.querySelector('body');
     if (!body.classList.contains('overflow-portal')) {
       body.classList.add('overflow-portal');
@@ -33,7 +33,7 @@ export default class EmbeddedCreationPortal extends Component {
     }
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
   }
 
   render() {

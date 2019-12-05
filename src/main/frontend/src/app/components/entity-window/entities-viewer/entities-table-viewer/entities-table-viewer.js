@@ -28,7 +28,7 @@ export default class EntitiesTableViewer extends Component {
     this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode};
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({...this.state, entitiesMarkup: nextProps.entitiesMarkup})
   }
 

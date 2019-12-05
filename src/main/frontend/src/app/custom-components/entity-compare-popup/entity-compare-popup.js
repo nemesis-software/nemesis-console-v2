@@ -18,7 +18,7 @@ export default class EntityComparePopup extends Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     let entityName = this.props.entityName;
     let firstItemUrl = entityName + '/' + this.props.firstItemId;
     let secondItemUrl = entityName + '/' + this.props.secondItemId;

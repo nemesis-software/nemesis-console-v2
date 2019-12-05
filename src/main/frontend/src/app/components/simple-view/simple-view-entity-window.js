@@ -63,7 +63,7 @@ export default class SimpleViewEntityWindow extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getEntitiesData(this.props.entity.entityId, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
   }
 

@@ -15,7 +15,7 @@ export default class AdminInfo extends AdminExpandable {
     this.state = {data: [], isExpanded: true};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('info').then(result => {
       this.setState({...this.state, data: result.data})
     });

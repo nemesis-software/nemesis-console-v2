@@ -13,7 +13,7 @@ export default class AdminDetails extends Component {
     this.state = {data: {}};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('metrics').then(result => {
       this.setState({data: result.data})
     });

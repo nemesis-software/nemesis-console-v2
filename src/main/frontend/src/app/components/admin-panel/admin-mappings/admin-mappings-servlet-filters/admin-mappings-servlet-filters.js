@@ -10,7 +10,7 @@ export default class AdminMappingsServletFilters extends Component {
 
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.data, nextProps.data)) {
       this.setState({servletFilters: nextProps.data});
     }

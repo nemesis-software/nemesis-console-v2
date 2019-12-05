@@ -26,7 +26,7 @@ export default class EntitiesViewer extends Component {
     this.getEntityPromise = null;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getEntitiesData(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
   }
 

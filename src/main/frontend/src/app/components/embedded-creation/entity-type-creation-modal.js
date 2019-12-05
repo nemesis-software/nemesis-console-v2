@@ -11,7 +11,7 @@ export default class EntityTypeCreationModal extends Component {
     this.selectedCreatingItem = this.props.entityId;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get(`subtypes/${this.props.entityId}`).then(result => {
       this.setState({creationEntity: {id: this.props.entityId, text: this.props.entityId, childNodes: result.data}});
     })

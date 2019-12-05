@@ -24,15 +24,15 @@ export default class MasterAdminFieldPanel extends Component {
     this.fieldsReferences = [];
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fieldsReferences = [];
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     console.log('next props', nextProps.field.id, nextProps.field.name);
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldsReferences = [];
   }
 

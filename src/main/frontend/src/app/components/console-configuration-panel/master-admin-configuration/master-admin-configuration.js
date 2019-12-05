@@ -18,11 +18,11 @@ export default class MasterAdminConfiguration extends Component {
     this.fieldPanelReferences = [];
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fieldPanelReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldPanelReferences = [];
   }
 

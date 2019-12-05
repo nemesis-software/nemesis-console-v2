@@ -32,9 +32,9 @@ export default class NemesisHeader extends Component {
     this.state = {notifications: []};
   }
 
-    componentWillMount() {
+    componentDidMount() {
         this.notificationSystem = this.refs.notificationSystem;
-
+        
         this.stomp = new Promise(resolve => {
             var socketClient = webstomp.over(new SockJS(document.getElementById('website-base-url').getAttribute('url') + 'platform/stomp'));
             socketClient.connect({}, () => resolve(socketClient));

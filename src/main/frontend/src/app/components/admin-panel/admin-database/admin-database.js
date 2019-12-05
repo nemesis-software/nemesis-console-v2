@@ -12,7 +12,7 @@ export default class AdminDatabase extends Component {
     this.state = {openDialog: '', pendingMigrations: [], migrations: [], filteredMigrations: [], page: {}};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('flyway').then(result => {
         let flywayObj = this.findFlyway(result.data);
         let otherMigrations = flywayObj.migrations.filter(migration => migration.state.toLowerCase() !== 'pending').sort((a,b) => (a.installedRank > b.installedRank) ? -1 : ((b.installedRank > a.installedRank) ? 1 : 0));

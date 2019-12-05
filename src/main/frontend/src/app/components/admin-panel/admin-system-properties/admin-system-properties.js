@@ -10,7 +10,7 @@ export default class AdminSystemProperties extends Component {
     this.state = {properties: {}, filteredProperties: {}}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('env').then(result => {
       let data = this.parseProperties(result.data);
       this.setState({properties: data, filteredProperties: data});

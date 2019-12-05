@@ -13,7 +13,7 @@ export default class Notifications extends Component {
     this.state = {notifications: []};
   }
 
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     this.setState({notifications: this.props.notifications});
   }
 

@@ -16,7 +16,7 @@ export default class DiffButton extends Component {
     this.state = {syncStates: [], isModalOpened: false, firstEntityId: null, secondEntityId: null}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get(this.props.mirrorLink).then(result => {
       this.setState({syncStates: DataHelper.mapCollectionData(result.data)});
     }, err => {

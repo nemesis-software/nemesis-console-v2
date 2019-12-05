@@ -16,11 +16,11 @@ export default class SidebarAdminItemPanel extends Component {
     this.fieldsReferences = [];
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fieldsReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldsReferences = [];
   }
 

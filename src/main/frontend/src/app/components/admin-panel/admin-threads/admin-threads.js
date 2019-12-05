@@ -8,7 +8,7 @@ export default class AdminThreads extends Component {
     this.state = {data: []};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('threaddump').then(result => {
       this.setState({data: result.data.threads})
     });

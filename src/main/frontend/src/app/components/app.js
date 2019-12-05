@@ -72,7 +72,7 @@ export default class App extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
     if (this.isOpenInFrame) {
       this.getMarkupData();

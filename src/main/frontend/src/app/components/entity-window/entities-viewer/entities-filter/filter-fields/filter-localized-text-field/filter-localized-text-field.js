@@ -41,7 +41,7 @@ export default class FilterLocalizedTextField extends Component {
      return result;
    }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.defaultRestriction || this.props.defaultValue) {
       this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction)
     }

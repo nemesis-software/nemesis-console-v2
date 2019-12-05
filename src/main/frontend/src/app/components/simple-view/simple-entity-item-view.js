@@ -49,11 +49,11 @@ export default class SimpleEntityItemView extends Component {
     this.state = {isSidebarOpened: false, isEntityUpdated: false, isLoading: false};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fieldsReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldsReferences = [];
   }
 

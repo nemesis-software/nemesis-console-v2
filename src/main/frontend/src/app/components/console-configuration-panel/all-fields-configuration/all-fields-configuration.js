@@ -18,7 +18,7 @@ export default class AllFieldsConfiguration extends Component {
     this.state = {allFields: {}, allFieldsKey: [], filteredFieldsKey: [], filterValue: ''};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get('markup/entity/fields').then(result => {
       this.setState({
         allFields: result.data,

@@ -42,7 +42,7 @@ export default class EntitiesFilter extends Component {
     this.setState({...this.state, selectedMenuIndex: item.value});
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({filterMarkup: nextProps.filterMarkup})
   }
 

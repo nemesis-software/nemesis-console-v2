@@ -29,7 +29,7 @@ export default class Taxons extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ isLoading: false });
   }
 

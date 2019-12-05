@@ -12,7 +12,7 @@ export default class TreeItem extends Component {
     this.state = {isChildrenVisible: !!this.props.initiallyOpen, openModalCreation: false, creationEntity: null};
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({...this.state, isChildrenVisible: nextProps.initiallyOpen})
   }
 
