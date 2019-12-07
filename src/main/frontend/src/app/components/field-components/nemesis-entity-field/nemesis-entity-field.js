@@ -4,7 +4,7 @@ import Translate from 'react-translate-component';
 import ApiCall from '../../../services/api-call';
 import _ from 'lodash';
 import {nemesisFieldUsageTypes} from '../../../types/nemesis-types';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import NemesisBaseField from '../nemesis-base-field'
 import EmbeddedCreation from '../../embedded-creation/embedded-creation';
 

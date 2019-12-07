@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PlatformApiCall from 'servicesDir/platform-api-call';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
 

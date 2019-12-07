@@ -25,7 +25,7 @@ import PointOfSale from './point-of-sale/point-of-sale';
 import ConsoleConfigurationPanel from './console-configuration-panel/console-configuration-panel';
 import NemesisSideBar from './nemesis-side-bar/nemesis-side-bar';
 
-import 'react-select/dist/react-select.css';
+// import 'react-select/dist/react-select.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 

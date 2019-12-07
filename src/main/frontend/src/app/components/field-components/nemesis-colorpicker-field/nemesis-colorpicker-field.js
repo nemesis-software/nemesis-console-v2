@@ -2,7 +2,7 @@ import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
 import { ChromePicker } from 'react-color';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 export default class NemesisColorpickerField extends NemesisBaseField {
   constructor(props) {

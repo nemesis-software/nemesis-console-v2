@@ -10,7 +10,7 @@ import EntitiesPager from '../entity-window/entities-viewer/entities-pager/entit
 
 import LanguageChanger from '../language-changer';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import _ from 'lodash';
 

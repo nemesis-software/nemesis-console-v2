@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Translate from 'react-translate-component';
 
 import SwipeableViews from 'react-swipeable-views';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import {entityItemType, entityCreateType, entityCloneType, entityBulkEdit} from '../../../types/entity-types';
 import ApiCall from '../../../services/api-call';

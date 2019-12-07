@@ -6,7 +6,7 @@ import { componentRequire } from '../../../utils/require-util';
 
 import {nemesisFieldTypes} from '../../../types/nemesis-types';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import ApiCall from 'servicesDir/api-call';
 

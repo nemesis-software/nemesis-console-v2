@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Translate from 'react-translate-component';
 import _ from 'lodash';
-import NavDropdown from 'react-bootstrap/lib/NavDropdown';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
+import {NavDropdown} from 'react-bootstrap';
+import {DropdownItem} from 'react-bootstrap';
 
 import {entitySearchType, entityItemType, entityCreateType, entityCloneType, entityBulkEdit} from '../../types/entity-types'
 
@@ -29,9 +29,9 @@ export default class EntitiesNavigationItem extends Component {
 
   render() {
     return (
-      <NavDropdown id={this.props.entityId} noCaret className={'entity-nav-dropdown' + (_.some(this.props.entities, {isVisible: true}) ? ' selected' : '')} title={this.getDropdownTitle()}>
+      <NavDropdown id={this.props.entityId} className={'entity-nav-dropdown' + (_.some(this.props.entities, {isVisible: true}) ? ' selected' : '')} title={this.getDropdownTitle()}>
         {this.getFilteredSubEntities().map((subEntity, index) => {
-          return <MenuItem onClick={(event) => this.onNestedItemTouchTab(event, subEntity)} key={index}>{this.getMenuItemContentByEntityType(subEntity)}</MenuItem>;
+          return <DropdownItem onClick={(event) => this.onNestedItemTouchTab(event, subEntity)} key={index}>{this.getMenuItemContentByEntityType(subEntity)}</DropdownItem>;
         })}
       </NavDropdown>
     )

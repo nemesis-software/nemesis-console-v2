@@ -7,7 +7,7 @@ import DataHelper from 'servicesDir/data-helper';
 
 import { componentRequire } from '../../../utils/require-util';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import FilterBuilder from "../../../services/filter-builder";
 import PropTypes from "prop-types";
 

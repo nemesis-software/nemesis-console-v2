@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
-import Dropdown from "react-bootstrap/lib/Dropdown";
-import MenuItem from "react-bootstrap/lib/MenuItem";
+import {Dropdown} from "react-bootstrap";
+
 
 import Translate from "react-translate-component";
 
@@ -26,18 +26,18 @@ export default class HtmlEditor extends Component {
       <div className="nemesis-html-editor">
         <div style={{marginBottom: '5px'}}>
           <div style={buttonGroupStyle}>
-            <Dropdown id="html-headers" disabled={this.state.previewAsText}>
-              <Dropdown.Toggle>
+            <Dropdown id="html-headers" >
+              <Dropdown.Toggle disabled={this.state.previewAsText}>
                 <Translate content={'main.format'} fallback="Format"/>
               </Dropdown.Toggle>
               <Dropdown.Menu className="super-colors">
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'P')}>Paragraph</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H1')}>Heading 1</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H2')}>Heading 2</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H3')}>Heading 3</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H4')}>Heading 4</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H5')}>Heading 5</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'formatBlock', 'H6')}>Heading 6</MenuItem>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'formatBlock', 'P')}>Paragraph</Dropdown.Item>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'formatBlock', 'H1')}>Heading 1</Dropdown.Item>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'formatBlock', 'H2')}>Heading 2</Dropdown.Item>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'formatBlock', 'H3')}>Heading 3</Dropdown.Item>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'formatBlock', 'H4')}>Heading 4</Dropdown.Item>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'formatBlock', 'H5')}>Heading 5</Dropdown.Item>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'formatBlock', 'H6')}>Heading 6</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

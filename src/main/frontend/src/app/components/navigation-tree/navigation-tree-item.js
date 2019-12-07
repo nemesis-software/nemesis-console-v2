@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Translate from 'react-translate-component';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 const alignStyle = {
   verticalAlign: 'middle'

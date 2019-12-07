@@ -1,7 +1,7 @@
 import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import CodeMirror from 'react-codemirror';
 
 export default class NemesisCodeField extends NemesisBaseField {

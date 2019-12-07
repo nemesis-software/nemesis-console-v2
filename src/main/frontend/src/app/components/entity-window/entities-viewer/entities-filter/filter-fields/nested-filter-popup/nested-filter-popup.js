@@ -3,7 +3,7 @@ import Translate from 'react-translate-component';
 
 import Select from 'react-select';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import PropTypes from "prop-types";
 import SelectCustomArrow from "../../../../../helper-components/select-custom-arrow";
 import {nemesisFieldTypes} from "../../../../../../types/nemesis-types";

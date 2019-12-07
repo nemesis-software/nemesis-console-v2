@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PlatformApiCall from '../../../services/platform-api-call';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import _ from 'lodash';
 import counterpart from 'counterpart';
 

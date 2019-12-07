@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import _ from 'lodash';
 

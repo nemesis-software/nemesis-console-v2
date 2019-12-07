@@ -3,7 +3,7 @@ import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
 import LanguageChanger from '../../language-changer';
 import {nemesisFieldUsageTypes} from '../../../types/nemesis-types';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 const translationLanguages = {
   languages: [

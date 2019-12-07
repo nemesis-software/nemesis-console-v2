@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ApiCall from "servicesDir/api-call";
-import Button from "react-bootstrap/lib/Button";
+import {Button} from "react-bootstrap";
 import _ from "lodash";
 import { componentRequire } from "../../utils/require-util";
 import ConsolePopup from "../../custom-components/backend-console-popup";

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 
 import ApiCall from '../services/api-call';
 
-import Dropdown from 'react-bootstrap/lib/Dropdown';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
+import {Dropdown} from 'react-bootstrap';
 
 import DataHelper from 'servicesDir/data-helper';
 
@@ -22,12 +21,12 @@ export default class LiveEditNavigation extends Component {
   render() {
     return (
     <Dropdown id="live-edit-sites" className="live-edit-dropdown">
-      <Dropdown.Toggle className="live-edit-toggle" noCaret>
+      <Dropdown.Toggle className="live-edit-toggle" >
         <div className="live-edit-dropdown-content"><i className="fas fa-draw-polygon" /> Live edit <i className="material-icons arrow-icon">keyboard_arrow_down</i></div>
       </Dropdown.Toggle>
       <Dropdown.Menu className="super-colors">
         {this.state.sites.map((site, index) => {
-          return  <MenuItem key={index} onClick={() => this.openLiveEditPage(site)}>{site.name}</MenuItem>
+          return  <Dropdown.Item key={index} onClick={() => this.openLiveEditPage(site)}>{site.name}</Dropdown.Item>
         })}
       </Dropdown.Menu>
     </Dropdown>
