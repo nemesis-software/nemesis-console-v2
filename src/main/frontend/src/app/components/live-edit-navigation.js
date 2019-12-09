@@ -20,7 +20,7 @@ export default class LiveEditNavigation extends Component {
 
   render() {
     return (
-    <Dropdown id="live-edit-sites" className="live-edit-dropdown">
+    <Dropdown id="live-edit-sites" className="live-edit-dropdown" >
       <Dropdown.Toggle className="live-edit-toggle" >
         <div className="live-edit-dropdown-content"><i className="fas fa-draw-polygon" /> Live edit <i className="material-icons arrow-icon">keyboard_arrow_down</i></div>
       </Dropdown.Toggle>

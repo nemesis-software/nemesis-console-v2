@@ -1,88 +1,102 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Translate from 'react-translate-component';
 import _ from 'lodash';
 import {NavDropdown} from 'react-bootstrap';
 import {DropdownItem} from 'react-bootstrap';
 
-import {entitySearchType, entityItemType, entityCreateType, entityCloneType, entityBulkEdit} from '../../types/entity-types'
+import {
+	entitySearchType,
+	entityItemType,
+	entityCreateType,
+	entityCloneType,
+	entityBulkEdit
+} from '../../types/entity-types'
 
 export default class EntitiesNavigationItem extends Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      open: false,
-    };
-  }
+		this.state = {
+			open: false,
+		};
+	}
 
-  onNestedItemTouchTab = (event, entity) => {
-    if (event.target.className.indexOf('close-icon') > -1) {
-      this.props.onEntityWindowClose(entity);
-      return;
-    }
-    this.setState({
-      open: false,
-    });
+	onNestedItemTouchTab = (event, entity) => {
+		if (event.target.className.indexOf('close-icon') > -1) {
+			this.props.onEntityWindowClose(entity);
+			return;
+		}
+		this.setState({
+			open: false,
+		});
 
-    this.props.onNavigationItemClick(entity);
-  };
+		this.props.onNavigationItemClick(entity);
+	};
 
-  render() {
-    return (
-      <NavDropdown id={this.props.entityId} className={'entity-nav-dropdown' + (_.some(this.props.entities, {isVisible: true}) ? ' selected' : '')} title={this.getDropdownTitle()}>
-        {this.getFilteredSubEntities().map((subEntity, index) => {
-          return <DropdownItem onClick={(event) => this.onNestedItemTouchTab(event, subEntity)} key={index}>{this.getMenuItemContentByEntityType(subEntity)}</DropdownItem>;
-        })}
-      </NavDropdown>
-    )
-  }
+	render() {
+		return (
+			<NavDropdown id={this.props.entityId}
+						 className={'dashboard entity-nav-dropdown' + (_.some(this.props.entities, {isVisible: true}) ? ' selected' : '')}
+						 title={this.getDropdownTitle()}>
+				{this.getFilteredSubEntities().map((subEntity, index) => {
+					return <NavDropdown.Item className="dropdown-dashboard-item" onClick={(event) => this.onNestedItemTouchTab(event, subEntity)}
 
-  getMenuItemContentByEntityType(entity) {
-    let text = entity.entityCode;
-    let type = entity.type;
-    if (type === entitySearchType) {
-      text = 'Entity Search';
-    }
+										 key={index}>{this.getMenuItemContentByEntityType(subEntity)}</NavDropdown.Item>;
+				})}
+			</NavDropdown>
+		)
+	}
 
-    if (type === entityItemType) {
-      text = `${entity.entityCode} - ${entity.itemId}` ;
-    }
+	getMenuItemContentByEntityType(entity) {
+		let text = entity.entityCode;
+		let type = entity.type;
+		if (type === entitySearchType) {
+			text = 'Entity Search';
+		}
 
-    if (type === entityCreateType || type === entityCloneType) {
-      text = `${entity.itemId} - ${entity.entityName} - Create Entity`;
-    }
+		if (type === entityItemType) {
+			text = `${entity.entityCode} - ${entity.itemId}`;
+		}
 
-    if (type === entityBulkEdit) {
-      text = `${entity.itemId} - ${entity.entityName} - Bulk edit`;
-    }
+		if (type === entityCreateType || type === entityCloneType) {
+			text = `${entity.itemId} - ${entity.entityName} - Create Entity`;
+		}
 
-    return <div><span className={entity.isVisible ? 'selected-navigation-menu-item' : ''}>{text}</span><i className="material-icons close-icon">close</i></div>
-  }
+		if (type === entityBulkEdit) {
+			text = `${entity.itemId} - ${entity.entityName} - Bulk edit`;
+		}
 
-  getFilteredSubEntities() {
-    let result = [];
-    let groupedEntities = _.groupBy(this.props.entities, 'type');
-    if (groupedEntities[entitySearchType]) {
-      result = result.concat(groupedEntities[entitySearchType]);
-      delete groupedEntities[entitySearchType];
-    }
+		return <div><span className={entity.isVisible ? 'selected-navigation-menu-item' : ''}>{text}</span><i
+			className="material-icons close-icon">close</i></div>
+	}
 
-    if (groupedEntities[entityCreateType]) {
-      result = result.concat(_.orderBy(groupedEntities[entityCreateType], 'itemId'));
-      delete groupedEntities[entityCreateType];
-    }
+	getFilteredSubEntities() {
+		let result = [];
+		let groupedEntities = _.groupBy(this.props.entities, 'type');
+		if (groupedEntities[entitySearchType]) {
+			result = result.concat(groupedEntities[entitySearchType]);
+			delete groupedEntities[entitySearchType];
+		}
 
-    if (groupedEntities[entityItemType]) {
-      result = result.concat(_.orderBy(groupedEntities[entityItemType], 'entityCode'));
-      delete groupedEntities[entityItemType];
-    }
+		if (groupedEntities[entityCreateType]) {
+			result = result.concat(_.orderBy(groupedEntities[entityCreateType], 'itemId'));
+			delete groupedEntities[entityCreateType];
+		}
 
-    _.forIn(groupedEntities, (value, key) => result = result.concat(value));
+		if (groupedEntities[entityItemType]) {
+			result = result.concat(_.orderBy(groupedEntities[entityItemType], 'entityCode'));
+			delete groupedEntities[entityItemType];
+		}
 
-    return result;
-  }
+		_.forIn(groupedEntities, (value, key) => result = result.concat(value));
 
-  getDropdownTitle() {
-    return <div className="dropdown-title-container"><Translate content={'main.' + this.props.entityId} fallback={this.props.entityId}/> <i className="material-icons dropdown-caret-icon">keyboard_arrow_down</i></div>
-  }
+		return result;
+	}
+
+	getDropdownTitle() {
+		return <div className="dropdown-title-container"><Translate id="dropdown-title"
+																	content={'main.' + this.props.entityId}
+																	fallback={this.props.entityId}/><i
+			className="dashboard-arrow material-icons dropdown-caret-icon">keyboard_arrow_down</i></div>
+	}
 }
