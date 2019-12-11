@@ -39,7 +39,7 @@ export default class EntitiesNavigationItem extends Component {
 						 className={'dashboard entity-nav-dropdown' + (_.some(this.props.entities, {isVisible: true}) ? ' selected' : '')}
 						 title={this.getDropdownTitle()}>
 				{this.getFilteredSubEntities().map((subEntity, index) => {
-					return <NavDropdown.Item className="dropdown-dashboard-item" onClick={(event) => this.onNestedItemTouchTab(event, subEntity)}
+					return <NavDropdown.Item className="dashboard-item-menu dropdown-dashboard-item" onClick={(event) => this.onNestedItemTouchTab(event, subEntity)}
 
 										 key={index}>{this.getMenuItemContentByEntityType(subEntity)}</NavDropdown.Item>;
 				})}
