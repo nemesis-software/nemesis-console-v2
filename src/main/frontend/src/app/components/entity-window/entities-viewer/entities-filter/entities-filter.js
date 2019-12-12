@@ -23,6 +23,7 @@ export default class EntitiesFilter extends Component {
           <div style={this.getFilterSelectStyle()}>
             <label><Translate content={'main.Filter'} fallback={'Filter'}/></label>
             <Select style={{width: '265px'}}
+                    className="select-filter"
                     clearable={false}
                     arrowRenderer={() => <SelectCustomArrow/>}
                     disabled={this.props.readOnly}

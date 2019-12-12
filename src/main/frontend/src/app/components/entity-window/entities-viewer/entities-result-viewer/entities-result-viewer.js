@@ -22,6 +22,7 @@ export default class EntitiesResultViewer extends Component {
         <div style={this.getViewerSelectStyle()}>
           <label><Translate content={'main.viewer'} fallback={'Viewer'}/></label>
           <Select style={{width: '265px'}}
+                  className="select-filter"
                   clearable={false}
                   arrowRenderer={() => <SelectCustomArrow/>}
                   disabled={this.props.readOnly}

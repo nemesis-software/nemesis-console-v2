@@ -44,6 +44,7 @@ export default class DefaultFilter extends Component {
             <Translate component="label" content={'main.addFilterField'} fallback={'Add filter field'}/>
             <Select cache={false}
                     style={{width: '265px'}}
+                      className="select-filter"
                     arrowRenderer={() => <SelectCustomArrow/>}
                     clearable={false}
                     disabled={this.props.readOnly}

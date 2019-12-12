@@ -12,9 +12,10 @@ export default class Notifications extends Component {
     this.state = {notifications: []};
   }
 
-  UNSAFE_componentWillReceiveProps() {
+  componentDidMount() {
     this.setState({notifications: this.props.notifications});
   }
+
 
   render() {
     return (
@@ -22,7 +23,7 @@ export default class Notifications extends Component {
       <Dropdown.Toggle className="notification-toggle">
         <div className="notification-dropdown-content"><i className="fas fa-bell fa-fw" /> Notifications <span id="badge-counter" className="badge badge-danger badge-counter"></span> <i className="material-icons arrow-icon">keyboard_arrow_down</i></div>
       </Dropdown.Toggle>
-      <Dropdown.Menu className="notifications">
+      <Dropdown.Menu className="">
           {this.state.notifications.map((notification, index) => {
             return <Dropdown.Item key={index}><b>{notification.message}</b><br/>{notification.description}</Dropdown.Item>
           })}
