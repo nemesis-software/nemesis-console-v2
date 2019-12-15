@@ -35,6 +35,7 @@ export default class EntitySections extends Component {
   }
 
   componentDidMount() {
+
     if (this.props.entity.type === entityItemType) {
       this.getDataEntity(this.props.entity);
     }
@@ -47,6 +48,7 @@ export default class EntitySections extends Component {
   }
 
   UNSAFE_componentWillUpdate() {
+
     this.sectionsReferences = [];
   }
 
