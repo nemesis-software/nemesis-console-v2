@@ -41,7 +41,6 @@ export default class MasterAdmin extends Component {
   }
 
   onGlobalFilterSelect(response) {
-
     response.then(result => {
       window.location.hash = '#';
       this.setState({globalFiltersCatalogs: result.data.map(item => {

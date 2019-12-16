@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import Translate from 'react-translate-component';
 import ApiCall from '../../../services/api-call';
 import _ from 'lodash';
@@ -18,6 +19,7 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   render() {
+
     return (
       <div className="entity-field-container">
         <div className="entity-field-input-container">
@@ -32,7 +34,7 @@ export default class NemesisEntityField extends NemesisBaseField {
                     onChange={(item) => this.onValueChange(item && item.value)}
                     options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))}/>
             :
-            <Select.Async style={this.getSelectStyle()}
+            <AsyncSelect style={this.getSelectStyle()}
                           cache={false}
                           arrowRenderer={() => <SelectCustomArrow/>}
                           className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}

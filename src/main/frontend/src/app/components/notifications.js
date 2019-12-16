@@ -9,13 +9,12 @@ import DataHelper from 'servicesDir/data-helper';
 export default class Notifications extends Component {
   constructor(props) {
     super(props);
-    this.state = {notifications: []};
+    this.state = { notifications: [] };
   }
 
-  componentDidMount() {
-    this.setState({notifications: this.props.notifications});
+  UNSAFE_componentWillReceiveProps() {
+    this.setState({ notifications: this.props.notifications });
   }
-
 
   render() {
     return (

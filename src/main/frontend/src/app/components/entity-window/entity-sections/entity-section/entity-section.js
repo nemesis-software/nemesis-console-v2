@@ -33,6 +33,7 @@ export default class EntitySection extends Component {
 
     super(props);
     this.fieldsReferences = [];
+
   }
 
   render() {
@@ -58,6 +59,7 @@ export default class EntitySection extends Component {
   }
 
   getSectionItemRenderer(item, index) {
+
     let isRequered = this.props.entity.type === entityBulkEdit ? false : item.required;
     let reactElement;
     let itemName = item.name.replace('entity-', '');

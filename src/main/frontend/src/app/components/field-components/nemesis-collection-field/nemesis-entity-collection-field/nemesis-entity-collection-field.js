@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import NemesisBaseCollectionField from '../nemesis-base-collection-field';
 import {nemesisFieldUsageTypes} from '../../../../types/nemesis-types';
 import ApiCall from '../../../../services/api-call';
@@ -32,7 +33,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
                     onChange={(item) => this.onValueChange(item && item.value)}
                     options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))}/>
             :
-            <Select.Async style={this.getSelectStyle()}
+            <AsyncSelect style={this.getSelectStyle()}
                           cache={false}
                           className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                           arrowRenderer={() => <SelectCustomArrow/>}

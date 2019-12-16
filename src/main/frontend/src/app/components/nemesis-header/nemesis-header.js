@@ -47,7 +47,6 @@ export default class NemesisHeader extends Component {
                 var numberOfNotifications = badgeCounter.innerHTML;
                 numberOfNotifications++;
                 badgeCounter.innerHTML = numberOfNotifications;
-
                 var newNotifications = self.state.notifications;
                 newNotifications.push(JSON.parse(notification.body));
                 self.setState({notifications: newNotifications});

@@ -173,7 +173,9 @@ export default class EntitiesTableViewer extends Component {
   }
 
   onRowClick(ev, item) {
+
     if (ev.target.classList.contains('status-dot') || ev.target.classList.contains('select-entity-checkbox')) {
+
       return;
     }
     this.props.onEntityItemClick(item);

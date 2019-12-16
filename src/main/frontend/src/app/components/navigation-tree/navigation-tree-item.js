@@ -75,7 +75,6 @@ export default class TreeItem extends Component {
   }
 
   getAddNewItemIcon() {
-
     if ((!this.props.nestedItems || this.props.nestedItems.length === 0) && this.props.isVisible) {
       return <i className="material-icons add-icon">add</i>;
     }
@@ -99,7 +98,6 @@ export default class TreeItem extends Component {
   }
 
   handleItemClick(event) {
-
     let entity = this.props.item;
     if (event.target.className.indexOf('add-icon') > -1) {
       this.onCreateEntityClick(entity);
