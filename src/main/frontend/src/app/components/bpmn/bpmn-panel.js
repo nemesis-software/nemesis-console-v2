@@ -108,7 +108,7 @@ export default class BpmnPanel extends Component {
       }
 
      ApiCall.get(`bpmn_process/${valueToLoad.id}`).then(result => {
-        this.modeler.importXML(result.data.content, function(err) {
+        this.modeler.importXML(result.data.value, function(err) {
           if (err) {
             console.error(err);
           }
@@ -157,7 +157,7 @@ export default class BpmnPanel extends Component {
        var self = this;
        this.modeler.saveXML({ format: true }, function(err, xml) {
           if (!err) {
-            ApiCall.patch(`bpmn_process/${self.state.selectedBpmnProcess.id}`, {content: xml}).then(
+            ApiCall.patch(`bpmn_process/${self.state.selectedBpmnProcess.id}`, {value: xml}).then(
                  () => {
                    self.openNotificationSnackbar('Saved successfully!');
                  },
