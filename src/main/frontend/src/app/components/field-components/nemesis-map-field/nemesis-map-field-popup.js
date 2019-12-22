@@ -19,7 +19,7 @@ export default class NemesisMapFieldPopup extends Component {
 
   render() {
     return (
-      <Modal show={this.props.openPopup}>
+      <Modal show={this.props.openPopup} animation={false}>
         <Modal.Header>
           <Modal.Title>Edit map field</Modal.Title>
         </Modal.Header>

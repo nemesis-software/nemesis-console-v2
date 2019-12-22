@@ -23,7 +23,7 @@ export default class CategoriesTreePopup extends Component {
 
   render() {
     return (
-      <Modal className="categories-tree-popup" bsSize="large" show={this.props.openPopup}>
+      <Modal className="categories-tree-popup" size="large" show={this.props.openPopup}>
         <Modal.Header>
           <Modal.Title>
             <div style={{textAlign: 'right', float: 'right', fontSize: '14px'}}>

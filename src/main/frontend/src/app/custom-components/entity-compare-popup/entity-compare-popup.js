@@ -32,7 +32,7 @@ export default class EntityComparePopup extends Component {
 
   render() {
     return (
-      <Modal className={'entity-compare-popup' + (this.state.showDiffOnly ? ' diff-only' : '')} show={this.props.openModal} onHide={this.handleModalClose.bind(this)} bsSize="large">
+      <Modal className={'entity-compare-popup' + (this.state.showDiffOnly ? ' diff-only' : '')} show={this.props.openModal} onHide={this.handleModalClose.bind(this)} size="large">
         <Modal.Header>
           <Modal.Title>
             Entity compare

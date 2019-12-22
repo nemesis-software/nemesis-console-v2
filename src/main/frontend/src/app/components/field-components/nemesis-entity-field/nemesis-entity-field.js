@@ -163,7 +163,7 @@ export default class NemesisEntityField extends NemesisBaseField {
 
   getErrorDialog() {
     return (
-      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Something went wrong!</Modal.Title>
         </Modal.Header>

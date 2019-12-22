@@ -8,7 +8,7 @@ export default class BackendConsolePopup extends Component {
 
   render() {
     return (
-      <Modal bsSize="lg" show={this.props.open} onHide={this.props.onClose} backdrop="static">
+      <Modal size="lg" show={this.props.open} onHide={this.props.onClose} backdrop="static">
           <Modal.Header closeButton>
             <Modal.Title>{this.props.itemId ? 'Edit' : 'Create'}</Modal.Title>
           </Modal.Header>

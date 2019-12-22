@@ -50,7 +50,12 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
-            <Modal show={this.state.openTranslateDialog} bsSize={this.getModalSize()} onHide={this.handleTranslateDialogClose.bind(this)} backdrop="static">
+            <Modal show={this.state.openTranslateDialog}
+				   // style={{opacity:1, top: '100px'}}
+                  animation={false}
+                   size={this.getModalSize()}
+                   onHide={this.handleTranslateDialogClose.bind(this)}
+                   backdrop="static">
               <Modal.Header>
                 <Modal.Title>Translate field</Modal.Title>
               </Modal.Header>
@@ -58,7 +63,8 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
                 {translationLanguages.languages.map(this.getDialogInputField.bind(this))}
               </Modal.Body>
               <Modal.Footer>
-                <button className="nemesis-button success-button" onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
+                <button className="nemesis-button success-button"
+                        onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
               </Modal.Footer>
             </Modal>
           ) :

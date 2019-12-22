@@ -56,10 +56,10 @@ export default class HtmlEditor extends Component {
                 <Translate content={'main.align'} fallback="Align"/>
               </Dropdown.Toggle>
               <Dropdown.Menu className="super-colors">
-                <MenuItem onClick={this.execCommand.bind(this, 'justifyLeft')}>Left</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'justifyRight')}>Right</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'justifyCenter')}>Center</MenuItem>
-                <MenuItem onClick={this.execCommand.bind(this, 'justifyFull')}>Justify</MenuItem>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'justifyLeft')}>Left</Dropdown.Item>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'justifyRight')}>Right</Dropdown.Item>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'justifyCenter')}>Center</Dropdown.Item>
+                <Dropdown.Item onClick={this.execCommand.bind(this, 'justifyFull')}>Justify</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>
