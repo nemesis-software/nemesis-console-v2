@@ -51,7 +51,7 @@ export default class HtmlEditor extends Component {
           <div style={buttonGroupStyle}>
             <button className="btn btn-default" title="Ordered List" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'insertOrderedList')}><i className="fa fa-list-ol"/></button>
             <button className="btn btn-default" title="Unordered List" disabled={this.state.previewAsText} onClick={this.execCommand.bind(this, 'insertUnorderedList')}><i className="fa fa-list-ul"/></button>
-            <Dropdown id="html-align" disabled={this.state.previewAsText}>
+            <Dropdown id="html-align" disabled={this.state.previewAsText} style={{display: 'inline-block'}}>
               <Dropdown.Toggle>
                 <Translate content={'main.align'} fallback="Align"/>
               </Dropdown.Toggle>
