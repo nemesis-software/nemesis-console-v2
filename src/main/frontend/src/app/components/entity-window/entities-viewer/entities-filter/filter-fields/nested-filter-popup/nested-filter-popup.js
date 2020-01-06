@@ -28,6 +28,7 @@ export default class NestedFilterPopup extends Component {
           <div>
             <div style={{display: 'inline-block'}}>
               <Select style={{width: '300px'}}
+                      className="entity-field-select entity-field"
                       clearable={false}
                       arrowRenderer={() => <SelectCustomArrow />}
                       value={this.state.selectedItem ? {value: this.state.selectedItem, label: this.state.selectedItem.fieldLabel } : null}
