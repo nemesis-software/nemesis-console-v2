@@ -3,6 +3,7 @@ import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
 
 import Select from 'react-select';
+import Creatable, { makeCreatableSelect }  from 'react-select/creatable'
 
 import SelectCustomArrow from '../../helper-components/select-custom-arrow';
 
@@ -16,10 +17,10 @@ export default class NemesisCreatableSelect extends NemesisBaseField {
       <div className="entity-field-container">
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
-          <Select.Creatable style={this.getSelectStyle()}
+          <Creatable style={this.getSelectStyle()}
                   clearable={this.props.clearable === undefined ? true : this.props.clearable}
                   arrowRenderer={() => <SelectCustomArrow />}
-                  className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                  className={'entity-field-select entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                   disabled={this.props.readOnly}
                   value={this.state.value ? {value: this.state.value, label: <Translate content={'main.' + this.state.value} fallback={this.state.value} />} : null} //
                   onChange={(item) => this.onChange(item && item.value)}
