@@ -13,7 +13,7 @@ export default class NemesisMoneyField extends NemesisBaseField {
       <div className="entity-field-container">
         <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ? <span className="required-star">*</span> : false}</div>
         <div className="entity-field-input-container  half-size pr-2">
-          <input type="number" step={this.props.step || '1'}
+          <input type="number" step={this.props.step || '0.01'}
                  style={{...this.props.style}}
                  className={'entity-field form-control' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props
                  .readOnly
@@ -82,8 +82,8 @@ export default class NemesisMoneyField extends NemesisBaseField {
   }
 
   isEmptyValue() {
-    if (this.state.value === null) {
-      return true;
+    if (this.state.value && this.state.value.amount && this.state.value.currency) {
+      return false;
     }
 
     if (isFinite(this.state.value)) {
