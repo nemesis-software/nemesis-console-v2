@@ -40,7 +40,6 @@ export default class BpmnPanel extends Component {
                 .selectedBpmnProcess}>Load</button>
                 <button className="nemesis-button success-button" onClick={() => this.saveBpmnProcess()} disabled={!this.state.selectedBpmnProcess}>Save</button>
                 <button className="nemesis-button primary-button" onClick={() => this.createBpmnProcess()}>Create new</button>
-                <button className="nemesis-button primary-button" onClick={() => this.deployBpmnProcess()}>Package and deploy</button>
             </div>
             <div>
                 <div className="content with-diagram" id="js-drop-zone">
