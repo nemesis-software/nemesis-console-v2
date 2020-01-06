@@ -169,6 +169,7 @@ export default class EntitiesTableViewer extends Component {
   }
 
   onSelectButtonClick() {
+
     this.setState({selectedIds: {}, isSelectedActive: !this.state.isSelectedActive});
   }
 

@@ -111,7 +111,7 @@ export default class NemesisEntityField extends NemesisBaseField {
     return ApiCall.get(this.getSearchUrl(),params).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-      return {options: data.map(this.mapDataSource.bind(this))};
+      return {options: data.map(...this.mapDataSource.bind(this))};
     }, this.handleRequestError.bind(this))
   }
 

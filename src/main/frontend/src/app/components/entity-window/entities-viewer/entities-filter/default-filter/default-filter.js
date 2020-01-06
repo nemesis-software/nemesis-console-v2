@@ -76,6 +76,7 @@ export default class DefaultFilter extends Component {
   }
 
   onFilterChange(filterObject) {
+
     let filterIndex = _.findIndex(this.state.appliedFilters, {id: filterObject.id});
     let appliedFilters = this.state.appliedFilters;
 
@@ -109,6 +110,7 @@ export default class DefaultFilter extends Component {
   }
 
   onAddFieldSelected(item) {
+
     let filterItems = this.state.filterItems;
     filterItems.push(item.value);
     this.setState({filterItems: filterItems});

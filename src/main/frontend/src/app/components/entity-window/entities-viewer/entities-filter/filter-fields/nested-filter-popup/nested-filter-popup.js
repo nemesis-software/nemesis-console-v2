@@ -18,7 +18,7 @@ export default class NestedFilterPopup extends Component {
 
   render() {
     return (
-      <Modal className="nested-filter-popup" show={this.props.openNestedFilterPopup} onHide={this.handleModalClose.bind(this)}>
+      <Modal className="nested-filter-popup" show={this.props.openNestedFilterPopup} onHide={this.handleModalClose.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>Select nested filter</Modal.Title>
         </Modal.Header>

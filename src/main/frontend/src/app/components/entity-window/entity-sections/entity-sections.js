@@ -242,6 +242,7 @@ export default class EntitySections extends Component {
   }
 
   handleSynchronizeButtonClick() {
+
     let entity = this.props.entity;
     this.setState({...this.state, isDataLoading: true});
     if (entity.type === entityBulkEdit) {
