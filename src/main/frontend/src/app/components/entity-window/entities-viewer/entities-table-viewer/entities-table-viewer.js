@@ -25,7 +25,7 @@ const translationLanguages = {
 export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
-    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode};
+    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode,isAllSelected:false};
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -156,12 +156,21 @@ export default class EntitiesTableViewer extends Component {
   }
 
   markAllAsSelected() {
-    let result = {...this.state.selectedIds};
-    this.props.entities.forEach(item => {
-      result[item.id] = true;
-    });
+  	if(!this.state.isAllSelected) {
+		let result = {...this.state.selectedIds};
+		this.props.entities.forEach(item => {
+			result[item.id] = true;
+		});
 
-    this.setState({selectedIds: result});
+		this.setState(prevState => ({...prevState, selectedIds: result, isAllSelected: true}));
+	}else{
+		let result = {...this.state.selectedIds};
+		this.props.entities.forEach(item => {
+			result[item.id] = false;
+		});
+		this.setState(prevState => ({...prevState, selectedIds: result, isAllSelected: false}));
+
+	}
   }
 
   onSelectedIdsChange(value) {
