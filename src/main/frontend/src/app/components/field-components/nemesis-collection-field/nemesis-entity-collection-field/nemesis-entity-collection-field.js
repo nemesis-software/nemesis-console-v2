@@ -49,7 +49,9 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getAdditionalIconFunctionality() {
+
     if (!this.props.readOnly && ((this.props.type === nemesisFieldUsageTypes.edit) || (this.props.type === nemesisFieldUsageTypes.quickView && this.props.embeddedCreationAllowed))) {
+
       return (
         <React.Fragment>
           <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i>
@@ -81,7 +83,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
     return ApiCall.get(this.getSearchUrl(), params).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-      return {options: data.map(this.mapDataSource.bind(this))};
+      return {options: data.map(...this.mapDataSource.bind(this))};
     })
   }
 
@@ -146,6 +148,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   openEmbeddedCreation() {
+
     this.setState({openEmbeddedCreation: true});
   }
 
