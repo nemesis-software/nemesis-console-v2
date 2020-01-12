@@ -25,7 +25,7 @@ export default class NemesisEntityField extends NemesisBaseField {
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ? <span className="required-star">*</span> : false}</div>
           {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
-            <Select style={this.getSelectStyle()}
+              <Select style={this.getSelectStyle()}
                     cache={false}
                     arrowRenderer={() => <SelectCustomArrow/>}
                     className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
@@ -87,6 +87,7 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   onValueChange(value) {
+
     this.setState({...this.state, isDirty: true, value: value});
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));
@@ -111,6 +112,7 @@ export default class NemesisEntityField extends NemesisBaseField {
     return ApiCall.get(this.getSearchUrl(),params).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
+
       return {options: data.map(...this.mapDataSource.bind(this))};
     }, this.handleRequestError.bind(this))
   }
