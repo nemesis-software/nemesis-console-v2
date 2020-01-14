@@ -15,6 +15,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   constructor(props, context) {
     super(props, context);
     this.state = {...this.state, openEmbeddedCreation: false};
+
   }
 
   getInputField() {
@@ -25,6 +26,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
             <span className="required-star">*</span> : false}</div>
 
           {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
+
             <Select style={this.getSelectStyle()}
                     cache={false}
                     arrowRenderer={() => <SelectCustomArrow/>}
@@ -88,7 +90,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-      console.log(data);
+
       return  data.map((option) => this.mapDataSource(option));
 
     });

@@ -41,6 +41,7 @@ export default class NemesisEntityField extends NemesisBaseField {
                           disabled={this.props.readOnly}
                           value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
                           onChange={(item) => this.onValueChange(item && item.value)}
+                          defaultOptions
                           loadOptions={this.filterEntityData.bind(this)}/>
           }
         </div>
@@ -113,7 +114,7 @@ export default class NemesisEntityField extends NemesisBaseField {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
 
-      return {options: data.map(...this.mapDataSource.bind(this))};
+      return  data.map((option) => this.mapDataSource(option));
     }, this.handleRequestError.bind(this))
   }
 
