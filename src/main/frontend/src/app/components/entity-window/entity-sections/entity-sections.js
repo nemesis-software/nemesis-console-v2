@@ -18,7 +18,7 @@ let EntitySection = componentRequire('app/components/entity-window/entity-sectio
 const keyPrefix = 'entitySection';
 
 export default class EntitySections extends Component {
-  
+
   constructor(props) {
     super(props);
     this.sectionsReferences = [];
@@ -48,6 +48,7 @@ export default class EntitySections extends Component {
   }
 
   UNSAFE_componentWillUpdate() {
+
     this.sectionsReferences = [];
   }
 
@@ -85,7 +86,6 @@ export default class EntitySections extends Component {
           onChangeIndex={this.handleChange}
         >
           {this.props.entity.data.sections.map((item, index) => {
-
             return <EntitySection ref={(section) => {section && this.sectionsReferences.push(section)}}
                                   key={index}
                                   section={item}
@@ -405,7 +405,6 @@ export default class EntitySections extends Component {
 
   isRequiredFieldValid() {
     let isValid = true;
-
     this.sectionsReferences.forEach(section => {
       if (!isValid) {
         return;
