@@ -30,7 +30,6 @@ import {entityBulkEdit} from "../../../../types/entity-types";
 
 export default class EntitySection extends Component {
   constructor(props) {
-
     super(props);
     this.fieldsReferences = [];
 

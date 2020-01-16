@@ -18,6 +18,7 @@ let EntitySection = componentRequire('app/components/entity-window/entity-sectio
 const keyPrefix = 'entitySection';
 
 export default class EntitySections extends Component {
+  
   constructor(props) {
     super(props);
     this.sectionsReferences = [];
@@ -40,7 +41,7 @@ export default class EntitySections extends Component {
     }
 
     if (this.props.entity.type === entityCloneType) {
-      this.setState({entityData: this.props.entity.additionParams});
+      this.setState((prevState)=>({...prevState, entityData: this.props.entity.additionParams}));
     }
 
     this.sectionsReferences = [];
@@ -51,13 +52,14 @@ export default class EntitySections extends Component {
   }
 
   handleChange = (value) => {
-    this.setState({
-      ...this.state,
+    this.setState((prevState)=>({
+      ...prevState,
       sectionIndex: value,
-    });
+    }));
   };
 
   render() {
+
     return (
       <div key={this.state.key} className={'entity-sections' + (this.state.isDataLoading ? ' on-loading' : '')}>
         {this.state.isDataLoading ? <div className="loading-screen">
@@ -83,6 +85,7 @@ export default class EntitySections extends Component {
           onChangeIndex={this.handleChange}
         >
           {this.props.entity.data.sections.map((item, index) => {
+
             return <EntitySection ref={(section) => {section && this.sectionsReferences.push(section)}}
                                   key={index}
                                   section={item}
@@ -147,7 +150,7 @@ export default class EntitySections extends Component {
   }
 
   getDataEntity(entity) {
-    this.setState({...this.state, isDataLoading: true});
+    this.setState((prevState)=>({...prevState, isDataLoading: true}));
     let relatedEntities = this.getEntityRelatedEntities(entity);
     let restUrl = entity.entityUrl || (entity.entityName + '/' + entity.itemId);
     return DataService.getEntityData(restUrl, relatedEntities).then(result => {
@@ -155,7 +158,7 @@ export default class EntitySections extends Component {
       if (result.customClientData.syncStates && result.customClientData.syncStates.length > 0) {
         syncStatus = _.some(result.customClientData.syncStates, {stateValue: 'OUT_OF_SYNC'}) ? 'OUT_OF_SYNC' : 'COMPLETED';
       }
-      this.setState({...this.state, entityData: {...this.state.entityData, ...result}, key: keyPrefix + Date.now(), isDataLoading: false, entitySyncStatus: syncStatus})
+      this.setState((prevState)=>({...prevState, entityData: {...prevState.entityData, ...result}, key: keyPrefix + Date.now(), isDataLoading: false, entitySyncStatus: syncStatus}))
     });
   }
 
@@ -197,7 +200,7 @@ export default class EntitySections extends Component {
   }
 
   handleCloseErrorDialog() {
-    this.setState({...this.state, openErrorDialog: false});
+    this.setState((prevState)=>({...prevState, openErrorDialog: false}));
   }
 
   getEntityRelatedEntities(entity) {
@@ -238,29 +241,29 @@ export default class EntitySections extends Component {
   }
 
   handleDeleteButtonClick() {
-    this.setState({...this.state, openDeleteConfirmation: true});
+    this.setState((prevState)=>({...prevState, openDeleteConfirmation: true}));
   }
 
   handleSynchronizeButtonClick() {
 
     let entity = this.props.entity;
-    this.setState({...this.state, isDataLoading: true});
+    this.setState((prevState)=>({...prevState, isDataLoading: true}));
     if (entity.type === entityBulkEdit) {
       this.bulkSynchronize();
       return;
     }
     ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
       this.props.openNotificationSnackbar('Entity successfully synchronized');
-      this.setState({...this.state, isDataLoading: false, entitySyncStatus: 'COMPLETED'});
+      this.setState((prevState)=>({...prevState, isDataLoading: false, entitySyncStatus: 'COMPLETED'}));
     }, this.handleRequestError.bind(this))
   }
 
   handleSaveButtonClick(windowShouldClose) {
+
     if (!this.isRequiredFieldValid()) {
       return;
     }
-
-    this.setState({...this.state, isDataLoading: true});
+    this.setState((prevState) => ({...prevState, isDataLoading: true}));
 
     let entity = this.props.entity;
     let dirtyEntityProps = this.getDirtyEntityProps();
@@ -293,14 +296,14 @@ export default class EntitySections extends Component {
         } else if (resultObject.code) {
           this.props.updateNavigationCode(this.props.entity, resultObject.code);
         }
-        this.setState({...this.state, isDataLoading: false, entitySyncStatus: 'OUT_OF_SYNC'});
+        this.setState((prevState)=>({...prevState, isDataLoading: false, entitySyncStatus: 'OUT_OF_SYNC'}));
       });
     }, this.handleRequestError.bind(this));
   }
 
   bulkEditSave(resultObj) {
     if (_.isEmpty(resultObj)) {
-      this.setState({isDataLoading: false});
+      this.setState((prevState)=>({...prevState, isDataLoading: false}));
       return;
     }
     let ids = this.props.entity.additionParams;
@@ -317,7 +320,7 @@ export default class EntitySections extends Component {
               this.props.onUpdateEntitySearchView(this.props.entity);
               this.resetDirtyEntityFields();
               this.props.openNotificationSnackbar('All entities successfully saved');
-              this.setState({isDataLoading: false});
+              this.setState((prevState)=>({...prevState, isDataLoading: false}));
             }
             resolve();
           }, err => {
@@ -345,7 +348,7 @@ export default class EntitySections extends Component {
         ApiCall.get('backend/synchronize', {entityName: entityName, id: ids[i]}).then(() => {
             if (i === ids.length - 1) {
               this.props.openNotificationSnackbar('All entities successfully synchronized');
-              this.setState({isDataLoading: false});
+              this.setState((prevState)=>({...prevState, isDataLoading: false}));
             }
             resolve();
           }, err => {
@@ -402,6 +405,7 @@ export default class EntitySections extends Component {
 
   isRequiredFieldValid() {
     let isValid = true;
+
     this.sectionsReferences.forEach(section => {
       if (!isValid) {
         return;
@@ -422,12 +426,15 @@ export default class EntitySections extends Component {
   }
 
   handleRequestError(err) {
+
     let errorMsg = (err && err.response && err.response.data && err.response.data.message) || err.message || err;
-    this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true, isDataLoading: false})
+
+    this.setState((prevState) => ({...prevState, errorMessage: errorMsg, openErrorDialog: true, isDataLoading: false}));
+    // this.setState({...this.state, errorMessage: errorMsg, openErrorDialog: true, isDataLoading: false})
   }
 
   handleCloseDeleteConfirmation() {
-    this.setState({...this.state, openDeleteConfirmation: false});
+    this.setState((prevState)=>({...prevState, openDeleteConfirmation: false}));
   };
 
   getAdditionalItem() {
