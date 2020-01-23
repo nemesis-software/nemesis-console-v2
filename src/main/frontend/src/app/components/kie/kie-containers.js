@@ -107,7 +107,7 @@ export default class KieContainers extends Component {
 
   getAddContainerDialog() {
     return (
-      <Modal show={this.state.openAddContainer} onHide={this.handleCloseAddContainer.bind(this)}>
+      <Modal show={this.state.openAddContainer} onHide={this.handleCloseAddContainer.bind(this)} animation={false}>
         {this.state.isLoading ? <div className="loading-screen">
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
@@ -139,7 +139,7 @@ export default class KieContainers extends Component {
 
   getDeleteConfirmationDialog() {
     return (
-      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}>
+      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>Dispose Container</Modal.Title>
         </Modal.Header>
