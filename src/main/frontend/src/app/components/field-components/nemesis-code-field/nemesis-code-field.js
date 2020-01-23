@@ -1,7 +1,7 @@
 import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import CodeMirror from 'react-codemirror';
 
 export default class NemesisCodeField extends NemesisBaseField {
@@ -24,7 +24,7 @@ export default class NemesisCodeField extends NemesisBaseField {
         </div>
         <i className="material-icons entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}>fullscreen</i>
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
-        <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)}>
+        <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)} animation={false}>
           <Modal.Header>
             <Modal.Title>Edit text</Modal.Title>
           </Modal.Header>

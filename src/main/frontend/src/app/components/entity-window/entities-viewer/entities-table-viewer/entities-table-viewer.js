@@ -28,7 +28,7 @@ export default class EntitiesTableViewer extends Component {
     this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode};
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({...this.state, entitiesMarkup: nextProps.entitiesMarkup})
   }
 
@@ -169,11 +169,14 @@ export default class EntitiesTableViewer extends Component {
   }
 
   onSelectButtonClick() {
+
     this.setState({selectedIds: {}, isSelectedActive: !this.state.isSelectedActive});
   }
 
   onRowClick(ev, item) {
+
     if (ev.target.classList.contains('status-dot') || ev.target.classList.contains('select-entity-checkbox')) {
+
       return;
     }
     this.props.onEntityItemClick(item);

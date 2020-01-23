@@ -8,14 +8,14 @@ export default class CustomMainView extends MainView {
     super(props, context);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     let selectedEntity = {
       type: 'dashboard',
       entityCode: 'AdminDashboard',
       entityId: 'dashboard',
       itemId: null
     };
-    super.componentWillMount().then(null, () => {
+    super.UNSAFE_componentWillMount().then(null, () => {
       this.setSelectedItemInState(selectedEntity);
     });
   }

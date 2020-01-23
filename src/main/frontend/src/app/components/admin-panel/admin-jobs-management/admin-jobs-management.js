@@ -9,7 +9,7 @@ export default class AdminJobsManagement extends Component {
     this.state = {jobs: [], filteredJobs: [], searchInput: ''};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     return PlatformApiCall.get('job/trigger').then(result => {
       this.setState({jobs: result.data, filteredJobs: result.data});
     });

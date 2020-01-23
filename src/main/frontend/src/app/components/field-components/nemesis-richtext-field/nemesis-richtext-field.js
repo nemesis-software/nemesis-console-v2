@@ -1,7 +1,7 @@
 import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import { componentRequire } from '../../../utils/require-util';
 let HtmlEditor = componentRequire('app/custom-components/html-editor/html-editor', 'html-editor');
@@ -26,7 +26,7 @@ export default class NemesisRichTextField extends NemesisBaseField {
         </div>
         <i className="fa fa-code entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}/>
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
-        <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)} backdrop="static">
+        <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)} backdrop="static" animation={false}>
           <Modal.Header>
             <Modal.Title><Translate content={'main.Edit richtext'} fallback={'Edit richtext'} /></Modal.Title>
           </Modal.Header>

@@ -10,7 +10,7 @@ import EntitiesPager from '../entity-window/entities-viewer/entities-pager/entit
 
 import LanguageChanger from '../language-changer';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import _ from 'lodash';
 
@@ -63,7 +63,7 @@ export default class SimpleViewEntityWindow extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getEntitiesData(this.props.entity.entityId, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
   }
 
@@ -160,7 +160,7 @@ export default class SimpleViewEntityWindow extends Component {
 
   getDeleteConfirmationDialog() {
     return (
-      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}>
+      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>Delete Entity</Modal.Title>
         </Modal.Header>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ApiCall from "servicesDir/api-call";
-import Button from "react-bootstrap/lib/Button";
+import {Button} from "react-bootstrap";
 import _ from "lodash";
 import { componentRequire } from "../../utils/require-util";
 import ConsolePopup from "../../custom-components/backend-console-popup";
@@ -25,12 +25,14 @@ export default class Taxons extends Component {
       selectedTaxon: null,
       selectedTaxonAttribute: null,
       openBackendConsolePopup: false,
-      isLoading: true
+      isLoading: false
     };
+
   }
 
-  componentWillMount() {
-    this.setState({ isLoading: false });
+  componentDidMount() {
+
+	  this.setState((prevState)=>({...prevState, isLoading: false }));
   }
 
   render() {
@@ -77,7 +79,7 @@ export default class Taxons extends Component {
             entityId="taxon_attribute"
             entityName="taxon_attribute"
             onClose={() =>
-              this.setState({ ...this.state, openBackendConsolePopup: false })
+              this.setState((prevState) => ({ ...prevState, openBackendConsolePopup: false }))
             }
           />
         ) : (

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import CategoryTreeItem from './category-tree-item';
 
@@ -14,7 +14,7 @@ export default class CategoriesTreePopup extends Component {
     this.state = {categories: [], filteredCategories: [], selectedCategory: null, searchText: null, isDataLoading: true};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get('backend/categories').then(result => {
       let actualCategories = this.filterCategoriesForEntity(result.data, this.props.categoriesForEntity);
       this.setState({categories: actualCategories, filteredCategories: actualCategories, isDataLoading: false})
@@ -23,7 +23,7 @@ export default class CategoriesTreePopup extends Component {
 
   render() {
     return (
-      <Modal className="categories-tree-popup" bsSize="large" show={this.props.openPopup}>
+      <Modal className="categories-tree-popup" size="large" show={this.props.openPopup} animation={false}>
         <Modal.Header>
           <Modal.Title>
             <div style={{textAlign: 'right', float: 'right', fontSize: '14px'}}>

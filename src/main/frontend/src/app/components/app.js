@@ -26,7 +26,7 @@ import PointOfSale from './point-of-sale/point-of-sale';
 import ConsoleConfigurationPanel from './console-configuration-panel/console-configuration-panel';
 import NemesisSideBar from './nemesis-side-bar/nemesis-side-bar';
 
-import 'react-select/dist/react-select.css';
+// import 'react-select/dist/react-select.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -73,7 +73,7 @@ export default class App extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
     if (this.isOpenInFrame) {
       this.getMarkupData();

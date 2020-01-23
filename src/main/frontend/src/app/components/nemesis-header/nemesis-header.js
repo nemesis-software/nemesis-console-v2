@@ -32,9 +32,9 @@ export default class NemesisHeader extends Component {
     this.state = {notifications: []};
   }
 
-    componentWillMount() {
+    componentDidMount() {
         this.notificationSystem = this.refs.notificationSystem;
-
+        
         this.stomp = new Promise(resolve => {
             var socketClient = webstomp.over(new SockJS(document.getElementById('website-base-url').getAttribute('url') + 'platform/stomp'));
             socketClient.connect({'X-Nemesis-Token' : document.getElementById('token').getAttribute('value')}, () => resolve(socketClient));
@@ -47,7 +47,6 @@ export default class NemesisHeader extends Component {
                 var numberOfNotifications = badgeCounter.innerHTML;
                 numberOfNotifications++;
                 badgeCounter.innerHTML = numberOfNotifications;
-
                 var newNotifications = self.state.notifications;
                 newNotifications.push(JSON.parse(notification.body));
                 self.setState({notifications: newNotifications});

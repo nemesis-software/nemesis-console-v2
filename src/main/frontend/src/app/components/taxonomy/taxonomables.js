@@ -50,13 +50,16 @@ export default class Taxonomables extends Component {
       selectedTaxonomable: null,
       expandedAttributes: [],
       selectedTaxon: null,
-      isLoading: true,
+      isLoading: false,
       selectedLanguage: defaultLanguage
     };
+
   }
 
-  componentWillMount() {
-    this.setState({ isLoading: false });
+  componentDidMount() {
+
+    this.setState((prevState)=>({...prevState, isLoading: false }));
+
   }
 
   render() {
@@ -75,8 +78,8 @@ export default class Taxonomables extends Component {
           ApiCall.get("taxon/" + row.id + "/taxonAttributes", {
             projection: "search"
           }).then(result => {
-            this.setState({
-              ...this.state,
+            this.setState((prevState) => ({
+              ...prevState,
               expandedAttributes: DataHelper.mapCollectionData(result.data).map(
                 attr => ({
                   id: attr.id,
@@ -95,8 +98,8 @@ export default class Taxonomables extends Component {
                   value: attr.code
                 })
               )
-            });
-            console.log(result);
+            }));
+
           });
         }
       },
@@ -205,7 +208,8 @@ export default class Taxonomables extends Component {
     ApiCall.get(
       "subtypes/abstract_taxonomable_entity"
     ).then(result => {
-      this.setState({ ...this.state, taxonomableTypes: result.data });
+
+      this.setState((prevState) => ({ ...prevState, taxonomableTypes: result.data }));
     });
   }
 
@@ -217,7 +221,7 @@ export default class Taxonomables extends Component {
 
   handleNewTaxonomableTypeChange(item) {
     let level = item && item.value;
-    this.setState({ ...this.state, selectedTaxonomableType: item });
+    this.setState((prevState) => ({ ...prevState, selectedTaxonomableType: item }));
   }
 
   getTextFieldValue(val, language) {
@@ -230,7 +234,7 @@ export default class Taxonomables extends Component {
 
   onTaxonomableSelect(value) {
     if (!value) {
-      this.setState({ selectedTaxonomable: null });
+      this.setState((prevState) => ({ ...prevState,selectedTaxonomable: null }));
       return;
     }
     this.setState({ isLoading: true }, () => {
@@ -240,10 +244,10 @@ export default class Taxonomables extends Component {
 
   onTaxonSelect(value) {
     if (!value) {
-      this.setState({ ...this.state, selectedTaxon: null });
+      this.setState((prevState)  => ({ ...prevState, selectedTaxon: null }));
       return;
     }
-    this.setState({ ...this.state, selectedTaxon: value });
+    this.setState((prevState) => ({ ...prevState, selectedTaxon: value }));
   }
 
   setLoadingStatus(isLoading) {
@@ -260,12 +264,12 @@ export default class Taxonomables extends Component {
         "/resolvedTaxons",
       { projection: "search" }
     ).then(result => {
-      this.setState({
-        ...this.state,
+      this.setState((prevState) =>({
+        ...prevState,
         taxons: DataHelper.mapCollectionData(result.data),
         selectedTaxonomable: selectedTaxonomable,
         isLoading: false
-      });
+      }));
     });
   }
 

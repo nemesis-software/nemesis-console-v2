@@ -9,7 +9,7 @@ export default class AdminMemoryUsage extends Component {
     this.intervalUpdate = null;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('metrics/mem').then(result => {
       this.setState({...this.state, totalMemory: result.data.mem})
     }).then(() => {

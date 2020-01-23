@@ -7,7 +7,7 @@ import DataHelper from 'servicesDir/data-helper';
 
 import { componentRequire } from '../../../utils/require-util';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import FilterBuilder from "../../../services/filter-builder";
 import PropTypes from "prop-types";
 
@@ -26,7 +26,7 @@ export default class EntitiesViewer extends Component {
     this.getEntityPromise = null;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getEntitiesData(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
   }
 
@@ -105,7 +105,7 @@ export default class EntitiesViewer extends Component {
 
   getErrorDialog() {
     return (
-      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Something went wrong!</Modal.Title>
         </Modal.Header>

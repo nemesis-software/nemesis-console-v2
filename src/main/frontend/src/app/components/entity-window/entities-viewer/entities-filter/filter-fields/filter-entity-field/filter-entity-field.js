@@ -24,7 +24,7 @@ export default class FilterEntityField extends Component {
     this.state = {restrictionField: props.defaultRestriction || null, selectedEntity: props.defaultValue || null, openNestedFilterPopup: false, nestedFilters: null};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.defaultRestriction || this.props.defaultValue) {
       this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction);
     }
@@ -34,7 +34,7 @@ export default class FilterEntityField extends Component {
     if (!this.state.nestedFilters) {
       return (
         <div className="filter-item-container">
-          <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction || this.state.restrictionField} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
+         <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction || this.state.restrictionField} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
           {this.isEntityFieldVisible() ? <NemesisEntityField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.selectedEntity} entityId={this.props.filterItem.entityId} onValueChange={this.onSelectedMenuItem.bind(this)} label={this.props.filterItem.fieldLabel}/> : false}
           {!this.props.hideNestedIcon ? <i className={'material-icons nested-filter-icon'} onClick={this.openNestedFilterPopup.bind(this)}>navigate_next</i> : false}
           {this.getNestedFilterFunctionality()}
@@ -92,6 +92,7 @@ export default class FilterEntityField extends Component {
   }
 
   onSelectedMenuItem(item) {
+
     this.setState({...this.state, selectedEntity: item});
     this.updateParentFilter(item, this.state.restrictionField);
   }

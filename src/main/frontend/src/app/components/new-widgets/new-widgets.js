@@ -9,7 +9,7 @@ export default class NewWidgets extends Component {
     this.state = {data: null, selectedCreatingItem: 'widget'}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get(`subtypes/widget`).then(result => {
       this.setState({data: {id: 'widget', text: 'widget', childNodes: result.data}});
     })

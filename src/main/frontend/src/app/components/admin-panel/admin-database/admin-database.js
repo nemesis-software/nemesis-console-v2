@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PlatformApiCall from '../../../services/platform-api-call';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import _ from 'lodash';
 import counterpart from 'counterpart';
 
@@ -12,7 +12,7 @@ export default class AdminDatabase extends Component {
     this.state = {openDialog: '', pendingMigrations: [], migrations: [], filteredMigrations: [], page: {}};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('flyway').then(result => {
         let flywayObj = this.findFlyway(result.data);
         let otherMigrations = flywayObj.migrations.filter(migration => migration.state.toLowerCase() !== 'pending').sort((a,b) => (a.installedRank > b.installedRank) ? -1 : ((b.installedRank > a.installedRank) ? 1 : 0));
@@ -116,7 +116,7 @@ export default class AdminDatabase extends Component {
 
   getActionConfirmationDialog(title, body, action) {
     return (
-      <Modal show={this.state.openDialog === `${action}`} onHide={this.handleCloseActionConfirmation.bind(this)}>
+      <Modal show={this.state.openDialog === `${action}`} onHide={this.handleCloseActionConfirmation.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>

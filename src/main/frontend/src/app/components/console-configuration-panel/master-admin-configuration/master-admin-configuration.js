@@ -18,11 +18,11 @@ export default class MasterAdminConfiguration extends Component {
     this.fieldPanelReferences = [];
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fieldPanelReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldPanelReferences = [];
   }
 
@@ -35,6 +35,7 @@ export default class MasterAdminConfiguration extends Component {
           <div className="add-field-container">
             <Select cache={false}
                     style={{width: '265px'}}
+                    className="entity-field-select entity-field"
                     arrowRenderer={() => <SelectCustomArrow/>}
                     clearable={false}
                     placeholder={<Translate component="span" content={'main.addField'} fallback={'Add field'}/>}

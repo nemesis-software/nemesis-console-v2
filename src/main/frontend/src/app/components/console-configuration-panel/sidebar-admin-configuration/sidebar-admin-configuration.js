@@ -15,15 +15,15 @@ export default class SidebarAdminConfiguration extends Component {
   }
 
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.fieldPanelReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldPanelReferences = [];
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return Promise.all([ApiCall.get('sidebar_section'), ApiCall.get('markup/entity/fields')]).then(result => {
       this.setState({sidebars: DataHelper.mapCollectionData(result[0].data), allEntitiesName: _.keys(result[1].data)});
     });

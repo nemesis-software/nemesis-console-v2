@@ -11,7 +11,7 @@ export default class AdminSpringBeans extends Component {
     this.state = {context: '', beans: [], filteredBeans: [], page: {}};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('beans').then(result => {
 
       let beansObj = this.findBeans(result.data);

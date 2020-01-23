@@ -7,7 +7,7 @@ export default class SyncStateTableRenderer extends Component {
     this.state = {syncStates: this.parseSyncStates(props.value), onProgress: false}
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({syncStates: this.parseSyncStates(nextProps.value), onProgress: false})
   }
 

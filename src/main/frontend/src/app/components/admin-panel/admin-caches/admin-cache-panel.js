@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PlatformApiCall from 'servicesDir/platform-api-call';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
 
@@ -47,7 +47,7 @@ export default class AdminCachePanel extends Component {
 
   getDeleteConfirmationDialog() {
     return (
-      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}>
+      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}  animation={false}>
         <Modal.Header>
           <Modal.Title>Cache clear</Modal.Title>
         </Modal.Header>
@@ -78,6 +78,7 @@ export default class AdminCachePanel extends Component {
   }
 
   handleActiveButtonClick(cacheName) {
+
     PlatformApiCall.post(`caches/${cacheName}`, null, null, {cacheManager: this.props.name}).then(() => {
       this.props.openNotificationSnackbar('Successfully switched!');
     }, err => {
@@ -86,6 +87,7 @@ export default class AdminCachePanel extends Component {
   }
 
   onClearCacheClick(cacheName) {
+
     this.setState({openDeleteConfirmation: true, cacheForClear: cacheName});
   }
 

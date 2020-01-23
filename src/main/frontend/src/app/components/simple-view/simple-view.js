@@ -24,13 +24,13 @@ export default class SimpleView extends Component {
     this.notificationSystem = this.refs.notificationSystem;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return Promise.all([ ApiCall.get('site')]).then(result => {
       this.setState({sites: DataHelper.mapCollectionData(result[0].data)});
     })
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.timestamp !== nextProps.timestamp) {
       this.setState({isItemSelected: false});
     }

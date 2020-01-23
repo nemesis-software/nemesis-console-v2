@@ -35,7 +35,7 @@ export default class NemesisMapFieldItem extends Component {
     )
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (_.isEqual(this.props.item, nextProps.item)) {
       return;
     }

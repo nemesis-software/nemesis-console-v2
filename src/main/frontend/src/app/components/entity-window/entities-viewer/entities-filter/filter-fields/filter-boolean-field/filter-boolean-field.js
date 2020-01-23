@@ -21,7 +21,7 @@ export default class FilterBooleanField extends Component {
     )
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.defaultValue) {
       this.updateParentFilter(this.props.defaultValue);
     }

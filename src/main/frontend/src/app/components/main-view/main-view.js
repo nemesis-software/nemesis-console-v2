@@ -29,7 +29,7 @@ export default class MainView extends Component {
     this.notificationSystem = null;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return this.parseUrlEntity()
   }
 

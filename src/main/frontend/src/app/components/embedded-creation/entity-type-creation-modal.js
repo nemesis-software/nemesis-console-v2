@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import ApiCall from 'servicesDir/api-call';
 
@@ -11,7 +11,7 @@ export default class EntityTypeCreationModal extends Component {
     this.selectedCreatingItem = this.props.entityId;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get(`subtypes/${this.props.entityId}`).then(result => {
       this.setState({creationEntity: {id: this.props.entityId, text: this.props.entityId, childNodes: result.data}});
     })
@@ -19,7 +19,7 @@ export default class EntityTypeCreationModal extends Component {
 
   render() {
     return (
-      <Modal show={this.props.openModalCreation} onHide={this.handleModalClose.bind(this)}>
+      <Modal show={this.props.openModalCreation} onHide={this.handleModalClose.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>Create Entity</Modal.Title>
         </Modal.Header>

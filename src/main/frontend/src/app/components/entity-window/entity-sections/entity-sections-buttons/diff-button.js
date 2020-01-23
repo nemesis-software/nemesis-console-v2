@@ -6,8 +6,8 @@ import ApiCall from 'servicesDir/api-call';
 
 import DataHelper from 'servicesDir/data-helper';
 
-import Dropdown from 'react-bootstrap/lib/Dropdown';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
+import {Dropdown} from 'react-bootstrap';
+
 import EntityComparePopup from "../../../../custom-components/entity-compare-popup/entity-compare-popup";
 
 export default class DiffButton extends Component {
@@ -16,7 +16,7 @@ export default class DiffButton extends Component {
     this.state = {syncStates: [], isModalOpened: false, firstEntityId: null, secondEntityId: null}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get(this.props.mirrorLink).then(result => {
       this.setState({syncStates: DataHelper.mapCollectionData(result.data)});
     }, err => {
@@ -39,12 +39,12 @@ export default class DiffButton extends Component {
           </div>
           :
           <Dropdown id="live-edit-sites" className="mirror-button-dropdown">
-            <Dropdown.Toggle className="mirror-button-toggle" noCaret>
+            <Dropdown.Toggle className="mirror-button-toggle" >
               <div className="mirror-button-dropdown-content"><Translate component="span" content={'main.Diff Entity'} fallback={'Diff Entity'}/><i className="material-icons arrow-icon">keyboard_arrow_down</i></div>
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {this.state.syncStates.map((state, index) => {
-                return  <MenuItem key={index} onClick={() => this.onItemSelection(state.sourceId,state.targetId)}>{this.props.isOnline ? state.sourceId : state.targetId}</MenuItem>
+                return  <Dropdown.Item key={index} onClick={() => this.onItemSelection(state.sourceId,state.targetId)}>{this.props.isOnline ? state.sourceId : state.targetId}</Dropdown.Item>
               })}
             </Dropdown.Menu>
           </Dropdown>

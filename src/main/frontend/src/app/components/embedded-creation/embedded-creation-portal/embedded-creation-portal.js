@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import ReactDOM from 'react-dom';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import ApiCall from 'servicesDir/api-call';
 
@@ -19,7 +19,7 @@ export default class EmbeddedCreationPortal extends Component {
     this.viewRef = null;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let body = document.querySelector('body');
     if (!body.classList.contains('overflow-portal')) {
       body.classList.add('overflow-portal');
@@ -33,7 +33,7 @@ export default class EmbeddedCreationPortal extends Component {
     }
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
   }
 
   render() {
@@ -59,7 +59,7 @@ export default class EmbeddedCreationPortal extends Component {
 
   getErrorDialog() {
     return (
-      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Something went wrong!</Modal.Title>
         </Modal.Header>

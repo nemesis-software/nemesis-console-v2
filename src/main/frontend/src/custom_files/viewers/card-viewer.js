@@ -12,7 +12,7 @@ export default class CardViewer extends Component {
     this.state = {entitiesMarkup: this.props.entitiesMarkup || []};
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({...this.state, entitiesMarkup: nextProps.entitiesMarkup})
   }
 
