@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import '../../../styles/kie-panel.less';
 import ApiCall from '../../services/api-call';
-import Modal from 'react-bootstrap/lib/Modal';
-import FormControl from 'react-bootstrap/lib/Form';
+import {Modal} from 'react-bootstrap';
 import DataHelper from 'servicesDir/data-helper';
 import {componentRequire} from "../../utils/require-util";
 import NotificationSystem from 'react-notification-system';
