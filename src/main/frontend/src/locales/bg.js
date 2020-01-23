@@ -133,7 +133,7 @@ module.exports = {
     blog_category: 'Блог Категория',
     //bundle
     bundle_selection: 'Подбор',
-    bundle_price:'Цени',
+    bundle_price:'Групажни Цени',
     bundle_template: 'Темплейти',
     bundle_rule: 'Правила',
     //classification

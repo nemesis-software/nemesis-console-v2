@@ -62,7 +62,7 @@ export default class PaymentReceipt extends Component {
 }
 
 const totalPrice = (item) => {
-  let itemPrice = Number(item.product.price.split(',')[0]);
+  let itemPrice = Number(item.product.price.amount);
   let result = item.quantity * itemPrice;
   return Number(result).toFixed(2);
 };

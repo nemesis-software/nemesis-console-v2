@@ -206,7 +206,7 @@ export default class Taxonomables extends Component {
 
   componentDidMount() {
     ApiCall.get(
-      "subtypes/building-block/com.nemesis.platform.module.taxonomy.core.definition.AbstractTaxonomableEntityDefinition"
+      "subtypes/abstract_taxonomable_entity"
     ).then(result => {
 
       this.setState((prevState) => ({ ...prevState, taxonomableTypes: result.data }));
