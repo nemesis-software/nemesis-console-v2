@@ -19,7 +19,7 @@ export default class EntityTypeCreationModal extends Component {
 
   render() {
     return (
-      <Modal show={this.props.openModalCreation} onHide={this.handleModalClose.bind(this)}>
+      <Modal show={this.props.openModalCreation} onHide={this.handleModalClose.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>Create Entity</Modal.Title>
         </Modal.Header>

@@ -40,7 +40,6 @@ export default class BpmnPanel extends Component {
                 .selectedBpmnProcess}>Load</button>
                 <button className="nemesis-button success-button" onClick={() => this.saveBpmnProcess()} disabled={!this.state.selectedBpmnProcess}>Save</button>
                 <button className="nemesis-button primary-button" onClick={() => this.createBpmnProcess()}>Create new</button>
-                <button className="nemesis-button primary-button" onClick={() => this.createBpmnProcess()}>Package and deploy</button>
             </div>
             <div>
                 <div className="content with-diagram" id="js-drop-zone">
@@ -108,7 +107,7 @@ export default class BpmnPanel extends Component {
       }
 
      ApiCall.get(`bpmn_process/${valueToLoad.id}`).then(result => {
-        this.modeler.importXML(result.data.content, function(err) {
+        this.modeler.importXML(result.data.value, function(err) {
           if (err) {
             console.error(err);
           }
@@ -119,6 +118,22 @@ export default class BpmnPanel extends Component {
 
   createBpmnProcess() {
       this.setState({ ...this.state, openBackendConsolePopup: true });
+  }
+
+  deployBpmnProcess() {
+       if (!this.state.selectedBpmnProcess) {
+         return;
+       }
+       var self = this;
+
+
+       ApiCall.post(`bpmn_process/${self.state.selectedBpmnProcess.id}/deploy`).then(
+             () => {
+               self.openNotificationSnackbar('Deployed successfully!');
+             },
+             (err) => {
+               self.openNotificationSnackbar('Deploy failed!', 'error');
+       });
   }
 
   setEncoded(link, name, data) {
@@ -141,7 +156,7 @@ export default class BpmnPanel extends Component {
        var self = this;
        this.modeler.saveXML({ format: true }, function(err, xml) {
           if (!err) {
-            ApiCall.patch(`bpmn_process/${self.state.selectedBpmnProcess.id}`, {content: xml}).then(
+            ApiCall.patch(`bpmn_process/${self.state.selectedBpmnProcess.id}`, {value: xml}).then(
                  () => {
                    self.openNotificationSnackbar('Saved successfully!');
                  },

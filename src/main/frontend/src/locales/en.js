@@ -165,7 +165,7 @@ module.exports = {
     taxonomy_value: 'Taxonomy Value',
     //bundle
     bundle_selection: 'Selection',
-    bundle_price:'Price',
+    bundle_price:'Bundle Price',
     bundle_template: 'Template',
     bundle_selection_criteria: 'Selection Criteria',
     bundle_rule: 'Bundle Rule',

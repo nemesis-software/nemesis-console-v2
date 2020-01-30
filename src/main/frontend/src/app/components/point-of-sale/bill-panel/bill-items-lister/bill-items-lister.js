@@ -36,13 +36,13 @@ export default class BillItemsLister extends Component {
 }
 
 const productPrice = (product) => {
-  let price = Number(product.price.split(',')[0]);
+  let price = Number(product.price.amount);
 
   return price.toFixed(2);
 };
 
 const totalPrice = (item) => {
-  let itemPrice = Number(item.product.price.split(',')[0]);
+  let itemPrice = Number(item.product.price.amount);
   let result = item.quantity * itemPrice;
   return Number(result).toFixed(2);
 };

@@ -15,6 +15,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   constructor(props, context) {
     super(props, context);
     this.state = {...this.state, openEmbeddedCreation: false};
+
   }
 
   getInputField() {
@@ -23,7 +24,9 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
             <span className="required-star">*</span> : false}</div>
+
           {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
+
             <Select style={this.getSelectStyle()}
                     cache={false}
                     arrowRenderer={() => <SelectCustomArrow/>}
@@ -39,7 +42,9 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
                           arrowRenderer={() => <SelectCustomArrow/>}
                           disabled={this.props.readOnly}
                           onChange={this.onItemSelect.bind(this)}
-                          loadOptions={this.filterEntityData.bind(this)}/>
+                          defaultOptions
+                          loadOptions={this.filterEntityData.bind(this)}
+            />
           }
           {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         </div>
@@ -49,7 +54,9 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getAdditionalIconFunctionality() {
+
     if (!this.props.readOnly && ((this.props.type === nemesisFieldUsageTypes.edit) || (this.props.type === nemesisFieldUsageTypes.quickView && this.props.embeddedCreationAllowed))) {
+
       return (
         <React.Fragment>
           <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i>
@@ -73,16 +80,20 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   filterEntityData(inputText) {
+
     let inputTextActual = inputText || '';
     let params = {page: 0, size: 10, code: `%${inputTextActual}%`, projection: 'search'};
     if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
       params.catalogVersionIds = this.context.globalFiltersCatalogs.map(item => item.id).join(',');
     }
     return ApiCall.get(this.getSearchUrl(), params).then(result => {
+
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-      return {options: data.map(this.mapDataSource.bind(this))};
-    })
+
+      return  data.map((option) => this.mapDataSource(option));
+
+    });
   }
 
   onItemSelect(item) {
@@ -146,6 +157,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   openEmbeddedCreation() {
+
     this.setState({openEmbeddedCreation: true});
   }
 

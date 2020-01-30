@@ -51,8 +51,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
             <Modal show={this.state.openTranslateDialog}
-				   // style={{opacity:1, top: '100px'}}
-                  animation={false}
+                   animation={false}
                    size="lg"
                    onHide={this.handleTranslateDialogClose.bind(this)}
                    backdrop="static">

@@ -88,12 +88,12 @@ export default class FilterBuilder {
     };
 
     result[searchRestrictionTypes.greaterThan] = {
-      getFilterString: (item) => `${this.getFullFieldCode(item)} ge ${item.value}M${this.getClosedBrackets(item)}`,
+      getFilterString: (item) => `${this.getFullFieldCode(item)} ge ${item.value}${this.getClosedBrackets(item)}`,
       isValueRequired: true
     };
 
     result[searchRestrictionTypes.lessThan] = {
-      getFilterString: (item) => `${this.getFullFieldCode(item)} le ${item.value}M${this.getClosedBrackets(item)}`,
+      getFilterString: (item) => `${this.getFullFieldCode(item)} le ${item.value}${this.getClosedBrackets(item)}`,
       isValueRequired: true
     };
 
