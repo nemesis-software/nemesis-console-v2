@@ -25,13 +25,14 @@ export default class NemesisEntityField extends NemesisBaseField {
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ? <span className="required-star">*</span> : false}</div>
           {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
-            <Select style={this.getSelectStyle()}
+              <Select style={this.getSelectStyle()}
                     cache={false}
                     arrowRenderer={() => <SelectCustomArrow/>}
                     className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                     disabled={this.props.readOnly}
                     value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
                     onChange={(item) => this.onValueChange(item && item.value)}
+                    defaultOptions
                     options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))}/>
             :
             <AsyncSelect style={this.getSelectStyle()}
@@ -41,6 +42,7 @@ export default class NemesisEntityField extends NemesisBaseField {
                           disabled={this.props.readOnly}
                           value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
                           onChange={(item) => this.onValueChange(item && item.value)}
+                          defaultOptions
                           loadOptions={this.filterEntityData.bind(this)}/>
           }
         </div>
@@ -78,22 +80,25 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    // console.log('next ');
+    // console.log(nextProps)
     if (!_.isEqual(this.props.value, nextProps.value)) {
       if (!nextProps.value) {
         return;
       }
-      this.setState({...this.state, isDirty: false, value: this.setFormattedValue(nextProps.value)})
+      this.setState((prevState) => ({...prevState, isDirty: false, value: this.setFormattedValue(nextProps.value)}))
     }
   }
 
   onValueChange(value) {
-    this.setState({...this.state, isDirty: true, value: value});
+    this.setState((prevState)=>({...prevState, isDirty: true, value: value}));
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));
     }
   }
 
   filterEntityData(inputText) {
+
     let inputTextActual = inputText || '';
     let params =  {
       page: 0,
@@ -111,7 +116,8 @@ export default class NemesisEntityField extends NemesisBaseField {
     return ApiCall.get(this.getSearchUrl(),params).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-      return {options: data.map(...this.mapDataSource.bind(this))};
+
+      return  data.map((option) => this.mapDataSource(option));
     }, this.handleRequestError.bind(this))
   }
 

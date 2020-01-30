@@ -22,7 +22,7 @@ export default class RulesPanel extends Component {
           {this.state.isLoading ? <div className="loading-screen"><i className="material-icons loading-icon">cached</i></div> : false}
           <div className="nemesis-rules-panel">
             <div className="ruleConfiguration">
-                <NemesisEntityField entityId={'rule'} onValueChange={this.onRuleSelect.bind(this)} value={this.state.selectedRule} label={'Rule'}/>
+                <NemesisEntityField entityId={'brm_rule'} onValueChange={this.onRuleSelect.bind(this)} value={this.state.selectedRule} label={'Rule'}/>
                 <button className="nemesis-button success-button" onClick={() => this.editRule()} disabled={!this.state
                 .selectedRule}>Load</button>
                 <button className="nemesis-button success-button" onClick={() => this.saveRule()} disabled={!this.state.selectedRule}>Save</button>
@@ -56,18 +56,53 @@ export default class RulesPanel extends Component {
                             {this.state.selectedRuleSyntax.rules.map((rule, index) => {
                                 return (
                                     <div className="rule" key={index}>
+                                        <div>Name:{rule.name}</div>
                                         <div>Salience: {rule.salience}</div>
-                                        <b>WHEN</b>
+                                        <b>WHEN</b><i className="fas fa-plus"></i>
                                         <div className="lhs">
                                             {rule.lhs.descrs.map((descr, index) => {
                                                 return (
                                                     <div key={index}>
-                                                        Exists {descr.objectType} as {descr.identifier} with:
-                                                        <ul>
+                                                        <i className="fas fa-remove"></i>
+                                                        <select>
+                                                            <option>Exists</option>
+                                                            <option>Does not Exists</option>
+                                                            <option>There is</option>
+                                                            <option>There is not</option>
+                                                        </select>
+                                                        a
+                                                        <select>
+                                                            <option>{descr.objectType}</option>
+                                                        </select>
+                                                        (<input type="text" defaultValue={descr.identifier}/>)
+                                                        with
+                                                        <select>
+                                                            <option>the following</option>
+                                                            <option>all of the following</option>
+                                                            <option>any of the following</option>
+                                                        </select>
+                                                        attributes:<br/>
+                                                        <ul style={{paddingLeft:'100px'}}>
+                                                            {descr.constraint.descrs.map((constraintDescr, constraintIndex)=> {
+                                                                let constraintDescrTextParts = constraintDescr.text.split(":");
+                                                                return (
+                                                                    <li key={constraintIndex}>{constraintDescrTextParts[0]}</li>
+                                                                )
+                                                            })}
                                                         </ul>
                                                     </div>
                                                 )
                                             })}
+                                        </div>
+                                        <b>THEN</b>
+                                        <div>
+                                            insert
+                                            <select>
+                                                <option>PromotionRuleResultDto</option>
+                                            </select>
+                                            with <input type="text" defaultValue="$promotion"/>,
+                                            <input type="text" defaultValue="POTENTIAL"/>,
+                                            <input type="text" defaultValue="changeDeliveryModePromotionRuleResultActionExecutor"/>
                                         </div>
                                     </div>
                                 )
