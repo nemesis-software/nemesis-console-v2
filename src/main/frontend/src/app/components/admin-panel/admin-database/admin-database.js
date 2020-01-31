@@ -116,7 +116,7 @@ export default class AdminDatabase extends Component {
 
   getActionConfirmationDialog(title, body, action) {
     return (
-      <Modal show={this.state.openDialog === `${action}`} onHide={this.handleCloseActionConfirmation.bind(this)}>
+      <Modal show={this.state.openDialog === `${action}`} onHide={this.handleCloseActionConfirmation.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>

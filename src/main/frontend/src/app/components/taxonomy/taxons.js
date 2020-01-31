@@ -25,12 +25,14 @@ export default class Taxons extends Component {
       selectedTaxon: null,
       selectedTaxonAttribute: null,
       openBackendConsolePopup: false,
-      isLoading: true
+      isLoading: false
     };
+
   }
 
   componentDidMount() {
-    this.setState({ isLoading: false });
+
+	  this.setState((prevState)=>({...prevState, isLoading: false }));
   }
 
   render() {
@@ -77,7 +79,7 @@ export default class Taxons extends Component {
             entityId="taxon_attribute"
             entityName="taxon_attribute"
             onClose={() =>
-              this.setState({ ...this.state, openBackendConsolePopup: false })
+              this.setState((prevState) => ({ ...prevState, openBackendConsolePopup: false }))
             }
           />
         ) : (

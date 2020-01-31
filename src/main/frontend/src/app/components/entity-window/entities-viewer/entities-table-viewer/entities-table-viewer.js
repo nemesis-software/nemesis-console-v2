@@ -206,6 +206,13 @@ export default class EntitiesTableViewer extends Component {
         </td>
       )
     }
+    if (markupItem.name === 'picture') {
+        let itemValue = item[markupItem.name];
+        return (
+          <td style={style} key={index}><img src={itemValue || 'resources/no-img.png'} className="picture" height="50px"/></td>
+        )
+    }
+
     let itemValue = item[markupItem.name];
     if (['nemesisLocalizedRichtextField', 'nemesisLocalizedTextField'].indexOf(markupItem.type) > -1) {
       itemValue = item[markupItem.name][this.state.selectedLanguage] && item[markupItem.name][this.state.selectedLanguage].value;
