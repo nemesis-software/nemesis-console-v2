@@ -56,7 +56,6 @@ export default class NemesisHeader extends Component {
         });
 
       ApiCall.get('site').then(result => {
-        result.data = []
         this.setState({sites: DataHelper.mapCollectionData(result.data)})
       })
   }

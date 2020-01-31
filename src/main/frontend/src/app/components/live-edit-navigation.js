@@ -12,12 +12,6 @@ export default class LiveEditNavigation extends Component {
     this.state = {sites: []}
   }
 
-  componentDidMount () {
-    ApiCall.get('site').then(result => {
-      this.setState({sites: DataHelper.mapCollectionData(result.data)})
-    })
-  }
-
   render () {
     return (
 
