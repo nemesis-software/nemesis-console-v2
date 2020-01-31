@@ -44,6 +44,7 @@ export default class EntitiesViewer extends Component {
                               onSortDataChange={this.onSortDataChange.bind(this)}
                               page={this.state.page}
                               sortData={this.state.sortData}
+                              restUrl={this.state.restUrl}
                               onEntityItemClick={this.onEntityItemClick.bind(this)}/>
         {this.getErrorDialog()}
       </div>
@@ -71,8 +72,10 @@ export default class EntitiesViewer extends Component {
   }
 
   getEntityDataPromise(entity, page, pageSize, filter, sortData) {
+    console.log('api call');
     return ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
-      this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
+      console.log(result.request.responseURL);
+      this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false, restUrl: result.request.responseURL});
     }, this.handleRequestError.bind(this));
   }
 

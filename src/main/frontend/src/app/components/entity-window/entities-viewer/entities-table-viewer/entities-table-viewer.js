@@ -224,10 +224,6 @@ export default class EntitiesTableViewer extends Component {
   }
 
   openRest() {
-    let restUrl = document.getElementById('rest-base-url').getAttribute('url');
-
-    let url = `${restUrl}${this.props.entityId}`;
-
-    window.open(url, '_blank')
+    window.open(this.props.restUrl, '_blank')
   }
 }
