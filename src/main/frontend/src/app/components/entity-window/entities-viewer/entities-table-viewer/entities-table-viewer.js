@@ -66,7 +66,8 @@ export default class EntitiesTableViewer extends Component {
             </tr> : false}
             {this.state.viewMode === tableMode ? <tr className="content-header">
               {this.state.isSelectedActive ? <th className="table-header-element" style={{width: '60px'}}>
-                <input type="checkbox" style={{background: 'white'}} className={"select-entity-checkbox nemesis-checkbox"} onChange={this.markAllAsSelected.bind(this)}/>
+                <input type="checkbox" style={{background: 'white'}} className={`select-entity-checkbox nemesis-checkbox ${this.state.isAllSelected ? "active" : ""}`} onChange={this.markAllAsSelected.bind(this)}/>
+
               </th> : false}
               {
                 this.state.entitiesMarkup.map((markupItem, index) => {
@@ -157,20 +158,18 @@ export default class EntitiesTableViewer extends Component {
 
   markAllAsSelected() {
   	if(!this.state.isAllSelected) {
-		let result = {...this.state.selectedIds};
-		this.props.entities.forEach(item => {
-			result[item.id] = true;
-		});
-
-		this.setState(prevState => ({...prevState, selectedIds: result, isAllSelected: true}));
-	}else{
-		let result = {...this.state.selectedIds};
-		this.props.entities.forEach(item => {
-			result[item.id] = false;
-		});
-		this.setState(prevState => ({...prevState, selectedIds: result, isAllSelected: false}));
-
-	}
+      let result = {...this.state.selectedIds};
+      this.props.entities.forEach(item => {
+        result[item.id] = true;
+      });
+      this.setState(prevState => ({...prevState, selectedIds: result, isAllSelected: true}));
+	  }else{
+      let result = {...this.state.selectedIds};
+      this.props.entities.forEach(item => {
+        result[item.id] = false;
+      });
+      this.setState(prevState => ({...prevState, selectedIds: result, isAllSelected: false}));
+  	}
   }
 
   onSelectedIdsChange(value) {
