@@ -168,7 +168,7 @@ export default class EntitiesTableViewer extends Component {
       this.props.entities.forEach(item => {
         result[item.id] = false;
       });
-      this.setState(prevState => ({...prevState, selectedIds: result, isAllSelected: false}));
+      this.setState(prevState => ({...prevState, selectedIds: {}, isAllSelected: false}));
   	}
   }
 
