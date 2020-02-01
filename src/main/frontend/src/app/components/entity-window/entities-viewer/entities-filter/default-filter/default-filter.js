@@ -76,14 +76,15 @@ export default class DefaultFilter extends Component {
 
     let initialFilterItemsNames = this.getInitialFilterItems().map(filter => filter.name );
     if(initialFilterItemsNames.includes(filterItem.name)){
-      return (<div><FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
+      return (<div className="filter-item-removable" ><FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
+        <i className="material-icons delete-criteria" onClick={this.removeFilterItem.bind(this,filterItem.name)}>close</i>
 		   </div>);
-	}
+    }
     else {
       return (<div className="filter-item-removable" ><FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
         <i className="material-icons delete-criteria" onClick={this.removeFilterItem.bind(this,filterItem.name)}>close</i>
       </div>);
-	}
+	  }
   }
 
   onFilterChange(filterObject) {
