@@ -26,6 +26,7 @@ export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false, isAllSelected:false};
+
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -69,7 +70,8 @@ export default class EntitiesTableViewer extends Component {
             </tr> : false}
             {this.state.viewMode === tableMode ? <tr className="content-header">
               {this.state.isSelectedActive ? <th className="table-header-element" style={{width: '60px'}}>
-                <input type="checkbox" style={{background: 'white'}} className={"select-entity-checkbox nemesis-checkbox"} onChange={this.markAllAsSelected.bind(this)}/>
+                <input type="checkbox" style={{background: 'white'}} className={`select-entity-checkbox nemesis-checkbox ${this.state.isAllSelected ? "active" : ""}`} onChange={this.markAllAsSelected.bind(this)}/>
+
               </th> : false}
               {
                 this.state.entitiesMarkup.map((markupItem, index) => {
@@ -159,12 +161,19 @@ export default class EntitiesTableViewer extends Component {
   }
 
   markAllAsSelected() {
-    let result = {...this.state.selectedIds};
-    this.props.entities.forEach(item => {
-      result[item.id] = true;
-    });
-
-    this.setState({selectedIds: result});
+  	if(!this.state.isAllSelected) {
+      let result = {...this.state.selectedIds};
+      this.props.entities.forEach(item => {
+        result[item.id] = true;
+      });
+      this.setState(prevState => ({...prevState, selectedIds: result, isAllSelected: true}));
+	  }else{
+      let result = {...this.state.selectedIds};
+      this.props.entities.forEach(item => {
+        result[item.id] = false;
+      });
+      this.setState(prevState => ({...prevState, selectedIds: {}, isAllSelected: false}));
+  	}
   }
 
   onSelectedIdsChange(value) {

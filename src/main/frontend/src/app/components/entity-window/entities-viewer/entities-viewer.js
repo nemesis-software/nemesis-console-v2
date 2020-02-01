@@ -37,6 +37,7 @@ export default class EntitiesViewer extends Component {
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
         <EntitiesFilter entity={this.props.entity} filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
+
         <EntitiesResultViewer entities={this.state.searchData}
                               entity={this.props.entity}
                               entitiesMarkup={this.props.entity.data.result}

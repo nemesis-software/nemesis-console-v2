@@ -42,9 +42,10 @@ export default class DefaultFilter extends Component {
           })}
           {this.state.filterItems.length !== this.props.filterMarkup.length ? <div className="add-field-container">
             <Translate component="label" content={'main.addFilterField'} fallback={'Add filter field'}/>
+
             <Select cache={false}
                     style={{width: '265px'}}
-                      className="select-filter"
+                    className="select-filter"
                     arrowRenderer={() => <SelectCustomArrow/>}
                     clearable={false}
                     disabled={this.props.readOnly}
@@ -72,7 +73,18 @@ export default class DefaultFilter extends Component {
   }
 
   getFilterItemRender(filterItem) {
-    return <FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
+
+    let initialFilterItemsNames = this.getInitialFilterItems().map(filter => filter.name );
+    if(initialFilterItemsNames.includes(filterItem.name)){
+      return (<div className="filter-item-removable" ><FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
+        <i className="material-icons delete-criteria" onClick={this.removeFilterItem.bind(this,filterItem.name)}>close</i>
+		   </div>);
+    }
+    else {
+      return (<div className="filter-item-removable" ><FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
+        <i className="material-icons delete-criteria" onClick={this.removeFilterItem.bind(this,filterItem.name)}>close</i>
+      </div>);
+	  }
   }
 
   onFilterChange(filterObject) {
@@ -114,6 +126,7 @@ export default class DefaultFilter extends Component {
 
     let filterItems = this.state.filterItems;
     filterItems.push(item.value);
+
     this.setState({filterItems: filterItems});
   }
 
@@ -125,6 +138,10 @@ export default class DefaultFilter extends Component {
 
   switchFilterOperation() {
     this.setState({filterOperation: this.state.filterOperation === 'and' ? 'or' : 'and'});
+  }
+  removeFilterItem = (filterName) => {
+    let updatedFilters = this.state.filterItems.filter(filter =>  filter.name !== filterName);
+    this.setState(prevState => ({...prevState, filterItems:updatedFilters}));
   }
 }
 
