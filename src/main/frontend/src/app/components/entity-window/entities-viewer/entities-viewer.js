@@ -72,7 +72,7 @@ export default class EntitiesViewer extends Component {
   }
 
   getEntityDataPromise(entity, page, pageSize, filter, sortData) {
-    console.log('api call');
+
     return ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
       
       this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false, restUrl: result.request.responseURL});
