@@ -25,7 +25,8 @@ const translationLanguages = {
 export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
-    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode,isAllSelected:false};
+    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false, isAllSelected:false};
+
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -42,7 +43,7 @@ export default class EntitiesTableViewer extends Component {
         <table>
           <thead>
             <tr className="navigation-header">
-              <th colSpan={this.state.entitiesMarkup.length}>
+              <th colSpan={this.state.entitiesMarkup.length} className="navigation-actions" >
                 <LanguageChanger
                   label="language"
                   onLanguageChange={this.onLanguageChange.bind(this)}
@@ -55,6 +56,9 @@ export default class EntitiesTableViewer extends Component {
                 <div className="view-switcher">
                   <div className="view-switcher-icon-container"><i className="material-icons" onClick={() => this.setState({viewMode: tableMode})}>view_list</i></div>
                   <div className="view-switcher-icon-container"><i style={{fontSize: '40px', position: 'absolute'}} className="material-icons" onClick={() => this.setState({viewMode: imageMode})}>view_module</i></div>
+                </div>
+                <div className="rest-container" >
+                  <i className="fa fa-link rest-navigation rest-button" title="Open rest" onClick={this.openRest.bind(this)} />
                 </div>
               </th>
             </tr>
@@ -226,5 +230,9 @@ export default class EntitiesTableViewer extends Component {
 
   onLanguageChange(language) {
     this.setState({...this.state, selectedLanguage: language});
+  }
+
+  openRest() {
+    window.open(this.props.restUrl, '_blank')
   }
 }
