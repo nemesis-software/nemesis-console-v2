@@ -13,6 +13,7 @@ let DefaultFilter = componentRequire('app/components/entity-window/entities-view
 export default class EntitiesFilter extends Component {
   constructor(props) {
     super(props);
+
     this.state = {filterMarkup: this.props.filterMarkup, selectedMenuIndex: 0};
   }
 
