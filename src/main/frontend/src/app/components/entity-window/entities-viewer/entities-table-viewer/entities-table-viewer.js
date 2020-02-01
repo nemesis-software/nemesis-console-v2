@@ -25,7 +25,7 @@ const translationLanguages = {
 export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
-    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false};
+    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false, isAllSelected:false};
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
