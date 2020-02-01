@@ -443,7 +443,7 @@ export default class EntitySections extends Component {
   openRest() {
     let restUrl = document.getElementById('rest-base-url').getAttribute('url');
     let url = this.props.entity.entityUrl || `${restUrl}${this.props.entity.entityName}/${this.props.entity.itemId}`;
-    console.log(url);return;
+
     window.open(url, '_blank')
   }
 
