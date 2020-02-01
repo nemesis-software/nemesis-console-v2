@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import PlatformApiCall from '../../services/platform-api-call';
 import NotificationSystem from 'react-notification-system';
+import DataHelper from 'servicesDir/data-helper'
 import Translate from 'react-translate-component';
 import counterpart from 'counterpart';
 
@@ -15,6 +16,7 @@ import { componentRequire } from '../../utils/require-util'
 
 let LanguageChanger = componentRequire('app/components/language-changer', 'language-changer');
 import GlobalFilter from './global-filter';
+import ApiCall from '../../services/api-call'
 
 const translationLanguages = {
   languages: [
@@ -29,7 +31,7 @@ export default class NemesisHeader extends Component {
     super(props);
     this.connected = false;
     this.socketClient = null;
-    this.state = {notifications: []};
+    this.state = {notifications: [], sites:[]};
   }
 
     componentDidMount() {
@@ -51,7 +53,11 @@ export default class NemesisHeader extends Component {
                 newNotifications.push(JSON.parse(notification.body));
                 self.setState({notifications: newNotifications});
             }, {});
-        })
+        });
+
+      ApiCall.get('site').then(result => {
+        this.setState({sites: DataHelper.mapCollectionData(result.data)})
+      })
   }
 
   render() {
@@ -63,7 +69,7 @@ export default class NemesisHeader extends Component {
             <div className="nemesis-navbar-right">
               <Notifications notifications={this.state.notifications}/>
               {this.props.onGlobalFilterSelect ? <GlobalFilter onGlobalFilterSelect={this.props.onGlobalFilterSelect}/> : false}
-              <LiveEditNavigation/>
+              {(this.state.sites.length > 0) ? <LiveEditNavigation sites={this.state.sites}/>: ''}
               <LanguageChanger
                 style={{width: '150px'}}
                 selectClassName="header-language-changer"

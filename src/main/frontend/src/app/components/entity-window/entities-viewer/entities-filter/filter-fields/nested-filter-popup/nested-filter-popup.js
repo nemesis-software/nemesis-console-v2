@@ -27,9 +27,9 @@ export default class NestedFilterPopup extends Component {
           <label><Translate content={'main.selectField'} fallback={'Select field'} /></label>
           <div>
             <div style={{display: 'inline-block'}}>
-              <Select
+              <Select style={{width: '300px'}}
+                      className="entity-field-select entity-field"
                       clearable={false}
-                      className="nested-filter-select"
                       arrowRenderer={() => <SelectCustomArrow />}
                       value={this.state.selectedItem ? {value: this.state.selectedItem, label: this.state.selectedItem.fieldLabel } : null}
                       onChange={(item) => this.handleChange(item.value)}
