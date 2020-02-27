@@ -31,7 +31,6 @@ export default class Taxons extends Component {
   }
 
   componentDidMount() {
-
 	  this.setState((prevState)=>({...prevState, isLoading: false }));
   }
 

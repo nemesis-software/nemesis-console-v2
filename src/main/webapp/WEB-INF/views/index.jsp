@@ -12,6 +12,7 @@
     <div class="portals-container"></div>
 </body>
 <div id="website-base-url" style="display:none" url="${websiteBaseUrl}"></div>
+<div id="actuator-base-url" style="display:none" url="${actuatorBaseUrl}"></div>
 <div id="rest-base-url" style="display:none" url="${restBaseUrl}" locale="${currentLocale}"></div>
 <div id="contextPath" style="display:none"
      ctxPath="${pageContext.request.contextPath}">${pageContext.request.contextPath}</div>

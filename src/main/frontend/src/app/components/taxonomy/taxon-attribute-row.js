@@ -27,8 +27,10 @@ export default class TaxonAttributeRow extends Component {
         <td>{this.props.taxonAttribute.type}</td>
         <td>value</td>
         <td>
-            <div className="delete-icon-container" onClick={this.handleDeleteButtonClick.bind(this)}><i className="material-icons">delete_forever</i></div>
-            <div className="delete-icon-container" onClick={this.handleEditButtonClick.bind(this)}><i className="material-icons">edit</i></div>
+            <div className="delete-icon-container">
+                <i className="material-icons" onClick={this.handleDeleteButtonClick.bind(this)}>delete_forever</i>
+                <i className="material-icons" onClick={this.handleEditButtonClick.bind(this)}>edit</i>
+            </div>
         </td>
       </tr>
     )

@@ -1,0 +1,33 @@
+@import './variables';
+
+.nemesis-theme-panel {
+  position: absolute;
+  top: @navbar-height;
+  left: @navbar-width;
+  width:100% - @navbar-width;
+  height:100% - @navbar-height;
+  overflow-x:scroll;
+  background: @light-grey;
+  .nemesis-button {
+    margin-top:2%;
+  }
+
+  .left-column {
+    width:50%;
+    float:left;
+  }
+
+  .right-column {
+    width: 50%;
+    float:right;
+  }
+
+    .entity-field-container {
+      width: 350px;
+      padding: 10px;
+      .entity-field-input-container {
+        display:inline-block;
+        width:270px;
+      }
+    }
+}
