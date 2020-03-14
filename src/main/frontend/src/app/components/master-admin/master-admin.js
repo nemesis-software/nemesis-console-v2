@@ -16,7 +16,7 @@ export default class MasterAdmin extends Component {
     this.state = {isNavigationTreeOpened: true, globalFiltersCatalogs: [], key: keyPrefix + Date.now()};
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.isOpenInFrame = window.location.hash.indexOf('iframePreview=true') !== -1;
   }
 
