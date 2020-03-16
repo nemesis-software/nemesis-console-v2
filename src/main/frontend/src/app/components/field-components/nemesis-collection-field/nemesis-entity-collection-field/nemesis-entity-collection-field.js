@@ -82,7 +82,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   filterEntityData(inputText) {
 
     let inputTextActual = inputText || '';
-    let params = {page: 0, size: 10, code: `%${inputTextActual}%`, filter: 'search'};
+    let params = {page: 0, size: 10, code: `%${inputTextActual}%`, projection: 'search'};
     if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
       params.catalogVersionIds = this.context.globalFiltersCatalogs.map(item => item.id).join(',');
     }

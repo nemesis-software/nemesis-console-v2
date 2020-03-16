@@ -7,7 +7,7 @@ import DataHelper from 'servicesDir/data-helper';
 
 import { componentRequire } from '../../../utils/require-util';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import FilterBuilder from "../../../services/filter-builder";
 import PropTypes from "prop-types";
 
@@ -26,7 +26,7 @@ export default class EntitiesViewer extends Component {
     this.getEntityPromise = null;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getEntitiesData(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
   }
 
@@ -37,6 +37,7 @@ export default class EntitiesViewer extends Component {
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
         <EntitiesFilter entity={this.props.entity} filterMarkup={this.props.entity.data.filter} onFilterApply={this.onFilterApply.bind(this)}/>
+
         <EntitiesResultViewer entities={this.state.searchData}
                               entity={this.props.entity}
                               entitiesMarkup={this.props.entity.data.result}
@@ -44,6 +45,7 @@ export default class EntitiesViewer extends Component {
                               onSortDataChange={this.onSortDataChange.bind(this)}
                               page={this.state.page}
                               sortData={this.state.sortData}
+                              restUrl={this.state.restUrl}
                               onEntityItemClick={this.onEntityItemClick.bind(this)}/>
         {this.getErrorDialog()}
       </div>
@@ -71,8 +73,10 @@ export default class EntitiesViewer extends Component {
   }
 
   getEntityDataPromise(entity, page, pageSize, filter, sortData) {
-    return ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), filter: 'search'}).then(result => {
-      this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
+
+    return ApiCall.get(entity.entityId, {page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
+
+      this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false, restUrl: result.request.responseURL});
     }, this.handleRequestError.bind(this));
   }
 
@@ -105,7 +109,7 @@ export default class EntitiesViewer extends Component {
 
   getErrorDialog() {
     return (
-      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)}>
+      <Modal show={this.state.openErrorDialog} onHide={this.handleCloseErrorDialog.bind(this)} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Something went wrong!</Modal.Title>
         </Modal.Header>

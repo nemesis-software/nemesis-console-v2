@@ -44,7 +44,9 @@ export default class SyncStateTableRenderer extends Component {
 
   parseSyncStates(value) {
     let result = [];
-    let items = value.split(',');
+
+    let itemsEl  = value.substring(1, value.length-1);
+    let items = itemsEl.split(',');
     items.forEach(item => {
       let splittedItem = item.split(':');
       result.push({

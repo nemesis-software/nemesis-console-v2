@@ -218,7 +218,7 @@ export default class SimpleViewEntityWindow extends Component {
 
   getEntityDataPromise(entityId, page, pageSize, filter, sortData) {
     let filterActual = this.getFilterWithCatalogs(filter);
-    return ApiCall.get(entityId, {page: page, size: pageSize, $filter: filterActual, sort: this.buildSortArray(sortData), filter: 'search'}).then(result => {
+    return ApiCall.get(entityId, {page: page, size: pageSize, $filter: filterActual, sort: this.buildSortArray(sortData), projection: 'search'}).then(result => {
       this.setState({...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false});
     });
   }

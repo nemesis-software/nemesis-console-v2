@@ -24,7 +24,7 @@ export default class PointOfSale extends Component {
 
   componentDidMount() {
     ApiCall.get('variant/search/findByCatalogVersionCatalogCodeAndCatalogVersionCode', {
-      filter: 'pos',
+      projection: 'pos',
       catalogCode: 'samplestoreB2CProductCatalog',
       catalogVersionCode: 'Online',
       page: 0,
@@ -76,7 +76,7 @@ export default class PointOfSale extends Component {
     let result = 0;
 
     _.forEach(cartProducts, item => {
-      let itemPrice = Number(item.product.price.split(',')[0]);
+      let itemPrice = Number(item.product.price.amount);
       result += item.quantity * itemPrice;
     });
 

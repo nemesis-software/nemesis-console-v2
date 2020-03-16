@@ -105,7 +105,7 @@ export default class NemesisEntityField extends NemesisBaseField {
       size: 10,
       catalogCode: `%${inputTextActual}%`,
       code: `%${inputTextActual}%`,
-      filter: 'search'
+      projection: 'search'
     };
 
     if (this.context.entityMarkupData[this.props.entityId] && this.context.entityMarkupData[this.props.entityId].synchronizable && this.context

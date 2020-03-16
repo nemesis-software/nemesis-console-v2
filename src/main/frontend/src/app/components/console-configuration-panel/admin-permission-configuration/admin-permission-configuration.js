@@ -70,7 +70,7 @@ export default class AdminPermissionConfiguration extends Component {
 
   getMappedClasses(selectedSid) {
     let classes = [...this.state.aclClasses];
-    Promise.all(classes.map(aclClass => ApiCall.get('acl_entry/search/findBySidCodeEqualsAndObjectIdentityObjectClassCodeEquals', {filter: 'search', sidCode: selectedSid.code, classCode: aclClass.code}))).then(result => {
+    Promise.all(classes.map(aclClass => ApiCall.get('acl_entry/search/findBySidCodeEqualsAndObjectIdentityObjectClassCodeEquals', {projection: 'search', sidCode: selectedSid.code, classCode: aclClass.code}))).then(result => {
       classes = classes.map((item, index) => {
         item.customClientData = DataHelper.mapCollectionData(result[index].data);
         return item;
