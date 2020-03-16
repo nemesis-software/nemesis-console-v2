@@ -13,7 +13,7 @@ export default class AdminDetails extends Component {
     this.state = {data: {}};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('metrics').then(result => {
       this.setState({data: result.data})
     });
@@ -24,10 +24,6 @@ export default class AdminDetails extends Component {
       <div className="admin-details">
         <AdminInfo />
         <AdminHealth />
-        <AdminMemory data={this.state.data}/>
-        <AdminServletContainer data={this.state.data}/>
-        <AdminJVM data={this.state.data}/>
-        <AdminGC data={this.state.data}/>
       </div>
     );
   }

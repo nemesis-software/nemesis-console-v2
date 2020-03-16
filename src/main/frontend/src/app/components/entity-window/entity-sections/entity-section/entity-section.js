@@ -5,11 +5,12 @@ import { componentRequire } from '../../../../utils/require-util';
 
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
 let NemesisTextareaField = componentRequire('app/components/field-components/nemesis-textarea-field/nemesis-textarea-field', 'nemesis-textarea-field');
-let NemesisJavascriptField = componentRequire('app/components/field-components/nemesis-javascript-field/nemesis-javascript-field', 'nemesis-javascript-field');
+let NemesisCodeField = componentRequire('app/components/field-components/nemesis-code-field/nemesis-code-field', 'nemesis-code-field');
 let NemesisPasswordField = componentRequire('app/components/field-components/nemesis-password-field/nemesis-password-field', 'nemesis-password-field');
 let NemesisDateField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-field', 'nemesis-date-field');
 let NemesisDateTimeField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-time-field', 'nemesis-date-time-field');
 let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
+let NemesisMoneyField = componentRequire('app/components/field-components/nemesis-money-field/nemesis-money-field', 'nemesis-money-field');
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 let NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
 let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
@@ -28,124 +29,126 @@ import CssClassHelper from '../../../../services/css-class-helper';
 import {entityBulkEdit} from "../../../../types/entity-types";
 
 export default class EntitySection extends Component {
-  constructor(props) {
 
-    super(props);
-    this.fieldsReferences = [];
-  }
+	constructor(props) {
+		super(props);
+		this.fieldsReferences = [];
+	}
 
-  render() {
-    return (
-      <div style={{background: this.props.entityData.online ? '#ffffd8' : 'white'}} className="entity-section">
-        {this.props.section.items.map((item, index) => {
-          return (
-            <div className={'paper-box with-hover section-item-container' + CssClassHelper.getStyleClassSectionItem(item.xtype)} key={index}>
-              {this.getSectionItemRenderer(item, index)}
-            </div>
-          )
-        })}
-      </div>
-    )
-  }
+	render() {
+		this.fieldsReferences = [];
+		return (
+			<div style={{background: this.props.entityData.online ? '#ffffd8' : 'white'}} className="entity-section">
+				{this.props.section.items.map((item, index) => {
+					return (
+						<div className={'paper-box with-hover section-item-container' + CssClassHelper.getStyleClassSectionItem(item.xtype)} key={index}>
+							{this.getSectionItemRenderer(item, index)}
+						</div>
+					)
+				})}
+			</div>
+		)
+	}
+	getSnapshotBeforeUpdate(prevProps, prevState) {
+		this.fieldsReferences = [];
+		return null;
+	}
+	componentDidUpdate(){
+	}
 
-  componentWillMount() {
-    this.fieldsReferences = [];
-  }
+	getSectionItemRenderer(item, index) {
+		let isRequered = this.props.entity.type === entityBulkEdit ? false : item.required;
+		let reactElement;
+		let itemName = item.name.replace('entity-', '');
+		let elementConfig ={
+			mainEntity: this.props.entity,
+			label: item.fieldLabel,
+			name: itemName,
+			readOnly: !item.updatable || !item.insertable,
+			required: isRequered,
+			value: this.getItemValue(item, itemName),
+			type: nemesisFieldUsageTypes.edit,
+			ref: (field) => { field && this.fieldsReferences.push(field)}
+		};
 
-  componentWillUpdate() {
-    this.fieldsReferences = [];
-  }
+		if (!NemesisEntityField) {
+			NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
+		}
 
-  getSectionItemRenderer(item, index) {
-    let isRequered = this.props.entity.type === entityBulkEdit ? false : item.required;
-    let reactElement;
-    let itemName = item.name.replace('entity-', '');
-    let elementConfig ={
-      mainEntity: this.props.entity,
-      label: item.fieldLabel,
-      name: itemName,
-      readOnly: !item.updatable || !item.insertable,
-      required: isRequered,
-      value: this.getItemValue(item, itemName),
-      type: nemesisFieldUsageTypes.edit,
-      ref: (field) => { field && this.fieldsReferences.push(field)}
-    };
+		if (!NemesisEntityCollectionField) {
+			NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
+		}
 
-    if (!NemesisEntityField) {
-      NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
-    }
+		if (!NemesisProjectionCollectionField) {
+			NemesisProjectionCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-projection-collection-field/nemesis-projection-collection-field', 'nemesis-projection-collection-field');
+		}
 
-    if (!NemesisEntityCollectionField) {
-      NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
-    }
+		switch (item.xtype) {
+			case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
+			case nemesisFieldTypes.nemesisTextarea: reactElement = NemesisTextareaField; break;
+			case nemesisFieldTypes.nemesisXmlField: elementConfig.type='xml'; reactElement = NemesisCodeField; break;
+			case nemesisFieldTypes.nemesisCssField: elementConfig.type='text/css'; reactElement = NemesisCodeField; break;
+			case nemesisFieldTypes.nemesisJavascriptField: elementConfig.type='text/javascript'; reactElement = NemesisCodeField; break;
+			case nemesisFieldTypes.nemesisHtmlEditor: reactElement = NemesisRichTextField; break;
+			case nemesisFieldTypes.nemesisPasswordField: reactElement = NemesisPasswordField; break;
+			case nemesisFieldTypes.nemesisDateField: reactElement = NemesisDateField; break;
+			case nemesisFieldTypes.nemesisDateTimeField: reactElement = NemesisDateTimeField; break;
+			case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
+			case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
+			case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;
+			case nemesisFieldTypes.nemesisMoneyField: reactElement = NemesisMoneyField; break;
+			case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
+			case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
+			case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisLocalizedTextField; break;
+			case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisLocalizedRichTextField; break;
+			case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;
+			case nemesisFieldTypes.nemesisMediaField: reactElement = NemesisMediaField; break;
+			case nemesisFieldTypes.nemesisMapField: reactElement = NemesisMapField; break;
+			case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
+			case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
+			case nemesisFieldTypes.nemesisProjectionCollection: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisProjectionCollectionField; break;
+			case nemesisFieldTypes.nemesisCategoriesCollection: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisCategoriesCollection; break;
+			default: return <div key={index}>Not supported yet - {item.xtype}</div>
+		}
 
-    if (!NemesisProjectionCollectionField) {
-      NemesisProjectionCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-projection-collection-field/nemesis-projection-collection-field', 'nemesis-projection-collection-field');
-    }
+		return React.createElement(reactElement, elementConfig)
+	}
 
-    switch (item.xtype) {
-      case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
-      case nemesisFieldTypes.nemesisTextarea: reactElement = NemesisTextareaField; break;
-      case nemesisFieldTypes.nemesisJavascriptField: reactElement = NemesisJavascriptField; break;
-      case nemesisFieldTypes.nemesisHtmlEditor: reactElement = NemesisRichTextField; break;
-      case nemesisFieldTypes.nemesisPasswordField: reactElement = NemesisPasswordField; break;
-      case nemesisFieldTypes.nemesisDateField: reactElement = NemesisDateField; break;
-      case nemesisFieldTypes.nemesisDateTimeField: reactElement = NemesisDateTimeField; break;
-      case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
-      case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
-      case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;
-      case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
-      case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
-      case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisLocalizedTextField; break;
-      case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisLocalizedRichTextField; break;
-      case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;
-      case nemesisFieldTypes.nemesisMediaField: reactElement = NemesisMediaField; break;
-      case nemesisFieldTypes.nemesisMapField: reactElement = NemesisMapField; break;
-      case nemesisFieldTypes.nemesisSimpleCollectionField: elementConfig.value = elementConfig.value || []; reactElement = NemesisSimpleCollectionField; break;
-      case nemesisFieldTypes.nemesisCollectionField: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisEntityCollectionField; break;
-      case nemesisFieldTypes.nemesisProjectionCollection: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisProjectionCollectionField; break;
-      case nemesisFieldTypes.nemesisCategoriesCollection: elementConfig.onEntityItemClick= this.props.onEntityItemClick; elementConfig.entityId = item.entityId; elementConfig.value = elementConfig.value || []; reactElement = NemesisCategoriesCollection; break;
-      default: return <div key={index}>Not supported yet - {item.xtype}</div>
-    }
+	getItemValue(item, itemName) {
+		if (item.entityId) {
+			return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
+		}
 
-    return React.createElement(reactElement, elementConfig)
-  }
+		return this.props.entityData[itemName];
+	}
 
-  getItemValue(item, itemName) {
-    if (item.entityId) {
-      return this.props.entityData.customClientData && this.props.entityData.customClientData[itemName];
-    }
+	getDirtyValues() {
+		let result = [];
+		this.fieldsReferences.forEach(field => {
+			let dirtyValue = field.getChangeValue();
+			if (dirtyValue) {
+				result.push(dirtyValue);
+			}
+		});
+		return result;
+	}
 
-    return this.props.entityData[itemName];
-  }
+	isFieldsValid() {
+		let isNotValid = false;
+		this.fieldsReferences.forEach(field => {
+			let isFieldValid = field.isFieldValid();
+			isNotValid = isNotValid || !isFieldValid;
+		});
+		return !isNotValid;
+	}
 
-  getDirtyValues() {
-    let result = [];
-    this.fieldsReferences.forEach(field => {
-      let dirtyValue = field.getChangeValue();
-      if (dirtyValue) {
-        result.push(dirtyValue);
-      }
-    });
-    return result;
-  }
+	getSectionIndex() {
+		return this.props.sectionIndex;
+	}
 
-  isFieldsValid() {
-    let isNotValid = false;
-    this.fieldsReferences.forEach(field => {
-      let isFieldValid = field.isFieldValid();
-      isNotValid = isNotValid || !isFieldValid;
-    });
-    return !isNotValid;
-  }
-
-  getSectionIndex() {
-    return this.props.sectionIndex;
-  }
-
-  resetDirtyStates() {
-    this.fieldsReferences.forEach(field => {
-      field.resetDirtyState();
-    });
-  }
+	resetDirtyStates() {
+		this.fieldsReferences.forEach(field => {
+			field.resetDirtyState();
+		});
+	}
 }

@@ -158,14 +158,14 @@ module.exports = {
     navigation_node: 'Navigation Node',
     //blog
     blog: 'Blog',
-    blog_entry: 'Entry',
+    blog_entry: 'Blog Entry',
     blog_category: 'Category',
     //taxonomy
     taxon_attribute: 'Taxon Attribute',
     taxonomy_value: 'Taxonomy Value',
     //bundle
     bundle_selection: 'Selection',
-    bundle_price:'Price',
+    bundle_price:'Bundle Price',
     bundle_template: 'Template',
     bundle_selection_criteria: 'Selection Criteria',
     bundle_rule: 'Bundle Rule',

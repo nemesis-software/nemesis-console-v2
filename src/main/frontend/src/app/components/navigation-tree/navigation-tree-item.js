@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Translate from 'react-translate-component';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 const alignStyle = {
   verticalAlign: 'middle'
@@ -12,7 +12,7 @@ export default class TreeItem extends Component {
     this.state = {isChildrenVisible: !!this.props.initiallyOpen, openModalCreation: false, creationEntity: null};
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({...this.state, isChildrenVisible: nextProps.initiallyOpen})
   }
 
@@ -35,7 +35,7 @@ export default class TreeItem extends Component {
         </div>
         {this.props.isVisible || this.props.nestingLevel === 0 ? this.props.nestedItems.map(this.renderChildren.bind(this)) : false}
         {this.state.openModalCreation ?
-          <Modal show={this.state.openModalCreation} onHide={this.handleClose.bind(this)}>
+          <Modal show={this.state.openModalCreation} onHide={this.handleClose.bind(this)} animation={false}>
             <Modal.Header>
               <Modal.Title>Create Entity</Modal.Title>
             </Modal.Header>

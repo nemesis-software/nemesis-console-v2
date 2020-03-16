@@ -9,7 +9,7 @@ export default class AdminActions extends Component {
     this.socketClient = null;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.socketClient = webstomp.over(new SockJS(PlatformApiCall.getRestUrl() + '/stomp'));
     this.socketClient.connect({}, frame => {
       console.log(frame)

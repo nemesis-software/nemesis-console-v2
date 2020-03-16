@@ -17,7 +17,7 @@ export default class SimpleViewItem extends Component {
       <div>
         {
           this.state.isCatalogable && !this.state.selectedCatalogVersions ?
-            <div>{this.props.sites.map(site => {
+            <div className="simple-view-wrapper">{this.props.sites.map(site => {
                 return (
                   <div className="simple-view-item-selector" key={site.code} onClick={() => {this.onSiteSelect(site)}}>
                     {site.name}

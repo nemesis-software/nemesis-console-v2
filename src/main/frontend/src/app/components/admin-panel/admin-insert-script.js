@@ -10,7 +10,6 @@ const codeMirrorOptions = {
 export default class AdminInsertScript extends Component {
   constructor(props) {
     super(props);
-
     this.state = {value: ''};
   }
   

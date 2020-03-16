@@ -13,7 +13,7 @@ export default class FilterEnumField extends Component {
     this.state = {enumField: props.defaultValue || null};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.defaultValue) {
       this.updateParentFilter(this.props.defaultValue)
     }

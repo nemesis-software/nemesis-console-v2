@@ -17,7 +17,7 @@ export default class AdminPermissionConfiguration extends Component {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     return Promise.all([ApiCall.get('acl_class', {size: 10000}), ApiCall.get('acl_mask', {size: 10000})]).then(result => {
       let classes = DataHelper.mapCollectionData(result[0].data);
       let masks = _.orderBy(DataHelper.mapCollectionData(result[1].data), ['mask']);

@@ -9,7 +9,7 @@ export default class AdminMappingsServlets extends Component {
     this.state = {servlets: props.data || []}
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.data, nextProps.data)) {
       this.setState({servlets: nextProps.data});
     }

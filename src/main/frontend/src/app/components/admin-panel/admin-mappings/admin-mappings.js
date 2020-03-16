@@ -13,7 +13,7 @@ export default class AdminMappings extends Component {
     this.state = {dispatcherServlet: [], servletFilters: [], servlets: [], sectionIndex: 0};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getMappingsData();
   }
 

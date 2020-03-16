@@ -11,7 +11,7 @@ export default class AdminLoggers extends Component {
     this.state = {levels: [], loggers: {}, filteredLoggers: [], searchInput: ''};
   }
 
-  componentWillMount() {
+  componentDidMount() {
    this.populateLoggers();
   }
 

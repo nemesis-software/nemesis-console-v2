@@ -22,6 +22,7 @@ export default class EntitiesResultViewer extends Component {
         <div style={this.getViewerSelectStyle()}>
           <label><Translate content={'main.viewer'} fallback={'Viewer'}/></label>
           <Select style={{width: '265px'}}
+                  className="select-filter"
                   clearable={false}
                   arrowRenderer={() => <SelectCustomArrow/>}
                   disabled={this.props.readOnly}
@@ -64,7 +65,8 @@ export default class EntitiesResultViewer extends Component {
       onEntityItemClick: this.props.onEntityItemClick,
       key: index,
       style: index === this.state.selectedMenuIndex ? {} : {display: 'none'},
-      entityId: this.props.entity.entityId
+      entityId: this.props.entity.entityId,
+      restUrl: this.props.restUrl
     };
 
     return React.createElement(viewer.viewerClass, config);

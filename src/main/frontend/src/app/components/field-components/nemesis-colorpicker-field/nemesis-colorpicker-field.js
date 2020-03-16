@@ -2,7 +2,7 @@ import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field'
 import { ChromePicker } from 'react-color';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 export default class NemesisColorpickerField extends NemesisBaseField {
   constructor(props) {
@@ -22,9 +22,9 @@ export default class NemesisColorpickerField extends NemesisBaseField {
                disabled={this.props.readOnly}
                onChange={(e) => this.onValueChange(e, e.target.value)} />
       </div>
-      <i className="material-icons entity-navigation-icon" onClick={this.handleClick.bind(this)}>color_lens</i>
+      <i className="material-icons entity-navigation-icon" style={{color: this.state.value}} onClick={this.handleClick.bind(this)}>color_lens</i>
       {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
-      <Modal bsSize="small" show={this.state.displayColorPicker} onHide={this.handleClose.bind(this)}>
+      <Modal size="small" show={this.state.displayColorPicker} onHide={this.handleClose.bind(this)} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Select color</Modal.Title>
         </Modal.Header>

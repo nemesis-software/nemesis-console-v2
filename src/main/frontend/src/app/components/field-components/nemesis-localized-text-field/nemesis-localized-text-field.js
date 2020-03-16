@@ -3,7 +3,7 @@ import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
 import LanguageChanger from '../../language-changer';
 import {nemesisFieldUsageTypes} from '../../../types/nemesis-types';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 const translationLanguages = {
   languages: [
@@ -50,7 +50,11 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
         {this.props.type === nemesisFieldUsageTypes.edit ?
           (
-            <Modal show={this.state.openTranslateDialog} bsSize={this.getModalSize()} onHide={this.handleTranslateDialogClose.bind(this)} backdrop="static">
+            <Modal show={this.state.openTranslateDialog}
+                   animation={false}
+                   size="lg"
+                   onHide={this.handleTranslateDialogClose.bind(this)}
+                   backdrop="static">
               <Modal.Header>
                 <Modal.Title>Translate field</Modal.Title>
               </Modal.Header>
@@ -58,7 +62,8 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
                 {translationLanguages.languages.map(this.getDialogInputField.bind(this))}
               </Modal.Body>
               <Modal.Footer>
-                <button className="nemesis-button success-button" onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
+                <button className="nemesis-button success-button"
+                        onClick={this.handleTranslateDialogClose.bind(this)}>Done</button>
               </Modal.Footer>
             </Modal>
           ) :

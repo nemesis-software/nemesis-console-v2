@@ -8,7 +8,7 @@ export default class AdminIdAnalyzer extends Component {
     this.state = {inputValue: null, queryResult: {}}
   }
 
-  componentWillMount() {
+  componentDidMount() {
   }
 
   render() {

@@ -13,7 +13,7 @@ export default class MasterAdminNavigationConfiguration extends Component {
     this.state = {configs: [], filteredConfigs: [], filterInput: '', selectedConfig: null}
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getFieldsData();
   }
 

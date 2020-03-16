@@ -22,6 +22,8 @@ public class ConsoleProperties {
 
     private String restBaseUrl;
 
+    private String actuatorBaseUrl;
+
     private String websiteBaseUrl;
 
     /* getters/setters */
@@ -32,6 +34,14 @@ public class ConsoleProperties {
 
     public void setRestBaseUrl(String restBaseUrl) {
         this.restBaseUrl = restBaseUrl;
+    }
+
+    public String getActuatorBaseUrl() {
+        return actuatorBaseUrl;
+    }
+
+    public void setActuatorBaseUrl(String actuatorBaseUrl) {
+        this.actuatorBaseUrl = actuatorBaseUrl;
     }
 
     public String getWebsiteBaseUrl() {

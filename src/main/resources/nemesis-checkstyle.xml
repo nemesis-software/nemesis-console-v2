@@ -2,7 +2,7 @@
 <!--
   ~ nemesis Platform - NExt-generation Multichannel E-commerce SYStem
   ~
-  ~ Copyright (c) 2010 - 2016 nemesis
+  ~ Copyright (c) 2010 - 2013 nemesis
   ~ All rights reserved.
   ~
   ~ This software is the confidential and proprietary information of nemesis
@@ -10,17 +10,13 @@
   ~ Information and shall use it only in accordance with the terms of the
   ~ license agreement you entered into with nemesis.
   -->
+
 <!--
 	This configuration file was written by the eclipse-cs plugin configuration editor
 -->
-<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
 	<module name="SuppressWarningsFilter"/>
-	<module name="SuppressionCommentFilter">
-		<property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
-		<property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
-		<property name="checkFormat" value="$1"/>
-	</module>
     <!--module name="Header">
       <property name="headerFile" value="${checkstyle.header.file}"/>
       <property name="ignoreLines" value="1"/>
@@ -35,18 +31,19 @@
       <property name="format" value="System\.(out|err)\."/>
       <property name="message" value="Don't write directly to System.out our System.err"/>
     </module>
-    <module name="RegexpSingleline">
-        <property name="format" value="\.printStackTrace\(\)"/>
-        <property name="message" value="Don't use Throwable.printStackTrace() - it writes directly to System.err"/>
-    </module>
-    <module name="TreeWalker">
-	<property name="tabWidth" value="4"/>     
-	<module name="SuppressWarningsHolder"/>
 	<module name="LineLength">
-            <property name="ignorePattern" value="(@version|@see|^import)"/>
-            <property name="max" value="180"/>
-			<property name="severity" value="warning"/>
-        </module>
+		<property name="ignorePattern" value="(@version|@see|^import)"/>
+		<property name="max" value="180"/>
+		<property name="severity" value="warning"/>
+	</module>
+    <module name="TreeWalker">
+		<module name="SuppressionCommentFilter">
+			<property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+			<property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+			<property name="checkFormat" value="$1"/>
+		</module>
+		<property name="tabWidth" value="4"/>     
+		<module name="SuppressWarningsHolder"/>
         <module name="AvoidStarImport"/>
         <module name="IllegalImport"/>
         <module name="RedundantImport"/>
@@ -119,9 +116,6 @@
         </module>
         <module name="JavadocVariable"/-->
         <module name="JavadocStyle"/>
-        <module name="RedundantThrows">
-            <property name="allowUnchecked" value="true"/>
-        </module>
         <module name="SuperClone"/>
         <module name="SuperFinalize"/>
         <!--module name="TodoComment"/-->

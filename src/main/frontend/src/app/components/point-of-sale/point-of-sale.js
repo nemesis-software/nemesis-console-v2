@@ -22,7 +22,7 @@ export default class PointOfSale extends Component {
     this.state = {isPaymentProcess: false, products: [], cart: {products: [], totalPrice: 0}, selectedProductId: -1, isProductQuantityChanged: false};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     ApiCall.get('variant/search/findByCatalogVersionCatalogCodeAndCatalogVersionCode', {
       filter: 'pos',
       catalogCode: 'samplestoreB2CProductCatalog',

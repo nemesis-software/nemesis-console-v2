@@ -25,10 +25,11 @@ const translationLanguages = {
 export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
-    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode};
+    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false, isAllSelected:false};
+
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({...this.state, entitiesMarkup: nextProps.entitiesMarkup})
   }
 
@@ -42,7 +43,7 @@ export default class EntitiesTableViewer extends Component {
         <table>
           <thead>
             <tr className="navigation-header">
-              <th colSpan={this.state.entitiesMarkup.length}>
+              <th colSpan={this.state.entitiesMarkup.length} className="navigation-actions" >
                 <LanguageChanger
                   label="language"
                   onLanguageChange={this.onLanguageChange.bind(this)}
@@ -56,6 +57,9 @@ export default class EntitiesTableViewer extends Component {
                   <div className="view-switcher-icon-container"><i className="material-icons" onClick={() => this.setState({viewMode: tableMode})}>view_list</i></div>
                   <div className="view-switcher-icon-container"><i style={{fontSize: '40px', position: 'absolute'}} className="material-icons" onClick={() => this.setState({viewMode: imageMode})}>view_module</i></div>
                 </div>
+                <div className="rest-container" >
+                  <i className="fa fa-link rest-navigation rest-button" title="Open rest" onClick={this.openRest.bind(this)} />
+                </div>
               </th>
             </tr>
             {this.state.isSelectedActive ? <tr>
@@ -66,7 +70,8 @@ export default class EntitiesTableViewer extends Component {
             </tr> : false}
             {this.state.viewMode === tableMode ? <tr className="content-header">
               {this.state.isSelectedActive ? <th className="table-header-element" style={{width: '60px'}}>
-                <input type="checkbox" style={{background: 'white'}} className={"select-entity-checkbox nemesis-checkbox"} onChange={this.markAllAsSelected.bind(this)}/>
+                <input type="checkbox" style={{background: 'white'}} className={`select-entity-checkbox nemesis-checkbox ${this.state.isAllSelected ? "active" : ""}`} onChange={this.markAllAsSelected.bind(this)}/>
+
               </th> : false}
               {
                 this.state.entitiesMarkup.map((markupItem, index) => {
@@ -156,12 +161,19 @@ export default class EntitiesTableViewer extends Component {
   }
 
   markAllAsSelected() {
-    let result = {...this.state.selectedIds};
-    this.props.entities.forEach(item => {
-      result[item.id] = true;
-    });
-
-    this.setState({selectedIds: result});
+  	if(!this.state.isAllSelected) {
+      let result = {...this.state.selectedIds};
+      this.props.entities.forEach(item => {
+        result[item.id] = true;
+      });
+      this.setState(prevState => ({...prevState, selectedIds: result, isAllSelected: true}));
+	  }else{
+      let result = {...this.state.selectedIds};
+      this.props.entities.forEach(item => {
+        result[item.id] = false;
+      });
+      this.setState(prevState => ({...prevState, selectedIds: {}, isAllSelected: false}));
+  	}
   }
 
   onSelectedIdsChange(value) {
@@ -169,11 +181,14 @@ export default class EntitiesTableViewer extends Component {
   }
 
   onSelectButtonClick() {
+
     this.setState({selectedIds: {}, isSelectedActive: !this.state.isSelectedActive});
   }
 
   onRowClick(ev, item) {
+
     if (ev.target.classList.contains('status-dot') || ev.target.classList.contains('select-entity-checkbox')) {
+
       return;
     }
     this.props.onEntityItemClick(item);
@@ -194,6 +209,13 @@ export default class EntitiesTableViewer extends Component {
         </td>
       )
     }
+    if (markupItem.name === 'picture') {
+        let itemValue = item[markupItem.name];
+        return (
+          <td style={style} key={index}><img src={itemValue || 'resources/no-img.png'} className="picture" height="50px"/></td>
+        )
+    }
+
     let itemValue = item[markupItem.name];
     if (['nemesisLocalizedRichtextField', 'nemesisLocalizedTextField'].indexOf(markupItem.type) > -1) {
       itemValue = item[markupItem.name][this.state.selectedLanguage] && item[markupItem.name][this.state.selectedLanguage].value;
@@ -208,5 +230,9 @@ export default class EntitiesTableViewer extends Component {
 
   onLanguageChange(language) {
     this.setState({...this.state, selectedLanguage: language});
+  }
+
+  openRest() {
+    window.open(this.props.restUrl, '_blank')
   }
 }

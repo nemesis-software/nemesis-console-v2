@@ -11,7 +11,7 @@ export default class AdminCaches extends Component {
     this.state = {caches: []};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getCacheData();
   }
 

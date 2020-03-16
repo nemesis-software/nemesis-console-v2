@@ -36,7 +36,7 @@ export default class EntitiesPager extends Component {
     this.state = {pageSize: pageSizes[0]};
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.page && this.state.pageSize !== nextProps.page.size) {
       this.setState({pageSize: nextProps.page.size});
     }

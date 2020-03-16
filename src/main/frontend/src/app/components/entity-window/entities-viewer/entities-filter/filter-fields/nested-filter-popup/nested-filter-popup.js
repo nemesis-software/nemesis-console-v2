@@ -3,7 +3,7 @@ import Translate from 'react-translate-component';
 
 import Select from 'react-select';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import PropTypes from "prop-types";
 import SelectCustomArrow from "../../../../../helper-components/select-custom-arrow";
 import {nemesisFieldTypes} from "../../../../../../types/nemesis-types";
@@ -18,7 +18,7 @@ export default class NestedFilterPopup extends Component {
 
   render() {
     return (
-      <Modal className="nested-filter-popup" show={this.props.openNestedFilterPopup} onHide={this.handleModalClose.bind(this)}>
+      <Modal className="nested-filter-popup" show={this.props.openNestedFilterPopup} onHide={this.handleModalClose.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>Select nested filter</Modal.Title>
         </Modal.Header>
@@ -28,6 +28,7 @@ export default class NestedFilterPopup extends Component {
           <div>
             <div style={{display: 'inline-block'}}>
               <Select style={{width: '300px'}}
+                      className="entity-field-select entity-field"
                       clearable={false}
                       arrowRenderer={() => <SelectCustomArrow />}
                       value={this.state.selectedItem ? {value: this.state.selectedItem, label: this.state.selectedItem.fieldLabel } : null}

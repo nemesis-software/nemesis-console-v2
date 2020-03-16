@@ -31,7 +31,7 @@ export default class FilterNumberField extends Component {
     )
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.defaultRestriction || this.props.defaultValue) {
       this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction)
     }

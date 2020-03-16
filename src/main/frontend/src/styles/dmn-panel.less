@@ -1,0 +1,52 @@
+@import './variables';
+
+.dmn-drd-container {
+    height:100%;
+}
+
+.powered-by-logo {
+    display:none !important;
+}
+
+.bjs-powered-by {
+    display:none !important;
+}
+
+.nemesis-dmn-panel {
+  position: absolute;
+  top: @navbar-height;
+  left: @navbar-width;
+  width:100% - @navbar-width;
+  height:100% - @navbar-height;
+  overflow-x:scroll;
+  background: @light-grey;
+  .nemesis-button {
+    margin-top:2%;
+  }
+
+    #js-canvas {
+        height: 100% !important;
+        width:80%;
+    }
+
+    .entity-field-container {
+      width: 350px;
+      padding: 10px;
+    }
+
+    .dpp-properties-header > .label{
+        color:#333;
+    }
+
+    .properties-panel-parent {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 2%;
+        width: 18%;
+        z-index: 10;
+        border-left: 1px solid
+        #ccc;
+        overflow: auto;
+    }
+}

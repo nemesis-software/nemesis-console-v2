@@ -26,6 +26,8 @@ public class UserData implements Serializable {
 
     private Long expiryTime;
 
+    private Long lastRequest;
+
     /* getters/setters */
 
     public String getUsername() {
@@ -60,5 +62,13 @@ public class UserData implements Serializable {
 
     public void setExpiryTime(Long expiryTime) {
         this.expiryTime = expiryTime;
+    }
+
+    public Long getLastRequest() {
+        return lastRequest;
+    }
+
+    public void setLastRequest(Long lastRequest) {
+        this.lastRequest = lastRequest;
     }
 }

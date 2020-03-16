@@ -12,6 +12,8 @@ export const nemesisFieldTypes = {
   nemesisIntegerField: 'nemesisIntegerField',
   nemesisSimpleCollectionField: 'nemesisSimpleCollectionField',
   nemesisTextarea: 'nemesisTextarea',
+  nemesisXmlField: 'nemesisXmlField',
+  nemesisCssField: 'nemesisCssField',
   nemesisJavascriptField: 'nemesisJavascriptField',
   nemesisPasswordField: 'nemesisPasswordField',
   nemesisHtmlEditor: 'nemesisHtmlEditor',
@@ -19,7 +21,8 @@ export const nemesisFieldTypes = {
   nemesisMediaField: 'nemesisMediaField',
   nemesisMapField: 'nemesisMapField',
   nemesisProjectionCollection: 'nemesisProjectionCollection',
-  nemesisCategoriesCollection: 'nemesisCategoriesCollection'
+  nemesisCategoriesCollection: 'nemesisCategoriesCollection',
+  nemesisMoneyField: 'nemesisMoneyField'
 };
 
 export const nemesisFieldUsageTypes = {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import _ from 'lodash';
 
@@ -19,7 +19,7 @@ export default class NemesisMapFieldPopup extends Component {
 
   render() {
     return (
-      <Modal show={this.props.openPopup}>
+      <Modal show={this.props.openPopup} animation={false}>
         <Modal.Header>
           <Modal.Title>Edit map field</Modal.Title>
         </Modal.Header>
@@ -40,13 +40,13 @@ export default class NemesisMapFieldPopup extends Component {
     )
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.openPopup) {
       this.setState({...this.state, fields: this.buildFields(nextProps.fields)})
     }
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.mapFieldsReference = [];
   }
 

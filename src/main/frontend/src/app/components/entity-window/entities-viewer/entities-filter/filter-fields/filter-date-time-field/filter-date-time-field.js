@@ -21,7 +21,7 @@ export default class FilterDateTimeField extends Component {
     this.state = {restrictionField: props.defaultRestriction || null, dateField: props.defaultValue || null, secondDateField: props.secondDefaultValue || null};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.defaultRestriction || this.props.defaultValue) {
       let actualValue = this.props.defaultValue;
       if (this.props.defaultRestriction === searchRestrictionTypes.between) {

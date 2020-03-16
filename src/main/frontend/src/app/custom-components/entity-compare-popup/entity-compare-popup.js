@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import DataService from 'servicesDir/data-service';
 import PropTypes from "prop-types";
@@ -18,7 +18,7 @@ export default class EntityComparePopup extends Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     let entityName = this.props.entityName;
     let firstItemUrl = entityName + '/' + this.props.firstItemId;
     let secondItemUrl = entityName + '/' + this.props.secondItemId;
@@ -32,7 +32,7 @@ export default class EntityComparePopup extends Component {
 
   render() {
     return (
-      <Modal className={'entity-compare-popup' + (this.state.showDiffOnly ? ' diff-only' : '')} show={this.props.openModal} onHide={this.handleModalClose.bind(this)} bsSize="large">
+      <Modal className={'entity-compare-popup' + (this.state.showDiffOnly ? ' diff-only' : '')} show={this.props.openModal} onHide={this.handleModalClose.bind(this)} animation={false} size="large">
         <Modal.Header>
           <Modal.Title>
             Entity compare

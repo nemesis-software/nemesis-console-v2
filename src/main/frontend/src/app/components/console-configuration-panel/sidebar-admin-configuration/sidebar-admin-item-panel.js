@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {componentRequire} from "../../../utils/require-util";
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import ApiCall from 'servicesDir/api-call';
 
@@ -16,11 +16,11 @@ export default class SidebarAdminItemPanel extends Component {
     this.fieldsReferences = [];
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fieldsReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldsReferences = [];
   }
 
@@ -90,7 +90,7 @@ export default class SidebarAdminItemPanel extends Component {
 
   getDeleteConfirmationDialog() {
     return (
-      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}>
+      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>Delete Field</Modal.Title>
         </Modal.Header>

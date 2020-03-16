@@ -4,6 +4,7 @@ import AdminImport from './admin-import';
 import AdminSpringBeans from './admin-spring-beans';
 import AdminIdAnalyzer from './admin-id-analyzer';
 import AdminSystemProperties from './admin-system-properties/admin-system-properties';
+import AdminDatabase from './admin-database/admin-database';
 import AdminThreads from './admin-threads/admin-threads';
 import AdminDetails from './admin-details/admin-details';
 import AdminLoggers from './admin-loggers/admin-loggers';
@@ -38,17 +39,18 @@ export default class AdminPanel extends Component {
           <div className="navigation-bar">
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 0 ? ' active' : '')} onClick={() => this.handleChange(0)}><i className="fa fa-info"/>Details</div>
             <div className={'navigation-bar-item' + (this.state.sectionIndex === 1 ? ' active' : '')} onClick={() => this.handleChange(1)}><i className="fa fa-server"/>Environment</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 2 ? ' active' : '')} onClick={() => this.handleChange(2)}><i className="fa fa-list"/>Threads</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 3 ? ' active' : '')} onClick={() => this.handleChange(3)}><i className="fa fa-sliders"/>Loggers</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 4 ? ' active' : '')} onClick={() => this.handleChange(4)}><i className="fa fa-cog"/>Beans</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 5 ? ' active' : '')} onClick={() => this.handleChange(5)}><i className="fa fa-file"/>CSV Import</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 6 ? ' active' : '')} onClick={() => this.handleChange(6)}><i className="fa fa-download"/>CSV Export</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 7 ? ' active' : '')} onClick={() => this.handleChange(7)}><i className="fa fa-code"/>ID Analyze</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 8 ? ' active' : '')} onClick={() => this.handleChange(8)}><i className="fa fa-terminal"/>Execute script</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 9 ? ' active' : '')} onClick={() => this.handleChange(9)}><i className="fa fa-calendar"/>Job Management</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 10 ? ' active' : '')} onClick={() => this.handleChange(10)}><i className="fa fa-calendar"/>Sessions</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 11 ? ' active' : '')} onClick={() => this.handleChange(11)}><i className="fa fa-cached"/>Caches</div>
-            <div className={'navigation-bar-item' + (this.state.sectionIndex === 12 ? ' active' : '')} onClick={() => this.handleChange(12)}><i className="fa fa-road"/>Mappings</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 2 ? ' active' : '')} onClick={() => this.handleChange(2)}><i className="fa fa-database"/>Database</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 3 ? ' active' : '')} onClick={() => this.handleChange(3)}><i className="fa fa-list"/>Threads</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 4 ? ' active' : '')} onClick={() => this.handleChange(4)}><i className="fa fa-sliders"/>Loggers</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 5 ? ' active' : '')} onClick={() => this.handleChange(5)}><i className="fa fa-cog"/>Beans</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 6 ? ' active' : '')} onClick={() => this.handleChange(6)}><i className="fa fa-file"/>CSV Import</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 7 ? ' active' : '')} onClick={() => this.handleChange(7)}><i className="fa fa-download"/>CSV Export</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 8 ? ' active' : '')} onClick={() => this.handleChange(8)}><i className="fa fa-code"/>ID Analyze</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 9 ? ' active' : '')} onClick={() => this.handleChange(9)}><i className="fa fa-terminal"/>Execute script</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 10 ? ' active' : '')} onClick={() => this.handleChange(10)}><i className="fa fa-calendar"/>Job Management</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 11 ? ' active' : '')} onClick={() => this.handleChange(11)}><i className="fa fa-calendar"/>Sessions</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 12 ? ' active' : '')} onClick={() => this.handleChange(12)}><i className="fa fa-tachometer-alt"/>Caches</div>
+            <div className={'navigation-bar-item' + (this.state.sectionIndex === 13 ? ' active' : '')} onClick={() => this.handleChange(13)}><i className="fa fa-road"/>Mappings</div>
           </div>
           <div className="container">
             <SwipeableViews
@@ -57,6 +59,7 @@ export default class AdminPanel extends Component {
             >
               <AdminDetails />
               <AdminSystemProperties />
+              <AdminDatabase openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>
               <AdminThreads />
               <AdminLoggers />
               <AdminSpringBeans />

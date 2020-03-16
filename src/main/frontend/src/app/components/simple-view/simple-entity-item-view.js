@@ -22,11 +22,12 @@ const translationLanguages = {
 
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
 let NemesisTextareaField = componentRequire('app/components/field-components/nemesis-textarea-field/nemesis-textarea-field', 'nemesis-textarea-field');
-let NemesisJavascriptField = componentRequire('app/components/field-components/nemesis-javascript-field/nemesis-javascript-field', 'nemesis-javascript-field');
+let NemesisCodeField = componentRequire('app/components/field-components/nemesis-code-field/nemesis-code-field', 'nemesis-code-field');
 let NemesisPasswordField = componentRequire('app/components/field-components/nemesis-password-field/nemesis-password-field', 'nemesis-password-field');
 let NemesisDateField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-field', 'nemesis-date-field');
 let NemesisDateTimeField = componentRequire('app/components/field-components/nemesis-date-time-field/nemesis-date-time-field', 'nemesis-date-time-field');
 let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
+let NemesisMoneyField = componentRequire('app/components/field-components/nemesis-money-field/nemesis-money-field', 'nemesis-money-field');
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 let NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
 let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
@@ -48,11 +49,11 @@ export default class SimpleEntityItemView extends Component {
     this.state = {isSidebarOpened: false, isEntityUpdated: false, isLoading: false};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fieldsReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldsReferences = [];
   }
 
@@ -127,11 +128,14 @@ export default class SimpleEntityItemView extends Component {
     switch (item.xtype) {
       case nemesisFieldTypes.nemesisTextField: reactElement = NemesisTextField; break;
       case nemesisFieldTypes.nemesisTextarea: reactElement = NemesisTextareaField; break;
-      case nemesisFieldTypes.nemesisJavascriptField: reactElement = NemesisJavascriptField; break;
+      case nemesisFieldTypes.nemesisXmlField: elementConfig.type='xml'; reactElement = NemesisCodeField; break;
+      case nemesisFieldTypes.nemesisCssField: elementConfig.type='text/css';reactElement = NemesisCodeField; break;
+      case nemesisFieldTypes.nemesisJavascriptField: elementConfig.type='text/javascript';reactElement = NemesisCodeField; break;
       case nemesisFieldTypes.nemesisHtmlEditor: reactElement = NemesisRichTextField; break;
       case nemesisFieldTypes.nemesisPasswordField: reactElement = NemesisPasswordField; break;
       case nemesisFieldTypes.nemesisDateField: reactElement = NemesisDateField; break;
       case nemesisFieldTypes.nemesisDateTimeField: reactElement = NemesisDateTimeField; break;
+      case nemesisFieldTypes.nemesisMoneyField: reactElement = NemesisMoneyField; break;
       case nemesisFieldTypes.nemesisDecimalField: elementConfig.step = '0.1'; reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisIntegerField: reactElement = NemesisNumberField; break;
       case nemesisFieldTypes.nemesisBooleanField: reactElement = NemesisBooleanField; break;

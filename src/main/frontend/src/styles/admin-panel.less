@@ -1,7 +1,13 @@
 @import './variables';
 
 .nemesis-admin-panel {
-  padding: 60px 0 60px 60px;
+  position: fixed;
+  top: @navbar-height;
+  left: @navbar-width;
+  width:100% - @navbar-width;
+  height:100% - @navbar-height;
+  overflow-x:scroll;
+  background: @light-grey;
 
   .input-group {
     .input-group-addon, .form-control {
@@ -11,22 +17,23 @@
 
   .navigation-bar {
     padding: 10px 10px 0;
-    background: @light-grey-darker;
     margin-bottom: 10px;
+    text-align:center;
 
     .navigation-bar-item {
       display: inline-block;
       height: 40px;
-      color: white;
-      background: @main-blue;
+      color: @main-blue;
+      background: white;
       margin-right: 5px;
       margin-bottom: 10px;
       padding: 10px 15px;
       cursor: pointer;
+      border-radius: @border-radius;
 
       &.active {
-        color: black;
-        background: white;
+        color: @light-font-color;
+        background: @main-blue-darker;
       }
 
       .fa {
@@ -66,6 +73,10 @@
         color: white;
       }
     }
+  }
+
+  .admin-database-actions {
+    text-align: center;
   }
 
   .admin-jobs-management {

@@ -6,7 +6,7 @@ import { componentRequire } from '../../../utils/require-util';
 
 import {nemesisFieldTypes, nemesisFieldUsageTypes} from '../../../types/nemesis-types';
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 import ApiCall from 'servicesDir/api-call';
 
@@ -25,15 +25,15 @@ export default class MasterAdminFieldPanel extends Component {
     this.fieldsReferences = [];
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fieldsReferences = [];
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     console.log('next props', nextProps.field.id, nextProps.field.name);
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldsReferences = [];
   }
 
@@ -125,7 +125,7 @@ export default class MasterAdminFieldPanel extends Component {
 
   getDeleteConfirmationDialog() {
     return (
-      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}>
+      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>Delete Field</Modal.Title>
         </Modal.Header>

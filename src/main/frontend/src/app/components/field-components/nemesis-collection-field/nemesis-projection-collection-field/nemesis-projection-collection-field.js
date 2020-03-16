@@ -2,6 +2,7 @@ import React from 'react';
 import NemesisBaseCollectionField from '../nemesis-base-collection-field';
 
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 
 import SelectCustomArrow from '../../../helper-components/select-custom-arrow';
 
@@ -94,7 +95,7 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
         <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
             <span className="required-star">*</span> : false}</div>
-          <Select.Async style={this.getSelectStyle()}
+          <AsyncSelect style={this.getSelectStyle()}
                         cache={false}
                         className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
                         arrowRenderer={() => <SelectCustomArrow/>}

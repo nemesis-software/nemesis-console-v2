@@ -9,7 +9,7 @@ export default class AdminHealth extends AdminExpandable {
     this.state = {data: [], isExpanded: true};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     PlatformApiCall.get('health').then(result => {
       this.setState({...this.state, data: this.parseHealthData(result.data)})
     });

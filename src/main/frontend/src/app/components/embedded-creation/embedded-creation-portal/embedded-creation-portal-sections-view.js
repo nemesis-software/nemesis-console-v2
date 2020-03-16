@@ -22,11 +22,11 @@ export default class EmbeddedCreationPortalSectionsView extends Component {
     this.sectionsReferences = [];
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.sectionsReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.sectionsReferences = [];
   }
 

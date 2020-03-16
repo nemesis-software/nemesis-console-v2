@@ -13,6 +13,7 @@ let DefaultFilter = componentRequire('app/components/entity-window/entities-view
 export default class EntitiesFilter extends Component {
   constructor(props) {
     super(props);
+
     this.state = {filterMarkup: this.props.filterMarkup, selectedMenuIndex: 0};
   }
 
@@ -23,6 +24,7 @@ export default class EntitiesFilter extends Component {
           <div style={this.getFilterSelectStyle()}>
             <label><Translate content={'main.Filter'} fallback={'Filter'}/></label>
             <Select style={{width: '265px'}}
+                    className="select-filter"
                     clearable={false}
                     arrowRenderer={() => <SelectCustomArrow/>}
                     disabled={this.props.readOnly}
@@ -42,7 +44,7 @@ export default class EntitiesFilter extends Component {
     this.setState({...this.state, selectedMenuIndex: item.value});
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({filterMarkup: nextProps.filterMarkup})
   }
 

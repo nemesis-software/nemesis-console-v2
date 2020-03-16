@@ -18,7 +18,7 @@
     <parent>
         <groupId>com.nemesis</groupId>
         <artifactId>bom</artifactId>
-        <version>2.1.0.BUILD-SNAPSHOT</version>
+        <version>2.2.1.BUILD-SNAPSHOT</version>
     </parent>
 
     <groupId>com.nemesis.platform.console</groupId>
@@ -31,9 +31,10 @@
     <properties>
         <project.directory>console</project.directory>
         <maven.rat.plugin.skip>true</maven.rat.plugin.skip>
-        <frontend-plugin.version>1.6</frontend-plugin.version>
-        <node.version>v7.10.0</node.version>
-        <yarn.version>v1.14.0</yarn.version>
+        <frontend-plugin.version>1.8.0</frontend-plugin.version>
+        <node.version>v12.13.1</node.version>
+        <yarn.version>v1.19.2</yarn.version>
+        <webpack.build.parameter></webpack.build.parameter>
     </properties>
 
     <profiles>
@@ -134,8 +135,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
@@ -288,6 +289,9 @@
                     <dockerDirectory>${basedir}/src/main/docker</dockerDirectory>
                     <serverId>docker-hub</serverId>
                     <noCache>true</noCache>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                    </imageTags>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
@@ -301,13 +305,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <jvmArguments>
-                        -XX:+HeapDumpOnOutOfMemoryError
-                        -Xss512K -Xmx1g -Xms1g
-                        -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m
-                        -XX:CompressedClassSpaceSize=128m -XX:ReservedCodeCacheSize=256m
-                        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5000
-                    </jvmArguments>
+                    <!--<jvmArguments>-->
+                        <!-- -XX:+HeapDumpOnOutOfMemoryError-->
+                        <!-- -Xss512K -Xmx1g -Xms1g-->
+                        <!-- -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m-->
+                        <!-- -XX:CompressedClassSpaceSize=128m -XX:ReservedCodeCacheSize=256m-->
+                        <!-- -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5000-->
+                    <!--</jvmArguments>-->
                 </configuration>
             </plugin>
             <plugin>

@@ -29,7 +29,7 @@ export default class MainView extends Component {
     this.notificationSystem = null;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     return this.parseUrlEntity()
   }
 
@@ -267,7 +267,7 @@ export default class MainView extends Component {
       return Promise.resolve();
     }
 
-    if (urlEntity.type === entityItemType) {
+    if (urlEntity.type === entityItemType || urlEntity.type === entityCreateType) {
       urlEntity.data = this.state.entityMarkupData[urlEntity.entityName]
     } else if (urlEntity.type === entitySearchType) {
       urlEntity.data = this.state.markupData[urlEntity.entityId]

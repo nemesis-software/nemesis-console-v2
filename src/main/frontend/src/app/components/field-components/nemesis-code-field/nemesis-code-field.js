@@ -1,19 +1,14 @@
 import React from 'react';
 import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 import CodeMirror from 'react-codemirror';
 
-const codeMirrorOptions = {
-  lineNumbers: true,
-  mode: 'javascript'
-};
-
-export default class NemesisJavascriptField extends NemesisBaseField {
+export default class NemesisCodeField extends NemesisBaseField {
   constructor(props) {
     super(props);
-
     this.state = {...this.state, openFullScreenDialog: false};
+    console.log(this.props);
   }
 
   render() {
@@ -29,13 +24,13 @@ export default class NemesisJavascriptField extends NemesisBaseField {
         </div>
         <i className="material-icons entity-navigation-icon" onClick={this.handleFullscreenClick.bind(this)}>fullscreen</i>
         {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
-        <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)}>
+        <Modal show={this.state.openFullScreenDialog} onHide={this.handleDialogClose.bind(this)} animation={false}>
           <Modal.Header>
             <Modal.Title>Edit text</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />
-            <CodeMirror onChange={code => this.onValueChange(null, code)} value={this.state.value}  options={codeMirrorOptions}/>
+            <CodeMirror onChange={code => this.onValueChange(null, code)} value={this.state.value}  options={{lineNumbers: true, mode: this.props.type}}/>
           </Modal.Body>
           <Modal.Footer>
             <button className="nemesis-button success-button" onClick={this.handleDialogClose.bind(this)}>Done</button>

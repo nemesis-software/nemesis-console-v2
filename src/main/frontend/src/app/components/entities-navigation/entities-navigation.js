@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Nav from 'react-bootstrap/lib/Nav';
+import {Nav} from 'react-bootstrap';
 
 import _ from 'lodash';
 
@@ -17,7 +17,7 @@ export default class EntitiesNavigation extends Component {
     this.navRef = null;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({...this.state, groupedEntities: this.getGroupedEntities(nextProps.entities)});
   }
 
@@ -34,7 +34,7 @@ export default class EntitiesNavigation extends Component {
   render() {
     return (
       <div style={this.getContainerStyle()}>
-        <Nav ref={el => this.navRef = el} bsStyle="pills" className="nav nav-pills entity-navigation">
+        <Nav ref={el => this.navRef = el} variant="pills" className="nav nav-pills entity-navigation">
           {_.map(this.state.groupedEntities, (value, key) =>
             <EntitiesNavigationItem key={key}
                                     entityId={key}

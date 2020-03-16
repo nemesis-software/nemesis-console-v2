@@ -9,7 +9,7 @@ const ProductListerItem = ({product, onProductSelect}) => (
 );
 
 const productPrice = (product) => {
-  let price = Number(product.price.split(',')[0]);
+  let price = Number(product.price.amount);
 
   return price.toFixed(2);
 };
@@ -23,10 +23,8 @@ const productName = (product) => {
 };
 
 const productImage = (product) => {
-  let mainUrl = 'https://dk4bbvhtxx00t.cloudfront.net/solarapparel/catalog/solar/';
-
   if (product.thumbnail) {
-    return `${mainUrl}${product.thumbnail}`;
+    return `${product.thumbnail}`;
   }
 
   return 'resources/no-img.png';

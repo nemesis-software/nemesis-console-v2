@@ -5,7 +5,7 @@ import DataHelper from "../../../services/data-helper";
 
 import {componentRequire} from "../../../utils/require-util";
 
-import Modal from 'react-bootstrap/lib/Modal';
+import {Modal} from 'react-bootstrap';
 
 let NemesisTextField = componentRequire('app/components/field-components/nemesis-text-field/nemesis-text-field', 'nemesis-text-field');
 let NemesisNumberField = componentRequire('app/components/field-components/nemesis-number-field/nemesis-number-field', 'nemesis-number-field');
@@ -20,7 +20,7 @@ export default class EntityConfigItem extends Component {
     this.state = {categories: [], openDeleteConfirmation: false}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.config.id) {
       ApiCall.get(this.props.config._links.categories.href, {filter: 'search'}).then(result => {
         this.setState({categories: DataHelper.mapCollectionData(result.data)});
@@ -29,7 +29,7 @@ export default class EntityConfigItem extends Component {
     this.fieldsReferences = [];
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this.fieldsReferences = [];
   }
 
@@ -112,7 +112,7 @@ export default class EntityConfigItem extends Component {
 
   getDeleteConfirmationDialog() {
     return (
-      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)}>
+      <Modal show={this.state.openDeleteConfirmation} onHide={this.handleCloseDeleteConfirmation.bind(this)} animation={false}>
         <Modal.Header>
           <Modal.Title>Delete Config</Modal.Title>
         </Modal.Header>
