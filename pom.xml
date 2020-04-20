@@ -16,12 +16,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.nemesis</groupId>
+        <groupId>io.nemesis</groupId>
         <artifactId>bom</artifactId>
         <version>2.2.2.BUILD-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.nemesis.platform.console</groupId>
+    <groupId>io.nemesis.platform.console</groupId>
     <artifactId>nemesis-console-v2</artifactId>
     <packaging>war</packaging>
 

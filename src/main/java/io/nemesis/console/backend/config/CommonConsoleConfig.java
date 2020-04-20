@@ -9,10 +9,10 @@
  * Information and shall use it only in accordance with the terms of the
  * license agreement you entered into with nemesis.
  */
-package com.nemesis.console.backend.config;
+package io.nemesis.console.backend.config;
 
-import com.nemesis.console.backend.storefront.DefaultRestAuthenticationProvider;
-import com.nemesis.console.backend.storefront.SessionTimeoutCookieFilter;
+import io.nemesis.console.backend.storefront.DefaultRestAuthenticationProvider;
+import io.nemesis.console.backend.storefront.SessionTimeoutCookieFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -13,8 +13,10 @@ export default class DataService {
             return Promise.resolve({data: null});
           }) : Promise.resolve({data: null})))
       ).then(result => {
+      debugger;
         let relatedEntitiesResult = {};
         relatedEntities.forEach((item, index) => {
+            debugger;
           let data;
 
           if (result[index].data && result[index].data._embedded) {

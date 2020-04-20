@@ -38,8 +38,8 @@
         </menu>
 	</body>
     <skin>
-        <groupId>com.nemesis.tools</groupId>
+        <groupId>io.nemesis.tools</groupId>
         <artifactId>nemesis-maven-skin</artifactId>
-        <version>1.6.0.BUILD-SNAPSHOT</version>
+        <version>1.6.0.RELEASE</version>
     </skin>
 </project>

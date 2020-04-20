@@ -9,7 +9,7 @@
  * Information and shall use it only in accordance with the terms of the
  * license agreement you entered into with nemesis.
  */
-package com.nemesis.console.backend.storefront;
+package io.nemesis.console.backend.storefront;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
