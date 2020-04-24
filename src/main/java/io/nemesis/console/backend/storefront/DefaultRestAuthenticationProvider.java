@@ -18,7 +18,6 @@ import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
 import org.apache.hc.client5.http.async.methods.SimpleHttpRequests;
 import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
 import org.apache.hc.client5.http.config.RequestConfig;
-import org.apache.hc.client5.http.cookie.CookieSpecs;
 import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
 import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
@@ -92,7 +91,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
 
             try (CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom().setConnectionManager(ccm).setDefaultRequestConfig(
                             RequestConfig.custom().setConnectTimeout(Timeout.ofSeconds(timeout)).setResponseTimeout(Timeout.ofSeconds(timeout))
-                                         .setCookieSpec(CookieSpecs.STANDARD_STRICT.ident).build()).setVersionPolicy(HttpVersionPolicy.FORCE_HTTP_1).build()) {
+                                         .setCookieSpec("STANDARD_STRICT").build()).setVersionPolicy(HttpVersionPolicy.FORCE_HTTP_1).build()) {
 
                 httpclient.start();
 
@@ -100,7 +99,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                 /*
                  * It can't be POST because the CSRF is triggered.
                  */
-                SimpleHttpRequest httpGet = SimpleHttpRequests.GET.create(restBaseUrl + "auth");
+                SimpleHttpRequest httpGet = SimpleHttpRequests.get(restBaseUrl + "auth");
 
                 LOG.info("Calling: " + restBaseUrl + "auth");
 
@@ -125,7 +124,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                 principal.setExpiryTime(userData.getExpiryTime());
                 principal.setToken(userData.getToken());
 
-                httpclient.shutdown(CloseMode.GRACEFUL);
+                httpclient.awaitShutdown(TimeValue.of(5, TimeUnit.SECONDS));
 
                 return new UsernamePasswordAuthenticationToken(principal, password, principal.getAuthorities());
             }
