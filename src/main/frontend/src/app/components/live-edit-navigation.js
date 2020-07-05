@@ -22,7 +22,7 @@ export default class LiveEditNavigation extends Component {
         </Dropdown.Toggle>
         <Dropdown.Menu className="super-colors">
           {this.props.sites.map((site, index) => {
-            return <Dropdown.Item key={index} onClick={() => this.openLiveEditPage(site)}>{site.name}</Dropdown.Item>
+            return <Dropdown.Item key={index} onClick={() => this.openLiveEditPage(site)}>{site.name['en'].value}</Dropdown.Item>
           })}
         </Dropdown.Menu>
       </Dropdown>
