@@ -11,7 +11,8 @@
   ~ license agreement you entered into with nemesis.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -28,13 +29,12 @@
     <description>an overview of the Backend Nemesis Console</description>
 
     <properties>
-        <maven-spotbugs-plugin.skip>true</maven-spotbugs-plugin.skip>
         <project.directory>console</project.directory>
         <maven.rat.plugin.skip>true</maven.rat.plugin.skip>
         <frontend-plugin.version>1.8.0</frontend-plugin.version>
         <node.version>v12.13.1</node.version>
         <yarn.version>v1.19.2</yarn.version>
-        <webpack.build.parameter />
+        <webpack.build.parameter/>
     </properties>
 
     <profiles>
@@ -300,11 +300,11 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!--<jvmArguments>-->
-                        <!-- -XX:+HeapDumpOnOutOfMemoryError-->
-                        <!-- -Xss512K -Xmx1g -Xms1g-->
-                        <!-- -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m-->
-                        <!-- -XX:CompressedClassSpaceSize=128m -XX:ReservedCodeCacheSize=256m-->
-                        <!-- -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5000-->
+                    <!-- -XX:+HeapDumpOnOutOfMemoryError-->
+                    <!-- -Xss512K -Xmx1g -Xms1g-->
+                    <!-- -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m-->
+                    <!-- -XX:CompressedClassSpaceSize=128m -XX:ReservedCodeCacheSize=256m-->
+                    <!-- -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5000-->
                     <!--</jvmArguments>-->
                 </configuration>
             </plugin>
