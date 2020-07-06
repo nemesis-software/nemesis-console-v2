@@ -76,21 +76,25 @@ export default class FilterCollectionField extends Component {
   }
 
   updateParentFilter(selectedEntity, restrictionValue, secondRestrictionValue) {
+    const {filterItem} = this.props;
+
     if (restrictionValue === searchRestrictionTypes.count) {
       this.props.onFilterChange({
+        filterItemKey:filterItem.key,
         value: selectedEntity,
         restriction: restrictionValue,
         secondRestriction: secondRestrictionValue,
-        field: this.props.filterItem.name,
-        id: this.props.filterItem.name,
-        textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, selectedEntity, secondRestrictionValue)
+        field: filterItem.name,
+        id: filterItem.name,
+        textRepresentation: this.getTextRepresentation(filterItem.name, restrictionValue, selectedEntity, secondRestrictionValue)
       });
     } else {
       this.props.onFilterChange({
+        filterItemKey:filterItem.key,
         value: _.isEmpty(selectedEntity) ? null : `${selectedEntity.id}`,
         restriction: restrictionValue,
-        field: this.props.filterItem.name.replace('entity-', ''),
-        id: this.props.filterItem.name,
+        field: filterItem.name.replace('entity-', ''),
+        id: filterItem.name,
         textRepresentation: this.getTextRepresentation(selectedEntity && selectedEntity.entityName, restrictionValue, this.getItemText(selectedEntity))
       });
     }

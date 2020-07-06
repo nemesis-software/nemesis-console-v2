@@ -3,16 +3,14 @@ import React, {Component} from 'react';
 import Translate from 'react-translate-component';
 
 import Select from 'react-select';
-
+import uuidv4 from 'uuid/v4';
 import _ from 'lodash';
-
 import {componentRequire} from '../../../../../utils/require-util';
 import {nemesisFieldTypes, searchRestrictionTypes} from '../../../../../types/nemesis-types';
 
 import SelectCustomArrow from '../../../../helper-components/select-custom-arrow';
 import FilterItemRenderer from "../filter-fields/filter-item-renderer";
 import PropTypes from "prop-types";
-
 
 let FilterBuilder = componentRequire('app/services/filter-builder', 'filter-builder');
 
@@ -21,7 +19,14 @@ const keyPrefix = 'defaultFilter';
 export default class DefaultFilter extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {appliedFilters: [], key: keyPrefix + Date.now(), filterItems: this.getInitialFilterItems(), appliedFilterText: [], isSmallView: false, filterOperation: 'and'};
+    this.state = {
+      appliedFilters: [],
+      key: keyPrefix + Date.now(),
+      filterItems: this.getInitialFilterItems(),
+      appliedFilterText: [], 
+      isSmallView: false,
+      filterOperation: 'and'
+      };
   }
 
   render() {
@@ -32,15 +37,8 @@ export default class DefaultFilter extends Component {
           <div>{this.state.appliedFilterText.length !== 0 ? this.state.appliedFilterText : <div><i>Filter is empty</i></div>}</div>
         </div> : false}
         <form onSubmit={e => e.preventDefault()} style={this.state.isSmallView ? {display: 'none'} : {}}>
-          {this.state.filterItems.map((filterItem, index) => {
-            return (
-              <div key={index}>
-                {this.getFilterItemRender(filterItem)}
-                <hr className="line"/>
-              </div>
-            )
-          })}
-          {this.state.filterItems.length !== this.props.filterMarkup.length ? <div className="add-field-container">
+                {this.getFilterItemRender()}
+                {this.state.filterItems.length !== this.props.filterMarkup.length ? <div className="add-field-container">
             <Translate component="label" content={'main.addFilterField'} fallback={'Add filter field'}/>
 
             <Select cache={false}
@@ -49,20 +47,20 @@ export default class DefaultFilter extends Component {
                     arrowRenderer={() => <SelectCustomArrow/>}
                     clearable={false}
                     disabled={this.props.readOnly}
-                    onChange={this.onAddFieldSelected.bind(this)}
+                    onChange={this.onAddFieldSelected}
                     options={this.getRemainingFields()}/>
             <hr className="line"/>
           </div> : false}
           <div className="default-filter-buttons-container">
-            <button className="btn btn-default default-filter-button search-button" onClick={this.onSearchButtonClick.bind(this)}>
+            <button className="btn btn-default default-filter-button search-button" onClick={this.onSearchButtonClick}>
               <Translate component="span" content={'main.Search'} fallback={'Search'}/>
             </button>
-            <button type="button" className="btn btn-default default-filter-button clear-button" onClick={this.onClearButtonClick.bind(this)}><Translate
+            <button type="button" className="btn btn-default default-filter-button clear-button" onClick={this.onClearButtonClick} ><Translate
               component="span" content={'main.Clear'} fallback={'Clear'}/></button>
             <div className="filter-operation-container">
               <div><em>Filter operator</em></div>
               <div className="filter-operation-type">
-                <div className="filter-operation-type-text" onClick={this.switchFilterOperation.bind(this)}>{this.state.filterOperation  === 'and' ? 'AND' : 'OR'}</div>
+                <div className="filter-operation-type-text" onClick={this.switchFilterOperation}>{this.state.filterOperation  === 'and' ? 'AND' : 'OR'}</div>
               </div>
             </div>
           </div>
@@ -72,76 +70,89 @@ export default class DefaultFilter extends Component {
     )
   }
 
-  getFilterItemRender(filterItem) {
-
-    let initialFilterItemsNames = this.getInitialFilterItems().map(filter => filter.name );
-    if(initialFilterItemsNames.includes(filterItem.name)){
-      return (<div className="filter-item-removable" ><FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
-        <i className="material-icons delete-criteria" onClick={this.removeFilterItem.bind(this,filterItem.name)}>close</i>
-		   </div>);
-    }
-    else {
-      return (<div className="filter-item-removable" ><FilterItemRenderer filterItem={filterItem} onFilterChange={this.onFilterChange.bind(this)}/>
-        <i className="material-icons delete-criteria" onClick={this.removeFilterItem.bind(this,filterItem.name)}>close</i>
-      </div>);
-	  }
+  getFilterItemRender = () => {
+   return this.state.filterItems.map((filterItem, index) => {
+      return (
+        <div key={filterItem.key || index}>
+            <div className="filter-item-removable">
+              <FilterItemRenderer
+                  filterItemKey={filterItem.key}
+                  filterItem={filterItem} 
+                  onFilterChange={this.onFilterChange}
+                />
+              <i className="material-icons delete-criteria" onClick={() => this.removeFilterItem(filterItem)}>close</i>
+            </div>
+          <hr className="line"/>
+        </div>
+      )
+    })
   }
 
-  onFilterChange(filterObject) {
+  onFilterChange = (filterObject) => {
+    let appliedFiltersArr = this.state.appliedFilters.slice(0);
+    const itemToUpdateIndex = appliedFiltersArr.findIndex(item => item.filterItemKey === filterObject.filterItemKey);
 
-    let filterIndex = _.findIndex(this.state.appliedFilters, {id: filterObject.id});
-    let appliedFilters = this.state.appliedFilters;
+    if (itemToUpdateIndex < 0) {
+      appliedFiltersArr.push(filterObject);
+     } else {
+      appliedFiltersArr[itemToUpdateIndex] = filterObject;
+     }
 
-    if (filterIndex < 0) {
-      appliedFilters.push(filterObject);
-    } else {
-      appliedFilters[filterIndex] = filterObject;
-    }
-
-    this.setState({appliedFilters: appliedFilters});
+    this.setState({appliedFilters: appliedFiltersArr});
   }
 
-  onSearchButtonClick() {
+  onSearchButtonClick = () => {
+  const filtersToApply = this.state.appliedFilters.filter(x => x.value !==null);
 
-    let filterString = FilterBuilder.buildFilter(this.state.appliedFilters, this.state.filterOperation, this.context.globalFiltersCatalogs);
-    let appliedFilterText = this.state.appliedFilters.map(item => item.textRepresentation ? item.textRepresentation : false);
+    let filterString = FilterBuilder.buildFilter(filtersToApply, this.state.filterOperation, this.context.globalFiltersCatalogs);
+    let appliedFilterText = filtersToApply.map(item => item.textRepresentation ? item.textRepresentation : false);
     this.setState({appliedFilterText: appliedFilterText}, () => {
       this.props.onFilterApply(filterString);
     });
   }
 
-  onClearButtonClick() {
+  onClearButtonClick = () => {
     this.setState({appliedFilters: [], key: keyPrefix + Date.now(), appliedFilterText: []});
     let filterString = FilterBuilder.buildFilter([], null, this.context.globalFiltersCatalogs);
     this.props.onFilterApply(filterString);
   }
 
-  getInitialFilterItems() {
+  getInitialFilterItems = () => {
     return _.filter(this.props.filterMarkup, item => {
       return item.name === 'code' || item.name === 'catalogVersion';
     });
   }
 
-  onAddFieldSelected(item) {
+  onAddFieldSelected = (item) => {
 
     let filterItems = this.state.filterItems;
-    filterItems.push(item.value);
+    filterItems.push({key:item.key, ...item.value});
 
     this.setState({filterItems: filterItems});
   }
 
-  getRemainingFields() {
-    return _.map(_.difference(this.props.filterMarkup, this.state.filterItems), item => {
-      return {value: item, label: <Translate component="div" content={'main.' + item.name.replace('entity-', '')} fallback={item.name.replace('entity-', '')}/>}
-    });
+  getRemainingFields = () => {
+    const result = this.props.filterMarkup.map(item => ({
+        key: uuidv4(),
+        value: item, 
+        label: <Translate component="div" content={'main.' + item.name.replace('entity-', '')} fallback={item.name.replace('entity-', '')}/>
+      })
+    );
+    return result;
   }
 
-  switchFilterOperation() {
+  switchFilterOperation = () => {
     this.setState({filterOperation: this.state.filterOperation === 'and' ? 'or' : 'and'});
   }
-  removeFilterItem = (filterName) => {
-    let updatedFilters = this.state.filterItems.filter(filter =>  filter.name !== filterName);
-    this.setState(prevState => ({...prevState, filterItems:updatedFilters}));
+
+  removeFilterItem = (filterItem) => { 
+    const newFilteritems = this.state.filterItems.filter(filter =>  filter.key !== filterItem.key);
+    const newAppliedFilters = this.state.appliedFilters.filter(item => item.filterItemKey !== filterItem.key && item.value !== null);
+
+    this.setState(prevState => ({
+      ...prevState,
+       filterItems: newFilteritems,
+       appliedFilters: newAppliedFilters}));
   }
 }
 

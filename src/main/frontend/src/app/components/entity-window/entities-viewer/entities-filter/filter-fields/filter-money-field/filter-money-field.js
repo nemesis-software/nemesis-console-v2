@@ -51,12 +51,15 @@ export default class FilterMoneyField extends Component {
 
   updateParentFilter(moneyField, restrictionValue) {
     let stringRepresentation = this.getStringRepresentation(moneyField);
+    const {filterItem} = this.props;
+    
     this.props.onFilterChange({
+      filterItemKey: filterItemKey,
       value: stringRepresentation,
       restriction: restrictionValue,
-      field: this.props.filterItem.name,
-      id: this.props.filterItem.name,
-      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, moneyField)
+      field: filterItem.name,
+      id: filterItem.name,
+      textRepresentation: this.getTextRepresentation(filterItem.name, restrictionValue, moneyField)
     });
   }
 

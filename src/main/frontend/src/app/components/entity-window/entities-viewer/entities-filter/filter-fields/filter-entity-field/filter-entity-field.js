@@ -82,11 +82,14 @@ export default class FilterEntityField extends Component {
   }
 
   updateParentFilter(selectedEntity, restrictionValue) {
+    const {filterItem} = this.props;
+    
     this.props.onFilterChange({
+      filterItemKey:filterItem.key,
       value: _.isEmpty(selectedEntity) ? null : `${selectedEntity.id}`,
       restriction: restrictionValue,
-      field: this.props.filterItem.name.replace('entity-', '') + '/id',
-      id: this.props.filterItem.name,
+      field: filterItem.name.replace('entity-', '') + '/id',
+      id: filterItem.name,
       textRepresentation: this.getTextRepresentation(selectedEntity && selectedEntity.entityName, restrictionValue, this.getItemText(selectedEntity))
     });
   }

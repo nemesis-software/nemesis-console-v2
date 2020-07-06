@@ -33,12 +33,14 @@ export default class FilterBooleanField extends Component {
   }
 
   updateParentFilter(booleanField) {
+    const {filterItem} = this.props;
+
     this.props.onFilterChange({
       value: booleanField,
       restriction: searchRestrictionTypes.equals,
-      field: this.props.filterItem.name,
-      id: this.props.filterItem.name,
-      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, searchRestrictionTypes.equals, this.getBooleanTextRepresentation(booleanField))
+      field: filterItem.name,
+      id: filterItem.name,
+      textRepresentation: this.getTextRepresentation(filterItem.name, searchRestrictionTypes.equals, this.getBooleanTextRepresentation(booleanField))
     });
   }
 

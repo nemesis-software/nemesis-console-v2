@@ -73,12 +73,14 @@ export default class FilterDateTimeField extends Component {
   }
 
   updateParentFilter(dateField, restrictionValue) {
+    const {filterItem} = this.props;
     this.props.onFilterChange({
+      filterItemKey:filterItem.key,
       value: dateField,
       restriction: restrictionValue,
-      field: this.props.filterItem.name,
-      id: this.props.filterItem.name,
-      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, dateField)
+      field: filterItem.name,
+      id: filterItem.name,
+      textRepresentation: this.getTextRepresentation(filterItem.name, restrictionValue, dateField)
     });
   }
 

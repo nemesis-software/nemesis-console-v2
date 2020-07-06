@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 import {componentRequire} from "../../../../../utils/require-util";
 import {nemesisFieldTypes} from "../../../../../types/nemesis-types";
 
@@ -60,3 +61,9 @@ export default class FilterItemRenderer extends Component {
   }
 
 }
+
+FilterItemRenderer.propTypes = {
+  filterItemKey: PropTypes.string,
+  filterItem: PropTypes.object.isRequired,
+  onFilterChange: PropTypes.func.isRequired
+};
