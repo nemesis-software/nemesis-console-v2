@@ -31,7 +31,7 @@ export default class GlobalFilter extends Component {
         <Dropdown.Menu className="super-colors">
           <Dropdown.Item className="live-edit-dropdown-item" active={'allSites' === this.state.selectedIndex} key={'allSites'} onClick={() => this.onSiteSelect(null, 'allSites')}>All sites</Dropdown.Item>
           {this.state.sites.map((site, index) => {
-            return <Dropdown.Item className="live-edit-dropdown-item" active={index === this.state.selectedIndex} key={index} onClick={() => this.onSiteSelect(site, index)}>{site.name}</Dropdown.Item>
+            return <Dropdown.Item className="live-edit-dropdown-item" active={index === this.state.selectedIndex} key={index} onClick={() => this.onSiteSelect(site, index)}>{site.name['en'].value}</Dropdown.Item>
           })}
         </Dropdown.Menu>
       </Dropdown>
