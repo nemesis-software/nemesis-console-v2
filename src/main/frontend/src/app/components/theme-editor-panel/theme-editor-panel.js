@@ -37,12 +37,30 @@ export default class ThemeEditorPanel extends Component {
                   {this.state.selectedTheme ? <div className="content" key={this.state.selectedTheme.id}>
                       <div className="left-column">
                          <ul>
-                             <li><NemesisEntityField entityId={'site_theme'} value={this.state
-                             .selectedThemeParentTheme}
-                             label={'Parent Theme'}/></li>
-                             <li><NemesisColorpickerField value={this.state.selectedTheme.mainColor} label="Main Color"/><NemesisColorpickerField value={this.state.selectedTheme.secondaryColor} label="Secondary Color"/></li>
-                             <li><NemesisColorpickerField value={this.state.selectedTheme.activeColor} label="Active Color"/><NemesisColorpickerField value={this.state.selectedTheme.inactiveColor} label="Inactive Color"/></li>
-                             <li><NemesisColorpickerField value={this.state.selectedTheme.backgroundColor} label="Background Color"/><NemesisTextField value={this.state.selectedTheme.fontName} label="Font Name"/></li>
+                             <li>
+                                <NemesisEntityField entityId={'site_theme'} value={this.state.selectedThemeParentTheme} label={'Parent Theme'}/>
+                                <NemesisTextField value={this.state.selectedTheme.fontName} label="Font Name"/>
+                             </li>
+                             <li>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.primaryColor} label="Primary Color"/>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.secondaryColor} label="Secondary Color"/>
+                             </li>
+                             <li>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.successColor} label="Success Color"/>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.dangerColor} label="Danger Color"/>
+                             </li>
+                             <li>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.warningColor} label="Warning Color"/>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.infoColor} label="Info Color"/>
+                             </li>
+                             <li>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.lightColor} label="Light Color"/>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.darkColor} label="Dark Color"/>
+                             </li>
+                             <li>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.mutedColor} label="Muted Color"/>
+                                 <NemesisColorpickerField value={this.state.selectedTheme.whiteColor} label="White Color"/>
+                             </li>
                          </ul>
                       </div>
                       <div className="right-column">
