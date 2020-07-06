@@ -34,12 +34,15 @@ export default class FilterEnumField extends Component {
 
   updateParentFilter(enumField)  {
     let actualValue = enumField ? `${this.props.filterItem.enumType}'${enumField}'` : null;
+    const {filterItem} = this.props;
+
     this.props.onFilterChange({
+      filterItemKey:filterItem.key,
       value: actualValue,
       restriction: searchRestrictionTypes.equals,
-      field: this.props.filterItem.name,
-      id: this.props.filterItem.name,
-      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, searchRestrictionTypes.equals, actualValue)
+      field: filterItem.name,
+      id: filterItem.name,
+      textRepresentation: this.getTextRepresentation(filterItem.name, searchRestrictionTypes.equals, actualValue)
     });
   }
 

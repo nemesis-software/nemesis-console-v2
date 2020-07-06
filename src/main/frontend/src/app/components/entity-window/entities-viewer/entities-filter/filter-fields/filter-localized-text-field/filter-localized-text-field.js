@@ -58,12 +58,15 @@ export default class FilterLocalizedTextField extends Component {
   }
 
   updateParentFilter(value, restrictionValue) {
+    const {filterItem} = this.props;
+
     this.props.onFilterChange({
+      filterItemKey:filterItem.key,
       value: _.isEmpty(value.value) ? null : `'${value.value}'`,
       restriction: restrictionValue,
-      field: `${this.props.filterItem.name}/${value.language}/value`,
-      id: this.props.filterItem.name,
-      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, value.value)
+      field: `${filterItem.name}/${value.language}/value`,
+      id: filterItem.name,
+      textRepresentation: this.getTextRepresentation(filterItem.name, restrictionValue, value.value)
     });
   }
 

@@ -51,12 +51,15 @@ export default class FilterTextField extends Component {
   }
 
   updateParentFilter(textField, restrictionValue) {
+    const {filterItem} = this.props;
+
     this.props.onFilterChange({
+      filterItemKey:filterItem.key,
       value: _.isEmpty(textField) ? null : `'${textField}'`,
       restriction: restrictionValue,
-      field: this.props.filterItem.name,
-      id: this.props.filterItem.name,
-      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, textField)
+      field: filterItem.name,
+      id: filterItem.name,
+      textRepresentation: this.getTextRepresentation(filterItem.name, restrictionValue, textField)
     });
   }
 

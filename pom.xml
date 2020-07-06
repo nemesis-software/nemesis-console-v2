@@ -28,6 +28,7 @@
     <description>an overview of the Backend Nemesis Console</description>
 
     <properties>
+        <maven-spotbugs-plugin.skip>true</maven-spotbugs-plugin.skip>
         <project.directory>console</project.directory>
         <maven.rat.plugin.skip>true</maven.rat.plugin.skip>
         <frontend-plugin.version>1.8.0</frontend-plugin.version>

@@ -48,12 +48,15 @@ export default class FilterNumberField extends Component {
   }
 
   updateParentFilter(numberField, restrictionValue) {
+    const {filterItem} = this.props;
+    
     this.props.onFilterChange({
+      filterItemKey:filterItem.key,
       value: numberField,
       restriction: restrictionValue,
-      field: this.props.filterItem.name,
-      id: this.props.filterItem.name,
-      textRepresentation: this.getTextRepresentation(this.props.filterItem.name, restrictionValue, numberField)
+      field: filterItem.name,
+      id: filterItem.name,
+      textRepresentation: this.getTextRepresentation(filterItem.name, restrictionValue, numberField)
     });
   }
 
