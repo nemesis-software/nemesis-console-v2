@@ -35,6 +35,7 @@ export default class EntityFieldComparator extends Component {
       case nemesisFieldTypes.nemesisMediaField:
       case nemesisFieldTypes.nemesisHtmlEditor: return <SimpleComparator {...this.props}/>;
       case nemesisFieldTypes.nemesisEntityField: return <EntityComparator  {...this.props}/>;
+      case nemesisFieldTypes.nemesisBuildingBlockEntityField: return <EntityComparator  {...this.props}/>;
       case nemesisFieldTypes.nemesisLocalizedTextField:
       case nemesisFieldTypes.nemesisLocalizedRichtextField: return <LocalizedComparator  {...this.props}/>;
       case nemesisFieldTypes.nemesisCollectionField:

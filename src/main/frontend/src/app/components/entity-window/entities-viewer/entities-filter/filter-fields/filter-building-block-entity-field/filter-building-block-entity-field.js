@@ -21,12 +21,12 @@ const restrictionFields = [
 export default class FilterBuildingBlockEntityField extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      restrictionField: props.defaultRestriction || null, 
-      selectedEntity: props.defaultValue || null, 
-      openNestedFilterPopup: false, 
+    this.state = {
+      restrictionField: props.defaultRestriction || null,
+      selectedEntity: props.defaultValue || null,
+      openNestedFilterPopup: false,
       nestedFilters: null,
-      newNestedFilter: null 
+      newNestedFilter: null
     };
   }
 
@@ -42,7 +42,7 @@ export default class FilterBuildingBlockEntityField extends Component {
         <div className="filter-item-container">
           <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction || this.state.restrictionField} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange} restrictionFields={restrictionFields} />
           {this.isEntityFieldVisible() ? <BuildingBlockEntityField updateNewNestedFilter={this.updateNewNestedFilter} readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.selectedEntity} entityId={this.props.filterItem.entityId} onValueChange={this.onSelectedMenuItem} label={this.props.filterItem.fieldLabel} /> : false}
-          {!this.props.hideNestedIcon ? <i className={'material-icons nested-filter-icon'} onClick={this.openNestedFilterPopup}>navigate_next</i> : false}
+          {(!this.props.hideNestedIcon && this.state.newNestedFilter) ? <i className={'material-icons nested-filter-icon'} onClick={this.openNestedFilterPopup}>navigate_next</i> : false}
           {this.getNestedFilterFunctionality()}
         </div>
       )
@@ -64,7 +64,7 @@ export default class FilterBuildingBlockEntityField extends Component {
     if (this.state.openNestedFilterPopup) {
       return (<NestedFilterPopup openNestedFilterPopup={this.state.openNestedFilterPopup}
         onNestedFilterApply={this.onNestedFilterApply}
-        nestedFilters={this.state.nestedFilters || [{ entityId:this.state.newNestedFilter.id, fieldLabel: this.state.newNestedFilter.text}]}
+        nestedFilters={this.state.nestedFilters || [{ entityId: this.state.newNestedFilter.id, fieldLabel: this.state.newNestedFilter.text }]}
         onModalCancel={this.closeNestedFilterPopup} />)
     }
     return false;
@@ -85,7 +85,7 @@ export default class FilterBuildingBlockEntityField extends Component {
 
   updateNewNestedFilter = (item) => {
     this.setState({
-      newNestedFilter:item
+      newNestedFilter: item
     });
   }
 
@@ -114,9 +114,9 @@ export default class FilterBuildingBlockEntityField extends Component {
     if (!item) {
       return '';
     }
-    console.log('item');
+
     let text = item.code;
-    if (item.entityName === 'reviewedEntity') {
+    if (item.entityName === 'catalog_version') {
       text = item.catalogVersion || item.code;
     } else if (item.entityName === 'cms_slot') {
       text = `${item.code} - ${item.position}`

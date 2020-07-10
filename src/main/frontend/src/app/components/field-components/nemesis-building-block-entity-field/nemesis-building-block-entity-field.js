@@ -84,7 +84,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
         />
       )]
   }
-  
+
   getSelectStyle() {
     let style = { width: '100%' };
     if (this.state.errorMessage) {
@@ -135,7 +135,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
   }
 
   onValueChange(value) {
-    this.setState((prevState) => ({ ...prevState, isDirty: true, value: value }), () => console.log(value, 'value'));
+    this.setState((prevState) => ({ ...prevState, isDirty: true, value: value }));
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));
     }
@@ -159,11 +159,11 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
     return ApiCall.get(this.getSearchUrl(), params).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-      
-      this.setState({ 
+
+      this.setState({
         secondFieldData: data.map((option) => this.mapDataSource(option))
       }, () => this.props.updateNewNestedFilter(this.state.selectedEntityType));
-      
+
       return data.map((option) => this.mapDataSource(option));
     }, this.handleRequestError)
   }
@@ -236,7 +236,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
 
   getChangeValue() {
     if (this.state.isDirty) {
-      return { name: this.props.name, value: this.state.value && this.state.value.id };
+      return { name: this.props.name, value: { type:this.state.selectedEntityType.id, id: this.state.value.id } };
     }
 
     return null;
@@ -257,3 +257,7 @@ NemesisBuildingBlockEntityField.contextTypes = {
   entityMarkupData: PropTypes.object,
   globalFiltersCatalogs: PropTypes.array
 };
+
+NemesisBuildingBlockEntityField.defaultProps = {
+  updateNewNestedFilter: () => {}
+}
