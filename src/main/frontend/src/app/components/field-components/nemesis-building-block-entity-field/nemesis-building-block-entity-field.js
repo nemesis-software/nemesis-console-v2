@@ -34,7 +34,6 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
   }
 
   render() {
-    console.log(this.context.globalFiltersCatalogs, 'contextFilters')
     return (
       <div className="entity-field-container">
         <div className="entity-field-input-container" style={{ marginRight: '15px' }}>
@@ -61,7 +60,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
   renderSecondInput = () => {
     return [
       <div><Translate component="label" content={this.state.selectedEntityType.text} fallback={this.state.selectedEntityType.text} />{this.props.required ? <span className="required-star">*</span> : false}</div>,
-      (this.props.entityId === 'abstract_reviewable' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
+      (this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
         <Select style={this.getSelectStyle()}
           cache={false}
           arrowRenderer={() => <SelectCustomArrow />}
@@ -74,16 +73,18 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
         :
         <AsyncSelect style={this.getSelectStyle()}
           cache={false}
+          cacheOptions={false}
           arrowRenderer={() => <SelectCustomArrow />}
           className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
           disabled={this.props.readOnly}
           value={this.state.value ? { value: this.state.value, label: this.getItemText(this.state.value) } : this.state.value}
           onChange={(item) => this.onValueChange(item && item.value)}
-          defaultOptions
+          defaultOptions={this.state.secondFieldData}
           loadOptions={this.filterEntityData}
         />
       )]
   }
+  
   getSelectStyle() {
     let style = { width: '100%' };
     if (this.state.errorMessage) {
@@ -128,8 +129,9 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
   selectEntityType = (value) => {
     this.setState({
       selectedEntityType: value,
-      value: ''
-    }, this.filterEntityData);
+      value: '',
+      secondFieldData: ''
+    }, () => this.filterEntityData());
   }
 
   onValueChange(value) {
@@ -157,11 +159,11 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
     return ApiCall.get(this.getSearchUrl(), params).then(result => {
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
-
-      console.log(result, 'productResult')
-      this.setState({
+      
+      this.setState({ 
         secondFieldData: data.map((option) => this.mapDataSource(option))
-      })
+      }, () => this.props.updateNewNestedFilter(this.state.selectedEntityType));
+      
       return data.map((option) => this.mapDataSource(option));
     }, this.handleRequestError)
   }
