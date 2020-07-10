@@ -42,7 +42,7 @@ export default class FilterBuildingBlockEntityField extends Component {
         <div className="filter-item-container">
           <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction || this.state.restrictionField} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange} restrictionFields={restrictionFields} />
           {this.isEntityFieldVisible() ? <BuildingBlockEntityField updateNewNestedFilter={this.updateNewNestedFilter} readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.selectedEntity} entityId={this.props.filterItem.entityId} onValueChange={this.onSelectedMenuItem} label={this.props.filterItem.fieldLabel} /> : false}
-          {(!this.props.hideNestedIcon && this.state.newNestedFilter) ? <i className={'material-icons nested-filter-icon'} onClick={this.openNestedFilterPopup}>navigate_next</i> : false}
+          {(!this.props.hideNestedIcon && this.state.newNestedFilter && this.state.selectedEntity) ? <i className={'material-icons nested-filter-icon'} onClick={this.openNestedFilterPopup}>navigate_next</i> : false}
           {this.getNestedFilterFunctionality()}
         </div>
       )
