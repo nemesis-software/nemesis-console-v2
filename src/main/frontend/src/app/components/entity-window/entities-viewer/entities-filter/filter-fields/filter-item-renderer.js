@@ -10,6 +10,7 @@ let FilterBooleanField = componentRequire('app/components/entity-window/entities
 let FilterNumberField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-number-field/filter-number-field', 'filter-number-field');
 let FilterEnumField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-enum-field/filter-enum-field', 'filter-enum-field');
 let FilterEntityField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-entity-field/filter-entity-field', 'filter-entity-field');
+let FilterBuildingBlockEntityField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-building-block-entity-field/filter-building-block-entity-field', 'filter-building-block-entity-field');
 let FilterCollectionField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-collection-field/filter-collection-field', 'filter-collection-field');
 let FilterMoneyField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-money-field/filter-money-field', 'filter-money-field');
 
@@ -46,6 +47,9 @@ export default class FilterItemRenderer extends Component {
         break;
       case nemesisFieldTypes.nemesisEntityField:
         reactElement = FilterEntityField;
+        break;
+      case nemesisFieldTypes.nemesisBuildingBlockEntityField:
+        reactElement = FilterBuildingBlockEntityField;
         break;
       case nemesisFieldTypes.nemesisCollectionField:
         reactElement = FilterCollectionField;
