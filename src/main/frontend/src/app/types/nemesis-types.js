@@ -4,6 +4,7 @@ export const nemesisFieldTypes = {
   nemesisDateField: 'nemesisDateField',
   nemesisDateTimeField: 'nemesisDateTimeField',
   nemesisEntityField: 'nemesisEntityField',
+  nemesisBuildingBlockEntityField: 'nemesisBuildingBlockEntityField',
   nemesisEnumField: 'nemesisEnumField',
   nemesisLocalizedTextField: 'nemesisLocalizedTextField',
   nemesisLocalizedRichtextField: 'nemesisLocalizedRichtextField',

@@ -13,6 +13,7 @@ let NemesisNumberField = componentRequire('app/components/field-components/nemes
 let NemesisMoneyField = componentRequire('app/components/field-components/nemesis-money-field/nemesis-money-field', 'nemesis-money-field');
 let NemesisEnumField = componentRequire('app/components/field-components/nemesis-enum-field/nemesis-enum-field', 'nemesis-enum-field');
 let NemesisEntityField = componentRequire('app/components/field-components/nemesis-entity-field/nemesis-entity-field', 'nemesis-entity-field');
+let NemesisBuildingBlockEntityField = componentRequire('app/components/field-components/nemesis-building-block-entity-field/nemesis-building-block-entity-field', 'nemesis-building-block-entity-field');
 let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
 let NemesisLocalizedTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field', 'nemesis-localized-text-field');
 let NemesisLocalizedRichTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-richtext-field', 'nemesis-localized-richtext-field');
@@ -99,6 +100,7 @@ export default class EntitySection extends Component {
 			case nemesisFieldTypes.nemesisMoneyField: reactElement = NemesisMoneyField; break;
 			case nemesisFieldTypes.nemesisEnumField: elementConfig.values = item.values; elementConfig.value = item.values.indexOf(elementConfig.value); reactElement = NemesisEnumField; break;
 			case nemesisFieldTypes.nemesisEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisEntityField; break;
+			case nemesisFieldTypes.nemesisBuildingBlockEntityField: elementConfig.entityId = item.entityId; elementConfig.onEntityItemClick= this.props.onEntityItemClick; reactElement = NemesisBuildingBlockEntityField; break;
 			case nemesisFieldTypes.nemesisLocalizedTextField: reactElement = NemesisLocalizedTextField; break;
 			case nemesisFieldTypes.nemesisLocalizedRichtextField: reactElement = NemesisLocalizedRichTextField; break;
 			case nemesisFieldTypes.nemesisColorpickerField: reactElement = NemesisColorpickerField; break;
