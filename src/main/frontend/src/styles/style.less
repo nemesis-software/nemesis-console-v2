@@ -1237,6 +1237,21 @@ lesshat-selector {
 .default-filter {
   position: relative;
   .default-filter-buttons-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 20px;
+
+    label {
+      margin-bottom: 0px;
+    }
+    .default-entity-filter-style {
+      margin: 0px 15px 0px 15px;
+    }
+    .select-filter-operator {
+      width: 130px;
+      margin: 0px 15px 0px 15px;
+    }
     .default-filter-button {
       width: 135px;
       border: none;
@@ -1275,7 +1290,7 @@ lesshat-selector {
 
   .filter-resize-icon {
     position: absolute;
-    bottom: -30px;
+    bottom: -50px;
     left: ~"calc(50% - 21px)";
     border: 1px solid @border-colors;
     border-radius: 50px;
