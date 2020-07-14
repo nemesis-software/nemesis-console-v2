@@ -60,7 +60,7 @@ export default class DefaultFilter extends Component {
           </div> : false}
 
           <div className="default-filter-buttons-container">
-            <Translate component="label" content={'Entity field'} fallback={'Entity field'} />
+            <Translate component="label" content={'Entity type'} fallback={'Entity type'} />
             <Select cache={false}
               style={{ width: '265px' }}
               className="select-filter default-entity-filter-style"
