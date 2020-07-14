@@ -66,7 +66,9 @@ export default class EntitiesFilter extends Component {
       key: index,
       onFilterApply: this.props.onFilterApply,
       filterMarkup: this.state.filterMarkup,
-      style: index === this.state.selectedMenuIndex ? {} : {display: 'none'}
+      style: index === this.state.selectedMenuIndex ? {} : {display: 'none'},
+      entity: this.props.entity,
+      retakeEntityData: this.props.retakeEntityData
     };
 
     return React.createElement(filter.filterClass, config);
