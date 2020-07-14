@@ -63,7 +63,7 @@ export default class EntitiesViewer extends Component {
     )
   }
 
-  onFilterApply = (filter, entity) => {
+  onFilterApply = (filter, entity = this.props.entity) => {
     this.setState({ ...this.state, filter: filter }, () => {
       this.getEntitiesData(entity, pagerData.page, this.state.page.size, filter, this.state.sortData);
     });
