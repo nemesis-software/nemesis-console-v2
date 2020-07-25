@@ -59,18 +59,19 @@ module.exports = {
     //catalog
     category: 'Category',
     catalog: 'Catalog',
+    product_reference: 'Product Reference',
     catalog_version: 'Catalog Version',
     unit: 'Unit',
     stock_level: 'Stock level',
     variant_attribute: 'Variant Attribute',
     variant_type: 'Variant Type',
-    product_reference: 'Product Reference',
     keyword: 'Keyword',
     price: 'Price',
     leasing_scheme: 'Leasing Scheme',
     leasing_provider: 'Leasing Provider',
     leasing_payment: 'Leasing Payment',
     // social
+    socialfolder: 'Social',
     social_preference: 'Social Preference',
     social_connection: 'Social Connection',
     //filter
@@ -175,11 +176,11 @@ module.exports = {
     classification_attribute: 'Classification Attribute',
     classification_value: 'Classification Value',
     classification_system: 'Classification System',
+    //credit account
+    credit_account_balance: 'Credit Account Balance',
     //deeplink
     deeplink_url: 'Deeplink Url',
     deeplink_url_rule: 'Deeplink Url Rule',
-    //credit account
-    credit_account_balance: 'Credit Account Balance',
     //cms
     cms_template: 'Cms template',
     cms_page: 'Cms page',
@@ -209,6 +210,7 @@ module.exports = {
     storage_configuration: 'Storage',
     format: 'Format',
     align: 'Align',
+    'Currency': 'Currency',
     'Equals': 'is equal',
     'After': 'is after',
     'IsAfter': 'is after',
@@ -275,6 +277,7 @@ module.exports = {
     'No slots available': 'No slots available',
     'No widgets available': 'No widgets available',
     'No emails available': 'No emails available',
+    'language': 'Language',
     'Bulgarian': 'Bulgarian',
     'English': 'English',
     'English (US)': 'English (US)',

@@ -36,6 +36,14 @@ public class BackendConsoleController {
         model.addAttribute("websiteBaseUrl", consoleProperties.getWebsiteBaseUrl());
         model.addAttribute("actuatorBaseUrl", consoleProperties.getActuatorBaseUrl());
         model.addAttribute("restBaseUrl", consoleProperties.getRestBaseUrl());
+        return "redirect:/admin";
+    }
+
+    @RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
+    public String admin(final Model model, final HttpServletRequest request) {
+        model.addAttribute("websiteBaseUrl", consoleProperties.getWebsiteBaseUrl());
+        model.addAttribute("actuatorBaseUrl", consoleProperties.getActuatorBaseUrl());
+        model.addAttribute("restBaseUrl", consoleProperties.getRestBaseUrl());
         return "index";
     }
 

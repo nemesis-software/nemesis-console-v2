@@ -63,6 +63,18 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.isOpenInFrame = false;
+    this.sidebarViews = {
+        pos : PointOfSale,
+        theme : ThemeEditorPanel,
+        taxonomy : TaxonomyPanel,
+        bpmn : BpmnPanel,
+        kie : KiePanel,
+        dmn : DmnPanel,
+        brm : RulesPanel,
+        maintenance : AdminPanel,
+        'console-configuration' : ConsoleConfigurationPanel,
+        admin : MasterAdmin
+    };
     this.state = {markupData: {}, entityMarkupData: {}, sidebarData: {}, isLoadingData: true};
   }
 
@@ -120,65 +132,28 @@ export default class App extends Component {
         <Router basename={contextPath}>
           <div>
             {!this.isOpenInFrame ? <SideBarComponent/> : false}
-            <Route
-              exact={true}
-              path={'/'}
-              component={MasterAdmin}
-            />
-            <Route
-              exact={true}
-              path={'/theme'}
-              component={ThemeEditorPanel}
-            />
-            <Route
-              exact={true}
-              path={'/pos'}
-              component={PointOfSale}
-            />
             {_.map(this.getSidebarParsedData(this.state.sidebarData), item => {
-              return (
-                <Route
-                  key={item.code}
-                  exact={true}
-                  path={`/${item.code}`}
-                  component={() => <SimpleView timestamp={new Date().toString()} allowedViews={item.items}/>}
-                />
-              )
+                debugger;
+                if (this.sidebarViews[`${item.code}`]) {
+                  return (
+                      <Route
+                        exact={true}
+                        key={item.code}
+                        path={`/${item.code}`}
+                        component={this.sidebarViews[`${item.code}`]}
+                      />
+                  )
+                } else {
+                  return (
+                    <Route
+                      key={item.code}
+                      exact={true}
+                      path={`/${item.code}`}
+                      component={() => <SimpleView timestamp={new Date().toString()} allowedViews={item.items}/>}
+                    />
+                  )
+              }
             })}
-            <Route
-              exact={true}
-              path={'/taxonomy'}
-              component={TaxonomyPanel}
-            />
-            <Route
-              exact={true}
-              path={'/bpmn'}
-              component={BpmnPanel}
-            />
-            <Route
-              exact={true}
-              path={'/kie'}
-              component={KiePanel}
-            />
-            <Route
-              exact={true}
-              path={'/dmn'}
-              component={DmnPanel}
-            />
-            <Route
-              exact={true}
-              path={'/brm'}
-              component={RulesPanel}
-            />
-            <Route
-              exact={true}
-              path={'/maintenance'}
-              component={AdminPanel}
-            />
-            <Route
-              path={'/console-configuration'}
-              component={ConsoleConfigurationPanel}
-            />
           </div>
         </Router>
     );
