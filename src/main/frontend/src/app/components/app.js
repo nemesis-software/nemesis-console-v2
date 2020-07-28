@@ -115,9 +115,9 @@ export default class App extends Component {
     }
 
     const SideBarComponent = withRouter(props => <NemesisSideBar sidebarData={this.state.sidebarData} routerProps={props}/>);
-
+    const apiURLBasename = document.getElementById('contextPath').innerText;
     return (
-        <Router basename="/backend">
+        <Router basename={apiURLBasename}>
           <div>
             {!this.isOpenInFrame ? <SideBarComponent/> : false}
             <Route

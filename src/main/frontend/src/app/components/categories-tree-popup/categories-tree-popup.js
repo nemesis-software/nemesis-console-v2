@@ -15,7 +15,8 @@ export default class CategoriesTreePopup extends Component {
   }
 
   componentDidMount() {
-    ApiCall.get('backend/categories').then(result => {
+    const apiURLBasename = document.getElementById('contextPath').innerText;
+    ApiCall.get(`${apiURLBasename.substr(1)}/categories`).then(result => {
       let actualCategories = this.filterCategoriesForEntity(result.data, this.props.categoriesForEntity);
       this.setState({categories: actualCategories, filteredCategories: actualCategories, isDataLoading: false})
     })

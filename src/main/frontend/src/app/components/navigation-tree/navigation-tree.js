@@ -61,7 +61,8 @@ export default class NavigationTree extends Component {
   }
 
   getNavigationData() {
-    return ApiCall.get('backend/navigation', {root: 'backend_console'}).then(result => {
+    const apiURLBasename = document.getElementById('contextPath').innerText;
+    return ApiCall.get(`${apiURLBasename.substr(1)}/navigation`, {root: 'backend_console'}).then(result => {
       this.setState({...this.state, loadingData: false});
       return result;
     }, err => {
