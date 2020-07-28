@@ -36,8 +36,8 @@ export default class SimpleViewItem extends Component {
   }
 
   onSiteSelect(site) {
-    const apiURLBasename = document.getElementById('contextPath').innerText;
-    ApiCall.get(`${apiURLBasename.substr(1)}/catalog-versions`, {siteCode: site.code}).then(result => {
+    const contextPath = document.getElementById('contextPath').innerText;
+    ApiCall.get(`${contextPath.substr(1)}/catalog-versions`, {siteCode: site.code}).then(result => {
       let selectedCatalogsVersions = result.data.map(item => item.id);
       this.setState({...this.state, selectedCatalogVersions: selectedCatalogsVersions, selectedSite: site});
     });
