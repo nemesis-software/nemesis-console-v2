@@ -9,7 +9,6 @@ import DataHelper from "servicesDir/data-helper";
 import NotificationSystem from "react-notification-system";
 import BootstrapTable from "react-bootstrap-table-next";
 import NemesisEnumField from '../field-components/nemesis-enum-field/nemesis-enum-field';
-
 let NemesisLocalizedTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field', 'nemesis-localized-text-field');
 
 let NemesisHeader = componentRequire(
@@ -178,7 +177,7 @@ export default class Taxons extends Component {
       readOnly={false}
       value={taxonName}
       label={"Name"}
-      showLabels={false}
+      showLabel={false}
     />;
   }
 
@@ -365,7 +364,16 @@ export default class Taxons extends Component {
 
     ApiCall.patch(`taxon_attribute/${unitId}`, unitObject)
       .then(result => {
-        console.log("NotificationHere")
+        this.openNotificationSnackbar('Taxon Saved Successfully!');
       });
   };
+
+  openNotificationSnackbar = (message, level) => {
+    this.notificationSystem.addNotification({
+      message: message,
+      level: level || 'success',
+      position: 'tc'
+    });
+  }
+
 }
