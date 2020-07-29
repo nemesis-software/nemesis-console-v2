@@ -19,7 +19,6 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   render() {
-
     return (
       <div className="entity-field-container">
         <div className="entity-field-input-container">
@@ -33,6 +32,7 @@ export default class NemesisEntityField extends NemesisBaseField {
                     value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
                     onChange={(item) => this.onValueChange(item && item.value)}
                     defaultOptions
+                    isClearable={true}
                     options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))}/>
             :
             <AsyncSelect style={this.getSelectStyle()}
@@ -43,6 +43,7 @@ export default class NemesisEntityField extends NemesisBaseField {
                           value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
                           onChange={(item) => this.onValueChange(item && item.value)}
                           defaultOptions
+                          isClearable={true}
                           loadOptions={this.filterEntityData.bind(this)}/>
           }
         </div>
