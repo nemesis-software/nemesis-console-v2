@@ -252,7 +252,8 @@ export default class EntitySections extends Component {
       this.bulkSynchronize();
       return;
     }
-    ApiCall.get('backend/synchronize', {entityName: entity.entityName, id: entity.itemId}).then(() => {
+    const contextPath = document.getElementById('contextPath').innerText;
+    ApiCall.get(`${contextPath.substr(1)}/synchronize`, {entityName: entity.entityName, id: entity.itemId}).then(() => {
       this.props.openNotificationSnackbar('Entity successfully synchronized');
       this.setState((prevState)=>({...prevState, isDataLoading: false, entitySyncStatus: 'COMPLETED'}));
     }, this.handleRequestError.bind(this))
@@ -339,13 +340,14 @@ export default class EntitySections extends Component {
     let ids = this.props.entity.additionParams;
     let hasError = false;
     let entityName = this.props.entity.entityName;
+    const contextPath = document.getElementById('contextPath').innerText;
     for (let i = 0, p = Promise.resolve(); i < ids.length; i++) {
       p = p.then(() => new Promise(resolve => {
           if (hasError) {
             resolve();
             return;
           }
-        ApiCall.get('backend/synchronize', {entityName: entityName, id: ids[i]}).then(() => {
+        ApiCall.get(`${contextPath.substr(1)}/synchronize`, {entityName: entityName, id: ids[i]}).then(() => {
             if (i === ids.length - 1) {
               this.props.openNotificationSnackbar('All entities successfully synchronized');
               this.setState((prevState)=>({...prevState, isDataLoading: false}));
