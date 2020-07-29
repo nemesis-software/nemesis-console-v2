@@ -8,6 +8,7 @@ import NemesisTextField from '../field-components/nemesis-text-field/nemesis-tex
 import DataHelper from "servicesDir/data-helper";
 import { array } from "prop-types";
 import axios from 'axios';
+import NotificationSystem from 'react-notification-system';
 
 let BuildingBlockEntityField = componentRequire('app/components/field-components/nemesis-building-block-entity-field/nemesis-building-block-entity-field', 'nemesis-building-block-entity-field');
 
@@ -344,6 +345,14 @@ export default class Taxonomables extends Component {
     //   });
   };
 
+  openNotificationSnackbar = (message, level) => {
+    this.notificationSystem.addNotification({
+      message: message,
+      level: level || 'success',
+      position: 'tc'
+    });
+  }
+  
   getOptions() {
     return this.state.taxonomableTypes.map(taxonomableType => {
       return { value: taxonomableType.id, label: taxonomableType.text };
