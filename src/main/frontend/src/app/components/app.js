@@ -133,7 +133,6 @@ export default class App extends Component {
           <div>
             {!this.isOpenInFrame ? <SideBarComponent/> : false}
             {_.map(this.getSidebarParsedData(this.state.sidebarData), item => {
-                debugger;
                 if (this.sidebarViews[`${item.code}`]) {
                   return (
                       <Route
