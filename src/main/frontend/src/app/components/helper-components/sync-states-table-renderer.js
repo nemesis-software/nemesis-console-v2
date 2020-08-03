@@ -66,8 +66,7 @@ export default class SyncStateTableRenderer extends Component {
     if (status === 'COMPLETED') {
       return;
     }
-    const contextPath = document.getElementById('contextPath').innerText;
-    ApiCall.get(`${contextPath.substr(1)}/synchronize`, {entityName: 'sync_state', id: syncStateId}).then(() => {
+    ApiCall.get(`backend/synchronize`, {entityName: 'sync_state', id: syncStateId}).then(() => {
       this.setState({onProgress: true});
     }, err => console.log(err))
   }
@@ -75,8 +74,7 @@ export default class SyncStateTableRenderer extends Component {
   handleSynchronizeButtonClick() {
     let entity = this.props.entity;
     this.setState({...this.state, isDataLoading: true});
-    const contextPath = document.getElementById('contextPath').innerText;
-    ApiCall.get(`${contextPath.substr(1)}/synchronize`, {entityName: entity.entityName, id: entity.itemId}).then(() => {
+    ApiCall.get(`backend/synchronize`, {entityName: entity.entityName, id: entity.itemId}).then(() => {
       this.props.openNotificationSnackbar('Entity successfully synchronized');
       this.setState({...this.state, isDataLoading: false, entitySyncStatus: 'COMPLETED'});
     }, this.handleRequestError.bind(this))

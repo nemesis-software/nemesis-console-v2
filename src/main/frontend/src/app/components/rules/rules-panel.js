@@ -136,8 +136,7 @@ export default class RulesPanel extends Component {
       if (!valueToLoad) {
         return;
       }
-      const contextPath = document.getElementById('contextPath').innerText;
-     ApiCall.get(`${contextPath}/rule/syntax/${valueToLoad.id}`).then(result => {
+     ApiCall.get(`backend/rule/syntax/${valueToLoad.id}`).then(result => {
         console.log(result.data);
         this.setState({...this.state, selectedRuleSyntax: result.data});
      });

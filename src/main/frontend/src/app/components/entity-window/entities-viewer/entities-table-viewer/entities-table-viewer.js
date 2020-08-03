@@ -137,9 +137,9 @@ export default class EntitiesTableViewer extends Component {
     if (_.isEmpty(this.state.selectedIds)) {
       return;
     }
-    const contextPath = document.getElementById('contextPath').innerText;
     let locale = this.state.selectedLanguage === 'en' ? 'en_US' : 'bg_BG';
-    ApiCall.post(`${contextPath.substr(1)}/export-excel`, null, null, {entityName: this.props.entityId, ids: Object.keys(this.state.selectedIds).join(','), locale: locale}).then(result => {
+    ApiCall.post(`backend/export-excel`, null, null, {entityName: this.props.entityId, ids: Object.keys(this.state.selectedIds).join(','), locale: locale}).then
+    (result => {
       let csvContent = "data:text/csv;charset=utf-8," + result.data;
       let encodedUri = encodeURI(csvContent);
       let link = document.createElement("a");

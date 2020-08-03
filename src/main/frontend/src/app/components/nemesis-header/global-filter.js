@@ -44,9 +44,8 @@ export default class GlobalFilter extends Component {
     }
 
     this.setState({selectedIndex: index});
-    const contextPath = document.getElementById('contextPath').innerText;
     if (site) {
-        this.props.onGlobalFilterSelect(ApiCall.get(`${contextPath.substr(1)}/catalog-versions`, {siteCode: site.code}));
+        this.props.onGlobalFilterSelect(ApiCall.get(`backend/catalog-versions`, {siteCode: site.code}));
     } else {
       this.props.onGlobalFilterSelect(Promise.resolve({data: []}))
     }
