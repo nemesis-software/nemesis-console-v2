@@ -11,7 +11,7 @@ export default class AdminActions extends Component {
 
   componentDidMount() {
     this.socketClient = webstomp.over(new SockJS(PlatformApiCall.getRestUrl() + '/stomp'));
-    this.socketClient.connect({}, frame => {
+    this.socketClient.connect({'X-Nemesis-Token' : document.getElementById('token').getAttribute('value')}, frame => {
       console.log(frame)
     }, err => {
       console.log(err);

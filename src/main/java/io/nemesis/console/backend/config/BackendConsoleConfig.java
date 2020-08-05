@@ -60,7 +60,7 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .loginProcessingUrl("/j_spring_security_check")
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/admin")
                 .failureHandler(defaultAuthenticationFailureHandler)
                 .permitAll()
                 .and()
