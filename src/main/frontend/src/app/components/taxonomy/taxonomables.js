@@ -86,6 +86,7 @@ const abstractTaxonamableEntity = 'abstract_taxonomable_entity';
 export default class Taxonomables extends Component {
   constructor(props) {
     super(props);
+    this.notificationSystem = null;
     let defaultLanguage =
       (this.props.defaultLanguage && this.props.defaultLanguage.value) ||
       translationLanguages.defaultLanguage.value;
@@ -149,19 +150,15 @@ export default class Taxonomables extends Component {
                 .then((result) => {
                   const arrayOfPromisesResults = [];
                   for (let i = 0; i < result.length; i++) {
-                    console.log(result[i], [i]);
                     const complexObject = {
                       valueToTake: result[i].data._embedded.taxonomy_value[0].code,
                       valueId: result[i].data._embedded.taxonomy_value[0].id,
                       valueType: result[i].data._embedded.taxonomy_value[0].type,
                       resolvedTaxonValues: result[i].data._embedded.taxonomy_value,
                       ...arrayItems[i]
-                    }
-                    console.log(complexObject, 'complexObje');
+                    };
                     arrayOfPromisesResults.push(complexObject);
-                    console.log(result[i].data._embedded.taxonomy_value[0].code, 'currentREesult')
                   };
-                  console.log(arrayOfPromisesResults, 'arrayItems');
                   this.setState({
                     expandedAttributes: {
                       _embedded: {
@@ -171,7 +168,7 @@ export default class Taxonomables extends Component {
                   });
                 })
                 .catch(e => {
-                  console.log(e)
+                  console.log(e);
                 });
             });
         }
@@ -241,11 +238,13 @@ export default class Taxonomables extends Component {
         ) : (
             false
           )}
+        <NotificationSystem ref="notificationSystem" />
       </div>
     );
   }
 
   componentDidMount() {
+    this.notificationSystem = this.refs.notificationSystem;
     this.setState({
       isLoading: false
     });
@@ -433,7 +432,6 @@ export default class Taxonomables extends Component {
       arrayItems[itemIndex].resolvedTaxonValues = [];
       arrayItems[itemIndex].resolvedTaxonValues.push({ 'code': value });
     }
-    console.log(arrayItems[itemIndex].resolvedTaxonValues[0].code, 'resolvedTaxonValues');
 
     this.setState(prevState => ({
       expandedAttributes: {
@@ -455,7 +453,6 @@ export default class Taxonomables extends Component {
       arrayItems[itemIndex].resolvedTaxonValues = [];
       arrayItems[itemIndex].resolvedTaxonValues.push({ 'code': value });
     }
-    console.log(arrayItems[itemIndex].resolvedTaxonValues[0].code, 'resolvedTaxonValues');
 
     this.setState(prevState => ({
       expandedAttributes: {
@@ -485,7 +482,7 @@ export default class Taxonomables extends Component {
       let updateTaxonObject = currentUnit.resolvedTaxonValues.map(x => x.id);
       ApiCall.patch(`${this.state.selectedTaxonomableType.value}/${this.state.selectedTaxonomable.id}`, { taxonomyValues: updateTaxonObject })
         .then(result => {
-          console.log("ReferenceType")
+          this.openNotificationSnackbar('Taxon Attribute Updated!');
         });
     } else if (!currentUnit.resolvedTaxonValues.id) {
       const attrValueObject = {
@@ -494,11 +491,10 @@ export default class Taxonomables extends Component {
       };
       ApiCall.post(`taxonomy_value`, attrValueObject)
         .then(result => {
-          console.log(result, 'resultAfterPost');
           const attrValueArrayObject = { taxonomyValues: [result.data.id] };
           ApiCall.patch(`${this.state.selectedTaxonomableType.value}/${this.state.selectedTaxonomable.id}`, attrValueArrayObject)
             .then(result => {
-              console.log("TaxonomyValue")
+              this.openNotificationSnackbar('Taxon Attribute Updated!');
             });
         });
     } else {
@@ -507,7 +503,7 @@ export default class Taxonomables extends Component {
       };
       ApiCall.patch(`taxonomy_value/${currentUnit.resolvedTaxonValues[0].id}`, attrValueObject)
         .then(result => {
-          console.log("TaxonomyValue")
+          this.openNotificationSnackbar('Taxon Attribute Updated!');
         });
     }
   };
@@ -539,7 +535,6 @@ export default class Taxonomables extends Component {
   };
 
   onTaxonomableSelect = (value) => {
-    console.log(value);
     if (!value) {
       this.setState({ selectedTaxonomable: null });
       return;
