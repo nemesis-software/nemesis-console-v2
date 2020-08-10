@@ -32,12 +32,12 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
   getChipRenderer = (item, index) => {
     return (
       <div className="chip" key={index}>
-        {/* {!this.props.attributes && <i className="fa fa-chevron-left reorder-icon reorder-back-icon" onClick={() => this.onChipReorderBack(index)} />} */}
+        {!this.props.attributes && <i className="fa fa-chevron-left reorder-icon reorder-back-icon" onClick={() => this.onChipReorderBack(index)} />} 
         {this.getItemRenderingValue(item)}
-        {/* {this.props.attributes && <i className="material-icons" onClick={() => console.log('edit')}>
-          edit  </i>} */}
+        {this.props.attributes && <i className="material-icons" onClick={() => console.log('edit')}>
+          edit  </i>} 
         {!this.props.readOnly ? <i className="material-icons chip-item" onClick={() => this.props.onAttributeDelete(this.props.currentUnitId, item)}>close</i> : false}
-        {/* {!this.props.attributes && <i className="fa fa-chevron-right reorder-icon reorder-front-icon" onClick={() => this.onChipReorderFront(index)} />} */}
+        {!this.props.attributes && <i className="fa fa-chevron-right reorder-icon reorder-front-icon" onClick={() => this.onChipReorderFront(index)} />} 
       </div>
     );
 
