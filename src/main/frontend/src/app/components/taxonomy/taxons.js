@@ -276,7 +276,6 @@ export default class Taxons extends Component {
   };
 
   onUnitChange = (value, taxonId) => {
-    console.log(taxonId);
     const arrayItems = this.state.expandedAttributes._embedded.taxon_attribute.slice(0);
     const itemIndex = arrayItems.findIndex(x => x.id === taxonId);
     arrayItems[itemIndex].unit = value.id;
@@ -292,7 +291,6 @@ export default class Taxons extends Component {
   };
 
   typeInput = (type, unitId) => {
-    console.log(type)
     return (
       <div style={{ margin: '0 auto' }}>
         <NemesisEnumField
@@ -373,13 +371,4 @@ export default class Taxons extends Component {
         this.openNotificationSnackbar('Taxon Saved Successfully!');
       });
   };
-
-  openNotificationSnackbar = (message, level) => {
-    this.notificationSystem.addNotification({
-      message: message,
-      level: level || 'success',
-      position: 'tc'
-    });
-  }
-
 }
