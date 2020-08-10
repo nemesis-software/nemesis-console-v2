@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, BrowserRouter, Switch } from 'react-router-dom';
 
-import {componentRequire} from '../../utils/require-util'
+import { componentRequire } from '../../utils/require-util'
 
 import AllFieldsConfiguration from './all-fields-configuration/all-fields-configuration';
 
@@ -25,24 +25,37 @@ export default class ConsoleConfigurationPanel extends Component {
   }
 
   render() {
+    const contextPath = document.getElementById('contextPath').innerText;
     return (
       <div>
-        <NemesisHeader onRightIconButtonClick={() => {}}/>
+        <NemesisHeader onRightIconButtonClick={() => { }} />
         <div className="console-configuration-panel">
-          <Route exact={true} path={this.props.match.path} component={() => (
-            <div className="console-configuration-wrapper">
-              <Link to={`${this.props.match.path}/masterAdmin`}><div className="configuration-type-box"><i className="fa fa-crown"></i><div>Master</div></div></Link>
-              <Link to={`${this.props.match.path}/navigationAdmin`}><div className="configuration-type-box"><i className="fa fa-sitemap"></i><div>Navigation</div></div></Link>
-              <Link to={`${this.props.match.path}/sidebarAdmin`}><div className="configuration-type-box"><i className="fa fa-ellipsis-v"></i><div>Sidebar</div></div></Link>
-              <Link to={`${this.props.match.path}/permissionConfig`}><div className="configuration-type-box"><i className="fa fa-user-shield"></i><div>Permissions</div></div></Link>
-            </div>
-          )}/>
-          <Route path={`${this.props.match.path}/masterAdmin`} component={() => <AllFieldsConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>} />
-          <Route path={`${this.props.match.path}/navigationAdmin`} component={() => <MasterAdminNavigationConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>} />
-          <Route path={`${this.props.match.path}/sidebarAdmin`} component={() => <SidebarAdminConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>} />
-          <Route path={`${this.props.match.path}/permissionConfig`} component={() => <AdminPermissionConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)}/>} />
+          <BrowserRouter>
+            <Switch>
+              <Route exact={true} path={`${contextPath}/console-configuration`} component={() => (
+                <div className="console-configuration-wrapper">
+                  <Link to={`${contextPath}/console-configuration/masterAdmin`}><div className="configuration-type-box"><i className="fa fa-crown"></i><div>Master</div></div></Link>
+                  <Link to={`${contextPath}/console-configuration/navigationAdmin`}><div className="configuration-type-box"><i className="fa fa-sitemap"></i><div>Navigation</div></div></Link>
+                  <Link to={`${contextPath}/console-configuration/sidebarAdmin`}><div className="configuration-type-box"><i className="fa fa-ellipsis-v"></i><div>Sidebar</div></div></Link>
+                  <Link to={`${contextPath}/console-configuration/permissionConfig`}><div className="configuration-type-box"><i className="fa fa-user-shield"></i><div>Permissions</div></div></Link>
+                </div>
+              )} />
+              <Route path={`${contextPath}/console-configuration/masterAdmin`} >
+                <AllFieldsConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)} />
+              </Route>
+              <Route path={`${contextPath}/console-configuration/navigationAdmin`}>
+                <MasterAdminNavigationConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)} />
+              </Route>
+              <Route path={`${contextPath}/console-configuration/sidebarAdmin`} >
+                <SidebarAdminConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)} />
+              </Route>
+              <Route path={`${contextPath}/console-configuration/permissionConfig`} >
+                <AdminPermissionConfiguration openNotificationSnackbar={this.openNotificationSnackbar.bind(this)} />
+              </Route>
+            </Switch>
+          </BrowserRouter>
         </div>
-        <NotificationSystem ref="notificationSystem"/>
+        <NotificationSystem ref="notificationSystem" />
       </div>
     )
   }
