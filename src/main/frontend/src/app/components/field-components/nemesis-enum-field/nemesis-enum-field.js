@@ -54,5 +54,12 @@ export default class NemesisEnumField extends NemesisBaseField {
   onChange(item) {
     let newValue = !item ? -1 : item.value;
     this.onValueChange(null, newValue);
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
+}
+
+NemesisEnumField.defaultProps = {
+  enableSaveButtons: () => {}
 }

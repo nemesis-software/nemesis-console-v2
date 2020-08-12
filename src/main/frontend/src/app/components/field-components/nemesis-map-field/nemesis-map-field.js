@@ -60,6 +60,9 @@ export default class NemesisMapField extends NemesisBaseField {
 
   handleChange(item) {
     this.setState({...this.state, selectedKey: item.value});
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
 
   getInputValue() {
@@ -74,6 +77,9 @@ export default class NemesisMapField extends NemesisBaseField {
     let currentValue = {...this.state.value};
     currentValue[this.state.selectedKey] = value;
     super.onValueChange(ev, currentValue);
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
 
   onMapPopupClose(shouldUpdateValue, newValue) {
@@ -85,4 +91,8 @@ export default class NemesisMapField extends NemesisBaseField {
       this.setState({...this.state, selectedKey: this.getMapKeys()[0]});
     });
   }
+}
+
+NemesisMapField.defaultProps = {
+  enableSaveButtons: () => {}
 }

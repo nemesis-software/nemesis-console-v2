@@ -47,6 +47,10 @@ export default class NemesisMediaField extends NemesisBaseField {
     };
 
     reader.readAsDataURL(file);
+
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
 
   getChangeValue() {
@@ -56,4 +60,8 @@ export default class NemesisMediaField extends NemesisBaseField {
 
     return null;
   }
+}
+
+NemesisMediaField.defaultProps = {
+  enableSaveButtons: () => {}
 }

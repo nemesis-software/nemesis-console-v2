@@ -95,7 +95,10 @@ export default class NemesisEntityField extends NemesisBaseField {
     this.setState((prevState)=>({...prevState, isDirty: true, value: value}));
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));
-    }
+    };
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
 
   filterEntityData(inputText) {
@@ -211,3 +214,7 @@ NemesisEntityField.contextTypes = {
   entityMarkupData: PropTypes.object,
   globalFiltersCatalogs: PropTypes.array
 };
+
+NemesisEntityField.defaultProps = {
+  enableSaveButtons: () => {}
+}

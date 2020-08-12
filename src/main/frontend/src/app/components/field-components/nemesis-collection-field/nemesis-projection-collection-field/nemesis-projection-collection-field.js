@@ -176,6 +176,9 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
       value: valueActual,
       searchData: valueActual.slice(startRange, startRange + this.state.page.size)
     });
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
 
   onDeleteRequest(itemIndex) {
@@ -262,3 +265,7 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
 NemesisProjectionCollectionField.contextTypes = {
   markupData: PropTypes.object
 };
+
+NemesisProjectionCollectionField.defaultProps = {
+  enableSaveButtons: () => {}
+}

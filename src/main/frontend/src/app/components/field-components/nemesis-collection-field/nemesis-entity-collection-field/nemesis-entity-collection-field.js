@@ -100,6 +100,9 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
     let valueActual = this.state.value || [];
     valueActual.push(item.value);
     this.setState({...this.state, isDirty: true, value: valueActual});
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
 
   getSearchUrl() {
@@ -172,3 +175,7 @@ NemesisEntityCollectionField.contextTypes = {
   entityMarkupData: PropTypes.object,
   globalFiltersCatalogs: PropTypes.array
 };
+
+NemesisEntityCollectionField.defaultProps = {
+  enableSaveButtons: () => {}
+}

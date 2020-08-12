@@ -138,7 +138,10 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
     this.setState((prevState) => ({ ...prevState, isDirty: true, value: value }));
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));
-    }
+    };
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
 
   filterEntityData = (inputText) => {
@@ -259,5 +262,6 @@ NemesisBuildingBlockEntityField.contextTypes = {
 };
 
 NemesisBuildingBlockEntityField.defaultProps = {
-  updateNewNestedFilter: () => {}
+  updateNewNestedFilter: () => {},
+  enableSaveButtons: () => {}
 }

@@ -49,6 +49,9 @@ export default class NemesisBooleanField extends NemesisBaseField {
 
   handleRadioChange(e) {
     this.onValueChange(e, e.target.value);
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
 
   setFormattedValue(value) {
@@ -79,4 +82,8 @@ export default class NemesisBooleanField extends NemesisBaseField {
 
     return style;
   }
+}
+
+NemesisBooleanField.defaultProps = {
+  enableSaveButtons: () => {}
 }
