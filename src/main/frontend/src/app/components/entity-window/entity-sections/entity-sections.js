@@ -261,8 +261,7 @@ export default class EntitySections extends Component {
       this.bulkSynchronize();
       return;
     }
-    const contextPath = document.getElementById('contextPath').innerText;
-    ApiCall.get(`${contextPath.substr(1)}/synchronize`, { entityName: entity.entityName, id: entity.itemId }).then(() => {
+    ApiCall.get('backend/synchronize', { entityName: entity.entityName, id: entity.itemId }).then(() => {
       this.props.openNotificationSnackbar('Entity successfully synchronized');
       this.setState((prevState) => ({ ...prevState, isDataLoading: false, entitySyncStatus: 'COMPLETED' }));
     }, this.handleRequestError.bind(this))
@@ -355,7 +354,7 @@ export default class EntitySections extends Component {
           resolve();
           return;
         }
-        ApiCall.get(`${contextPath.substr(1)}/synchronize`, { entityName: entityName, id: ids[i] }).then(() => {
+        ApiCall.get('backend/synchronize', { entityName: entityName, id: ids[i] }).then(() => {
           if (i === ids.length - 1) {
             this.props.openNotificationSnackbar('All entities successfully synchronized');
             this.setState((prevState) => ({ ...prevState, isDataLoading: false }));
