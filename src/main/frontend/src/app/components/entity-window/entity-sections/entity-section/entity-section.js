@@ -69,6 +69,7 @@ export default class EntitySection extends Component {
 			required: isRequered,
 			value: this.getItemValue(item, itemName),
 			type: nemesisFieldUsageTypes.edit,
+			enableSaveButtons: this.props.enableSaveButtons,
 			ref: (field) => { field && this.fieldsReferences.push(field)}
 		};
 

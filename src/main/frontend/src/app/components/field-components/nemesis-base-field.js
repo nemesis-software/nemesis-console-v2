@@ -6,7 +6,7 @@ export default class NemesisBaseField extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {isDirty: false, value: this.setFormattedValue(this.props.value)};
+    this.state = { isDirty: false, value: this.setFormattedValue(this.props.value) };
   }
 
   render() {
@@ -17,24 +17,27 @@ export default class NemesisBaseField extends Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.value, nextProps.value)) {
-      this.setState({...this.state, isDirty: false, value: this.setFormattedValue(nextProps.value)});
+      this.setState({ ...this.state, isDirty: false, value: this.setFormattedValue(nextProps.value) });
     }
   }
 
   onValueChange(event, value) {
-    this.setState({...this.state, isDirty: true, value: value});
+    this.setState({ ...this.state, isDirty: true, value: value });
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));
     }
+    if (this.props.enableSaveButtons) {
+      this.props.enableSaveButtons();
+    };
   }
 
   isFieldValid() {
     if (this.props.required) {
       let isEmptyValue = this.isEmptyValue();
       if (isEmptyValue) {
-        this.setState({...this.state, errorMessage: this.getErrorMessage()});
+        this.setState({ ...this.state, errorMessage: this.getErrorMessage() });
       } else {
-        this.setState({...this.state, errorMessage: null});
+        this.setState({ ...this.state, errorMessage: null });
       }
 
       return !isEmptyValue;
@@ -49,7 +52,7 @@ export default class NemesisBaseField extends Component {
 
   getChangeValue() {
     if (this.state.isDirty) {
-      return {name: this.props.name, value: this.getFormattedValue(this.state.value)};
+      return { name: this.props.name, value: this.getFormattedValue(this.state.value) };
     }
 
     return null;
@@ -64,7 +67,7 @@ export default class NemesisBaseField extends Component {
   }
 
   resetDirtyState() {
-    this.setState({...this.state, isDirty: false});
+    this.setState({ ...this.state, isDirty: false });
   }
 
   getErrorMessage() {
@@ -82,3 +85,7 @@ NemesisBaseField.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string
 };
+
+NemesisBaseField.defaultProps = {
+  enableSaveButtons: () => {}
+}
