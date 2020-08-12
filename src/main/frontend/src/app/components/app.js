@@ -21,6 +21,7 @@ import DmnPanel from './dmn/dmn-panel';
 import KiePanel from './kie/kie-panel';
 import RulesPanel from './rules/rules-panel';
 import TaxonomyPanel from './taxonomy/taxonomy-panel';
+import Reservations from './taxonomy/reservations';
 import SimpleView from './simple-view/simple-view';
 import PointOfSale from './point-of-sale/point-of-sale';
 import ConsoleConfigurationPanel from './console-configuration-panel/console-configuration-panel';
@@ -73,7 +74,8 @@ export default class App extends Component {
         brm : RulesPanel,
         maintenance : AdminPanel,
         'console-configuration' : ConsoleConfigurationPanel,
-        admin : MasterAdmin
+        admin : MasterAdmin,
+        reservations: Reservations
     };
     this.state = {markupData: {}, entityMarkupData: {}, sidebarData: {}, isLoadingData: true};
   }
@@ -98,7 +100,7 @@ export default class App extends Component {
 
   getMarkupData() {
     Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then(result => {
-      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: result[2].data, isLoadingData: false});
+      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: {...result[2].data,reservations:["reservations"]}, isLoadingData: false});
     }, err => {
       this.setState({isLoadingData: false});
     });
