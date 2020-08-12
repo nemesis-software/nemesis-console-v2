@@ -29,7 +29,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
 
   componentDidMount() {
     ApiCall.get(`subtypes/${this.props.entityId}`).then(result => {
-      this.setState({ firstFieldData: result.data.map(item => ({ value: item, label: item.text })) })
+      this.setState({ firstFieldData: result.data.map((item,index) => ({ key:index,value: item, label: item.text })) })
     }, this.handleRequestError)
   }
 
@@ -57,6 +57,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
       </div>
     )
   }
+  
   renderSecondInput = () => {
     return [
       <div><Translate component="label" content={this.state.selectedEntityType.text} fallback={this.state.selectedEntityType.text} />{this.props.required ? <span className="required-star">*</span> : false}</div>,
@@ -164,10 +165,10 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
 
       this.setState({
-        secondFieldData: data.map((option) => this.mapDataSource(option))
+        secondFieldData: data.map((option,index) => this.mapDataSource(option,index))
       }, () => this.props.updateNewNestedFilter(this.state.selectedEntityType));
 
-      return data.map((option) => this.mapDataSource(option));
+      return data.map((option,index) => this.mapDataSource(option,index));
     }, this.handleRequestError)
   }
 
@@ -185,8 +186,9 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
     return `${this.state.selectedEntityType.id}${urlSuffix}`;
   }
 
-  mapDataSource(item) {
+  mapDataSource(item,index) {
     return {
+      key:index,
       value: item,
       label: this.getItemText(item)
     }

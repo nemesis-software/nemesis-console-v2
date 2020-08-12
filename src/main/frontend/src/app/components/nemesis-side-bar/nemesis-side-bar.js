@@ -42,6 +42,7 @@ export default class NemesisSideBar extends Component {
       case 'search': return 'fa-search';
       case 'maintenance': return 'fa-file-code';
       case 'console-configuration': return 'fa-cog';
+      case 'reservations': return 'fa-calendar';
 
       default: return 'fa-folder'
     }
