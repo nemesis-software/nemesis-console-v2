@@ -197,7 +197,7 @@ export default class EntitiesTableViewer extends Component {
 
   getTableRowColumnItem(item, markupItem, index) {
     let style = {
-      maxWidth: '100px',
+      width:'1%',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap'
