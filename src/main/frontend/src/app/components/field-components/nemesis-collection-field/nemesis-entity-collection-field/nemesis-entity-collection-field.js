@@ -123,8 +123,13 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   getAutocompleteRenderingValue(item) {
     if (this.props.mainEntity.data.synchronizable) {
-      return `${item.code}:${item.catalogVersion}`;
+      if (!item.name || !item.name[Object.keys(item.name)[0]]) {
+        return `${item.code}`;
+      } else {
+        return `${item.code}:${item.name[Object.keys(item.name)[0]].value}`;
+      };
     }
+    
     if (this.props.entityId === 'catalog_version') {
       return item.catalogVersion || item.code;
     }
