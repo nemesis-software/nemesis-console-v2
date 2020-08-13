@@ -51,10 +51,9 @@ export default class EntitiesNavigation extends Component {
     let groupedEntities = _.groupBy(entities, 'entityId');
 
     const keys = Object.keys(groupedEntities);
-    const sortedKeys = _.sortBy(keys);
 
     return _.fromPairs(
-      _.map(sortedKeys, key => [key, groupedEntities[key]])
+      _.map(keys, key => [key, groupedEntities[key]])
     )
   }
 
