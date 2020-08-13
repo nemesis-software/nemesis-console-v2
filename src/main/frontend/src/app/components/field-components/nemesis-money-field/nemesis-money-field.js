@@ -39,8 +39,12 @@ export default class NemesisMoneyField extends NemesisBaseField {
   getNumberValue() {
     if (!this.state.value) {
       return '';
-    }
-    return this.state.value.amount || '';
+    };
+    if (this.state.value.amount === 'undefined' || this.state.value.amount === null) {
+      return '';
+    } else {
+      return this.state.value.amount;
+    };
   }
 
   getCurrencyValue() {
