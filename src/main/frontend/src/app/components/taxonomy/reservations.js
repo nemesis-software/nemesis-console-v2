@@ -7,8 +7,10 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import { componentRequire } from "../../utils/require-util";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-moment.locale("en-GB");
+import NotificationSystem from "react-notification-system";
 import '../../../styles/taxonomy-panel.less';
+
+moment.locale("en-GB");
 let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
 
 const ReservationCalendar = ({ productReservationObject, date, handleNavigate }) => (
@@ -29,6 +31,7 @@ const reservationTypeDefaultValue = { value: 'product', label: 'ProductEntity' }
 export default class ProductReservations extends Component {
     constructor(props) {
         super(props);
+        this.notificationSystem = null;
         this.state = {
             selectedReservationType: null,
             selectedProduct: null,
@@ -44,6 +47,7 @@ export default class ProductReservations extends Component {
             .then(result => {
                 this.setState({ reservationTypes: result.data });
             });
+        this.notificationSystem = this.refs.notificationSystem;
     };
 
     getOptions = () => {
@@ -79,7 +83,7 @@ export default class ProductReservations extends Component {
                         isLoading: false,
                         reservationFrom: null,
                         reservationTo: null,
-                    });
+                    }, () => this.openNotificationSnackbar('No Reservation found!', 'error'));
 
                 } else {
                     this.setState({
@@ -94,6 +98,14 @@ export default class ProductReservations extends Component {
 
     handleNavigate = (date, view, action) => {
         this.setState({ date: moment(date).toDate() })
+    };
+
+    openNotificationSnackbar = (message, level) => {
+        this.notificationSystem.addNotification({
+            message: message,
+            level: level || "success",
+            position: "tc"
+        });
     };
 
     render() {
@@ -147,6 +159,7 @@ export default class ProductReservations extends Component {
                         </div>
                     </div>
                 </div>
+                <NotificationSystem ref="notificationSystem" />
             </div>
         )
     }
