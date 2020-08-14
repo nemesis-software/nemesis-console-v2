@@ -75,7 +75,7 @@ export default class App extends Component {
         maintenance : AdminPanel,
         'console-configuration' : ConsoleConfigurationPanel,
         admin : MasterAdmin,
-        reservations: Reservations
+        reservation: Reservations
     };
     this.state = {markupData: {}, entityMarkupData: {}, sidebarData: {}, isLoadingData: true};
   }
@@ -100,7 +100,7 @@ export default class App extends Component {
 
   getMarkupData() {
     Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then(result => {
-      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: {...result[2].data,reservations:["reservations"]}, isLoadingData: false});
+      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: result[2].data, isLoadingData: false});
     }, err => {
       this.setState({isLoadingData: false});
     });
