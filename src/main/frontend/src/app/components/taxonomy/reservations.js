@@ -11,49 +11,17 @@ moment.locale("en-GB");
 import '../../../styles/taxonomy-panel.less';
 let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
 
-const events = [
-    {
-        'title': 'All Day Event very long title',
-        'allDay': true,
-        'start': new Date(2020, 7, 26),
-        'end': new Date(2020, 8, 1)
-    },
-    {
-        'title': 'Long Event',
-        'start': new Date(2020, 7, 7),
-        'end': new Date(2020, 7, 10)
-    },
-    {
-        'title': 'DTS STARTS',
-        'start': new Date(2020, 2, 13, 0, 0, 0),
-        'end': new Date(2020, 2, 20, 0, 0, 0)
-    },
-    {
-        'title': 'Birthday Party',
-        'start': new Date(2020, 7, 17, 7, 0, 0),
-        'end': new Date(2020, 7, 19, 10, 70, 0)
-    },
-    {
-        'title': 'Birthday Party 2',
-        'start': new Date(2020, 7, 22, 7, 0, 0),
-        'end': new Date(2020, 7, 24, 10, 70, 0)
-    },
-    {
-        'title': 'Birthday Party 7',
-        'start': new Date(2020, 7, 26, 7, 0, 0),
-        'end': new Date(2020, 7, 28, 10, 30, 0)
-    },
-]
-
-const MyCalendar = props => (
+const ReservationCalendar = ({ productReservationObject, date, handleNavigate }) => (
     <div style={{ height: 700, padding: '10px' }}>
         <Calendar
-            events={events}
+            events={productReservationObject}
             defaultDate={new Date()}
             localizer={momentLocalizer(moment)}
+            date={date}
+            onNavigate={handleNavigate}
         />
     </div>
-)
+);
 
 const allowedReservationEntities = ['product'];
 const reservationTypeDefaultValue = { value: 'product', label: 'ProductEntity' };
@@ -64,7 +32,10 @@ export default class ProductReservations extends Component {
         this.state = {
             selectedReservationType: null,
             selectedProduct: null,
-            reservationTypes: []
+            reservationTypes: [],
+            selectedProduct: null,
+            reservationFrom: null,
+            reservationTo: null
         }
     }
 
@@ -73,7 +44,7 @@ export default class ProductReservations extends Component {
             .then(result => {
                 this.setState({ reservationTypes: result.data });
             });
-    }
+    };
 
     getOptions = () => {
         return this.state.reservationTypes
@@ -87,34 +58,43 @@ export default class ProductReservations extends Component {
         this.setState({ selectedReservationType: item });
     };
 
-    onProductSelect = (value) => {
-        if (!value) {
+    onProductSelect = (product) => {
+        if (!product) {
             this.setState({ selectedProduct: null });
             return;
         }
-        this.setState({ isLoading: true }, () => {
-            this.getProductReservation(value);
+        this.setState({
+            isLoading: true,
+            selectedProduct: product
+        }, () => {
+            this.getProductReservation(product.id);
         });
     };
 
-    getProductReservation = (selectedProduct) => {
-        ApiCall.get(
-            (this.state.selectedProductType != null
-                ? this.state.selectedProductType.value
-                : "") +
-            "/" +
-            selectedProduct.id +
-            "/resolvedTaxons",
-            { projection: "search" }
-        ).then(result => {
-            this.setState((prevState) => ({
-                ...prevState,
-                taxons: DataHelper.mapCollectionData(result.data),
-                selectedProduct: selectedProduct,
-                isLoading: false
-            }));
-        });
-    }
+    getProductReservation = (selectedProductId) => {
+        ApiCall.get(`reservable_cart_entry/search/findByProduct?product=${selectedProductId}`)
+            .then(result => {
+                if (!result.data._embedded.reservable_cart_entry.length) {
+                    this.setState({
+                        isLoading: false,
+                        reservationFrom: null,
+                        reservationTo: null,
+                    });
+
+                } else {
+                    this.setState({
+                        isLoading: false,
+                        date: result.data._embedded.reservable_cart_entry.reservationFrom,
+                        reservationFrom: result.data._embedded.reservable_cart_entry.reservationFrom,
+                        reservationTo: result.data._embedded.reservable_cart_entry.reservationTo,
+                    });
+                }
+            });
+    };
+
+    handleNavigate = (date, view, action) => {
+        this.setState({ date: moment(date).toDate() })
+    };
 
     render() {
         return (
@@ -149,13 +129,22 @@ export default class ProductReservations extends Component {
                             </div>
                         </div>
                         <NemesisEntityField
-                            entityId={"product"
-                            }
+                            entityId={"product"}
                             onValueChange={this.onProductSelect}
                             value={this.state.selectedReservationType}
                             label={"Product"}
                         />
-                        <MyCalendar></MyCalendar>
+                        <div className="calendar-container">
+                            <ReservationCalendar productReservationObject={[{
+                                'title': 'All Day Event very long title',
+                                'allDay': true,
+                                'start': new Date(moment(this.state.reservationFrom).format('YYYY/MM/DD')),
+                                'end': new Date(moment(this.state.reservationTo).format('YYYY/MM/DD'))
+                            }]}
+                                date={this.state.date ? new Date(moment(this.state.date).format('YYYY/MM/DD')) : new Date()}
+                                handleNavigate={this.handleNavigate}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
