@@ -12,7 +12,7 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css';
 import 'bpmn-js/dist/assets/diagram-js.css';
 import {componentRequire} from "../../utils/require-util";
 import NemesisEntityField from '../field-components/nemesis-entity-field/nemesis-entity-field';
-import ConsolePopup from "../../custom-components/backend-console-popup";
+import BackendConsolePopup from "../../custom-components/backend-console-popup";
 import ApiCall from 'servicesDir/api-call';
 import DataHelper from 'servicesDir/data-helper';
 import NotificationSystem from 'react-notification-system';
@@ -50,7 +50,7 @@ export default class BpmnPanel extends Component {
             <NotificationSystem ref="notificationSystem"/>
           </div>
           {this.state.openBackendConsolePopup ? (
-            <ConsolePopup
+            <BackendConsolePopup
               open={this.state.openBackendConsolePopup}
               entityId="bpmn_process"
               entityName="bpmn_process"
