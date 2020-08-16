@@ -21,7 +21,7 @@ export default class BackendConsolePopup extends Component {
 
   buildIFrameUrl() {
     const contextPath = document.getElementById('contextPath').innerText;
-    let baseUrl = `${contextPath}/`;
+    let baseUrl = `${contextPath}/admin/`;
     if (this.props.itemId) {
         return `${baseUrl}#type=SINGLE_ITEM&itemId=${this.props.itemId}&entityId=${this.props.entityId}&entityName=${this.props.entityName}&iframePreview=true`;
     } else {
