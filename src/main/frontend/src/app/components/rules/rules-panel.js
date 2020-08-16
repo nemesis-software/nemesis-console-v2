@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {componentRequire} from "../../utils/require-util";
 import NemesisEntityField from '../field-components/nemesis-entity-field/nemesis-entity-field';
 import ApiCall from 'servicesDir/api-call';
+import BackendConsolePopup from "../../custom-components/backend-console-popup";
 import DataHelper from 'servicesDir/data-helper';
 import NotificationSystem from 'react-notification-system';
 import '../../../styles/rules-panel.less';
@@ -11,7 +12,7 @@ let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-head
 export default class RulesPanel extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoading: false, selectedRule: null, selectedRuleSyntax: null};
+    this.state = {isLoading: false, selectedRule: null, selectedRuleSyntax: null, openBackendConsolePopup: false};
     this.notificationSystem = null;
   }
 
@@ -115,6 +116,18 @@ export default class RulesPanel extends Component {
             </div>
             <NotificationSystem ref="notificationSystem"/>
           </div>
+        {this.state.openBackendConsolePopup ? (
+          <BackendConsolePopup
+            open={this.state.openBackendConsolePopup}
+            entityId="rule"
+            entityName="rule"
+            onClose={() =>
+              this.setState({ ...this.state, openBackendConsolePopup: false })
+            }
+          />
+        ) : (
+          false
+        )}
       </div>
     );
   }
@@ -144,7 +157,7 @@ export default class RulesPanel extends Component {
   }
 
   createRuleProcess() {
-
+    this.setState({ ...this.state, openBackendConsolePopup: true });
   }
 
   saveRule() {
