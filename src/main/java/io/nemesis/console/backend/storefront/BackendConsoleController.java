@@ -31,6 +31,11 @@ public class BackendConsoleController {
     @Autowired
     private ConsoleProperties consoleProperties;
 
+    @RequestMapping(value = { "/" }, method = { RequestMethod.GET, RequestMethod.POST })
+    public String redirectToAdmin() {
+        return "redirect:/admin";
+    }
+
     @RequestMapping(value = { "/admin", "{path:(?!login|media|resources).*$}", "{path:(?!login|media|resources).*$}/**" }, method = RequestMethod.GET)
     public String home(final Model model, final HttpServletRequest request) {
         model.addAttribute("websiteBaseUrl", consoleProperties.getWebsiteBaseUrl());
