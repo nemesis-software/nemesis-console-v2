@@ -36,9 +36,7 @@ export default class ProductReservations extends Component {
             selectedReservationType: null,
             selectedProduct: null,
             reservationTypes: [],
-            selectedProduct: null,
-            reservationFrom: null,
-            reservationTo: null
+            productReservations: []
         }
     }
 
@@ -81,16 +79,14 @@ export default class ProductReservations extends Component {
                 if (!result.data._embedded.reservable_cart_entry.length) {
                     this.setState({
                         isLoading: false,
-                        reservationFrom: null,
-                        reservationTo: null,
+                        productReservations: [],
                     }, () => this.openNotificationSnackbar('No Reservation found!', 'error'));
 
                 } else {
                     this.setState({
                         isLoading: false,
                         date: result.data._embedded.reservable_cart_entry.reservationFrom,
-                        reservationFrom: result.data._embedded.reservable_cart_entry.reservationFrom,
-                        reservationTo: result.data._embedded.reservable_cart_entry.reservationTo,
+                        productReservations: result.data._embedded.reservable_cart_entry
                     });
                 }
             });
@@ -147,12 +143,15 @@ export default class ProductReservations extends Component {
                             label={"Product"}
                         />
                         <div className="calendar-container">
-                            <ReservationCalendar productReservationObject={[{
-                                'title': 'All Day Event very long title',
-                                'allDay': true,
-                                'start': new Date(moment(this.state.reservationFrom).format('YYYY/MM/DD')),
-                                'end': new Date(moment(this.state.reservationTo).format('YYYY/MM/DD'))
-                            }]}
+                            <ReservationCalendar productReservationObject={this.state.productReservations
+                                ? this.state.productReservations.map(product => ({
+                                    'title': this.state.selectedProduct.code,
+                                    'allDay': true,
+                                    'start': new Date(moment(product.reservationFrom, 'DD/MM/YYYY').format('YYYY, MM, DD')),
+                                    'end': new Date(moment(product.reservationTo, 'DD/MM/YYYY').format('YYYY, MM, DD'))
+                                }))
+                                : []
+                            }
                                 date={this.state.date ? new Date(moment(this.state.date).format('YYYY/MM/DD')) : new Date()}
                                 handleNavigate={this.handleNavigate}
                             />
