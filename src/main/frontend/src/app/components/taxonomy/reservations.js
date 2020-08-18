@@ -67,7 +67,7 @@ export default class ProductReservations extends Component {
 
     onProductSelect = (product) => {
         if (!product) {
-            this.setState({ selectedProduct: null, productReservations: [] });
+            this.setState({ selectedProduct: null });
             return;
         }
         this.setState({
@@ -81,12 +81,11 @@ export default class ProductReservations extends Component {
     getProductReservation = (selectedProductId) => {
         ApiCall.get(`reservable_cart_entry/search/findByProduct?product=${selectedProductId}`)
             .then(result => {
-                if (!result.data._embedded.reservable_cart_entry.length) {
+                if (!result.data || !result.data._embedded || !result.data._embedded.reservable_cart_entry.length) {
                     this.setState({
                         isLoading: false,
                         productReservations: [],
                     }, () => this.openNotificationSnackbar('No Reservation found!', 'error'));
-
                 } else {
                     this.setState({
                         isLoading: false,
@@ -94,7 +93,13 @@ export default class ProductReservations extends Component {
                         productReservations: result.data._embedded.reservable_cart_entry
                     });
                 }
-            });
+            })
+            .catch(err => {
+                this.setState({
+                    isLoading: false,
+                    productReservations: [],
+                }, () => this.openNotificationSnackbar('No Reservation found!', 'error'));
+            })
     };
 
     handleNavigate = (date, view, action) => {
@@ -111,7 +116,7 @@ export default class ProductReservations extends Component {
 
     onEventClick = (event) => {
         console.log(event);
-        this.setState({ selectedItemId: event.id, showModal: true })//Shows the event details provided while booking
+        this.setState({ selectedItemId: event.id, showModal: true });
     };
 
     render() {
