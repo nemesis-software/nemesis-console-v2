@@ -81,8 +81,6 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    // console.log('next ');
-    // console.log(nextProps)
     if (!_.isEqual(this.props.value, nextProps.value)) {
       if (!nextProps.value) {
         return;
@@ -115,7 +113,12 @@ export default class NemesisEntityField extends NemesisBaseField {
     if (this.context.entityMarkupData[this.props.entityId] && this.context.entityMarkupData[this.props.entityId].synchronizable && this.context
     .globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
       params.catalogVersionIds = this.context.globalFiltersCatalogs.map(item => item.id).join(',');
-    }
+    };
+
+    if (this.context.entityMarkupData[this.props.entityId] && this.context.entityMarkupData[this.props.entityId].synchronizable
+      && this.props.useCatalogVersionCode) {
+      params.catalogVersionCode = 'Online';
+    };
 
     return ApiCall.get(this.getSearchUrl(),params).then(result => {
       let data = [];
@@ -123,18 +126,24 @@ export default class NemesisEntityField extends NemesisBaseField {
 
       return  data.map((option) => this.mapDataSource(option));
     }, this.handleRequestError.bind(this))
-  }
+  };
 
   getSearchUrl() {
     let urlSuffix = '/search/findByCodeLike/';
+
     if (this.props.entityId === 'catalog_version') {
       urlSuffix = '/search/findByCodeLikeOrCatalogCodeLike/';
-    }
+    };
+
+    if (this.context.entityMarkupData[this.props.entityId] && this.context.entityMarkupData[this.props.entityId].synchronizable
+      && this.props.useCatalogVersionCode) {
+      urlSuffix = '/search/findByCodeLikeAndCatalogVersionCode/';
+    };
 
     if (this.context.entityMarkupData[this.props.entityId] && this.context.entityMarkupData[this.props.entityId].synchronizable && this.context
     .globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
       urlSuffix = '/search/findByCodeLikeAndCatalogVersionIdIn'
-    }
+    };
 
     return `${this.props.entityId}${urlSuffix}`;
   }
@@ -216,5 +225,6 @@ NemesisEntityField.contextTypes = {
 };
 
 NemesisEntityField.defaultProps = {
-  enableSaveButtons: () => {}
+  enableSaveButtons: () => {},
+  useCatalogVersionCode: false
 }
