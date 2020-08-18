@@ -14,7 +14,7 @@ export default class EntitiesFilter extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {filterMarkup: this.props.filterMarkup, selectedMenuIndex: 0};
+    this.state = { filterMarkup: this.props.filterMarkup, selectedMenuIndex: 0 };
   }
 
   render() {
@@ -22,17 +22,17 @@ export default class EntitiesFilter extends Component {
       <div>
         <div className="paper-box entities-filter">
           <div style={this.getFilterSelectStyle()}>
-            <label><Translate content={'main.Filter'} fallback={'Filter'}/></label>
-            <Select style={{width: '265px'}}
-                    className="select-filter"
-                    clearable={false}
-                    arrowRenderer={() => <SelectCustomArrow/>}
-                    disabled={this.props.readOnly}
-                    value={{value: this.state.selectedMenuIndex, label: this.getFilters()[this.state.selectedMenuIndex].filterName}}
-                    onChange={this.handleFilterChange.bind(this)}
-                    options={this.getFilters().map((item, index) => {
-                      return {value: index, label: item.filterName}
-                    })}/>
+            <label><Translate content={'main.Filter'} fallback={'Filter'} /></label>
+            <Select style={{ width: '265px' }}
+              className="select-filter"
+              clearable={false}
+              arrowRenderer={() => <SelectCustomArrow />}
+              disabled={this.props.readOnly}
+              value={{ value: this.state.selectedMenuIndex, label: this.getFilters()[this.state.selectedMenuIndex].filterName }}
+              onChange={this.handleFilterChange.bind(this)}
+              options={this.getFilters().map((item, index) => {
+                return { value: index, label: item.filterName }
+              })} />
           </div>
           {this.getFilters().map(this.getFilterElement.bind(this))}
         </div>
@@ -41,32 +41,32 @@ export default class EntitiesFilter extends Component {
   }
 
   handleFilterChange(item) {
-    this.setState({...this.state, selectedMenuIndex: item.value});
+    this.setState({ ...this.state, selectedMenuIndex: item.value });
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({filterMarkup: nextProps.filterMarkup})
+    this.setState({ filterMarkup: nextProps.filterMarkup })
   }
 
   getFilters() {
-    return [{filterName: 'Default filter', filterClass: DefaultFilter}];
-  }
+    return [{ filterName: 'Default filter', filterClass: DefaultFilter}];
+  };
 
   getFilterSelectStyle() {
-    let style = {display:'inline-block', marginBottom: '20px'};
+    let style = { display: 'inline-block', marginBottom: '20px' };
     if (this.getFilters().length <= 1) {
-      style = {display: 'none'};
+      style = { display: 'none' };
     }
 
     return style;
-  }
+  };
 
   getFilterElement(filter, index) {
     let config = {
       key: index,
       onFilterApply: this.props.onFilterApply,
       filterMarkup: this.state.filterMarkup,
-      style: index === this.state.selectedMenuIndex ? {} : {display: 'none'},
+      style: index === this.state.selectedMenuIndex ? {} : { display: 'none' },
       entity: this.props.entity,
       retakeEntityData: this.props.retakeEntityData
     };

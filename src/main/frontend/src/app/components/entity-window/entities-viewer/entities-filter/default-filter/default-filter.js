@@ -173,7 +173,6 @@ export default class DefaultFilter extends Component {
 
   onSearchButtonClick = () => {
     const filtersToApply = this.state.appliedFilters.filter(x => x.value !== null);
-
     let filterString = FilterBuilder.buildFilter(filtersToApply, this.state.filterOperation.value, this.context.globalFiltersCatalogs);
     let appliedFilterText = filtersToApply.map(item => item.textRepresentation ? item.textRepresentation : false);
     this.setState({ appliedFilterText: appliedFilterText }, () => {
