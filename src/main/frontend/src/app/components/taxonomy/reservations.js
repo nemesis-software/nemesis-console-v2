@@ -67,7 +67,7 @@ export default class ProductReservations extends Component {
 
     onProductSelect = (product) => {
         if (!product) {
-            this.setState({ selectedProduct: null });
+            this.setState({ selectedProduct: null, productReservations: [] });
             return;
         }
         this.setState({
