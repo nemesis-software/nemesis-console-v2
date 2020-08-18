@@ -151,7 +151,7 @@ export default class ProductReservations extends Component {
                             onValueChange={this.onProductSelect}
                             value={this.state.selectedReservationType}
                             label={"Product"}
-                            useCatalogVersionCode={true}
+                            catalogVersionCode={'Online'}
                         />
                         <div className="calendar-container">
                             <ReservationCalendar productReservationObject={this.state.productReservations
