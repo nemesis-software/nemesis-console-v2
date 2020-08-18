@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useRef } from 'react';
 import Translate from "react-translate-component";
 import Select from "react-select";
 import NemesisEntityField from "../field-components/nemesis-entity-field/nemesis-entity-field";
@@ -9,13 +9,16 @@ import { componentRequire } from "../../utils/require-util";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import NotificationSystem from "react-notification-system";
 import '../../../styles/taxonomy-panel.less';
+import ConsolePopup from "../../custom-components/backend-console-popup";
 
 moment.locale("en-GB");
 let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
 
-const ReservationCalendar = ({ productReservationObject, date, handleNavigate }) => (
+const ReservationCalendar = ({ productReservationObject, date, handleNavigate, onEventClick }) => (
     <div style={{ height: 700, padding: '10px' }}>
         <Calendar
+            selectable
+            onSelectEvent={event => onEventClick(event)}
             events={productReservationObject}
             defaultDate={new Date()}
             localizer={momentLocalizer(moment)}
@@ -36,7 +39,9 @@ export default class ProductReservations extends Component {
             selectedReservationType: null,
             selectedProduct: null,
             reservationTypes: [],
-            productReservations: []
+            productReservations: [],
+            showModal: false,
+            selectedItemId: null
         }
     }
 
@@ -62,7 +67,7 @@ export default class ProductReservations extends Component {
 
     onProductSelect = (product) => {
         if (!product) {
-            this.setState({ selectedProduct: null });
+            this.setState({ selectedProduct: null, productReservations: [] });
             return;
         }
         this.setState({
@@ -104,6 +109,11 @@ export default class ProductReservations extends Component {
         });
     };
 
+    onEventClick = (event) => {
+        console.log(event);
+        this.setState({ selectedItemId: event.id, showModal: true })//Shows the event details provided while booking
+    };
+
     render() {
         return (
             <div>
@@ -141,24 +151,38 @@ export default class ProductReservations extends Component {
                             onValueChange={this.onProductSelect}
                             value={this.state.selectedReservationType}
                             label={"Product"}
+                            useCatalogVersionCode={true}
                         />
                         <div className="calendar-container">
                             <ReservationCalendar productReservationObject={this.state.productReservations
                                 ? this.state.productReservations.map(product => ({
-                                    'title': this.state.selectedProduct.code,
+                                    'title': this.state.selectedProduct && this.state.selectedProduct.code,
                                     'allDay': true,
                                     'start': new Date(moment(product.reservationFrom, 'DD/MM/YYYY').format('YYYY, MM, DD')),
-                                    'end': new Date(moment(product.reservationTo, 'DD/MM/YYYY').format('YYYY, MM, DD'))
+                                    'end': new Date(moment(product.reservationTo, 'DD/MM/YYYY').format('YYYY, MM, DD')),
+                                    'id': product.id
                                 }))
                                 : []
                             }
                                 date={this.state.date ? new Date(moment(this.state.date).format('YYYY/MM/DD')) : new Date()}
                                 handleNavigate={this.handleNavigate}
+                                onEventClick={this.onEventClick}
                             />
                         </div>
                     </div>
                 </div>
                 <NotificationSystem ref="notificationSystem" />
+                {(this.state.showModal && this.state.selectedItemId) && (
+                    <ConsolePopup
+                        open={this.state.showModal}
+                        itemId={this.state.selectedItemId && this.state.selectedItemId}
+                        entityId="cart_entry"
+                        entityName="cart_entry"
+                        onClose={() =>
+                            this.setState({ showModal: false, selectedItemId: null })
+                        }
+                    />
+                )}
             </div>
         )
     }
