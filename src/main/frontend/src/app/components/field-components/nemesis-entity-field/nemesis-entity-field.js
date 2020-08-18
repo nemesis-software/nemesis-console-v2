@@ -116,8 +116,8 @@ export default class NemesisEntityField extends NemesisBaseField {
     };
 
     if (this.context.entityMarkupData[this.props.entityId] && this.context.entityMarkupData[this.props.entityId].synchronizable
-      && this.props.useCatalogVersionCode) {
-      params.catalogVersionCode = 'Online';
+      && this.props.catalogVersionCode) {
+      params.catalogVersionCode = this.props.catalogVersionCode;
     };
 
     return ApiCall.get(this.getSearchUrl(),params).then(result => {
@@ -136,7 +136,7 @@ export default class NemesisEntityField extends NemesisBaseField {
     };
 
     if (this.context.entityMarkupData[this.props.entityId] && this.context.entityMarkupData[this.props.entityId].synchronizable
-      && this.props.useCatalogVersionCode) {
+      && this.props.catalogVersionCode) {
       urlSuffix = '/search/findByCodeLikeAndCatalogVersionCode/';
     };
 
@@ -226,5 +226,5 @@ NemesisEntityField.contextTypes = {
 
 NemesisEntityField.defaultProps = {
   enableSaveButtons: () => {},
-  useCatalogVersionCode: false
+  catalogVersionCode: null
 }
