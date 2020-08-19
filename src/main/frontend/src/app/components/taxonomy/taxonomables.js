@@ -103,7 +103,6 @@ export default class Taxonomables extends Component {
       taxonTypes: [],
       booleanField: ''
     };
-
   }
 
   render() {
@@ -131,11 +130,8 @@ export default class Taxonomables extends Component {
       onExpand: (row, isExpand, rowIndex, e) => {
         this.setState({ expandedAttributes: [] });
         if (isExpand) {
-          ApiCall.get("taxon/" + row.id + "/taxonAttributes"
-            , { projection: "taxonomy" }
-          )
+          ApiCall.get("taxon/" + row.id + "/taxonAttributes", { projection: "taxonomy" })
             .then(result => {
-              //
               let promises = [];
               for (let i = 0; i < result.data._embedded.taxon_attribute.length; i++) {
                 promises.push(ApiCall
@@ -252,9 +248,8 @@ export default class Taxonomables extends Component {
         this.setState({ taxonTypes: result.data.taxon_attribute.sections[0].items.filter(x => x.name === "type")[0].values });
       });
 
-    ApiCall.get(
-      "subtypes/abstract_taxonomable_entity"
-    ).then(result => {
+    ApiCall.get("subtypes/abstract_taxonomable_entity")
+    .then(result => {
       this.setState({ taxonomableTypes: result.data });
     });
   }
@@ -287,6 +282,35 @@ export default class Taxonomables extends Component {
             selected: [row.id],
             expanded: [row.id]
           });
+          let promises = [];
+          for (let i = 0; i < result.data._embedded.taxon_attribute.length; i++) {
+            promises.push(ApiCall
+              .get(`taxon_attribute/${result.data._embedded.taxon_attribute[i].id}/resolvedTaxonValues?taxonomableEntityName=${this.state.selectedTaxonomableType.value}&taxonomableEntityId=${this.state.selectedTaxonomable.id}`)
+            )
+          };
+          let arrayItems = result.data._embedded.taxon_attribute.slice(0);
+
+          Promise.all(promises)
+            .then((result) => {
+              const arrayOfPromisesResults = [];
+              for (let i = 0; i < result.length; i++) {
+                const complexObject = {
+                  valueToTake: result[i].data._embedded.taxonomy_value[0].code,
+                  valueId: result[i].data._embedded.taxonomy_value[0].id,
+                  valueType: result[i].data._embedded.taxonomy_value[0].type,
+                  resolvedTaxonValues: result[i].data._embedded.taxonomy_value,
+                  ...arrayItems[i]
+                };
+                arrayOfPromisesResults.push(complexObject);
+              };
+              this.setState({
+                expandedAttributes: {
+                  _embedded: {
+                    taxon_attribute: arrayOfPromisesResults
+                  }
+                }
+              });
+            })
         });
     } else {
       this.setState(() => ({
