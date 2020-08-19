@@ -7,8 +7,6 @@ import NemesisEntityField from "../field-components/nemesis-entity-field/nemesis
 import NemesisTextField from '../field-components/nemesis-text-field/nemesis-text-field';
 import NemesisNumberField from '../field-components/nemesis-text-field/nemesis-text-field';
 import DataHelper from "servicesDir/data-helper";
-import { array } from "prop-types";
-import axios from 'axios';
 import NotificationSystem from 'react-notification-system';
 
 let BuildingBlockEntityField = componentRequire('app/components/field-components/nemesis-building-block-entity-field/nemesis-building-block-entity-field', 'nemesis-building-block-entity-field');
@@ -262,7 +260,7 @@ export default class Taxonomables extends Component {
   }
 
   renderNestedTableData = () => {
-    if (!this.state.expandedAttributes) {return;}
+    if (!this.state.expandedAttributes) { return; }
     const result = this.state.expandedAttributes && DataHelper.mapCollectionData(this.state.expandedAttributes).map(
       attr => ({
         id: attr.id,
@@ -327,7 +325,6 @@ export default class Taxonomables extends Component {
       });
   };
 
-
   valueInput = (defaultAttrType, predefinedValues, resolvedTaxonValues, attrType, attrId, attrValue, unitId) => {
 
     const switchCriteria = (attrType === undefined || attrType === null || !resolvedTaxonValues) ? defaultAttrType : attrType;
@@ -338,6 +335,7 @@ export default class Taxonomables extends Component {
           <div classes="valueContainer" style={{ margin: '0 auto' }}>
             <NemesisEntityCollectionField
               attributes={resolvedTaxonValues.length && resolvedTaxonValues.map(x => x.code)}
+              attribitesIds={resolvedTaxonValues.length && resolvedTaxonValues.map(x => x.id)}
               predefinedValues={predefinedValues.slice(1, -1).split(',').map(x => ({ value: x, label: x }))}
               onAttributeDelete={this.onAttributeDelete}
               currentUnitId={unitId}
@@ -351,7 +349,7 @@ export default class Taxonomables extends Component {
           <div classes="valueContainer" style={{ margin: '0 auto' }}>
             <NemesisTextField
               currentUnitId={unitId}
-              value={resolvedTaxonValues.length  ? resolvedTaxonValues[0].code : ''}
+              value={resolvedTaxonValues.length ? resolvedTaxonValues[0].code : ''}
               onValueChange={this.onValueFieldChange}
               currentUnitId={unitId}
               showLabel={false}
@@ -378,7 +376,7 @@ export default class Taxonomables extends Component {
           <div classes="valueContainer" style={{ margin: '0 auto' }}>
             <NemesisTextField
               currentUnitId={unitId}
-              value={resolvedTaxonValues.length  ? resolvedTaxonValues[0].code : ''}
+              value={resolvedTaxonValues.length ? resolvedTaxonValues[0].code : ''}
               onValueChange={this.onValueFieldChange}
               currentUnitId={unitId}
               showLabel={false}
@@ -413,14 +411,13 @@ export default class Taxonomables extends Component {
     const itemIndex = arrayItems.findIndex(x => x.id === unitId);
     arrayItems[itemIndex].resolvedTaxonValues = arrayItems[itemIndex].resolvedTaxonValues.filter(x => x.code !== code);
 
-    this.setState(prevState => ({
+    this.setState({
       expandedAttributes: {
         _embedded: {
           taxon_attribute: arrayItems
         }
       }
-    })
-    );
+    });
   };
 
   onBooleanFieldChange = (value, unitId) => {
@@ -434,14 +431,13 @@ export default class Taxonomables extends Component {
       arrayItems[itemIndex].resolvedTaxonValues.push({ 'code': value });
     }
 
-    this.setState(prevState => ({
+    this.setState({
       expandedAttributes: {
         _embedded: {
           taxon_attribute: arrayItems
         }
       }
-    })
-    );
+    });
   }
 
   onValueFieldChange = (value, unitId) => {
@@ -455,14 +451,13 @@ export default class Taxonomables extends Component {
       arrayItems[itemIndex].resolvedTaxonValues.push({ 'code': value });
     }
 
-    this.setState(prevState => ({
+    this.setState({
       expandedAttributes: {
         _embedded: {
           taxon_attribute: arrayItems
         }
       }
-    })
-    );
+    });
   };
 
   saveTaxonAttrValue = (unitId) => {
@@ -551,10 +546,10 @@ export default class Taxonomables extends Component {
 
   onTaxonSelect = (value) => {
     if (!value) {
-      this.setState((prevState) => ({ ...prevState, selectedTaxon: null }));
+      this.setState({ selectedTaxon: null });
       return;
     };
-    this.setState((prevState) => ({ ...prevState, selectedTaxon: value }));
+    this.setState({ selectedTaxon: value });
   };
 
   setLoadingStatus(isLoading) {
