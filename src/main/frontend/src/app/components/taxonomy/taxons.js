@@ -11,11 +11,6 @@ import BootstrapTable from "react-bootstrap-table-next";
 import NemesisEnumField from '../field-components/nemesis-enum-field/nemesis-enum-field';
 let NemesisLocalizedTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field', 'nemesis-localized-text-field');
 
-let NemesisHeader = componentRequire(
-  "app/components/nemesis-header/nemesis-header",
-  "nemesis-header"
-);
-
 const taxonAttrTableColumns = [
   {
     dataField: "code",
@@ -74,7 +69,9 @@ export default class Taxons extends Component {
       selectedTaxon: null,
       selectedTaxonAttribute: null,
       openBackendConsolePopup: false,
-      isLoading: false
+      isLoading: false,
+      showConsolePopUp: false,
+      selectedItemId: null
     };
 
   }
@@ -123,7 +120,7 @@ export default class Taxons extends Component {
             entityId="taxon_attribute"
             entityName="taxon_attribute"
             onClose={() =>
-              this.setState((prevState) => ({ ...prevState, openBackendConsolePopup: false }))
+              this.setState({openBackendConsolePopup: false })
             }
           />
         ) : (
@@ -143,13 +140,24 @@ export default class Taxons extends Component {
           </div>
         }
         <NotificationSystem ref="notificationSystem" />
+        {(this.state.showConsolePopUp && this.state.selectedItemId) && (
+          <ConsolePopup
+            open={this.state.showConsolePopUp}
+            itemId={this.state.selectedItemId && this.state.selectedItemId}
+            entityId="taxon_attribute"
+            entityName="taxon_attribute"
+            onClose={() =>
+              this.setState({ showConsolePopUp: false, selectedItemId: null })
+            }
+          />
+        )}
       </div>
     );
   }
 
   componentDidMount() {
     this.notificationSystem = this.refs.notificationSystem;
-    this.setState((prevState) => ({ ...prevState, isLoading: false }));
+    this.setState({  isLoading: false });
 
     ApiCall.get("markup/entity/all")
       .then(result => {
@@ -204,7 +212,7 @@ export default class Taxons extends Component {
       this.setState({ selectedTaxonAttribute: null });
       return;
     }
-    this.setState({ ...this.state, selectedTaxonAttribute: value });
+    this.setState({ selectedTaxonAttribute: value });
   }
 
   setLoadingStatus(isLoading) {
@@ -245,7 +253,7 @@ export default class Taxons extends Component {
   }
 
   createNewTaxonAttribute() {
-    this.setState({ ...this.state, openBackendConsolePopup: true });
+    this.setState({  openBackendConsolePopup: true });
   }
 
   openNotificationSnackbar(message, level) {
@@ -257,12 +265,6 @@ export default class Taxons extends Component {
   }
 
   unitInput = (taxonId) => {
-    ApiCall.get(`taxon_attribute/${taxonId}/unit`)
-      .then(result => {
-        console.log(result.data.content.code);
-      })
-      .catch(err => console.log(err));
-
     return (
       <div style={{ margin: '0 auto' }}>
         <NemesisEntityField
@@ -280,14 +282,13 @@ export default class Taxons extends Component {
     const itemIndex = arrayItems.findIndex(x => x.id === taxonId);
     arrayItems[itemIndex].unit = value.id;
 
-    this.setState(prevState => ({
+    this.setState({
       expandedAttributes: {
         _embedded: {
           taxon_attribute: arrayItems
         }
       }
-    })
-    );
+    });
   };
 
   typeInput = (type, unitId) => {
@@ -308,30 +309,29 @@ export default class Taxons extends Component {
     const itemIndex = arrayItems.findIndex(x => x.id === unitId);
     arrayItems[itemIndex].type = value;
 
-    this.setState(prevState => ({
+    this.setState({
       expandedAttributes: {
         _embedded: {
           taxon_attribute: arrayItems
         }
       }
-    })
-    );
+    });
   };
 
-  saveDeleteTaxonAttr = (unitId) => {
+  saveDeleteTaxonAttr = (taxonId) => {
     return (
       <div style={{ margin: '0 auto', textAlign: 'center' }}>
         <i className="save-icon-container material-icons"
           style={{ marginRight: '6px' }}
-          onClick={() => this.saveTaxonReq(unitId)}>
+          onClick={() => this.saveTaxonReq(taxonId)}>
           save
           </i>
         <i className="delete-icon-container material-icons"
           style={{ marginRight: '6px' }}
-          onClick={() => this.handleDelete(unitId)}>
+          onClick={() => this.handleDelete(taxonId)}>
           delete_forever
           </i>
-        <i className="material-icons" onClick={() => this.saveTaxonReq(unitId)} 
+        <i className="save-icon-container material-icons" onClick={() => this.editTaxon(taxonId)}
           style={{ marginRight: '6px' }}>
           edit
             </i>
@@ -346,14 +346,13 @@ export default class Taxons extends Component {
 
     ApiCall.delete(`taxon_attribute/${taxonId}`)
       .then(result => {
-        this.setState(prevState => ({
+        this.setState({
           expandedAttributes: {
             _embedded: {
               taxon_attribute: arrayItems
             }
           }
-        })
-        );
+        });
       });
   };
 
@@ -371,4 +370,9 @@ export default class Taxons extends Component {
         this.openNotificationSnackbar('Taxon Saved Successfully!');
       });
   };
+
+  editTaxon = (taxonId) => {
+    this.setState({ selectedItemId: taxonId, showConsolePopUp: true });
+  };
 }
+
