@@ -46,7 +46,7 @@ const taxonAttrTableColumns = [
     dataField: "actions",
     text: "Actions",
     style: {
-      width: '90px',
+      width: '120px',
       textAlign: 'center'
     }
   }
@@ -324,13 +324,19 @@ export default class Taxons extends Component {
     return (
       <div style={{ margin: '0 auto', textAlign: 'center' }}>
         <i className="save-icon-container material-icons"
+          style={{ marginRight: '6px' }}
           onClick={() => this.saveTaxonReq(unitId)}>
           save
           </i>
         <i className="delete-icon-container material-icons"
+          style={{ marginRight: '6px' }}
           onClick={() => this.handleDelete(unitId)}>
           delete_forever
           </i>
+        <i className="material-icons" onClick={() => this.saveTaxonReq(unitId)} 
+          style={{ marginRight: '6px' }}>
+          edit
+            </i>
       </div>
     );
   };
