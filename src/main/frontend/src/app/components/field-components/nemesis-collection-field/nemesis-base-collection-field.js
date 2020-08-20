@@ -25,17 +25,19 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
     this.onValueChange(null, items);
   }
 
-  getItemRenderingValue(item) {
+  getItemRenderingValue = (item) => {
     return <span className="chip-item">{item}</span>;
   }
 
-  getChipRenderer(item, index) {
+  getChipRenderer = (item, index) => {
     return (
       <div className="chip" key={index}>
-        <i className="fa fa-chevron-left reorder-icon reorder-back-icon" onClick={() => this.onChipReorderBack(index)} />
+        {/* {!this.props.attributes && <i className="fa fa-chevron-left reorder-icon reorder-back-icon" onClick={() => this.onChipReorderBack(index)} />} */}
         {this.getItemRenderingValue(item)}
-        {!this.props.readOnly ? <i className="material-icons chip-item" onClick={() => this.onDeleteRequest(index)}>close</i> : false}
-        <i className="fa fa-chevron-right reorder-icon reorder-front-icon" onClick={() => this.onChipReorderFront(index)}/>
+        {/* {this.props.attributes && <i className="material-icons" onClick={() => console.log('edit')}>
+          edit  </i>} */}
+        {!this.props.readOnly ? <i className="material-icons chip-item" onClick={() => this.props.onAttributeDelete(this.props.currentUnitId, item)}>close</i> : false}
+        {/* {!this.props.attributes && <i className="fa fa-chevron-right reorder-icon reorder-front-icon" onClick={() => this.onChipReorderFront(index)} />} */}
       </div>
     );
 

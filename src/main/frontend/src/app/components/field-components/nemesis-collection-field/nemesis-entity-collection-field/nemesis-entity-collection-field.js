@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import NemesisBaseCollectionField from '../nemesis-base-collection-field';
-import {nemesisFieldUsageTypes} from '../../../../types/nemesis-types';
+import { nemesisFieldUsageTypes } from '../../../../types/nemesis-types';
 import ApiCall from '../../../../services/api-call';
 import _ from 'lodash';
 import Translate from 'react-translate-component';
@@ -14,43 +14,76 @@ import PropTypes from "prop-types";
 export default class NemesisEntityCollectionField extends NemesisBaseCollectionField {
   constructor(props, context) {
     super(props, context);
-    this.state = {...this.state, openEmbeddedCreation: false};
-
+    this.state = { ...this.state, openEmbeddedCreation: false };
   }
 
   getInputField() {
-    return (
-      <div className="entity-field-container">
+    if (this.props.predefinedValues && this.props.predefinedValues.length > 0) {
+      return <div className="entity-field-container">
         <div className="entity-field-input-container">
-          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ?
-            <span className="required-star">*</span> : false}</div>
 
-          {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
-
-            <Select style={this.getSelectStyle()}
-                    cache={false}
-                    arrowRenderer={() => <SelectCustomArrow/>}
-                    className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
-                    disabled={this.props.readOnly}
-                    value={this.state.value ? {value: this.state.value, label: this.getItemText(this.state.value)} : this.state.value}
-                    onChange={(item) => this.onValueChange(item && item.value)}
-                    options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))}/>
-            :
-            <AsyncSelect style={this.getSelectStyle()}
-                          cache={false}
-                          className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
-                          arrowRenderer={() => <SelectCustomArrow/>}
-                          disabled={this.props.readOnly}
-                          onChange={this.onItemSelect.bind(this)}
-                          defaultOptions
-                          loadOptions={this.filterEntityData.bind(this)}
-            />
-          }
-          {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+          <Select style={this.getSelectStyle()}
+            cache={false}
+            arrowRenderer={() => <SelectCustomArrow />}
+            className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+            disabled={this.props.readOnly}
+            value={this.props.predefinedValues[0]}
+            onChange={(item) => this.onValueChange(item && item.value)}
+            options={this.props.predefinedValues} />
         </div>
-        {this.getAdditionalIconFunctionality()}
       </div>
-    )
+    } else {
+      return (
+        <div className="entity-field-container">
+          <div className="entity-field-input-container">
+            {this.props.showLabel && <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ?
+              <span className="required-star">*</span> : false}</div>
+            }
+            {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
+
+              <Select style={this.getSelectStyle()}
+                cache={false}
+                arrowRenderer={() => <SelectCustomArrow />}
+                className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                disabled={this.props.readOnly}
+                value={this.state.value ? { value: this.state.value, label: this.getItemText(this.state.value) } : this.state.value}
+                onChange={(item) => this.onValueChange(item && item.value)}
+                options={this.context.globalFiltersCatalogs.map(this.mapDataSource.bind(this))} />
+              :
+              <AsyncSelect style={this.getSelectStyle()}
+                cache={false}
+                className={'entity-field' + (!!this.state.errorMessage ? ' has-error' : '') + (this.props.required && !this.props.readOnly && this.isEmptyValue() ? ' empty-required-field' : '')}
+                arrowRenderer={() => <SelectCustomArrow />}
+                disabled={this.props.readOnly}
+                onChange={this.onItemSelect.bind(this)}
+                defaultOptions
+                loadOptions={this.filterEntityData.bind(this)}
+              />
+            }
+            {!!this.state.errorMessage ? <div className="error-container">{this.state.errorMessage}</div> : false}
+          </div>
+          {!this.props.predefinedValues && this.getAdditionalIconFunctionality()}
+        </div>
+      )
+    }
+  }
+
+  getItemsRender() {
+    if (this.props.predefinedValues) {
+      return (<div className="collection-container">
+        {this.props.attributes && this.props.attributes.map((item, index) => this.getChipRenderer(item, index))}
+      </div>);
+    } else {
+      if (!this.state.value || this.state.value.length === 0) {
+        return <div className="empty-collection-label">No Records</div>
+      } else {
+        return (
+          <div className="collection-container">
+            {this.state.value.map((item, index) => this.getChipRenderer(item, index))}
+          </div>
+        )
+      }
+    }
   }
 
   getAdditionalIconFunctionality() {
@@ -61,8 +94,8 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
         <React.Fragment>
           <i className={'material-icons entity-navigation-icon'} onClick={this.openEmbeddedCreation.bind(this)}>add</i>
           {this.state.openEmbeddedCreation ?
-            <EmbeddedCreation onCreationCancel={() => this.setState({openEmbeddedCreation: false})} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
-                              entityId={this.props.entityId} type={this.props.type}/> : false}
+            <EmbeddedCreation onCreationCancel={() => this.setState({ openEmbeddedCreation: false })} onCreateEntity={this.onCreateEmbeddedEntity.bind(this)}
+              entityId={this.props.entityId} type={this.props.type} /> : false}
         </React.Fragment>
       )
     }
@@ -71,7 +104,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   getSelectStyle() {
-    let style = {width: '100%'};
+    let style = { width: '100%' };
     if (this.state.errorMessage) {
       style.borderColor = '#F24F4B';
     }
@@ -80,9 +113,8 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
   }
 
   filterEntityData(inputText) {
-
     let inputTextActual = inputText || '';
-    let params = {page: 0, size: 10, code: `%${inputTextActual}%`, projection: 'search'};
+    let params = { page: 0, size: 10, code: `%${inputTextActual}%`, projection: 'search' };
     if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
       params.catalogVersionIds = this.context.globalFiltersCatalogs.map(item => item.id).join(',');
     }
@@ -91,7 +123,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
       let data = [];
       _.forIn(result.data._embedded, (value) => data = data.concat(value));
 
-      return  data.map((option) => this.mapDataSource(option));
+      return data.map((option) => this.mapDataSource(option));
 
     });
   }
@@ -157,21 +189,21 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
     return (
       <div className="chip-item">
-        <span style={{verticalAlign: 'top'}}>{visualizationContent}</span>
-        {this.props.type !== nemesisFieldUsageTypes.quickView ? <i style={{verticalAlign: 'top'}} className="material-icons"
-           onClick={() => this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i> : false}
+        <span style={{ verticalAlign: 'top' }}>{visualizationContent}</span>
+        {this.props.type !== nemesisFieldUsageTypes.quickView ? <i style={{ verticalAlign: 'top' }} className="material-icons"
+          onClick={() => this.props.onEntityItemClick(item, this.props.entityId, item._links.self.href)}>launch</i> : false}
       </div>
     )
   }
 
   openEmbeddedCreation() {
 
-    this.setState({openEmbeddedCreation: true});
+    this.setState({ openEmbeddedCreation: true });
   }
 
   onCreateEmbeddedEntity(entity) {
-    this.setState({openEmbeddedCreation: false}, () => {
-      this.onItemSelect({value:entity});
+    this.setState({ openEmbeddedCreation: false }, () => {
+      this.onItemSelect({ value: entity });
     })
   }
 }
@@ -182,5 +214,7 @@ NemesisEntityCollectionField.contextTypes = {
 };
 
 NemesisEntityCollectionField.defaultProps = {
-  enableSaveButtons: () => {}
+  enableSaveButtons: () => {},
+  showLabel: true,
+  predefinedValues: []
 }

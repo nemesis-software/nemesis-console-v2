@@ -5,12 +5,15 @@ import { componentRequire } from '../../utils/require-util';
 import _ from "lodash";
 import NemesisEntityField from "../field-components/nemesis-entity-field/nemesis-entity-field";
 import NemesisTextField from '../field-components/nemesis-text-field/nemesis-text-field';
+import NemesisNumberField from '../field-components/nemesis-text-field/nemesis-text-field';
 import DataHelper from "servicesDir/data-helper";
 import { array } from "prop-types";
 import axios from 'axios';
 import NotificationSystem from 'react-notification-system';
 
 let BuildingBlockEntityField = componentRequire('app/components/field-components/nemesis-building-block-entity-field/nemesis-building-block-entity-field', 'nemesis-building-block-entity-field');
+let NemesisEntityCollectionField = componentRequire('app/components/field-components/nemesis-collection-field/nemesis-entity-collection-field/nemesis-entity-collection-field', 'nemesis-entity-collection-field');
+let NemesisBooleanField = componentRequire('app/components/field-components/nemesis-boolean-field/nemesis-boolean-field', 'nemesis-boolean-field');
 
 const mainTableColumns = [
   {
@@ -98,29 +101,10 @@ export default class Taxonomables extends Component {
       selected: [],
       expanded: [],
       markupData: null,
-      taxonTypes: []
+      taxonTypes: [],
+      booleanField: ''
     };
 
-  }
-
-  handleOnSelect = (row, isSelect) => {
-    if (isSelect) {
-      ApiCall.get("taxon/" + row.id + "/taxonAttributes"
-         ,{ projection: "taxonomy" }
-      )
-        .then(result => {
-          this.setState({
-            expandedAttributes: result.data,
-            selected: [row.id],
-            expanded: [row.id]
-          });
-        });
-    } else {
-      this.setState(() => ({
-        selected: this.state.selected.filter(x => x !== row.id),
-        expanded: []
-      }));
-    }
   }
 
   render() {
@@ -152,9 +136,43 @@ export default class Taxonomables extends Component {
             , { projection: "taxonomy" }
           )
             .then(result => {
-              this.setState({
-                expandedAttributes: result.data
-              });
+              //
+              let promises = [];
+              for (let i = 0; i < result.data._embedded.taxon_attribute.length; i++) {
+                promises.push(ApiCall
+                  .get(`taxon_attribute/${result.data._embedded.taxon_attribute[i].id}/resolvedTaxonValues?taxonomableEntityName=${this.state.selectedTaxonomableType.value}&taxonomableEntityId=${this.state.selectedTaxonomable.id}`)
+                )
+              };
+              let arrayItems = result.data._embedded.taxon_attribute.slice(0);
+
+              Promise.all(promises)
+                .then((result) => {
+                  const arrayOfPromisesResults = [];
+                  for (let i = 0; i < result.length; i++) {
+                    console.log(result[i], [i]);
+                    const complexObject = {
+                      valueToTake: result[i].data._embedded.taxonomy_value[0].code,
+                      valueId: result[i].data._embedded.taxonomy_value[0].id,
+                      valueType: result[i].data._embedded.taxonomy_value[0].type,
+                      resolvedTaxonValues: result[i].data._embedded.taxonomy_value,
+                      ...arrayItems[i]
+                    }
+                    console.log(complexObject, 'complexObje');
+                    arrayOfPromisesResults.push(complexObject);
+                    console.log(result[i].data._embedded.taxonomy_value[0].code, 'currentREesult')
+                  };
+                  console.log(arrayOfPromisesResults, 'arrayItems');
+                  this.setState({
+                    expandedAttributes: {
+                      _embedded: {
+                        taxon_attribute: arrayOfPromisesResults
+                      }
+                    }
+                  });
+                })
+                .catch(e => {
+                  console.log(e)
+                });
             });
         }
       },
@@ -255,11 +273,29 @@ export default class Taxonomables extends Component {
         ),
         unit: attr.unit,
         type: attr.type,
-        value: this.valueInput(attr.code, attr.id),
-        actions: this.saveTaxonUnit(attr.id)
+        value: this.valueInput(attr.type || 'none', attr.predefinedValues, attr.resolvedTaxonValues, attr.valueType, attr.valueId, attr.valueToTake, attr.id),
+        actions: this.saveTaxonAttrValue(attr.id)
       })
     );
     return result;
+  };
+
+  handleOnSelect = (row, isSelect) => {
+    if (isSelect) {
+      ApiCall.get("taxon/" + row.id + "/taxonAttributes", { projection: "taxonomy" })
+        .then(result => {
+          this.setState({
+            expandedAttributes: result.data,
+            selected: [row.id],
+            expanded: [row.id]
+          });
+        });
+    } else {
+      this.setState(() => ({
+        selected: this.state.selected.filter(x => x !== row.id),
+        expanded: []
+      }));
+    }
   };
 
   deleteButton = (taxonId) => {
@@ -292,22 +328,90 @@ export default class Taxonomables extends Component {
   };
 
 
-  valueInput = (value, unitId) => {
-    return (
-      <div classes="valueContainer" style={{ margin: '0 auto' }}>
-        <NemesisTextField
-          currentUnitId={unitId}
-          value={value}
-          onValueChange={this.onValueFieldChange}
-        />
-      </div>
-    );
+  valueInput = (defaultAttrType, predefinedValues, resolvedTaxonValues, attrType, attrId, attrValue, unitId) => {
+
+    const switchCriteria = (attrType === undefined || attrType === null || !resolvedTaxonValues) ? defaultAttrType : attrType;
+
+    switch (switchCriteria) {
+      case "REFERENCE":
+        return (
+          <div classes="valueContainer" style={{ margin: '0 auto' }}>
+            <NemesisEntityCollectionField
+              attributes={resolvedTaxonValues.map(x => x.code)}
+              predefinedValues={predefinedValues.slice(1, -1).split(',').map(x => ({ value: x, label: x }))}
+              onAttributeDelete={this.onAttributeDelete}
+              currentUnitId={unitId}
+              showLabel={false}
+            />
+          </div>
+        );
+
+      case "STRING":
+        return (
+          <div classes="valueContainer" style={{ margin: '0 auto' }}>
+            <NemesisTextField
+              currentUnitId={unitId}
+              value={resolvedTaxonValues !== undefined ? resolvedTaxonValues[0].code : ''}
+              onValueChange={this.onValueFieldChange}
+              currentUnitId={unitId}
+              showLabel={false}
+            />
+          </div>
+        );
+
+      case "NUMBER":
+        return (
+          <div classes="valueContainer" style={{ margin: '0 auto' }}>
+            <NemesisNumberField
+              readOnly={this.props.readOnly || !this.state.secondRestrictionField}
+              value={attrValue || "true"}
+              onValueChange={this.onSelectedMenuItem}
+              label={'Count'}
+              currentUnitId={unitId}
+              showLabel={false}
+            />
+          </div>
+        );
+
+      case "TEXT":
+        return (
+          <div classes="valueContainer" style={{ margin: '0 auto' }}>
+            <NemesisTextField
+              currentUnitId={unitId}
+              value={resolvedTaxonValues !== undefined ? resolvedTaxonValues[0].code : ''}
+              onValueChange={this.onValueFieldChange}
+              currentUnitId={unitId}
+              showLabel={false}
+            />
+          </div>
+        );
+      case "BOOLEAN":
+        return (
+          <div classes="valueContainer" style={{ margin: '0 auto' }}>
+            <NemesisBooleanField
+              readOnly={this.props.readOnly}
+              value={resolvedTaxonValues !== undefined ? resolvedTaxonValues[0].code : ""}
+              onValueChange={this.onBooleanFieldChange}
+              label={"boolean"}
+              showLabel={false}
+              currentUnitId={unitId}
+            />
+          </div>
+        );
+
+      default:
+        return (
+          <div classes="valueContainer" style={{ margin: '0 auto', color: 'red' }}>
+            Please set type for TaxonAttribute
+          </div>
+        );
+    }
   };
 
-  onValueFieldChange = (value, unitId) => {
+  onAttributeDelete = (unitId, code) => {
     const arrayItems = this.state.expandedAttributes._embedded.taxon_attribute.slice(0);
     const itemIndex = arrayItems.findIndex(x => x.id === unitId);
-    arrayItems[itemIndex].code = value;
+    arrayItems[itemIndex].resolvedTaxonValues = arrayItems[itemIndex].resolvedTaxonValues.filter(x => x.code !== code);
 
     this.setState(prevState => ({
       expandedAttributes: {
@@ -319,30 +423,93 @@ export default class Taxonomables extends Component {
     );
   };
 
-  saveTaxonUnit = (unitId) => {
+  onBooleanFieldChange = (value, unitId) => {
+    const arrayItems = this.state.expandedAttributes._embedded.taxon_attribute.slice(0);
+    const itemIndex = arrayItems.findIndex(x => x.id === unitId);
+
+    if (arrayItems[itemIndex].resolvedTaxonValues !== undefined) {
+      arrayItems[itemIndex].resolvedTaxonValues[0].code = value;
+    } else {
+      arrayItems[itemIndex].resolvedTaxonValues = [];
+      arrayItems[itemIndex].resolvedTaxonValues.push({ 'code': value });
+    }
+    console.log(arrayItems[itemIndex].resolvedTaxonValues[0].code, 'resolvedTaxonValues');
+
+    this.setState(prevState => ({
+      expandedAttributes: {
+        _embedded: {
+          taxon_attribute: arrayItems
+        }
+      }
+    })
+    );
+  }
+
+  onValueFieldChange = (value, unitId) => {
+    const arrayItems = this.state.expandedAttributes._embedded.taxon_attribute.slice(0);
+    const itemIndex = arrayItems.findIndex(x => x.id === unitId);
+
+    if (arrayItems[itemIndex].resolvedTaxonValues !== undefined) {
+      arrayItems[itemIndex].resolvedTaxonValues[0].code = value;
+    } else {
+      arrayItems[itemIndex].resolvedTaxonValues = [];
+      arrayItems[itemIndex].resolvedTaxonValues.push({ 'code': value });
+    }
+    console.log(arrayItems[itemIndex].resolvedTaxonValues[0].code, 'resolvedTaxonValues');
+
+    this.setState(prevState => ({
+      expandedAttributes: {
+        _embedded: {
+          taxon_attribute: arrayItems
+        }
+      }
+    })
+    );
+  };
+
+  saveTaxonAttrValue = (unitId) => {
     return (
       <div style={{ margin: '0 auto', textAlign: 'center' }}>
         <i className="save-icon-container material-icons"
-          onClick={() => this.saveTaxonReq(unitId)}>
+          onClick={() => this.saveTaxonAttrValueReq(unitId)}>
           save
           </i>
       </div>
     );
   };
 
-  saveTaxonReq = (unitId) => {
+  saveTaxonAttrValueReq = (unitId) => {
     const currentUnit = this.state.expandedAttributes._embedded.taxon_attribute.find(x => x.id === unitId);
-    const unitObject = {
-      taxon_attribute: unitId,
-      value: currentUnit.code || ""
-    };
-    axios
-    .get(`https://46.101.177.20:8112/storefront/facade/taxonomy/taxonomyValuesForAttributeCodeAndEntityCodeAndEntityName?taxonAttributeCode=${currentUnit.code}&entityName=${this.state.selectedTaxonomableType.value}&entityCode=${this.state.selectedTaxonomable.code}`)
-    .then((result) => console.log(result));
-    // ApiCall.patch(`taxonomy_value/`, unitObject)
-    //   .then(result => {
-    //     console.log("NotificationHere")
-    //   });
+
+    if (currentUnit.resolvedTaxonValues && currentUnit.resolvedTaxonValues[0].type === "REFERENCE") {
+      let updateTaxonObject = currentUnit.resolvedTaxonValues.map(x => x.id);
+      ApiCall.patch(`${this.state.selectedTaxonomableType.value}/${this.state.selectedTaxonomable.id}`, { taxonomyValues: updateTaxonObject })
+        .then(result => {
+          console.log("ReferenceType")
+        });
+    } else if (!currentUnit.resolvedTaxonValues.id) {
+      const attrValueObject = {
+        value: currentUnit.resolvedTaxonValues[0].code,
+        taxon_attribute: unitId
+      };
+      ApiCall.post(`taxonomy_value`, attrValueObject)
+        .then(result => {
+          console.log(result, 'resultAfterPost');
+          const attrValueArrayObject = { taxonomyValues: [result.data.id] };
+          ApiCall.patch(`${this.state.selectedTaxonomableType.value}/${this.state.selectedTaxonomable.id}`, attrValueArrayObject)
+            .then(result => {
+              console.log("TaxonomyValue")
+            });
+        });
+    } else {
+      const attrValueObject = {
+        value: currentUnit.resolvedTaxonValues[0].code
+      };
+      ApiCall.patch(`taxonomy_value/${currentUnit.resolvedTaxonValues[0].id}`, attrValueObject)
+        .then(result => {
+          console.log("TaxonomyValue")
+        });
+    }
   };
 
   openNotificationSnackbar = (message, level) => {
@@ -352,7 +519,7 @@ export default class Taxonomables extends Component {
       position: 'tc'
     });
   }
-  
+
   getOptions() {
     return this.state.taxonomableTypes.map(taxonomableType => {
       return { value: taxonomableType.id, label: taxonomableType.text };
@@ -377,7 +544,11 @@ export default class Taxonomables extends Component {
       this.setState({ selectedTaxonomable: null });
       return;
     }
-    this.setState({ isLoading: true }, () => {
+    this.setState({
+      isLoading: true,
+      expanded: [],
+      selected: []
+    }, () => {
       this.getTaxons(value);
     });
   };
@@ -400,11 +571,11 @@ export default class Taxonomables extends Component {
         ? this.state.selectedTaxonomableType.value
         : "") +
       "/" +
-      selectedTaxonomable.id + "/resolvedTaxons")
+      selectedTaxonomable.id + "/resolvedTaxons", { projection: 'search' })
       .then(result => {
         this.setState((prevState) => ({
           ...prevState,
-          taxons: DataHelper.mapCollectionData(result.data),
+          taxons: result.data ? DataHelper.mapCollectionData(result.data) : [],
           selectedTaxonomable: selectedTaxonomable,
           isLoading: false
         }));
