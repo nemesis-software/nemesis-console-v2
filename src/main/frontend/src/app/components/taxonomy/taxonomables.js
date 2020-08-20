@@ -262,7 +262,8 @@ export default class Taxonomables extends Component {
   }
 
   renderNestedTableData = () => {
-    const result = DataHelper.mapCollectionData(this.state.expandedAttributes).map(
+    if (!this.state.expandedAttributes) {return;}
+    const result = this.state.expandedAttributes && DataHelper.mapCollectionData(this.state.expandedAttributes).map(
       attr => ({
         id: attr.id,
         empty: '',
@@ -272,7 +273,7 @@ export default class Taxonomables extends Component {
         ),
         unit: attr.unit,
         type: attr.type,
-        value: this.valueInput(attr.type || 'none', attr.predefinedValues, attr.resolvedTaxonValues, attr.valueType, attr.valueId, attr.valueToTake, attr.id),
+        value: this.valueInput(attr.type || 'none', attr.predefinedValues, attr.resolvedTaxonValues || [], attr.valueType, attr.valueId, attr.valueToTake, attr.id),
         actions: this.saveTaxonAttrValue(attr.id)
       })
     );
@@ -336,7 +337,7 @@ export default class Taxonomables extends Component {
         return (
           <div classes="valueContainer" style={{ margin: '0 auto' }}>
             <NemesisEntityCollectionField
-              attributes={resolvedTaxonValues.map(x => x.code)}
+              attributes={resolvedTaxonValues.length && resolvedTaxonValues.map(x => x.code)}
               predefinedValues={predefinedValues.slice(1, -1).split(',').map(x => ({ value: x, label: x }))}
               onAttributeDelete={this.onAttributeDelete}
               currentUnitId={unitId}
@@ -350,7 +351,7 @@ export default class Taxonomables extends Component {
           <div classes="valueContainer" style={{ margin: '0 auto' }}>
             <NemesisTextField
               currentUnitId={unitId}
-              value={resolvedTaxonValues !== undefined ? resolvedTaxonValues[0].code : ''}
+              value={resolvedTaxonValues.length  ? resolvedTaxonValues[0].code : ''}
               onValueChange={this.onValueFieldChange}
               currentUnitId={unitId}
               showLabel={false}
@@ -377,7 +378,7 @@ export default class Taxonomables extends Component {
           <div classes="valueContainer" style={{ margin: '0 auto' }}>
             <NemesisTextField
               currentUnitId={unitId}
-              value={resolvedTaxonValues !== undefined ? resolvedTaxonValues[0].code : ''}
+              value={resolvedTaxonValues.length  ? resolvedTaxonValues[0].code : ''}
               onValueChange={this.onValueFieldChange}
               currentUnitId={unitId}
               showLabel={false}
@@ -389,7 +390,7 @@ export default class Taxonomables extends Component {
           <div classes="valueContainer" style={{ margin: '0 auto' }}>
             <NemesisBooleanField
               readOnly={this.props.readOnly}
-              value={resolvedTaxonValues !== undefined ? resolvedTaxonValues[0].code : ""}
+              value={resolvedTaxonValues.length ? resolvedTaxonValues[0].code : ""}
               onValueChange={this.onBooleanFieldChange}
               label={"boolean"}
               showLabel={false}
