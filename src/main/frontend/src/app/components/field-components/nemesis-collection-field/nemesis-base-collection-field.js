@@ -38,6 +38,8 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
     this.setState({ showValueConsolePopUp: true, selectedItemId: item, index: index });
   };
 
+
+
   getChipRenderer = (item, index) => {
     return (
       <div className="chip" key={index}>
@@ -45,7 +47,7 @@ export default class NemesisBaseCollectionField extends NemesisBaseField {
         {this.getItemRenderingValue(item)}
         {this.props.attributes && <i className="material-icons" onClick={() => this.onEditClick(this.props.attribitesIds[index], index)}>
           edit  </i>}
-        {!this.props.readOnly ? <i className="material-icons chip-item" onClick={() => this.props.onAttributeDelete(this.props.currentUnitId, item)}>close</i> : false}
+        {!this.props.readOnly ? <i className="material-icons chip-item" onClick={() => this.props.onAttributeDelete(this.props.currentUnitId, item, this.props.attribitesIds[index])}>close</i> : false}
         {!this.props.attributes && <i className="fa fa-chevron-right reorder-icon reorder-front-icon" onClick={() => this.onChipReorderFront(index)} />}
         {(this.state.showValueConsolePopUp && this.state.selectedItemId && this.state.index === index) && (
           <ConsolePopup

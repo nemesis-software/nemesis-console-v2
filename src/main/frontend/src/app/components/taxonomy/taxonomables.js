@@ -249,13 +249,14 @@ export default class Taxonomables extends Component {
       });
 
     ApiCall.get("subtypes/abstract_taxonomable_entity")
-    .then(result => {
-      this.setState({ taxonomableTypes: result.data });
-    });
+      .then(result => {
+        this.setState({ taxonomableTypes: result.data });
+      });
   }
 
   renderNestedTableData = () => {
     if (!this.state.expandedAttributes) { return; }
+
     const result = this.state.expandedAttributes && DataHelper.mapCollectionData(this.state.expandedAttributes).map(
       attr => ({
         id: attr.id,
@@ -267,7 +268,7 @@ export default class Taxonomables extends Component {
         unit: attr.unit,
         type: attr.type,
         value: this.valueInput(attr.type || 'none', attr.predefinedValues, attr.resolvedTaxonValues || [], attr.valueType, attr.valueId, attr.valueToTake, attr.id),
-        actions: this.saveTaxonAttrValue(attr.id)
+        actions: this.saveTaxonAttrValue(attr.id, (attr.type === undefined || attr.type === null || attr.resolvedTaxonValues) ? attr.type : attr.valueType)
       })
     );
     return result;
@@ -430,7 +431,7 @@ export default class Taxonomables extends Component {
     }
   };
 
-  onAttributeDelete = (unitId, code) => {
+  onAttributeDelete = (unitId, code,valueId) => {
     const arrayItems = this.state.expandedAttributes._embedded.taxon_attribute.slice(0);
     const itemIndex = arrayItems.findIndex(x => x.id === unitId);
     arrayItems[itemIndex].resolvedTaxonValues = arrayItems[itemIndex].resolvedTaxonValues.filter(x => x.code !== code);
@@ -442,6 +443,12 @@ export default class Taxonomables extends Component {
         }
       }
     });
+
+    ApiCall.delete(`taxonomy_value/${valueId}`)
+    .then(result => {
+      this.openNotificationSnackbar('Taxon Attribute Deleted!');
+    });
+
   };
 
   onBooleanFieldChange = (value, unitId) => {
@@ -484,13 +491,14 @@ export default class Taxonomables extends Component {
     });
   };
 
-  saveTaxonAttrValue = (unitId) => {
+  saveTaxonAttrValue = (unitId, attrType) => {
+    const hideSaveIcon = ( attrType && attrType === 'REFERENCE') ? true : false;
     return (
       <div style={{ margin: '0 auto', textAlign: 'center' }}>
-        <i className="save-icon-container material-icons"
+        {!hideSaveIcon && <i className="save-icon-container material-icons"
           onClick={() => this.saveTaxonAttrValueReq(unitId)}>
           save
-          </i>
+          </i>}
       </div>
     );
   };
