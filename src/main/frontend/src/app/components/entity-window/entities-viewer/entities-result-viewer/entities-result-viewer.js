@@ -13,12 +13,12 @@ export default class EntitiesResultViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {selectedMenuIndex: 0};
-    console.log(props);
+    this.myRef = React.createRef();
   }
 
   render() {
     return (
-      <div className="paper-box entities-result-viewer">
+      <div ref={this.myRef} className="paper-box entities-result-viewer">
         <div style={this.getViewerSelectStyle()}>
           <label><Translate content={'main.viewer'} fallback={'Viewer'}/></label>
           <Select style={{width: '265px'}}
@@ -36,6 +36,8 @@ export default class EntitiesResultViewer extends Component {
       </div>
     )
   }
+
+  scrollToMyRef = () => window.scrollTo(0, this.myRef.current.offsetTop);
 
   handleViewerChange(item) {
     this.setState({...this.state, selectedMenuIndex: item.value});

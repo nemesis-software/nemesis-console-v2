@@ -32,11 +32,12 @@ export default class EntitiesViewer extends Component {
       errorMessage: null
     };
     this.getEntityPromise = null;
+    this.child = React.createRef();
   }
 
   componentDidMount() {
-    this.getEntitiesData(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData);
-  }
+    this.getEntitiesData(this.props.entity, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData, false);
+  };
 
   render() {
     return (
@@ -49,7 +50,9 @@ export default class EntitiesViewer extends Component {
           onFilterApply={this.onFilterApply}
           retakeEntityData={this.getEntitiesDataFromDefaultFilter} />
 
-        <EntitiesResultViewer entities={this.state.searchData}
+        <EntitiesResultViewer
+          ref={this.child}
+          entities={this.state.searchData}
           entity={this.props.entity}
           entitiesMarkup={this.props.entity.data.result}
           onPagerChange={this.onPagerChange}
@@ -65,23 +68,29 @@ export default class EntitiesViewer extends Component {
 
   onFilterApply = (filter, entity = this.props.entity) => {
     this.setState({ ...this.state, filter: filter }, () => {
-      this.getEntitiesData(entity, pagerData.page, this.state.page.size, filter, this.state.sortData);
+      this.getEntitiesData(entity, pagerData.page, this.state.page.size, filter, this.state.sortData, true);
     });
   }
 
-  getEntitiesData(entity, page, pageSize, filter, sortData) {
+  getEntitiesData(entity, page, pageSize, filter, sortData, scrollToResult) {
     this.setState({ ...this.state, isDataLoading: true });
 
     if (this.getEntityPromise) {
       this.getEntityPromise.then(() => {
         this.setState({ ...this.state, isDataLoading: true });
-        this.getEntityPromise = this.getEntityDataPromise(entity, page, pageSize, filter, sortData);
+        this.getEntityPromise = this.getEntityDataPromise(entity, page, pageSize, filter, sortData, scrollToResult);
         return this.getEntityPromise;
       })
     } else {
-      this.getEntityPromise = this.getEntityDataPromise(entity, page, pageSize, filter, sortData);
+      this.getEntityPromise = this.getEntityDataPromise(entity, page, pageSize, filter, sortData, scrollToResult);
     }
-  }
+  };
+
+  scrollOnSearch = (condition) => {
+    if (condition) {
+      this.child.current.scrollToMyRef();
+    };
+  };
 
   getEntitiesDataFromDefaultFilter = (item) => {
     this.setState({
@@ -90,11 +99,12 @@ export default class EntitiesViewer extends Component {
     }, () => this.getEntitiesData(item, pagerData.page, pagerData.pageSize, this.state.filter, this.state.sortData))
   }
 
-  getEntityDataPromise(entity, page, pageSize, filter, sortData) {
+  getEntityDataPromise(entity, page, pageSize, filter, sortData, scrollToResult) {
 
     return ApiCall.get(entity.entityId, { page: page, size: pageSize, $filter: filter, sort: this.buildSortArray(sortData), projection: 'search' }).then(result => {
 
-      this.setState({ ...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false, restUrl: result.request.responseURL });
+      this.setState({ ...this.state, searchData: DataHelper.mapCollectionData(result.data), page: result.data.page, isDataLoading: false, restUrl: result.request.responseURL }
+        , () => this.scrollOnSearch(scrollToResult));
     }, this.handleRequestError);
   }
 
