@@ -22,8 +22,9 @@ body, html {
 
 .rule {
     border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom:15px;
 }
-
 
 .nemesis-rules-panel {
   position: fixed;
@@ -33,9 +34,50 @@ body, html {
   height:100% - @navbar-height;
   overflow-x:scroll;
   background: @light-grey;
+  padding-top: 15px;
   .nemesis-button {
     margin-top:2%;
   }
+
+  .toogle-imports-button {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+
+  .left-spacing {
+    margin-left: 10px;
+  }
+
+  .globals-entity-field {
+    display: inline-block;
+    width: 180px !important;
+    padding: 0px 3px 0px 3px;
+  }
+
+  .ruleConfiguration {
+    .entity-field-container {
+      margin-top: 3px !important;
+    }
+  }
+  
+  .package-name-container {
+    .entity-field-container {
+      margin-top: 5px !important;
+    }
+  }
+
+  .salience-container {
+    .entity-field-container {
+      margin-top: 5px !important;
+    }
+  }
+
+  .then-panel {
+    .entity-field-container {
+      width: 200px !important;
+    }
+  }
+
 
     #js-canvas {
         height: 100% !important;
@@ -43,7 +85,6 @@ body, html {
 
     .entity-field-container {
       width: 350px;
-      padding: 10px;
     }
 
     .bpp-properties-header > .label{

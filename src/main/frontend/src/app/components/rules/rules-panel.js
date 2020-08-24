@@ -1,133 +1,160 @@
-import React, {Component} from 'react';
-import {componentRequire} from "../../utils/require-util";
+import React, { Component } from 'react';
+import { componentRequire } from "../../utils/require-util";
 import NemesisEntityField from '../field-components/nemesis-entity-field/nemesis-entity-field';
 import ApiCall from 'servicesDir/api-call';
 import BackendConsolePopup from "../../custom-components/backend-console-popup";
 import DataHelper from 'servicesDir/data-helper';
 import NotificationSystem from 'react-notification-system';
 import '../../../styles/rules-panel.less';
+import NemesisTextField from '../field-components/nemesis-text-field/nemesis-text-field';
+import Select from 'react-select';
 
 let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
+
+const saliencePromotionOptions = [
+  { label: 'Exists', value: 'Exists' },
+  { label: 'Does not Exists', value: 'Does not Exists' },
+  { label: 'There is', value: 'There is' },
+  { label: 'There is not', value: 'There is not' },
+];
+
+const salienceFollowingOptions = [
+
+  { label: 'the following', value: 'the following' },
+  { label: 'all of the following', value: 'all of the following' },
+  { label: 'any of the following', value: 'any of the following' }
+];
 
 export default class RulesPanel extends Component {
   constructor(props) {
     super(props);
-    this.state = {isLoading: false, selectedRule: null, selectedRuleSyntax: null, openBackendConsolePopup: false};
+    this.state = {
+      isLoading: false, selectedRule: null, selectedRuleSyntax: null, openBackendConsolePopup: false,
+      showImports: false
+    };
     this.notificationSystem = null;
   }
 
   render() {
     return (
-       <div>
-          <NemesisHeader onRightIconButtonClick={() => {}} isOpenInFrame={this.isOpenInFrame}/>
-          {this.state.isLoading ? <div className="loading-screen"><i className="material-icons loading-icon">cached</i></div> : false}
-          <div className="nemesis-rules-panel">
-            <div className="ruleConfiguration">
-                <NemesisEntityField entityId={'brm_rule'} onValueChange={this.onRuleSelect.bind(this)} value={this.state.selectedRule} label={'Rule'}/>
-                <button className="nemesis-button success-button" onClick={() => this.editRule()} disabled={!this.state
-                .selectedRule}>Load</button>
-                <button className="nemesis-button success-button" onClick={() => this.saveRule()} disabled={!this.state.selectedRule}>Save</button>
-                <button className="nemesis-button primary-button" onClick={() => this.createRuleProcess()}>Create new</button>
-                <button className="nemesis-button primary-button" onClick={() => this.createRuleProcess()}>Package and deploy</button>
-            </div>
-            <div>
-                {this.state.isLoading ? (
-                  <div className="loading-screen">
-                    <i className="material-icons loading-icon">cached</i>
-                  </div>
-                ) : (
-                  false
-                )}
-                {this.state.selectedRuleSyntax ? (
-                    <div>
-                        <div>Package name: {this.state.selectedRuleSyntax.namespace}</div>
-                        Imports:
-                        <ul>
-                            {this.state.selectedRuleSyntax.imports.map((imp, index) => {
-                                return <li key={index}>{imp.target}</li>
-                            })}
-                        </ul>
-                        Globals:
-                        <ul>
-                            {this.state.selectedRuleSyntax.globals.map((global, index) => {
-                                return <li key={index}>{global.type} {global.identifier}</li>
-                            })}
-                        </ul>
-                        <div className="rules">
-                            {this.state.selectedRuleSyntax.rules.map((rule, index) => {
-                                return (
-                                    <div className="rule" key={index}>
-                                        <div>Name:{rule.name}</div>
-                                        <div>Salience: {rule.salience}</div>
-                                        <b>WHEN</b><i className="fas fa-plus"></i>
-                                        <div className="lhs">
-                                            {rule.lhs.descrs.map((descr, index) => {
-                                                return (
-                                                    <div key={index}>
-                                                        <i className="fas fa-remove"></i>
-                                                        <select>
-                                                            <option>Exists</option>
-                                                            <option>Does not Exists</option>
-                                                            <option>There is</option>
-                                                            <option>There is not</option>
-                                                        </select>
-                                                        a
-                                                        <select>
-                                                            <option>{descr.objectType}</option>
-                                                        </select>
-                                                        (<input type="text" defaultValue={descr.identifier}/>)
-                                                        with
-                                                        <select>
-                                                            <option>the following</option>
-                                                            <option>all of the following</option>
-                                                            <option>any of the following</option>
-                                                        </select>
-                                                        attributes:<br/>
-                                                        <ul style={{paddingLeft:'100px'}}>
-                                                            {descr.constraint.descrs.map((constraintDescr, constraintIndex)=> {
-                                                                let constraintDescrTextParts = constraintDescr.text.split(":");
-                                                                return (
-                                                                    <li key={constraintIndex}>{constraintDescrTextParts[0]}</li>
-                                                                )
-                                                            })}
-                                                        </ul>
-                                                    </div>
-                                                )
-                                            })}
-                                        </div>
-                                        <b>THEN</b>
-                                        <div>
-                                            insert
-                                            <select>
-                                                <option>PromotionRuleResultDto</option>
-                                            </select>
-                                            with <input type="text" defaultValue="$promotion"/>,
-                                            <input type="text" defaultValue="POTENTIAL"/>,
-                                            <input type="text" defaultValue="changeDeliveryModePromotionRuleResultActionExecutor"/>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </div>
-                ) : (
-                  false
-                )}
-            </div>
-            <NotificationSystem ref="notificationSystem"/>
+      <div>
+        <NemesisHeader onRightIconButtonClick={() => { }} isOpenInFrame={this.isOpenInFrame} />
+        {this.state.isLoading ? <div className="loading-screen"><i className="material-icons loading-icon">cached</i></div> : false}
+        <div className="nemesis-rules-panel">
+          <div className="ruleConfiguration left-spacing">
+            <NemesisEntityField entityId={'brm_rule'} onValueChange={this.onRuleSelect.bind(this)} value={this.state.selectedRule} label={'Rule'} />
+            <button className="nemesis-button success-button left-spacing" onClick={() => this.editRule()} disabled={!this.state
+              .selectedRule}>Load</button>
+            <button className="nemesis-button success-button" onClick={() => this.saveRule()} disabled={!this.state.selectedRule}>Save</button>
+            <button className="nemesis-button primary-button" onClick={() => this.createRuleProcess()}>Create new</button>
+            <button className="nemesis-button primary-button" onClick={() => this.createRuleProcess()}>Package and deploy</button>
           </div>
-        {this.state.openBackendConsolePopup ? (
-          <BackendConsolePopup
-            open={this.state.openBackendConsolePopup}
-            entityId="brm_rule"
-            entityName="brm_rule"
-            onClose={() =>
-              this.setState({ ...this.state, openBackendConsolePopup: false })
-            }
-          />
-        ) : (
-          false
-        )}
+          <div>
+            {this.state.isLoading ? (
+              <div className="loading-screen">
+                <i className="material-icons loading-icon">cached</i>
+              </div>
+            ) : (
+                false
+              )}
+            {this.state.selectedRuleSyntax ? (
+              <div>
+                <div className="package-name-container left-spacing">
+                  <NemesisTextField value={this.state.selectedRuleSyntax.namespace} label="Package name" />
+                </div>
+
+                <button className="nemesis-button success-button toogle-imports-button" onClick={this.showHideImports} >
+                  {this.state.showImports ? 'Hide' : 'Show'} Imports
+                </button>
+                {this.state.showImports &&
+                  <div className="left-spacing"><h4>Imports:</h4>
+                    <ul>
+                      {this.state.selectedRuleSyntax.imports.map((imp, index) => {
+                        return <li key={index}>{imp.target}</li>
+                      })}
+                    </ul>
+                  </div>
+                }
+                <div className="left-spacing">
+                  <br></br>
+                  <h4>Globals:</h4>
+                  <ul>
+                    {this.state.selectedRuleSyntax.globals.map((global, index) => {
+                      return <li key={index}>{global.type} {global.identifier}</li>
+                    })}
+                  </ul>
+                  <div className="rules">
+                    {this.state.selectedRuleSyntax.rules.map((rule, index) => {
+                      return (
+                        <div className="rule" key={index}>
+                          <div><NemesisTextField value={rule.name} label={'Name'} /></div>
+                          <div className='salience-container'><NemesisTextField value={rule.salience} label={'Salience'} /></div>
+                          <br></br>
+                          <b>WHEN</b><i className="fas fa-plus"></i>
+                          <div className="lhs">
+                            {rule.lhs.descrs.map((descr, index) => {
+                              return (
+                                <div key={index}>
+                                  <i className="fas fa-remove"></i>
+                                  <Select
+                                    className="entity-field-select entity-field globals-entity-field"
+                                    value={saliencePromotionOptions[0]}
+                                    options={saliencePromotionOptions}
+                                  />
+                                                        a
+                                  <Select
+                                    className="entity-field-select entity-field globals-entity-field"
+                                    value={{ label: `${descr.objectType}`, value: `${descr.objectType}` }}
+                                    options={[{ label: `${descr.objectType}`, value: `${descr.objectType}` }]}
+                                  />
+                                  ( <NemesisTextField value={descr.identifier} /> )
+                                                        with
+                                  <Select
+                                    className="entity-field-select entity-field globals-entity-field"
+                                    value={salienceFollowingOptions[0]}
+                                    options={salienceFollowingOptions}
+                                  />
+                                                        attributes:
+                                  <br />
+                                  <ul style={{ paddingLeft: '50px', paddingTop: '10px' }}>
+                                    {descr.constraint.descrs.map((constraintDescr, constraintIndex) => {
+                                      let constraintDescrTextParts = constraintDescr.text.split(":");
+                                      return (
+                                        <li key={constraintIndex}><NemesisTextField value={constraintDescrTextParts[0]} /></li>
+                                      )
+                                    })}
+                                  </ul>
+                                </div>
+                              )
+                            })}
+                          </div>
+                          <b>THEN</b>
+                          <div className="then-panel">
+                            insert
+                            <Select
+                              className="entity-field-select entity-field globals-entity-field"
+                              value={{ label: 'PromotionRuleResultDto', value: 'PromotionRuleResultDto' }}
+                              options={[{ label: 'PromotionRuleResultDto', value: 'PromotionRuleResultDto' }]}
+                            />
+
+                                            with
+                            <NemesisTextField value={'$promotion'} />
+                            <NemesisTextField value={'POTENTIAL'} />
+                            <NemesisTextField value={'changeDeliveryModePromotionRuleResultActionExecutor'} />
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+            ) : (
+                false
+              )}
+          </div>
+          <NotificationSystem ref="notificationSystem" />
+        </div>
+        {}
       </div>
     );
   }
@@ -136,23 +163,27 @@ export default class RulesPanel extends Component {
     this.notificationSystem = this.refs.notificationSystem;
   }
 
+  showHideImports = () => {
+    this.setState({ showImports: !this.state.showImports });
+  }
+
   onRuleSelect(value) {
     if (!value) {
-      this.setState({...this.state, selectedRule: null});
+      this.setState({ ...this.state, selectedRule: null });
       return;
     }
-    this.setState({...this.state, selectedRule: value});
+    this.setState({ ...this.state, selectedRule: value });
   }
 
   editRule() {
-      let valueToLoad = this.state.selectedRule;
-      if (!valueToLoad) {
-        return;
-      }
-     ApiCall.get(`backend/rule/syntax/${valueToLoad.id}`).then(result => {
-        console.log(result.data);
-        this.setState({...this.state, selectedRuleSyntax: result.data});
-     });
+    let valueToLoad = this.state.selectedRule;
+    if (!valueToLoad) {
+      return;
+    }
+    ApiCall.get(`backend/rule/syntax/${valueToLoad.id}`).then(result => {
+      console.log(result.data);
+      this.setState({ ...this.state, selectedRuleSyntax: result.data });
+    });
 
   }
 
@@ -161,24 +192,24 @@ export default class RulesPanel extends Component {
   }
 
   saveRule() {
-       if (!this.state.selectedRule) {
-         return;
-       }
-       var self = this;
-       ApiCall.patch(`rule/${self.state.selectedRule.id}`, {content: ''}).then(
-             () => {
-               self.openNotificationSnackbar('Saved successfully!');
-             },
-             (err) => {
-               self.openNotificationSnackbar('Save failed!', 'error');
-       });
+    if (!this.state.selectedRule) {
+      return;
+    }
+    var self = this;
+    ApiCall.patch(`rule/${self.state.selectedRule.id}`, { content: '' }).then(
+      () => {
+        self.openNotificationSnackbar('Saved successfully!');
+      },
+      (err) => {
+        self.openNotificationSnackbar('Save failed!', 'error');
+      });
   }
 
   openNotificationSnackbar(message, level) {
-      this.notificationSystem.addNotification({
-        message: message,
-        level: level || 'success',
-        position: 'tc'
-      });
+    this.notificationSystem.addNotification({
+      message: message,
+      level: level || 'success',
+      position: 'tc'
+    });
   }
 }
