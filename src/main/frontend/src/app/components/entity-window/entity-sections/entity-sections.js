@@ -305,7 +305,7 @@ export default class EntitySections extends Component {
         } else if (resultObject.code) {
           this.props.updateNavigationCode(this.props.entity, resultObject.code);
         }
-        this.setState((prevState) => ({ ...prevState, isDataLoading: false, entitySyncStatus: 'OUT_OF_SYNC' }));
+        this.setState((prevState) => ({ ...prevState, isUpdated: false, isDataLoading: false, entitySyncStatus: 'OUT_OF_SYNC' }));
       });
     }, this.handleRequestError.bind(this));
   }
