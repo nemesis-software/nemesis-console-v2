@@ -404,6 +404,7 @@ export default class EntitySections extends Component {
   getDirtyEntityProps() {
     let result = [];
     this.sectionsReferences.forEach(section => {
+      result = result.concat(section.getDirtyValues());
     });
 
     return result;
