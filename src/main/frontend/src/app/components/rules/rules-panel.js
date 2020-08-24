@@ -23,7 +23,7 @@ export default class RulesPanel extends Component {
           {this.state.isLoading ? <div className="loading-screen"><i className="material-icons loading-icon">cached</i></div> : false}
           <div className="nemesis-rules-panel">
             <div className="ruleConfiguration">
-                <NemesisEntityField entityId={'rule'} onValueChange={this.onRuleSelect.bind(this)} value={this.state.selectedRule} label={'Rule'}/>
+                <NemesisEntityField entityId={'brm_rule'} onValueChange={this.onRuleSelect.bind(this)} value={this.state.selectedRule} label={'Rule'}/>
                 <button className="nemesis-button success-button" onClick={() => this.editRule()} disabled={!this.state
                 .selectedRule}>Load</button>
                 <button className="nemesis-button success-button" onClick={() => this.saveRule()} disabled={!this.state.selectedRule}>Save</button>
@@ -119,8 +119,8 @@ export default class RulesPanel extends Component {
         {this.state.openBackendConsolePopup ? (
           <BackendConsolePopup
             open={this.state.openBackendConsolePopup}
-            entityId="rule"
-            entityName="rule"
+            entityId="brm_rule"
+            entityName="brm_rule"
             onClose={() =>
               this.setState({ ...this.state, openBackendConsolePopup: false })
             }
