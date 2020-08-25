@@ -67,7 +67,7 @@ export default class NemesisHeader extends Component {
             <i className="fa fa-bars nemesis-navbar-icon" onClick={() => this.props.onRightIconButtonClick()}/>
             <div className="nemesis-navbar-header">Nemesis Console</div>
             <div className="nemesis-navbar-right">
-              <Notifications notifications={this.state.notifications}/>
+              <Notifications notifications={this.state.notifications} clearNotifications={this.clearNotifications} />
               {this.props.onGlobalFilterSelect ? <GlobalFilter onGlobalFilterSelect={this.props.onGlobalFilterSelect}/> : false}
               {(this.state.sites.length > 0) ? <LiveEditNavigation sites={this.state.sites}/>: ''}
               <LanguageChanger
@@ -87,6 +87,11 @@ export default class NemesisHeader extends Component {
         return false;
       }
   }
+  
+  clearNotifications = () => {
+    var badgeCounter = document.getElementById('badge-counter');
+    badgeCounter.innerHTML = '';
+  };
 
   handleLogoutButtonClick() {
     let csrfToken = document.getElementById('security').getAttribute('token');
