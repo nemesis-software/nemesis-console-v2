@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { componentRequire } from "../../utils/require-util";
 import NemesisEntityField from '../field-components/nemesis-entity-field/nemesis-entity-field';
 import ApiCall from 'servicesDir/api-call';
-import BackendConsolePopup from "../../custom-components/backend-console-popup";
-import DataHelper from 'servicesDir/data-helper';
 import NotificationSystem from 'react-notification-system';
 import '../../../styles/rules-panel.less';
 import NemesisTextField from '../field-components/nemesis-text-field/nemesis-text-field';
 import Select from 'react-select';
+import RuleCard from './rule-card';
+import Rules from './rules';
+import uuidv4 from 'uuid/v4';
 
 let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-header', 'nemesis-header');
 
@@ -29,12 +30,15 @@ export default class RulesPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false, selectedRule: null, selectedRuleSyntax: null, openBackendConsolePopup: false,
-      showImports: false
+      isLoading: false,
+      selectedRule: null,
+      selectedRuleSyntax: null,
+      openBackendConsolePopup: false,
+      showImports: false,
+      test: null
     };
     this.notificationSystem = null;
   }
-
   render() {
     return (
       <div>
@@ -42,27 +46,25 @@ export default class RulesPanel extends Component {
         {this.state.isLoading ? <div className="loading-screen"><i className="material-icons loading-icon">cached</i></div> : false}
         <div className="nemesis-rules-panel">
           <div className="ruleConfiguration left-spacing">
-            <NemesisEntityField entityId={'brm_rule'} onValueChange={this.onRuleSelect.bind(this)} value={this.state.selectedRule} label={'Rule'} />
-            <button className="nemesis-button success-button left-spacing" onClick={() => this.editRule()} disabled={!this.state
-              .selectedRule}>Load</button>
-            <button className="nemesis-button success-button" onClick={() => this.saveRule()} disabled={!this.state.selectedRule}>Save</button>
-            <button className="nemesis-button primary-button" onClick={() => this.createRuleProcess()}>Create new</button>
-            <button className="nemesis-button primary-button" onClick={() => this.createRuleProcess()}>Package and deploy</button>
+            <NemesisEntityField entityId={'brm_rule'} onValueChange={this.onRuleSelect} value={this.state.selectedRule} label={'Rule'} />
+            <button className="nemesis-button success-button left-spacing" onClick={this.editRule} disabled={!this.state.selectedRule}>
+              Load
+            </button>
+            <button className="nemesis-button success-button" onClick={this.saveRule} disabled={!this.state.selectedRule}>Save</button>
+            <button className="nemesis-button primary-button" onClick={this.createRuleProcess}>Create new</button>
+            <button className="nemesis-button primary-button" onClick={this.createRuleProcess}>Package and deploy</button>
           </div>
           <div>
-            {this.state.isLoading ? (
+            {this.state.isLoading && (
               <div className="loading-screen">
                 <i className="material-icons loading-icon">cached</i>
               </div>
-            ) : (
-                false
-              )}
+            )}
             {this.state.selectedRuleSyntax ? (
               <div>
                 <div className="package-name-container left-spacing">
                   <NemesisTextField value={this.state.selectedRuleSyntax.namespace} label="Package name" />
                 </div>
-
                 <button className="nemesis-button success-button toogle-imports-button" onClick={this.showHideImports} >
                   {this.state.showImports ? 'Hide' : 'Show'} Imports
                 </button>
@@ -84,6 +86,14 @@ export default class RulesPanel extends Component {
                     })}
                   </ul>
                   <div className="rules">
+                    <Rules rules={this.state.selectedRuleSyntax.rules} />
+                    {/* {this.state.selectedRuleSyntax.rules.map((rule, index) => {
+                      return (<div key={index}>
+                        <RuleCard rule={rule} index={index} />
+                      </div>
+                      )
+                    }
+                    )} */}
                     {this.state.selectedRuleSyntax.rules.map((rule, index) => {
                       return (
                         <div className="rule" key={index}>
@@ -94,7 +104,7 @@ export default class RulesPanel extends Component {
                           <div className="lhs">
                             {rule.lhs.descrs.map((descr, index) => {
                               return (
-                                <div key={index}>
+                                <div key={index} className='lhs-container' >
                                   <i className="fas fa-remove"></i>
                                   <Select
                                     className="entity-field-select entity-field globals-entity-field"
@@ -167,7 +177,7 @@ export default class RulesPanel extends Component {
     this.setState({ showImports: !this.state.showImports });
   }
 
-  onRuleSelect(value) {
+  onRuleSelect = (value) => {
     if (!value) {
       this.setState({ ...this.state, selectedRule: null });
       return;
@@ -175,23 +185,22 @@ export default class RulesPanel extends Component {
     this.setState({ ...this.state, selectedRule: value });
   }
 
-  editRule() {
+  editRule = () => {
     let valueToLoad = this.state.selectedRule;
     if (!valueToLoad) {
       return;
     }
     ApiCall.get(`backend/rule/syntax/${valueToLoad.id}`).then(result => {
-      console.log(result.data);
-      this.setState({ ...this.state, selectedRuleSyntax: result.data });
+      this.setState({ ...this.state, selectedRuleSyntax: result.data, test: result.data }, () => console.log(this.state.test, 'test'));
     });
 
   }
 
-  createRuleProcess() {
+  createRuleProcess = () => {
     this.setState({ ...this.state, openBackendConsolePopup: true });
   }
 
-  saveRule() {
+  saveRule = () => {
     if (!this.state.selectedRule) {
       return;
     }

@@ -76,7 +76,7 @@ export default class NemesisBaseField extends Component {
 }
 
 NemesisBaseField.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   onValueChange: PropTypes.func,
   style: PropTypes.object,
   value: PropTypes.any,
