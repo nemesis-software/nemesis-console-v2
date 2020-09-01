@@ -6,8 +6,23 @@ export class Rules extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rules: props.rules.map(rule => ({ ...rule, id: uuidv4() }))
+            rules: props.rules
         };
+    }
+
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        let nextState = {};
+
+        if (nextProps.rules !== prevState.rules) {
+            const rules = nextProps.rules
+
+            nextState = {
+                rules: rules
+            };
+        }
+
+        return nextState;
     }
 
     addNewRule = () => {
@@ -19,7 +34,7 @@ export class Rules extends Component {
                 lhs: { descrs: [] }
             },
             ...this.state.rules
-        ]
+            ]
         })
     };
 

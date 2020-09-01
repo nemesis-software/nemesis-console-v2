@@ -86,75 +86,7 @@ export default class RulesPanel extends Component {
                     })}
                   </ul>
                   <div className="rules">
-                    <Rules rules={this.state.selectedRuleSyntax.rules} />
-                    {/* {this.state.selectedRuleSyntax.rules.map((rule, index) => {
-                      return (<div key={index}>
-                        <RuleCard rule={rule} index={index} />
-                      </div>
-                      )
-                    }
-                    )} */}
-                    {this.state.selectedRuleSyntax.rules.map((rule, index) => {
-                      return (
-                        <div className="rule" key={index}>
-                          <div><NemesisTextField value={rule.name} label={'Name'} /></div>
-                          <div className='salience-container'><NemesisTextField value={rule.salience} label={'Salience'} /></div>
-                          <br></br>
-                          <b>WHEN</b><i className="fas fa-plus"></i>
-                          <div className="lhs">
-                            {rule.lhs.descrs.map((descr, index) => {
-                              return (
-                                <div key={index} className='lhs-container' >
-                                  <i className="fas fa-remove"></i>
-                                  <Select
-                                    className="entity-field-select entity-field globals-entity-field"
-                                    value={saliencePromotionOptions[0]}
-                                    options={saliencePromotionOptions}
-                                  />
-                                                        a
-                                  <Select
-                                    className="entity-field-select entity-field globals-entity-field"
-                                    value={{ label: `${descr.objectType}`, value: `${descr.objectType}` }}
-                                    options={[{ label: `${descr.objectType}`, value: `${descr.objectType}` }]}
-                                  />
-                                  ( <NemesisTextField value={descr.identifier} /> )
-                                                        with
-                                  <Select
-                                    className="entity-field-select entity-field globals-entity-field"
-                                    value={salienceFollowingOptions[0]}
-                                    options={salienceFollowingOptions}
-                                  />
-                                                        attributes:
-                                  <br />
-                                  <ul style={{ paddingLeft: '50px', paddingTop: '10px' }}>
-                                    {descr.constraint.descrs.map((constraintDescr, constraintIndex) => {
-                                      let constraintDescrTextParts = constraintDescr.text.split(":");
-                                      return (
-                                        <li key={constraintIndex}><NemesisTextField value={constraintDescrTextParts[0]} /></li>
-                                      )
-                                    })}
-                                  </ul>
-                                </div>
-                              )
-                            })}
-                          </div>
-                          <b>THEN</b>
-                          <div className="then-panel">
-                            insert
-                            <Select
-                              className="entity-field-select entity-field globals-entity-field"
-                              value={{ label: 'PromotionRuleResultDto', value: 'PromotionRuleResultDto' }}
-                              options={[{ label: 'PromotionRuleResultDto', value: 'PromotionRuleResultDto' }]}
-                            />
-
-                                            with
-                            <NemesisTextField value={'$promotion'} />
-                            <NemesisTextField value={'POTENTIAL'} />
-                            <NemesisTextField value={'changeDeliveryModePromotionRuleResultActionExecutor'} />
-                          </div>
-                        </div>
-                      )
-                    })}
+                    <Rules rules={this.state.selectedRuleSyntax.rules.map(rule => ({ ...rule, id: uuidv4() }))} />
                   </div>
                 </div>
               </div>
@@ -164,7 +96,6 @@ export default class RulesPanel extends Component {
           </div>
           <NotificationSystem ref="notificationSystem" />
         </div>
-        {}
       </div>
     );
   }
