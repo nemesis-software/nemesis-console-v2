@@ -86,14 +86,6 @@ export class RuleCard extends Component {
                                 />
                                           attributes:
                                 <br />
-                                {/* <ul style={{ paddingLeft: '50px', paddingTop: '10px' }}>
-                                    {descr.constraint.descrs && descr.constraint.descrs.map((constraintDescr, constraintIndex) => {
-                                        let constraintDescrTextParts = constraintDescr.text.split(":");
-                                        return (
-                                            <li key={constraintIndex}><NemesisTextField value={constraintDescrTextParts[0]} /></li>
-                                        )
-                                    })}
-                                </ul> */}
                                 <Constraints
                                     constraint={descr.constraint}
                                     addNewAttr={this.addNewAttr}
