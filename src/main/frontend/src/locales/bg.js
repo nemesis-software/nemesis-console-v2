@@ -495,7 +495,10 @@ module.exports = {
     'German': 'Немски',
     'French': 'Френски',
     'Spanish': 'Испански',
-    'Name': 'Име'
+    'Name': 'Име',
+    en: 'English',
+    bg: 'Bulgarian',
+    bg_BG: 'Bulgarian'
   }
 
 };

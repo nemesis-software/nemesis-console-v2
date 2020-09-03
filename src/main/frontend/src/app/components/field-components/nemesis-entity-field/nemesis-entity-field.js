@@ -22,7 +22,7 @@ export default class NemesisEntityField extends NemesisBaseField {
     return (
       <div className="entity-field-container">
         <div className="entity-field-input-container">
-          <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ? <span className="required-star">*</span> : false}</div>
+         {this.props.label && <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label}/>{this.props.required ? <span className="required-star">*</span> : false}</div>}
           {this.props.entityId === 'catalog_version' && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0 ?
               <Select style={this.getSelectStyle()}
                     cache={false}
@@ -91,7 +91,9 @@ export default class NemesisEntityField extends NemesisBaseField {
 
   onValueChange(value) {
     this.setState((prevState)=>({...prevState, isDirty: true, value: value}));
-    if (this.props.onValueChange) {
+    if (this.props.onValueChange && this.props.currentUnitId) {
+      this.props.onValueChange(this.getFormattedValue(value), this.props.currentUnitId);
+    } else if (this.props.onValueChange)  {
       this.props.onValueChange(this.getFormattedValue(value));
     };
     if (this.props.enableSaveButtons) {
@@ -100,7 +102,6 @@ export default class NemesisEntityField extends NemesisBaseField {
   }
 
   filterEntityData(inputText) {
-
     let inputTextActual = inputText || '';
     let params =  {
       page: 0,
@@ -226,5 +227,6 @@ NemesisEntityField.contextTypes = {
 
 NemesisEntityField.defaultProps = {
   enableSaveButtons: () => {},
-  catalogVersionCode: null
+  catalogVersionCode: null,
+  currentUnitId: ''
 }

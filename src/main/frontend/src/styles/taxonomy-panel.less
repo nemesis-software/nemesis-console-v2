@@ -20,6 +20,67 @@
     .calendar-container {
       margin-top: 30px;  
     }
+    
+    .valueContainer {
+      .entity-field-container {
+        padding: 0px !important;
+      }
+    }
+
+    .entity-field-input-container {
+      display: inline-block;
+      min-width: 350px;
+      margin-right: 0px;
+    }
+
+    .selection-cell{
+      width: 50px;
+      padding-left: 0px;
+      text-align: center;
+    }
+
+    .reset-expansion-style {
+      padding: 0px !important;
+
+      .table {
+        margin-bottom: 0px;
+        background-color: #fbfbfb;
+      }
+
+      .entity-field-container {
+        padding: 0px !important;
+      }
+    }
+
+    .delete-icon-container {
+      color: #F24F4B;
+      cursor: pointer;
+    }
+
+    .save-icon-container {
+      color:#4cb2e2;
+      cursor: pointer;
+    }
+
+    .entities-table-viewer table tbody tr td:first-of-type {
+      padding-left: 8px;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+      vertical-align: middle;
+    }
+    
+    .entities-table-viewer table tbody tr {
+      height: auto;
+    }
+
+    .taxon-attribute-table-viewer table tbody tr td:first-of-type {
+      padding-left: 8px;
+    }
+
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+      vertical-align: middle;
+    }
 
     .rbc-month-view {
       background: #fefefe;
@@ -62,8 +123,25 @@
         margin: 10px;
       }
 
+      .taxon-attribute-table-viewer {
+        background: white;
+        padding: 10px;
+        margin: 10px;
+
+        td {
+          padding: 0px 8px 0px 8px;
+        }
+
+        .entity-field-input-container {
+          display: inline-block;
+          min-width: 250px;
+          margin-right: 0px;
+        }
+    
+      }
+
       .entity-field-container {
-        width: 350px;
+        width: auto;
         padding: 10px;
       }
     }

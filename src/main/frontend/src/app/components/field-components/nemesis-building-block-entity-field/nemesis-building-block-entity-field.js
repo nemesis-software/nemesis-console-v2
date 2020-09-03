@@ -36,7 +36,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
   render() {
     return (
       <div className="entity-field-container">
-        <div className="entity-field-input-container" style={{ marginRight: '15px' }}>
+        <div className="entity-field-input-container">
           <div><Translate component="label" content={'main.' + this.props.label} fallback={this.props.label} />{this.props.required ? <span className="required-star">*</span> : false}</div>
           <Select style={this.getSelectStyle()}
             cache={false}
@@ -48,7 +48,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
             options={this.state.firstFieldData}
           />
         </div>
-        {this.state.selectedEntityType && <div className="entity-field-input-container">
+        {this.state.selectedEntityType && <div className="entity-field-input-container" style={{ paddingLeft: '15px' }}> 
           {this.renderSecondInput()}
         </div>}
         {this.getAdditionalIcons()}
@@ -128,6 +128,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
   }
 
   selectEntityType = (value) => {
+    this.props.onEntitySelect({ value: value.id, label: value.text });
     this.setState({
       selectedEntityType: value,
       value: '',
@@ -135,7 +136,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
     }, () => this.filterEntityData());
   }
 
-  onValueChange(value) {
+  onValueChange = (value) => {
     this.setState((prevState) => ({ ...prevState, isDirty: true, value: value }));
     if (this.props.onValueChange) {
       this.props.onValueChange(this.getFormattedValue(value));
@@ -241,7 +242,7 @@ export default class NemesisBuildingBlockEntityField extends NemesisBaseField {
 
   getChangeValue() {
     if (this.state.isDirty) {
-      return { name: this.props.name, value: { type:this.state.selectedEntityType.id, id: this.state.value.id } };
+      return { name: this.props.name, value: { type: this.state.selectedEntityType.id, id: this.state.value.id } };
     }
 
     return null;
@@ -265,5 +266,6 @@ NemesisBuildingBlockEntityField.contextTypes = {
 
 NemesisBuildingBlockEntityField.defaultProps = {
   updateNewNestedFilter: () => {},
-  enableSaveButtons: () => {}
+  enableSaveButtons: () => {},
+  onEntitySelect: () => { }
 }

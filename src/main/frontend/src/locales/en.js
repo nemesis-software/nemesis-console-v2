@@ -164,6 +164,7 @@ module.exports = {
     //taxonomy
     taxon_attribute: 'Taxon Attribute',
     taxonomy_value: 'Taxonomy Value',
+    undefined: 'None',
     //bundle
     bundle_selection: 'Selection',
     bundle_price:'Bundle Price',
