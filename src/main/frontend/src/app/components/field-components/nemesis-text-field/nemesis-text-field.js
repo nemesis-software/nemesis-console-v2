@@ -21,4 +21,13 @@ export default class NemesisTextField extends NemesisBaseField {
       </div>
     )
   }
+
+  onValueChange(e,value) {
+    this.setState((prevState)=>({...prevState, isDirty: true, value: value}));
+    if (this.props.onValueChange && this.props.currentUnitId) {
+      this.props.onValueChange(this.getFormattedValue(value), this.props.currentUnitId);
+    } else if (this.props.onValueChange)  {
+      this.props.onValueChange(this.getFormattedValue(value));
+    }
+  };
 }

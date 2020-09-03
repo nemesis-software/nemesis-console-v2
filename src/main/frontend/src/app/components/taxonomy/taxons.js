@@ -1,26 +1,76 @@
 import React, { Component } from "react";
 import ApiCall from "servicesDir/api-call";
-import {Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import _ from "lodash";
 import { componentRequire } from "../../utils/require-util";
 import ConsolePopup from "../../custom-components/backend-console-popup";
-import counterpart from "counterpart";
 import NemesisEntityField from "../field-components/nemesis-entity-field/nemesis-entity-field";
-import EntitiesPager from "../entity-window/entities-viewer/entities-pager/entities-pager";
-import TaxonAttributeRow from "./taxon-attribute-row";
 import DataHelper from "servicesDir/data-helper";
 import NotificationSystem from "react-notification-system";
+import BootstrapTable from "react-bootstrap-table-next";
+import NemesisEnumField from '../field-components/nemesis-enum-field/nemesis-enum-field';
+
+let NemesisLocalizedTextField = componentRequire('app/components/field-components/nemesis-localized-text-field/nemesis-localized-text-field', 'nemesis-localized-text-field');
 
 let NemesisHeader = componentRequire(
   "app/components/nemesis-header/nemesis-header",
   "nemesis-header"
 );
 
+const taxonAttrTableColumns = [
+  {
+    dataField: "code",
+    text: "Taxon Attribute"
+  },
+  {
+    dataField: "name",
+    text: "Name",
+    style: {
+      width: '580px'
+    }
+  },
+  {
+    dataField: "unit",
+    text: "Unit",
+    style: {
+      width: '100px'
+    }
+  },
+  {
+    dataField: "type",
+    text: "Type",
+    style: {
+      width: '100px'
+    }
+  },
+  {
+    dataField: "actions",
+    text: "Actions",
+    style: {
+      width: '90px',
+      textAlign: 'center'
+    }
+  }
+];
+
+const translationLanguages = {
+  languages: [
+    { value: "en", labelCode: "English" },
+    { value: "bg_BG", labelCode: "Bulgarian" }
+  ],
+  defaultLanguage: { value: "en", labelCode: "English" }
+};
+
 export default class Taxons extends Component {
   constructor(props) {
     super(props);
     this.notificationSystem = null;
+    const defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value)
+      || translationLanguages.defaultLanguage.value;
     this.state = {
+      expandedAttributes: [],
+      taxonTypes: [],
+      selectedLanguage: defaultLanguage,
       taxonAttributes: [],
       selectedTaxon: null,
       selectedTaxonAttribute: null,
@@ -28,10 +78,6 @@ export default class Taxons extends Component {
       isLoading: false
     };
 
-  }
-
-  componentDidMount() {
-	  this.setState((prevState)=>({...prevState, isLoading: false }));
   }
 
   render() {
@@ -42,8 +88,8 @@ export default class Taxons extends Component {
             <i className="material-icons loading-icon">cached</i>
           </div>
         ) : (
-          false
-        )}
+            false
+          )}
         <NemesisEntityField
           entityId={"taxon"}
           onValueChange={this.onTaxonSelect.bind(this)}
@@ -82,42 +128,21 @@ export default class Taxons extends Component {
             }
           />
         ) : (
-          false
-        )}
-        {this.state.selectedTaxon ? (
+            false
+          )}
+        {this.state.selectedTaxon &&
           <div
-            className="entities-table-viewer"
+            className="taxon-attribute-table-viewer"
             key={this.state.selectedTaxon.id}
           >
-            <table>
-              <thead>
-                <tr>
-                  <th>Taxon Attributes</th>
-                  <th>Name</th>
-                  <th>Unit</th>
-                  <th>TYPE</th>
-                  <th>Default Value</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.taxonAttributes.map(taxonAttribute => (
-                  <TaxonAttributeRow
-                    openNotificationSnackbar={
-                      this.props.openNotificationSnackbar
-                    }
-                    setLoadingStatus={this.setLoadingStatus.bind(this)}
-                    taxonAttributeID={this.state.selectedTaxon.id}
-                    key={taxonAttribute.code}
-                    taxonAttribute={taxonAttribute}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <BootstrapTable
+              ref={n => (this.node = n)}
+              keyField="id"
+              data={this.renderNestedTableData()}
+              columns={taxonAttrTableColumns}
+            />
           </div>
-        ) : (
-          false
-        )}
+        }
         <NotificationSystem ref="notificationSystem" />
       </div>
     );
@@ -125,7 +150,45 @@ export default class Taxons extends Component {
 
   componentDidMount() {
     this.notificationSystem = this.refs.notificationSystem;
+    this.setState((prevState) => ({ ...prevState, isLoading: false }));
+
+    ApiCall.get("markup/entity/all")
+      .then(result => {
+        this.setState({ taxonTypes: result.data.taxon_attribute.sections[0].items.filter(x => x.name === "type")[0].values });
+      });
   }
+
+  renderNestedTableData = () => {
+    const result = DataHelper.mapCollectionData(this.state.expandedAttributes).map(
+      attr => ({
+        id: attr.id,
+        empty: '',
+        code: attr.code,
+        name: this.localizedName(attr.name),
+        unit: this.unitInput(attr.id),
+        type: this.typeInput(attr.type, attr.id),
+        actions: this.saveDeleteTaxonAttr(attr.id)
+      })
+    );
+    return result;
+  };
+
+  localizedName = (taxonName) => {
+    return <NemesisLocalizedTextField
+      readOnly={false}
+      value={taxonName}
+      label={"Name"}
+      showLabels={false}
+    />;
+  }
+
+  getTextFieldValue(val = "", language) {
+    if (!val) {
+      return "";
+    };
+
+    return (val[language] && val[language].value) || "";
+  };
 
   onTaxonSelect(value) {
     if (!value) {
@@ -150,24 +213,23 @@ export default class Taxons extends Component {
   }
 
   getTaxonAttributes(selectedTaxon) {
-    ApiCall.get("taxon/" + selectedTaxon.id + "/taxonAttributes", {
-      projection: "search"
-    }).then(result => {
-      console.log(result);
-      this.setState({
-        ...this.state,
-        taxonAttributes: DataHelper.mapCollectionData(result.data),
-        selectedTaxon: selectedTaxon,
-        isLoading: false
+    ApiCall.get("taxon/" + selectedTaxon.id + "/taxonAttributes", { projection: "taxonomy" })
+      .then(result => {
+        this.setState({
+          ...this.state,
+          expandedAttributes: result.data,
+          taxonAttributes: DataHelper.mapCollectionData(result.data),
+          selectedTaxon: selectedTaxon,
+          isLoading: false
+        });
       });
-    });
   }
 
   assignNewTaxonAttribute() {
     var self = this;
     var taxonAttributeIds = [];
 
-    this.state.taxonAttributes.forEach(el => taxonAttributeIds.push(el.id));
+    this.state.expandedAttributes._embedded.taxon_attribute.forEach(el => taxonAttributeIds.push(el.id));
     taxonAttributeIds.push(this.state.selectedTaxonAttribute.id);
 
     ApiCall.patch("taxon/" + this.state.selectedTaxon.id + "/", {
@@ -194,4 +256,116 @@ export default class Taxons extends Component {
       position: "tc"
     });
   }
+
+  unitInput = (taxonId) => {
+    ApiCall.get(`taxon_attribute/${taxonId}/unit`)
+      .then(result => {
+        console.log(result.data.content.code);
+      })
+      .catch(err => console.log(err));
+
+    return (
+      <div style={{ margin: '0 auto' }}>
+        <NemesisEntityField
+          entityId={"unit"}
+          currentUnitId={taxonId}
+          onValueChange={this.onUnitChange}
+          value={{ code: "number" }}
+        />
+      </div>
+    );
+  };
+
+  onUnitChange = (value, taxonId) => {
+    console.log(taxonId);
+    const arrayItems = this.state.expandedAttributes._embedded.taxon_attribute.slice(0);
+    const itemIndex = arrayItems.findIndex(x => x.id === taxonId);
+    arrayItems[itemIndex].unit = value.id;
+
+    this.setState(prevState => ({
+      expandedAttributes: {
+        _embedded: {
+          taxon_attribute: arrayItems
+        }
+      }
+    })
+    );
+  };
+
+  typeInput = (type, unitId) => {
+    console.log(type)
+    return (
+      <div style={{ margin: '0 auto' }}>
+        <NemesisEnumField
+          value={this.state.taxonTypes.findIndex(x => x === type)}
+          values={this.state.taxonTypes}
+          currentUnitId={unitId}
+          onValueChange={this.onTypeChange}
+        />
+      </div>
+    );
+  };
+
+  onTypeChange = (value, unitId) => {
+    const arrayItems = this.state.expandedAttributes._embedded.taxon_attribute.slice(0);
+    const itemIndex = arrayItems.findIndex(x => x.id === unitId);
+    arrayItems[itemIndex].type = value;
+
+    this.setState(prevState => ({
+      expandedAttributes: {
+        _embedded: {
+          taxon_attribute: arrayItems
+        }
+      }
+    })
+    );
+  };
+
+  saveDeleteTaxonAttr = (unitId) => {
+    return (
+      <div style={{ margin: '0 auto', textAlign: 'center' }}>
+        <i className="save-icon-container material-icons"
+          onClick={() => this.saveTaxonReq(unitId)}>
+          save
+          </i>
+        <i className="delete-icon-container material-icons"
+          onClick={() => this.handleDelete(unitId)}>
+          delete_forever
+          </i>
+      </div>
+    );
+  };
+
+  handleDelete = (taxonId) => {
+    const arrayItems = this.state.expandedAttributes._embedded.taxon_attribute.slice(0);
+    const deleteTaxonIndex = arrayItems.findIndex(x => x.id === taxonId);
+    arrayItems.splice(deleteTaxonIndex, 1);
+
+    ApiCall.delete(`taxon_attribute/${taxonId}`)
+      .then(result => {
+        this.setState(prevState => ({
+          expandedAttributes: {
+            _embedded: {
+              taxon_attribute: arrayItems
+            }
+          }
+        })
+        );
+      });
+  };
+
+  saveTaxonReq = (unitId) => {
+    const currentUnit = this.state.expandedAttributes._embedded.taxon_attribute.find(x => x.id === unitId);
+
+    const unitObject = {
+      ...(currentUnit.unit && { unit: currentUnit.unit }),
+      ...(currentUnit.type && { type: currentUnit.type }),
+      value: currentUnit.code || ""
+    };
+
+    ApiCall.patch(`taxon_attribute/${unitId}`, unitObject)
+      .then(result => {
+        console.log("NotificationHere")
+      });
+  };
 }

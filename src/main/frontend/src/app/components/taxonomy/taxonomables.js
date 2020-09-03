@@ -1,31 +1,71 @@
 import React, { Component } from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import ApiCall from "servicesDir/api-call";
+import { componentRequire } from '../../utils/require-util';
 import _ from "lodash";
-import Translate from "react-translate-component";
-import counterpart from "counterpart";
-import Select from "react-select";
 import NemesisEntityField from "../field-components/nemesis-entity-field/nemesis-entity-field";
-import EntitiesPager from "../entity-window/entities-viewer/entities-pager/entities-pager";
-import TaxonAttributeRow from "./taxon-attribute-row";
+import NemesisTextField from '../field-components/nemesis-text-field/nemesis-text-field';
 import DataHelper from "servicesDir/data-helper";
+import { array } from "prop-types";
+import axios from 'axios';
 
-const columns = [
+let BuildingBlockEntityField = componentRequire('app/components/field-components/nemesis-building-block-entity-field/nemesis-building-block-entity-field', 'nemesis-building-block-entity-field');
+
+const mainTableColumns = [
+  {
+    dataField: "name",
+    text: "Name"
+  },
+  {
+    dataField: "actions",
+    text: "Actions",
+    style: {
+      width: '90px',
+      textAlign: 'center'
+    }
+  }
+];
+
+const expandedTableColumns = [
+  {
+    dataField: "empty",
+    text: "",
+    style: {
+      width: '50px'
+    }
+  },
   {
     dataField: "name",
     text: "Name"
   },
   {
     dataField: "unit",
-    text: "Unit"
+    text: "Unit",
+    style: {
+      width: '200px'
+    }
   },
   {
     dataField: "type",
-    text: "Type"
+    text: "Type",
+    style: {
+      width: '200px'
+    }
   },
   {
     dataField: "value",
-    text: "Value"
+    text: "Value",
+    style: {
+      width: '200px'
+    }
+  },
+  {
+    dataField: "actions",
+    text: "Actions",
+    style: {
+      width: '90px',
+      textAlign: 'center'
+    }
   }
 ];
 
@@ -36,6 +76,8 @@ const translationLanguages = {
   ],
   defaultLanguage: { value: "en", labelCode: "English" }
 };
+
+const abstractTaxonamableEntity = 'abstract_taxonomable_entity';
 
 export default class Taxonomables extends Component {
   constructor(props) {
@@ -51,62 +93,75 @@ export default class Taxonomables extends Component {
       expandedAttributes: [],
       selectedTaxon: null,
       isLoading: false,
-      selectedLanguage: defaultLanguage
+      selectedLanguage: defaultLanguage,
+      selected: [],
+      expanded: [],
+      markupData: null,
+      taxonTypes: []
     };
 
   }
 
-  componentDidMount() {
-
-    this.setState((prevState)=>({...prevState, isLoading: false }));
-
+  handleOnSelect = (row, isSelect) => {
+    if (isSelect) {
+      ApiCall.get("taxon/" + row.id + "/taxonAttributes"
+         ,{ projection: "taxonomy" }
+      )
+        .then(result => {
+          this.setState({
+            expandedAttributes: result.data,
+            selected: [row.id],
+            expanded: [row.id]
+          });
+        });
+    } else {
+      this.setState(() => ({
+        selected: this.state.selected.filter(x => x !== row.id),
+        expanded: []
+      }));
+    }
   }
 
   render() {
+    const selectRow = {
+      mode: 'checkbox',
+      clickToSelect: true,
+      clickToExpand: true,
+      hideSelectAll: true,
+      selected: this.state.selected,
+      bgColor: '#EEE',
+      onSelect: this.handleOnSelect,
+      showExpandColumn: true,
+    };
+
     const expandRow = {
       renderer: row => (
         <BootstrapTable
           ref={n => (this.node = n)}
           keyField="id"
-          data={this.state.expandedAttributes}
-          columns={columns}
+          data={this.renderNestedTableData()}
+          columns={expandedTableColumns}
         />
       ),
+      expanded: this.state.expanded,
       onExpand: (row, isExpand, rowIndex, e) => {
-        //this.setState({...this.state, expandedAttributes: []});
+        this.setState({ expandedAttributes: [] });
         if (isExpand) {
-          ApiCall.get("taxon/" + row.id + "/taxonAttributes", {
-            projection: "search"
-          }).then(result => {
-            this.setState((prevState) => ({
-              ...prevState,
-              expandedAttributes: DataHelper.mapCollectionData(result.data).map(
-                attr => ({
-                  id: attr.id,
-                  name: this.getTextFieldValue(
-                    attr.name,
-                    this.state.selectedLanguage
-                  ),
-                  unit:
-                    attr.unit != null
-                      ? this.getTextFieldValue(
-                          attr.unit.name,
-                          this.state.selectedLanguage
-                        )
-                      : "",
-                  type: attr.type,
-                  value: attr.code
-                })
-              )
-            }));
-
-          });
+          ApiCall.get("taxon/" + row.id + "/taxonAttributes"
+            , { projection: "taxonomy" }
+          )
+            .then(result => {
+              this.setState({
+                expandedAttributes: result.data
+              });
+            });
         }
       },
       className: "text-bold",
       showExpandColumn: false,
       onlyOneExpanding: true
     };
+
     return (
       <div className="taxon-configuration">
         {this.state.isLoading ? (
@@ -114,54 +169,28 @@ export default class Taxonomables extends Component {
             <i className="material-icons loading-icon">cached</i>
           </div>
         ) : (
-          false
-        )}
-        <div className="entity-field-container">
-          <div className="entity-field-input-container">
-            <div>
-              <Translate
-                component="label"
-                content={"main.taxonomableType"}
-                fallback="taxonomableType"
-              />
-            </div>
-            <Select
-              disabled={this.props.readOnly}
-              className="entity-field"
-              value={{
-                value:
-                  this.state.selectedTaxonomableType != null
-                    ? this.state.selectedTaxonomableType.value
-                    : "",
-                label:
-                  this.state.selectedTaxonomableType != null
-                    ? this.state.selectedTaxonomableType.label
-                    : ""
-              }}
-              onChange={item => this.handleNewTaxonomableTypeChange(item)}
-              options={this.getOptions()}
-            />
-          </div>
-        </div>
-        <NemesisEntityField
-          entityId={
-            this.state.selectedTaxonomableType != null
-              ? this.state.selectedTaxonomableType.value
-              : ""
-          }
-          onValueChange={this.onTaxonomableSelect.bind(this)}
-          value={this.state.selectedTaxonomable}
-          label={"Taxonomable"}
+            false
+          )}
+
+        <BuildingBlockEntityField
+          onEntitySelect={this.handleNewTaxonomableTypeChange}
+          readOnly={this.props.readOnly || !this.state.restrictionField}
+          value={'abstract_taxonomable_entity'}
+          entityId={'abstract_taxonomable_entity'}
+          onValueChange={this.onTaxonomableSelect}
+          label={'Taxonomable Type'}
         />
+
         <NemesisEntityField
           entityId={"taxon"}
-          onValueChange={this.onTaxonSelect.bind(this)}
+          onValueChange={this.onTaxonSelect}
           value={this.state.selectedTaxon}
           label={"Taxon"}
         />
+
         <button
           className="nemesis-button success-button"
-          onClick={() => this.createNewTaxonAttribute()}
+          onClick={this.createNewTaxonAttribute}
           disabled={
             !(this.state.selectedTaxonomable && this.state.selectedTaxon)
           }
@@ -182,96 +211,207 @@ export default class Taxonomables extends Component {
                   taxon.name,
                   this.state.selectedLanguage
                 ),
-                unit:
-                  taxon.unit != null
-                    ? this.getTextFieldValue(
-                        taxon.unit.name,
-                        this.state.selectedLanguage
-                      )
-                    : "",
-                type: taxon.type,
-                value: ""
+                actions: this.deleteButton(taxon.id)
               }))}
-              columns={columns}
+              columns={mainTableColumns}
               onlyOneExpanding="true"
               expandRow={expandRow}
+              selectRow={selectRow}
             />
           </div>
         ) : (
-          false
-        )}
+            false
+          )}
       </div>
     );
   }
 
   componentDidMount() {
+    this.setState({
+      isLoading: false
+    });
+
+    ApiCall.get("markup/entity/all")
+      .then(result => {
+        this.setState({ taxonTypes: result.data.taxon_attribute.sections[0].items.filter(x => x.name === "type")[0].values });
+      });
+
     ApiCall.get(
       "subtypes/abstract_taxonomable_entity"
     ).then(result => {
-
-      this.setState((prevState) => ({ ...prevState, taxonomableTypes: result.data }));
+      this.setState({ taxonomableTypes: result.data });
     });
   }
+
+  renderNestedTableData = () => {
+    const result = DataHelper.mapCollectionData(this.state.expandedAttributes).map(
+      attr => ({
+        id: attr.id,
+        empty: '',
+        name: this.getTextFieldValue(
+          attr.name,
+          this.state.selectedLanguage
+        ),
+        unit: attr.unit,
+        type: attr.type,
+        value: this.valueInput(attr.code, attr.id),
+        actions: this.saveTaxonUnit(attr.id)
+      })
+    );
+    return result;
+  };
+
+  deleteButton = (taxonId) => {
+    return (
+      <div style={{ margin: '0 auto', textAlign: 'center' }}>
+        <i className="delete-icon-container material-icons"
+          onClick={() => this.handleDelete(taxonId)}>
+          delete_forever
+          </i>
+      </div>
+    );
+  };
+
+  handleDelete = (taxonId) => {
+    const newTaxonsArray = this.state.taxons.slice(0);
+    const deleteTaxonIndex = newTaxonsArray.findIndex(x => x.id === taxonId);
+    newTaxonsArray.splice(deleteTaxonIndex, 1);
+
+    const updateTaxonObject = { taxons: newTaxonsArray.map(x => x.id) };
+    const { selectedTaxonomableType, selectedTaxonomable } = this.state;
+
+    ApiCall.patch(`${selectedTaxonomableType.value}/${selectedTaxonomable.id}`, updateTaxonObject)
+      .then(result => {
+        this.setState({
+          taxons: newTaxonsArray,
+          expanded: [],
+          selected: []
+        });
+      });
+  };
+
+
+  valueInput = (value, unitId) => {
+    return (
+      <div classes="valueContainer" style={{ margin: '0 auto' }}>
+        <NemesisTextField
+          currentUnitId={unitId}
+          value={value}
+          onValueChange={this.onValueFieldChange}
+        />
+      </div>
+    );
+  };
+
+  onValueFieldChange = (value, unitId) => {
+    const arrayItems = this.state.expandedAttributes._embedded.taxon_attribute.slice(0);
+    const itemIndex = arrayItems.findIndex(x => x.id === unitId);
+    arrayItems[itemIndex].code = value;
+
+    this.setState(prevState => ({
+      expandedAttributes: {
+        _embedded: {
+          taxon_attribute: arrayItems
+        }
+      }
+    })
+    );
+  };
+
+  saveTaxonUnit = (unitId) => {
+    return (
+      <div style={{ margin: '0 auto', textAlign: 'center' }}>
+        <i className="save-icon-container material-icons"
+          onClick={() => this.saveTaxonReq(unitId)}>
+          save
+          </i>
+      </div>
+    );
+  };
+
+  saveTaxonReq = (unitId) => {
+    const currentUnit = this.state.expandedAttributes._embedded.taxon_attribute.find(x => x.id === unitId);
+    const unitObject = {
+      taxon_attribute: unitId,
+      value: currentUnit.code || ""
+    };
+    axios
+    .get(`https://46.101.177.20:8112/storefront/facade/taxonomy/taxonomyValuesForAttributeCodeAndEntityCodeAndEntityName?taxonAttributeCode=${currentUnit.code}&entityName=${this.state.selectedTaxonomableType.value}&entityCode=${this.state.selectedTaxonomable.code}`)
+    .then((result) => console.log(result));
+    // ApiCall.patch(`taxonomy_value/`, unitObject)
+    //   .then(result => {
+    //     console.log("NotificationHere")
+    //   });
+  };
 
   getOptions() {
     return this.state.taxonomableTypes.map(taxonomableType => {
       return { value: taxonomableType.id, label: taxonomableType.text };
     });
-  }
+  };
 
-  handleNewTaxonomableTypeChange(item) {
-    let level = item && item.value;
-    this.setState((prevState) => ({ ...prevState, selectedTaxonomableType: item }));
-  }
+  handleNewTaxonomableTypeChange = (item) => {
+    this.setState({ selectedTaxonomableType: item });
+  };
 
-  getTextFieldValue(val, language) {
+  getTextFieldValue(val = "", language) {
     if (!val) {
       return "";
-    }
+    };
 
     return (val[language] && val[language].value) || "";
-  }
+  };
 
-  onTaxonomableSelect(value) {
+  onTaxonomableSelect = (value) => {
+    console.log(value);
     if (!value) {
-      this.setState((prevState) => ({ ...prevState,selectedTaxonomable: null }));
+      this.setState({ selectedTaxonomable: null });
       return;
     }
     this.setState({ isLoading: true }, () => {
       this.getTaxons(value);
     });
-  }
+  };
 
-  onTaxonSelect(value) {
+  onTaxonSelect = (value) => {
     if (!value) {
-      this.setState((prevState)  => ({ ...prevState, selectedTaxon: null }));
+      this.setState((prevState) => ({ ...prevState, selectedTaxon: null }));
       return;
-    }
+    };
     this.setState((prevState) => ({ ...prevState, selectedTaxon: value }));
-  }
+  };
 
   setLoadingStatus(isLoading) {
     this.setState({ isLoading: isLoading });
-  }
+  };
 
   getTaxons(selectedTaxonomable) {
     ApiCall.get(
       (this.state.selectedTaxonomableType != null
         ? this.state.selectedTaxonomableType.value
         : "") +
-        "/" +
-        selectedTaxonomable.id +
-        "/resolvedTaxons",
-      { projection: "search" }
-    ).then(result => {
-      this.setState((prevState) =>({
-        ...prevState,
-        taxons: DataHelper.mapCollectionData(result.data),
-        selectedTaxonomable: selectedTaxonomable,
-        isLoading: false
-      }));
-    });
-  }
+      "/" +
+      selectedTaxonomable.id + "/resolvedTaxons")
+      .then(result => {
+        this.setState((prevState) => ({
+          ...prevState,
+          taxons: DataHelper.mapCollectionData(result.data),
+          selectedTaxonomable: selectedTaxonomable,
+          isLoading: false
+        }));
+      });
+  };
 
-  createNewTaxonAttribute() {}
+  createNewTaxonAttribute = () => {
+    const { selectedTaxonomableType, selectedTaxonomable, selectedTaxon } = this.state;
+
+    const updateTaxonObject = { taxons: [...this.state.taxons.map(x => x.id), selectedTaxon.id] };
+
+    ApiCall.patch(`${selectedTaxonomableType.value}/${selectedTaxonomable.id}`, updateTaxonObject)
+      .then(result => {
+        this.setState({
+          taxons: [...this.state.taxons, selectedTaxon]
+        });
+      });
+  };
 }
