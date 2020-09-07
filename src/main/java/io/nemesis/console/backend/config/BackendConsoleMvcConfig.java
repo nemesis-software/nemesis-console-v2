@@ -28,7 +28,7 @@ import java.time.temporal.ChronoUnit;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = { "com.nemesis.console.backend.storefront" })
+@ComponentScan(basePackages = { "io.nemesis.console.backend.storefront" })
 public class BackendConsoleMvcConfig implements WebMvcConfigurer {
 
     @Autowired
