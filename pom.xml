@@ -274,7 +274,7 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
+            <!--plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker-maven-plugin.version}</version>
@@ -293,6 +293,20 @@
                             <include>${project.build.finalName}.war</include>
                         </resource>
                     </resources>
+                </configuration>
+            </plugin-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <configuration>
+                    <buildArgs>
+                        <WAR_FILE>${project.build.finalName}.war</WAR_FILE>
+                    </buildArgs>
+                    <contextDirectory>${basedir}</contextDirectory>
+                    <dockerfile>src/main/docker/Dockerfile</dockerfile>
+                    <noCache>true</noCache>
+                    <repository>nemesis/console</repository>
+                    <squash>true</squash>
                 </configuration>
             </plugin>
             <plugin>

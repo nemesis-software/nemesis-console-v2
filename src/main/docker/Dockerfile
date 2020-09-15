@@ -1,6 +1,8 @@
-FROM adoptopenjdk/openjdk11:jdk-11.0.5_10-alpine-slim
+FROM adoptopenjdk/openjdk11:alpine-jre
 
 MAINTAINER Petar Tahchiev <ptahchiev@nemesis.io>
+
+ARG WAR_FILE
 
 # Set the locale
 #RUN locale-gen en_US.UTF-8
@@ -14,11 +16,12 @@ VOLUME /tmp
 WORKDIR /app/
 
 # Add the project
-ADD /nemesis-console-v2.war /app/
-RUN touch /app/nemesis-console-v2.war
-RUN mkdir console
-RUN unzip -q -d console /app/nemesis-console-v2.war
-RUN rm -rf /app/nemesis-console-v2.war
+COPY target/${WAR_FILE} /apps/
+RUN touch /apps/${WAR_FILE} \
+&& mkdir console \
+&& unzip -q -d console /apps/${WAR_FILE} \
+&& rm -rf /apps/${WAR_FILE} \
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /app/console/
 
