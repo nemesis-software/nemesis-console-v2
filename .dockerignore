@@ -1,0 +1,4 @@
+target
+!target/nemesis-console-v2.war
+src
+!src/main/docker/Dockerfile
