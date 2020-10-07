@@ -391,6 +391,8 @@ export default class EntitySections extends Component {
     if (!mediaFields || mediaFields.length === 0) {
       return Promise.resolve();
     }
+    let data = new FormData();
+    data.append('file', mediaFields[0].value);
     return ApiCall.post('upload/media/' + itemId, data, 'multipart/form-data').then(
       () => {
         this.props.openNotificationSnackbar('File successfully uploaded');
