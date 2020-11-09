@@ -17,7 +17,7 @@
     <parent>
         <groupId>io.nemesis</groupId>
         <artifactId>bom</artifactId>
-        <version>2.3.0.RELEASE</version>
+        <version>2.3.1.BUILD-SNAPSHOT</version>
     </parent>
 
     <groupId>io.nemesis.platform.console</groupId>
@@ -48,7 +48,7 @@
         <connection>scm:git:git@github.com:nemesis-software/nemesis-console-v2.git</connection>
         <developerConnection>scm:git:git@github.com:nemesis-software/nemesis-console-v2.git</developerConnection>
         <url>https://github.com/nemesis-software/nemesis-console-v2.git</url>
-        <tag>2.3.0.RELEASE</tag>
+        <tag>master</tag>
     </scm>
     <repositories>
         <repository>
