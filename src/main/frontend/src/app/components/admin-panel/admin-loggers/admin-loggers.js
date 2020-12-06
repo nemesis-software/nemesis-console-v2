@@ -59,7 +59,14 @@ export default class AdminLoggers extends Component {
 
   populateLoggers() {
     return PlatformApiCall.get('loggers').then(result => {
-      this.setState({levels: _.values(result.data.levels), loggers: result.data.loggers, filteredLoggers: this.getFilteredLoggers(result.data.loggers, this.state.searchInput)})
+      let configuredLoggers = {};
+      for (let key in result.data.loggers){
+        let object = result.data.loggers[key];
+        if (object['configuredLevel'] != null){
+          configuredLoggers[key] = object;
+        }
+      }
+      this.setState({levels: _.values(result.data.levels), loggers: configuredLoggers, filteredLoggers: this.getFilteredLoggers(configuredLoggers, this.state.searchInput)})
     });
   }
 
