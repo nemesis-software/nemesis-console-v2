@@ -32,7 +32,7 @@ export default class EntitySections extends Component {
       errorMessage: null,
       isDataLoading: false,
       entitySyncStatus: null,
-      isUpdated: false
+      isUpdated: true
     };
   }
 
@@ -296,7 +296,7 @@ export default class EntitySections extends Component {
       let itemId = entity.type === entityItemType ? entity.itemId : result.data.id;
       this.props.openNotificationSnackbar('Entity successfully saved');
       this.resetDirtyEntityFields();
-      this.setState({ isUpdated: false });
+      this.setState({ isUpdated: true });
       
       this.uploadMediaFile(itemId, mediaFields, windowShouldClose).then(() => {
         if (windowShouldClose) {
