@@ -40,13 +40,14 @@ export default class EntitiesViewer extends Component {
   };
 
   render() {
+  debugger;
     return (
       <div className={'entities-viewer' + (this.state.isDataLoading ? ' on-loading' : '')}>
         {this.state.isDataLoading ? <div className="loading-screen">
           <i className="material-icons loading-icon">cached</i>
         </div> : false}
         <EntitiesFilter entity={this.props.entity}
-          filterMarkup={this.props.entity.data.filter}
+          filterMarkup={this.props.entity.data ? this.props.entity.data.filter: []}
           onFilterApply={this.onFilterApply}
           retakeEntityData={this.getEntitiesDataFromDefaultFilter} />
 
@@ -54,7 +55,7 @@ export default class EntitiesViewer extends Component {
           ref={this.child}
           entities={this.state.searchData}
           entity={this.props.entity}
-          entitiesMarkup={this.props.entity.data.result}
+          entitiesMarkup={this.props.entity && this.props.entity.data ? this.props.entity.data.result : []}
           onPagerChange={this.onPagerChange}
           onSortDataChange={this.onSortDataChange}
           page={this.state.page}
