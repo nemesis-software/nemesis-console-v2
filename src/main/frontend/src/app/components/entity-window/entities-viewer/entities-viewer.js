@@ -40,7 +40,6 @@ export default class EntitiesViewer extends Component {
   };
 
   render() {
-  debugger;
     return (
       <div className={'entities-viewer' + (this.state.isDataLoading ? ' on-loading' : '')}>
         {this.state.isDataLoading ? <div className="loading-screen">
