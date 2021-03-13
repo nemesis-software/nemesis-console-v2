@@ -189,7 +189,7 @@ export default class DefaultFilter extends Component {
 
   getInitialFilterItems = () => {
     return _.filter(this.props.filterMarkup, item => {
-      return item.name === 'code' || item.name === 'catalogVersion';
+      return item.weight !== -1;
     });
   }
 
