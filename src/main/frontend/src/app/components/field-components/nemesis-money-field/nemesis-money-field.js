@@ -73,6 +73,11 @@ export default class NemesisMoneyField extends NemesisBaseField {
       actualValue.currency = '';
     }
     actualValue.currency = value;
+
+    if (actualValue.amount === '' && actualValue.currency === '') {
+        actualValue = null;
+    }
+
     this.onValueChange(event, actualValue);
   }
 
@@ -82,6 +87,11 @@ export default class NemesisMoneyField extends NemesisBaseField {
       actualValue.amount = '';
     }
     actualValue.amount = value;
+
+    if (actualValue.amount === '' && actualValue.currency === '') {
+        actualValue = null;
+    }
+
     this.onValueChange(event, actualValue);
   }
 
