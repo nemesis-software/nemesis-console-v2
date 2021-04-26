@@ -30,7 +30,7 @@ export default class Notifications extends Component {
           {this.state.notifications.map((notification, index) => {
             return <Dropdown.Item key={index}>
               <div className='notification-container'>
-                <span className="cronjob"><i class="fa fa-tasks" aria-hidden="true"></i></span>
+                <span className="cronjob"><i className="fa fa-tasks" aria-hidden="true"></i></span>
                 <div>
                   <div><b>{notification.message}</b><br /></div>
                   <div>{notification.description}</div>
