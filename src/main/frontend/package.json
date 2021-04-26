@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "bootstrap": "^3.4.1",
     "bpmn-js": "^6.0.4",
     "bpmn-js-properties-panel": "^0.33",
