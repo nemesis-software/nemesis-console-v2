@@ -111,7 +111,7 @@ export default class EntitySections extends Component {
     ];
 
     if (entity.type === entityItemType) {
-      result.push({ label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this) });
+      result.push({ label: 'Delete', onClickFunction: this.handleDeleteButtonClick.bind(this), className: 'danger-button' });
       result.push({ label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) });
       result.push({ label: 'Clone', onClickFunction: this.handleCloneButtonClick.bind(this) });
     }
