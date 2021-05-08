@@ -11,7 +11,8 @@
   ~ license agreement you entered into with nemesis.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -33,7 +34,7 @@
         <frontend-plugin.version>1.8.0</frontend-plugin.version>
         <node.version>v12.13.1</node.version>
         <yarn.version>v1.19.2</yarn.version>
-        <webpack.build.parameter />
+        <webpack.build.parameter/>
     </properties>
 
     <profiles>
@@ -295,32 +296,26 @@
                 </configuration>
             </plugin-->
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
                 <configuration>
-                    <buildArgs>
-                        <WAR_FILE>${project.build.finalName}.war</WAR_FILE>
-                    </buildArgs>
-                    <contextDirectory>${basedir}</contextDirectory>
-                    <dockerfile>src/main/docker/Dockerfile</dockerfile>
-                    <noCache>true</noCache>
-                    <repository>nemesis/console</repository>
-                    <squash>true</squash>
+                    <images>
+                        <image>
+                            <name>nemesis/console</name>
+                            <build>
+                                <contextDir>${basedir}</contextDir>
+                                <dockerFile>src/main/docker/Dockerfile</dockerFile>
+                                <noCache>true</noCache>
+                                <!--squash>true</squash-->
+                                <args>
+                                    <WAR_FILE>${project.build.finalName}.war</WAR_FILE>
+                                </args>
+                            </build>
+                        </image>
+                    </images>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!--<jvmArguments>-->
-                    <!-- -XX:+HeapDumpOnOutOfMemoryError-->
-                    <!-- -Xss512K -Xmx1g -Xms1g-->
-                    <!-- -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m-->
-                    <!-- -XX:CompressedClassSpaceSize=128m -XX:ReservedCodeCacheSize=256m-->
-                    <!-- -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5000-->
-                    <!--</jvmArguments>-->
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
