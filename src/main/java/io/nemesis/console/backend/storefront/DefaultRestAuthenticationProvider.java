@@ -70,6 +70,8 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
 
         LOG.info("Authenticating...");
 
+        System.out.println("Rest: " + restBaseUrl);
+
         final String username = (String) authentication.getPrincipal();
         final String password = (String) authentication.getCredentials();
 
