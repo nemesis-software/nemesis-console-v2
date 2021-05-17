@@ -68,6 +68,8 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
+        LOG.info("Authenticating...");
+
         final String username = (String) authentication.getPrincipal();
         final String password = (String) authentication.getCredentials();
 
