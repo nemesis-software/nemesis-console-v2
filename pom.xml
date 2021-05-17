@@ -34,7 +34,7 @@
         <frontend-plugin.version>1.8.0</frontend-plugin.version>
         <node.version>v12.13.1</node.version>
         <yarn.version>v1.19.2</yarn.version>
-        <maven-checkstyle-plugin.skip>true</maven-checkstyle-plugin.skip>
+        <maven-checkstyle-plugin.skip>false</maven-checkstyle-plugin.skip>
         <webpack.build.parameter/>
     </properties>
 
