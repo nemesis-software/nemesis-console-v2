@@ -11,14 +11,14 @@
  */
 package io.nemesis.console.backend.storefront;
 
-import io.nemesis.console.backend.config.ConsoleProperties;
+import io.nemesis.console.backend.core.NemesisUrlResolver;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,8 +28,8 @@ import java.net.URLConnection;
 @Controller
 public class BackendConsoleController {
 
-    @Autowired
-    private ConsoleProperties consoleProperties;
+    @Resource(name = NemesisUrlResolver.NAME)
+    private NemesisUrlResolver nemesisUrlResolver;
 
     @RequestMapping(value = { "/" }, method = { RequestMethod.GET, RequestMethod.POST })
     public String redirectToAdmin() {
@@ -38,9 +38,9 @@ public class BackendConsoleController {
 
     @RequestMapping(value = { "/admin", "{path:(?!login|media|resources).*$}", "{path:(?!login|media|resources).*$}/**" }, method = RequestMethod.GET)
     public String home(final Model model, final HttpServletRequest request) {
-        model.addAttribute("websiteBaseUrl", consoleProperties.getWebsiteBaseUrl());
-        model.addAttribute("actuatorBaseUrl", consoleProperties.getActuatorBaseUrl());
-        model.addAttribute("restBaseUrl", consoleProperties.getRestBaseUrl());
+        model.addAttribute("websiteBaseUrl", nemesisUrlResolver.getNemesisWebsiteBaseUrl(request.getRemoteAddr()));
+        model.addAttribute("actuatorBaseUrl", nemesisUrlResolver.getNemesisActuatorBaseUrl(request.getRemoteAddr()));
+        model.addAttribute("restBaseUrl", nemesisUrlResolver.getNemesisRestBaseUrl(request.getRemoteAddr()));
         return "index";
     }
 
@@ -51,8 +51,11 @@ public class BackendConsoleController {
 
     @RequestMapping(value = { "/media/**" }, method = RequestMethod.GET)
     public void media(final HttpServletRequest request, HttpServletResponse response) throws IOException {
-        StringBuilder stringUrl = new StringBuilder(consoleProperties.getWebsiteBaseUrl());
-        if (!consoleProperties.getWebsiteBaseUrl().endsWith("/")) {
+
+        String websiteBaseUrl = nemesisUrlResolver.getNemesisWebsiteBaseUrl(request.getRemoteAddr());
+
+        StringBuilder stringUrl = new StringBuilder(websiteBaseUrl);
+        if (!websiteBaseUrl.endsWith("/")) {
             stringUrl.append("/");
         }
 

@@ -11,8 +11,13 @@
  */
 package io.nemesis.console.backend.config;
 
+import io.nemesis.console.backend.core.NemesisUrlResolver;
+import io.nemesis.console.backend.core.impl.DynamicNemesisUrlResolver;
+import io.nemesis.console.backend.core.impl.PredefinedNemesisUrlResolver;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.AdviceMode;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -39,6 +44,18 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
 
     @Resource(name = "defaultAccessDeniedHandler")
     private AccessDeniedHandler defaultAccessDeniedHandler;
+
+    @Bean(name = NemesisUrlResolver.NAME)
+    @ConditionalOnProperty(prefix = "nemesis.url.resolver", name = "dynamic", havingValue = "false", matchIfMissing = true)
+    public NemesisUrlResolver defaultPredefinedNemesisUrlResolver() {
+        return new PredefinedNemesisUrlResolver();
+    }
+
+    @Bean(name = NemesisUrlResolver.NAME)
+    @ConditionalOnProperty(prefix = "nemesis.url.resolver", name = "dynamic", havingValue = "true")
+    public NemesisUrlResolver defaultDynamicNemesisUrlResolver() {
+        return new DynamicNemesisUrlResolver();
+    }
 
     // @formatter:off
     
@@ -74,4 +91,5 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
     }
     
     // @formatter:on
+
 }

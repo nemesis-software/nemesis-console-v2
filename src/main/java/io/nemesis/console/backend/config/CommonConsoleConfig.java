@@ -11,9 +11,11 @@
  */
 package io.nemesis.console.backend.config;
 
+import io.nemesis.console.backend.core.NemesisUrlResolver;
 import io.nemesis.console.backend.storefront.DefaultRestAuthenticationProvider;
 import io.nemesis.console.backend.storefront.SessionTimeoutCookieFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
@@ -75,8 +77,8 @@ public class CommonConsoleConfig {
     }
 
     @Bean(name = { "defaultRestAuthenticationProvider", "restAuthenticationProvider" })
-    public AuthenticationProvider defaultRestAuthenticationProvider(final ConsoleProperties consoleProperties) throws NamingException {
-        return new DefaultRestAuthenticationProvider(consoleProperties.getRestBaseUrl());
+    public AuthenticationProvider defaultRestAuthenticationProvider(@Qualifier(NemesisUrlResolver.NAME) NemesisUrlResolver urlResolver) throws NamingException {
+        return new DefaultRestAuthenticationProvider(urlResolver);
     }
 
     @Bean

@@ -14,6 +14,7 @@ package io.nemesis.console.backend.storefront;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.nemesis.console.backend.core.NemesisUrlResolver;
 import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
 import org.apache.hc.client5.http.async.methods.SimpleHttpRequests;
 import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
@@ -40,6 +41,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
@@ -59,16 +61,19 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
 
     protected final Logger LOG = LogManager.getLogger(getClass());
 
-    private String restBaseUrl;
+    private NemesisUrlResolver urlResolver;
 
-    public DefaultRestAuthenticationProvider(final String restBaseUrl) {
-        this.restBaseUrl = restBaseUrl;
+    public DefaultRestAuthenticationProvider(final NemesisUrlResolver urlResolver) {
+        this.urlResolver = urlResolver;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         final String username = (String) authentication.getPrincipal();
         final String password = (String) authentication.getCredentials();
+
+        WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
+        String restBaseUrl = urlResolver.getNemesisRestBaseUrl(details.getRemoteAddress());
 
         try {
             // Trust standard CA and those trusted by our custom strategy
