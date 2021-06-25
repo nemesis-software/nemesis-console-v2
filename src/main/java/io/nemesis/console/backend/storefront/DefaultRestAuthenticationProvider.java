@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.nemesis.console.backend.core.NemesisUrlResolver;
+import io.nemesis.console.backend.core.impl.NemesisWebAuthenticationDetails;
 import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
 import org.apache.hc.client5.http.async.methods.SimpleHttpRequests;
 import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
@@ -41,7 +42,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
@@ -72,8 +72,8 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
         final String username = (String) authentication.getPrincipal();
         final String password = (String) authentication.getCredentials();
 
-        WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
-        String restBaseUrl = urlResolver.getNemesisRestBaseUrl(details.getRemoteAddress());
+        NemesisWebAuthenticationDetails details = (NemesisWebAuthenticationDetails) authentication.getDetails();
+        String restBaseUrl = urlResolver.getNemesisRestBaseUrl(details.getRemoteHost());
 
         try {
             // Trust standard CA and those trusted by our custom strategy

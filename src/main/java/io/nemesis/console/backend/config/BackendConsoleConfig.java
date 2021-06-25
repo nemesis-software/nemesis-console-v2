@@ -13,6 +13,7 @@ package io.nemesis.console.backend.config;
 
 import io.nemesis.console.backend.core.NemesisUrlResolver;
 import io.nemesis.console.backend.core.impl.DynamicNemesisUrlResolver;
+import io.nemesis.console.backend.core.impl.NemesisWebAuthenticationDetails;
 import io.nemesis.console.backend.core.impl.PredefinedNemesisUrlResolver;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -28,8 +30,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @Configuration
 @EnableWebSecurity
@@ -75,6 +79,7 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .headers().disable()
             .formLogin()
+                .authenticationDetailsSource(createAuthenticationDetailsSource())
                 .loginProcessingUrl("/j_spring_security_check")
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/admin")
@@ -88,6 +93,10 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .exceptionHandling()
                 .accessDeniedHandler(defaultAccessDeniedHandler);
+    }
+
+    private AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> createAuthenticationDetailsSource() {
+        return NemesisWebAuthenticationDetails::new;
     }
     
     // @formatter:on
