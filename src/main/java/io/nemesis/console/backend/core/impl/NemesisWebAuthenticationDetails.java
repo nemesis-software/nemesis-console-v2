@@ -38,6 +38,10 @@ public class NemesisWebAuthenticationDetails extends WebAuthenticationDetails {
         return request.getRemoteHost();
     }
 
+    public String getXForwardedFor() {
+        return this.request.getHeader("X-FORWARDED-FOR");
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof WebAuthenticationDetails) {
