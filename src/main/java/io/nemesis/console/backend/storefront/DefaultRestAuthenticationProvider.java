@@ -73,7 +73,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
         final String password = (String) authentication.getCredentials();
 
         NemesisWebAuthenticationDetails details = (NemesisWebAuthenticationDetails) authentication.getDetails();
-        String restBaseUrl = urlResolver.getNemesisRestBaseUrl(details.getXForwardedFor());
+        String restBaseUrl = urlResolver.getNemesisRestBaseUrl(details.getNemesisBaseUrlHost());
 
         try {
             // Trust standard CA and those trusted by our custom strategy

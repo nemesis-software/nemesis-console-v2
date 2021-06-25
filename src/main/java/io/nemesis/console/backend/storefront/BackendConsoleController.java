@@ -38,9 +38,9 @@ public class BackendConsoleController {
 
     @RequestMapping(value = { "/admin", "{path:(?!login|media|resources).*$}", "{path:(?!login|media|resources).*$}/**" }, method = RequestMethod.GET)
     public String home(final Model model, final HttpServletRequest request) {
-        model.addAttribute("websiteBaseUrl", nemesisUrlResolver.getNemesisWebsiteBaseUrl(request.getRemoteHost()));
-        model.addAttribute("actuatorBaseUrl", nemesisUrlResolver.getNemesisActuatorBaseUrl(request.getRemoteHost()));
-        model.addAttribute("restBaseUrl", nemesisUrlResolver.getNemesisRestBaseUrl(request.getRemoteHost()));
+        model.addAttribute("websiteBaseUrl", nemesisUrlResolver.getNemesisWebsiteBaseUrl(request.getHeader("X-Nemesis-Base-Url")));
+        model.addAttribute("actuatorBaseUrl", nemesisUrlResolver.getNemesisActuatorBaseUrl(request.getHeader("X-Nemesis-Base-Url")));
+        model.addAttribute("restBaseUrl", nemesisUrlResolver.getNemesisRestBaseUrl(request.getHeader("X-Nemesis-Base-Url")));
         return "index";
     }
 

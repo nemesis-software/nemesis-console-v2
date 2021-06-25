@@ -34,12 +34,8 @@ public class NemesisWebAuthenticationDetails extends WebAuthenticationDetails {
         this.request = request;
     }
 
-    public String getRemoteHost() {
-        return request.getRemoteHost();
-    }
-
-    public String getXForwardedFor() {
-        return this.request.getHeader("X-FORWARDED-FOR");
+    public String getNemesisBaseUrlHost() {
+        return request.getHeader("X-Nemesis-Base-Url");
     }
 
     @Override
