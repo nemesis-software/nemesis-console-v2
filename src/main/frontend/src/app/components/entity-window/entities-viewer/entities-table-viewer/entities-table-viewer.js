@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import _ from 'lodash';
-
+import NotificationSystem from 'react-notification-system';
 import { componentRequire } from '../../../../utils/require-util';
 import TableHeaderElement from "../../../helper-components/table-header-element";
 import SyncStateTableRenderer from "../../../helper-components/sync-states-table-renderer";
@@ -25,8 +25,13 @@ const translationLanguages = {
 export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
+    this.notificationSystem = null;
     this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false, isAllSelected:false};
 
+  }
+
+  componentDidMount() {
+    this.notificationSystem = this.refs.notificationSystem;
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -125,12 +130,36 @@ export default class EntitiesTableViewer extends Component {
           </tr>
           </tfoot>
         </table>
+        <NotificationSystem ref="notificationSystem" />
       </div>
     )
   }
 
   onBulkEditClick() {
     this.props.onEntityItemClick({entityName: this.props.entityId}, this.props.entityId , null, entityBulkEdit, Object.keys(this.state.selectedIds));
+  }
+
+  onBulkDeleteClick() {
+    if (_.isEmpty(this.state.selectedIds)) {
+      return;
+    }
+    var self = this;
+    ApiCall.delete('backend/delete/selected/' + this.props.entityId, {entityIds: Object.keys(this.state.selectedIds).join(',')})
+    .then(
+         () => {
+           self.openNotificationSnackbar('Deleted successfully!');
+         },
+         (err) => {
+           self.openNotificationSnackbar('Delete failed!', 'error');
+    });
+  }
+
+  openNotificationSnackbar(message, level) {
+    this.notificationSystem.addNotification({
+      message: message,
+      level: level || 'success',
+      position: 'tc'
+    });
   }
 
   onExportClick() {
@@ -157,9 +186,11 @@ export default class EntitiesTableViewer extends Component {
       <React.Fragment>
         <button className="nemesis-button success-button bulk-button" onClick={this.onBulkEditClick.bind(this)}>Bulk Edit</button>
         <button className="nemesis-button success-button bulk-button" onClick={this.onExportClick.bind(this)}>Export</button>
+        <button className="nemesis-button danger-button bulk-button" onClick={this.onBulkDeleteClick.bind(this)}>Delete</button>
       </React.Fragment>
     )
   }
+
 
   markAllAsSelected() {
   	if(!this.state.isAllSelected) {
@@ -182,12 +213,10 @@ export default class EntitiesTableViewer extends Component {
   }
 
   onSelectButtonClick() {
-
     this.setState({selectedIds: {}, isSelectedActive: !this.state.isSelectedActive});
   }
 
   onRowClick(ev, item) {
-
     if (ev.target.classList.contains('status-dot') || ev.target.classList.contains('select-entity-checkbox')) {
 
       return;
