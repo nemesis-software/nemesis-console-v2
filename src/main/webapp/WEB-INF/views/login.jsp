@@ -61,6 +61,10 @@
             font-size: 14px;
         }
 
+        input[type='text'] {
+            margin-bottom:10px;
+        }
+
         input.submit {
             color: white;
             padding: 10px 25px;
