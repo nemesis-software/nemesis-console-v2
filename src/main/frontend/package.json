@@ -91,7 +91,7 @@
     "react-swipeable-views": "^0.13.3",
     "react-translate-component": "^0.15.1",
     "recharts": "^2.0.0-beta.1",
-    "sockjs-client": "^1.5.0",
+    "sockjs-client": "^1.5.1",
     "terser-webpack-plugin": "^2.2.1",
     "uuid": "3.3.2",
     "webstomp-client": "^1.2.6"
