@@ -10,7 +10,7 @@ export default class AdminActions extends Component {
   }
 
   componentDidMount() {
-    this.socketClient = webstomp.over(new SockJS(PlatformApiCall.getRestUrl() + '/stomp'));
+    this.socketClient = webstomp.over(new SockJS(PlatformApiCall.getRestUrl() + '/stomp', null, {timeout:15000}));
     this.socketClient.connect({'X-Nemesis-Token' : document.getElementById('token').getAttribute('value')}, frame => {
       console.log(frame)
     }, err => {
