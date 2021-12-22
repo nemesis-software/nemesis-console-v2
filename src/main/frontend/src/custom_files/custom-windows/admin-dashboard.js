@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PlatformApiCall from '../../app/services/platform-api-call';
 import {
   RadialBarChart,
   RadialBar,
@@ -70,97 +71,67 @@ export default class AdminDashboard extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {areaChartData: areaChartData};
+    this.state = {areaChartData: areaChartData, dashboard:{entries: []}};
+  }
+
+  componentDidMount() {
+   this.getDashboard();
   }
 
   render() {
     return (
       <div className="admin-panel">
         <div className="admin-info-panel-container">
-          <div className="admin-info-panel display-table">
-            <div className="display-table-cell info-panel-text">
-              <div className="info-panel-count">1388</div>
-              <div className="info-panel-type">Users</div>
-            </div>
-            <div className="display-table-cell info-panel-icon">
-              <i className="fa fa-users"></i>
-            </div>
-          </div>
-
-          <div className="admin-info-panel display-table">
-            <div className="display-table-cell info-panel-text">
-              <div className="info-panel-count">27013</div>
-              <div className="info-panel-type">Orders</div>
-            </div>
-            <div className="display-table-cell info-panel-icon">
-              <i className="fa fa-shopping-cart"></i>
-            </div>
-          </div>
-
-          <div className="admin-info-panel display-table">
-            <div className="display-table-cell info-panel-text">
-              <div className="info-panel-count">7610</div>
-              <div className="info-panel-type">Payments</div>
-            </div>
-            <div className="display-table-cell info-panel-icon">
-              <i className="fa fa-money-bill-wave"></i>
-            </div>
-          </div>
-
-          <div className="admin-info-panel display-table">
-            <div className="display-table-cell info-panel-text">
-              <div className="info-panel-count">13827</div>
-              <div className="info-panel-type">Products</div>
-            </div>
-            <div className="display-table-cell info-panel-icon">
-              <i className="fa fa-boxes"></i>
-            </div>
-          </div>
-        </div>
-        <div className="admin-small-chart-container">
-          <div className="small-chart-container">
-            <RadialBarChart width={500} height={250} cx={150} cy={150} innerRadius={20} outerRadius={140} barSize={10}
-                            data={radialBardata}>
-              <RadialBar minAngle={15} label background clockWise={true} dataKey='uv'/>
-              <Legend iconSize={10} width={120} height={140} layout='vertical' verticalAlign='middle'
-                      wrapperStyle={style}/>
-            </RadialBarChart>
-          </div>
-
-          <div className="small-chart-container">
-            <BarChart width={500} height={200} data={barData}
-                      margin={{top: 20, right: 30, left: 20, bottom: 5}}>
-              <XAxis dataKey="name"/>
-              <YAxis yAxisId="left" orientation="left" stroke="#8884d8"/>
-              <YAxis yAxisId="right" orientation="right" stroke="#82ca9d"/>
-              <CartesianGrid strokeDasharray="3 3"/>
-              <Tooltip/>
-              <Legend />
-              <Bar yAxisId="left" dataKey="Paid" fill="#8884d8" />
-              <Bar yAxisId="right" dataKey="Canceled" fill="#82ca9d" />
-            </BarChart>
-          </div>
-          <div className="small-chart-container">
-            <PieChart width={400} height={250}>
-              <Pie dataKey="value" data={data01} cx={150} cy={100} outerRadius={60} fill="#8884d8"/>
-              <Pie dataKey="value" data={data02} cx={150} cy={100} innerRadius={70} outerRadius={90} fill="#82ca9d" label/>
-              <Legend iconSize={10} width={120} height={140} layout='vertical' horizontalAligh='left' verticalAlign='top' wrapperStyle={style}/>
-            </PieChart>
-          </div>
-        </div>
-        <div className="big-chart-container">
-          <AreaChart width={1000} height={300} data={this.state.areaChartData}
-                     style={{margin: 'auto'}}
-                     margin={{top: 10, right: 30, left: 0, bottom: 0}}>
-            <XAxis dataKey="name"/>
-            <YAxis/>
-            <CartesianGrid strokeDasharray="3 3"/>
-            <Tooltip/>
-            <Area type='monotone' dataKey='users' stroke='#8884d8' fill='#8884d8'/>
-          </AreaChart>
+          {this.state.dashboard && this.state.dashboard.entries && this.state.dashboard.entries.map(dashboardEntry => {
+              if (dashboardEntry.type === 'stats') {
+                return <div className="admin-info-panel display-table" key={dashboardEntry.icon}>
+                    <div className="display-table-cell info-panel-text">
+                      <div className="info-panel-count">{dashboardEntry.value}</div>
+                      <div className="info-panel-type">{dashboardEntry.name}</div>
+                    </div>
+                    <div className="display-table-cell info-panel-icon">
+                      <i className={`fa ${dashboardEntry.icon}`}></i>
+                    </div>
+                  </div>
+              }
+              if (dashboardEntry.type === 'barChart') {
+                return <div className="small-chart-container display-inline-block">
+                    <BarChart width={600} height={400} data={dashboardEntry.entries}
+                              margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+                      <XAxis dataKey="name"/>
+                      <YAxis yAxisId="left" orientation="left" stroke="#8884d8"/>
+                      <YAxis yAxisId="right" orientation="right" stroke="#82ca9d"/>
+                      <CartesianGrid strokeDasharray="3 3"/>
+                      <Tooltip/>
+                      <Legend />
+                      <Bar yAxisId="left" dataKey="Paid" fill="#8884d8" />
+                      <Bar yAxisId="right" dataKey="Canceled" fill="#82ca9d" />
+                    </BarChart>
+                  </div>
+              }
+              if (dashboardEntry.type === 'areaChart') {
+                return  <div className="small-chart-container display-inline-block">
+                          <AreaChart width={600} height={400} data={dashboardEntry.entries}
+                                     style={{margin: 'auto'}}
+                                     margin={{top: 10, right: 30, left: 0, bottom: 0}}>
+                            <XAxis dataKey="name"/>
+                            <YAxis/>
+                            <CartesianGrid strokeDasharray="3 3"/>
+                            <Tooltip/>
+                            <Area type='monotone' dataKey='Users' stroke='#8884d8' fill='#8884d8'/>
+                          </AreaChart>
+                        </div>
+              }
+            })}
         </div>
       </div>
     );
+  }
+
+  getDashboard() {
+    return PlatformApiCall.get('dashboard').then(result => {
+      this.setState({dashboard: result.data})
+    });
   }
 
 }
