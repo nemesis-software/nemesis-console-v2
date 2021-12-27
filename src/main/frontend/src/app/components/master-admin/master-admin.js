@@ -9,7 +9,7 @@ let NemesisHeader = componentRequire('app/components/nemesis-header/nemesis-head
 const keyPrefix = 'masterAdmin';
 
 export default class MasterAdmin extends Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
     this.mainViewRef = null;
     this.isOpenInFrame = false;
@@ -72,6 +72,11 @@ export default class MasterAdmin extends Component {
   }
 }
 
+MasterAdmin.contextTypes = {
+  markupLocales: PropTypes.object
+};
+
 MasterAdmin.childContextTypes = {
+  markupLocales: PropTypes.object,
   globalFiltersCatalogs: PropTypes.array
 };

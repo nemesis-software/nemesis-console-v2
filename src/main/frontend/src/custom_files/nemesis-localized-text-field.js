@@ -3,8 +3,8 @@ import NemesisLocalizedTextField from '../app/components/field-components/nemesi
 import _ from 'lodash';
 
 export default class CustomValidationLocalizedText extends NemesisLocalizedTextField {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
   }
   //Make custom validation for entity and field
   isFieldValid() {

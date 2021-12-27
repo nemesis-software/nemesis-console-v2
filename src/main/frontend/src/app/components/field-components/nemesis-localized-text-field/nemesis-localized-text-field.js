@@ -6,19 +6,11 @@ import PropTypes from 'prop-types';
 import {nemesisFieldUsageTypes} from '../../../types/nemesis-types';
 import {Modal} from 'react-bootstrap';
 
-const translationLanguages = {
-  languages: [
-    {value: 'en', labelCode: 'English'},
-    {value: 'bg_BG', labelCode: 'Bulgarian'},
-  ],
-  defaultLanguage: {value: 'en', labelCode: 'English'}
-};
-
 export default class NemesisLocalizedTextField extends NemesisBaseField {
-  constructor(props) {
-    super(props);
-    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || translationLanguages.defaultLanguage.value;
-    this.state = {...this.state, selectedLanguage: defaultLanguage, openTranslateDialog: false};
+  constructor(props, context) {
+    super(props, context);
+    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || context.markupLocales.defaultLanguage.value;
+    this.state = {...this.state, selectedLanguage: defaultLanguage, markupLocales: context.markupLocales,openTranslateDialog: false};
   }
 
   render() {
@@ -31,8 +23,8 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           selectClassName="entity-field"
           style={{marginRight: '15px', ...this.props.style}}
           onLanguageChange={this.onLanguageChange.bind(this)}
-          availableLanguages={translationLanguages.languages}
-          selectedLanguage={this.props.defaultLanguage || translationLanguages.defaultLanguage}
+          availableLanguages={this.state.markupLocales.languages}
+          selectedLanguage={this.props.defaultLanguage || this.state.markupLocales.defaultLanguage}
         />
         <div className="entity-field-input-container">
         {this.props.showLabel &&  <div>
@@ -64,7 +56,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
                 <Modal.Title>Translate field</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {translationLanguages.languages.map(this.getDialogInputField.bind(this))}
+                {this.state.markupLocales.languages.map(this.getDialogInputField.bind(this))}
               </Modal.Body>
               <Modal.Footer>
                 <button className="nemesis-button success-button"
@@ -145,6 +137,11 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
   }
 
 }
+
+NemesisLocalizedTextField.contextTypes = {
+  markupLocales: PropTypes.object,
+  markupData: PropTypes.object
+};
 
 NemesisLocalizedTextField.defaultProps = {
   showLabel: true

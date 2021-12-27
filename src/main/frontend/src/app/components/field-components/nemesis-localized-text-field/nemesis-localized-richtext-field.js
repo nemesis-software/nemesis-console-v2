@@ -5,8 +5,8 @@ import { componentRequire } from '../../../utils/require-util';
 let HtmlEditor = componentRequire('app/custom-components/html-editor/html-editor', 'html-editor');
 
 export default class NemesisTextField extends NemesisLocalizedTextField {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
   }
 
   getDialogInputField(language, index) {

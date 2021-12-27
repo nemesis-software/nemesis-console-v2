@@ -5,10 +5,7 @@ import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 
 import SelectCustomArrow from '../../../helper-components/select-custom-arrow';
-
-
 import LanguageChanger from '../../../language-changer';
-
 import EntitiesPager from '../../../entity-window/entities-viewer/entities-pager/entities-pager';
 import EmbeddedCreation from '../../../embedded-creation/embedded-creation';
 
@@ -16,14 +13,6 @@ import Translate from 'react-translate-component';
 import {nemesisFieldUsageTypes} from "../../../../types/nemesis-types";
 import PropTypes from "prop-types";
 import ApiCall from "../../../../services/api-call";
-
-const translationLanguages = {
-  languages: [
-    {value: 'en', labelCode: 'English'},
-    {value: 'bg_BG', labelCode: 'Bulgarian'},
-  ],
-  defaultLanguage: {value: 'en', labelCode: 'English'}
-};
 
 export default class NemesisProjectionCollectionField extends NemesisBaseCollectionField {
   constructor(props, context) {
@@ -33,7 +22,7 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
       openEmbeddedCreation: false,
       searchData: props.value.slice(0, 20),
       page: {number: 0, size: 20, totalPages: this.getTotalPages(props.value.length, 20)},
-      selectedLanguage: translationLanguages.defaultLanguage.value,
+      selectedLanguage: context.markupLocales.defaultLanguage.value,
       markupData: context.markupData[props.entityId].result
     };
   }
@@ -48,8 +37,8 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
               <LanguageChanger
                 label="language"
                 onLanguageChange={this.onLanguageChange.bind(this)}
-                availableLanguages={translationLanguages.languages}
-                selectedLanguage={translationLanguages.defaultLanguage}
+                availableLanguages={context.markupLocales.languages}
+                selectedLanguage={context.markupLocales.defaultLanguage}
               />
               <EntitiesPager onPagerChange={this.onPagerChange.bind(this)}
                              page={this.state.page}/>
@@ -260,5 +249,6 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
 }
 
 NemesisProjectionCollectionField.contextTypes = {
+  markupLocales: PropTypes.object,
   markupData: PropTypes.object
 };

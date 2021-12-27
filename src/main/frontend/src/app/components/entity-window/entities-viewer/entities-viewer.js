@@ -54,6 +54,7 @@ export default class EntitiesViewer extends Component {
           ref={this.child}
           entities={this.state.searchData}
           entity={this.props.entity}
+          localesMarkup={this.props.localesMarkup}
           entitiesMarkup={this.props.entity && this.props.entity.data ? this.props.entity.data.result : []}
           onPagerChange={this.onPagerChange}
           onSortDataChange={this.onSortDataChange}

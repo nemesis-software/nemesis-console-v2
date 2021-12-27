@@ -14,20 +14,11 @@ let LanguageChanger = componentRequire('app/components/language-changer', 'langu
 const tableMode = 'TABLE_MODE';
 const imageMode = 'IMAGE_MODE';
 
-const translationLanguages = {
-  languages: [
-    {value: 'en', labelCode: 'English'},
-    {value: 'bg_BG', labelCode: 'Bulgarian'},
-  ],
-  defaultLanguage: {value: 'en', labelCode: 'English'}
-};
-
 export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
     this.notificationSystem = null;
-    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: translationLanguages.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false, isAllSelected:false};
-
+    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: this.props.localesMarkup.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false, isAllSelected:false};
   }
 
   componentDidMount() {
@@ -52,8 +43,8 @@ export default class EntitiesTableViewer extends Component {
                 <LanguageChanger
                   label="language"
                   onLanguageChange={this.onLanguageChange.bind(this)}
-                  availableLanguages={translationLanguages.languages}
-                  selectedLanguage={translationLanguages.defaultLanguage}
+                  availableLanguages={this.props.localesMarkup.languages}
+                  selectedLanguage={this.props.localesMarkup.defaultLanguage}
                 />
                 <EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>
                 <div className="total-elements"><label>Total elements</label> <div className="total-element-container">{this.props.page.totalElements}</div></div>

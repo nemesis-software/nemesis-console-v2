@@ -3,19 +3,11 @@ import Translate from 'react-translate-component';
 import NemesisBaseField from '../nemesis-base-field';
 import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 
-const translationLanguages = {
-  languages: [
-    {value: 'en', labelCode: 'English'},
-    {value: 'bg_BG', labelCode: 'Bulgarian'},
-  ],
-  defaultLanguage: {value: 'en', labelCode: 'English'}
-};
-
 export default class NemesisSimpleLocalizedTextField extends NemesisBaseField {
   constructor(props) {
     super(props);
-    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || translationLanguages.defaultLanguage.value;
-    this.state = {...this.state, selectedLanguage: defaultLanguage, openTranslateDialog: false};
+    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || context.markupLocales.defaultLanguage.value;
+    this.state = {...this.state, selectedLanguage: defaultLanguage, markupLocales: context.markupLocales, openTranslateDialog: false};
   }
 
   render() {

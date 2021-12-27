@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>Login Page</title>
-    <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="<c:url value='/resources/favicon.ico'/>" type="image/x-icon"/>
     <style type="text/css">
         html {
             min-height: 100%;
@@ -137,10 +137,12 @@
 
 <script type="text/javascript">
     function keepHash(form) {
-        var hash = document.location.hash.substring(1);
-        form.action = form.action + '#' + hash;
+        if (document.location.hash) {
+            var hash = document.location.hash.substring(1);
+            form.action = form.action + '#' + hash;
+        }
         document.getElementById('spinner').style.visibility = 'visible';
-        form.submit();
+        //form.submit();
         return false;
     }
 </script>

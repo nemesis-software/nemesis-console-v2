@@ -37,6 +37,7 @@ export default class CustomMainView extends MainView {
 
 
 CustomMainView.contextTypes = {
+  markupLocales: PropTypes.object,
   markupData: PropTypes.object,
   entityMarkupData: PropTypes.object
 };

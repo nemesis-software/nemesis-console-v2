@@ -77,11 +77,12 @@ export default class App extends Component {
         admin : MasterAdmin,
         reservation: Reservations
     };
-    this.state = {markupData: {}, entityMarkupData: {}, sidebarData: {}, isLoadingData: true};
+    this.state = {markupLocales: {}, markupData: {}, entityMarkupData: {}, sidebarData: {}, isLoadingData: true};
   }
 
   getChildContext() {
     return {
+      markupLocales : this.state.markupLocales,
       markupData: this.state.markupData,
       entityMarkupData: this.state.entityMarkupData
     };
@@ -99,8 +100,9 @@ export default class App extends Component {
   }
 
   getMarkupData() {
-    Promise.all([ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then(result => {
-      this.setState({...this.state, markupData: result[0].data, entityMarkupData: result[1].data, sidebarData: result[2].data, isLoadingData: false});
+    Promise.all([ApiCall.get('markup/locales'), ApiCall.get('markup/search/all'), ApiCall.get('markup/entity/all'), ApiCall.get('markup/sidebar')]).then
+    (result => {
+      this.setState({...this.state, markupLocales: result[0].data, markupData: result[1].data, entityMarkupData: result[2].data, sidebarData: result[3].data, isLoadingData: false});
     }, err => {
       this.setState({isLoadingData: false});
     });
@@ -171,6 +173,7 @@ export default class App extends Component {
 }
 
 App.childContextTypes = {
+  markupLocales: PropTypes.object,
   markupData: PropTypes.object,
   entityMarkupData: PropTypes.object
 };
