@@ -1,6 +1,10 @@
-FROM adoptopenjdk/openjdk11:alpine-jre
+FROM eclipse-temurin:11.0.13_8-jre-alpine as builder
 
 MAINTAINER Petar Tahchiev <ptahchiev@nemesis.io>
+
+RUN  apk update \
+  && apk upgrade \
+  && rm -rf /var/cache/apk/*
 
 ARG WAR_FILE
 
