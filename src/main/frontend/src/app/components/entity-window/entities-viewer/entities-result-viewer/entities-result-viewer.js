@@ -59,7 +59,7 @@ export default class EntitiesResultViewer extends Component {
   getViewerElement(viewer, index) {
     let config = {
       entities: this.props.entities,
-      localesMarkup: this.props.localesMarkup,
+      markupConfig: this.props.markupConfig,
       entitiesMarkup: this.props.entitiesMarkup,
       onPagerChange: this.props.onPagerChange,
       onSortDataChange: this.props.onSortDataChange,

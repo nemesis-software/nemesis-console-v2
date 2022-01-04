@@ -9,8 +9,8 @@ import {Modal} from 'react-bootstrap';
 export default class NemesisLocalizedTextField extends NemesisBaseField {
   constructor(props, context) {
     super(props, context);
-    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || context.markupLocales.defaultLanguage.value;
-    this.state = {...this.state, selectedLanguage: defaultLanguage, markupLocales: context.markupLocales,openTranslateDialog: false};
+    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || context.markupConfig.defaultLanguage.value;
+    this.state = {...this.state, selectedLanguage: defaultLanguage, markupConfig: context.markupConfig,openTranslateDialog: false};
   }
 
   render() {
@@ -23,8 +23,8 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           selectClassName="entity-field"
           style={{marginRight: '15px', ...this.props.style}}
           onLanguageChange={this.onLanguageChange.bind(this)}
-          availableLanguages={this.state.markupLocales.languages}
-          selectedLanguage={this.props.defaultLanguage || this.state.markupLocales.defaultLanguage}
+          availableLanguages={this.state.markupConfig.languages}
+          selectedLanguage={this.props.defaultLanguage || this.state.markupConfig.defaultLanguage}
         />
         <div className="entity-field-input-container">
         {this.props.showLabel &&  <div>
@@ -56,7 +56,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
                 <Modal.Title>Translate field</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {this.state.markupLocales.languages.map(this.getDialogInputField.bind(this))}
+                {this.state.markupConfig.languages.map(this.getDialogInputField.bind(this))}
               </Modal.Body>
               <Modal.Footer>
                 <button className="nemesis-button success-button"
@@ -139,7 +139,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
 }
 
 NemesisLocalizedTextField.contextTypes = {
-  markupLocales: PropTypes.object,
+  markupConfig: PropTypes.object,
   markupData: PropTypes.object
 };
 

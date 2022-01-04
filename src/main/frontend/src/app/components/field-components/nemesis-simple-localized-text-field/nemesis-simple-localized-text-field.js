@@ -6,8 +6,8 @@ import { nemesisFieldUsageTypes } from '../../../types/nemesis-types';
 export default class NemesisSimpleLocalizedTextField extends NemesisBaseField {
   constructor(props) {
     super(props);
-    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || context.markupLocales.defaultLanguage.value;
-    this.state = {...this.state, selectedLanguage: defaultLanguage, markupLocales: context.markupLocales, openTranslateDialog: false};
+    let defaultLanguage = (this.props.defaultLanguage && this.props.defaultLanguage.value) || context.markupConfig.defaultLanguage.value;
+    this.state = {...this.state, selectedLanguage: defaultLanguage, markupConfig: context.markupConfig, openTranslateDialog: false};
   }
 
   render() {

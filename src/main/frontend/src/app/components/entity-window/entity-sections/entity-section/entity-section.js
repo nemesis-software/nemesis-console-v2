@@ -58,7 +58,7 @@ export default class EntitySection extends Component {
 	}
 
 	getSectionItemRenderer(item, index) {
-		let isRequered = this.props.entity.type === entityBulkEdit ? false : item.required;
+		let isRequired = this.props.entity.type === entityBulkEdit ? false : item.required;
 		let reactElement;
 		let itemName = item.name.replace('entity-', '');
 		let elementConfig ={
@@ -66,8 +66,9 @@ export default class EntitySection extends Component {
 			label: item.fieldLabel,
 			name: itemName,
 			readOnly: !item.updatable || !item.insertable,
-			required: isRequered,
+			required: isRequired,
 			value: this.getItemValue(item, itemName),
+			defaultValue: item.defaultValue,
 			type: nemesisFieldUsageTypes.edit,
 			enableSaveButtons: this.props.enableSaveButtons,
 			ref: (field) => { field && this.fieldsReferences.push(field)}

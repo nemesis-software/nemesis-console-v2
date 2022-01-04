@@ -20,11 +20,10 @@ import ApiCall from '../../services/api-call'
 
 export default class NemesisHeader extends Component {
   constructor(props, context) {
-  debugger;
     super(props);
     this.connected = false;
     this.socketClient = null;
-    this.state = {notifications: [], sites:[], markupLocales: context.markupLocales};
+    this.state = {notifications: [], sites:[], markupConfig: context.markupConfig};
   }
 
   componentDidMount() {
@@ -67,8 +66,8 @@ export default class NemesisHeader extends Component {
                 style={{width: '150px'}}
                 selectClassName="header-language-changer"
                 onLanguageChange={language => counterpart.setLocale(language)}
-                availableLanguages={this.state.markupLocales.languages}
-                selectedLanguage={this.state.markupLocales.defaultLanguage}
+                availableLanguages={this.state.markupConfig.languages}
+                selectedLanguage={this.state.markupConfig.defaultLanguage}
               />
               <div className="logout-button" onClick={this.handleLogoutButtonClick.bind(this)}>
                 <i className="fa fa-sign-out-alt logout-icon"/> <Translate component="span" content={'main.Logout'} fallback={'Log out'} />
@@ -105,5 +104,5 @@ export default class NemesisHeader extends Component {
 }
 
 NemesisHeader.contextTypes = {
-  markupLocales: PropTypes.object
+  markupConfig: PropTypes.object
 };

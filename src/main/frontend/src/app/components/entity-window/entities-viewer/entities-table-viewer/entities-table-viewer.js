@@ -18,7 +18,7 @@ export default class EntitiesTableViewer extends Component {
   constructor(props) {
     super(props);
     this.notificationSystem = null;
-    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: this.props.localesMarkup.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false, isAllSelected:false};
+    this.state = {entitiesMarkup: this.props.entitiesMarkup || [], selectedLanguage: this.props.markupConfig.defaultLanguage.value, selectedIds: {}, isSelectedActive: false, viewMode: tableMode, showRestButton: false, isAllSelected:false};
   }
 
   componentDidMount() {
@@ -43,8 +43,8 @@ export default class EntitiesTableViewer extends Component {
                 <LanguageChanger
                   label="language"
                   onLanguageChange={this.onLanguageChange.bind(this)}
-                  availableLanguages={this.props.localesMarkup.languages}
-                  selectedLanguage={this.props.localesMarkup.defaultLanguage}
+                  availableLanguages={this.props.markupConfig.languages}
+                  selectedLanguage={this.props.markupConfig.defaultLanguage}
                 />
                 <EntitiesPager onPagerChange={this.props.onPagerChange} page={this.props.page}/>
                 <div className="total-elements"><label>Total elements</label> <div className="total-element-container">{this.props.page.totalElements}</div></div>

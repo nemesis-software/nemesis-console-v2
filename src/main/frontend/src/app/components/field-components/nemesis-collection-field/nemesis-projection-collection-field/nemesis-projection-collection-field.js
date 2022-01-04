@@ -22,7 +22,7 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
       openEmbeddedCreation: false,
       searchData: props.value.slice(0, 20),
       page: {number: 0, size: 20, totalPages: this.getTotalPages(props.value.length, 20)},
-      selectedLanguage: context.markupLocales.defaultLanguage.value,
+      selectedLanguage: context.markupConfig.defaultLanguage.value,
       markupData: context.markupData[props.entityId].result
     };
   }
@@ -37,8 +37,8 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
               <LanguageChanger
                 label="language"
                 onLanguageChange={this.onLanguageChange.bind(this)}
-                availableLanguages={context.markupLocales.languages}
-                selectedLanguage={context.markupLocales.defaultLanguage}
+                availableLanguages={context.markupConfig.languages}
+                selectedLanguage={context.markupConfig.defaultLanguage}
               />
               <EntitiesPager onPagerChange={this.onPagerChange.bind(this)}
                              page={this.state.page}/>
@@ -249,6 +249,6 @@ export default class NemesisProjectionCollectionField extends NemesisBaseCollect
 }
 
 NemesisProjectionCollectionField.contextTypes = {
-  markupLocales: PropTypes.object,
+  markupConfig: PropTypes.object,
   markupData: PropTypes.object
 };

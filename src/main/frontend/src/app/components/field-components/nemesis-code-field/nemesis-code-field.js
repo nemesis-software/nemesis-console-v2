@@ -8,7 +8,6 @@ export default class NemesisCodeField extends NemesisBaseField {
   constructor(props) {
     super(props);
     this.state = {...this.state, openFullScreenDialog: false};
-    console.log(this.props);
   }
 
   render() {

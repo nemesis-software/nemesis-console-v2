@@ -216,7 +216,7 @@ module.exports = {
     //console
     entity_config: 'Entity Config',
     entity_property_config: 'Entity Property Config',
-    locale_config: 'Locale Config',
+    console_config: 'Console Config',
     'Currency': 'Currency',
     'Equals': 'is equal',
     'After': 'is after',

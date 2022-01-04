@@ -115,7 +115,6 @@ export default class EntitySections extends Component {
       result.push({ label: 'Refresh', onClickFunction: this.handleRefreshButtonClick.bind(this) });
       result.push({ label: 'Clone', onClickFunction: this.handleCloneButtonClick.bind(this) });
     }
-
     if (entity.data.synchronizable) {
       result.push({
         label: 'Synchronize', customRenderer: (index) => {

@@ -45,7 +45,7 @@ export default class EntitiesWindow extends Component {
                                openNotificationSnackbar={this.props.openNotificationSnackbar}/>
       }
       case entitySearchType: {
-        return <EntitiesViewer ref={this.setEntitiesViewerInstance.bind(this)} localesMarkup={this.props.localesMarkup} entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>
+        return <EntitiesViewer ref={this.setEntitiesViewerInstance.bind(this)} markupConfig={this.props.markupConfig} entity={entity} onEntityItemClick={this.props.onEntityItemClick}/>
       }
       default: {
         return <div>INVALID ENTITY TYPE!!!</div>

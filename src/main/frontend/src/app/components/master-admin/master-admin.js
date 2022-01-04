@@ -73,10 +73,10 @@ export default class MasterAdmin extends Component {
 }
 
 MasterAdmin.contextTypes = {
-  markupLocales: PropTypes.object
+  markupConfig: PropTypes.object
 };
 
 MasterAdmin.childContextTypes = {
-  markupLocales: PropTypes.object,
+  markupConfig: PropTypes.object,
   globalFiltersCatalogs: PropTypes.array
 };

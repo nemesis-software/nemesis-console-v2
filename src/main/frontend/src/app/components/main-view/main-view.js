@@ -19,7 +19,7 @@ export default class MainView extends Component {
     this.state = {
       markupData: context.markupData,
       entityMarkupData: context.entityMarkupData,
-      localeMarkupData: context.markupLocales,
+      markupConfig: context.markupConfig,
       selectedEntity: null,
       openedEntities: [],
       snackbarOpen: false,
@@ -221,7 +221,7 @@ export default class MainView extends Component {
                                        onUpdateEntitySearchView={this.onUpdateEntitySearchView.bind(this)}
                                        updateCreatedEntity={this.updateCreatedEntity.bind(this)}
                                        key={this.getEntityWindowKey(entity)}
-                                       localesMarkup={this.state.localeMarkupData}
+                                       markupConfig={this.state.markupConfig}
                                        entity={entity}/>
     )
   }
