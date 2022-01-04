@@ -1,0 +1,8 @@
+.tox.tox-tinymce-aux {
+  z-index: 1000001 !important;
+}
+
+.tox.tox-tinymce-aux,
+.tox-fullscreen .tox.tox-tinymce-aux {
+  z-index: 1000001 !important;
+}

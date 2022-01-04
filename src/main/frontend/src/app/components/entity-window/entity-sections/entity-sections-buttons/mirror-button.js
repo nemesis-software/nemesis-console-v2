@@ -15,7 +15,6 @@ export default class MirrorButton extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     ApiCall.get(this.props.mirrorLink).then(result => {
       this.setState({syncStates: DataHelper.mapCollectionData(result.data)});
     }, err => {
