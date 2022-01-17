@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Translate from 'react-translate-component';
 import NemesisLocalizedTextField from './nemesis-localized-text-field';
 import { componentRequire } from '../../../utils/require-util';
@@ -20,10 +20,10 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
             <Editor
                 apiKey={this.state.tinyMCEKey}
                 className="test"
-                initialValue={this.getTextFieldValue(language.value)}
-                init={{height: 400,  menubar: false, plugins: [
+                value={this.getTextFieldValue(language.value)}
+                init={{height: 400,  menubar: true, plugins: [
                     'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen textcolor',
+                    'searchreplace visualblocks code fullscreen',
                     'insertdatetime media table paste code help wordcount'
                     ],
                     textcolor_cols: "3",

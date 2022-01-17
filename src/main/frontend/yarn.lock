@@ -1138,7 +1138,7 @@
     lodash "^4.17.15"
     lodash-es "^4.17.15"
 
-"@tinymce/tinymce-react@^3.12.2":
+"@tinymce/tinymce-react@^3.13.0":
   version "3.13.0"
   resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-3.13.0.tgz#51ae6dbaa4076efde3389229d61c38e4533bc5ee"
   integrity sha512-8+OHYIUP9W5D5z7gknausaG48ovQtEvjcK4c+zpha7QppRVVX0ltaINpo10V6Vb4qj9Jf7ZFfZpMRxxcFL2YvQ==

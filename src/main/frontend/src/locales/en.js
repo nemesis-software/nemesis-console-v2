@@ -188,6 +188,7 @@ module.exports = {
     cms_page: 'Cms page',
     cms_slot: 'Cms slot',
     site_url_configuration: 'Site Url Config',
+    site_configuration: 'Site Configuration',
     message_source_property: 'Message Source Property',
     site: 'Site',
     widget: 'Widget',

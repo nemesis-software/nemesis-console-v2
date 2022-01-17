@@ -49,6 +49,7 @@ export default class NemesisLocalizedTextField extends NemesisBaseField {
           (
             <Modal show={this.state.openTranslateDialog}
                    animation={false}
+                   enforceFocus={false}
                    size="lg"
                    onHide={this.handleTranslateDialogClose.bind(this)}
                    backdrop="static">
