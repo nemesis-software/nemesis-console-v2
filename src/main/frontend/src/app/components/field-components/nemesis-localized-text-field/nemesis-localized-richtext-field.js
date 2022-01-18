@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import Translate from 'react-translate-component';
 import NemesisLocalizedTextField from './nemesis-localized-text-field';
 import { componentRequire } from '../../../utils/require-util';
+import ApiCall from '../../../services/api-call';
 import { Editor } from '@tinymce/tinymce-react';
 import './nemesis-localized-richtext-field.css';
 let HtmlEditor = componentRequire('app/custom-components/html-editor/html-editor', 'html-editor');
@@ -26,6 +27,7 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
                     'searchreplace visualblocks code fullscreen',
                     'insertdatetime media table paste code help wordcount'
                     ],
+                    image_list:this.getImageList(),
                     textcolor_cols: "3",
                     textcolor_rows: "3",
                     colors: [
@@ -39,6 +41,27 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
         }
       </div>
     )
+  }
+
+  getImageList() {
+    let res = [];
+    ApiCall.get(`media`)
+        .then(result => {
+            if (result.data && result.data._embedded && result.data._embedded.mediaEntities) {
+                for (var i=0; i < result.data._embedded.mediaEntities.length; i++) {
+                    let el = result.data._embedded.mediaEntities[i];
+                    let title = el.code;
+                    if (el.name) {
+                        title += "(" + el.name + ")";
+                    }
+                    res.push({title : title, value: el.previewUrl});
+                }
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    return res;
   }
 
   getOpenDialogIconClass() {
