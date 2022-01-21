@@ -23,17 +23,15 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
                 className="test"
                 value={this.getTextFieldValue(language.value)}
                 init={{height: 400,  menubar: true, plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table paste code help wordcount'
+                    'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons'
                     ],
+                    quickbars_insert_toolbar: false,
+                    toolbar_mode: 'wrap',
                     image_list:this.getImageList(),
-                    textcolor_cols: "3",
-                    textcolor_rows: "3",
-                    colors: [
-                        "333300", "Dark olive",
-                    ],
-                    toolbar: 'undo redo fullscreen| formatselect link image| bold italic backcolor forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code'
+                    color_cols: "3",
+                    color_map: this.getColorMap(),
+                    menubar: 'file edit view insert format tools table help',
+                    toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl'
                 }}
                 onEditorChange={(value) => this.onTextChange(null, value, language.value)}
             />
@@ -62,6 +60,21 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
             console.log(err);
         })
     return res;
+  }
+
+  getColorMap() {
+    return [
+           '000000', 'Primary',
+           '808080', 'Secondary',
+           'FFFFFF', 'Light',
+           'FF0000', 'Dark',
+           'FFFF00', 'Muted',
+           '008000', 'Success',
+           '008000', 'Info',
+           '0000FF', 'Danger',
+           '0000FF', 'Warning',
+           '0000FF', 'White'
+    ];
   }
 
   getOpenDialogIconClass() {
