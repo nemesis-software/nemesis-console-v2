@@ -52,10 +52,15 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
                 for (var i=0; i < result.data._embedded.mediaEntities.length; i++) {
                     let el = result.data._embedded.mediaEntities[i];
                     let title = el.code;
+                    let val = el.previewUrl;
                     if (el.name) {
                         title += "(" + el.name + ")";
                     }
-                    res.push({title : title, value: el.previewUrl});
+                    if (!val) {
+                        val = "";
+                    }
+
+                    res.push({title : title, value: val});
                 }
             }
         })
