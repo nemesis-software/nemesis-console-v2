@@ -28,6 +28,8 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
                     quickbars_insert_toolbar: false,
                     toolbar_mode: 'wrap',
                     verify_html: false,
+                    force_br_newlines : false,
+                    force_p_newlines : false,
                     apply_source_formatting : true,
                     branding: false,
                     image_list:this.getImageList(),
