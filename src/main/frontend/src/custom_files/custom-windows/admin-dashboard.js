@@ -95,7 +95,7 @@ export default class AdminDashboard extends Component {
                   </div>
               }
               if (dashboardEntry.type === 'barChart') {
-                return <div className="small-chart-container display-inline-block">
+                return <div className="small-chart-container display-inline-block" key={dashboardEntry.icon}>
                     <BarChart width={600} height={400} data={dashboardEntry.entries}
                               margin={{top: 20, right: 30, left: 20, bottom: 5}}>
                       <XAxis dataKey="name"/>
@@ -110,7 +110,7 @@ export default class AdminDashboard extends Component {
                   </div>
               }
               if (dashboardEntry.type === 'areaChart') {
-                return  <div className="small-chart-container display-inline-block">
+                return  <div className="small-chart-container display-inline-block" key={dashboardEntry.icon}>
                           <AreaChart width={600} height={400} data={dashboardEntry.entries}
                                      style={{margin: 'auto'}}
                                      margin={{top: 10, right: 30, left: 0, bottom: 0}}>

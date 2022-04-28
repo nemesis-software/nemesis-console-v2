@@ -5,8 +5,19 @@ import PropTypes from 'prop-types';
 export default class NemesisBaseField extends Component {
   constructor(props) {
     super(props);
+    let value;
+    if (this.constructor.name === 'NemesisCategoriesEntityCollectionField' && props.mainEntity.type === 'CREATE_ITEM') {
+        if(this.props.defaultValue && (!this.props.value || this.props.value.length === 0)) {
+            value = this.props.defaultValue;
+        } else {
+            value = this.props.value;
+        }
+    } else {
+        value = this.props.value === undefined ? this.props.defaultValue : this.props.value;
+    }
+
     this.state = { isDirty: (props.mainEntity && props.mainEntity.type === 'CREATE_ITEM' && this.props.defaultValue) ? true : false,
-                    value: this.setFormattedValue(this.props.value === undefined ? this.props.defaultValue : this.props.value)};
+                    value: this.setFormattedValue(value)};
   }
 
   render() {
