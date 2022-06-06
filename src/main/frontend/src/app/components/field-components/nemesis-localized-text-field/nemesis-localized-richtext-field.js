@@ -30,6 +30,7 @@ export default class NemesisTextField extends NemesisLocalizedTextField {
                     verify_html: false,
                     force_br_newlines : false,
                     force_p_newlines : false,
+                    forced_root_block : '',
                     apply_source_formatting : true,
                     branding: false,
                     image_list:this.getImageList(),
