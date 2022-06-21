@@ -65,7 +65,7 @@ export default class AdminImport extends Component {
   }
 
   onImportSuccess() {
-    this.props.openNotificationSnackbar('CSV successfully imported');
+    this.props.openNotificationSnackbar('CSV successfully sent for import');
   }
 
   onImportFail(err) {

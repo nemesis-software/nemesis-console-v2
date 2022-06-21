@@ -43,7 +43,8 @@ export default class NemesisHeader extends Component {
             badgeCounter.innerHTML = numberOfNotifications;
             var newNotifications = self.state.notifications;
             newNotifications.push(JSON.parse(notification.body));
-            self.setState({notifications: newNotifications});
+            var newNotificationsReversed = newNotifications.reverse();
+            self.setState({notifications: newNotificationsReversed});
         }, {});
     });
 
