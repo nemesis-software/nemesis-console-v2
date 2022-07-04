@@ -98,7 +98,7 @@ export default class EntitiesTableViewer extends Component {
               {this.props.entities.map((item, index) => {
                 return (
                   <div className="image-view-item-container" key={index}>
-                    <div className="image-view-image-container"><img src={item.picture ? item.picture : 'resources/no-img.png'}/></div>
+                    <div className="image-view-image-container"><img src={item.picture ? item.picture : item.previewUrl ? item.previewUrl : 'resources/no-img.png'}/></div>
                     <div className="text-container">{item.code}</div>
                     {item.catalogVersion ? <div className="text-container">{item.catalogVersion}</div> : false}
                     <div className="image-view-icon-container sync-state-container">
