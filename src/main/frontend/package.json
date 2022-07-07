@@ -72,7 +72,7 @@
     "jquery": "^3.3.1",
     "lodash": "^4.17.13",
     "material-design-icons": "^3.0.1",
-    "moment": "^2.20.1",
+    "moment": "^2.29.4",
     "prop-types": "^15.6.0",
     "qs": "^6.5.1",
     "rc-switch": "^1.4.4",
