@@ -41,6 +41,10 @@ export default class EntitySections extends Component {
       this.getDataEntity(this.props.entity);
     }
 
+    if (this.props.entity.type === entityCreateType) {
+      this.handleChange();
+    }
+
     if (this.props.entity.type === entityCloneType) {
       this.setState((prevState) => ({ ...prevState, entityData: this.props.entity.additionParams }));
     }
