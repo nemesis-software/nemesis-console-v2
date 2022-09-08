@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11.0.13_8-jre-alpine as builder
+FROM eclipse-temurin:18-jre-alpine as builder
 
 MAINTAINER Petar Tahchiev <ptahchiev@nemesis.io>
 
