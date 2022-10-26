@@ -5,30 +5,37 @@ import { searchRestrictionTypes, nemesisFieldTypes } from '../../../../../../typ
 
 import FilterHelper from 'servicesDir/filter-helper';
 
+let NemesisFilterMapFieldItem = componentRequire('app/components/field-components/nemesis-map-field/nemesis-filter-map-field-item', 'nemesis-filter-map-field-item');
 let FilterRestrictionFields = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-restriction-field/filter-restriction-field', 'filter-restriction-field');
-let NemesisMoneyField = componentRequire('app/components/field-components/nemesis-money-field/nemesis-money-field', 'nemesis-money-field');
+
 
 const restrictionFields = [
-  searchRestrictionTypes.greaterThan,
-  searchRestrictionTypes.lessThan,
-  searchRestrictionTypes.notNull,
-  searchRestrictionTypes.isNull,
-  searchRestrictionTypes.equals
+  searchRestrictionTypes.valueEquals,
+  searchRestrictionTypes.valueContains,
+  searchRestrictionTypes.valueStartsWith,
+  searchRestrictionTypes.valueEndsWith
 ];
 
-export default class FilterMoneyField extends Component {
+export default class FilterMapField extends Component {
   constructor(props) {
     super(props);
-    this.state = {restrictionField: props.defaultRestriction || null, moneyField: props.defaultValue || null};
+    this.state = {restrictionField: props.defaultRestriction || null, mapField: props.defaultValue || null};
+  }
+
+  componentDidMount() {
+    if (this.props.defaultRestriction || this.props.defaultValue) {
+      this.updateParentFilter(this.props.defaultValue, this.props.defaultRestriction)
+    }
   }
 
   render() {
     return (
       <div className="filter-item-container">
         <FilterRestrictionFields readOnly={this.props.readOnly} defaultValue={this.props.defaultRestriction} label={this.props.filterItem.fieldLabel} onRestrictionFieldChange={this.onRestrictionFieldChange.bind(this)} restrictionFields={restrictionFields}/>
-        {this.isMoneyFieldVisible() ? <NemesisMoneyField readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.moneyField}
-        onValueChange={this.onMoneyFieldChange.bind(this)}
-        label={this.props.filterItem.fieldLabel}/> : false}
+        {this.isMapFieldVisible() ?
+        <NemesisFilterMapFieldItem readOnly={this.props.readOnly || !this.state.restrictionField} value={this.state.mapField}
+        onValueChange={this.onMapFieldChange.bind(this)} item={{}}  label={this.props.filterItem.fieldLabel}/>
+        : false}
       </div>
     )
   }
@@ -41,41 +48,42 @@ export default class FilterMoneyField extends Component {
 
   onRestrictionFieldChange(restrictionValue) {
     this.setState({...this.state, restrictionField: restrictionValue});
-    this.updateParentFilter(this.state.moneyField, restrictionValue);
+    this.updateParentFilter(this.state.mapField, restrictionValue);
   }
 
-  onMoneyFieldChange(value) {
-    this.setState({...this.state, moneyField: value});
+  onMapFieldChange(value) {
+    this.setState({...this.state, mapField: value});
     this.updateParentFilter(value, this.state.restrictionField);
   }
 
-  updateParentFilter(moneyField, restrictionValue) {
-    let stringRepresentation = this.getStringRepresentation(moneyField);
+  updateParentFilter(mapField, restrictionValue) {
+    let stringRepresentation = this.getStringRepresentation(mapField);
     const {filterItem} = this.props;
-    
+
     this.props.onFilterChange({
       filterItemKey: filterItem.key,
-      value: stringRepresentation,
+      value: mapField,
       restriction: restrictionValue,
       field: filterItem.name,
       id: filterItem.name,
-      textRepresentation: this.getTextRepresentation(filterItem.name, restrictionValue, moneyField)
+      textRepresentation: this.getTextRepresentation(filterItem.name, restrictionValue, mapField)
     });
   }
 
 
-  isMoneyFieldVisible() {
+  isMapFieldVisible() {
     return !([searchRestrictionTypes.notNull, searchRestrictionTypes.isNull].indexOf(this.state.restrictionField) > -1);
   }
 
   getTextRepresentation(name, restrictionValue, value) {
-    return FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, this.getStringRepresentation(value));
+    let result = FilterHelper.getFilterFieldTextRepresentation(name, restrictionValue, this.getStringRepresentation(value));
+    return result;
   }
 
-  getStringRepresentation(money) {
+  getStringRepresentation(entry) {
       let stringRepresentation = null;
-      if (money && money.amount && money.currency) {
-          stringRepresentation = money.amount + " " + money.currency;
+      if (entry && entry.key && entry.value) {
+          stringRepresentation = entry.key + " " + entry.value;
       }
       return stringRepresentation;
   }

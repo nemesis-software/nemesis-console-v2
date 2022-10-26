@@ -252,6 +252,10 @@ module.exports = {
     'IsNull': 'is null',
     'NotNull': 'is not null',
     'IsNotNull': 'is not null',
+    'ValueEquals': 'value is equal',
+    'ValueContains': 'value contains',
+    'ValueStartsWith': 'value starts with',
+    'ValueEndsWith': 'value ends with',
     'lByCatalogVersion': 'By Catalog Version',
     //CMS Console Translations
     'CMS Console': 'CMS Console',

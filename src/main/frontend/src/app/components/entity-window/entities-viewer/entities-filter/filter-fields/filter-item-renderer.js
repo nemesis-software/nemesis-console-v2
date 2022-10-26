@@ -13,6 +13,7 @@ let FilterEntityField = componentRequire('app/components/entity-window/entities-
 let FilterBuildingBlockEntityField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-building-block-entity-field/filter-building-block-entity-field', 'filter-building-block-entity-field');
 let FilterCollectionField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-collection-field/filter-collection-field', 'filter-collection-field');
 let FilterMoneyField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-money-field/filter-money-field', 'filter-money-field');
+let FilterMapField = componentRequire('app/components/entity-window/entities-viewer/entities-filter/filter-fields/filter-map-field/filter-map-field', 'filter-map-field');
 
 export default class FilterItemRenderer extends Component {
   constructor(props) {
@@ -56,6 +57,9 @@ export default class FilterItemRenderer extends Component {
         break;
       case nemesisFieldTypes.nemesisMoneyField:
         reactElement = FilterMoneyField;
+        break;
+      case nemesisFieldTypes.nemesisMapField:
+        reactElement = FilterMapField;
         break;
       default:
         return <div>Not supported yet - {filterItem.xtype}</div>

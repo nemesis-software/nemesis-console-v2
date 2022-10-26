@@ -69,6 +69,11 @@ export default class FilterBuilder {
       isValueRequired: true
     };
 
+    result[searchRestrictionTypes.after] = {
+      getFilterString: (item) => `${this.getFullFieldCode(item)} gt ${item.value}Z${this.getClosedBrackets(item)}`,
+      isValueRequired: true
+    };
+
     result[searchRestrictionTypes.before] = {
       getFilterString: (item) => `${this.getFullFieldCode(item)} lt ${item.value}Z${this.getClosedBrackets(item)}`,
       isValueRequired: true
@@ -122,6 +127,26 @@ export default class FilterBuilder {
       isValueRequired: true
     };
 
+    result[searchRestrictionTypes.valueEquals] = {
+      getFilterString: (item, filterItemIndex) => `${this.getFullFieldCode(item)}/${item.value.key} eq '${item.value.value}'`,
+      isValueRequired: true
+    };
+
+    result[searchRestrictionTypes.valueContains] = {
+      getFilterString: (item, filterItemIndex) => `indexof(${this.getFullFieldCode(item)}/${item.value.key}, '${item.value.value}') ge 0`,
+      isValueRequired: true
+    };
+
+    result[searchRestrictionTypes.valueStartsWith] = {
+      getFilterString: (item, filterItemIndex) => `startswith(${this.getFullFieldCode(item)}/${item.value.key}, '${item.value.value}') eq true`,
+      isValueRequired: true
+    };
+
+    result[searchRestrictionTypes.valueEndsWith] = {
+      getFilterString: (item, filterItemIndex) => `endswith(${this.getFullFieldCode(item)}/${item.value.key}, '${item.value.value}') eq true`,
+      isValueRequired: true
+    };
+
     // result[searchRestrictionTypes.all] = {
     //   getFilterString: (item, filterItemIndex) => `${this.getFullFieldCode(item)}/all(${item.field + filterItemIndex}:${item.field + filterItemIndex}/id eq ${item.value})${this.getClosedBrackets(item)}`,
     //   isValueRequired: true
@@ -144,6 +169,7 @@ export default class FilterBuilder {
   }
 
   static getFullFieldCode(item) {
+    debugger;
     let increminator = 0;
     let prefix = 'nested';
     if (!item.nestedFilters) {

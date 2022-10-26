@@ -45,6 +45,10 @@ export const searchRestrictionTypes = {
   equals: 'Equals',
   notEquals: 'NotEquals',
   between: 'Between',
+  valueEquals: 'ValueEquals',
+  valueContains: 'ValueContains',
+  valueStartsWith: 'ValueStartsWith',
+  valueEndsWith: 'ValueEndsWith',
   // all: 'All',
   any: 'Any',
   count: 'Count'
