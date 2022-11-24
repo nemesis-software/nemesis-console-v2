@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PlatformApiCall from 'servicesDir/platform-api-call';
 import {Modal} from 'react-bootstrap';
 import Switch from 'rc-switch';
+import AdminCachePanelItem from './admin-cache-panel-item.js';
 import 'rc-switch/assets/index.css';
 
 import _ from 'lodash';
@@ -10,6 +11,10 @@ export default class AdminCachePanel extends Component {
   constructor(props) {
     super(props);
     this.state = {openDeleteConfirmation: false, cacheForClear: null};
+    this.handleCloseDeleteConfirmation = this.handleCloseDeleteConfirmation.bind(this);
+    this.onClearCacheClick = this.onClearCacheClick.bind(this);
+    this.handleActiveButtonClick = this.handleActiveButtonClick.bind(this);
+    this.handleConfirmationDeleteButtonClick = this.handleConfirmationDeleteButtonClick.bind(this);
   }
 
   render() {
@@ -17,18 +22,9 @@ export default class AdminCachePanel extends Component {
       <div className="admin-cache-panel paper-box">
         <div className="admin-cache-panel-header">{this.props.name}</div>
         <div className="display-table" style={{width: '100%'}}>
-          {this.getCachesForRendering().map(cache => {
-            return <div className="display-table-row" key={cache.name}>
-              <div className="display-table-cell">{cache.name}</div>
-              <div className="display-table-cell" style={{textAlign: 'right'}}>
-                <div className="cache-active-container">
-                  <label htmlFor={cache.name}>Active</label><span>{cache.enabled}</span>
-                  <Switch id={cache.name} defaultChecked={cache.enabled} onChange={() => this.handleActiveButtonClick(cache.name)}/>
-                </div>
-                <button className="nemesis-button danger-button" onClick={() => this.onClearCacheClick(cache.name)}>Clear cache</button>
-              </div>
-            </div>
-          })}
+            {this.getCachesForRendering().map((cache,index) => <AdminCachePanelItem key={index} cache={cache} onClearCacheClick={this.onClearCacheClick}
+            handleActiveButtonClick={this.handleActiveButtonClick}/>)
+            }
         </div>
         {this.getDeleteConfirmationDialog()}
       </div>

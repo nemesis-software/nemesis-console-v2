@@ -26,6 +26,7 @@ export default class AdminCaches extends Component {
           <span className="input-group-addon"><i className="fa fa-search" /></span>
         </div>
         {this.state.caches.map((item, index) => {
+        debugger;
           return <AdminCachePanel filterInput={this.state.filterInput} openNotificationSnackbar={this.props.openNotificationSnackbar} key={index} name={item.managerName} caches={item.caches}/>
         })}
       </div>
@@ -38,7 +39,7 @@ export default class AdminCaches extends Component {
     _.forIn(data.cacheManagers, (value, key) => {
       result.push({
         managerName: key, caches: _.map(value.caches, (value, key) => {
-          return {name: key, enabled: value.enabled}
+          return {name: key, enabled: value.enabled, isEmpty: value.empty}
         })
       })
     });
