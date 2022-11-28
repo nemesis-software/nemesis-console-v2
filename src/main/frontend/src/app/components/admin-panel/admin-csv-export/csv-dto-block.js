@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import CsvFieldsComponent from './csv-fields-component';
 import NemesisEnumField from '../../field-components/nemesis-enum-field/nemesis-enum-field';
 import NemesisTextField from '../../field-components/nemesis-text-field/nemesis-text-field';
+import NemesisBooleanField from '../../field-components/nemesis-boolean-field/nemesis-boolean-field';
 
 export default class CsvDtoBlock extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class CsvDtoBlock extends Component {
     this.enumElement = null;
     this.textElement = null;
     this.fieldsElement = null;
+    this.catalogRestrictionElement = null;
   }
 
   render() {
@@ -16,8 +18,9 @@ export default class CsvDtoBlock extends Component {
       <div className="csv-dto-block">
         <i className="fa fa-window-close remove-button" onClick={() => {this.props.removeBlock(this.props.identityKey)}}/>
         <NemesisEnumField style={{width: '265px'}} ref={el => this.enumElement = el} required={true} label="Verb" values={['MERGE' , 'REMOVE', 'PERSIST']} value={-1}/>
-        <NemesisTextField style={{width: '768px'}} ref={el => this.textElement = el} required={true} label="Entity class" />
+        <NemesisTextField style={{width: '768px',"margin-left":"10px"}} ref={el => this.textElement = el} required={true} label="Entity class" />
         <CsvFieldsComponent style={{width: '1043px'}} ref={el => this.fieldsElement = el} required={true} label="Fields"/>
+        <NemesisBooleanField ref={el => this.catalogRestrictionElement = el} required={false} label="Only staged" value={true}/>
       </div>
     );
   }
@@ -35,6 +38,7 @@ export default class CsvDtoBlock extends Component {
     result.verb = this.enumElement.getChangeValue().value;
     result.entityClass = this.textElement.getChangeValue().value;
     result.fields = this.fieldsElement.getChangeValue().value;
+    result.catalogRestriction = this.catalogRestrictionElement.getChangeValue() ? this.catalogRestrictionElement.getChangeValue().value : true;
     return result;
   }
 }
