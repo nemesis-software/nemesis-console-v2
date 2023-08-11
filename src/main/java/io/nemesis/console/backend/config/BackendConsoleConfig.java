@@ -23,7 +23,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 @ComponentScan(basePackages = { "io.nemesis.console.backend", "io.nemesis.platform.util" })
 @Import(value = { CommonConsoleConfig.class })
 @EnableConfigurationProperties(value = ConsoleProperties.class)
-@EnableGlobalMethodSecurity(prePostEnabled = true, mode = AdviceMode.PROXY)
+@EnableMethodSecurity(prePostEnabled = true, mode = AdviceMode.PROXY)
 public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
 
     @Resource(name = "defaultAuthenticationFailureHandler")
@@ -65,18 +65,18 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     public void configure(final WebSecurity web) {
-        web.ignoring().antMatchers("/resources/**");
+        web.ignoring().requestMatchers("/resources/**");
     }
     
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
-                .antMatchers("/resources/img/**").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/robots.txt").permitAll()
-                .antMatchers("/error").permitAll()
-                .antMatchers("/**").hasRole("EMPLOYEEGROUP")
+            .authorizeHttpRequests()
+                .requestMatchers("/resources/img/**").permitAll()
+                .requestMatchers("/login").permitAll()
+                .requestMatchers("/robots.txt").permitAll()
+                .requestMatchers("/error").permitAll()
+                .requestMatchers("/**").hasRole("EMPLOYEEGROUP")
                 .and()
             .headers().disable()
             .formLogin()

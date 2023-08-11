@@ -28,8 +28,7 @@ import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
 import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
 import org.apache.hc.core5.http.ssl.TLS;
 import org.apache.hc.core5.http2.HttpVersionPolicy;
-import org.apache.hc.core5.pool.PoolConcurrencyPolicy;
-import org.apache.hc.core5.pool.PoolReusePolicy;
+import org.apache.hc.core5.reactor.IOReactorConfig;
 import org.apache.hc.core5.ssl.SSLContexts;
 import org.apache.hc.core5.util.TimeValue;
 import org.apache.hc.core5.util.Timeout;
@@ -45,6 +44,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -82,19 +83,16 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
             int timeout = 15;
 
             PoolingAsyncClientConnectionManager ccm = PoolingAsyncClientConnectionManagerBuilder.create().setTlsStrategy(ClientTlsStrategyBuilder.create()
-                                                                                                                                                 .setSslContext(sslcontext)
-                                                                                                                                                 .setTlsVersions(TLS.V_1_2)
-                                                                                                                                                 .setHostnameVerifier(
-                                                                                                                                                                 NoopHostnameVerifier.INSTANCE)
-                                                                                                                                                 .build())
-                                                                                                .setMaxConnTotal(10)
-                                                                                                .setPoolConcurrencyPolicy(PoolConcurrencyPolicy.LAX)
-                                                                                                .setConnPoolPolicy(PoolReusePolicy.LIFO)
-                                                                                                .setConnectionTimeToLive(TimeValue.ofMinutes(1L)).build();
+                    .setSslContext(sslcontext)
+                    .setTlsVersions(TLS.V_1_2)
+                    .setHostnameVerifier(
+                        NoopHostnameVerifier.INSTANCE)
+                    .build())
+                .setConnectionTimeToLive(TimeValue.ofMinutes(1L)).build();
 
             try (CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom().setConnectionManager(ccm).setDefaultRequestConfig(
-                            RequestConfig.custom().setConnectTimeout(Timeout.ofSeconds(timeout)).setResponseTimeout(Timeout.ofSeconds(timeout))
-                                         .setCookieSpec("STANDARD_STRICT").build()).setVersionPolicy(HttpVersionPolicy.FORCE_HTTP_1).build()) {
+                RequestConfig.custom().setConnectTimeout(Timeout.ofSeconds(timeout)).setResponseTimeout(Timeout.ofSeconds(timeout))
+                    .setCookieSpec("STANDARD_STRICT").build()).setVersionPolicy(HttpVersionPolicy.NEGOTIATE).build()) {
 
                 httpclient.start();
 
@@ -102,12 +100,14 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                 /*
                  * It can't be POST because the CSRF is triggered.
                  */
-                SimpleHttpRequest httpGet = SimpleHttpRequests.get(restBaseUrl + "auth");
+                SimpleHttpRequest httpGet = SimpleHttpRequests.get(new URI(restBaseUrl + "auth"));
 
                 LOG.info("Calling: " + restBaseUrl + "auth");
 
                 httpGet.setHeader("X-Nemesis-Username", username);
                 httpGet.setHeader("X-Nemesis-Password", password);
+                //                httpGet.setHeader("Host", "localhost");
+                //httpGet.setHeader(HttpHeaders.CONTENT_LENGTH, "123");
 
                 Future<SimpleHttpResponse> future = httpclient.execute(httpGet, null);
 
@@ -123,7 +123,7 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                 }
 
                 final ConsoleUserPrincipal principal =
-                                new ConsoleUserPrincipal(userData.getUsername(), password, AuthorityUtils.createAuthorityList(userData.getAuthorities()));
+                    new ConsoleUserPrincipal(userData.getUsername(), password, AuthorityUtils.createAuthorityList(userData.getAuthorities()));
                 principal.setExpiryTime(userData.getExpiryTime());
                 principal.setToken(userData.getToken());
 
@@ -131,7 +131,8 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
 
                 return new UsernamePasswordAuthenticationToken(principal, password, principal.getAuthorities());
             }
-        } catch (NoSuchAlgorithmException | InterruptedException | TimeoutException | ExecutionException | KeyManagementException | KeyStoreException | IOException e) {
+        } catch (NoSuchAlgorithmException | InterruptedException | ExecutionException | KeyManagementException |
+                 KeyStoreException | IOException | URISyntaxException | TimeoutException e) {
             LOG.error(e.getMessage(), e);
             throw new InternalAuthenticationServiceException(e.getMessage());
         }
