@@ -16,21 +16,18 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.nemesis.console.backend.core.NemesisUrlResolver;
 import io.nemesis.console.backend.core.impl.NemesisWebAuthenticationDetails;
-import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
-import org.apache.hc.client5.http.async.methods.SimpleHttpRequests;
-import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.config.RequestConfig;
-import org.apache.hc.client5.http.impl.async.CloseableHttpAsyncClient;
-import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
-import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
-import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
-import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
-import org.apache.hc.client5.http.ssl.NoopHostnameVerifier;
-import org.apache.hc.core5.http.ssl.TLS;
-import org.apache.hc.core5.http2.HttpVersionPolicy;
-import org.apache.hc.core5.reactor.IOReactorConfig;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
+import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.ssl.SSLContexts;
-import org.apache.hc.core5.util.TimeValue;
 import org.apache.hc.core5.util.Timeout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,10 +46,6 @@ import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * @author Petar Tahchiev
@@ -82,25 +75,25 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
 
             int timeout = 15;
 
-            PoolingAsyncClientConnectionManager ccm = PoolingAsyncClientConnectionManagerBuilder.create().setTlsStrategy(ClientTlsStrategyBuilder.create()
-                    .setSslContext(sslcontext)
-                    .setTlsVersions(TLS.V_1_2)
-                    .setHostnameVerifier(
-                        NoopHostnameVerifier.INSTANCE)
-                    .build())
-                .setConnectionTimeToLive(TimeValue.ofMinutes(1L)).build();
+            PoolingHttpClientConnectionManager ccm = PoolingHttpClientConnectionManagerBuilder.create().setSSLSocketFactory(
+                SSLConnectionSocketFactoryBuilder.create().setSslContext(sslcontext).build()).build();
+            //                .setTlsStrategy(ClientTlsStrategyBuilder.create()
+            //                    .setSslContext(sslcontext)
+            //                    .setTlsVersions(TLS.V_1_2)
+            //                    .setHostnameVerifier(
+            //                        NoopHostnameVerifier.INSTANCE)
+            //                    .build())
+            //                .setConnectionTimeToLive(TimeValue.ofMinutes(1L)).build();
 
-            try (CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom().setConnectionManager(ccm).setDefaultRequestConfig(
-                RequestConfig.custom().setConnectTimeout(Timeout.ofSeconds(timeout)).setResponseTimeout(Timeout.ofSeconds(timeout))
-                    .setCookieSpec("STANDARD_STRICT").build()).setVersionPolicy(HttpVersionPolicy.NEGOTIATE).build()) {
+            try (CloseableHttpClient httpclient = HttpClients.custom().setConnectionManager(ccm).setDefaultRequestConfig(RequestConfig.custom().setConnectTimeout(Timeout.ofSeconds(timeout)).setResponseTimeout(Timeout.ofSeconds(timeout)).setCookieSpec("STANDARD_STRICT").build()).build()) {
 
-                httpclient.start();
+                //                httpclient.start();
 
 
                 /*
                  * It can't be POST because the CSRF is triggered.
                  */
-                SimpleHttpRequest httpGet = SimpleHttpRequests.get(new URI(restBaseUrl + "auth"));
+                ClassicHttpRequest httpGet = new HttpGet(new URI(restBaseUrl + "auth"));
 
                 LOG.info("Calling: " + restBaseUrl + "auth");
 
@@ -109,11 +102,11 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                 //                httpGet.setHeader("Host", "localhost");
                 //httpGet.setHeader(HttpHeaders.CONTENT_LENGTH, "123");
 
-                Future<SimpleHttpResponse> future = httpclient.execute(httpGet, null);
+                ClassicHttpResponse future = httpclient.execute(httpGet);
 
-                SimpleHttpResponse response = future.get(timeout, TimeUnit.SECONDS);
+                String responseText = EntityUtils.toString(future.getEntity());//future.get(timeout, TimeUnit.SECONDS);
 
-                final String responseText = response.getBody().getBodyText();
+                //final String responseText = response.getBodyText();
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
                 mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -122,17 +115,16 @@ public class DefaultRestAuthenticationProvider implements AuthenticationProvider
                     throw new BadCredentialsException("Invalid username/password");
                 }
 
-                final ConsoleUserPrincipal principal =
-                    new ConsoleUserPrincipal(userData.getUsername(), password, AuthorityUtils.createAuthorityList(userData.getAuthorities()));
+                final ConsoleUserPrincipal principal = new ConsoleUserPrincipal(userData.getUsername(), password, AuthorityUtils.createAuthorityList(userData.getAuthorities()));
                 principal.setExpiryTime(userData.getExpiryTime());
                 principal.setToken(userData.getToken());
 
-                httpclient.awaitShutdown(TimeValue.of(5, TimeUnit.SECONDS));
+                //                httpclient.awaitShutdown(TimeValue.of(5, TimeUnit.SECONDS));
 
                 return new UsernamePasswordAuthenticationToken(principal, password, principal.getAuthorities());
             }
-        } catch (NoSuchAlgorithmException | InterruptedException | ExecutionException | KeyManagementException |
-                 KeyStoreException | IOException | URISyntaxException | TimeoutException e) {
+        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException | IOException |
+                 URISyntaxException | ParseException e) {
             LOG.error(e.getMessage(), e);
             throw new InternalAuthenticationServiceException(e.getMessage());
         }

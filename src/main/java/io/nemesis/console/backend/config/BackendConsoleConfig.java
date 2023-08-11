@@ -63,16 +63,16 @@ public class BackendConsoleConfig extends WebSecurityConfigurerAdapter {
 
     // @formatter:off
     
-    @Override
-    public void configure(final WebSecurity web) {
-        web.ignoring().requestMatchers("/resources/**");
-    }
+//    @Override
+//    public void configure(final WebSecurity web) {
+//        web.ignoring().requestMatchers("/resources/**");
+//    }
     
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests()
-                .requestMatchers("/resources/img/**").permitAll()
+                .requestMatchers("/resources/**").permitAll()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/robots.txt").permitAll()
                 .requestMatchers("/error").permitAll()
