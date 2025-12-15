@@ -83,7 +83,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
     let inputTextActual = inputText || '';
     let params = {page: 0, size: 20, code: `%${inputTextActual}%`, projection: 'search'};
-    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
+    if (this.context.entityMarkupData[this.props.entityId] && this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
       params.catalogVersionIds = this.context.globalFiltersCatalogs.map(item => item.id).join(',');
     }
     return ApiCall.get(this.getSearchUrl(), params).then(result => {
@@ -104,7 +104,7 @@ export default class NemesisEntityCollectionField extends NemesisBaseCollectionF
 
   getSearchUrl() {
     let urlSuffix = '/search/findByCodeLike/';
-    if (this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
+    if (this.context.entityMarkupData[this.props.entityId] && this.context.entityMarkupData[this.props.entityId].synchronizable && this.context.globalFiltersCatalogs && this.context.globalFiltersCatalogs.length > 0) {
       urlSuffix = '/search/findByCodeLikeAndCatalogVersionIdIn'
     }
 

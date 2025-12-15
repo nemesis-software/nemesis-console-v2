@@ -18,7 +18,7 @@
     <parent>
         <groupId>io.nemesis</groupId>
         <artifactId>bom</artifactId>
-        <version>2.3.12.RELEASE</version>
+        <version>2.3.18.BUILD-SNAPSHOT</version>
     </parent>
 
     <groupId>io.nemesis.platform.console</groupId>
@@ -52,88 +52,6 @@
         <url>https://github.com/nemesis-software/nemesis-console-v2.git</url>
         <tag>master</tag>
     </scm>
-    <repositories>
-        <repository>
-            <id>nemesis-repository-releases</id>
-            <name>nemesis-repository-releases</name>
-            <url>https://repository.nemesis.io/artifactory/libs-release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>nemesis-repository-snapshots</id>
-            <name>nemesis-repository-snapshots</name>
-            <url>https://repository.nemesis.io/artifactory/libs-snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
-    <!-- The following we need only because if NEMESIS release of asciidoctor.-->
-    <pluginRepositories>
-        <pluginRepository>
-            <id>nemesis-repository-plugins</id>
-            <name>nemesis-plugin-snapshots</name>
-            <url>https://repository.nemesis.io/artifactory/plugins-snapshot/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>nemesis-repository-snapshots</id>
-            <name>nemesis-repository-snapshots</name>
-            <url>https://repository.nemesis.io/artifactory/libs-snapshot/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>nemesis-repository-releases</id>
-            <name>nemesis-repository-release</name>
-            <url>https://repository.nemesis.io/artifactory/libs-release/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-snapshot</id>
-            <url>https://repo.spring.io/libs-snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <url>https://repo.spring.io/libs-milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
