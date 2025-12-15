@@ -28,12 +28,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11.0.4
-      - name: Add SSH key
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-          mkdir -p /home/runner/.ssh
-          ssh-keyscan -t rsa 178.128.241.213 >> /home/runner/.ssh/known_hosts
+#      - name: Add SSH key
+#        env:
+#          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+#        run: |
+#          mkdir -p /home/runner/.ssh
+#          ssh-keyscan -t rsa 178.128.241.213 >> /home/runner/.ssh/known_hosts
       - name: Build Layered Jar with Maven
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
